@@ -51,5 +51,8 @@ Full detail in `architecture/delivery-operating-model.md`. In brief:
 - **Rebuild the published site:** `scripts/build-html.sh`
 - **(Analysis tooling) build a styled PDF:** `.claude/lib/_shared/scripts/build-pdf.sh <md>`
 - **(Analysis tooling) distil binaries to text:** `.claude/lib/_shared/scripts/distil-binary-data.sh <folder>` → `<folder>/output/extracted-text/`
-
-> The repo-root `.venv/` is stale (it points at the old `ji-analysis` path from a rename) — create a fresh virtualenv for ad-hoc Python rather than reusing it.
+- **(Analysis tooling) regenerating an as-is DB schema diagram set follows this methodology:**
+  1. Parse the raw source DDL/DDL-dump into a structured schema model (tables, columns, PKs, indexes, triggers) — re-run only if the source DDL changed.
+  2. From that model, infer FK relationships from column-naming conventions (source DDLs for legacy systems typically have zero explicit FK constraints) and tag each with a confidence level (e.g. HIGH exact PK-name match, MEDIUM prefixed match, EXTERNAL reference to a table outside the source), then assign tables to domain clusters. Keep this schema/FK/clustering logic in one place so multiple diagram renders can't drift apart from each other.
+  3. Render an overview diagram (clusters as containers, aggregated inter-cluster FK edges) plus one detail diagram per domain cluster (full ER view with PK/FK/UNQ markers), and a companion reference doc (trigger reference, external-reference inventory, FK-inference rationale) from that same model.
+  - **D2 + ELK is the house standard for any *new* schema/architecture diagram** — native `sql_table` shapes give proper ER tables without hand-rolled labels, and ELK minimises edge crossings. Render via the shared diagram-rendering wrapper script, which auto-detects D2 vs. the legacy Graphviz/DOT format. Don't add new DOT-based diagrams — DOT is legacy-only, kept for reference.
