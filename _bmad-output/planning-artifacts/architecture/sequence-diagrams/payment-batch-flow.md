@@ -2,19 +2,21 @@
 type: 'Sequence Diagram'
 description: 'Sequence diagram of the scheduled, non-user-initiated half of the operational cycle. A scheduler triggers the payment-processing batch.'
 resource: 'architecture/tobe/sequence-diagrams/payment-batch-flow.html'
-tags: [ram-pathfinder, architecture, sscs]
+tags: [ram-pathfinder, architecture, employment-tribunals]
 timestamp: '2026-06-11'
 parent: ../../architecture.md
 title: Payment-batch sequence — Scheduler → Batch → JFEPS Excel → Authoriser → Liberata
 last_updated: 2026-06-11
-amended_in: architecture.md v3.0 — SSCS-applicability verified per SCP 2026-06-10 (flow preserved unchanged per D11)
+amended_in: architecture.md v4.0 — SSCS moves to wave 2 per D13 (SCP 2026-08-07); ET wave-1 applicability unverified (G8.6). Earlier: v3.0 — SSCS-applicability verified per SCP 2026-06-10 (flow preserved unchanged per D11)
 ---
 
 # Payment-batch flow
 
 Sequence diagram of the scheduled, non-user-initiated half of the operational cycle. A scheduler triggers the payment-processing batch. The batch authenticates as a service principal, picks up bookings/sittings that are confirmed but unpaid, generates the JFEPS Excel, and dispatches it via Notification → HMCTS Email to the Payment Authoriser. The authoriser uploads to Liberata out-of-band; Liberata pays the JOH.
 
-**SSCS applicability verified (2026-06-11, per SCP 2026-06-10 / D11):** this flow is preserved **unchanged** for SSCS wave 1 — tribunal-member payments (Medical, Disability-Qualified, Disability (Other) members) use the same JFEPS Excel + email-to-Authoriser + Liberata path as Courts fee-paid bookings (NFR21 amended 2026-06-10). No SSCS-specific variation to the batch, the schedule shape, or the dispatch mechanism.
+**SSCS applicability verified (2026-06-11, per SCP 2026-06-10 / D11):** this flow is preserved **unchanged** for SSCS — now **wave 2**[^d13] — tribunal-member payments (Medical, Disability-Qualified, Disability (Other) members) use the same JFEPS Excel + email-to-Authoriser + Liberata path as Courts fee-paid bookings (NFR21 amended 2026-06-10). No SSCS-specific variation to the batch, the schedule shape, or the dispatch mechanism.
+
+> **⚠ ET applicability NOT yet verified (gap G8.6, raised 2026-08-07[^d13]).** Wave 1 is now the **Employment Tribunals** jurisdiction, and no equivalent verification has been performed for it. NFR21 asserts the JFEPS path is preserved unchanged for wave 1 — that assertion currently rests on the SSCS check above, which does not transfer. **If ET fee-paid judiciary or non-legal ("lay") members are paid through a different route, NFR21 weakens and Phase 6 acquires wave-1 delivery risk it does not presently carry.** Re-run this applicability verification for ET — same method as the 2026-06-11 SSCS check — before the Phase 6 gate, and record the outcome here.
 
 Companion to [`./absence-to-reconciliation.md`](./absence-to-reconciliation.md). The user-initiated flow ends with a booking marked confirmed and ready for payment; this batch picks up the record on its next scheduled run.
 
@@ -67,3 +69,5 @@ Four phases: (1) scheduler + batch authentication; (2–3) the batch's work; (4)
 | Per-table column-level detail (`ram_payments`, `ram_payment_schedules`, `ram_payment_reconciliations`, `ram_notification_dispatches`, `mock_oauth_clients`) | [`../data-tables.md`](../data-tables.md) |
 | FR41–FR45 (Payment) and NFR12 (Authentication) | PRD `FR41`, `FR42`, `FR43`, `FR44`, `FR45`, `NFR12` |
 | JWT propagation (the user-initiated counterpart pattern) | [`../conventions.md` → *Communication Patterns / JWT propagation*](../conventions.md) |
+
+[^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).

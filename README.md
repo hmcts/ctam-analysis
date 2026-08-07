@@ -6,7 +6,7 @@ This repository is **not** the implementation and holds no runtime code. RAM Pat
 
 ## Programme summary
 
-- **What it replaces (SSCS-first rollout).** Wave 1 replaces **ListAssist** (the SSCS Tribunals judicial-scheduling tool); **GAPS** (SSCS case management) is *retained*, not replaced. Waves 2+ replace the as-is **JI application on Oracle APEX** per Courts region. Scope boundary: availability/scheduling only — case and hearing management live in external systems that consume RAM's APIs.
+- **What it replaces (ET-first rollout).** **Wave 1** pilots on the **Employment Tribunals (ET)** jurisdiction — its scheduling incumbent is not yet identified (gap G8.4). **Wave 2** replaces **ListAssist** (the SSCS Tribunals judicial-scheduling tool); **GAPS** (SSCS case management) is *retained*, not replaced. **Waves 3+** replace the as-is **JI application on Oracle APEX** per Courts region. Scope boundary: availability/scheduling only — case and hearing management live in external systems that consume RAM's APIs.
 - **What it is.** API-driven greenfield build. Java 25 + Spring Boot 4 on Azure (AKS + APIM + PostgreSQL 17 + Key Vault), HMCTS IdP via OIDC, React + Vite + GOV.UK Design System UI. Becomes the integration platform downstream HMCTS programmes consume directly, replacing today's export-by-email model.
 - **Strategy: greenfield, not strangler.** Built end-to-end before any user moves; **jurisdiction-first then per-region** phased cutover via per-(jurisdiction, region) activation flags (FR57); incumbents run unchanged for non-activated cohorts. No dual-write, no event bus.
 - **No legacy data migration** (revised D3). Reference data is **ingested from upstream sources of truth** — the JOH eLinks API (nightly) and MRD (weekly) — not migrated from APEX.

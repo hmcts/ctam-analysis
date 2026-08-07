@@ -2,7 +2,7 @@
 type: 'Architecture Shard'
 description: 'RAM Pathfinder inherits 17 application access types across four groups, plus 1 configuration entry (Payment Authoriser) that is not an application access type.'
 resource: 'architecture/tobe/user-types.html'
-tags: [ram-pathfinder, architecture, sscs]
+tags: [ram-pathfinder, architecture, employment-tribunals]
 timestamp: '2026-05-12'
 parent: ../architecture.md
 title: User Types
@@ -14,7 +14,7 @@ sources:
 
 # User Types
 
-> Sibling of [`../architecture.md`](../architecture.md). The as-is JI catalogue (`docs/architecture/asis/JI user types - 2.xlsx`, Feb 2026 snapshot) is authoritative for the role taxonomy. RAM Pathfinder carries these access types over 1:1; this document is the binding taxonomy reference for `ram-authorisation`, the user bootstrap (restructured D9 — two populations, no legacy user migration), and the per-phase manual UAT scripts (FR60). *(The taxonomy below is the Courts/JI as-is catalogue; the SSCS as-is analysis pack[^d11] will extend it with SSCS access types — RTJ, Tribunal Judges, Tribunal Members, Caseworkers — before wave 1.)* Authentication is owned by HMCTS IdP (FR1); role + Region/Area mapping and effective-permission lookup live in `ram-authorisation` (FR2, FR3). See [`./sequence-diagrams/user-authentication-and-authorisation.md`](./sequence-diagrams/user-authentication-and-authorisation.md) for the call path.
+> Sibling of [`../architecture.md`](../architecture.md). The as-is JI catalogue (`docs/architecture/asis/JI user types - 2.xlsx`, Feb 2026 snapshot) is authoritative for the role taxonomy. RAM Pathfinder carries these access types over 1:1; this document is the binding taxonomy reference for `ram-authorisation`, the user bootstrap (restructured D9 — two populations, no legacy user migration), and the per-phase manual UAT scripts (FR60). *(The taxonomy below is the Courts/JI as-is catalogue. Two extensions are outstanding[^d13]: the **ET as-is analysis pack** — gap G8.5, a **wave-1 blocker** — must extend it with ET access types before wave 1; the working set is **provisional** pending that pack: Regional Employment Judges, Employment Judges (salaried and fee-paid), non-legal ("lay") members from the employer-side and employee-side panels, and ET scheduling/listing admin staff. The **SSCS as-is analysis pack** extends it with SSCS access types — RTJ, Tribunal Judges, Tribunal Members, Caseworkers — before **wave 2**.)* Authentication is owned by HMCTS IdP (FR1); role + Region/Area mapping and effective-permission lookup live in `ram-authorisation` (FR2, FR3). See [`./sequence-diagrams/user-authentication-and-authorisation.md`](./sequence-diagrams/user-authentication-and-authorisation.md) for the call path.
 >
 > **Baseline capability for every access type:** access to standard reports. The capability lists below add to this baseline rather than repeat it.
 
@@ -295,7 +295,7 @@ These are not user-facing access types in the as-is catalogue; they are RAM Path
 
 ## Manual UAT mapping (FR60)
 
-Each domain service has a manual UAT script walked by jurisdiction-incumbent-experienced users from the in-wave applicable access types before that wave's rollout (ListAssist-experienced users for SSCS wave 1; APEX-experienced users for Courts waves 2+).
+Each domain service has a manual UAT script walked by jurisdiction-incumbent-experienced users from the in-wave applicable access types before that wave's rollout (`[ET-INCUMBENT-TBD]`-experienced users for **ET wave 1** — panel blocked on G8.4; ListAssist-experienced users for **SSCS wave 2**; APEX-experienced users for **Courts waves 3+**)[^d13].
 
 | Service / phase | UAT access types |
 |---|---|
@@ -320,4 +320,6 @@ Each domain service has a manual UAT script walked by jurisdiction-incumbent-exp
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.
 [^d9]: Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → `jo_people` → `personnel_number` → a **RAM-assigned JOH UUID** (`ram_joh_identities`); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; `personnel_number` is the upstream link only. No legacy user migration.
-[^d11]: D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**; waves 2+ replace JI/APEX per Courts region.
+[^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: RAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
+
+[^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).

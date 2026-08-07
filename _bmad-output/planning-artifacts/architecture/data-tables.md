@@ -2,7 +2,7 @@
 type: 'Architecture Shard'
 description: 'This is the inventory of RAM Pathfinder database tables, grouped by owning service. The table list, column shapes, FK relationships, and ownership boundaries are RAM Pathfinder''s design.'
 resource: 'architecture/tobe/data-tables.html'
-tags: [ram-pathfinder, architecture, sscs]
+tags: [ram-pathfinder, architecture, employment-tribunals]
 timestamp: '2026-06-11'
 parent: ../architecture.md
 title: Authoritative Table Ownership Mapping
@@ -19,7 +19,7 @@ amended_in: architecture.md v3.0 — Sprint Change Proposal 2026-06-10 cascade (
 
 This is the inventory of RAM Pathfinder database tables, grouped by owning service. The table list, column shapes, FK relationships, and ownership boundaries are RAM Pathfinder's design.
 
-ListAssist and APEX have their own (different) schemas; neither is in this inventory and neither is owned by any RAM Pathfinder service. **No legacy data is migrated from either system**[^d3] — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from the upstream sources of truth:
+The incumbent scheduling systems — `[ET-INCUMBENT-TBD]` (ET wave 1, unidentified per G8.4), ListAssist (SSCS wave 2) and APEX (Courts waves 3+) — have their own (different) schemas; none is in this inventory and none is owned by any RAM Pathfinder service. **No legacy data is migrated from any of them**[^d3][^d13] — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from the upstream sources of truth:
 
 - **JOH eLinks API** → the 15 `jo_*` tables (nightly in-process scheduled sync inside `ram-reference-data`).
 - **MRD (Master Reference Data)** → the `mrd_*` tables (weekly Excel feed via blob drop + scheduled pick-up, until MRD's public APIs ship).
@@ -56,7 +56,7 @@ The 15 `jo_*` entities named in the revised D3, refreshed nightly by the in-proc
 | `jo_contract_types` | Contract types — salaried full-time / part-time status lives here (FR14: conversions happen upstream, reflected at next sync) | JOH, Sitting generation |
 | `jo_genders` | Gender vocabulary | JOH profile views |
 | `jo_judiciary_roles` | Judiciary-role vocabulary | JOH, Authorisation |
-| `jo_jurisdictions` | **Jurisdiction hierarchy** (Tribunals/SSCS, Courts/Civil, …) — the first-class rollout/authorisation/filtering dimension[^d8]. Parent-child shape preserved natively if upstream provides it, or established on ingest. | Authorisation (user jurisdiction scope), Reference Data API filtering, activation flags (FR57) |
+| `jo_jurisdictions` | **Jurisdiction hierarchy** (Tribunals/ET, Tribunals/SSCS, Courts/Civil, …) — the first-class rollout/authorisation/filtering dimension[^d8]. Parent-child shape preserved natively if upstream provides it, or established on ingest. **Must carry Tribunals/ET for the wave-1 cutover — unverified, gap G8.1**[^d13]. | Authorisation (user jurisdiction scope), Reference Data API filtering, activation flags (FR57) |
 | `jo_locations` | Location records | JOH, Booking, Itinerary |
 | `jo_location_types` | Location-type vocabulary | Office/location views |
 | `jo_tickets` | Upstream ticket assignments per JOH (FR15 layer (a)) | JOH ticket views, Vacancy matching |
@@ -176,7 +176,7 @@ The upstream JOH person record is **`jo_people`** (tier (a), owned by `ram-refer
 | Table | Type | Purpose |
 |---|---|---|
 | `ram_payments` | Domain | Payment request records (FR41, FR42). Has `version` (`@Version`) and a `uq_ram_payments_cycle_run_date` unique constraint enforcing natural-key dedup on retries (FR45 — no double payment submission). |
-| `ram_payment_schedules` | Domain | JFEPS-shaped schedule snapshots (FR43, FR44). JFEPS format preserved for SSCS wave 1[^d11]. |
+| `ram_payment_schedules` | Domain | JFEPS-shaped schedule snapshots (FR43, FR44). JFEPS format verified for SSCS[^d11] (now wave 2); **ET wave-1 applicability unverified — G8.6**[^d13]. |
 | `ram_payment_reconciliations` | Domain | Reconciliation records (FR46). |
 
 ## Itinerary service (`ram-itinerary`) — 0 tables
@@ -223,4 +223,6 @@ Per `ram_mock_auth` DB role. **Never deployed to production**; production deploy
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.
 [^d9]: Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → `jo_people` → `personnel_number` → a **RAM-assigned JOH UUID** (`ram_joh_identities`); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; `personnel_number` is the upstream link only. No legacy user migration.
 [^d10]: D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.
-[^d11]: D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**; waves 2+ replace JI/APEX per Courts region.
+[^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: RAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
+
+[^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).

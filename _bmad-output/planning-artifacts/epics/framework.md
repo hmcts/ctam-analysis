@@ -3,7 +3,7 @@ type: 'Framework'
 title: 'Phase × Area Framework'
 description: 'RAM Pathfinder is built in 10 sequential phases (0–9+) per the PRD''s Phase-by-Phase Journey Mapping and the architecture''s Repository Strategy:'
 resource: 'epics/framework.html'
-tags: [ram-pathfinder, epics, sscs]
+tags: [ram-pathfinder, epics, employment-tribunals]
 timestamp: '2026-06-11'
 parent: 'epics/index.md'
 purpose: 'Phase × Area architectural framework — the spine that organises concrete epics across 10 sequential phases'
@@ -15,7 +15,7 @@ RAM Pathfinder is built in **10 sequential phases (0–9+)** per the PRD's Phase
 
 - **Phase 0** is cross-cutting foundations (multiple parallel areas).
 - **Phases 1–8** each deliver one service end-to-end (backend + UI module).
-- **Phase 9+** is the jurisdiction-first wave rollout[^d8][^d11]: wave 1 = the **SSCS jurisdiction** (replacing ListAssist; GAPS case management retained); waves 2+ = Courts jurisdictions per-region (replacing APEX/JI).
+- **Phase 9+** is the jurisdiction-first wave rollout[^d8][^d13]: wave 1 = the **Employment Tribunals (ET) jurisdiction** (incumbent `[ET-INCUMBENT-TBD]`, gap G8.4); wave 2 = the **SSCS jurisdiction** (replacing ListAssist; GAPS case management retained); waves 3+ = Courts jurisdictions per-region (replacing APEX/JI).
 
 The first level of grouping below is **Phase** (delivery sequence); the second level is **Area** (the capability or cross-cutting concern that anchors the epic). Within each Area, concrete epics with stories and Gherkin acceptance criteria live in the per-phase folders (e.g. [phase-0/](phase-0/index.md)).
 
@@ -40,7 +40,7 @@ The first level of grouping below is **Phase** (delivery sequence); the second l
 | **6** | Payment Batch | `ram-payment-batch` (scheduled) | FR42, FR43, FR45 |
 | **7** | Itineraries Read Model | `ram-itinerary` *(no own tables)* + UI views | FR48–FR52, NFR8, NFR37 |
 | **8** | MI Feed & Reporting | `ram-mi-feed` *(no own tables)* + Reports UI module | FR53, FR54, NFR23 |
-| **9+** | Wave Rollout (jurisdiction-first) | per-(jurisdiction, region) activation, incumbent-experienced manual UAT, rollback playbook, SSCS-cohort readiness gate | FR57 *(activation)*, FR60, NFR36, NFR38, NFR41 |
+| **9+** | Wave Rollout (jurisdiction-first) | per-(jurisdiction, region) activation, incumbent-experienced manual UAT, rollback playbook, **ET-cohort readiness gate** | FR57 *(activation)*, FR60, NFR36, NFR38, NFR41 |
 
 Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30–NFR33, accessibility NFR17–NFR19, maintainability NFR39) are inherited by every phase; their architectural support lives in Phase 0 (Platform & DevEx) and is exercised in every domain phase.
 
@@ -200,7 +200,7 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 **Primary FR/NFR coverage**: FR42, FR43, FR45.
 
-> **End-of-Phase-6 demo gate**: Journey 2 (RSU cover-creation through payment — the canonical Courts operational cycle) and Journey 1 (SSCS Tribunal Caseworker panel coverage — same service chain with SSCS roles) become demoable.
+> **End-of-Phase-6 demo gate**: Journey 2 (RSU cover-creation through payment — the canonical Courts operational cycle) and Journey 1 (ET admin panel/cover coverage — same service chain with ET roles; **journey detail provisional pending the ET as-is pack, G8.5**) become demoable. The SSCS Tribunal Caseworker journey (wave 2) exercises the same chain with SSCS roles.
 
 ## Phase 7 — Itineraries
 
@@ -230,7 +230,7 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 ### Phase 9+ · Area: Wave Rollout
 
-**Scope**: Jurisdiction-first phased activation — **wave 1 = the SSCS jurisdiction** (replacing ListAssist; GAPS case management retained; all in-jurisdiction applicable roles in one wave); **waves 2+ = Courts jurisdictions per-region** (replacing APEX/JI). Activation flips `ram_auth_user_activation_flags` per (jurisdiction, region) tuple (FR57) via DBA SQL per the rollout runbook once that wave's feature-parity gate is passed. Manual UAT execution per role per wave (FR60): **jurisdiction-incumbent-experienced users** — ListAssist-experienced (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for wave 1; APEX-experienced (RSU, Court, Judge, Judges' Clerks, Finance/Payment Authoriser, MI) for waves 2+ — walk per-service UAT scripts (under `docs/uat/` in each domain service repo) side-by-side against the incumbent; sign-off per role per wave is the wave-cutover gate. **Wave-1 additional gates**[^d11]: the SSCS-cohort implementation-readiness assessment signed off; the SSCS as-is analysis pack complete. Data-readiness gate per wave: reference data current per `ram_sync_status` + the bootstrap-verification job passing for the wave's users (Epic 0.4). Per-wave rollback playbook (NFR36): documented path returning the wave to its incumbent within one operational cycle if the gate is breached post-cutover. Cross-region manual coordination during partial rollout (Risk #1 mitigation; operational, not application-level). Wave 1 is the Pilot; subsequent waves run until all jurisdictions are on RAM Pathfinder and the incumbents are retired[^d8][^d11].
+**Scope**: Jurisdiction-first phased activation — **wave 1 = the Employment Tribunals (ET) jurisdiction** (all in-jurisdiction applicable roles in one wave; scheduling incumbent `[ET-INCUMBENT-TBD]`, gap G8.4); **wave 2 = the SSCS jurisdiction** (replacing ListAssist; GAPS case management retained); **waves 3+ = Courts jurisdictions per-region** (replacing APEX/JI). Activation flips `ram_auth_user_activation_flags` per (jurisdiction, region) tuple (FR57) via DBA SQL per the rollout runbook once that wave's feature-parity gate is passed. Manual UAT execution per role per wave (FR60): **jurisdiction-incumbent-experienced users** — `[ET-INCUMBENT-TBD]`-experienced (ET role set *provisional*, G8.5) for wave 1; ListAssist-experienced (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for wave 2; APEX-experienced (RSU, Court, Judge, Judges' Clerks, Finance/Payment Authoriser, MI) for waves 3+ — walk per-service UAT scripts (under `docs/uat/` in each domain service repo) side-by-side against the incumbent; sign-off per role per wave is the wave-cutover gate. **Wave-1 additional gates**[^d13]: the **ET-cohort** implementation-readiness assessment signed off; the **ET as-is analysis pack** complete (G8.5); G8.4 closed (incumbent named). *(The SSCS-cohort readiness assessment and SSCS as-is pack become wave-2 gates.)* Data-readiness gate per wave: reference data current per `ram_sync_status` + the bootstrap-verification job passing for the wave's users (Epic 0.4). Per-wave rollback playbook (NFR36): documented path returning the wave to its incumbent within one operational cycle if the gate is breached post-cutover. Cross-region manual coordination during partial rollout (Risk #1 mitigation; operational, not application-level). Wave 1 is the Pilot; subsequent waves run until all jurisdictions are on RAM Pathfinder and the incumbents are retired[^d8][^d11].
 
 **Component(s)**: Programme-level (manual UAT scripts, runbooks, activation orchestration). Cross-region edge case (Journey 6) handled out-of-system per Risk #1 — no application capability built.
 
@@ -240,5 +240,7 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.
 [^d9]: Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → `jo_people` → `personnel_number` → a **RAM-assigned JOH UUID** (`ram_joh_identities`); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; `personnel_number` is the upstream link only. No legacy user migration.
 [^d10]: D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.
-[^d11]: D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**; waves 2+ replace JI/APEX per Courts region.
+[^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: RAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
+
+[^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).
 [^d12]: D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.

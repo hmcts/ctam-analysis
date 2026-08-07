@@ -82,7 +82,7 @@ sourceDocuments:
 - FR41: Authorised users can list confirmed bookings and salaried sittings, filterable by Region/Office, judge, date range, and payment lifecycle status (pending, requested, paid, reconciled).
 - FR42: RAM Pathfinder's payment-processing batch (`ram-payment-batch`, scheduled cron — typically end-of-week) automatically marks eligible bookings as *payment requested* and creates the corresponding `ram_payments` + `ram_payment_schedules` records via SQL JOIN; no user click required.
 - FR43: The payment batch generates JFEPS-compatible payment schedules and dispatches them as Excel attachments to a configured Payment Authoriser via email (using its service-principal identity to call the Notification API).
-- FR44: RAM Pathfinder exposes the payment schedule via API with content-type negotiation (`application/vnd.hmcts.jfeps+json` or `+xlsx`); the JFEPS shape evolves independently of Payment internals. Preserved for SSCS wave 1[^d11].
+- FR44: RAM Pathfinder exposes the payment schedule via API with content-type negotiation (`application/vnd.hmcts.jfeps+json` or `+xlsx`); the JFEPS shape evolves independently of Payment internals. Verified for SSCS[^d11] (now wave 2); **ET wave-1 applicability unverified — G8.6**[^d13].
 - FR45: RAM Pathfinder prevents double submission of the same booking for payment via natural-key unique constraint on `(payment_cycle_id, booking_id)`; re-runs of the same cycle are idempotent.
 - FR46: Authorised users (Finance, RSU) can flag payments as reconciled, capturing notes for mismatches; once fully reconciled, a payment cannot be re-requested.
 - FR47: RAM Pathfinder does not store or expose bank details for any JOH — those remain in the finance system.
@@ -106,7 +106,7 @@ sourceDocuments:
 - FR57: RAM Pathfinder supports **per-jurisdiction, per-region phased activation** — activation is a flag flip on `ram_auth_user_activation_flags` keyed by the (jurisdiction, region) tuple, not a data migration. Initial flag state FALSE for every user record at bootstrap (mechanism outside PRD scope[^d9]); cutover flips per wave by a DBA running `UPDATE ram_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'` per the rollout runbook (no UI in MVP).
 - FR58: Every RAM Pathfinder service exposes a versioned API contract, RFC 9457 problem-details for errors, and a published OpenAPI specification. Deprecation signalling uses `Deprecation` (RFC 9745) and `Sunset` (RFC 8594) headers.
 - FR59: Every RAM Pathfinder service emits structured logs with correlation IDs and consistent error categorisation, retained for pilot incident triage.
-- FR60[^d11][^d5]: Every RAM Pathfinder domain service has a manual UAT script verified by **jurisdiction-incumbent-experienced users** against that incumbent system before that wave's rollout: ListAssist-experienced users (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for wave 1 (SSCS); APEX-experienced users (RSU, Court, Judge, Judges' Clerks, Finance, MI) for waves 2+ (Courts). Recorded with explicit per-role sign-off. No automated incumbent-comparison harness.
+- FR60[^d11][^d5][^d13]: Every RAM Pathfinder domain service has a manual UAT script verified by **jurisdiction-incumbent-experienced users** against that incumbent system before that wave's rollout: `[ET-INCUMBENT-TBD]`-experienced users (ET role set *provisional*, G8.5) for wave 1 (ET); ListAssist-experienced users (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for wave 2 (SSCS); APEX-experienced users (RSU, Court, Judge, Judges' Clerks, Finance, MI) for waves 3+ (Courts). Recorded with explicit per-role sign-off. No automated incumbent-comparison harness. *(Wave-1 panel blocked on G8.4.)*
 
 ## Non-Functional Requirements
 
@@ -141,7 +141,7 @@ sourceDocuments:
 ### Integration
 
 - NFR20 — HMCTS IdP integration: Hard Phase 0 dependency. RAM Pathfinder integrates with whichever AuthN protocol the HMCTS IdP exposes (OIDC or SAML).
-- NFR21[^d11] — JFEPS / Liberata unchanged: Payment schedule format (JFEPS-compatible Excel), email-to-Authoriser delivery, authoriser-forwards-to-Liberata preserved exactly as in APEX, **and preserved for SSCS in wave 1**. No format change for finance across either cohort.
+- NFR21[^d11] — JFEPS / Liberata unchanged: Payment schedule format (JFEPS-compatible Excel), email-to-Authoriser delivery, authoriser-forwards-to-Liberata preserved exactly as in APEX, **and verified for SSCS** (now wave 2)[^d11]. **ET wave-1 applicability is unverified — G8.6**[^d13]. No format change for finance across the Courts and SSCS cohorts.
 - NFR22 — HMCTS email infrastructure: Outbound transactional emails dispatch via HMCTS email; overnight batch acceptable for booking acks.
 - NFR23 — DA&I MI Feed: Aggregate-only REST API contract; no case-level data under any consumer authorisation.
 - NFR24[^d11] — **JOH eLinks API + MRD integration (MVP scope)**: JOH eLinks API is an MVP integration — the canonical source for judicial-holder reference data[^d3]. MRD data is ingested via a weekly Excel feed pending availability of MRD's public APIs. Manual data entry by RSU is no longer the operating model for these sources; corrections happen at source. Other HR systems beyond JOH eLinks / MRD remain out of MVP scope.
@@ -158,7 +158,7 @@ sourceDocuments:
 
 - NFR30 — UK GDPR / DPA 2018 compliance: Personal data scope limited to user/JOH identity, contact details, payroll numbers, operational metadata. No case-level data anywhere.
 - NFR31 — Data residency: All RAM Pathfinder services and data hosted in Azure UK regions only.
-- NFR32[^d3] — Retention: Per HMCTS retention schedules. Historical transactional data stays in the cohort's incumbent system (ListAssist for SSCS; APEX for Courts) and is accessed there as needed — no legacy data is migrated into RAM.
+- NFR32[^d3][^d13] — Retention: Per HMCTS retention schedules. Historical transactional data stays in the cohort's incumbent system (`[ET-INCUMBENT-TBD]` for ET wave 1 — G8.4; ListAssist for SSCS wave 2; APEX for Courts waves 3+) and is accessed there as needed — no legacy data is migrated into RAM.
 - NFR33 — FOI scope: Aggregate operational data exposable per FOI; case-level data forbidden by contract.
 
 ### Reliability & Availability
@@ -173,7 +173,7 @@ sourceDocuments:
 
 - NFR39 — API-as-Product standards: Versioned contracts, RFC 9457 problem-details, OpenAPI per service. Deprecation via RFC 9745 + RFC 8594.
 - NFR40 — Per-service deployment unit: Each of the 11 services is independently deployable on Kubernetes; rolling updates per service per wave without coupling.
-- NFR41[^d11][^d5] — Behavioural-parity UAT suite: Every domain service has a manual UAT script (per FR60). Jurisdiction-incumbent-experienced users walk the script comparing RAM Pathfinder vs the incumbent (ListAssist for wave 1; APEX for waves 2+); sign-off per role per wave is the wave gate. No automated parity test suite — automated CI is unit, integration (Testcontainers), and contract tests only.
+- NFR41[^d11][^d5] — Behavioural-parity UAT suite: Every domain service has a manual UAT script (per FR60). Jurisdiction-incumbent-experienced users walk the script comparing RAM Pathfinder vs the incumbent (`[ET-INCUMBENT-TBD]` for wave 1; ListAssist for wave 2; APEX for waves 3+)[^d13]; sign-off per role per wave is the wave gate. No automated parity test suite — automated CI is unit, integration (Testcontainers), and contract tests only.
 - NFR42 — Postman collections: Each phase produces a Postman collection that exercises the phase's endpoints; versioned alongside the services.
 
 ## Additional Requirements
@@ -271,7 +271,7 @@ sourceDocuments:
 
 ### Manual UAT (FR60 / NFR41)
 
-- AR50 — Per-service manual UAT scripts live under `docs/uat/` in each domain service repo (markdown walkthroughs for jurisdiction-incumbent-experienced users to follow side-by-side against the incumbent — ListAssist for wave 1; APEX for waves 2+). Not part of automated CI. Sign-off (per role per wave) is the wave-cutover gate.
+- AR50 — Per-service manual UAT scripts live under `docs/uat/` in each domain service repo (markdown walkthroughs for jurisdiction-incumbent-experienced users to follow side-by-side against the incumbent — `[ET-INCUMBENT-TBD]` for wave 1; ListAssist for wave 2; APEX for waves 3+)[^d13]. Not part of automated CI. Sign-off (per role per wave) is the wave-cutover gate.
 
 ### Manual GitHub setup
 
@@ -303,5 +303,7 @@ sourceDocuments:
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.
 [^d9]: Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → `jo_people` → `personnel_number` → a **RAM-assigned JOH UUID** (`ram_joh_identities`); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; `personnel_number` is the upstream link only. No legacy user migration.
 [^d10]: D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.
-[^d11]: D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**; waves 2+ replace JI/APEX per Courts region.
+[^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: RAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
+
+[^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).
 [^d12]: D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.
