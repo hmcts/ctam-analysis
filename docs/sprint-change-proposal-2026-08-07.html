@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-07 — RAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-07">Sprint Change Proposal — 2026-08-07</h1>
+<p><strong>Wave-1 pilot jurisdiction: SSCS → Employment Tribunals (ET)</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> Programme direction changed — the MVP pilot rollout (Phase 9, wave 1) targets the <strong>Employment Tribunals (ET)</strong> jurisdiction instead of the <strong>SSCS</strong> Tribunals jurisdiction.</p>
+<p><strong>Disposition agreed at intake (2026-08-07):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Wave</th>
+<th>Before (D11)</th>
+<th>After (D13)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wave 1</td>
+<td>SSCS Tribunals</td>
+<td><strong>Employment Tribunals (ET)</strong></td>
+</tr>
+<tr>
+<td>Wave 2</td>
+<td>Courts jurisdictions, per HMCTS judicial region</td>
+<td><strong>SSCS Tribunals</strong></td>
+</tr>
+<tr>
+<td>Waves 3+</td>
+<td>—</td>
+<td>Courts jurisdictions (Civil, Crime, Family, Crown), per HMCTS judicial region</td>
+</tr>
+</tbody>
+</table>
+<p>SSCS is <strong>demoted, not deleted</strong> — its analysis (ListAssist, GAPS, tribunal-member sub-types, Journey 1, the RTJ/Caseworker role set) is preserved and re-sequenced to wave 2. Courts content shifts from "waves 2+" to "waves 3+".</p>
+<p><strong>Discovery context:</strong> Raised as a course-correction while the programme sat between planning and execution. <strong>Implementation has not started</strong> — all six Phase 0 epics are <code>status: not-started</code> with <code>owner: null</code> in <code>delivery/ledger/</code>, and <code>_bmad-output/implementation-artifacts/</code> is empty. Like SCPs 2026-07-06 and 2026-07-09, this is a <strong>documentation/architecture change with no code to unwind</strong>: broad surface, low execution risk.</p>
+<p><strong>Evidence — measured surface (repo-wide sweep, 2026-08-07):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Count</th>
+<th>Spread</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SSCS</code> references</td>
+<td>~250</td>
+<td>27 files under <code>planning-artifacts/</code> + 4 repo-level files</td>
+</tr>
+<tr>
+<td><code>ListAssist</code> references</td>
+<td>~100</td>
+<td>21 files</td>
+</tr>
+<tr>
+<td>Lines carrying <code>wave 2</code> / <code>waves 2+</code></td>
+<td>100</td>
+<td>24 files — <strong>all require renumbering to waves 3+</strong></td>
+</tr>
+<tr>
+<td>Lines carrying <code>wave 1</code></td>
+<td>166</td>
+<td>wave number survives; jurisdiction and incumbent do not</td>
+</tr>
+<tr>
+<td><code>D11</code> citations (incl. <code>[^d11]</code> footnote)</td>
+<td>~180</td>
+<td>23 files — the footnote text itself is wrong in every file</td>
+</tr>
+<tr>
+<td><code>Employment</code> references <strong>existing today</strong></td>
+<td><strong>0</strong></td>
+<td>ET is entirely new vocabulary to this repo</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>[^d11]</code> footnote is repeated verbatim as a block at the tail of ~20 files. That is a single reusable edit applied many times, not 20 distinct decisions.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-the-central-finding--the-architecture-already-absorbs-this">2.1 The central finding — the architecture already absorbs this</h3>
+<p><strong>The 16-repo decomposition, the data model, and all 60 FRs / 42 NFRs survive unchanged.</strong> This is not luck; it is D8 working as designed.</p>
+<p>D8 (reframed 2026-06-10) made <strong>jurisdiction a first-class hierarchical attribute sourced from upstream <code>jo_jurisdictions</code></strong> — "not invented or tagged by RAM Pathfinder". Every jurisdiction-sensitive mechanism was therefore built to be parameterised, not hardcoded:</p>
+<table>
+<thead>
+<tr>
+<th>Mechanism</th>
+<th>Why ET needs no structural change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jo_jurisdictions</code></td>
+<td>Hierarchy comes from eLinks. Tribunals/ET is a sibling of Tribunals/SSCS — a data value, not a schema change.</td>
+</tr>
+<tr>
+<td><code>ram_auth_user_activation_flags</code></td>
+<td>Keyed by the <code>(jurisdiction, region)</code> tuple (FR57). Wave cutover is an <code>UPDATE … WHERE jurisdiction = …</code>. ET is a different WHERE clause.</td>
+</tr>
+<tr>
+<td><code>ram-authorisation</code></td>
+<td>Carries the user's jurisdiction alongside roles + Region/Area scope (FR2). Jurisdiction-agnostic.</td>
+</tr>
+<tr>
+<td><code>ram-reference-data</code></td>
+<td>Filters API responses by requester jurisdiction (FR6/FR7). Jurisdiction-agnostic.</td>
+</tr>
+<tr>
+<td><code>ram_joh_identities</code> / <code>joh_id</code></td>
+<td>RAM-assigned UUID per JOH (D9 as refined by SCP 2026-07-09). Independent of jurisdiction.</td>
+</tr>
+<tr>
+<td><code>ram_jurisdictional_splits</code></td>
+<td>Per-JOH split percentages (FR16). Already multi-jurisdiction by construction.</td>
+</tr>
+<tr>
+<td>JOH umbrella term</td>
+<td>Adopted precisely because non-judge panel members exist. ET's non-legal members are covered by the same abstraction.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Unchanged in full:</strong> the 16-repo polyrepo · the 55-table data model · Phase 0–8 build sequence · all six Phase 0 epics and their 19 stories · <code>delivery/dispatch-graph.yaml</code> · <code>delivery/ledger/</code> · decisions <strong>D1, D2, D3, D4, D6, D7, D9, D10, D12</strong> · every architecture convention.</p>
+<p><strong>No FR or NFR is added, removed, or renumbered.</strong> Roughly 12 are <strong>reworded</strong> where their prose names SSCS or ListAssist: FR6, FR7, FR44, FR57, FR60, NFR21, NFR24, NFR32, NFR36, NFR38, NFR41.</p>
+<h3 id="22-epic-impact">2.2 Epic impact</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Status</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0 Platform estate</td>
+<td>not-started</td>
+<td><strong>None</strong> — jurisdiction-agnostic infrastructure</td>
+</tr>
+<tr>
+<td>0.1 Upstream reference-data ingestion</td>
+<td>not-started</td>
+<td><strong>None structurally.</strong> Assumption to re-verify: eLinks <code>jo_jurisdictions</code> carries ET (see G8.1)</td>
+</tr>
+<tr>
+<td>0.2 User authenticates</td>
+<td>not-started</td>
+<td><strong>AC text only</strong> — line 307 names ListAssist/APEX as the incumbents in the not-yet-activated banner scenario</td>
+</tr>
+<tr>
+<td>0.3 Reference data read-only API</td>
+<td>not-started</td>
+<td><strong>AC text only</strong> — line 59 seeds "SSCS wave-1-relevant entries … flagged for confirmation against the SSCS as-is pack"; line 88 uses an SSCS-scoped requester as the filtering example</td>
+</tr>
+<tr>
+<td>0.4 User populations bootstrapped</td>
+<td>not-started</td>
+<td><strong>Fixture text only</strong> — line 49 seeds <code>jo_jurisdictions</code> covering "Tribunals/SSCS + Courts examples"; add ET</td>
+</tr>
+<tr>
+<td>0.5 System dispatches emails</td>
+<td>not-started</td>
+<td><strong>None</strong></td>
+</tr>
+<tr>
+<td>Phase 9+ (framework only)</td>
+<td>not decomposed</td>
+<td><strong>Rewritten</strong> — wave sequence, gates, UAT panels, readiness assessment all retarget</td>
+</tr>
+</tbody>
+</table>
+<p><strong>No epic is added, removed, re-scoped, or resequenced.</strong> Phase 0 remains 6 epics / 19 stories. Phases 1–8 remain undecomposed and are unaffected.</p>
+<h3 id="23-artifact-conflicts">2.3 Artifact conflicts</h3>
+<p><strong>Canonical planning artifacts requiring edits (27 files):</strong></p>
+<ul>
+<li><code>prd.md</code> — heaviest (61 SSCS, 32 ListAssist, 37 wave-2, 75 D-refs): Executive Summary, Target Users working set (lines 91–98), Success Criteria, Measurable Outcomes, Product Scope, Journey 1, Phase-by-Phase mapping, Integration Requirements, FR60, NFR21/24/32/36/38/41, decision table (D5, D8, D11), Glossary</li>
+<li><code>business-case.md</code> — Decision Sought, Strategic Case drivers, Options appraisal, Scope, Benefits, Roadmap, Risks, Assumptions, Recommendation, Asks</li>
+<li><code>architecture.md</code> + <code>architecture-summary.md</code> — technical constraints, external systems, deployment topology, wave gates, implementation sequence, TBD #6, validation scope note</li>
+<li><code>architecture/</code> shards (11): <code>user-types.md</code>, <code>data-tables.md</code>, <code>gaps.md</code>, <code>conventions.md</code>, <code>repository-strategy.md</code>, <code>repo-structure.md</code>, <code>functional-requirements-coverage.md</code>, <code>non-functional-requirements-coverage.md</code>, <code>sequence-diagrams/payment-batch-flow.md</code>, <code>sequence-diagrams/joh-onboarding-and-sitting-generation.md</code>, <code>changelog.md</code> (<strong>append v4.0 entry only</strong>)</li>
+<li><code>epics/</code> (8): <code>index.md</code>, <code>framework.md</code>, <code>fr-coverage-map.md</code>, <code>requirements-inventory.md</code>, <code>phase-0/index.md</code>, <code>phase-0/epic-0.2</code>, <code>epic-0.3</code>, <code>epic-0.4</code></li>
+</ul>
+<p><strong>Repo-level files (4):</strong> <code>CLAUDE.md</code> (line 9) · <code>README.md</code> (line 9) · <code>_bmad-output/project-context.md</code> (line 71) · <code>scripts/python/build_html.py</code> (add this SCP to <code>NAV</code>)</p>
+<p><strong>Immutable — add, never rewrite</strong> (per the repo's working conventions): the 6 prior Sprint Change Proposals, the 5 Implementation Readiness Reports, the 2 PRD Validation Reports, and all existing <code>architecture/changelog.md</code> rows. Their SSCS content is a correct record of what was decided then. The two SSCS-labelled <code>NAV</code> strings in <code>build_html.py</code> (lines 239, 241) are historical labels and stay.</p>
+<p><strong>Out of scope — read-only sources:</strong> <code>docs/architecture/asis/**</code> (the JI/Courts as-is pack — source documents), <code>queries/sscs-locations-queries.md</code> (legacy/exploratory root).</p>
+<p><strong>Generated:</strong> <code>docs/**</code> — regenerate via <code>scripts/build-html.sh</code>; never hand-edit.</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p><strong>None.</strong> No code exists. No schema migration, no API contract change, no infrastructure change, no deployment change. The <code>delivery/</code> control plane needs no edit — <code>dispatch-graph.yaml</code> carries no jurisdiction references and the ledger shards are jurisdiction-neutral.</p>
+<h3 id="25-new-risks-and-open-questions--the-substantive-cost-of-this-change">2.5 New risks and open questions — the substantive cost of this change</h3>
+<p>The edits are mechanical. <strong>The risk is in what we do not yet know about ET.</strong> Five items, ranked:</p>
+<p><strong>R1 — ET's judicial-scheduling incumbent is unidentified.</strong> <em>(Severity: High — blocking)</em> ListAssist was SSCS's scheduling incumbent and is load-bearing across <strong>D5</strong> (behavioural reference), <strong>FR60</strong> and <strong>NFR41</strong> (manual UAT parity target), <strong>NFR36</strong> (rollback target), <strong>NFR32</strong> (where historical data stays), <strong>G8.3</strong> (historical-access window), and the business case's benefit statement ("retirement of ListAssist"). Until ET's equivalent is named, all seven remain parameterised. Note the business case already records that even SSCS scheduling is fragmented — ListAssist is "used by Cardiff only … and other legacy systems used by other SSCS jurisdictions" — so ET may likewise have no single incumbent.</p>
+<p><strong>R2 — ET's JOH type taxonomy is unconfirmed.</strong> <em>(Severity: High)</em> The repo holds <strong>zero</strong> ET evidence. Working understanding, <strong>requiring confirmation against an ET as-is analysis pack</strong>: Employment Judges (salaried and fee-paid), Regional Employment Judges, and <strong>non-legal ("lay") members</strong> drawn from two panels — one with employer-side experience, one with employee-side experience. This is structurally analogous to SSCS's Medical / Disability-Qualified / Disability (Other) members and fits the existing JOH abstraction, but the specific types, panel-composition rules and role names must be verified, not assumed. Treat every ET role name in the cascade as provisional until the pack lands.</p>
+<p><strong>R3 — JFEPS/Liberata applicability to ET is unverified.</strong> <em>(Severity: Medium–High)</em> NFR21 asserts the JFEPS Excel → Payment Authoriser → Liberata path is preserved unchanged for wave 1. That was <strong>explicitly verified for SSCS</strong> — <code>sequence-diagrams/payment-batch-flow.md</code> records "SSCS applicability verified (2026-06-11) … tribunal-member payments use the same JFEPS Excel + email-to-Authoriser + Liberata path". <strong>No equivalent verification exists for ET.</strong> If ET lay members are paid through a different route, NFR21 weakens and Phase 6 acquires wave-1 risk it does not currently carry. This verification must be redone.</p>
+<p><strong>R4 — eLinks <code>jo_jurisdictions</code> coverage of ET is unverified.</strong> <em>(Severity: Medium)</em> G8.1 already flags the eLinks contract as unconfirmed. ET's presence, and its parent-child shape under Tribunals, is now a <strong>wave-1 blocker</strong> rather than a general Phase 0 concern.</p>
+<p><strong>R5 — the business case's supporting evidence was gathered for SSCS.</strong> <em>(Severity: Low–Medium; downgraded 2026-08-07 on confirmation that ET is a settled programme decision)</em> Option C was recommended on the grounds that "SSCS is a contained, lower-risk wave that exercises the full platform end-to-end and de-risks every subsequent wave". <strong>The choice of ET is settled and not reopened by this SCP.</strong> What remains is <em>evidence</em>: the wave-1 replacement driver and ET's quantified risk profile, both of which the ET as-is analysis pack (G8.5) supplies. The business case is retargeted with those two items flagged as outstanding evidence rather than open questions.</p>
+<p><strong>Also to confirm:</strong> ET's case-management system — the GAPS analogue that will consume RAM's APIs per D12 (retained, not replaced).</p>
+<p><strong>Net position on prior work:</strong> the SSCS-cohort readiness assessment and SSCS as-is analysis pack were both <em>required but never produced</em>. Demoting SSCS to wave 2 therefore <strong>loses no completed work</strong> — it defers two un-started deliverables and raises two new ET equivalents in their place.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<h3 id="options-evaluated">Options evaluated</h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Viable?</th>
+<th>Effort</th>
+<th>Risk</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — Direct Adjustment</strong></td>
+<td>✅ <strong>Yes</strong></td>
+<td>Medium–High (volume)</td>
+<td>Low–Medium</td>
+<td>No code, no FR/NFR churn, no epic churn. Risk sits in R1–R5, not in the edits.</td>
+</tr>
+<tr>
+<td><strong>2 — Rollback</strong></td>
+<td>❌ N/A</td>
+<td>—</td>
+<td>—</td>
+<td>Nothing built. Nothing to revert.</td>
+</tr>
+<tr>
+<td><strong>3 — MVP Review</strong></td>
+<td>⚠️ <strong>Partial</strong></td>
+<td>Low</td>
+<td>Medium</td>
+<td>Not needed for architecture or epics. <strong>Required for the business case</strong> (R5).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="recommended-hybrid--direct-adjustment--business-case-evidence-refresh-sequenced-behind-discovery">Recommended: <strong>Hybrid — Direct Adjustment + business-case evidence refresh, sequenced behind discovery</strong></h3>
+<p><strong>Rationale.</strong> The architecture needs no redesign — D8 anticipated exactly this. But running a 27-file, ~250-reference cascade <em>before</em> R1 and R2 are answered would write "TBD" into hundreds of places and force a second full sweep. That is the failure mode the repo's own convention warns against ("sweep first, don't blind find-replace").</p>
+<p><strong>Therefore: parameterise the unknown rather than deferring the cascade.</strong></p>
+<p>Introduce a single placeholder token — <strong><code>[ET-INCUMBENT-TBD]</code></strong> — for the ET scheduling incumbent, and use it consistently everywhere ListAssist currently appears in a wave-1 role. Everything else (jurisdiction, wave numbering, decision text, roles, journey, glossary, gates) is written definitively in one pass. When R1 resolves, closing it out is a <strong>single mechanical token replacement</strong>, not a re-analysis.</p>
+<p>Apply the same discipline to R2: mark every ET role name with an explicit <em>provisional — pending ET as-is pack</em> flag rather than presenting assumed names as settled.</p>
+<h3 id="proposed-sequencing">Proposed sequencing</h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Action</th>
+<th>Blocked by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>Approve this SCP</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Open four discovery items: R1 incumbent · R2 role/panel taxonomy · R3 JFEPS applicability · R4 eLinks ET coverage</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>Run the documentation cascade with <code>[ET-INCUMBENT-TBD]</code> + provisional role flags; add <code>architecture/changelog.md</code> <strong>v4.0</strong>; regenerate <code>docs/</code></td>
+<td>Step 1</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Refresh the business case's ET evidence (R5) — driver + risk profile; the jurisdiction choice itself is settled</td>
+<td>Step 5</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>Commission the <strong>ET as-is analysis pack</strong> (replaces the SSCS pack as the wave-1 blocker; the SSCS pack defers to wave 2)</td>
+<td>Step 2</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>Resolve <code>[ET-INCUMBENT-TBD]</code> → single token sweep</td>
+<td>Step 5</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>Re-run <code>bmad-check-implementation-readiness</code> — an <strong>ET-cohort</strong> assessment</td>
+<td>Steps 3, 6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Timeline impact on the build:</strong> <strong>none.</strong> Phases 0–8 are jurisdiction-agnostic and can proceed on the current dispatch graph regardless. Only the <strong>Phase 9 cutover</strong> depends on ET discovery — and Phase 9 was already gated on a cohort readiness assessment that had not begun.</p>
+<p><strong>Note on readiness:</strong> the last Implementation Readiness Report (2026-06-17) already predates SCPs 2026-07-06, -07-07 and -07-09. Step 7 closes all four gaps in one pass.</p>
+<hr />
+</div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-decisions">4.1 Decisions</h3>
+<p><strong>New D13 — supersedes D11.</strong> <em>(PRD decision table)</em></p>
+<blockquote>
+<p><strong>D13 (new 2026-08-07; supersedes D11) — ET-first pilot wave.</strong> RAM Pathfinder's MVP pilot rollout (Phase 9, wave 1) targets the <strong>Employment Tribunals (ET)</strong> jurisdiction. <strong>Wave 2 = the SSCS Tribunals jurisdiction</strong> (replacing ListAssist; GAPS, the SSCS case-management system, is retained per D11 as amended). <strong>Waves 3+ = Courts jurisdictions</strong> (Civil, Crime, Family, Crown) per HMCTS judicial region, replacing APEX/JI. The 16-repo architecture and the Phase 0–8 build sequence are <strong>unchanged</strong> — jurisdiction is a first-class upstream-sourced attribute per D8, so retargeting the pilot is a data-and-rollout change, not an architectural one.</p>
+<p><strong>ET's judicial-scheduling incumbent is not yet identified</strong> (gap G8.4). Until it is, the wave-1 behavioural reference, manual-UAT parity target, rollback target and historical-data location are recorded as <code>[ET-INCUMBENT-TBD]</code>.</p>
+<p><strong>ET JOH type taxonomy is provisional</strong> pending the ET as-is analysis pack (gap G8.5): Employment Judges (salaried and fee-paid), Regional Employment Judges, and non-legal ("lay") members drawn from employer-side and employee-side panels. The JOH umbrella term and the existing <code>ram-joh</code> / <code>ram-booking</code> / <code>ram-sitting</code> decomposition accommodate these without structural change. <strong>Panel composition and hearing types remain out of RAM scope per D12.</strong></p>
+</blockquote>
+<p><strong>D11</strong> — retained as history, re-scoped: "SSCS-first pilot" → "<strong>SSCS wave</strong>", superseded by D13 for wave ordering. <strong>D5</strong> — parity reference re-parameterised: <code>[ET-INCUMBENT-TBD]</code>-experienced users (wave 1) · ListAssist-experienced (wave 2) · APEX-experienced (waves 3+). <strong>D8</strong> — wave sequence restated: wave 1 = ET, wave 2 = SSCS, waves 3+ = Courts per region. Hierarchy mechanism unchanged. <strong>D12</strong> — unchanged; the external case-management consumer for wave 1 becomes ET's system (to confirm) rather than GAPS.</p>
+<h3 id="42-the-d11-footnote--one-edit-20-files">4.2 The <code>[^d11]</code> footnote — one edit, ~20 files</h3>
+<p><strong>OLD</strong> (repeated verbatim across ~20 files):</p>
+<pre><code>[^d11]: D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces
+**ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management)
+is retained, not replaced**; waves 2+ replace JI/APEX per Courts region.</code></pre>
+<p><strong>NEW:</strong></p>
+<pre><code>[^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment
+Tribunals** jurisdiction (incumbent `[ET-INCUMBENT-TBD]`, gap G8.4); wave 2 = **SSCS**
+(replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ replace
+JI/APEX per Courts region.</code></pre>
+<p><em>Rationale:</em> retains the SSCS/ListAssist/GAPS relationship correctly at its new wave position while retargeting wave 1. Citations change <code>[^d11]</code> → <code>[^d13]</code> in running text; the <code>[^d11]</code> definition is retained where a passage genuinely refers to the original decision.</p>
+<h3 id="43-wave-renumbering--100-lines-across-24-files">4.3 Wave renumbering — 100 lines across 24 files</h3>
+<p>Every "waves 2+ (Courts)" becomes "waves 3+ (Courts)", and a new wave-2 (SSCS) tier is inserted. This is <strong>not</strong> a safe find-replace: "wave 2" also appears in phrases like "each subsequent wave" and in the immutable historical reports. Apply file-by-file against the sweep inventory in §2.3.</p>
+<p>Canonical three-tier phrasing to use throughout:</p>
+<blockquote>
+<p>wave 1 = the <strong>Employment Tribunals</strong> jurisdiction; wave 2 = the <strong>SSCS</strong> Tribunals jurisdiction; waves 3+ = <strong>Courts</strong> jurisdictions per HMCTS judicial region</p>
+</blockquote>
+<h3 id="44-prd--target-users-lines-9198">4.4 PRD — Target Users (lines 91–98)</h3>
+<p><strong>OLD:</strong></p>
+<pre><code>*SSCS Tribunals jurisdiction (wave 1) — applicable roles will be enumerated against
+the ListAssist as-is analysis pack (parallel to the JI pack under
+`docs/architecture/asis/`). Working set:*
+
+- Regional Tribunal Judges (RTJ) — JOHs
+- Tribunal Judges, salaried and fee-paid — JOHs
+- Tribunal Members — Medical, Disability-Qualified, Disability (Other) — JOHs
+- Tribunal Caseworkers / scheduling admin
+- Finance / Payment Authoriser (shared with Courts jurisdiction — JFEPS path preserved)
+- MI / Reporting User (shared with Courts jurisdiction)</code></pre>
+<p><strong>NEW:</strong></p>
+<pre><code>*Employment Tribunals jurisdiction (wave 1) — **PROVISIONAL**; applicable roles will be
+enumerated against the **ET as-is analysis pack** (gap G8.5; parallel to the JI pack
+under `docs/architecture/asis/`). Working set, pending confirmation:*
+
+- Regional Employment Judges — JOHs
+- Employment Judges, salaried and fee-paid — JOHs
+- Non-legal (&quot;lay&quot;) members — employer-side and employee-side panels — JOHs
+- ET scheduling / listing admin staff
+- Finance / Payment Authoriser (shared — JFEPS path applicability to ET pending
+  verification, gap G8.6)
+- MI / Reporting User (shared across jurisdictions)
+
+*SSCS Tribunals jurisdiction (wave 2) — as previously enumerated: Regional Tribunal
+Judges (RTJ), Tribunal Judges (salaried and fee-paid), Tribunal Members (Medical,
+Disability-Qualified, Disability (Other)), Tribunal Caseworkers, Finance / Payment
+Authoriser, MI / Reporting User.*</code></pre>
+<p><em>Rationale:</em> preserves the SSCS working set verbatim at wave 2 (no analysis lost), marks the ET set provisional so downstream readers do not treat assumed role names as settled, and links each unknown to a numbered gap.</p>
+<h3 id="45-prd--journey-1">4.5 PRD — Journey 1</h3>
+<p>Journey 1 (Asha, SSCS Tribunal Caseworker, Medical Member cover) <strong>moves to the wave-2 position</strong> and a <strong>new ET Journey 1</strong> is authored covering the same service chain — absence → vacancy → booking → sitting → payment — with ET roles and a lay-member cover scenario. Journey numbering otherwise holds; the Phase-by-Phase mapping table and the "six journeys" count update accordingly.</p>
+<p><strong>Deferred to the ET as-is pack:</strong> the ET journey's persona, panel-composition trigger and off-system advertising process cannot be written credibly until R2 resolves. Draft it as a <strong>structural placeholder</strong> in this cascade and complete it at Step 5.</p>
+<h3 id="46-prd--glossary">4.6 PRD — Glossary</h3>
+<p><strong>Add:</strong> <code>Employment Tribunals (ET)</code> · <code>Employment Judge</code> · <code>Regional Employment Judge</code> · <code>Non-legal member (lay member)</code> · <code>[ET-INCUMBENT-TBD]</code> (placeholder entry stating the unknown explicitly). <strong>Amend:</strong> <code>SSCS</code> (wave-1 → wave-2 jurisdiction) · <code>ListAssist</code> (wave-1 → wave-2 parity reference) · <code>GAPS</code> (retained; wave-2 context) · <code>RTJ</code>, <code>Tribunal Member</code>, <code>Tribunal Panel</code> (relabel as SSCS/wave-2 concepts). <strong>Unchanged:</strong> <code>Jurisdiction</code> — the hierarchy definition already accommodates ET as a Tribunals child.</p>
+<h3 id="47-architecture--new-gaps">4.7 Architecture — new gaps</h3>
+<p>Append to <code>architecture/gaps.md</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Statement</th>
+<th>Resolution path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>G8.4</strong></td>
+<td><strong>ET's judicial-scheduling incumbent is unidentified.</strong> Blocks D5 (behavioural reference), FR60/NFR41 (UAT parity target), NFR36 (rollback target), NFR32 (historical-data location), and the business case's benefit statement. Recorded as <code>[ET-INCUMBENT-TBD]</code> throughout.</td>
+<td>Confirm with the ET programme; settle in the ET as-is analysis pack. Closes when the incumbent is named and the token is swept.</td>
+</tr>
+<tr>
+<td><strong>G8.5</strong></td>
+<td><strong>ET JOH type taxonomy and role set are unconfirmed.</strong> No ET evidence exists in the repo. Working assumption: Employment Judges (salaried/fee-paid), Regional Employment Judges, non-legal members (employer-side / employee-side panels).</td>
+<td><strong>ET as-is analysis pack</strong> — a new wave-1 deliverable, parallel to the JI pack under <code>docs/architecture/asis/</code>. The SSCS pack defers to wave 2.</td>
+</tr>
+<tr>
+<td><strong>G8.6</strong></td>
+<td><strong>JFEPS/Liberata applicability to ET is unverified.</strong> SSCS applicability was explicitly verified (2026-06-11, <code>payment-batch-flow.md</code>); no ET equivalent exists. If ET lay members are paid by another route, NFR21 weakens and Phase 6 acquires wave-1 risk.</td>
+<td>Re-run the payment-flow applicability verification for ET before the Phase 6 gate.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Amend G8.1</strong> — eLinks <code>jo_jurisdictions</code> coverage of ET is promoted from a general Phase 0 concern to a <strong>wave-1 blocker</strong>. <strong>Amend G8.3</strong> — retarget from "ListAssist historical access for wave 1" to "<code>[ET-INCUMBENT-TBD]</code> historical access for wave 1"; the ListAssist question survives at wave 2.</p>
+<h3 id="48-epic-ac-edits-3-lines-all-text-only">4.8 Epic AC edits (3 lines, all text-only)</h3>
+<pre><code>Epic 0.2 — line 307 · Acceptance criteria, not-yet-activated banner
+OLD: … the incumbent is ListAssist for SSCS wave 1, APEX for Courts waves 2+
+NEW: … the incumbent is [ET-INCUMBENT-TBD] for ET wave 1, ListAssist for SSCS
+     wave 2, APEX for Courts waves 3+</code></pre>
+<pre><code>Epic 0.3 — line 59 · Acceptance criteria, reference-data seed values
+OLD: … include the SSCS wave-1-relevant entries (e.g. session and work types
+     applicable to tribunal sittings) flagged for confirmation against the SSCS
+     as-is pack
+NEW: … include the ET wave-1-relevant entries (e.g. session and work types
+     applicable to Employment Tribunal sittings) flagged for confirmation against
+     the ET as-is pack (G8.5)</code></pre>
+<pre><code>Epic 0.3 — line 88 · Acceptance criteria, jurisdiction filtering example
+OLD: … e.g. an SSCS-scoped requester sees Tribunals/SSCS-relevant entries
+NEW: … e.g. an ET-scoped requester sees Tribunals/ET-relevant entries</code></pre>
+<pre><code>Epic 0.4 — line 49 · Acceptance criteria, jo_jurisdictions fixtures
+OLD: … `jo_jurisdictions` covering Tribunals/SSCS + Courts examples
+NEW: … `jo_jurisdictions` covering Tribunals/ET + Tribunals/SSCS + Courts examples</code></pre>
+<p><em>Rationale:</em> these are illustrative examples inside acceptance criteria. <strong>No story is added, removed, or re-scoped; no acceptance criterion changes shape.</strong> Phase 0 stays at 6 epics / 19 stories.</p>
+<h3 id="49-business-case--retarget-with-two-evidence-items-outstanding">4.9 Business case — retarget, with two evidence items outstanding</h3>
+<p><strong>ET as wave 1 is a settled programme decision</strong> (confirmed 2026-08-07); the case is written on that basis, not as a proposal. Mechanical retargeting (Decision Sought, Scope, Roadmap, Benefits, Asks) is straightforward. <strong>Two items carry SSCS-gathered evidence that does not transfer, and are flagged inline as outstanding rather than as open questions:</strong></p>
+<ul>
+<li><strong>Strategic Case, driver #2</strong> — currently "SSCS scheduling depends on ListAssist, a separate aged tool". The ET equivalent lands with G8.4.</li>
+<li><strong>Options appraisal, Option C</strong> — the "contained, lower-risk wave" risk profile was assessed for SSCS. ET's equivalent lands with the ET as-is analysis pack (G8.5).</li>
+</ul>
+<h3 id="410-repo-level-and-generated">4.10 Repo-level and generated</h3>
+<ul>
+<li><code>CLAUDE.md</code> line 9 · <code>README.md</code> line 9 — programme summary retargeted to the three-tier wave sequence</li>
+<li><code>_bmad-output/project-context.md</code> line 71 — incumbent-parity rule: <code>(ET [ET-INCUMBENT-TBD] wave 1 / ListAssist SSCS wave 2 / APEX Courts waves 3+)</code></li>
+<li><strong><code>.claude/memory/project_bmad_ram_pathfinder_state.md</code></strong> (git-tracked working-state file) — <strong>highest misdirection risk of any file in this list.</strong> Its "Next" and "Remaining cascade" sections instruct the next session to run an <em>SSCS-cohort</em> readiness assessment and commission an <em>SSCS as-is analysis pack</em>; both now retarget to ET. Line 10 additionally carries pre-v3.7 staleness ("SSCS jurisdiction (replacing GAPS)") that the 2026-06-18 correction never reached. Retarget the forward-looking sections; leave the dated <strong>Done</strong> entries as history.</li>
+<li><code>scripts/python/build_html.py</code> — add <code>("Sprint Change Proposal — 2026-08-07 (ET-first pilot)", "sprint-change-proposal-2026-08-07", False)</code> to <code>NAV</code>. Leave the two historical SSCS-labelled <code>NAV</code> strings (lines 239, 241) untouched.</li>
+<li><code>architecture/changelog.md</code> — <strong>append v4.0</strong> ("Wave-1 pilot retargets SSCS → Employment Tribunals; SSCS to wave 2; Courts to waves 3+; D13 supersedes D11; new gaps G8.4–G8.6"). Existing rows are immutable history.</li>
+<li><code>docs/**</code> — regenerate via <code>scripts/build-html.sh</code>. Never hand-edit.</li>
+</ul>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Change scope: Major.</strong> Documentation-only with zero code impact, but it supersedes D11 — the decision that drove the largest cascade in this project's history (architecture v3.0) — re-sequences every rollout wave, and reopens the business case's core justification. It needs PM/Architect judgement, not just an editor.</p>
+<table>
+<thead>
+<tr>
+<th>Recipient</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Product Manager</strong></td>
+<td>Own D13. Refresh the business case's ET evidence once G8.4/G8.5 land (R5 / §4.9) — the jurisdiction choice is settled; the driver and risk profile are the outstanding inputs. Confirm SSCS's wave-2 position with the programme.</td>
+</tr>
+<tr>
+<td><strong>Solution Architect</strong></td>
+<td>Own the cascade across <code>architecture.md</code>, the 11 shards, and the epics. Append changelog v4.0. Raise G8.4–G8.6; amend G8.1 and G8.3.</td>
+</tr>
+<tr>
+<td><strong>Business Analyst</strong></td>
+<td>Commission and produce the <strong>ET as-is analysis pack</strong> — the long pole. It gates G8.4, G8.5 and the ET Journey 1.</td>
+</tr>
+<tr>
+<td><strong>Product Owner</strong></td>
+<td>Apply the four epic AC edits (§4.8). Confirm the ledger and dispatch graph need no change (verified: they do not).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Success criteria</strong></p>
+<ol type="1">
+<li><code>grep -ri "sscs" _bmad-output/planning-artifacts/</code> returns hits <strong>only</strong> in wave-2 contexts and in immutable historical reports.</li>
+<li>No line asserts "waves 2+ = Courts". The three-tier sequence reads consistently in all 24 affected files.</li>
+<li><code>[ET-INCUMBENT-TBD]</code> appears wherever wave 1 needs an incumbent, and <strong>nowhere is an ET incumbent asserted as fact</strong>.</li>
+<li>Every provisional ET role name carries its <em>pending ET as-is pack</em> flag.</li>
+<li>Phase 0 is still 6 epics / 19 stories; <code>dispatch-graph.yaml</code> and <code>delivery/ledger/</code> are unchanged.</li>
+<li><code>architecture/changelog.md</code> has a v4.0 row; no prior row is altered.</li>
+<li><code>scripts/build-html.sh</code> runs clean and this SCP appears in the site nav.</li>
+<li>G8.4, G8.5, G8.6 are open with named owners.</li>
+</ol>
+<p><strong>Explicitly not done in this run:</strong> resolving G8.4–G8.6 · producing the ET as-is pack · the ET-cohort readiness assessment · decomposing phases 1–8.</p>
+<hr />
+</div></details><details class="section" id="appendix--sweep-inventory-2026-08-07"><summary><span class="section-title">Appendix — Sweep inventory (2026-08-07)</span></summary><div class="section-body">
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th style="text-align: right;">SSCS</th>
+<th style="text-align: right;">ListAssist</th>
+<th style="text-align: right;">wave 2</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prd.md</code></td>
+<td style="text-align: right;">61</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">37</td>
+<td>Full cascade</td>
+</tr>
+<tr>
+<td><code>prd-validation-report-2026-06-10.md</code></td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">4</td>
+<td><strong>Immutable</strong></td>
+</tr>
+<tr>
+<td><code>sprint-change-proposal-2026-06-10.md</code></td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">8</td>
+<td><strong>Immutable</strong></td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">12</td>
+<td>Full cascade</td>
+</tr>
+<tr>
+<td><code>business-case.md</code></td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6</td>
+<td>Cascade + evidence refresh (2 items)</td>
+</tr>
+<tr>
+<td><code>prd-validation-report-2026-06-17.md</code></td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">1</td>
+<td><strong>Immutable</strong></td>
+</tr>
+<tr>
+<td><code>implementation-readiness-report-2026-06-17.md</code></td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td><strong>Immutable</strong></td>
+</tr>
+<tr>
+<td><code>architecture-summary.md</code></td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
+<td>Full cascade</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td>Cascade (Phase 9 section rewritten)</td>
+</tr>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td>Cascade</td>
+</tr>
+<tr>
+<td><code>sprint-change-proposal-2026-06-17.md</code></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td><strong>Immutable</strong></td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>Cascade</td>
+</tr>
+<tr>
+<td><code>architecture/user-types.md</code></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>Cascade + ET role placeholder</td>
+</tr>
+<tr>
+<td><code>architecture/data-tables.md</code></td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>Cascade (text only — no schema change)</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.3-…md</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>2 AC lines</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>Cascade</td>
+</tr>
+<tr>
+<td><code>architecture/sequence-diagrams/payment-batch-flow.md</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td>Cascade + <strong>G8.6 re-verification</strong></td>
+</tr>
+<tr>
+<td><code>architecture/non-functional-requirements-coverage.md</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>Cascade</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>Cascade + G8.4–G8.6</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td>Cascade</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.4-…md</code></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td>1 AC line</td>
+</tr>
+<tr>
+<td><code>architecture/functional-requirements-coverage.md</code></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>Cascade</td>
+</tr>
+<tr>
+<td><code>architecture/conventions.md</code></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+<td>Cascade</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td><strong>Append v4.0 only</strong></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.2-…md</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>1 AC line</td>
+</tr>
+<tr>
+<td><code>architecture/sequence-diagrams/joh-onboarding-…md</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>Footnote</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>Footnote</td>
+</tr>
+<tr>
+<td><code>architecture/repo-structure.md</code></td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>UAT-path note</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>Programme summary</td>
+</tr>
+<tr>
+<td><code>README.md</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td>Programme summary</td>
+</tr>
+<tr>
+<td><code>_bmad-output/project-context.md</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">—</td>
+<td>Parity rule</td>
+</tr>
+<tr>
+<td><code>.claude/memory/project_bmad_ram_pathfinder_state.md</code></td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">1</td>
+<td>Retarget forward-looking sections; <strong>Done</strong> entries immutable</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td><strong>Add NAV row only</strong> — existing labels immutable</td>
+</tr>
+<tr>
+<td><code>docs/architecture/asis/**</code></td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td><strong>Read-only source — do not edit</strong></td>
+</tr>
+<tr>
+<td><code>queries/sscs-locations-queries.md</code></td>
+<td style="text-align: right;">n/a</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td>Legacy/exploratory — out of scope</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>Generated by <code>bmad-correct-course</code> · Batch mode · 2026-08-07</em></p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-07.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-the-central-finding--the-architecture-already-absorbs-this">2.1 The central finding — the architecture already absorbs this</a></li><li class="h3"><a href="#22-epic-impact">2.2 Epic impact</a></li><li class="h3"><a href="#23-artifact-conflicts">2.3 Artifact conflicts</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li class="h3"><a href="#25-new-risks-and-open-questions--the-substantive-cost-of-this-change">2.5 New risks and open questions — the substantive cost of this change</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li class="h3"><a href="#options-evaluated">Options evaluated</a></li><li class="h3"><a href="#recommended-hybrid--direct-adjustment--business-case-evidence-refresh-sequenced-behind-discovery">Recommended: Hybrid — Direct Adjustment + business-case evidence refresh, sequenced behind discovery</a></li><li class="h3"><a href="#proposed-sequencing">Proposed sequencing</a></li><li><a href="#section-4--detailed-change-proposals">Section 4 — Detailed Change Proposals</a></li><li class="h3"><a href="#41-decisions">4.1 Decisions</a></li><li class="h3"><a href="#42-the-d11-footnote--one-edit-20-files">4.2 The [^d11] footnote — one edit, ~20 files</a></li><li class="h3"><a href="#43-wave-renumbering--100-lines-across-24-files">4.3 Wave renumbering — 100 lines across 24 files</a></li><li class="h3"><a href="#44-prd--target-users-lines-9198">4.4 PRD — Target Users (lines 91–98)</a></li><li class="h3"><a href="#45-prd--journey-1">4.5 PRD — Journey 1</a></li><li class="h3"><a href="#46-prd--glossary">4.6 PRD — Glossary</a></li><li class="h3"><a href="#47-architecture--new-gaps">4.7 Architecture — new gaps</a></li><li class="h3"><a href="#48-epic-ac-edits-3-lines-all-text-only">4.8 Epic AC edits (3 lines, all text-only)</a></li><li class="h3"><a href="#49-business-case--retarget-with-two-evidence-items-outstanding">4.9 Business case — retarget, with two evidence items outstanding</a></li><li class="h3"><a href="#410-repo-level-and-generated">4.10 Repo-level and generated</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li><li><a href="#appendix--sweep-inventory-2026-08-07">Appendix — Sweep inventory (2026-08-07)</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-07";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

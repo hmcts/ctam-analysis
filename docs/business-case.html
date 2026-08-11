@@ -111,7 +111,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>Decision sought</strong></td>
-<td>Approval to fund and proceed with the RAM Pathfinder MVP, delivering the SSCS Tribunals jurisdiction as wave 1.</td>
+<td>Approval to fund and proceed with the RAM Pathfinder MVP, delivering the <strong>Employment Tribunals (ET)</strong> jurisdiction as wave 1 (SSCS wave 2; Courts waves 3+).</td>
 </tr>
 </tbody>
 </table>
@@ -120,14 +120,17 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </blockquote>
 <hr />
 <details class="section" id="1-executive-summary"><summary><span class="section-title">1. Executive Summary</span></summary><div class="section-body">
-<p>RAM Pathfinder is a greenfield, API-driven platform for judicial scheduling across HMCTS Tribunals and Courts — the planning, allocation, confirmation and payment of sittings for Judicial Office Holders (JOHs). This case seeks approval to fund the <strong>MVP</strong>, rolled out <strong>jurisdiction by jurisdiction</strong>, starting with the <strong>SSCS Tribunals jurisdiction in wave 1</strong>.</p>
+<p>RAM Pathfinder is a greenfield, API-driven platform for judicial scheduling across HMCTS Tribunals and Courts — the planning, allocation, confirmation and payment of sittings for Judicial Office Holders (JOHs). This case seeks approval to fund the <strong>MVP</strong>, rolled out <strong>jurisdiction by jurisdiction</strong>, starting with the <strong>Employment Tribunals (ET) jurisdiction in wave 1</strong>, followed by SSCS in wave 2 and the Courts jurisdictions in waves 3+.</p>
+<blockquote>
+<p><strong>Note (2026-08-07).</strong> The wave-1 jurisdiction is <strong>ET — a settled programme decision</strong> (D13; see <code>sprint-change-proposal-2026-08-07.md</code>). SSCS moves to wave 2 and Courts to waves 3+. Two items of <strong>supporting evidence</strong> remain outstanding and are flagged inline: the wave-1 jurisdiction's replacement driver (§ Strategic Case, driver 2) and the risk profile behind the phased-rollout rationale (§ Options appraisal) — both were originally evidenced for SSCS. ET's judicial-scheduling incumbent is not yet identified (gap G8.4), so the wave-1 legacy-retirement benefit is not yet quantified. These are <strong>evidence-gathering items for the ET as-is analysis pack, not open questions about the choice of jurisdiction.</strong></p>
+</blockquote>
 <p>Two problems drive the investment:</p>
 <ol type="1">
-<li><strong>Aged and unsupported incumbents.</strong> In Courts, the JI application runs on <strong>Oracle APEX (OPT)</strong>, which is unsupported with a fixed end-of-life <code>Dec 2028</code>. In Tribunals, SSCS judicial scheduling runs on a combination of <strong>ListAssist</strong> (used by Cardiff only) and other legacy systems (used by other SSCS jurisdictions), which RAM Pathfinder replaces in wave 1.</li>
+<li><strong>Aged and unsupported incumbents.</strong> In Courts, the JI application runs on <strong>Oracle APEX (OPT)</strong>, which is unsupported with a fixed end-of-life <code>Dec 2028</code>. In Tribunals/SSCS, judicial scheduling runs on a combination of <strong>ListAssist</strong> (used by Cardiff only) and other legacy systems (used by other SSCS jurisdictions), which RAM Pathfinder replaces in <strong>wave 2</strong>. In Tribunals/ET — the wave-1 pilot — the incumbent scheduling arrangement is being established through the ET as-is analysis pack (gap G8.4); the wave-1 replacement driver is stated once it lands.</li>
 <li><strong>An export-only integration model</strong> (Excel, PDF, email) that cannot serve the upcoming HMCTS programmes (Actuals, Scheduling &amp; Listing reform, DA&amp;I MI consumption).</li>
 </ol>
-<p>The recommended option is to build RAM Pathfinder as a modern, accessible, API-first platform on the HMCTS-approved cloud stack (Azure, Java/Spring Boot, Kubernetes), and to <strong>prove it on SSCS first</strong> before committing to the wider Courts rollout. SSCS is a contained, lower-risk wave that exercises the full platform end-to-end and de-risks every subsequent wave.</p>
-<p><strong>Investment sought:</strong> <code>[PLACEHOLDER: total MVP cost / wave 1 funding envelope]</code>. <strong>Indicative benefit:</strong> retirement of ListAssist for SSCS scheduling, a reusable API platform for all judicial jurisdictions, and a path to decommissioning the unsupported APEX estate in later waves — quantified benefits at <code>[PLACEHOLDER]</code>.</p>
+<p>The recommended option is to build RAM Pathfinder as a modern, accessible, API-first platform on the HMCTS-approved cloud stack (Azure, Java/Spring Boot, Kubernetes), and to <strong>prove it on a single Tribunals jurisdiction — ET — first</strong>, before committing to the wider Courts rollout. A single-jurisdiction pilot exercises the full platform end-to-end and de-risks every subsequent wave. <em>(The quantified risk profile for ET is pending the ET as-is analysis pack, G8.5; the corresponding SSCS assessment now applies to wave 2.)</em></p>
+<p><strong>Investment sought:</strong> <code>[PLACEHOLDER: total MVP cost / wave 1 funding envelope]</code>. <strong>Indicative benefit:</strong> a reusable API platform for all judicial jurisdictions; retirement of the ET scheduling incumbent in wave 1 (quantified once G8.4 identifies it); retirement of ListAssist for SSCS scheduling in wave 2; and a path to decommissioning the unsupported APEX estate in later waves — quantified benefits at <code>[PLACEHOLDER]</code>.</p>
 <hr />
 </div></details><details class="section" id="2-strategic-context"><summary><span class="section-title">2. Strategic Context</span></summary><div class="section-body">
 <p>RAM Pathfinder aligns with HMCTS's strategic direction on several fronts:</p>
@@ -137,7 +140,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>API-as-Product.</strong> Versioned, documented, deprecation-governed APIs let downstream HMCTS programmes integrate directly, replacing brittle file exports.</li>
 <li><strong>Risk reduction.</strong> The unsupported APEX platform is a standing operational and security risk; this programme provides the only credible replacement path.</li>
 </ul>
-<p><strong>Why now:</strong> APEX is unsupported with its own end-of-life; every month on the legacy systems delays the API integration the wider HMCTS ecosystem depends on. SSCS is ready as a first wave and provides a low-risk proving ground.</p>
+<p><strong>Why now:</strong> APEX is unsupported with its own end-of-life; every month on the legacy systems delays the API integration the wider HMCTS ecosystem depends on. ET is the selected first wave (D13); its readiness profile is being established through the ET as-is analysis pack (G8.5).</p>
 <hr />
 </div></details><details class="section" id="3-the-problem"><summary><span class="section-title">3. The Problem</span></summary><div class="section-body">
 <table>
@@ -156,7 +159,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>2</td>
-<td>SSCS scheduling depends on <strong>ListAssist</strong>, a separate aged tool</td>
+<td>Tribunals scheduling depends on separate aged tooling — <strong>ListAssist</strong> in SSCS (wave 2); the <strong>ET equivalent is to be identified</strong> (G8.4)</td>
 <td>Fragmented tooling; no shared platform or modern UX for Tribunals</td>
 </tr>
 <tr>
@@ -184,7 +187,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><strong>A — Do nothing</strong></td>
-<td>Keep APEX and ListAssist as-is</td>
+<td>Keep APEX, ListAssist and the ET incumbent as-is</td>
 <td><strong>Rejected.</strong> APEX is unsupported; continuity and security risk grows; integration debt compounds. Not viable past APEX EOL.</td>
 </tr>
 <tr>
@@ -194,25 +197,25 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>C — Greenfield platform, phased per jurisdiction (Recommended)</strong></td>
-<td>Build RAM Pathfinder end-to-end; prove on SSCS wave 1; roll out to Courts regions in later waves</td>
+<td>Build RAM Pathfinder end-to-end; prove on <strong>ET wave 1</strong>; SSCS wave 2; roll out to Courts regions in waves 3+</td>
 <td><strong>Recommended.</strong> Removes the legacy risk, delivers the strategic API platform, and contains delivery risk through phased, wave-by-wave cutover.</td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="why-greenfield-not-strangler-neither-listassist-nor-apex-supports-strangler-decomposition-ram-pathfinder-is-built-end-to-end-before-any-user-moves-each-jurisdictions-legacy-system-runs-unchanged-for-non-migrated-users-during-phased-rollout-no-dual-write-no-synchronisation-layer--a-simpler-lower-risk-delivery-model"><summary><span class="section-title"><strong>Why greenfield, not strangler:</strong> neither ListAssist nor APEX supports strangler decomposition. RAM Pathfinder is built end-to-end before any user moves; each jurisdiction's legacy system runs unchanged for non-migrated users during phased rollout. No dual-write, no synchronisation layer — a simpler, lower-risk delivery model.</span></summary><div class="section-body">
+</div></details><details class="section" id="why-greenfield-not-strangler-neither-listassist-nor-apex-supports-strangler-decomposition-the-et-incumbent-is-unassessed--g84-ram-pathfinder-is-built-end-to-end-before-any-user-moves-each-jurisdictions-legacy-system-runs-unchanged-for-non-migrated-users-during-phased-rollout-no-dual-write-no-synchronisation-layer--a-simpler-lower-risk-delivery-model"><summary><span class="section-title"><strong>Why greenfield, not strangler:</strong> neither ListAssist nor APEX supports strangler decomposition (the ET incumbent is unassessed — G8.4). RAM Pathfinder is built end-to-end before any user moves; each jurisdiction's legacy system runs unchanged for non-migrated users during phased rollout. No dual-write, no synchronisation layer — a simpler, lower-risk delivery model.</span></summary><div class="section-body">
 </div></details><details class="section" id="5-recommended-option-c--scope"><summary><span class="section-title">5. Recommended Option (C) — Scope</span></summary><div class="section-body">
-<p><strong>This investment decision covers the MVP, delivered as SSCS wave 1.</strong></p>
+<p><strong>This investment decision covers the MVP, delivered as ET wave 1.</strong></p>
 <p>In scope for the MVP:</p>
 <ul>
 <li>All services built end-to-end (Reference Data, Authorisation, Notification, JOH, Absence, Vacancy, Booking, Sitting, Payment, Itinerary, MI Feed).</li>
 <li>Reference data sourced live from the <strong>JOH eLinks API + MRD feed</strong> — no legacy data migration, no ETL.</li>
 <li>SSO authentication (HMCTS IdP) with RAM-owned authorisation; two user populations (JOHs and admin staff).</li>
-<li>Modern, accessible business-user UI replicating the SSCS incumbent's functional surface.</li>
-<li><strong>SSCS Tribunals jurisdiction cutover (wave 1)</strong>, with behavioural parity verified by manual UAT performed by ListAssist-experienced users.</li>
+<li>Modern, accessible business-user UI replicating the wave-1 incumbent's functional surface (scoped by the ET as-is analysis pack — G8.4/G8.5).</li>
+<li><strong>Employment Tribunals jurisdiction cutover (wave 1)</strong>, with behavioural parity verified by manual UAT performed by incumbent-experienced users (panel constituted once G8.4 identifies the incumbent).</li>
 <li>API-as-Product standards from Phase 0; JFEPS-compatible payment export preserved unchanged.</li>
 </ul>
 <p>Deferred (post-MVP roadmap, <strong>not in this case</strong>): admin UI and admin-write APIs; structured user-action audit; full metrics/traces observability; event streams/webhooks; active matching/allocation (an external-system concern); historical-data access policy.</p>
-<p><strong>Strategic horizon (subsequent business cases / waves):</strong> Courts jurisdictions (Civil, Family, Crown, Crime) migrate region by region in waves 2+, retiring APEX; external HMCTS programmes onboard onto RAM Pathfinder's APIs.</p>
+<p><strong>Strategic horizon (subsequent business cases / waves):</strong> Courts jurisdictions (Civil, Family, Crown, Crime) migrate region by region in waves 3+, retiring APEX; external HMCTS programmes onboard onto RAM Pathfinder's APIs.</p>
 <hr />
 </div></details><details class="section" id="6-expected-benefits"><summary><span class="section-title">6. Expected Benefits</span></summary><div class="section-body">
 <table>
@@ -225,7 +228,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td>ListAssist replaced for Tribunals/SSCS judicial scheduling</td>
+<td>ET scheduling incumbent replaced for Tribunals/ET judicial scheduling</td>
+<td>Operational</td>
+<td>ET jurisdiction live on RAM Pathfinder (incumbent to be named — G8.4)</td>
+</tr>
+<tr>
+<td>ListAssist replaced for Tribunals/SSCS judicial scheduling (wave 2)</td>
 <td>Operational</td>
 <td>SSCS jurisdiction live on RAM Pathfinder; ListAssist retired for scheduling</td>
 </tr>
@@ -237,7 +245,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>Path to retiring unsupported APEX</td>
 <td>Risk reduction</td>
-<td>APEX decommissioned progressively as Courts regions migrate (waves 2+)</td>
+<td>APEX decommissioned progressively as Courts regions migrate (waves 3+)</td>
 </tr>
 <tr>
 <td>Modern, accessible, performant UX</td>
@@ -308,14 +316,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>Indicative whole-programme (waves 2+)</td>
 <td><code>[PLACEHOLDER]</code></td>
-<td>For context only; funded under subsequent cases</td>
+<td>For context only; funded under subsequent cases — now covers SSCS wave 2 <strong>and</strong> Courts waves 3+</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Funding source:</strong> <code>[PLACEHOLDER: programme budget line / sponsor]</code>. <strong>Commercial route:</strong> delivered by ScrumConnect as delivery partner under <code>[PLACEHOLDER: framework / contract vehicle]</code>.</p>
 <hr />
 </div></details><details class="section" id="8-delivery-approach--timeline"><summary><span class="section-title">8. Delivery Approach &amp; Timeline</span></summary><div class="section-body">
-<p>Delivery follows a phased build (Phase 0 foundations → Phases 1–8 domain services) then a per-jurisdiction cutover (Phase 9 — SSCS wave 1). Phase 0 doubles as a <strong>platform smoke-test</strong>, exercising the API, deployment and authorisation foundations before any domain service is built.</p>
+<p>Delivery follows a phased build (Phase 0 foundations → Phases 1–8 domain services) then a per-jurisdiction cutover (Phase 9 — <strong>ET wave 1</strong>). Phase 0 doubles as a <strong>platform smoke-test</strong>, exercising the API, deployment and authorisation foundations before any domain service is built.</p>
 <table>
 <thead>
 <tr>
@@ -336,7 +344,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>Planned</td>
 </tr>
 <tr>
-<td>Phase 9 — SSCS wave 1 cutover</td>
+<td>Phase 9 — ET wave 1 cutover</td>
 <td><code>[PLACEHOLDER]</code></td>
 <td>Planned</td>
 </tr>
@@ -370,7 +378,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>2</td>
 <td>Cross-region operations during partial Courts rollout</td>
 <td>Med / Med</td>
-<td>Documented manual coordination for the rollout window; resolves as regions migrate (waves 2+, not wave 1).</td>
+<td>Documented manual coordination for the rollout window; resolves as regions migrate (waves 3+, not wave 1).</td>
 </tr>
 <tr>
 <td>3</td>
@@ -388,7 +396,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>5</td>
 <td>Historical-data access at cutover</td>
 <td>Low / Med</td>
-<td>History remains in the incumbent (ListAssist/APEX); access policy is a separate, deferred decision.</td>
+<td>History remains in the incumbent (ET incumbent TBC / ListAssist / APEX); access policy is a separate, deferred decision.</td>
 </tr>
 <tr>
 <td>6</td>
@@ -404,25 +412,26 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Judiciary/HMCTS IdP (SSO) available for authentication; password/session/account lifecycle owned centrally, external to RAM Pathfinder.</li>
 <li>JOH eLinks API and MRD weekly feed available as the reference-data sources (no legacy migration).</li>
 <li>JFEPS / Liberata payment process unchanged; RAM generates the JFEPS-shaped Excel only.</li>
-<li>RAM Pathfinder serves the Tribunals/SSCS case-management system via APIs (RAM manages availability/scheduling, not case/hearing management/listing cases).</li>
+<li>RAM Pathfinder serves each jurisdiction's case-management system via APIs (RAM manages availability/scheduling, not case/hearing management/listing cases). The ET case-management system is to be identified (G8.5).</li>
 <li>HMCTS-approved technology stack confirmed (Azure UK South, Java 25 / Spring Boot 4, Kubernetes).</li>
-<li>Tribunals/SSCS as the chosen wave-1 jurisdiction.</li>
+<li>Tribunals/ET as the chosen wave-1 jurisdiction (D13); Tribunals/SSCS as wave 2.</li>
 <li><code>[PLACEHOLDER: any procurement / commercial / security-accreditation dependencies]</code>.</li>
 </ul>
 <hr />
 </div></details><details class="section" id="11-recommendation"><summary><span class="section-title">11. Recommendation</span></summary><div class="section-body">
-<p>Proceed with <strong>Option C</strong> and fund the <strong>RAM Pathfinder MVP delivered as Tribunals/SSCS wave 1</strong>. It is the only option that removes the unsupported-APEX risk over time, delivers the strategic API platform HMCTS programmes need, and contains delivery risk by proving the platform on a single, lower-risk jurisdiction before the wider Courts rollout.</p>
+<p>Proceed with <strong>Option C</strong> and fund the <strong>RAM Pathfinder MVP delivered as Tribunals/ET wave 1</strong>. It is the only option that removes the unsupported-APEX risk over time, delivers the strategic API platform HMCTS programmes need, and contains delivery risk by proving the platform on a single jurisdiction before the wider Courts rollout.</p>
 <p><strong>Decision requested from the Programme Board:</strong></p>
 <ol type="1">
-<li>Approve the MVP / SSCS wave-1 funding envelope of <code>[PLACEHOLDER]</code>.</li>
+<li>Approve the MVP / <strong>ET wave-1</strong> funding envelope of <code>[PLACEHOLDER]</code>.</li>
+<li>Commission the <strong>ET as-is analysis pack</strong> (G8.5) and resolve the <strong>ET scheduling incumbent</strong> (G8.4) — both are wave-1 delivery blockers and supply the outstanding benefit and risk evidence for this case.</li>
 <li>Confirm the funding source and commercial route.</li>
-<li>Endorse the phased, per-jurisdiction rollout strategy, with Courts waves 2+ funded under subsequent business cases.</li>
+<li>Endorse the phased, per-jurisdiction rollout strategy, with SSCS wave 2 and Courts waves 3+ funded under subsequent business cases.</li>
 </ol>
 <hr />
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/business-case.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-executive-summary">1. Executive Summary</a></li><li><a href="#2-strategic-context">2. Strategic Context</a></li><li><a href="#3-the-problem">3. The Problem</a></li><li><a href="#4-options-considered">4. Options Considered</a></li><li><a href="#why-greenfield-not-strangler-neither-listassist-nor-apex-supports-strangler-decomposition-ram-pathfinder-is-built-end-to-end-before-any-user-moves-each-jurisdictions-legacy-system-runs-unchanged-for-non-migrated-users-during-phased-rollout-no-dual-write-no-synchronisation-layer--a-simpler-lower-risk-delivery-model">Why greenfield, not strangler: neither ListAssist nor APEX supports strangler decomposition. RAM Pathfinder is built end-to-end before any user moves; each jurisdiction's legacy system runs unchanged for non-migrated users during phased rollout. No dual-write, no synchronisation layer — a simpler, lower-risk delivery model.</a></li><li><a href="#5-recommended-option-c--scope">5. Recommended Option (C) — Scope</a></li><li><a href="#6-expected-benefits">6. Expected Benefits</a></li><li><a href="#7-costs--funding">7. Costs &amp; Funding</a></li><li><a href="#8-delivery-approach--timeline">8. Delivery Approach &amp; Timeline</a></li><li><a href="#9-key-risks--mitigations">9. Key Risks &amp; Mitigations</a></li><li><a href="#10-assumptions--dependencies">10. Assumptions &amp; Dependencies</a></li><li><a href="#11-recommendation">11. Recommendation</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-executive-summary">1. Executive Summary</a></li><li><a href="#2-strategic-context">2. Strategic Context</a></li><li><a href="#3-the-problem">3. The Problem</a></li><li><a href="#4-options-considered">4. Options Considered</a></li><li><a href="#why-greenfield-not-strangler-neither-listassist-nor-apex-supports-strangler-decomposition-the-et-incumbent-is-unassessed--g84-ram-pathfinder-is-built-end-to-end-before-any-user-moves-each-jurisdictions-legacy-system-runs-unchanged-for-non-migrated-users-during-phased-rollout-no-dual-write-no-synchronisation-layer--a-simpler-lower-risk-delivery-model">Why greenfield, not strangler: neither ListAssist nor APEX supports strangler decomposition (the ET incumbent is unassessed — G8.4). RAM Pathfinder is built end-to-end before any user moves; each jurisdiction's legacy system runs unchanged for non-migrated users during phased rollout. No dual-write, no synchronisation layer — a simpler, lower-risk delivery model.</a></li><li><a href="#5-recommended-option-c--scope">5. Recommended Option (C) — Scope</a></li><li><a href="#6-expected-benefits">6. Expected Benefits</a></li><li><a href="#7-costs--funding">7. Costs &amp; Funding</a></li><li><a href="#8-delivery-approach--timeline">8. Delivery Approach &amp; Timeline</a></li><li><a href="#9-key-risks--mitigations">9. Key Risks &amp; Mitigations</a></li><li><a href="#10-assumptions--dependencies">10. Assumptions &amp; Dependencies</a></li><li><a href="#11-recommendation">11. Recommendation</a></li></ul></aside>
 <script>window.__NAV_BASE__="./";window.__PAGE__="business-case";</script>
 <script src="./nav.js"></script>
 <script>

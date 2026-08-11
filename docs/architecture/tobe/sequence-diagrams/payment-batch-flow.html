@@ -90,7 +90,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="payment-batch-flow">Payment-batch flow</h1>
 <p>Sequence diagram of the scheduled, non-user-initiated half of the operational cycle. A scheduler triggers the payment-processing batch. The batch authenticates as a service principal, picks up bookings/sittings that are confirmed but unpaid, generates the JFEPS Excel, and dispatches it via Notification → HMCTS Email to the Payment Authoriser. The authoriser uploads to Liberata out-of-band; Liberata pays the JOH.</p>
-<p><strong>SSCS applicability verified (2026-06-11, per SCP 2026-06-10 / D11):</strong> this flow is preserved <strong>unchanged</strong> for SSCS wave 1 — tribunal-member payments (Medical, Disability-Qualified, Disability (Other) members) use the same JFEPS Excel + email-to-Authoriser + Liberata path as Courts fee-paid bookings (NFR21 amended 2026-06-10). No SSCS-specific variation to the batch, the schedule shape, or the dispatch mechanism.</p>
+<p><strong>SSCS applicability verified (2026-06-11, per SCP 2026-06-10 / D11):</strong> this flow is preserved <strong>unchanged</strong> for SSCS — now <strong>wave 2</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> — tribunal-member payments (Medical, Disability-Qualified, Disability (Other) members) use the same JFEPS Excel + email-to-Authoriser + Liberata path as Courts fee-paid bookings (NFR21 amended 2026-06-10). No SSCS-specific variation to the batch, the schedule shape, or the dispatch mechanism.</p>
+<blockquote>
+<p><strong>⚠ ET applicability NOT yet verified (gap G8.6, raised 2026-08-07<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>).</strong> Wave 1 is now the <strong>Employment Tribunals</strong> jurisdiction, and no equivalent verification has been performed for it. NFR21 asserts the JFEPS path is preserved unchanged for wave 1 — that assertion currently rests on the SSCS check above, which does not transfer. <strong>If ET fee-paid judiciary or non-legal ("lay") members are paid through a different route, NFR21 weakens and Phase 6 acquires wave-1 delivery risk it does not presently carry.</strong> Re-run this applicability verification for ET — same method as the 2026-06-11 SSCS check — before the Phase 6 gate, and record the outcome here.</p>
+</blockquote>
 <p>Companion to <a href="absence-to-reconciliation.html"><code>./absence-to-reconciliation.md</code></a>. The user-initiated flow ends with a booking marked confirmed and ready for payment; this batch picks up the record on its next scheduled run.</p>
 <p>Four phases: (1) scheduler + batch authentication; (2–3) the batch's work; (4) out-of-band processing in Liberata. Phases are colour-tinted in the diagram.</p>
 <details class="section" id="what-is-and-isnt-in-this-diagram"><summary><span class="section-title">What is and isn't in this diagram</span></summary><div class="section-body">
@@ -190,7 +193,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 </tbody>
 </table>
-</div></details>
+</div></details><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/architecture/sequence-diagrams/payment-batch-flow.md</code></p>
 </main>
 <aside class="toc"><h4>On this page</h4><ul><li><a href="#what-is-and-isnt-in-this-diagram">What is and isn't in this diagram</a></li><li><a href="#cross-cutting-steps-omitted-for-clarity">Cross-cutting steps omitted for clarity</a></li><li><a href="#phase-summary">Phase summary</a></li><li><a href="#where-to-find-more-detail">Where to find more detail</a></li></ul></aside>

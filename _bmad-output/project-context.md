@@ -68,7 +68,7 @@ _This file contains critical rules and patterns that AI agents must follow when 
 
 - Unit `*Test.java` (mock deps) · Integration `*IT.java` (Testcontainers PostgreSQL) · Contract (Pact) — every commit. E2E (Playwright) one suite per phase as a gate.
 - **Coverage target = behaviour coverage, not line coverage;** PRs justify behaviour, not coverage stats.
-- **Incumbent parity (ListAssist SSCS / APEX Courts) is MANUAL UAT** under `docs/uat/` per service — a wave-cutover sign-off gate, **not** a CI harness. No `*ApexParityTest.java`.
+- **Incumbent parity (`[ET-INCUMBENT-TBD]` ET wave 1 / ListAssist SSCS wave 2 / APEX Courts waves 3+) is MANUAL UAT** under `docs/uat/` per service — a wave-cutover sign-off gate, **not** a CI harness. No `*ApexParityTest.java`.
 
 ### Workflow & enforcement
 

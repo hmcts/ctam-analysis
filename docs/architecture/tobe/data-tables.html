@@ -94,7 +94,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </blockquote>
 <details class="section" id="ram-pathfinder-tables-not-legacy-tables"><summary><span class="section-title">RAM Pathfinder tables, not legacy tables</span></summary><div class="section-body">
 <p>This is the inventory of RAM Pathfinder database tables, grouped by owning service. The table list, column shapes, FK relationships, and ownership boundaries are RAM Pathfinder's design.</p>
-<p>ListAssist and APEX have their own (different) schemas; neither is in this inventory and neither is owned by any RAM Pathfinder service. <strong>No legacy data is migrated from either system</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from the upstream sources of truth:</p>
+<p>The incumbent scheduling systems — <code>[ET-INCUMBENT-TBD]</code> (ET wave 1, unidentified per G8.4), ListAssist (SSCS wave 2) and APEX (Courts waves 3+) — have their own (different) schemas; none is in this inventory and none is owned by any RAM Pathfinder service. <strong>No legacy data is migrated from any of them</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from the upstream sources of truth:</p>
 <ul>
 <li><strong>JOH eLinks API</strong> → the 15 <code>jo_*</code> tables (nightly in-process scheduled sync inside <code>ram-reference-data</code>).</li>
 <li><strong>MRD (Master Reference Data)</strong> → the <code>mrd_*</code> tables (weekly Excel feed via blob drop + scheduled pick-up, until MRD's public APIs ship).</li>
@@ -120,7 +120,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>(b) RAM-owned</strong> (everything else)</td>
-<td>The owning service; DBAs via SQL per runbook in MVP<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></td>
+<td>The owning service; DBAs via SQL per runbook in MVP<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></td>
 <td>Yes (per tier-(b) rules)</td>
 <td>Within RAM</td>
 </tr>
@@ -142,7 +142,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><code>jo_people</code></td>
-<td>JOH person records; <code>personnel_number</code> is the <strong>upstream natural key</strong> and the link target for <code>ram_joh_identities</code>. RAM's canonical JOH identifier is the UUID in <code>ram_joh_identities</code>, resolved at sign-in from the IdP email<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></td>
+<td>JOH person records; <code>personnel_number</code> is the <strong>upstream natural key</strong> and the link target for <code>ram_joh_identities</code>. RAM's canonical JOH identifier is the UUID in <code>ram_joh_identities</code>, resolved at sign-in from the IdP email<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></td>
 <td>Authorisation (identity lookup), JOH, Booking, Sitting, Itinerary, MI Feed</td>
 </tr>
 <tr>
@@ -187,7 +187,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><code>jo_jurisdictions</code></td>
-<td><strong>Jurisdiction hierarchy</strong> (Tribunals/SSCS, Courts/Civil, …) — the first-class rollout/authorisation/filtering dimension<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Parent-child shape preserved natively if upstream provides it, or established on ingest.</td>
+<td><strong>Jurisdiction hierarchy</strong> (Tribunals/ET, Tribunals/SSCS, Courts/Civil, …) — the first-class rollout/authorisation/filtering dimension<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Parent-child shape preserved natively if upstream provides it, or established on ingest. <strong>Must carry Tribunals/ET for the wave-1 cutover — unverified, gap G8.1</strong><a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</td>
 <td>Authorisation (user jurisdiction scope), Reference Data API filtering, activation flags (FR57)</td>
 </tr>
 <tr>
@@ -230,7 +230,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><code>mrd_specialisms</code></td>
-<td>JOH Specialisations — supplementary attributes not present in JOH eLinks<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>. Further <code>mrd_*</code> tables are added as MRD entities enter scope.</td>
+<td>JOH Specialisations — supplementary attributes not present in JOH eLinks<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. Further <code>mrd_*</code> tables are added as MRD entities enter scope.</td>
 <td>JOH profile views (FR11), Vacancy matching</td>
 </tr>
 </tbody>
@@ -246,7 +246,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><code>ram_sync_status</code></td>
-<td>Ingestion run log — per-run source, started/finished, outcome, row counts, error detail. RAM-internal tracking entity with no upstream source<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. Feeds the wave-gate "reference data current" check and ops triage.</td>
+<td>Ingestion run log — per-run source, started/finished, outcome, row counts, error detail. RAM-internal tracking entity with no upstream source<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. Feeds the wave-gate "reference data current" check and ops triage.</td>
 </tr>
 </tbody>
 </table>
@@ -271,7 +271,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tbody>
 </table>
 <h3 id="tier-b--ram-owned--15-tables">Tier (b) — RAM-owned — 15 tables</h3>
-<p>Maintained in RAM (DBAs via SQL per runbook in MVP<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>; admin UI post-MVP). Never overwritten by upstream sync.</p>
+<p>Maintained in RAM (DBAs via SQL per runbook in MVP<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>; admin UI post-MVP). Never overwritten by upstream sync.</p>
 <table>
 <thead>
 <tr>
@@ -375,7 +375,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tbody>
 </table>
 </div></details><details class="section" id="authorisation-service-ram-authorisation--6-tables"><summary><span class="section-title">Authorisation service (<code>ram-authorisation</code>) — 6 tables</span></summary><div class="section-body">
-<p>Strictly RAM-internal<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> — populated by programme-management / operational mechanisms outside the PRD's scope; <strong>no external authority provides this data and no legacy system seeds it</strong>. Service prefix used because "users" / "roles" are domain-overloaded terms.</p>
+<p>Strictly RAM-internal<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a> — populated by programme-management / operational mechanisms outside the PRD's scope; <strong>no external authority provides this data and no legacy system seeds it</strong>. Service prefix used because "users" / "roles" are domain-overloaded terms.</p>
 <table>
 <thead>
 <tr>
@@ -388,7 +388,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><code>ram_auth_users</code></td>
 <td>Domain</td>
-<td>RAM Pathfinder principal records spanning <strong>both user populations</strong><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>: JOH users link to <code>ram_joh_identities</code> via <code>joh_id</code> (the RAM JOH UUID; <code>ram_joh_identities</code> in turn carries <code>personnel_number</code> → <code>jo_people</code>); admin-staff users link to <code>ram_auth_staff_identities</code>; <code>principal_kind</code> distinguishes them (and service principals). Carries the user's jurisdiction (FK → <code>jo_jurisdictions</code>).</td>
+<td>RAM Pathfinder principal records spanning <strong>both user populations</strong><a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>: JOH users link to <code>ram_joh_identities</code> via <code>joh_id</code> (the RAM JOH UUID; <code>ram_joh_identities</code> in turn carries <code>personnel_number</code> → <code>jo_people</code>); admin-staff users link to <code>ram_auth_staff_identities</code>; <code>principal_kind</code> distinguishes them (and service principals). Carries the user's jurisdiction (FK → <code>jo_jurisdictions</code>).</td>
 </tr>
 <tr>
 <td><code>ram_auth_staff_identities</code></td>
@@ -581,7 +581,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><code>ram_payment_schedules</code></td>
 <td>Domain</td>
-<td>JFEPS-shaped schedule snapshots (FR43, FR44). JFEPS format preserved for SSCS wave 1<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</td>
+<td>JFEPS-shaped schedule snapshots (FR43, FR44). JFEPS format verified for SSCS<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a> (now wave 2); <strong>ET wave-1 applicability unverified — G8.6</strong><a href="#fn13" class="footnote-ref" id="fnref13" role="doc-noteref"><sup>13</sup></a>.</td>
 </tr>
 <tr>
 <td><code>ram_payment_reconciliations</code></td>
@@ -640,15 +640,18 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <hr />
 <ol>
 <li id="fn1"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn12"><p>D11 (2026-06-10, amended 2026-06-18; <strong>superseded by D13 2026-08-07 for wave ordering</strong>) — SSCS pilot wave: RAM Pathfinder replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>. Per D13 the SSCS wave is <strong>wave 2</strong>.<a href="#fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn13"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref13" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

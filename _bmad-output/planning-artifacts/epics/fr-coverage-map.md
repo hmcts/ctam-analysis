@@ -3,7 +3,7 @@ type: 'FR Coverage Map'
 title: 'FR Coverage Map'
 description: 'This is the canonical FR-to-Epic mapping. It is updated each time a phase advances from framework to concrete epics + stories.'
 resource: 'epics/fr-coverage-map.html'
-tags: [ram-pathfinder, epics, sscs]
+tags: [ram-pathfinder, epics, employment-tribunals]
 timestamp: '2026-06-17'
 parent: 'epics/index.md'
 purpose: 'Single source of truth for FR → Epic mapping across all phases'
@@ -48,10 +48,10 @@ To be populated by subsequent runs of `bmad-create-epics-and-stories` step 2 aga
 | FR35–FR40 | 5 | Sitting Management | ⚪ |
 | FR41 | 6 | Payment Processing | ⚪ |
 | FR42, FR43, FR45 | 6 | Payment Batch (**first non-user-initiated Notification consumer** — `client_credentials` flow established here) | ⚪ |
-| FR44, FR46, FR47 | 6 | Payment Processing (JFEPS preserved for SSCS wave 1[^d11]/NFR21) | ⚪ |
+| FR44, FR46, FR47 | 6 | Payment Processing (JFEPS verified for SSCS[^d11] — now wave 2; **ET wave-1 applicability unverified, G8.6**[^d13]/NFR21) | ⚪ |
 | FR48–FR52 | 7 | Itineraries | ⚪ |
 | FR53, FR54 | 8 | MI Feed & Reporting (external case-management systems consume from Phase 9[^d12] — read-only) | ⚪ |
-| FR60 | 9+ | Wave Rollout (jurisdiction-first: SSCS/ListAssist-experienced UAT wave 1; Courts/APEX-experienced waves 2+) | ⚪ |
+| FR60 | 9+ | Wave Rollout (jurisdiction-first: ET/`[ET-INCUMBENT-TBD]`-experienced UAT wave 1; SSCS/ListAssist-experienced wave 2; Courts/APEX-experienced waves 3+)[^d13] | ⚪ |
 
 ## Post-MVP roadmap (consolidated)
 
@@ -70,5 +70,7 @@ To be populated by subsequent runs of `bmad-create-epics-and-stories` step 2 aga
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d9]: Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → `jo_people` → `personnel_number` → a **RAM-assigned JOH UUID** (`ram_joh_identities`); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; `personnel_number` is the upstream link only. No legacy user migration.
 [^d10]: D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.
-[^d11]: D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**; waves 2+ replace JI/APEX per Courts region.
+[^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: RAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
+
+[^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).
 [^d12]: D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.

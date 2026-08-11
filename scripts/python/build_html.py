@@ -236,6 +236,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Sprint Change Proposal — 2026-07-07 (Gradle vs Maven-format terminology; contract read-only mirror)", "sprint-change-proposal-2026-07-07", False),
         ("Sprint Change Proposal — 2026-07-06 (shared infra to dedicated repo, CNP)", "sprint-change-proposal-2026-07-06", False),
         ("Sprint Change Proposal — 2026-06-17 (integrations-first carve-out)", "sprint-change-proposal-2026-06-17", False),
+        ("Sprint Change Proposal — 2026-08-07 (ET-first pilot)", "sprint-change-proposal-2026-08-07", False),
         ("Sprint Change Proposal — 2026-06-10 (SSCS-first pivot)", "sprint-change-proposal-2026-06-10", False),
         ("Sprint Change Proposal — 2026-05-15", "sprint-change-proposal-2026-05-15", False),
         ("Readiness — 2026-05-15 rev2 (superseded by SCP 2026-06-10; SSCS-cohort assessment pending)", "implementation-readiness-report-2026-05-15-rev2", False),

@@ -1,7 +1,7 @@
 ---
 type: 'Architecture Summary'
 resource: 'architecture-summary.html'
-tags: [ram-pathfinder, architecture, sscs]
+tags: [ram-pathfinder, architecture, employment-tribunals]
 timestamp: '2026-06-11'
 title: RAM Pathfinder Architecture Summary
 description: Target-state reference for RAM Pathfinder. What is built and how it runs.
@@ -11,7 +11,7 @@ amended_in: architecture.md v3.0 — Sprint Change Proposal 2026-06-10 cascade
 
 # RAM Pathfinder Architecture Summary
 
-RAM Pathfinder — HMCTS's API-driven greenfield platform for judicial (JOH) availability and scheduling. It replaces **ListAssist** (the SSCS judicial-scheduling tool) in the SSCS Tribunals jurisdiction in wave 1 (GAPS, the SSCS case-management system, is retained) and the as-is **JI application (Oracle APEX)** in the Courts jurisdictions in waves 2+[^d11]. Scope boundary[^d12]: RAM is the **system of record for JOH availability and scheduling** — case management, panel composition, and hearing types live in external systems that consume RAM's APIs; no external system writes into RAM.
+RAM Pathfinder — HMCTS's API-driven greenfield platform for judicial (JOH) availability and scheduling. It is rolled out jurisdiction by jurisdiction[^d13]: **wave 1 = the Employment Tribunals (ET) jurisdiction** (its scheduling incumbent is not yet identified — gap G8.4); **wave 2 = SSCS**, replacing **ListAssist** (the SSCS judicial-scheduling tool; GAPS, the SSCS case-management system, is retained); **waves 3+ = the Courts jurisdictions**, replacing the as-is **JI application (Oracle APEX)** per HMCTS judicial region. Scope boundary[^d12]: RAM is the **system of record for JOH availability and scheduling** — case management, panel composition, and hearing types live in external systems that consume RAM's APIs; no external system writes into RAM.
 
 This file describes what is built and how it runs. For rationale, alternatives, gap and assumption registers, data-table inventory, conventions, repo structure, changelog, and build sequence, see [`./architecture.md`](./architecture.md) and the siblings under [`./architecture/`](./architecture/).
 
@@ -167,9 +167,9 @@ Details:
 
 ## Phased rollout (jurisdiction-first)
 
-- **Boundary** — jurisdiction first, then per-region within jurisdiction. Wave 1 = the **SSCS** jurisdiction (replacing ListAssist; GAPS case management retained), all in-jurisdiction applicable roles in one wave. Waves 2+ = Courts jurisdictions (Civil, Crime, Family, Crown) per HMCTS judicial region (replacing APEX/JI).[^d8][^d11]
+- **Boundary** — jurisdiction first, then per-region within jurisdiction. Wave 1 = the **Employment Tribunals (ET)** jurisdiction (incumbent `[ET-INCUMBENT-TBD]`, G8.4), all in-jurisdiction applicable roles in one wave. Wave 2 = the **SSCS** jurisdiction (replacing ListAssist; GAPS case management retained). Waves 3+ = Courts jurisdictions (Civil, Crime, Family, Crown) per HMCTS judicial region (replacing APEX/JI).[^d8][^d13]
 - **Mechanism** — per-user activation flag in `ram_auth_user_activation_flags` carrying the (jurisdiction, region) tuple (FR57). Migrated-wave users authenticate; non-migrated users are rejected at the `JWTFilter` boundary. Cutover flip: `UPDATE ram_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'` per the rollout runbook; flip-off rolls back to the incumbent.
-- **Wave gates** — automated tests passing (unit, integration with Testcontainers PostgreSQL, contract); manual UAT signed off by jurisdiction-incumbent-experienced users (ListAssist users for wave 1; APEX users for waves 2+); data readiness verified (reference data current per `ram_sync_status`; bootstrapped users verified against IdP principals); for wave 1, the SSCS-cohort readiness assessment[^d11]; programme sign-off.
+- **Wave gates** — automated tests passing (unit, integration with Testcontainers PostgreSQL, contract); manual UAT signed off by jurisdiction-incumbent-experienced users (`[ET-INCUMBENT-TBD]` users for wave 1; ListAssist users for wave 2; APEX users for waves 3+); data readiness verified (reference data current per `ram_sync_status`; bootstrapped users verified against IdP principals); for wave 1, the **ET-cohort readiness assessment** + the **ET as-is analysis pack** (G8.5) + G8.4 closed[^d13]; programme sign-off.
 - **Build sequence** — Phase 0 cross-cutting services (incl. upstream ingestion) + UI shell; Phases 1–6 domain services in dependency order (JOH → Absence → Vacancy → Booking → Sitting → Payment); Phases 7–8 read-models (Itinerary, MI Feed); Pre-Phase-9 real-IdP cutover; Phase 9+ jurisdiction-first rollout waves.
 
 ## Upstream reference-data ingestion (no legacy migration)
@@ -190,10 +190,10 @@ Per the revised D3 (2026-06-10), **RAM Pathfinder migrates nothing from ListAssi
 | JOH eLinks API | inbound (reference data — MVP per NFR24) | Canonical source for the 15 `jo_*` judicial-holder entities; nightly scheduled pull by `ram-reference-data`. Read-only in RAM; corrections at source; no data flows upstream from RAM. |
 | MRD | inbound (reference data — MVP per NFR24) | Supplementary judicial reference data (notably JOH Specialisations); weekly Excel via blob drop until MRD public APIs ship. |
 | HMCTS Email | outbound | Booking / absence acknowledgements; JFEPS payment schedules |
-| JFEPS / Liberata | outbound (via authoriser email upload) | Payment processing — preserved unchanged for SSCS wave 1[^d11] |
-| External case-management systems (SSCS: **GAPS** — retained case management; Courts: Listing systems) | outbound (from Phase 9,[^d12]) | Consume RAM's JOH availability + booking APIs; never write into RAM |
+| JFEPS / Liberata | outbound (via authoriser email upload) | Payment processing — verified for SSCS[^d11] (now wave 2); **ET wave-1 applicability unverified, G8.6**[^d13] |
+| External case-management systems (ET: system TBC per G8.5; SSCS: **GAPS** — retained case management; Courts: Listing systems) | outbound (from Phase 9,[^d12]) | Consume RAM's JOH availability + booking APIs; never write into RAM |
 | DA&I | inbound (post-MVP REST) | MI consumer for aggregate reports |
-| APEX (legacy, Courts waves) | inbound (read-only) | 12-month historical-data bridge for migrated Courts users post-cutover. (ListAssist historical scheduling-data access for wave 1: settled in the SSCS-cohort readiness assessment.) |
+| APEX (legacy, Courts waves 3+) | inbound (read-only) | 12-month historical-data bridge for migrated Courts users post-cutover. (ET wave-1 historical access: unscopeable until G8.4 closes. ListAssist historical scheduling-data access for wave 2: settled in the SSCS-cohort readiness assessment.) |
 
 ## Foundational principles
 
@@ -217,5 +217,7 @@ Per the revised D3 (2026-06-10), **RAM Pathfinder migrates nothing from ListAssi
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.
 [^d9]: Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → `jo_people` → `personnel_number` → a **RAM-assigned JOH UUID** (`ram_joh_identities`); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; `personnel_number` is the upstream link only. No legacy user migration.
 [^d10]: D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.
-[^d11]: D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**; waves 2+ replace JI/APEX per Courts region.
+[^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: RAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
+
+[^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).
 [^d12]: D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.

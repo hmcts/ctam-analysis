@@ -304,7 +304,7 @@ So that **I can begin using RAM Pathfinder's workflows** — and at end of Phase
 
 **Given** the user has an `ram_auth_user_activation_flags` entry indicating their (jurisdiction, region) wave is NOT activated for RAM Pathfinder yet,
 **When** they land on Home,
-**Then** they see a banner *"Your jurisdiction/region has not yet moved to RAM Pathfinder. Please continue using your current system."* and the workflow nav is disabled (per FR57 surface — full wave activation orchestration is Phase 9+; the incumbent is ListAssist for SSCS wave 1, APEX for Courts waves 2+).
+**Then** they see a banner *"Your jurisdiction/region has not yet moved to RAM Pathfinder. Please continue using your current system."* and the workflow nav is disabled (per FR57 surface — full wave activation orchestration is Phase 9+; the incumbent is `[ET-INCUMBENT-TBD]` for ET wave 1, ListAssist for SSCS wave 2, APEX for Courts waves 3+).
 
 **Given** axe-core checks run on the rendered Home page,
 **When** the page is in a steady state,

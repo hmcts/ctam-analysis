@@ -2,7 +2,7 @@
 type: 'Epic'
 description: 'User outcome: RAM Pathfinder''s two user populations — JOH users (resolved via jo_people → personnel_number → RAM JOH UUID in ram_joh_identities) and HMCTS admin staff (resolved via ram_auth_staff_identities → RAM-assigned UUID) — have…'
 resource: 'epics/phase-0/epic-0.4-user-populations-bootstrapped.html'
-tags: [ram-pathfinder, epics, phase-0, sscs]
+tags: [ram-pathfinder, epics, phase-0, employment-tribunals]
 timestamp: '2026-06-17'
 parent: 'epics/phase-0/index.md'
 epic: 0.4
@@ -46,7 +46,7 @@ So that **Epic 0.2's two-population sign-in works end-to-end in every environmen
 
 **Given** the engineer creates the dev/CI seed scripts (one-off scripts per AR52; not a runtime API, not Liquibase changesets),
 **When** the scripts run against a fresh dev/CI database,
-**Then** they populate: representative `jo_*` fixtures (incl. `jo_people` rows whose emails match `ram-mock-auth`'s JOH test users, with stable personnel numbers, a minted `ram_joh_identities` UUID per JOH fixture, and `jo_jurisdictions` covering Tribunals/SSCS + Courts examples) where no live eLinks connection exists,
+**Then** they populate: representative `jo_*` fixtures (incl. `jo_people` rows whose emails match `ram-mock-auth`'s JOH test users, with stable personnel numbers, a minted `ram_joh_identities` UUID per JOH fixture, and `jo_jurisdictions` covering Tribunals/ET + Tribunals/SSCS + Courts examples) where no live eLinks connection exists,
 **And** `ram_auth_staff_identities` rows (RAM-assigned UUIDs) whose emails match the mock-auth admin-staff test users,
 **And** `ram_auth_users` rows for both populations with `principal_kind`, the link to `ram_joh_identities.id` (JOH) or `ram_auth_staff_identities.id` (staff), and a jurisdiction (FK → `jo_jurisdictions`),
 **And** role assignments (`ram_auth_user_roles`) and Region/Area scopes (`ram_auth_user_region_scopes`) covering every documented role across both populations,
