@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Implementation Readiness Assessment Report — RAM Pathfinder Documentation</title>
+<title>Implementation Readiness Assessment Report — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -89,7 +89,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="implementation-readiness-assessment-report">Implementation Readiness Assessment Report</h1>
-<p><strong>Date:</strong> 2026-06-17 <strong>Project:</strong> ram-analysis (RAM Pathfinder) <strong>Scope:</strong> SSCS-cohort readiness for the integrations-first Phase 0 (per D11 + SCP 2026-06-17 / architecture decision #12)</p>
+<p><strong>Date:</strong> 2026-06-17 <strong>Project:</strong> ctam-analysis (CTAM Pathfinder) <strong>Scope:</strong> SSCS-cohort readiness for the integrations-first Phase 0 (per D11 + SCP 2026-06-17 / architecture decision #12)</p>
 <details class="section" id="document-inventory"><summary><span class="section-title">Document Inventory</span></summary><div class="section-body">
 <h3 id="prd">PRD</h3>
 <ul>
@@ -126,7 +126,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="prd-analysis"><summary><span class="section-title">PRD Analysis</span></summary><div class="section-body">
 <p>PRD read in full during the 2026-06-17 re-validation. Every FR/NFR enumerated below; full text in <code>prd.md</code>.</p>
 <h3 id="functional-requirements-60">Functional Requirements (60)</h3>
-<p><strong>Identity &amp; Authorisation:</strong> FR1 SSO + canonical-identity resolution (JOH→<code>jo_people</code> personnel number; staff→RAM UUID) · FR2 roles + jurisdiction + Region/Area authz · FR3 effective-permissions retrieval · FR4 admin updates role/jurisdiction/scope (MVP: DBA-via-SQL) · FR5 external M2M auth (post-MVP). <strong>Foundational Data:</strong> FR6 two-tier Reference Data (tier-a upstream read-only; tier-b RAM-owned) · FR7 direct-SQL reads, writes-follow-the-tier · FR8 shared <code>ram_configuration_values</code> · FR9 transactional email + delivery log. <strong>JOH Records &amp; Working Patterns:</strong> FR10 search/filter JOHs · FR11 view JOH profile · FR12 working patterns · FR13 auto-populate itineraries to 31 Mar · FR14 salaried FT/PT from eLinks (display) · FR15 ticket info (upstream + overlay) · FR16 jurisdictional-split 100% validation · FR17 base-location switch (RAM-owned) · FR18 link off-circuit/cross-Region JOHs. <strong>Absence:</strong> FR19 record absences · FR20 auto-confirm vs confirm + ack · FR21 sickness extend · FR22 NTBF / needs-cover. <strong>Vacancy &amp; Cover:</strong> FR23 auto-create vacancy from approved absence · FR24 standalone vacancies · FR25 edit daily breakdown · FR26 mark filled on booking · FR27 fee-paid match hint · FR28 cancel/close. <strong>Booking:</strong> FR29 create fee-paid booking · FR30 markFilled in-transaction · FR31 status tracking · FR32 ack emails · FR33 fee-entitlement Y/N prompt · FR34 double-booking prevention. <strong>Sitting:</strong> FR35 generate planned sittings · FR36 filter sittings · FR37 confirm sitting + outcome · FR38 AM/PM split · FR39 ad-hoc sittings · FR40 verify + RBAC re-open (no RFC). <strong>Payment &amp; Reconciliation:</strong> FR41 list payment-eligible · FR42 payment batch (auto) · FR43 JFEPS Excel dispatch · FR44 content-negotiated schedule API · FR45 double-submission prevention · FR46 reconcile · FR47 no bank details. <strong>Itineraries &amp; Reporting:</strong> FR48 Court Itinerary · FR49 Judge Itinerary (scoped) · FR50 Forward Look · FR51 drill-down cells · FR52 Excel/PDF export · FR53 standard report catalogue · FR54 aggregate-only MI Feed API. <strong>Platform Ops:</strong> FR55 role-scoped Home · FR56 business UI replicates APEX (WCAG 2.2 AA) · FR57 per-(jurisdiction,region) phased activation · FR58 versioned API + RFC 9457 + OpenAPI + deprecation · FR59 structured logs + correlation IDs · FR60 manual UAT per domain service.</p>
+<p><strong>Identity &amp; Authorisation:</strong> FR1 SSO + canonical-identity resolution (JOH→<code>jo_people</code> personnel number; staff→CTAM UUID) · FR2 roles + jurisdiction + Region/Area authz · FR3 effective-permissions retrieval · FR4 admin updates role/jurisdiction/scope (MVP: DBA-via-SQL) · FR5 external M2M auth (post-MVP). <strong>Foundational Data:</strong> FR6 two-tier Reference Data (tier-a upstream read-only; tier-b CTAM-owned) · FR7 direct-SQL reads, writes-follow-the-tier · FR8 shared <code>ctam_configuration_values</code> · FR9 transactional email + delivery log. <strong>JOH Records &amp; Working Patterns:</strong> FR10 search/filter JOHs · FR11 view JOH profile · FR12 working patterns · FR13 auto-populate itineraries to 31 Mar · FR14 salaried FT/PT from eLinks (display) · FR15 ticket info (upstream + overlay) · FR16 jurisdictional-split 100% validation · FR17 base-location switch (CTAM-owned) · FR18 link off-circuit/cross-Region JOHs. <strong>Absence:</strong> FR19 record absences · FR20 auto-confirm vs confirm + ack · FR21 sickness extend · FR22 NTBF / needs-cover. <strong>Vacancy &amp; Cover:</strong> FR23 auto-create vacancy from approved absence · FR24 standalone vacancies · FR25 edit daily breakdown · FR26 mark filled on booking · FR27 fee-paid match hint · FR28 cancel/close. <strong>Booking:</strong> FR29 create fee-paid booking · FR30 markFilled in-transaction · FR31 status tracking · FR32 ack emails · FR33 fee-entitlement Y/N prompt · FR34 double-booking prevention. <strong>Sitting:</strong> FR35 generate planned sittings · FR36 filter sittings · FR37 confirm sitting + outcome · FR38 AM/PM split · FR39 ad-hoc sittings · FR40 verify + RBAC re-open (no RFC). <strong>Payment &amp; Reconciliation:</strong> FR41 list payment-eligible · FR42 payment batch (auto) · FR43 JFEPS Excel dispatch · FR44 content-negotiated schedule API · FR45 double-submission prevention · FR46 reconcile · FR47 no bank details. <strong>Itineraries &amp; Reporting:</strong> FR48 Court Itinerary · FR49 Judge Itinerary (scoped) · FR50 Forward Look · FR51 drill-down cells · FR52 Excel/PDF export · FR53 standard report catalogue · FR54 aggregate-only MI Feed API. <strong>Platform Ops:</strong> FR55 role-scoped Home · FR56 business UI replicates APEX (WCAG 2.2 AA) · FR57 per-(jurisdiction,region) phased activation · FR58 versioned API + RFC 9457 + OpenAPI + deprecation · FR59 structured logs + correlation IDs · FR60 manual UAT per domain service.</p>
 <h3 id="non-functional-requirements-42">Non-Functional Requirements (42)</h3>
 <p><strong>Performance:</strong> NFR1 static ≤3s · NFR2 dashboard ≤5s · NFR3 list/filter ≤10s · NFR4 batch/annual ≤15s · NFR5 reports/Forward Look ≤30s · NFR6 single read ≤500ms p95 · NFR7 write ≤1s p95 · NFR8 federated read ≤30s p95 (Strategy A; C fallback) · NFR9 capacity ~50–100/region, ~200–500 national. <strong>Security:</strong> NFR10 latest TLS · NFR11 data-at-rest encryption · NFR12 authn (SSO; JWT propagation; batch <code>client_credentials</code>) · NFR13 authz enforcement (incl. jurisdiction) · NFR14 forbidden data (no bank/case-level) · NFR15 GovS 7 · NFR16 secret management (Key Vault). <strong>Accessibility:</strong> NFR17 WCAG 2.2 AA · NFR18 assistive tech · NFR19 PSBAR 2018. <strong>Integration:</strong> NFR20 HMCTS IdP (Phase 0 hard dep) · NFR21 JFEPS/Liberata unchanged · NFR22 HMCTS email · NFR23 DA&amp;I aggregate-only · NFR24 JOH eLinks + MRD (MVP integrations). <strong>Observability:</strong> NFR25 structured logging · NFR26 log retention · NFR27 Azure-native ingestion · NFR28 health/readiness probes · NFR29 audit/metrics (post-MVP roadmap). <strong>Data Privacy &amp; Sovereignty:</strong> NFR30 UK GDPR/DPA 2018 · NFR31 Azure UK residency · NFR32 retention (no migration) · NFR33 FOI scope. <strong>Reliability &amp; Availability:</strong> NFR34 operational hours · NFR35 payment-cycle continuity · NFR36 per-wave rollback · NFR37 Strategy A degraded mode · NFR38 wave-scope rollout isolation. <strong>Maintainability:</strong> NFR39 API-as-Product · NFR40 per-service deployment · NFR41 behavioural-parity UAT · NFR42 Postman collections.</p>
 <h3 id="additional-requirements--constraints">Additional Requirements &amp; Constraints</h3>
@@ -188,7 +188,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>FR8</td>
-<td>shared <code>ram_configuration_values</code></td>
+<td>shared <code>ctam_configuration_values</code></td>
 <td>Epic 0.1 Story 0.1.1</td>
 <td>✓</td>
 </tr>
@@ -207,7 +207,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>FR56</td>
 <td>business UI (WCAG 2.2 AA)</td>
-<td>Epic 0.2 (<code>ram-ui</code>; admin stack post-MVP)</td>
+<td>Epic 0.2 (<code>ctam-ui</code>; admin stack post-MVP)</td>
 <td>✓ (business)</td>
 </tr>
 <tr>
@@ -303,8 +303,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <h3 id="alignment-what-substitutes-for-a-ux-spec">Alignment (what substitutes for a UX spec)</h3>
 <ul>
 <li><strong>PRD → UI:</strong> FR55/FR56 + the six user journeys define the interaction surface; the parity reference is the <strong>incumbent system</strong> (GAPS for SSCS wave 1; APEX layouts via <code>docs/architecture/asis/functional-modules.md</code> for Courts), verified by manual UAT (FR60/NFR41).</li>
-<li><strong>Architecture → UI:</strong> the architecture pack <strong>supports</strong> the UI — Frontend Architecture (<code>ram-ui</code>: React + TypeScript + Vite, GOV.UK Design System base, TanStack Query, OIDC auth wrapper, RFC 9457 error handling), repo-structure module layout, axe-core accessibility CI. No architectural gap for the UI need.</li>
-<li><strong>Epics → UI:</strong> Phase 0's UI scope is a <strong>foundation/shell</strong> (Epic 0.2 Story 0.2.4 scaffolds <code>ram-ui</code> with GOV.UK + auth + axe-core CI; Story 0.2.5 renders the role-scoped Home + activation banner). No domain screens in Phase 0.</li>
+<li><strong>Architecture → UI:</strong> the architecture pack <strong>supports</strong> the UI — Frontend Architecture (<code>ctam-ui</code>: React + TypeScript + Vite, GOV.UK Design System base, TanStack Query, OIDC auth wrapper, RFC 9457 error handling), repo-structure module layout, axe-core accessibility CI. No architectural gap for the UI need.</li>
+<li><strong>Epics → UI:</strong> Phase 0's UI scope is a <strong>foundation/shell</strong> (Epic 0.2 Story 0.2.4 scaffolds <code>ctam-ui</code> with GOV.UK + auth + axe-core CI; Story 0.2.5 renders the role-scoped Home + activation banner). No domain screens in Phase 0.</li>
 </ul>
 <h3 id="warnings">Warnings</h3>
 <ul>
@@ -377,9 +377,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ol>
 <h3 id="yellow_circle-minor-concerns">🟡 Minor Concerns</h3>
 <ol type="1">
-<li><p><strong>Story 0.1.1 is large.</strong> It combines the <code>ram-reference-data</code> scaffold + the entire shared Azure estate Terraform (AKS, PostgreSQL, ACR, APIM, App Insights) + the <code>ram_configuration_values</code> baseline + TLS/data-at-rest/log-retention + CI/deploy (~10 AC blocks). Consider splitting shared-estate provisioning into its own story (e.g. 0.1.1 scaffold, 0.1.1b estate) so each fits a single dev-agent session. (Pre-existing sizing inherited from old Story 0.1.1.)</p></li>
+<li><p><strong>Story 0.1.1 is large.</strong> It combines the <code>ctam-reference-data</code> scaffold + the entire shared Azure estate Terraform (AKS, PostgreSQL, ACR, APIM, App Insights) + the <code>ctam_configuration_values</code> baseline + TLS/data-at-rest/log-retention + CI/deploy (~10 AC blocks). Consider splitting shared-estate provisioning into its own story (e.g. 0.1.1 scaffold, 0.1.1b estate) so each fits a single dev-agent session. (Pre-existing sizing inherited from old Story 0.1.1.)</p></li>
 <li><p><strong>Epics 0.1 / 0.3 / 0.5 are enabling/foundational</strong> (ingestion, read API, notification-contract) rather than end-user-feature epics. This is <strong>acceptable and expected</strong> for Phase 0 — the PRD frames Phase 0 as the platform smoke-test (Key Characteristic 4), and each epic ties to a demoable gate (data flows in; API serves both tiers; <code>POST /notifications/send</code> works via Postman). Noted, not a violation.</p></li>
-<li><p><strong><code>ram_configuration_values</code> baseline ownership.</strong> Story 0.1.1 has the <code>ram-architecture</code> Flyway baseline run "ahead of <code>ram-reference-data</code>". Confirm at sprint planning that the baseline migration is a discrete, owned step (it's cross-service infrastructure, not part of <code>ram-reference-data</code>'s own migrations).</p></li>
+<li><p><strong><code>ctam_configuration_values</code> baseline ownership.</strong> Story 0.1.1 has the <code>ctam-architecture</code> Flyway baseline run "ahead of <code>ctam-reference-data</code>". Confirm at sprint planning that the baseline migration is a discrete, owned step (it's cross-service infrastructure, not part of <code>ctam-reference-data</code>'s own migrations).</p></li>
 </ol>
 <h3 id="remediation-summary">Remediation Summary</h3>
 <ul>
@@ -430,7 +430,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <h3 id="recommended-next-steps">Recommended Next Steps</h3>
 <ol type="1">
 <li><strong>Proceed to <code>[SP]</code> <code>bmad-sprint-planning</code></strong> for Phase 0, leading with Epic 0.1 (ingestion). Bake the two conditions above into the sprint plan (sequencing decision + eLinks risk).</li>
-<li><strong>Optional pre-sprint polish:</strong> split Story 0.1.1 (scaffold vs shared-estate Terraform) — Minor #1; and confirm the <code>ram_configuration_values</code> baseline is a discrete owned step — Minor #3.</li>
+<li><strong>Optional pre-sprint polish:</strong> split Story 0.1.1 (scaffold vs shared-estate Terraform) — Minor #1; and confirm the <code>ctam_configuration_values</code> baseline is a discrete owned step — Minor #3.</li>
 <li><strong>Housekeeping:</strong> delete the 4 superseded phase-0 stub files (pending from the restructure) for a clean epic folder.</li>
 </ol>
 <h3 id="final-note">Final Note</h3>

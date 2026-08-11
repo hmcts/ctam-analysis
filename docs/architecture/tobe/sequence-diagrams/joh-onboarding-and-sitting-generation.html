@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JOH onboarding + working-pattern-driven sitting generation — RAM Pathfinder Documentation</title>
+<title>JOH onboarding + working-pattern-driven sitting generation — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -89,21 +89,21 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="joh-onboarding--working-pattern-driven-sitting-generation">JOH onboarding + working-pattern-driven sitting generation</h1>
-<p>Sequence diagram of how a new JOH (Judicial Office Holder) enters RAM Pathfinder and how that JOH's working pattern automatically populates planned sittings up to the next 31 March. This is the upstream of every downstream operational flow — absences, vacancies, bookings, sittings, payments, itineraries all depend on the JOH records and planned sittings produced here.</p>
-<p>JOH person records are not created manually in RAM<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. The canonical record is <code>jo_people</code>, refreshed nightly from the <strong>JOH eLinks API</strong> by <code>ram-reference-data</code>'s in-process scheduled sync. RAM keeps <strong>RAM-owned operational state</strong> over the upstream records — working patterns, ticket overlays, location overlays, jurisdictional splits — owned by <code>ram-joh</code> and keyed by <code>joh_id</code> → <code>ram_joh_identities</code> (RAM's canonical JOH identifier; <code>personnel_number</code> is the upstream link).</p>
-<p>The as-is equivalent is Module 2 <em>Manage Judges</em> in <a href="../../asis/functional-modules.html"><code>../../../docs/architecture/asis/functional-modules.md</code></a> and Integration Flow 1 <em>Judge Master Data (eLinks / HR → JI)</em> in <a href="../../asis/integration-dependencies.html"><code>../../../docs/architecture/asis/integration-dependencies.md</code></a>. In the as-is system the data is copied in manually from eLinks and HR records; RAM Pathfinder replaces the manual copy with the live eLinks integration (NFR24 reframed<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>).</p>
+<p>Sequence diagram of how a new JOH (Judicial Office Holder) enters CTAM Pathfinder and how that JOH's working pattern automatically populates planned sittings up to the next 31 March. This is the upstream of every downstream operational flow — absences, vacancies, bookings, sittings, payments, itineraries all depend on the JOH records and planned sittings produced here.</p>
+<p>JOH person records are not created manually in CTAM<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. The canonical record is <code>jo_people</code>, refreshed nightly from the <strong>JOH eLinks API</strong> by <code>ctam-reference-data</code>'s in-process scheduled sync. CTAM keeps <strong>CTAM-owned operational state</strong> over the upstream records — working patterns, ticket overlays, location overlays, jurisdictional splits — owned by <code>ctam-joh</code> and keyed by <code>joh_id</code> → <code>ctam_joh_identities</code> (CTAM's canonical JOH identifier; <code>personnel_number</code> is the upstream link).</p>
+<p>The as-is equivalent is Module 2 <em>Manage Judges</em> in <a href="../../asis/functional-modules.html"><code>../../../docs/architecture/asis/functional-modules.md</code></a> and Integration Flow 1 <em>Judge Master Data (eLinks / HR → JI)</em> in <a href="../../asis/integration-dependencies.html"><code>../../../docs/architecture/asis/integration-dependencies.md</code></a>. In the as-is system the data is copied in manually from eLinks and HR records; CTAM Pathfinder replaces the manual copy with the live eLinks integration (NFR24 reframed<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>).</p>
 <p>Three phases: (1) JOH record arrives via the eLinks sync; (2) working pattern + jurisdictional split; (3) forward-sitting generation up to next 31 March.</p>
 <details class="section" id="not-in-this-diagram"><summary><span class="section-title">Not in this diagram</span></summary><div class="section-body">
 <ul>
 <li><strong>MRD ingestion</strong> (weekly Excel via blob drop — JOH Specialisations) — same tier-(a) pattern as the eLinks sync; see <a href="../../../architecture.html"><code>../../architecture.md</code> → <em>Upstream reference-data ingestion</em></a>.</li>
-<li><strong>Cross-Region base-location change</strong> (FR17) — out-of-system; requires OPT Advice Point in the as-is and a programme decision in RAM Pathfinder. In-Region changes land in <code>ram_joh_location</code>.</li>
+<li><strong>Cross-Region base-location change</strong> (FR17) — out-of-system; requires OPT Advice Point in the as-is and a programme decision in CTAM Pathfinder. In-Region changes land in <code>ctam_joh_location</code>.</li>
 <li><strong>Off-circuit / cross-Region JOH linking for bookings</strong> (FR18) — handled as a read-only link in <a href="itinerary-federated-read.html"><code>./itinerary-federated-read.md</code></a>, not in this flow.</li>
 <li><strong>Editing an existing working pattern</strong> — same shape as Phase 2 + Phase 3 but with prior-absence preservation logic; not drawn separately to keep the diagram lean. The architectural rule (preserve prior absences when regenerating sittings, FR13) is the same.</li>
 <li><strong>Ticket overlay maintenance</strong> (FR15 layer (b)) — DBA-via-SQL in MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>; admin UI post-MVP.</li>
 </ul>
 </div></details><details class="section" id="cross-cutting-steps-omitted-for-clarity"><summary><span class="section-title">Cross-cutting steps omitted for clarity</span></summary><div class="section-body">
 <ul>
-<li><strong>Authentication + per-request authorisation</strong> — RSU's JWT is validated by each service's <code>JWTFilter</code> and resolved against <code>ram-authorisation</code> on every call (two-population identity resolution<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>). See <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a>.</li>
+<li><strong>Authentication + per-request authorisation</strong> — RSU's JWT is validated by each service's <code>JWTFilter</code> and resolved against <code>ctam-authorisation</code> on every call (two-population identity resolution<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>). See <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a>.</li>
 <li>All UI → service calls flow through Azure API Management.</li>
 <li>Validation errors at any step return RFC 9457 problem-details and the user retries; not drawn explicitly.</li>
 </ul>
@@ -122,21 +122,21 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td>1 — JOH record via eLinks sync</td>
-<td><code>ram-reference-data</code> (nightly in-process <code>@Scheduled</code> sync)</td>
-<td>Revised D3 / FR6 tier (a) — <code>jo_*</code> tables refreshed by full-refresh upsert on <code>personnel_number</code>; a <code>ram_joh_identities</code> UUID minted per <code>jo_people</code> row; soft-deactivation, never hard-delete; run recorded in <code>ram_sync_status</code>; read-only in RAM, corrections at source</td>
+<td><code>ctam-reference-data</code> (nightly in-process <code>@Scheduled</code> sync)</td>
+<td>Revised D3 / FR6 tier (a) — <code>jo_*</code> tables refreshed by full-refresh upsert on <code>personnel_number</code>; a <code>ctam_joh_identities</code> UUID minted per <code>jo_people</code> row; soft-deactivation, never hard-delete; run recorded in <code>ctam_sync_status</code>; read-only in CTAM, corrections at source</td>
 <td>New JOH present in <code>jo_people</code>; visible to search/profile views (FR10/FR11)</td>
 </tr>
 <tr>
 <td>2 — Working pattern + jurisdictional split</td>
 <td>RSU (Full Access)</td>
-<td>FR12 + FR16 — pattern type (None / Daily / Weekly), target sit %, per-day work types; jurisdictional split percentages must total exactly 100%. RAM-owned operational state (tier (b))</td>
-<td>Working pattern persisted in <code>ram_working_patterns</code>, keyed by <code>joh_id</code> → <code>ram_joh_identities</code></td>
+<td>FR12 + FR16 — pattern type (None / Daily / Weekly), target sit %, per-day work types; jurisdictional split percentages must total exactly 100%. CTAM-owned operational state (tier (b))</td>
+<td>Working pattern persisted in <code>ctam_working_patterns</code>, keyed by <code>joh_id</code> → <code>ctam_joh_identities</code></td>
 </tr>
 <tr>
 <td>3 — Forward-sitting generation</td>
-<td><code>ram-joh</code> (server-side, in-transaction with pattern save)</td>
+<td><code>ctam-joh</code> (server-side, in-transaction with pattern save)</td>
 <td>FR13 — auto-populate planned sittings up to the next 31 March, preserving any prior absences on the affected dates</td>
-<td><code>ram_sittings</code> rows in <code>planned</code> status for the JOH over the generation horizon; visible to <code>ram-sitting</code> for confirmation flows and to <code>ram-itinerary</code> for read federation</td>
+<td><code>ctam_sittings</code> rows in <code>planned</code> status for the JOH over the generation horizon; visible to <code>ctam-sitting</code> for confirmation flows and to <code>ctam-itinerary</code> for read federation</td>
 </tr>
 </tbody>
 </table>
@@ -150,7 +150,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-joh</code> repo purpose and key functions</td>
+<td><code>ctam-joh</code> repo purpose and key functions</td>
 <td><a href="../repository-strategy.html"><code>../repository-strategy.md</code></a> Phase 1 row</td>
 </tr>
 <tr>
@@ -162,15 +162,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>PRD <code>FR12</code>, <code>FR13</code>, <code>FR16</code>; Module 2 in <a href="../../asis/functional-modules.html"><code>../../../docs/architecture/asis/functional-modules.md</code></a></td>
 </tr>
 <tr>
-<td><code>jo_people</code>, <code>ram_working_patterns</code>, <code>ram_sittings</code> tables (column-level detail)</td>
+<td><code>jo_people</code>, <code>ctam_working_patterns</code>, <code>ctam_sittings</code> tables (column-level detail)</td>
 <td><a href="../data-tables.html"><code>../data-tables.md</code></a></td>
 </tr>
 <tr>
 <td>JOH UI module structure</td>
-<td><a href="../repo-structure.html"><code>../repo-structure.md</code> → <code>ram-ui/src/modules/joh/</code></a></td>
+<td><a href="../repo-structure.html"><code>../repo-structure.md</code> → <code>ctam-ui/src/modules/joh/</code></a></td>
 </tr>
 <tr>
-<td>Why this flow is in <code>ram-ui</code> and not <code>ram-admin-ui</code> (RSU operational vs admin)</td>
+<td>Why this flow is in <code>ctam-ui</code> and not <code>ctam-admin-ui</code> (RSU operational vs admin)</td>
 <td><a href="../../../architecture.html"><code>../../architecture.md</code> → Step 4 <em>Frontend Architecture</em></a> — v2.10 / D10</td>
 </tr>
 <tr>
@@ -194,7 +194,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li id="fn2"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

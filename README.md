@@ -1,12 +1,12 @@
-# ram-analysis
+# ctam-analysis
 
-Central **planning, analysis, and delivery-coordination hub** for **RAM Pathfinder** — HMCTS's greenfield Judicial Office Holder (JOH) availability-and-scheduling platform.
+Central **planning, analysis, and delivery-coordination hub** for **CTAM Pathfinder** — HMCTS's greenfield Judicial Office Holder (JOH) availability-and-scheduling platform. **CTAM** is **Court and Tribunals Availability Management**.
 
-This repository is **not** the implementation and holds no runtime code. RAM Pathfinder is built as a separate **16-repo polyrepo** (`ram-*` repositories); this repo holds the PRD, architecture, epics/stories, the delivery operating model, the delivery control plane, and the AS-IS analysis of the legacy system. Delivery is **AI-led (Claude Code) using the BMAD method**.
+This repository is **not** the implementation and holds no runtime code. CTAM Pathfinder is built as a separate **16-repo polyrepo** (`ctam-*` repositories); this repo holds the PRD, architecture, epics/stories, the delivery operating model, the delivery control plane, and the AS-IS analysis of the legacy system. Delivery is **AI-led (Claude Code) using the BMAD method**.
 
 ## Programme summary
 
-- **What it replaces (SSCS-first rollout).** Wave 1 replaces **ListAssist** (the SSCS Tribunals judicial-scheduling tool); **GAPS** (SSCS case management) is *retained*, not replaced. Waves 2+ replace the as-is **JI application on Oracle APEX** per Courts region. Scope boundary: availability/scheduling only — case and hearing management live in external systems that consume RAM's APIs.
+- **What it replaces (SSCS-first rollout).** Wave 1 replaces **ListAssist** (the SSCS Tribunals judicial-scheduling tool); **GAPS** (SSCS case management) is *retained*, not replaced. Waves 2+ replace the as-is **JI application on Oracle APEX** per Courts region. Scope boundary: availability/scheduling only — case and hearing management live in external systems that consume CTAM's APIs.
 - **What it is.** API-driven greenfield build. Java 25 + Spring Boot 4 on Azure (AKS + APIM + PostgreSQL 17 + Key Vault), HMCTS IdP via OIDC, React + Vite + GOV.UK Design System UI. Becomes the integration platform downstream HMCTS programmes consume directly, replacing today's export-by-email model.
 - **Strategy: greenfield, not strangler.** Built end-to-end before any user moves; **jurisdiction-first then per-region** phased cutover via per-(jurisdiction, region) activation flags (FR57); incumbents run unchanged for non-activated cohorts. No dual-write, no event bus.
 - **No legacy data migration** (revised D3). Reference data is **ingested from upstream sources of truth** — the JOH eLinks API (nightly) and MRD (weekly) — not migrated from APEX.
@@ -20,24 +20,24 @@ Per-service code lives in dedicated repositories (no monorepo; no shared runtime
 
 | Cluster | Repo | Phase | Responsibility |
 |---|---|---|---|
-| Platform | `ram-shared-infrastructure` | 0 | Shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) — Terraform only |
-| Platform | `ram-architecture` | 0 | Architecture docs + ADRs + scaffolding script; the version-pinned **context bus** for service repos |
-| Cross-cutting | `ram-mock-auth` | 0 | OIDC issuer for dev / CI / integration — never deployed to production |
-| Cross-cutting | `ram-reference-data` | 0 | 33 reference-data tables (two-tier: upstream `jo_*`/`mrd_*` + RAM-owned) + eLinks/MRD ingestion + `ram_joh_identities` |
-| Cross-cutting | `ram-authorisation` | 0 | Per-request authz; two-population identity; roles, jurisdiction, Region/Area scope, activation flags |
-| Cross-cutting | `ram-notification` | 0 | Outbound transactional email + JFEPS-shaped payment-schedule emails |
-| Domain | `ram-joh` | 1 | JOH operational state — working patterns, ticket/location overlays, jurisdictional split |
-| Domain | `ram-absence` | 2 | Absence records + approval workflow; triggers vacancy creation |
-| Domain | `ram-vacancy` | 3 | Cover-required vacancies; `filled` flag UPDATE-granted to Booking |
-| Domain | `ram-booking` | 4 | Fee-paid bookings + verification |
-| Domain | `ram-sitting` | 5 | Salaried-JOH sittings; verification; AM/PM split |
-| Domain | `ram-payment` | 6 | Payments + reconciliation; JFEPS Excel via a scheduled batch (`ram-payment-batch`) |
-| Read-model | `ram-itinerary` | 7 | Court + Judge itinerary; Forward Look; SQL JOINs over the shared schema (no own tables) |
-| Read-model | `ram-mi-feed` | 8 | Aggregate reports; DA&I consumer feed (post-MVP); aggregate-only, no case-level data |
-| Frontend | `ram-ui` | 0–8 | Business-user SPA; per-domain modules; GOV.UK Design System; WCAG 2.2 AA |
-| Frontend | `ram-admin-ui` | post-MVP | Admin SPA (Reference Data + User/Role admin), separated from business workflows |
+| Platform | `ctam-shared-infrastructure` | 0 | Shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) — Terraform only |
+| Platform | `ctam-architecture` | 0 | Architecture docs + ADRs + scaffolding script; the version-pinned **context bus** for service repos |
+| Cross-cutting | `ctam-mock-auth` | 0 | OIDC issuer for dev / CI / integration — never deployed to production |
+| Cross-cutting | `ctam-reference-data` | 0 | 33 reference-data tables (two-tier: upstream `jo_*`/`mrd_*` + CTAM-owned) + eLinks/MRD ingestion + `ctam_joh_identities` |
+| Cross-cutting | `ctam-authorisation` | 0 | Per-request authz; two-population identity; roles, jurisdiction, Region/Area scope, activation flags |
+| Cross-cutting | `ctam-notification` | 0 | Outbound transactional email + JFEPS-shaped payment-schedule emails |
+| Domain | `ctam-joh` | 1 | JOH operational state — working patterns, ticket/location overlays, jurisdictional split |
+| Domain | `ctam-absence` | 2 | Absence records + approval workflow; triggers vacancy creation |
+| Domain | `ctam-vacancy` | 3 | Cover-required vacancies; `filled` flag UPDATE-granted to Booking |
+| Domain | `ctam-booking` | 4 | Fee-paid bookings + verification |
+| Domain | `ctam-sitting` | 5 | Salaried-JOH sittings; verification; AM/PM split |
+| Domain | `ctam-payment` | 6 | Payments + reconciliation; JFEPS Excel via a scheduled batch (`ctam-payment-batch`) |
+| Read-model | `ctam-itinerary` | 7 | Court + Judge itinerary; Forward Look; SQL JOINs over the shared schema (no own tables) |
+| Read-model | `ctam-mi-feed` | 8 | Aggregate reports; DA&I consumer feed (post-MVP); aggregate-only, no case-level data |
+| Frontend | `ctam-ui` | 0–8 | Business-user SPA; per-domain modules; GOV.UK Design System; WCAG 2.2 AA |
+| Frontend | `ctam-admin-ui` | post-MVP | Admin SPA (Reference Data + User/Role admin), separated from business workflows |
 
-*JOH identity:* every JOH carries a RAM-assigned UUID (`ram_joh_identities`); `personnel_number` is the upstream link to `jo_people` only (per SCP 2026-07-09).
+*JOH identity:* every JOH carries a CTAM-assigned UUID (`ctam_joh_identities`); `personnel_number` is the upstream link to `jo_people` only (per SCP 2026-07-09).
 
 ## How this repository is organised
 
@@ -56,14 +56,14 @@ The [`docs/`](docs/) folder is the **published static HTML site** (GitHub Pages)
 See [`architecture/delivery-operating-model.md`](_bmad-output/planning-artifacts/architecture/delivery-operating-model.md). In brief:
 
 - **Control plane** (this repo) — canonical planning + dispatch + traceability; never edits service code.
-- **Context bus** (`ram-architecture`) — version-pinned published architecture each service repo consumes as a submodule; API contracts stay producer-owned (this repo holds a read-only mirror only).
+- **Context bus** (`ctam-architecture`) — version-pinned published architecture each service repo consumes as a submodule; API contracts stay producer-owned (this repo holds a read-only mirror only).
 - **Execution units** (the 15 service/UI/infra repos) — where code lands; each receives a self-contained story packet.
 - Build order is deterministic (`dispatch-graph.yaml`); progress is tracked per epic in `delivery/ledger/`. BMAD skills map on: create-story = dispatch, dev-story + code-review = execute, sprint-status = signal.
 
 ## Repository layout
 
 ```
-ram-analysis/
+ctam-analysis/
 ├── _bmad-output/
 │   ├── planning-artifacts/     # CANONICAL, tracked: PRD, architecture, epics, delivery control plane
 │   │   ├── architecture/       # architecture.md shards + diagrams + sequence-diagrams

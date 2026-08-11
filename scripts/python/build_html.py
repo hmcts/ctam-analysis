@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a static HTML view of the RAM Pathfinder planning artefacts.
+"""Build a static HTML view of the CTAM Pathfinder planning artefacts.
 
 Reads markdown from `_bmad-output/planning-artifacts/` and writes HTML to `docs/`
 at the repo root (published via GitHub Pages). Mirrors the source directory
@@ -68,8 +68,8 @@ ASIS_VIEWS: List[Tuple[str, str, str, str]] = [
     (
         "System Context — as-is JI",
         "High-level system context view of the legacy JI (Oracle APEX / OPT) application — actors, "
-        "external systems, and integrations as they exist before the RAM Pathfinder rebuild. Authoritative "
-        "source for system-context parity validation during RAM Pathfinder design. "
+        "external systems, and integrations as they exist before the CTAM Pathfinder rebuild. Authoritative "
+        "source for system-context parity validation during CTAM Pathfinder design. "
         "Revised version: Finance and Payment Authoriser are shown as separate roles; eLinks, "
         "HR / Administrative Records and HMCTS Email have been removed (the first two are not "
         "real integrations, the third is pure SMTP transport and is now annotated on the edges). "
@@ -80,7 +80,7 @@ ASIS_VIEWS: List[Tuple[str, str, str, str]] = [
     (
         "Components — as-is JI",
         "Component view of the legacy JI application — internal modules and their relationships in "
-        "the existing APEX implementation. Used as the parity reference for the RAM Pathfinder functional "
+        "the existing APEX implementation. Used as the parity reference for the CTAM Pathfinder functional "
         "decomposition into 11 services.",
         "JI-Components.png",
         "asis/components",
@@ -165,14 +165,14 @@ ASIS_MARKDOWN: List[Tuple[str, str]] = [
 
 # Sidebar navigation. Each entry: (display label, source path without .md, is_special)
 # is_special marks entries that have no source file (e.g. the index page).
-# Group naming convention: "As-is — …" for legacy JI; "To-be — …" for RAM Pathfinder.
+# Group naming convention: "As-is — …" for legacy JI; "To-be — …" for CTAM Pathfinder.
 NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
     ("Overview", [
         ("Index", "index", True),
         ("Knowledge graph (OKF)", "graph", False),
     ]),
     ("Product", [
-        ("PRD (RAM Pathfinder)", "prd", False),
+        ("PRD (CTAM Pathfinder)", "prd", False),
         ("PRD validation report — 2026-06-17 (5/5)", "prd-validation-report-2026-06-17", False),
         ("PRD validation report — 2026-06-10", "prd-validation-report-2026-06-10", False),
     ]),
@@ -199,14 +199,14 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Audit & Cross-cutting", "asis/database/ji_schema_audit-cross-cutting", False),
         ("Companion reference (triggers, FKs, externals)", "asis/database/ji_schema_companion", False),
     ]),
-    ("To-be — RAM Pathfinder Architecture", [
+    ("To-be — CTAM Pathfinder Architecture", [
         ("Architecture (index)", "architecture", False),
         ("Architecture summary", "architecture-summary", False),
     ]),
-    ("To-be — RAM Pathfinder Analysis", [
+    ("To-be — CTAM Pathfinder Analysis", [
         ("Function decomposition (as-is capabilities)", "architecture/tobe/analysis/function-decomposition", False),
     ]),
-    ("To-be — RAM Pathfinder Reference", [
+    ("To-be — CTAM Pathfinder Reference", [
         ("User types", "architecture/tobe/user-types", False),
         ("Authoritative table ownership", "architecture/tobe/data-tables", False),
         ("Conventions", "architecture/tobe/conventions", False),
@@ -216,7 +216,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Functional requirements coverage", "architecture/tobe/functional-requirements-coverage", False),
         ("Non-functional requirements coverage", "architecture/tobe/non-functional-requirements-coverage", False),
     ]),
-    ("To-be — RAM Pathfinder Sequence Diagrams", [
+    ("To-be — CTAM Pathfinder Sequence Diagrams", [
         ("Authentication & authorisation", "architecture/tobe/sequence-diagrams/user-authentication-and-authorisation", False),
         ("JOH onboarding & sitting gen.", "architecture/tobe/sequence-diagrams/joh-onboarding-and-sitting-generation", False),
         ("Absence → Reconciliation", "architecture/tobe/sequence-diagrams/absence-to-reconciliation", False),
@@ -226,13 +226,13 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("MI Feed & Reports", "architecture/tobe/sequence-diagrams/mi-feed-and-reports-consumption", False),
         ("Admin maintenance flows", "architecture/tobe/sequence-diagrams/admin-maintenance-flows", False),
     ]),
-    ("To-be — RAM Pathfinder Open Items", [
+    ("To-be — CTAM Pathfinder Open Items", [
         ("Gaps", "architecture/tobe/gaps", False),
         ("Assumptions", "architecture/tobe/assumptions", False),
         ("Changelog", "architecture/tobe/changelog", False),
     ]),
     ("Change Control & Readiness", [
-        ("Sprint Change Proposal — 2026-07-09 (RAM-assigned JOH identity; personnel_number → upstream link)", "sprint-change-proposal-2026-07-09", False),
+        ("Sprint Change Proposal — 2026-07-09 (CTAM-assigned JOH identity; personnel_number → upstream link)", "sprint-change-proposal-2026-07-09", False),
         ("Sprint Change Proposal — 2026-07-07 (Gradle vs Maven-format terminology; contract read-only mirror)", "sprint-change-proposal-2026-07-07", False),
         ("Sprint Change Proposal — 2026-07-06 (shared infra to dedicated repo, CNP)", "sprint-change-proposal-2026-07-06", False),
         ("Sprint Change Proposal — 2026-06-17 (integrations-first carve-out)", "sprint-change-proposal-2026-06-17", False),
@@ -559,7 +559,7 @@ def build_nav_js() -> str:
         "  var root = document.getElementById('nav-root');\n"
         "  if (!root) return;\n"
         "  function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }\n"
-        "  var h = '<h2 class=\"site-title\"><a href=\"' + base + 'index.html\">RAM Pathfinder Documentation</a></h2>';\n"
+        "  var h = '<h2 class=\"site-title\"><a href=\"' + base + 'index.html\">CTAM Pathfinder Documentation</a></h2>';\n"
         "  h += '<div class=\"nav-controls\"><button data-nav-action=\"expand\" title=\"Expand all groups\">Expand all</button> "
         "<button data-nav-action=\"collapse\" title=\"Collapse all groups\">Collapse all</button></div>';\n"
         "  NAV.forEach(function(group){\n"
@@ -636,7 +636,7 @@ PAGE_TEMPLATE = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title} — RAM Pathfinder Documentation</title>
+<title>{title} — CTAM Pathfinder Documentation</title>
 <style>{css}</style>
 </head>
 <body class="{body_class}">
@@ -712,21 +712,21 @@ def write_page(out_path: Path, title: str, content: str, current_relpath: str, s
 
 
 def build_index_body() -> str:
-    parts = ["<h1>JI / RAM Pathfinder Documentation</h1>"]
+    parts = ["<h1>JI / CTAM Pathfinder Documentation</h1>"]
     parts.append(
         '<div class="living-doc-notice" role="note">'
         "<strong>⚠️ Living documents — subject to change.</strong> "
-        "These pages are working artefacts that evolve as the JI / RAM Pathfinder programme progresses, "
+        "These pages are working artefacts that evolve as the JI / CTAM Pathfinder programme progresses, "
         "so treat everything here as provisional and version-dependent. This applies "
-        "<strong>especially to the <em>to-be</em> RAM Pathfinder artefacts</strong>, which capture "
+        "<strong>especially to the <em>to-be</em> CTAM Pathfinder artefacts</strong>, which capture "
         "in-flight design decisions that are still being refined. Always confirm the current position "
         "before relying on any detail for delivery, contractual, or architectural decisions."
         "</div>"
     )
     parts.append(
-        "<p>HTML rendering of the JI / RAM Pathfinder planning artefacts. The sidebar — available on every page — "
+        "<p>HTML rendering of the JI / CTAM Pathfinder planning artefacts. The sidebar — available on every page — "
         "is organised so it is clear what belongs to the legacy <strong>as-is</strong> JI and what "
-        "belongs to the <strong>to-be</strong> RAM Pathfinder rebuild.</p>"
+        "belongs to the <strong>to-be</strong> CTAM Pathfinder rebuild.</p>"
     )
     for group_name, items in NAV:
         parts.append(f"<h2>{group_name}</h2>")
@@ -914,7 +914,7 @@ def main() -> int:
     build_asis_markdown()
 
     # write index page
-    write_page(OUT / "index.html", "JI / RAM Pathfinder Documentation", build_index_body(), "index", None)
+    write_page(OUT / "index.html", "JI / CTAM Pathfinder Documentation", build_index_body(), "index", None)
     print("build: index.html")
 
     # write the single shared sidebar; every page loads this via <script src>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>User Types — RAM Pathfinder Documentation</title>
+<title>User Types — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -90,11 +90,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="user-types">User Types</h1>
 <blockquote>
-<p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. The as-is JI catalogue (<code>docs/architecture/asis/JI user types - 2.xlsx</code>, Feb 2026 snapshot) is authoritative for the role taxonomy. RAM Pathfinder carries these access types over 1:1; this document is the binding taxonomy reference for <code>ram-authorisation</code>, the user bootstrap (restructured D9 — two populations, no legacy user migration), and the per-phase manual UAT scripts (FR60). <em>(The taxonomy below is the Courts/JI as-is catalogue; the SSCS as-is analysis pack<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> will extend it with SSCS access types — RTJ, Tribunal Judges, Tribunal Members, Caseworkers — before wave 1.)</em> Authentication is owned by HMCTS IdP (FR1); role + Region/Area mapping and effective-permission lookup live in <code>ram-authorisation</code> (FR2, FR3). See <a href="sequence-diagrams/user-authentication-and-authorisation.html"><code>./sequence-diagrams/user-authentication-and-authorisation.md</code></a> for the call path.</p>
+<p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. The as-is JI catalogue (<code>docs/architecture/asis/JI user types - 2.xlsx</code>, Feb 2026 snapshot) is authoritative for the role taxonomy. CTAM Pathfinder carries these access types over 1:1; this document is the binding taxonomy reference for <code>ctam-authorisation</code>, the user bootstrap (restructured D9 — two populations, no legacy user migration), and the per-phase manual UAT scripts (FR60). <em>(The taxonomy below is the Courts/JI as-is catalogue; the SSCS as-is analysis pack<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> will extend it with SSCS access types — RTJ, Tribunal Judges, Tribunal Members, Caseworkers — before wave 1.)</em> Authentication is owned by HMCTS IdP (FR1); role + Region/Area mapping and effective-permission lookup live in <code>ctam-authorisation</code> (FR2, FR3). See <a href="sequence-diagrams/user-authentication-and-authorisation.html"><code>./sequence-diagrams/user-authentication-and-authorisation.md</code></a> for the call path.</p>
 <p><strong>Baseline capability for every access type:</strong> access to standard reports. The capability lists below add to this baseline rather than repeat it.</p>
 </blockquote>
 <details class="section" id="at-a-glance"><summary><span class="section-title">At a glance</span></summary><div class="section-body">
-<p>RAM Pathfinder inherits <strong>17 application access types</strong> across four groups, plus <strong>1 configuration entry</strong> (Payment Authoriser) that is not an application access type. The as-is catalogue records <strong>2,818 active users</strong> as of Feb 2026.</p>
+<p>CTAM Pathfinder inherits <strong>17 application access types</strong> across four groups, plus <strong>1 configuration entry</strong> (Payment Authoriser) that is not an application access type. The as-is catalogue records <strong>2,818 active users</strong> as of Feb 2026.</p>
 <table>
 <thead>
 <tr>
@@ -208,11 +208,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Capabilities:</strong></p>
 <ol type="1">
 <li>All capabilities of Regional (Full Access).</li>
-<li>Send user-creation requests to the Advice Point (operational process to create new RAM Pathfinder users for the region).</li>
+<li>Send user-creation requests to the Advice Point (operational process to create new CTAM Pathfinder users for the region).</li>
 <li>Re-open verified sittings / bookings (FR40, MVP-only privileged action). Mandatory justification, must differ from original confirmer (SIT-NFR-02), fully audited.</li>
 </ol>
 <blockquote>
-<p>Q11 from the xlsx (whether Regional Admin should create users directly without an external operational process) is parked as an RAM Pathfinder design question. See <a href="gaps.html"><code>./gaps.md</code></a>.</p>
+<p>Q11 from the xlsx (whether Regional Admin should create users directly without an external operational process) is parked as an CTAM Pathfinder design question. See <a href="gaps.html"><code>./gaps.md</code></a>.</p>
 </blockquote>
 <h3 id="regional-full-access--68-active-users">Regional (Full Access) — 68 active users</h3>
 <p>Standard access level for regional users.</p>
@@ -250,7 +250,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Verify confirmed bookings for all courts in the region.</li>
 </ol>
 <blockquote>
-<p>Q12 from the xlsx (national-level access): no national-level access type exists in the as-is catalogue except Finance. All other roles are scoped by Region/Area or by judge linkage. Recorded for RAM Pathfinder parity.</p>
+<p>Q12 from the xlsx (national-level access): no national-level access type exists in the as-is catalogue except Finance. All other roles are scoped by Region/Area or by judge linkage. Recorded for CTAM Pathfinder parity.</p>
 </blockquote>
 </div></details><details class="section" id="judicial-access-types"><summary><span class="section-title">Judicial access types</span></summary><div class="section-body">
 <p>6 access types, 386 active users. Scope varies — see each entry.</p>
@@ -271,7 +271,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Same capability surface as Judge, but exercised on behalf of the linked judge(s).</li>
 </ol>
 <blockquote>
-<p>Q7 from the xlsx (whether Judge's Clerk differs from Judge): the as-is catalogue records them as functionally identical from an access-control standpoint — the only distinction is <em>which</em> judge's record(s) the principal is linked to. RAM Pathfinder maintains the separation for audit clarity (the Clerk acts on someone else's behalf).</p>
+<p>Q7 from the xlsx (whether Judge's Clerk differs from Judge): the as-is catalogue records them as functionally identical from an access-control standpoint — the only distinction is <em>which</em> judge's record(s) the principal is linked to. CTAM Pathfinder maintains the separation for audit clarity (the Clerk acts on someone else's behalf).</p>
 </blockquote>
 <h3 id="presiding-judge--2-active-users">Presiding Judge — 2 active users</h3>
 <p>Leadership judge with oversight of a group of judges (typically a Circuit's salaried judges).</p>
@@ -281,7 +281,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Same capability surface as Judge, exercised across all judges under their leadership.</li>
 </ol>
 <blockquote>
-<p>Q9 from the xlsx (why so few users): low headcount is structurally expected — there are very few presiding judges nationally. No RAM Pathfinder design implication.</p>
+<p>Q9 from the xlsx (why so few users): low headcount is structurally expected — there are very few presiding judges nationally. No CTAM Pathfinder design implication.</p>
 </blockquote>
 <h3 id="presiding-judges-clerk--0-active-users">Presiding Judge's Clerk — 0 active users</h3>
 <p>Clerk to a Presiding Judge.</p>
@@ -291,7 +291,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Same capability surface as Presiding Judge, exercised on behalf of the linked Presiding Judge.</li>
 </ol>
 <blockquote>
-<p><strong>No active users in the as-is catalogue (Feb 2026).</strong> Retained in the RAM Pathfinder taxonomy for as-is parity (Q6 confirmed). The access type is provisioned but currently unused. Whether to retire it is an operational decision deferred to post-MVP review.</p>
+<p><strong>No active users in the as-is catalogue (Feb 2026).</strong> Retained in the CTAM Pathfinder taxonomy for as-is parity (Q6 confirmed). The access type is provisioned but currently unused. Whether to retire it is an operational decision deferred to post-MVP review.</p>
 </blockquote>
 <h3 id="judge-itin-view-only--107-active-users">Judge Itin View Only — 107 active users</h3>
 <p>CTSC (Courts and Tribunals Service Centre) operational users who need to know whether and where a judge is working.</p>
@@ -332,17 +332,17 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p>Q4 from the xlsx (scope of payment schedules): confirmed national — a Finance user can produce schedules across all areas (2026-05-12).</p>
 </blockquote>
 </div></details><details class="section" id="payment-authoriser-configuration-not-an-access-type"><summary><span class="section-title">Payment Authoriser (configuration, not an access type)</span></summary><div class="section-body">
-<p>The Payment Authoriser is <strong>not an RAM Pathfinder application access type</strong>. It is a <strong>configuration entry</strong> — the addressable identity (name + email) to whom Finance-generated JFEPS payment schedules are emailed for forwarding to Liberata.</p>
-<p><strong>Modelling in RAM Pathfinder:</strong></p>
+<p>The Payment Authoriser is <strong>not an CTAM Pathfinder application access type</strong>. It is a <strong>configuration entry</strong> — the addressable identity (name + email) to whom Finance-generated JFEPS payment schedules are emailed for forwarding to Liberata.</p>
+<p><strong>Modelling in CTAM Pathfinder:</strong></p>
 <ol type="1">
 <li>Stored as configuration, not as an authenticated principal.</li>
-<li>The list of valid Payment Authoriser recipients is administrable (Phase 0 design decision: most likely the shared <code>ram_configuration_values</code> infrastructure table or an admin-maintained reference list — to be finalised in the Payment service's design).</li>
+<li>The list of valid Payment Authoriser recipients is administrable (Phase 0 design decision: most likely the shared <code>ctam_configuration_values</code> infrastructure table or an admin-maintained reference list — to be finalised in the Payment service's design).</li>
 <li>Finance users select a Payment Authoriser from this list when generating a payment schedule (FR43).</li>
-<li>The recipient does <strong>not</strong> log into RAM Pathfinder. They receive the JFEPS Excel by email and forward it to Liberata out-of-system (D6, unchanged from APEX).</li>
-<li>The 2 individuals recorded against this entry in the as-is catalogue (Feb 2026) are tracked operationally but are not migrated as RAM Pathfinder users in Phase 0<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
+<li>The recipient does <strong>not</strong> log into CTAM Pathfinder. They receive the JFEPS Excel by email and forward it to Liberata out-of-system (D6, unchanged from APEX).</li>
+<li>The 2 individuals recorded against this entry in the as-is catalogue (Feb 2026) are tracked operationally but are not migrated as CTAM Pathfinder users in Phase 0<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
 </ol>
 </div></details><details class="section" id="administrative--cross-cutting-roles"><summary><span class="section-title">Administrative / cross-cutting roles</span></summary><div class="section-body">
-<p>These are not user-facing access types in the as-is catalogue; they are RAM Pathfinder-specific permissions overlaid on the taxonomy above.</p>
+<p>These are not user-facing access types in the as-is catalogue; they are CTAM Pathfinder-specific permissions overlaid on the taxonomy above.</p>
 <table>
 <thead>
 <tr>
@@ -356,7 +356,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>System Administrator</strong></td>
 <td>(1) Create users. (2) Update role and Region/Area assignments for migrated and new users. (3) Manage per-user activation flags for per-(jurisdiction, region) rollout (FR57).</td>
-<td>New in RAM Pathfinder — partially overlaps with Regional (Admin)'s Advice-Point request capability.</td>
+<td>New in CTAM Pathfinder — partially overlaps with Regional (Admin)'s Advice-Point request capability.</td>
 <td>FR4, FR57</td>
 </tr>
 <tr>
@@ -367,7 +367,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>Reference Data Owner</strong> <em>(business role overlaid on Regional)</em></td>
-<td>(1) Named-owner sign-off on Reference Data list changes (FR6). (2) Named-owner sign-off applies to tier-(b) RAM-owned lists only — tier-(a) upstream-sourced data is corrected at source<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</td>
+<td>(1) Named-owner sign-off on Reference Data list changes (FR6). (2) Named-owner sign-off applies to tier-(b) CTAM-owned lists only — tier-(a) upstream-sourced data is corrected at source<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</td>
 <td>Overlaid on Regional (Admin) / Regional (Full Access).</td>
 <td>FR6, revised D3</td>
 </tr>
@@ -375,11 +375,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </table>
 </div></details><details class="section" id="authorisation-model-summary"><summary><span class="section-title">Authorisation model (summary)</span></summary><div class="section-body">
 <ul>
-<li><strong>Authentication:</strong> HMCTS IdP via OIDC <code>authorization_code</code> (FR1). RAM Pathfinder does not own password, session, or account lifecycle.</li>
-<li><strong>Authorisation state:</strong> <code>ram-authorisation</code> owns <code>ram_auth_users</code>, <code>ram_auth_roles</code>, <code>ram_auth_user_roles</code>, <code>ram_auth_user_region_scopes</code>, <code>ram_auth_user_activation_flags</code>. Authoritative table ownership is recorded in <a href="data-tables.html"><code>./data-tables.md</code></a>.</li>
+<li><strong>Authentication:</strong> HMCTS IdP via OIDC <code>authorization_code</code> (FR1). CTAM Pathfinder does not own password, session, or account lifecycle.</li>
+<li><strong>Authorisation state:</strong> <code>ctam-authorisation</code> owns <code>ctam_auth_users</code>, <code>ctam_auth_roles</code>, <code>ctam_auth_user_roles</code>, <code>ctam_auth_user_region_scopes</code>, <code>ctam_auth_user_activation_flags</code>. Authoritative table ownership is recorded in <a href="data-tables.html"><code>./data-tables.md</code></a>.</li>
 <li><strong>Enforcement:</strong> every API call resolves principal → role(s) + Region/Area scope through Authorisation; implemented as per-service middleware (FR2). Effective-permission lookup is <code>POST /authz/check</code> (FR3).</li>
-<li><strong>Phase 0 migration:</strong> active APEX users + role/Region-Area scope assignments are loaded into RAM Pathfinder via the Authorisation API and mapped to IdP principals (D9, Risk #14). Unmatched records get an explicit decision — drop / hold / manual map. Zero ambiguous migrations.</li>
-<li><strong>Per-user activation flag:</strong> rollout gating uses <code>ram_auth_user_activation_flags</code> keyed by (jurisdiction, region) (FR57) — migrated users do not use the incumbent; non-migrated users do not use RAM Pathfinder<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</li>
+<li><strong>Phase 0 migration:</strong> active APEX users + role/Region-Area scope assignments are loaded into CTAM Pathfinder via the Authorisation API and mapped to IdP principals (D9, Risk #14). Unmatched records get an explicit decision — drop / hold / manual map. Zero ambiguous migrations.</li>
+<li><strong>Per-user activation flag:</strong> rollout gating uses <code>ctam_auth_user_activation_flags</code> keyed by (jurisdiction, region) (FR57) — migrated users do not use the incumbent; non-migrated users do not use CTAM Pathfinder<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</li>
 <li><strong>Verifier separation of duties:</strong> confirmation and verification of sittings/bookings must be performed by different principals — enforced at the application tier on the sitting/booking row's <code>confirmed_by</code> field. Re-open enforces a similar constraint (FR40).</li>
 </ul>
 </div></details><details class="section" id="manual-uat-mapping-fr60"><summary><span class="section-title">Manual UAT mapping (FR60)</span></summary><div class="section-body">
@@ -431,7 +431,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><code>docs/architecture/asis/JI user types - 2.xlsx</code> — authoritative as-is catalogue (Feb 2026)</li>
 <li><a href="../../prd.html"><code>../prd.md</code></a> — <em>Target users</em>, <em>User Journeys</em>, FR1–FR5, FR40, FR57, FR60</li>
 <li><a href="sequence-diagrams/user-authentication-and-authorisation.html"><code>./sequence-diagrams/user-authentication-and-authorisation.md</code></a> — authn / authz call path</li>
-<li><a href="data-tables.html"><code>./data-tables.md</code></a> — <code>ram-authorisation</code> table inventory</li>
+<li><a href="data-tables.html"><code>./data-tables.md</code></a> — <code>ctam-authorisation</code> table inventory</li>
 <li><a href="gaps.html"><code>./gaps.md</code></a> — open questions inherited from the as-is catalogue</li>
 <li><a href="functional-requirements-coverage.html"><code>./functional-requirements-coverage.md</code></a> — per-FR architectural coverage</li>
 </ul>
@@ -439,7 +439,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <hr />
 <ol>
 <li id="fn1"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

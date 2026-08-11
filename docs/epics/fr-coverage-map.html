@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FR Coverage Map — RAM Pathfinder Documentation</title>
+<title>FR Coverage Map — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -105,7 +105,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>FR1</td>
 <td><a href="phase-0/epic-0.2-user-authenticates.html">Epic 0.2</a> (sign-in + two-population identity resolution, Stories 0.2.3/0.2.5) + <a href="phase-0/epic-0.1-upstream-reference-data-ingested.html">Epic 0.1</a> (<code>jo_people</code> ingested — the JOH lookup target) + <a href="phase-0/epic-0.4-user-populations-bootstrapped.html">Epic 0.4</a> (the auth records resolved against)</td>
 <td>—</td>
-<td>IdP email → <code>jo_people</code> → <code>personnel_number</code> → <code>ram_joh_identities</code> UUID (JOH) or <code>ram_auth_staff_identities</code> UUID (staff),<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
+<td>IdP email → <code>jo_people</code> → <code>personnel_number</code> → <code>ctam_joh_identities</code> UUID (JOH) or <code>ctam_auth_staff_identities</code> UUID (staff),<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
 </tr>
 <tr>
 <td>FR2</td>
@@ -133,8 +133,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR6</strong></td>
-<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.1-upstream-reference-data-ingested.html">Epic 0.1</a> Story 0.1.2 (tables) + Stories 0.1.3/0.1.4 (eLinks sync + MRD ingestion — read-only in RAM, corrections at source). <strong>Tier (b)</strong>: <a href="phase-0/epic-0.3-reference-data-read-only-api.html">Epic 0.3</a> Story 0.3.1 (tables + seed + DBA runbook). Read API over both tiers: Story 0.3.2.</td>
-<td><strong>YES — tier-(b) RSU maintenance UI</strong> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Tier (a) never gets a RAM write surface in any phase.</td>
+<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.1-upstream-reference-data-ingested.html">Epic 0.1</a> Story 0.1.2 (tables) + Stories 0.1.3/0.1.4 (eLinks sync + MRD ingestion — read-only in CTAM, corrections at source). <strong>Tier (b)</strong>: <a href="phase-0/epic-0.3-reference-data-read-only-api.html">Epic 0.3</a> Story 0.3.1 (tables + seed + DBA runbook). Read API over both tiers: Story 0.3.2.</td>
+<td><strong>YES — tier-(b) RSU maintenance UI</strong> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Tier (a) never gets a CTAM write surface in any phase.</td>
 <td>Two ownership tiers in separate tables preserve lineage</td>
 </tr>
 <tr>
@@ -147,13 +147,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>FR8</td>
 <td>distributed (lands in <a href="phase-0/epic-0.1-upstream-reference-data-ingested.html">Epic 0.1</a> Story 0.1.1 first)</td>
 <td>—</td>
-<td>Shared <code>ram_configuration_values</code> Liquibase baseline changelog</td>
+<td>Shared <code>ctam_configuration_values</code> Liquibase baseline changelog</td>
 </tr>
 <tr>
 <td>FR9</td>
 <td><a href="phase-0/epic-0.5-system-dispatches-emails.html">Epic 0.5</a></td>
 <td>—</td>
-<td>Notification dispatch + delivery log (<code>ram_notification_dispatches</code>). User-JWT propagation only at Phase 0; <code>client_credentials</code> flow moved to Phase 6</td>
+<td>Notification dispatch + delivery log (<code>ctam_notification_dispatches</code>). User-JWT propagation only at Phase 0; <code>client_credentials</code> flow moved to Phase 6</td>
 </tr>
 <tr>
 <td>FR55</td>
@@ -165,13 +165,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>FR56</td>
 <td><a href="phase-0/epic-0.2-user-authenticates.html">Epic 0.2</a> (business stack)</td>
 <td><strong>Partial — admin stack</strong> is post-MVP<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></td>
-<td><code>ram-ui</code> delivered in Phase 0; <code>ram-admin-ui</code> post-MVP</td>
+<td><code>ctam-ui</code> delivered in Phase 0; <code>ctam-admin-ui</code> post-MVP</td>
 </tr>
 <tr>
 <td><strong>FR57</strong></td>
 <td><a href="phase-0/epic-0.4-user-populations-bootstrapped.html">Epic 0.4</a> (initial all-FALSE flag state keyed by (jurisdiction, region)) — cutover orchestration in Phase 9+ (per-wave flip via direct SQL by DBA)</td>
 <td><strong>Partial — activation toggle UI</strong> is post-MVP</td>
-<td>Cutover: <code>UPDATE ram_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'</code> per rollout runbook</td>
+<td>Cutover: <code>UPDATE ctam_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'</code> per rollout runbook</td>
 </tr>
 <tr>
 <td><strong>FR58</strong></td>
@@ -211,7 +211,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>FR10–FR18</td>
 <td>1</td>
-<td>JOH Records &amp; Working Patterns (profiles are <em>views</em> over tier (a) + <code>ram-joh</code> overlays; FR14 is display-only — conversions happen upstream)</td>
+<td>JOH Records &amp; Working Patterns (profiles are <em>views</em> over tier (a) + <code>ctam-joh</code> overlays; FR14 is display-only — conversions happen upstream)</td>
 <td>⚪</td>
 </tr>
 <tr>
@@ -229,7 +229,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>FR29–FR34</td>
 <td>4</td>
-<td>Booking Management (second user-initiated Notification consumer via FR32 ack email; bookings reference JOHs by <code>joh_id</code> → <code>ram_joh_identities</code>)</td>
+<td>Booking Management (second user-initiated Notification consumer via FR32 ack email; bookings reference JOHs by <code>joh_id</code> → <code>ctam_joh_identities</code>)</td>
 <td>⚪</td>
 </tr>
 <tr>
@@ -286,7 +286,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-admin-ui</code> repo scaffold + auth wrapper</td>
+<td><code>ctam-admin-ui</code> repo scaffold + auth wrapper</td>
 <td>Post-MVP UI programme</td>
 </tr>
 <tr>
@@ -298,7 +298,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>Post-MVP — paired with the admin UI</td>
 </tr>
 <tr>
-<td><code>ram-authorisation</code> admin write endpoints</td>
+<td><code>ctam-authorisation</code> admin write endpoints</td>
 <td>Post-MVP — paired with the admin UI</td>
 </tr>
 <tr>
@@ -326,16 +326,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn10"><p>D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>D12 (2026-06-10) — CTAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

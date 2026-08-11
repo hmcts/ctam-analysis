@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PRD Validation Report — RAM Pathfinder Documentation</title>
+<title>PRD Validation Report — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -126,10 +126,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="measurability-validation"><summary><span class="section-title">Measurability Validation</span></summary><div class="section-body">
 <h3 id="functional-requirements">Functional Requirements</h3>
 <p><strong>Total FRs Analyzed:</strong> 60 (FR1–FR60)</p>
-<p><strong>Format Violations:</strong> 0 — every FR is a capability statement ("[Actor] can …" or "RAM Pathfinder [does X]") with a testable outcome.</p>
+<p><strong>Format Violations:</strong> 0 — every FR is a capability statement ("[Actor] can …" or "CTAM Pathfinder [does X]") with a testable outcome.</p>
 <p><strong>Subjective Adjectives Found:</strong> 0 — no "easy/fast/intuitive/seamless/user-friendly".</p>
 <p><strong>Vague Quantifiers Found:</strong> 0 — the only approximations (<code>~15 JOH-eLinks entities</code> in FR7; capacity <code>~50–100</code> / <code>~200–500</code> in NFR9) are explicitly labelled order-of-magnitude estimates, which is appropriate for capacity planning.</p>
-<p><strong>Implementation Specificity (Informational, not blocking):</strong> ~8 FRs reference concrete tables / SQL / mechanisms — FR1 (<code>jo_people</code>), FR6/FR7 (direct-SQL tiers), FR8 (<code>ram_configuration_values</code> + Flyway), FR30 (<code>ram_vacancies</code> in-process update), FR42 (<code>ram-payment-batch</code>, SQL JOIN), FR45 (<code>(payment_cycle_id, booking_id)</code> constraint), FR57 (<code>UPDATE ram_auth_user_activation_flags …</code>). Strict BMAD purity flags these as leakage, <strong>but</strong> each is deliberately annotated ("implementation per architecture") and reflects the brownfield-rebuild context where the FR contract co-evolves with the architecture. They do not impair testability and are consistent with the accepted 2026-06-10 5/5 assessment. Treated as informational.</p>
+<p><strong>Implementation Specificity (Informational, not blocking):</strong> ~8 FRs reference concrete tables / SQL / mechanisms — FR1 (<code>jo_people</code>), FR6/FR7 (direct-SQL tiers), FR8 (<code>ctam_configuration_values</code> + Flyway), FR30 (<code>ctam_vacancies</code> in-process update), FR42 (<code>ctam-payment-batch</code>, SQL JOIN), FR45 (<code>(payment_cycle_id, booking_id)</code> constraint), FR57 (<code>UPDATE ctam_auth_user_activation_flags …</code>). Strict BMAD purity flags these as leakage, <strong>but</strong> each is deliberately annotated ("implementation per architecture") and reflects the brownfield-rebuild context where the FR contract co-evolves with the architecture. They do not impair testability and are consistent with the accepted 2026-06-10 5/5 assessment. Treated as informational.</p>
 <p><strong>FR Violations Total:</strong> 0 blocking (1 informational pattern noted)</p>
 <h3 id="non-functional-requirements">Non-Functional Requirements</h3>
 <p><strong>Total NFRs Analyzed:</strong> 42 (NFR1–NFR42)</p>
@@ -341,7 +341,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Excluded-section violations:</strong> 0 (all three are documented D4 overrides, not violations).</p>
 <h3 id="findings-2">Findings</h3>
 <ul>
-<li><strong>Informational:</strong> the API Backend section carries pre-SSCS-pivot illustrative content — legacy "JI" / "Judge" naming (e.g. "JI is composed of 11 services"; <code>Judge</code> service; <code>POST/GET/PUT /judges</code>) that predates the <code>ram-judge</code>→<code>ram-joh</code> rename (D11 / architecture v3.0), and a Reference Data "admin-gated <code>POST/PUT</code> writes" endpoint (line ~445) that contradicts the D11 read-only tier-(a) model + D10 admin-write deferral. The section is self-labelled "illustrative — definitive contracts are Phase 0 artefacts," which lowers severity. Recommend a light terminology + endpoint-illustration refresh.</li>
+<li><strong>Informational:</strong> the API Backend section carries pre-SSCS-pivot illustrative content — legacy "JI" / "Judge" naming (e.g. "JI is composed of 11 services"; <code>Judge</code> service; <code>POST/GET/PUT /judges</code>) that predates the <code>ctam-judge</code>→<code>ctam-joh</code> rename (D11 / architecture v3.0), and a Reference Data "admin-gated <code>POST/PUT</code> writes" endpoint (line ~445) that contradicts the D11 read-only tier-(a) model + D10 admin-write deferral. The section is self-labelled "illustrative — definitive contracts are Phase 0 artefacts," which lowers severity. Recommend a light terminology + endpoint-illustration refresh.</li>
 </ul>
 <h3 id="summary-2">Summary</h3>
 <p><strong>Required Sections:</strong> 6/6 present. <strong>Excluded-section violations:</strong> 0. <strong>Compliance Score:</strong> 100%.</p>
@@ -537,7 +537,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <h3 id="top-3-improvements">Top 3 Improvements</h3>
 <ol type="1">
 <li><p><strong>Fix the "migrated from APEX" line</strong> (Domain §Technical Constraints, ~line 379). It contradicts the no-migration model (revised D3 / restructured D9 — auth data bootstrapped outside the PRD scope). Reword to the bootstrap model. <em>(Moderate — the only decision-contradiction in the document.)</em></p></li>
-<li><p><strong>Refresh the illustrative API Backend section.</strong> Update legacy "JI"/"Judge" naming to RAM Pathfinder / <code>ram-joh</code> (per D11 / architecture v3.0), and drop the Reference Data "admin-gated <code>POST/PUT</code> writes" endpoint illustration to match the D11 read-only tier-(a) model + D10 admin-write deferral. <em>(Informational — section self-labels as illustrative.)</em></p></li>
+<li><p><strong>Refresh the illustrative API Backend section.</strong> Update legacy "JI"/"Judge" naming to CTAM Pathfinder / <code>ctam-joh</code> (per D11 / architecture v3.0), and drop the Reference Data "admin-gated <code>POST/PUT</code> writes" endpoint illustration to match the D11 read-only tier-(a) model + D10 admin-write deferral. <em>(Informational — section self-labels as illustrative.)</em></p></li>
 <li><p><strong>Correct the journey count.</strong> Journey Requirements Summary says "the <strong>five</strong> journeys" but there are six (J1–J6). <em>(Cosmetic.)</em></p></li>
 </ol>
 <h3 id="summary-3">Summary</h3>
@@ -678,8 +678,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="fixes-applied-2026-06-17-fix-simpler-items"><summary><span class="section-title">Fixes Applied (2026-06-17, "Fix Simpler Items")</span></summary><div class="section-body">
 <p>All three recommendations applied directly to <code>prd.md</code>:</p>
 <ol type="1">
-<li><strong>[Moderate — resolved]</strong> Domain §Technical Constraints: "User records … migrated from APEX in Phase 0" → "bootstrapped per the restructured D9 … there is no APEX migration". The three stale "JI" self-references in that bullet also corrected to "RAM Pathfinder". Now consistent with revised D3 / restructured D9.</li>
-<li><strong>[Informational — resolved]</strong> API Backend section: "JI is composed of 11 services" → "RAM Pathfinder…"; "Domain services: Judge, …" → "JOH (<code>ram-joh</code>), …"; the Judge endpoint row → JOH endpoints keyed by <code>personnelNumber</code> (person record read-only); Reference Data "admin-gated <code>POST/PUT</code> writes" → "read-only over both tiers; no write endpoints in MVP" (D10/D11).</li>
+<li><strong>[Moderate — resolved]</strong> Domain §Technical Constraints: "User records … migrated from APEX in Phase 0" → "bootstrapped per the restructured D9 … there is no APEX migration". The three stale "JI" self-references in that bullet also corrected to "CTAM Pathfinder". Now consistent with revised D3 / restructured D9.</li>
+<li><strong>[Informational — resolved]</strong> API Backend section: "JI is composed of 11 services" → "CTAM Pathfinder…"; "Domain services: Judge, …" → "JOH (<code>ctam-joh</code>), …"; the Judge endpoint row → JOH endpoints keyed by <code>personnelNumber</code> (person record read-only); Reference Data "admin-gated <code>POST/PUT</code> writes" → "read-only over both tiers; no write endpoints in MVP" (D10/D11).</li>
 <li><strong>[Cosmetic — resolved]</strong> Journey Requirements Summary: "five journeys" → "six journeys".</li>
 </ol>
 <p>PRD <code>lastEdited</code> bumped to 2026-06-17; editHistory entry added.</p>

@@ -1,12 +1,12 @@
 ---
 type: 'Epics Index'
-title: 'ram-analysis (RAM Pathfinder) — Epic Breakdown'
-description: 'This is the entry point for the RAM Pathfinder epic and story breakdown.'
+title: 'ctam-analysis (CTAM Pathfinder) — Epic Breakdown'
+description: 'This is the entry point for the CTAM Pathfinder epic and story breakdown.'
 resource: 'epics/index.html'
-tags: [ram-pathfinder, epics, sscs]
+tags: [ctam-pathfinder, epics, sscs]
 timestamp: '2026-06-11'
-projectName: 'ram-analysis'
-productCodename: 'RAM Pathfinder'
+projectName: 'ctam-analysis'
+productCodename: 'CTAM Pathfinder'
 inputDocuments:
   - '_bmad-output/planning-artifacts/prd.md'
   - '_bmad-output/planning-artifacts/architecture.md'
@@ -22,13 +22,13 @@ stepsCompleted:
   - 'step-04-final-validation-phase-0'
 ---
 
-# ram-analysis (RAM Pathfinder) — Epic Breakdown
+# ctam-analysis (CTAM Pathfinder) — Epic Breakdown
 
-This is the **entry point** for the RAM Pathfinder epic and story breakdown. Each section below lives in its own file for maintainability.
+This is the **entry point** for the CTAM Pathfinder epic and story breakdown. Each section below lives in its own file for maintainability.
 
 ## Overview
 
-RAM Pathfinder is HMCTS's greenfield JOH availability-and-scheduling platform — replacing **ListAssist** (the SSCS judicial-scheduling tool) in the SSCS Tribunals jurisdiction in wave 1 (GAPS, the SSCS case-management system, is retained) and the as-is JI application (Oracle APEX) in the Courts jurisdictions in waves 2+[^d11]. Scope boundary[^d12]: availability/scheduling only; case and hearing management live in external systems that consume RAM's APIs. This document decomposes the requirements from the PRD (60 FRs, 42 NFRs, D1–D12 — SSCS-first wave 1[^d11]) and the Architecture (HMCTS Crime SpringBoot starter, polyrepo, shared-DB + per-service DB roles, two-tier reference data ingested from JOH eLinks + MRD, two-population identity, Kubernetes on Azure AKS) into implementable stories.
+CTAM Pathfinder is HMCTS's greenfield JOH availability-and-scheduling platform — replacing **ListAssist** (the SSCS judicial-scheduling tool) in the SSCS Tribunals jurisdiction in wave 1 (GAPS, the SSCS case-management system, is retained) and the as-is JI application (Oracle APEX) in the Courts jurisdictions in waves 2+[^d11]. Scope boundary[^d12]: availability/scheduling only; case and hearing management live in external systems that consume CTAM's APIs. This document decomposes the requirements from the PRD (60 FRs, 42 NFRs, D1–D12 — SSCS-first wave 1[^d11]) and the Architecture (HMCTS Crime SpringBoot starter, polyrepo, shared-DB + per-service DB roles, two-tier reference data ingested from JOH eLinks + MRD, two-population identity, Kubernetes on Azure AKS) into implementable stories.
 
 UX Design document is not present; downstream epics inherit UI requirements directly from PRD FRs (FR55, FR56) and architecture conventions (GOV.UK Design System base, WCAG 2.2 AA per NFR17). This gap is documented in the 2026-05-06 readiness report.
 
@@ -77,4 +77,4 @@ Phase 0 has completed all four steps. Phases 1–9+ are at the framework stage o
 - **Verifying readiness?** Run `bmad-check-implementation-readiness` from the repo root; it understands this sharded shape.
 
 [^d11]: D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**; waves 2+ replace JI/APEX per Courts region.
-[^d12]: D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.
+[^d12]: D12 (2026-06-10) — CTAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.

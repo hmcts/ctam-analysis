@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Delivery Operating Model — Control Plane, Context Bus, Execution Units — RAM Pathfinder Documentation</title>
+<title>Delivery Operating Model — Control Plane, Context Bus, Execution Units — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -93,7 +93,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. Companion to <a href="repository-strategy.html"><code>./repository-strategy.md</code></a> ("<em>what</em> repos exist") and <a href="repo-structure.html"><code>./repo-structure.md</code></a> ("<em>what's inside</em> each repo"). This file answers "<em>how</em> work flows from the epics/stories authored here into those repos, and who orchestrates it."</p>
 </blockquote>
 <details class="section" id="the-problem-this-shard-resolves"><summary><span class="section-title">The problem this shard resolves</span></summary><div class="section-body">
-<p>Epics and stories are authored <strong>once, centrally</strong> in this planning workspace (<code>ram-analysis</code>): the PRD, the architecture, and the per-phase epics with embedded Gherkin acceptance criteria all live here. But the code that satisfies them is delivered across a <strong>16-repo polyrepo</strong> (<a href="repository-strategy.html"><code>./repository-strategy.md</code></a>), each repo with its own pipeline, CODEOWNERS, and release cadence. Delivery is <strong>AI-led</strong> — Claude Code agents implement the stories.</p>
+<p>Epics and stories are authored <strong>once, centrally</strong> in this planning workspace (<code>ctam-analysis</code>): the PRD, the architecture, and the per-phase epics with embedded Gherkin acceptance criteria all live here. But the code that satisfies them is delivered across a <strong>16-repo polyrepo</strong> (<a href="repository-strategy.html"><code>./repository-strategy.md</code></a>), each repo with its own pipeline, CODEOWNERS, and release cadence. Delivery is <strong>AI-led</strong> — Claude Code agents implement the stories.</p>
 <p>That creates one central question: <em>does the planning workspace become the thing that edits code in all 16 repos, or do stories get copied out and detached?</em> Both naive answers fail:</p>
 <ul>
 <li><strong>Copy-and-detach</strong> produces 16 divergent copies of shared truth (conventions, the <code>JWTFilter</code> pattern, RFC 9457 shapes, ADRs). One convention change becomes a 16-way manual re-sync with no guarantee of consistency. Traceability fragments.</li>
@@ -113,31 +113,31 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><strong>Control plane</strong></td>
-<td><code>ram-analysis</code> (this workspace)</td>
+<td><code>ctam-analysis</code> (this workspace)</td>
 <td>Canonical PRD/architecture/epics/stories · sprint &amp; story queue · the machine-readable <strong>dispatch graph</strong> · the <strong>traceability ledger</strong> (FR/NFR → epic → story → repo → PR) · story-packet generation ("dispatch")</td>
 <td>Edit service code</td>
 </tr>
 <tr>
 <td><strong>Context bus</strong></td>
-<td><code>ram-architecture</code></td>
-<td><em>Published, version-pinned</em> architecture + conventions + ADRs + <code>ram-scaffold.sh</code> + aggregated OpenAPI contracts every service consumes as shared truth</td>
+<td><code>ctam-architecture</code></td>
+<td><em>Published, version-pinned</em> architecture + conventions + ADRs + <code>ctam-scaffold.sh</code> + aggregated OpenAPI contracts every service consumes as shared truth</td>
 <td>Hold planning or story state</td>
 </tr>
 <tr>
 <td><strong>Execution units</strong></td>
-<td>the 15 service / UI / infra repos (the polyrepo minus <code>ram-architecture</code>)</td>
-<td>Where code lands. Each carries a <strong>self-contained story packet</strong> (<code>docs/stories/&lt;id&gt;.md</code>) + a <code>CLAUDE.md</code> pinned to a <code>ram-architecture</code> version</td>
+<td>the 15 service / UI / infra repos (the polyrepo minus <code>ctam-architecture</code>)</td>
+<td>Where code lands. Each carries a <strong>self-contained story packet</strong> (<code>docs/stories/&lt;id&gt;.md</code>) + a <code>CLAUDE.md</code> pinned to a <code>ctam-architecture</code> version</td>
 <td>Own the roadmap</td>
 </tr>
 </tbody>
 </table>
-<p>This is already latent in the architecture: <a href="repo-structure.html"><code>./repo-structure.md</code></a> names the canonical PRD as living in planning-artifacts (here) with <code>ram-architecture/prd.md</code> as a <em>mirror</em>. This shard names that split and makes it operational.</p>
-<p><strong>Direct answer to "is <code>ram-analysis</code> the orchestrator?"</strong> — Yes for <strong>planning, sequencing, and traceability</strong>. No for <strong>code editing</strong>, which happens per-repo to honour polyrepo isolation.</p>
+<p>This is already latent in the architecture: <a href="repo-structure.html"><code>./repo-structure.md</code></a> names the canonical PRD as living in planning-artifacts (here) with <code>ctam-architecture/prd.md</code> as a <em>mirror</em>. This shard names that split and makes it operational.</p>
+<p><strong>Direct answer to "is <code>ctam-analysis</code> the orchestrator?"</strong> — Yes for <strong>planning, sequencing, and traceability</strong>. No for <strong>code editing</strong>, which happens per-repo to honour polyrepo isolation.</p>
 </div></details><details class="section" id="decision-1--context-bus-binding-git-submodule-version-pinned"><summary><span class="section-title">Decision 1 — Context bus binding: git submodule, version-pinned</span></summary><div class="section-body">
-<p>Every service repo consumes shared architecture truth by embedding <strong><code>ram-architecture</code> as a git submodule pinned to an exact commit/tag</strong>, rather than copying distilled context in or querying a runtime service.</p>
-<pre><code>ram-{service}/
-├── .gitmodules                     # pins ram-architecture @ &lt;tag&gt;, e.g. arch-v1.0
-├── _arch/                          # submodule → github.com/hmcts/ram-architecture @ arch-v1.0
+<p>Every service repo consumes shared architecture truth by embedding <strong><code>ctam-architecture</code> as a git submodule pinned to an exact commit/tag</strong>, rather than copying distilled context in or querying a runtime service.</p>
+<pre><code>ctam-{service}/
+├── .gitmodules                     # pins ctam-architecture @ &lt;tag&gt;, e.g. arch-v1.0
+├── _arch/                          # submodule → github.com/hmcts/ctam-architecture @ arch-v1.0
 │   ├── architecture.md
 │   ├── architecture/conventions.md
 │   ├── architecture/data-tables.md
@@ -152,15 +152,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 <h3 id="the-bus-pinning-rule-this-is-what-makes-the-model-safe">The bus-pinning rule (this is what makes the model safe)</h3>
 <blockquote>
-<p><strong>A service repo re-syncs to a newer <code>ram-architecture</code> version only by an explicit, committed submodule bump. The bus never mutates a downstream repo silently.</strong></p>
+<p><strong>A service repo re-syncs to a newer <code>ctam-architecture</code> version only by an explicit, committed submodule bump. The bus never mutates a downstream repo silently.</strong></p>
 </blockquote>
-<p>Consequence: a convention change is <strong>one PR in <code>ram-architecture</code></strong> (publish <code>arch-v(N+1)</code>) <strong>+ one deliberate bump PR per repo that adopts it</strong> — auditable, staged, reversible. This is precisely what prevents "central truth" from becoming "16 things silently drifting." Repos may sit on different bus versions intentionally (e.g. a phase-6 service on <code>arch-v1.9</code> while phase-1 services haven't yet needed the bump); the ledger records each repo's pinned version.</p>
+<p>Consequence: a convention change is <strong>one PR in <code>ctam-architecture</code></strong> (publish <code>arch-v(N+1)</code>) <strong>+ one deliberate bump PR per repo that adopts it</strong> — auditable, staged, reversible. This is precisely what prevents "central truth" from becoming "16 things silently drifting." Repos may sit on different bus versions intentionally (e.g. a phase-6 service on <code>arch-v1.9</code> while phase-1 services haven't yet needed the bump); the ledger records each repo's pinned version.</p>
 <h3 id="contract-placement-within-the-bus-producer-owned-source-read-only-mirror-only">Contract placement within the bus: producer-owned source, read-only mirror only</h3>
 <p>The context-bus row above lists "aggregated OpenAPI contracts." That aggregation is a <strong>read-only mirror — and nothing more.</strong> API contracts follow the same "single source of truth, referenced not copied" rule as the architecture prose, but with a different transport:</p>
 <ul>
-<li><strong>Source of truth = the delivering service repo.</strong> Each service's OpenAPI 3.x spec is generated from its own code (Swagger Core) and published <strong>by Gradle, via the <code>maven-publish</code> plugin, as a Maven-format artefact</strong> (<code>uk.gov.hmcts.ram:api-ram-{service}:{version}</code>) to the internal artefact repository. The spec is a build output of the service, so it must live where that code lives — otherwise contract and implementation drift, and Spectral/Pact checks can't gate the spec against its own service in CI.</li>
-<li><strong>Distribution = version-pinned artefact.</strong> Consumers (other services, <code>ram-ui</code>, <code>ram-admin-ui</code>) depend on a <strong>pinned version</strong> of the producer's artefact and generate their clients from it — structurally identical to a repo pinning <code>ram-architecture@arch-vN</code> as a submodule. Same principle, per-service granularity.</li>
-<li><strong><code>ram-architecture</code> holds a READ-ONLY MIRROR.</strong> The aggregated specs under <code>ram-architecture/api-specs/</code> exist only for <strong>discovery, the shared Spectral ruleset, and diagram wiring</strong>. They are:
+<li><strong>Source of truth = the delivering service repo.</strong> Each service's OpenAPI 3.x spec is generated from its own code (Swagger Core) and published <strong>by Gradle, via the <code>maven-publish</code> plugin, as a Maven-format artefact</strong> (<code>uk.gov.hmcts.ctam:api-ctam-{service}:{version}</code>) to the internal artefact repository. The spec is a build output of the service, so it must live where that code lives — otherwise contract and implementation drift, and Spectral/Pact checks can't gate the spec against its own service in CI.</li>
+<li><strong>Distribution = version-pinned artefact.</strong> Consumers (other services, <code>ctam-ui</code>, <code>ctam-admin-ui</code>) depend on a <strong>pinned version</strong> of the producer's artefact and generate their clients from it — structurally identical to a repo pinning <code>ctam-architecture@arch-vN</code> as a submodule. Same principle, per-service granularity.</li>
+<li><strong><code>ctam-architecture</code> holds a READ-ONLY MIRROR.</strong> The aggregated specs under <code>ctam-architecture/api-specs/</code> exist only for <strong>discovery, the shared Spectral ruleset, and diagram wiring</strong>. They are:
 <ul>
 <li><strong>regenerated by automation</strong> on producer release — <strong>never hand-edited</strong>;</li>
 <li><strong>never a build dependency</strong> — consumers pin the producer's Maven-format artefact, not the mirror;</li>
@@ -176,43 +176,43 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <pre class="yaml"><code># dispatch-graph.yaml — repo build order + dependencies. Source of truth for &quot;what&#39;s next&quot;.
 bus_version: arch-v1.0          # current published context-bus version
 repos:
-  ram-shared-infrastructure:
+  ctam-shared-infrastructure:
     phase: 0
     depends_on: []              # nothing precedes the estate
     epics: [epic-0.0]
-  ram-mock-auth:
+  ctam-mock-auth:
     phase: 0
-    depends_on: [ram-shared-infrastructure]
+    depends_on: [ctam-shared-infrastructure]
     epics: [epic-0.2]           # dev/CI OIDC issuer, needed before auth integration
-  ram-reference-data:
+  ctam-reference-data:
     phase: 0
-    depends_on: [ram-shared-infrastructure]
+    depends_on: [ctam-shared-infrastructure]
     epics: [epic-0.1, epic-0.3] # integrations-first: jo_people before sign-in
-  ram-authorisation:
+  ctam-authorisation:
     phase: 0
-    depends_on: [ram-shared-infrastructure, ram-mock-auth, ram-reference-data]
+    depends_on: [ctam-shared-infrastructure, ctam-mock-auth, ctam-reference-data]
     epics: [epic-0.2, epic-0.4]
-  ram-notification:
+  ctam-notification:
     phase: 0
-    depends_on: [ram-shared-infrastructure]
+    depends_on: [ctam-shared-infrastructure]
     epics: [epic-0.5]
-  ram-ui:
+  ctam-ui:
     phase: 0
-    depends_on: [ram-authorisation]
+    depends_on: [ctam-authorisation]
     epics: [epic-0.ui-shell]
-  ram-joh:        { phase: 1, depends_on: [ram-authorisation, ram-reference-data], epics: [] }
-  ram-absence:    { phase: 2, depends_on: [ram-joh, ram-notification], epics: [] }
-  ram-vacancy:    { phase: 3, depends_on: [ram-absence], epics: [] }
-  ram-booking:    { phase: 4, depends_on: [ram-vacancy], epics: [] }
-  ram-sitting:    { phase: 5, depends_on: [ram-joh], epics: [] }
-  ram-payment:    { phase: 6, depends_on: [ram-booking, ram-sitting, ram-notification], epics: [] }
-  ram-itinerary:  { phase: 7, depends_on: [ram-joh, ram-absence, ram-vacancy, ram-booking, ram-sitting], epics: [] }
-  ram-mi-feed:    { phase: 8, depends_on: [ram-itinerary], epics: [] }
-  ram-admin-ui:   { phase: post-mvp, depends_on: [ram-reference-data, ram-authorisation], epics: [] }</code></pre>
+  ctam-joh:        { phase: 1, depends_on: [ctam-authorisation, ctam-reference-data], epics: [] }
+  ctam-absence:    { phase: 2, depends_on: [ctam-joh, ctam-notification], epics: [] }
+  ctam-vacancy:    { phase: 3, depends_on: [ctam-absence], epics: [] }
+  ctam-booking:    { phase: 4, depends_on: [ctam-vacancy], epics: [] }
+  ctam-sitting:    { phase: 5, depends_on: [ctam-joh], epics: [] }
+  ctam-payment:    { phase: 6, depends_on: [ctam-booking, ctam-sitting, ctam-notification], epics: [] }
+  ctam-itinerary:  { phase: 7, depends_on: [ctam-joh, ctam-absence, ctam-vacancy, ctam-booking, ctam-sitting], epics: [] }
+  ctam-mi-feed:    { phase: 8, depends_on: [ctam-itinerary], epics: [] }
+  ctam-admin-ui:   { phase: post-mvp, depends_on: [ctam-reference-data, ctam-authorisation], epics: [] }</code></pre>
 <p><strong>Buildable-now rule:</strong> a story is dispatchable iff every repo in its <code>depends_on</code> has its prerequisite epics marked <code>done</code> in the ledger. Anything with all-satisfied dependencies and no shared state can run <strong>in parallel</strong> — the core advantage of AI-led delivery over sequential human squads. <code>phases 1–8</code> epics are populated into this graph as they are decomposed (only phase 0 is decomposed today).</p>
 </div></details><details class="section" id="the-per-story-delivery-flow"><summary><span class="section-title">The per-story delivery flow</span></summary><div class="section-body">
 <p>Each story travels the same four steps. The "transport" is a <strong>lossless generate</strong>, not a copy — so there is no independent copy to drift.</p>
-<pre><code>[ram-analysis: control plane]                    [ram-{service}: execution unit]
+<pre><code>[ctam-analysis: control plane]                    [ctam-{service}: execution unit]
         │
   1. DISPATCH ──────────────────────────────────────────┐
      compile story + Gherkin ACs + needed arch context   │
@@ -241,7 +241,7 @@ repos:
 <tr>
 <td>1 · Dispatch</td>
 <td><code>bmad-create-story</code> / <code>compile-epic-context</code> — "all the context the agent will need to implement it later"</td>
-<td><code>ram-analysis</code></td>
+<td><code>ctam-analysis</code></td>
 </tr>
 <tr>
 <td>2 · Land</td>
@@ -256,12 +256,12 @@ repos:
 <tr>
 <td>4 · Signal</td>
 <td><code>bmad-sprint-status</code> / <code>bmad-sprint-planning</code> updating the ledger</td>
-<td><code>ram-analysis</code></td>
+<td><code>ctam-analysis</code></td>
 </tr>
 <tr>
 <td>Sprint setup</td>
 <td><code>bmad-sprint-planning</code> reads <code>dispatch-graph.yaml</code> → next buildable stories</td>
-<td><code>ram-analysis</code></td>
+<td><code>ctam-analysis</code></td>
 </tr>
 </tbody>
 </table>
@@ -270,14 +270,14 @@ repos:
 <pre class="markdown"><code>---
 story_id: 0.1.4
 epic: epic-0.1-upstream-reference-data-ingested
-repo: ram-reference-data
+repo: ctam-reference-data
 bus_version: arch-v1.0
 frs: [FR6, FR7, NFR24]
 depends_on_stories: [0.0.3]      # optional intra-graph prerequisites
 status: dispatched               # dispatched | in-progress | in-review | done
 ---
 # Story 0.1.4 — &lt;title&gt;
-## Context (distilled, from ram-architecture @ arch-v1.0)   ← what this story needs, not the whole arch
+## Context (distilled, from ctam-architecture @ arch-v1.0)   ← what this story needs, not the whole arch
 ## Acceptance criteria (Gherkin, verbatim from the epic)
 ## Out of scope / boundaries
 ## Definition of done (tests, ArchUnit, Spectral, UAT hooks per repo-structure.md)</code></pre>
@@ -286,32 +286,32 @@ status: dispatched               # dispatched | in-progress | in-review | done
 <pre class="yaml"><code># ledger/epic-0.1.yaml
 epic: epic-0.1
 title: Upstream JOH/MRD reference data is ingested
-repo: ram-reference-data
+repo: ctam-reference-data
 status: in-progress            # epic rollup: not-started | in-progress | blocked | in-review | done
 owner: alice
 stories:
   - story: 0.1.4
-    repo: ram-reference-data
+    repo: ctam-reference-data
     frs: [FR6, FR7, NFR24]
     bus_version: arch-v1.0
     status: done               # not-started | dispatched | in-progress | in-review | done
     owner: bob
-    pr: https://github.com/hmcts/ram-reference-data/pull/12</code></pre>
+    pr: https://github.com/hmcts/ctam-reference-data/pull/12</code></pre>
 <p>Reverse lookups it enables: <em>which stories cover FR6?</em> · <em>which repos are on which bus version?</em> · <em>what's blocked vs. buildable-now?</em> · <em>who owns each epic/story?</em> · <em>is every FR/NFR delivered?</em></p>
 </div></details><details class="section" id="human-gates-and-the-git-write-constraint"><summary><span class="section-title">Human gates and the git-write constraint</span></summary><div class="section-body">
-<p>Claude does not perform git operations in this programme (per the repo-root <a href="../../../CLAUDE.md"><code>CLAUDE.md</code></a>; enforced by the <code>.claude/hooks/block-git-writes.sh</code> hook in this workspace). That is a <strong>feature of this model, not friction</strong>: each repo boundary is a deliberate human gate. Claude <em>prepares</em> work (generates packets, writes code, surfaces diffs); the human reviews and commits via VSCode — which is exactly what per-repo CODEOWNERS/branch-protection exist to enforce. Dispatch and signal steps likewise produce reviewable diffs in <code>ram-analysis</code>, committed the same way.</p>
+<p>Claude does not perform git operations in this programme (per the repo-root <a href="../../../CLAUDE.md"><code>CLAUDE.md</code></a>; enforced by the <code>.claude/hooks/block-git-writes.sh</code> hook in this workspace). That is a <strong>feature of this model, not friction</strong>: each repo boundary is a deliberate human gate. Claude <em>prepares</em> work (generates packets, writes code, surfaces diffs); the human reviews and commits via VSCode — which is exactly what per-repo CODEOWNERS/branch-protection exist to enforce. Dispatch and signal steps likewise produce reviewable diffs in <code>ctam-analysis</code>, committed the same way.</p>
 </div></details><details class="section" id="parallel-execution"><summary><span class="section-title">Parallel execution</span></summary><div class="section-body">
 <p>Because polyrepo has no shared runtime state, stories whose dependencies are satisfied can be implemented concurrently — one isolated Claude session (or git worktree) per repo. The <code>dispatch-graph.yaml</code> makes the safe-to-parallelise set explicit at any moment. Recommended ceiling: parallelise across <em>repos</em>, serialise <em>within</em> a repo (per-repo history stays linear and reviewable).</p>
 </div></details><details class="section" id="what-this-means-for-the-two-planning-homes"><summary><span class="section-title">What this means for the two planning homes</span></summary><div class="section-body">
 <ul>
-<li><strong><code>ram-analysis</code> (this workspace)</strong> stays the canonical author of PRD/architecture/epics/stories and gains two new control-plane artefacts: <code>delivery/dispatch-graph.yaml</code> and <code>delivery/ledger/</code> (traceability ledger, sharded per epic).</li>
-<li><strong><code>ram-architecture</code></strong> becomes the <em>published</em> context bus — a mirror/publish target of the canonical architecture, tagged per version (<code>arch-vN</code>), consumed by every service repo as a pinned submodule. When it is scaffolded, this operating-model shard travels into it with the rest of the architecture, per <a href="repo-structure.html"><code>./repo-structure.md</code></a>'s <code>decisions/</code> + <code>architecture/</code> layout.</li>
+<li><strong><code>ctam-analysis</code> (this workspace)</strong> stays the canonical author of PRD/architecture/epics/stories and gains two new control-plane artefacts: <code>delivery/dispatch-graph.yaml</code> and <code>delivery/ledger/</code> (traceability ledger, sharded per epic).</li>
+<li><strong><code>ctam-architecture</code></strong> becomes the <em>published</em> context bus — a mirror/publish target of the canonical architecture, tagged per version (<code>arch-vN</code>), consumed by every service repo as a pinned submodule. When it is scaffolded, this operating-model shard travels into it with the rest of the architecture, per <a href="repo-structure.html"><code>./repo-structure.md</code></a>'s <code>decisions/</code> + <code>architecture/</code> layout.</li>
 </ul>
 </div></details><details class="section" id="bootstrapping-order-first-moves"><summary><span class="section-title">Bootstrapping order (first moves)</span></summary><div class="section-body">
 <ol type="1">
-<li>Publish <code>ram-architecture</code> and tag <code>arch-v1.0</code> (the current architecture set becomes the first bus version).</li>
+<li>Publish <code>ctam-architecture</code> and tag <code>arch-v1.0</code> (the current architecture set becomes the first bus version).</li>
 <li>Encode <code>dispatch-graph.yaml</code> + initialise the per-epic <code>delivery/ledger/</code> shards in this workspace.</li>
-<li>Scaffold <code>ram-shared-infrastructure</code> (no <code>depends_on</code>) via <code>ram-scaffold.sh</code>; wire its <code>_arch/</code> submodule + <code>CLAUDE.md</code>.</li>
+<li>Scaffold <code>ctam-shared-infrastructure</code> (no <code>depends_on</code>) via <code>ctam-scaffold.sh</code>; wire its <code>_arch/</code> submodule + <code>CLAUDE.md</code>.</li>
 <li>Dispatch epic 0.0's stories → execute → signal. Then follow the graph: mock-auth / reference-data / notification (parallelisable) → authorisation → UI shell.</li>
 </ol>
 <pre><code></code></pre>

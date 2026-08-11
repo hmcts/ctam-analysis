@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sprint Change Proposal — Integrations-first Phase 0 carve-out — RAM Pathfinder Documentation</title>
+<title>Sprint Change Proposal — Integrations-first Phase 0 carve-out — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -93,7 +93,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Trigger.</strong> The first phase of delivery should focus on the <strong>inbound integrations</strong> — ingesting judicial-holder reference data from the <strong>JOH eLinks API</strong> and supplementary data from the <strong>MRD</strong> weekly dataset — and <strong>their associated read APIs</strong>. Two questions were raised:</p>
 <ol type="1">
 <li>Which service should host the components that orchestrate the JOH and MRD data?</li>
-<li>Do we need a new <strong><code>ram-integrations</code></strong> repository to host those components?</li>
+<li>Do we need a new <strong><code>ctam-integrations</code></strong> repository to host those components?</li>
 </ol>
 <p><strong>Context.</strong> The integration components are already designed and storied (architecture v3.0, 2026-06-11; Stories 0.1.3 eLinks, 0.1.4 MRD, 0.2.2 read API). What this change asks is <strong>not new capability</strong> — it is a <strong>re-prioritisation and re-sequencing</strong> of Phase 0 so the integration slice is the first thing built and demoed, decoupled from the authentication/UI vertical slice it is currently bundled into.</p>
 <p><strong>Decisions taken at intake (2026-06-17):</strong></p>
@@ -103,14 +103,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Mode</strong> = batch.</li>
 </ul>
 </div></details><details class="section" id="2-the-repository-question--resolved"><summary><span class="section-title">2. The repository question — resolved</span></summary><div class="section-body">
-<p><strong>Decision: No <code>ram-integrations</code> repo. The orchestration components stay in-process inside <code>ram-reference-data</code>.</strong></p>
+<p><strong>Decision: No <code>ctam-integrations</code> repo. The orchestration components stay in-process inside <code>ctam-reference-data</code>.</strong></p>
 <p>This reaffirms architecture v3.0 decisions #9 / #10 (AR46, AR47). Three facts make a separate repo actively harmful at the current scope:</p>
 <ol type="1">
-<li><strong>Single-writer ownership invariant.</strong> Tier-(a) tables (<code>jo_*</code>, <code>mrd_*</code>) are owned exclusively by the <code>ram_reference_data</code> DB role. <strong>AR49</strong> plus a CI ArchUnit/grants fitness function forbid any other role from holding <code>INSERT</code>/<code>UPDATE</code>. A separate <code>ram-integrations</code> deployable would have to either (a) be granted write access — breaking the invariant and the fitness test — or (b) write through a Reference Data write API that <strong>deliberately does not exist</strong> (the service is read-only by design, Story 0.2.2). Both break current contracts.</li>
+<li><strong>Single-writer ownership invariant.</strong> Tier-(a) tables (<code>jo_*</code>, <code>mrd_*</code>) are owned exclusively by the <code>ctam_reference_data</code> DB role. <strong>AR49</strong> plus a CI ArchUnit/grants fitness function forbid any other role from holding <code>INSERT</code>/<code>UPDATE</code>. A separate <code>ctam-integrations</code> deployable would have to either (a) be granted write access — breaking the invariant and the fitness test — or (b) write through a Reference Data write API that <strong>deliberately does not exist</strong> (the service is read-only by design, Story 0.2.2). Both break current contracts.</li>
 <li><strong>No new deployable, no new service principal.</strong> The in-process decision was chosen specifically to avoid both, sidestepping the still-open service-auth gap <strong>G7</strong>. A new repo reopens both.</li>
-<li><strong>No resilience gain.</strong> Sign-in already reads RAM's own <code>jo_people</code>, so identity resolution is decoupled from eLinks uptime. A separate service writing the same tables buys nothing.</li>
+<li><strong>No resilience gain.</strong> Sign-in already reads CTAM's own <code>jo_people</code>, so identity resolution is decoupled from eLinks uptime. A separate service writing the same tables buys nothing.</li>
 </ol>
-<p><strong>Host:</strong> <code>ram-reference-data</code>, via the already-specified in-process <code>@Scheduled</code> tasks: <code>src/main/java/.../ingestion/JohElinksSyncTask.java</code> (nightly eLinks pull) and <code>ingestion/MrdExcelIngestionTask.java</code> (weekly MRD blob pick-up), with run state in <code>ram_sync_status</code>.</p>
+<p><strong>Host:</strong> <code>ctam-reference-data</code>, via the already-specified in-process <code>@Scheduled</code> tasks: <code>src/main/java/.../ingestion/JohElinksSyncTask.java</code> (nightly eLinks pull) and <code>ingestion/MrdExcelIngestionTask.java</code> (weekly MRD blob pick-up), with run state in <code>ctam_sync_status</code>.</p>
 <p><strong>When to revisit:</strong> only if integration scope later grows beyond these two inbound feeds — outbound flows to external case/hearing systems (D12 external consumers), additional upstream sources, or transformation orchestration spanning multiple domain schemas. That would be a fresh architecture decision (service-auth, cross-schema writes), not a Phase 0 concern.</p>
 </div></details><details class="section" id="3-key-finding--ingestion-decouples-cleanly-the-read-api-does-not"><summary><span class="section-title">3. Key finding — ingestion decouples cleanly, the read API does not</span></summary><div class="section-body">
 <p>Mapping the carve-out exposed a dependency split that drives the recommended structure:</p>
@@ -131,7 +131,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>Reference Data <strong>read API</strong> (0.2.2)</td>
 <td><strong><code>JWTFilter</code></strong> (token validation against JWKS) <strong>+ <code>authz/check</code></strong> for the requester's jurisdiction used in jurisdiction-filtered responses (D8)</td>
-<td><strong>No</strong> — needs <code>ram-mock-auth</code> + the authz mechanism to exist</td>
+<td><strong>No</strong> — needs <code>ctam-mock-auth</code> + the authz mechanism to exist</td>
 </tr>
 </tbody>
 </table>
@@ -154,13 +154,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>0.1</strong></td>
 <td>Upstream JOH/MRD reference data is ingested</td>
-<td>0.1.1 scaffold <code>ram-reference-data</code> <strong>+ shared-estate Terraform</strong> (from old 0.1.1/0.1.3); 0.1.2 tier-(a) <code>jo_*</code> tables + <code>ram_sync_status</code> (from old 0.1.3); 0.1.3 eLinks sync (old 0.1.3); 0.1.4 MRD ingestion (old 0.1.4)</td>
+<td>0.1.1 scaffold <code>ctam-reference-data</code> <strong>+ shared-estate Terraform</strong> (from old 0.1.1/0.1.3); 0.1.2 tier-(a) <code>jo_*</code> tables + <code>ctam_sync_status</code> (from old 0.1.3); 0.1.3 eLinks sync (old 0.1.3); 0.1.4 MRD ingestion (old 0.1.4)</td>
 <td>none</td>
 </tr>
 <tr>
 <td><strong>0.2</strong></td>
 <td>User authenticates and lands on a role-scoped Home page</td>
-<td>scaffold <code>ram-authorisation</code> (old 0.1.1, <strong>minus</strong> shared estate); <code>ram-mock-auth</code> (old 0.1.2); authz + <code>JWTFilter</code> (old 0.1.5); <code>ram-ui</code> scaffold (old 0.1.6); sign-in + Home (old 0.1.7)</td>
+<td>scaffold <code>ctam-authorisation</code> (old 0.1.1, <strong>minus</strong> shared estate); <code>ctam-mock-auth</code> (old 0.1.2); authz + <code>JWTFilter</code> (old 0.1.5); <code>ctam-ui</code> scaffold (old 0.1.6); sign-in + Home (old 0.1.7)</td>
 <td>provides auth</td>
 </tr>
 <tr>
@@ -183,16 +183,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 </tbody>
 </table>
-<p><strong>Story-count check:</strong> 4 + 5 + 2 + 1 + 2 = <strong>14 entries</strong>, mapping 1:1 from the existing 12 stories plus the explicit split of the old 0.1.1 (scaffold) and old 0.1.3 (which both scaffolded <code>ram-reference-data</code> <em>and</em> set up tier-(a) + sync) into discrete scaffold / tables / sync stories. No scope added.</p>
+<p><strong>Story-count check:</strong> 4 + 5 + 2 + 1 + 2 = <strong>14 entries</strong>, mapping 1:1 from the existing 12 stories plus the explicit split of the old 0.1.1 (scaffold) and old 0.1.3 (which both scaffolded <code>ctam-reference-data</code> <em>and</em> set up tier-(a) + sync) into discrete scaffold / tables / sync stories. No scope added.</p>
 <p><strong>Recommended build sequence:</strong> <code>0.1 (ingestion)</code> → <code>0.2 (auth + UI)</code> → <code>0.3 (read API)</code> → <code>0.4 (bootstrap)</code> → <code>0.5 (notification)</code>.</p>
 <h3 id="43-architecture--amend-rule-driven-ripples">4.3 Architecture — amend (rule-driven ripples)</h3>
 <ol type="1">
-<li><strong>Shared Azure estate Terraform relocates <code>ram-authorisation</code> → <code>ram-reference-data</code>.</strong> Per <strong>AR53</strong> ("Terraform lives in the first repo that needs the resource; the first-consumer carries the shared estate"), <code>ram-reference-data</code> becomes the first service scaffolded and therefore the first consumer of AKS, PostgreSQL Flexible Server, ACR, APIM, App Insights / Log Analytics. The shared-estate provisioning ACs currently in old Story 0.1.1 move to new Story 0.1.1; <code>ram-authorisation</code> becomes a <strong>consumer</strong> of the shared estate, retaining only its own resources.</li>
-<li><strong><code>ram_configuration_values</code> Flyway baseline</strong> (owned by <code>ram-architecture</code>) must run before <code>ram-reference-data</code>; the SELECT-grant for <code>ram_reference_data</code> is added at the baseline. (Was sequenced before <code>ram-authorisation</code>.)</li>
-<li><strong>Implementation Sequence</strong> section reordered: <code>ram-reference-data</code> + ingestion first; <code>ram-authorisation</code> second.</li>
-<li><strong>New architecture-phase decision recorded</strong> (#12, 2026-06-17): integrations-first Phase 0 sequencing; in-process ingestion reaffirmed; <strong><code>ram-integrations</code> repo explicitly declined</strong> with rationale (§2) so it is not re-litigated.</li>
+<li><strong>Shared Azure estate Terraform relocates <code>ctam-authorisation</code> → <code>ctam-reference-data</code>.</strong> Per <strong>AR53</strong> ("Terraform lives in the first repo that needs the resource; the first-consumer carries the shared estate"), <code>ctam-reference-data</code> becomes the first service scaffolded and therefore the first consumer of AKS, PostgreSQL Flexible Server, ACR, APIM, App Insights / Log Analytics. The shared-estate provisioning ACs currently in old Story 0.1.1 move to new Story 0.1.1; <code>ctam-authorisation</code> becomes a <strong>consumer</strong> of the shared estate, retaining only its own resources.</li>
+<li><strong><code>ctam_configuration_values</code> Flyway baseline</strong> (owned by <code>ctam-architecture</code>) must run before <code>ctam-reference-data</code>; the SELECT-grant for <code>ctam_reference_data</code> is added at the baseline. (Was sequenced before <code>ctam-authorisation</code>.)</li>
+<li><strong>Implementation Sequence</strong> section reordered: <code>ctam-reference-data</code> + ingestion first; <code>ctam-authorisation</code> second.</li>
+<li><strong>New architecture-phase decision recorded</strong> (#12, 2026-06-17): integrations-first Phase 0 sequencing; in-process ingestion reaffirmed; <strong><code>ctam-integrations</code> repo explicitly declined</strong> with rationale (§2) so it is not re-litigated.</li>
 <li><strong>Changelog entry</strong> (e.g. v3.3) capturing this SCP.</li>
-<li><strong>Repository strategy / repo list:</strong> phase tags unchanged (both remain Phase 0); "first scaffolded service" note flips to <code>ram-reference-data</code>; shared-estate ownership note flips on the two repos.</li>
+<li><strong>Repository strategy / repo list:</strong> phase tags unchanged (both remain Phase 0); "first scaffolded service" note flips to <code>ctam-reference-data</code>; shared-estate ownership note flips on the two repos.</li>
 </ol>
 <p>Files touched: <code>architecture.md</code> (Implementation Sequence, architecture-phase decisions table, Integration Points), <code>architecture/repo-structure.md</code> (shared-estate ownership line), <code>architecture/repository-strategy.md</code> (first-service note), <code>architecture/changelog.md</code>, <code>architecture-summary.md</code> (sweep).</p>
 <h3 id="44-ux--no-change">4.4 UX — no change</h3>
@@ -207,12 +207,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Path: Direct Adjustment + backlog reorganisation (no rollback, no MVP scope change).</strong></p>
 <ul>
 <li>Re-sequence Phase 0 into the five-epic structure in §4.2; ingestion leads as the genuine first deliverable.</li>
-<li>Reaffirm in-process hosting; decline <code>ram-integrations</code> (§2).</li>
+<li>Reaffirm in-process hosting; decline <code>ctam-integrations</code> (§2).</li>
 <li>Apply the AR53 Terraform relocation and the baseline re-sequence (§4.3).</li>
 <li>Deliver the read API in Epic 0.3, immediately after auth, honouring the dependency in §3.</li>
 </ul>
 <p><strong>Effort:</strong> Medium (documentation/restructure; no code exists yet). <strong>Risk:</strong> Low — nothing is built; this is the cheapest possible moment to re-sequence. <strong>Timeline:</strong> neutral-to-positive — ingestion can start without waiting on the auth slice.</p>
-<p><strong>Open decision for sign-off (one):</strong> the read API's auth dependency (§3). Recommended: deliver it in Epic 0.3 after auth. <em>Alternative:</em> pull a minimal auth subset (<code>ram-mock-auth</code> + <code>JWTFilter</code> + a jurisdiction-only <code>authz/check</code>) forward into the first phase to ship the API earlier — at the cost of dragging ~half the auth slice forward and partially defeating the decoupling. <strong>Recommendation: do not pull forward; keep the read API in 0.3.</strong></p>
+<p><strong>Open decision for sign-off (one):</strong> the read API's auth dependency (§3). Recommended: deliver it in Epic 0.3 after auth. <em>Alternative:</em> pull a minimal auth subset (<code>ctam-mock-auth</code> + <code>JWTFilter</code> + a jurisdiction-only <code>authz/check</code>) forward into the first phase to ship the API earlier — at the cost of dragging ~half the auth slice forward and partially defeating the decoupling. <strong>Recommendation: do not pull forward; keep the read API in 0.3.</strong></p>
 </div></details><details class="section" id="6-implementation-handoff"><summary><span class="section-title">6. Implementation Handoff</span></summary><div class="section-body">
 <p><strong>Scope classification: Moderate</strong> (backlog reorganisation + architecture amendment; no fundamental replan).</p>
 <table>
@@ -244,7 +244,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Success criteria:</strong></p>
 <ul>
 <li>Phase 0 epics reflect the five-epic, ingestion-first structure; story count reconciles (12 → 14 entries, no scope added).</li>
-<li>Architecture pack reflects the Terraform relocation and records decision #12 (incl. the <code>ram-integrations</code> decline).</li>
+<li>Architecture pack reflects the Terraform relocation and records decision #12 (incl. the <code>ctam-integrations</code> decline).</li>
 <li>IR (SSCS-cohort) passes against the restructured Phase 0; SP produces a sprint plan leading with Epic 0.1.</li>
 </ul>
 <p><strong>Note:</strong> <code>sprint-status.yaml</code> does not yet exist (SP not run), so checklist item 6.4 is N/A — the epic changes land in the epics pack and are picked up at first SP.</p>

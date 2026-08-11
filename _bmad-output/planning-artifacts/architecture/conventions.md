@@ -2,7 +2,7 @@
 type: 'Architecture Shard'
 description: 'This document is the consistency contract for the 11 services and the UI. Patterns are enforced by code review, CI lint, contract tests, and ArchUnit fitness functions — not by a shared library.'
 resource: 'architecture/tobe/conventions.html'
-tags: [ram-pathfinder, architecture]
+tags: [ctam-pathfinder, architecture]
 timestamp: '2026-05-06'
 parent: ../architecture.md
 title: Implementation Patterns & Consistency Rules (Step 5)
@@ -22,25 +22,25 @@ This document is the consistency contract for the 11 services and the UI. Patter
 
 **Database (PostgreSQL):**
 
-- **Schema:** single shared schema (e.g. `ram` or default `public`). All RAM Pathfinder tables live in this schema. Per-service DB roles enforce write boundaries; the team that writes the Liquibase changelog owns the table.
+- **Schema:** single shared schema (e.g. `ctam` or default `public`). All CTAM Pathfinder tables live in this schema. Per-service DB roles enforce write boundaries; the team that writes the Liquibase changelog owns the table.
 - **Tables:** `snake_case`. **Ownership is in the prefix** *(revised 2026-06-11)*:
-  - **`ram_` — every RAM-owned table**, entity-plural: `ram_bookings`, `ram_absences`, `ram_regions`, `ram_auth_users`, `ram_payment_reconciliations`, `ram_configuration_values`. JOH operational state over upstream entities is named directly — `ram_joh_ticket`, `ram_joh_location` — **no `_overlays` suffix pattern**.
-  - **`jo_` / `mrd_` — upstream-sourced tier-(a) tables** (source-system prefix): `jo_people`, `jo_jurisdictions`, `mrd_specialisms`. Read-only in RAM; written only by the ingestion mechanisms.
-  - **`mock_` — dev-only mock-auth tables** (`mock_oauth_clients`, `mock_user_roster`): never deployed to production, exempt from the `ram_` rule — the `mock_` prefix already marks them as not-production.
+  - **`ctam_` — every CTAM-owned table**, entity-plural: `ctam_bookings`, `ctam_absences`, `ctam_regions`, `ctam_auth_users`, `ctam_payment_reconciliations`, `ctam_configuration_values`. JOH operational state over upstream entities is named directly — `ctam_joh_ticket`, `ctam_joh_location` — **no `_overlays` suffix pattern**.
+  - **`jo_` / `mrd_` — upstream-sourced tier-(a) tables** (source-system prefix): `jo_people`, `jo_jurisdictions`, `mrd_specialisms`. Read-only in CTAM; written only by the ingestion mechanisms.
+  - **`mock_` — dev-only mock-auth tables** (`mock_oauth_clients`, `mock_user_roster`): never deployed to production, exempt from the `ctam_` rule — the `mock_` prefix already marks them as not-production.
   - Full inventory in [`./data-tables.md`](./data-tables.md).
-- **Authoritative ownership mapping** is documented in [`./data-tables.md`](./data-tables.md) (table-ownership table maps every RAM Pathfinder table → owning service-role). The team that authors the Liquibase changelog is the owning team.
+- **Authoritative ownership mapping** is documented in [`./data-tables.md`](./data-tables.md) (table-ownership table maps every CTAM Pathfinder table → owning service-role). The team that authors the Liquibase changelog is the owning team.
 - **Fitness function in CI** verifies: (a) no two services' Liquibase changesets create overlapping table names; (b) DB role grants align with the documented ownership; (c) tables not in the ownership mapping are flagged.
 - **Columns:** `snake_case` — `id`, `created_at`, `updated_at`, `payroll_number`, `is_active`.
 - **Primary keys:** `id`, type `uuid`. UUIDs avoid integer-range coupling and "guess the next ID" patterns. Cost over bigint is negligible at this scale. PK generation detail in [`../architecture.md`](../architecture.md) → *Data Architecture*.
-- **Foreign keys:** `{referenced_entity_singular}_id` — `booking_id`, `vacancy_id`, `absence_id`, `joh_id`. **JOH references use `joh_id` (uuid) → `ram_joh_identities`** — the RAM-assigned canonical JOH identifier. `personnel_number` is the upstream link to `jo_people`, stored **only** on `ram_joh_identities`, and is **never** a domain FK. FKs reference tables in the shared schema; no cross-schema FK overhead.
-- **Indexes:** `idx_{table}_{columns}` — `idx_ram_bookings_joh_id_date`, `idx_ram_absences_joh_id`.
+- **Foreign keys:** `{referenced_entity_singular}_id` — `booking_id`, `vacancy_id`, `absence_id`, `joh_id`. **JOH references use `joh_id` (uuid) → `ctam_joh_identities`** — the CTAM-assigned canonical JOH identifier. `personnel_number` is the upstream link to `jo_people`, stored **only** on `ctam_joh_identities`, and is **never** a domain FK. FKs reference tables in the shared schema; no cross-schema FK overhead.
+- **Indexes:** `idx_{table}_{columns}` — `idx_ctam_bookings_joh_id_date`, `idx_ctam_absences_joh_id`.
 - **Unique constraints:** named `uq_{table}_{columns}`. Per-table examples in [`./data-tables.md`](./data-tables.md).
 - **Audit columns:** every table has `created_at timestamptz NOT NULL`, `updated_at timestamptz NOT NULL`. `created_by` and `updated_by` (UUID, FK to user identity) added when D7 user-action audit is implemented post-MVP.
 
 **API endpoints:**
 
 - **Resources:** plural nouns — `/v1/johs`, `/v1/bookings`, `/v1/payments`.
-- **Resource IDs in path:** `/v1/bookings/{bookingId}`; JOH resources key on the RAM JOH UUID — `/v1/johs/{johId}` (filter by the upstream key via `?personnelNumber=`).
+- **Resource IDs in path:** `/v1/bookings/{bookingId}`; JOH resources key on the CTAM JOH UUID — `/v1/johs/{johId}` (filter by the upstream key via `?personnelNumber=`).
 - **Sub-resources:** `/v1/johs/{johId}/working-patterns`, `/v1/johs/{johId}/tickets`.
 - **Actions on resources:** `POST /v1/absences/{absenceId}/approve`, `POST /v1/sittings/{sittingId}/verify`. Actions are URL-segments, not RPC-style endpoint names.
 - **Path variables:** `{camelCase}` — `{johId}`, `{bookingId}`.
@@ -50,7 +50,7 @@ This document is the consistency contract for the 11 services and the UI. Patter
 
 **Java code:**
 
-- **Package:** `uk.gov.hmcts.ram.{service}.{layer}` — e.g. `uk.gov.hmcts.ram.judge.controller`, `uk.gov.hmcts.ram.booking.service`.
+- **Package:** `uk.gov.hmcts.ctam.{service}.{layer}` — e.g. `uk.gov.hmcts.ctam.judge.controller`, `uk.gov.hmcts.ctam.booking.service`.
 - **Classes:** `PascalCase` — `Judge`, `JudgeController`, `JudgeService`, `JudgeRepository`, `JudgeNotFoundException`.
 - **Methods / fields:** `camelCase` — `getJudgeById`, `firstName`, `isActive`.
 - **Constants:** `SCREAMING_SNAKE_CASE` — `MAX_BOOKING_DAYS_PER_VACANCY`, `DEFAULT_PESSIMISTIC_LOCK_TIMEOUT_MS`.
@@ -71,15 +71,15 @@ This document is the consistency contract for the 11 services and the UI. Patter
 **Per-service Java structure (Spring Boot conventional, no shared parent):**
 
 ```
-ram-{service}/
-├── src/main/java/uk/gov/hmcts/ram/{service}/
+ctam-{service}/
+├── src/main/java/uk/gov/hmcts/ctam/{service}/
 │   ├── {Service}Application.java       (Spring Boot @SpringBootApplication)
 │   ├── controller/                     (REST controllers, @RestController)
 │   ├── service/                        (business logic, @Service)
 │   ├── repository/                     (Spring Data JPA, @Repository)
 │   ├── domain/                         (entities + value objects, @Entity)
 │   ├── dto/                            (request/response DTOs)
-│   ├── client/                         (clients to other RAM Pathfinder services)
+│   ├── client/                         (clients to other CTAM Pathfinder services)
 │   ├── config/                         (Spring config: JWTFilter, AuthDetails, OpenAPI Swagger Core)
 │   ├── error/                          (RFC 9457 ControllerAdvice, problem-detail factories)
 │   └── exception/                      (domain exceptions extending base classes)
@@ -87,10 +87,10 @@ ram-{service}/
 │   ├── application.yml                 (defaults)
 │   ├── application-{profile}.yml       (dev/staging/production overrides)
 │   └── db/changelog/                   (Liquibase: db.changelog-master.yaml, 001-init.sql, 002-add-x.sql, ...)
-├── src/test/java/uk/gov/hmcts/ram/{service}/
+├── src/test/java/uk/gov/hmcts/ctam/{service}/
 │   └── {layer}/                        (mirrors src/main package layout — unit + integration tests)
 ├── docs/
-│   └── uat/                            (manual UAT scripts: incumbent-vs-RAM Pathfinder behavioural-parity walkthroughs per FR60 / NFR41 revised)
+│   └── uat/                            (manual UAT scripts: incumbent-vs-CTAM Pathfinder behavioural-parity walkthroughs per FR60 / NFR41 revised)
 ├── helm/                                (Kubernetes Helm chart)
 ├── postman/                             (Postman collections per phase)
 ├── build.gradle                     (Gradle Groovy DSL (per HMCTS template))
@@ -98,12 +98,12 @@ ram-{service}/
 └── README.md                            (service-specific docs)
 ```
 
-> Full per-service / UI / `ram-architecture` directory trees with the inventory of every file: see [`./repo-structure.md`](./repo-structure.md).
+> Full per-service / UI / `ctam-architecture` directory trees with the inventory of every file: see [`./repo-structure.md`](./repo-structure.md).
 
 **UI repo structure (single repo, modules per domain):**
 
 ```
-ram-ui/
+ctam-ui/
 ├── src/
 │   ├── main.tsx                         (entry point)
 │   ├── App.tsx                          (router root + auth wrapper)
@@ -192,7 +192,7 @@ ram-ui/
 **Inter-service authentication at MVP — two patterns:**
 
 1. **JWT propagation (token forwarding)** — for **user-initiated** flows (the majority at MVP). The user's JWT (issued by HMCTS IdP at SSO) is the relevant security context end-to-end. Inter-service calls forward that JWT as-is.
-2. **Service-principal authentication (OAuth `client_credentials`)** — for **batch / scheduled** components without an upstream user. The MVP-relevant case is `ram-payment-batch`.
+2. **Service-principal authentication (OAuth `client_credentials`)** — for **batch / scheduled** components without an upstream user. The MVP-relevant case is `ctam-payment-batch`.
 
 **JWT propagation (token forwarding) — for user-initiated flows:**
 
@@ -206,12 +206,12 @@ ram-ui/
 
 **Service-principal authentication (for batch / scheduled components):**
 
-The MVP-relevant case is the **payment-processing batch** (`ram-payment-batch`), which runs on a schedule and has no upstream user context. It uses OAuth `client_credentials`:
+The MVP-relevant case is the **payment-processing batch** (`ctam-payment-batch`), which runs on a schedule and has no upstream user context. It uses OAuth `client_credentials`:
 
-- **Client registration**: a service-principal entry exists in the OIDC issuer's client store. In non-prod that's `mock_oauth_clients` on `ram-mock-auth`; in production it's whichever issuer is chosen per [`./gaps.md` G7.1](./gaps.md) (default recommendation: Azure Workload Identity, which substitutes managed-identity tokens for client-secret-based ones).
+- **Client registration**: a service-principal entry exists in the OIDC issuer's client store. In non-prod that's `mock_oauth_clients` on `ctam-mock-auth`; in production it's whichever issuer is chosen per [`./gaps.md` G7.1](./gaps.md) (default recommendation: Azure Workload Identity, which substitutes managed-identity tokens for client-secret-based ones).
 - **Token acquisition**: at run start (or on token expiry), the batch component does `POST /oauth2/token` with `grant_type=client_credentials`. Spring Boot 4's `OAuth2AuthorizedClientManager` handles caching + refresh.
 - **Outbound calls**: the resulting service JWT is attached as `Authorization: Bearer …` to outbound HTTP calls (e.g. to the Notification API). The receiving service's `JWTFilter` validates it via the same JWKS path used for human user JWTs — same code path; only the principal's "kind" claim differs.
-- **Authorisation**: service principals have records in `ram_auth_users` with a kind flag (e.g. `principal_kind = service`) distinguishing them from humans. `ram-authorisation` resolves their permissions the same way as human users.
+- **Authorisation**: service principals have records in `ctam_auth_users` with a kind flag (e.g. `principal_kind = service`) distinguishing them from humans. `ctam-authorisation` resolves their permissions the same way as human users.
 - **Scheduling**: implementation choice between Spring `@Scheduled` (in-process; runs inside the same JVM as the synchronous service API) and a Kubernetes CronJob (separate pod; scales independently). Either is acceptable at MVP — the batch's external observable behaviour is the same.
 
 **Correlation ID propagation:**
@@ -270,7 +270,7 @@ The MVP-relevant case is the **payment-processing batch** (`ram-payment-batch`),
 - Integration tests: `*IT.java`, Testcontainers for PostgreSQL, run on every commit.
 - Contract tests (Pact or equivalent): per-consumer / per-provider, run on every commit.
 - E2E tests (UI): Playwright, one suite per phase, run as a phase gate.
-- **Manual UAT — incumbent-vs-RAM Pathfinder behavioural parity (FR60 / NFR41, reframed 2026-06-10[^d11][^d5]):** scripted walkthroughs maintained under `docs/uat/` per service. Performed by jurisdiction-incumbent-experienced users — ListAssist-experienced (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for SSCS wave 1; APEX-experienced (RSU, Court, Judge, Judges' Clerks, Finance/Payment Authoriser, MI) for Courts waves 2+ — opening the incumbent side-by-side with RAM Pathfinder, comparing behaviour for the workflows + edge cases the script enumerates, and signing off per role per wave. Sign-off is the wave-cutover gate; there is no automated incumbent-comparison harness in CI.
+- **Manual UAT — incumbent-vs-CTAM Pathfinder behavioural parity (FR60 / NFR41, reframed 2026-06-10[^d11][^d5]):** scripted walkthroughs maintained under `docs/uat/` per service. Performed by jurisdiction-incumbent-experienced users — ListAssist-experienced (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for SSCS wave 1; APEX-experienced (RSU, Court, Judge, Judges' Clerks, Finance/Payment Authoriser, MI) for Courts waves 2+ — opening the incumbent side-by-side with CTAM Pathfinder, comparing behaviour for the workflows + edge cases the script enumerates, and signing off per role per wave. Sign-off is the wave-cutover gate; there is no automated incumbent-comparison harness in CI.
 - **Coverage target:** behaviour coverage, not line coverage. PRs include behaviour-test rationale, not coverage stats.
 
 **Logging conventions (per HMCTS Crime template):**
@@ -292,16 +292,16 @@ The MVP-relevant case is the **payment-processing batch** (`ram-payment-batch`),
 
 ## Enforcement Guidelines
 
-**All RAM Pathfinder services MUST:**
+**All CTAM Pathfinder services MUST:**
 
 - Use the HMCTS Crime SpringBoot template as scaffold (per [`./starter-template.md`](./starter-template.md)) and customise per service.
-- Follow the package layout `uk.gov.hmcts.ram.{service}.{layer}`.
+- Follow the package layout `uk.gov.hmcts.ctam.{service}.{layer}`.
 - Use Gradle Groovy DSL (per HMCTS Crime SpringBoot template) with Gradle Wrapper.
 - Implement RFC 9457 errors via per-service `@ControllerAdvice` (no shared library).
-- Implement Authorisation enforcement via per-service custom `JWTFilter` + `AuthDetails` request-scoped bean (HMCTS template pattern); the filter calls RAM Pathfinder Authorisation per request to resolve roles + jurisdiction + Region/Area scope and the activation flag (RAM Pathfinder variance from template's claims-only approach — required by FR2/FR57).
-- Generate OpenAPI 3.x specs via Swagger Core; publish per-service spec by Gradle (via the `maven-publish` plugin) as a Maven-format artefact (`uk.gov.hmcts.ram:api-ram-{service}:{version}`) to the internal artefact repository.
+- Implement Authorisation enforcement via per-service custom `JWTFilter` + `AuthDetails` request-scoped bean (HMCTS template pattern); the filter calls CTAM Pathfinder Authorisation per request to resolve roles + jurisdiction + Region/Area scope and the activation flag (CTAM Pathfinder variance from template's claims-only approach — required by FR2/FR57).
+- Generate OpenAPI 3.x specs via Swagger Core; publish per-service spec by Gradle (via the `maven-publish` plugin) as a Maven-format artefact (`uk.gov.hmcts.ctam:api-ctam-{service}:{version}`) to the internal artefact repository.
 - Emit structured JSON logs (Logstash encoder) with correlation IDs; export traces via OpenTelemetry.
-- Use Liquibase changelogs in `src/main/resources/db/changelog/` (added by the RAM scaffolding overlay — RAM convention; the HMCTS demo repo uses Flyway, RAM standardises on Liquibase; **not** in the template baseline, see G1.4a).
+- Use Liquibase changelogs in `src/main/resources/db/changelog/` (added by the CTAM scaffolding overlay — CTAM convention; the HMCTS demo repo uses Flyway, CTAM standardises on Liquibase; **not** in the template baseline, see G1.4a).
 - Use **Lombok** (base template) and **MapStruct** (scaffolding overlay — not in the baseline) for boilerplate reduction and DTO/entity mapping.
 - Use OWASP Java Encoder for XSS-safe output encoding where rendering untrusted input.
 - Emit JaCoCo coverage reports and CycloneDX SBOM as part of CI artefacts.
@@ -317,7 +317,7 @@ The MVP-relevant case is the **payment-processing batch** (`ram-payment-batch`),
 | **CI lint** | Spotless + Checkstyle (Java); ESLint + Prettier (TypeScript); SQL formatting via SQLFluff. Build fails on violation. |
 | **ArchUnit fitness functions** | Per-service ArchUnit tests enforce package layout, dependency rules, naming conventions. Run as part of unit-test suite. |
 | **Consumer-driven contract tests (Pact)** | Verify API conventions are honoured between consumers and providers. |
-| **OpenAPI lint (Spectral)** | OpenAPI specs validated against an RAM Pathfinder-specific ruleset (consistent error envelope, versioning prefix, RFC 9457 references). |
+| **OpenAPI lint (Spectral)** | OpenAPI specs validated against an CTAM Pathfinder-specific ruleset (consistent error envelope, versioning prefix, RFC 9457 references). |
 | **JaCoCo + CycloneDX** | Code coverage reports + SBOM generation per HMCTS Crime template. Build emits artefacts for security/audit review. |
 
 **When patterns evolve:**
@@ -330,11 +330,11 @@ The MVP-relevant case is the **payment-processing batch** (`ram-payment-batch`),
 
 **Good — naming:**
 
-- Database: `ram_`-prefixed entity-plural table name (RAM-owned) or source-prefixed (`jo_`/`mrd_`, upstream); `snake_case` columns; `id uuid PRIMARY KEY`; `created_at` / `updated_at` audit columns; natural-key uniqueness via `uq_{table}_{columns}`. Full per-table detail in [`./data-tables.md`](./data-tables.md).
+- Database: `ctam_`-prefixed entity-plural table name (CTAM-owned) or source-prefixed (`jo_`/`mrd_`, upstream); `snake_case` columns; `id uuid PRIMARY KEY`; `created_at` / `updated_at` audit columns; natural-key uniqueness via `uq_{table}_{columns}`. Full per-table detail in [`./data-tables.md`](./data-tables.md).
 - API: `GET /v1/johs/{johId}`
 - Java: `@RestController class JohController { ResponseEntity<JohDto> getJoh(@PathVariable UUID johId) { ... } }`
 - TypeScript: `function JohProfile({ johId }: { johId: string }) { ... }`
-- JSON: `{ "johId": "...", "personnelNumber": "...", "firstName": "...", "payrollNumber": "...", "isActive": true, "createdAt": "2026-05-06T10:00:00Z" }` (`johId` is the RAM identifier; `personnelNumber` is the upstream link)
+- JSON: `{ "johId": "...", "personnelNumber": "...", "firstName": "...", "payrollNumber": "...", "isActive": true, "createdAt": "2026-05-06T10:00:00Z" }` (`johId` is the CTAM identifier; `personnelNumber` is the upstream link)
 
 **Anti-patterns — do not:**
 

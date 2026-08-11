@@ -1,11 +1,11 @@
-# Business Case — RAM Pathfinder
+# Business Case — CTAM Pathfinder
 
 | Field | Detail |
 |---|---|
 | **Author** | Ramnish |
 | **Date** | 2026-06-24 |
 | **Status** | Draft for review |
-| **Decision sought** | Approval to fund and proceed with the RAM Pathfinder MVP, delivering the SSCS Tribunals jurisdiction as wave 1. |
+| **Decision sought** | Approval to fund and proceed with the CTAM Pathfinder MVP, delivering the SSCS Tribunals jurisdiction as wave 1. |
 
 > All financial figures, dates, headcounts and named milestones marked `[PLACEHOLDER]` require confirmation before this case is submitted for approval. 
 
@@ -13,14 +13,14 @@
 
 ## 1. Executive Summary
 
-RAM Pathfinder is a greenfield, API-driven platform for judicial scheduling across HMCTS Tribunals and Courts — the planning, allocation, confirmation and payment of sittings for Judicial Office Holders (JOHs). This case seeks approval to fund the **MVP**, rolled out **jurisdiction by jurisdiction**, starting with the **SSCS Tribunals jurisdiction in wave 1**.
+CTAM Pathfinder is a greenfield, API-driven platform for judicial scheduling across HMCTS Tribunals and Courts — the planning, allocation, confirmation and payment of sittings for Judicial Office Holders (JOHs). This case seeks approval to fund the **MVP**, rolled out **jurisdiction by jurisdiction**, starting with the **SSCS Tribunals jurisdiction in wave 1**.
 
 Two problems drive the investment:
 
-1. **Aged and unsupported incumbents.** In Courts, the JI application runs on **Oracle APEX (OPT)**, which is unsupported with a fixed end-of-life `Dec 2028`. In Tribunals, SSCS judicial scheduling runs on a combination of **ListAssist** (used by Cardiff only) and other legacy systems (used by other SSCS jurisdictions), which RAM Pathfinder replaces in wave 1.
+1. **Aged and unsupported incumbents.** In Courts, the JI application runs on **Oracle APEX (OPT)**, which is unsupported with a fixed end-of-life `Dec 2028`. In Tribunals, SSCS judicial scheduling runs on a combination of **ListAssist** (used by Cardiff only) and other legacy systems (used by other SSCS jurisdictions), which CTAM Pathfinder replaces in wave 1.
 2. **An export-only integration model** (Excel, PDF, email) that cannot serve the upcoming HMCTS programmes (Actuals, Scheduling & Listing reform, DA&I MI consumption).
 
-The recommended option is to build RAM Pathfinder as a modern, accessible, API-first platform on the HMCTS-approved cloud stack (Azure, Java/Spring Boot, Kubernetes), and to **prove it on SSCS first** before committing to the wider Courts rollout. SSCS is a contained, lower-risk wave that exercises the full platform end-to-end and de-risks every subsequent wave.
+The recommended option is to build CTAM Pathfinder as a modern, accessible, API-first platform on the HMCTS-approved cloud stack (Azure, Java/Spring Boot, Kubernetes), and to **prove it on SSCS first** before committing to the wider Courts rollout. SSCS is a contained, lower-risk wave that exercises the full platform end-to-end and de-risks every subsequent wave.
 
 **Investment sought:** `[PLACEHOLDER: total MVP cost / wave 1 funding envelope]`.
 **Indicative benefit:** retirement of ListAssist for SSCS scheduling, a reusable API platform for all judicial jurisdictions, and a path to decommissioning the unsupported APEX estate in later waves — quantified benefits at `[PLACEHOLDER]`.
@@ -29,7 +29,7 @@ The recommended option is to build RAM Pathfinder as a modern, accessible, API-f
 
 ## 2. Strategic Context
 
-RAM Pathfinder aligns with HMCTS's strategic direction on several fronts:
+CTAM Pathfinder aligns with HMCTS's strategic direction on several fronts:
 
 - **Reform and digital service standards.** A modern, WCAG 2.2 AA, GDS-aligned service replaces two dated legacy user interfaces.
 - **Platform over point solutions.** One API driven platform serves both Tribunals and Courts. Capability is built once and reused per jurisdiction, rather than rebuilt per system.
@@ -57,9 +57,9 @@ RAM Pathfinder aligns with HMCTS's strategic direction on several fronts:
 |---|---|---|
 | **A — Do nothing** | Keep APEX and ListAssist as-is | **Rejected.** APEX is unsupported; continuity and security risk grows; integration debt compounds. Not viable past APEX EOL. |
 | **B — Do minimum** | Lift-and-shift / extend the existing systems | **Rejected.** Neither incumbent supports incremental decomposition (no strangler path); does not deliver the API platform or modern UX; spends money without removing the core risk. |
-| **C — Greenfield platform, phased per jurisdiction (Recommended)** | Build RAM Pathfinder end-to-end; prove on SSCS wave 1; roll out to Courts regions in later waves | **Recommended.** Removes the legacy risk, delivers the strategic API platform, and contains delivery risk through phased, wave-by-wave cutover. |
+| **C — Greenfield platform, phased per jurisdiction (Recommended)** | Build CTAM Pathfinder end-to-end; prove on SSCS wave 1; roll out to Courts regions in later waves | **Recommended.** Removes the legacy risk, delivers the strategic API platform, and contains delivery risk through phased, wave-by-wave cutover. |
 
-**Why greenfield, not strangler:** neither ListAssist nor APEX supports strangler decomposition. RAM Pathfinder is built end-to-end before any user moves; each jurisdiction's legacy system runs unchanged for non-migrated users during phased rollout. No dual-write, no synchronisation layer — a simpler, lower-risk delivery model.
+**Why greenfield, not strangler:** neither ListAssist nor APEX supports strangler decomposition. CTAM Pathfinder is built end-to-end before any user moves; each jurisdiction's legacy system runs unchanged for non-migrated users during phased rollout. No dual-write, no synchronisation layer — a simpler, lower-risk delivery model.
 ---
 
 ## 5. Recommended Option (C) — Scope
@@ -70,14 +70,14 @@ In scope for the MVP:
 
 - All services built end-to-end (Reference Data, Authorisation, Notification, JOH, Absence, Vacancy, Booking, Sitting, Payment, Itinerary, MI Feed).
 - Reference data sourced live from the **JOH eLinks API + MRD feed** — no legacy data migration, no ETL.
-- SSO authentication (HMCTS IdP) with RAM-owned authorisation; two user populations (JOHs and admin staff).
+- SSO authentication (HMCTS IdP) with CTAM-owned authorisation; two user populations (JOHs and admin staff).
 - Modern, accessible business-user UI replicating the SSCS incumbent's functional surface.
 - **SSCS Tribunals jurisdiction cutover (wave 1)**, with behavioural parity verified by manual UAT performed by ListAssist-experienced users.
 - API-as-Product standards from Phase 0; JFEPS-compatible payment export preserved unchanged.
 
 Deferred (post-MVP roadmap, **not in this case**): admin UI and admin-write APIs; structured user-action audit; full metrics/traces observability; event streams/webhooks; active matching/allocation (an external-system concern); historical-data access policy.
 
-**Strategic horizon (subsequent business cases / waves):** Courts jurisdictions (Civil, Family, Crown, Crime) migrate region by region in waves 2+, retiring APEX; external HMCTS programmes onboard onto RAM Pathfinder's APIs.
+**Strategic horizon (subsequent business cases / waves):** Courts jurisdictions (Civil, Family, Crown, Crime) migrate region by region in waves 2+, retiring APEX; external HMCTS programmes onboard onto CTAM Pathfinder's APIs.
 
 ---
 
@@ -85,7 +85,7 @@ Deferred (post-MVP roadmap, **not in this case**): admin UI and admin-write APIs
 
 | Benefit | Type | Measure |
 |---|---|---|
-| ListAssist replaced for Tribunals/SSCS judicial scheduling | Operational | SSCS jurisdiction live on RAM Pathfinder; ListAssist retired for scheduling |
+| ListAssist replaced for Tribunals/SSCS judicial scheduling | Operational | SSCS jurisdiction live on CTAM Pathfinder; ListAssist retired for scheduling |
 | Reusable API platform for judicial scheduling | Strategic | Same core services serve later Courts waves with no re-architecture |
 | Path to retiring unsupported APEX | Risk reduction | APEX decommissioned progressively as Courts regions migrate (waves 2+) |
 | Modern, accessible, performant UX | Quality / compliance | WCAG 2.2 AA; page-level performance meets or beats incumbent baselines |
@@ -144,10 +144,10 @@ The Phase 0 implementation-readiness assessment (2026-06-17) returned **READY fo
 
 ## 10. Assumptions & Dependencies
 
-- Judiciary/HMCTS IdP (SSO) available for authentication; password/session/account lifecycle owned centrally, external to RAM Pathfinder.
+- Judiciary/HMCTS IdP (SSO) available for authentication; password/session/account lifecycle owned centrally, external to CTAM Pathfinder.
 - JOH eLinks API and MRD weekly feed available as the reference-data sources (no legacy migration).
-- JFEPS / Liberata payment process unchanged; RAM generates the JFEPS-shaped Excel only.
-- RAM Pathfinder serves the Tribunals/SSCS case-management system via APIs (RAM manages availability/scheduling, not case/hearing management/listing cases).
+- JFEPS / Liberata payment process unchanged; CTAM generates the JFEPS-shaped Excel only.
+- CTAM Pathfinder serves the Tribunals/SSCS case-management system via APIs (CTAM manages availability/scheduling, not case/hearing management/listing cases).
 - HMCTS-approved technology stack confirmed (Azure UK South, Java 25 / Spring Boot 4, Kubernetes).
 - Tribunals/SSCS as the chosen wave-1 jurisdiction.
 - `[PLACEHOLDER: any procurement / commercial / security-accreditation dependencies]`.
@@ -156,7 +156,7 @@ The Phase 0 implementation-readiness assessment (2026-06-17) returned **READY fo
 
 ## 11. Recommendation
 
-Proceed with **Option C** and fund the **RAM Pathfinder MVP delivered as Tribunals/SSCS wave 1**. It is the only option that removes the unsupported-APEX risk over time, delivers the strategic API platform HMCTS programmes need, and contains delivery risk by proving the platform on a single, lower-risk jurisdiction before the wider Courts rollout.
+Proceed with **Option C** and fund the **CTAM Pathfinder MVP delivered as Tribunals/SSCS wave 1**. It is the only option that removes the unsupported-APEX risk over time, delivers the strategic API platform HMCTS programmes need, and contains delivery risk by proving the platform on a single, lower-risk jurisdiction before the wider Courts rollout.
 
 **Decision requested from the Programme Board:**
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Absence → Vacancy → Booking → Sitting → Reconciliation — RAM Pathfinder Documentation</title>
+<title>Absence → Vacancy → Booking → Sitting → Reconciliation — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -89,12 +89,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="absence--vacancy--booking--sitting--reconciliation">Absence → Vacancy → Booking → Sitting → Reconciliation</h1>
-<p>Sequence diagram of the user-initiated RAM Pathfinder operational cycle: a Court User logs an absence for a salaried JOH; the absence triggers a vacancy; RSU fills the vacancy with a fee-paid booking; the Court User confirms the sitting (marking it ready for payment); RSU reconciles the payment after the batch and external systems complete.</p>
+<p>Sequence diagram of the user-initiated CTAM Pathfinder operational cycle: a Court User logs an absence for a salaried JOH; the absence triggers a vacancy; RSU fills the vacancy with a fee-paid booking; the Court User confirms the sitting (marking it ready for payment); RSU reconciles the payment after the batch and external systems complete.</p>
 <p>Five phases, each driven by a user action. Phases are colour-tinted in the diagram.</p>
 <details class="section" id="not-in-this-diagram"><summary><span class="section-title">Not in this diagram</span></summary><div class="section-body">
 <p>User-initiated activities only. The following sit between Phase 4 and Phase 5 but are not drawn because they are not user-initiated:</p>
 <ul>
-<li><strong>Payment-processing batch</strong> — picks up bookings with <code>status = ready_for_payment</code>, SQL-JOINs across confirmed bookings + sittings, generates the JFEPS Excel, persists <code>ram_payments</code> + <code>ram_payment_schedules</code>, dispatches via email to the Payment Authoriser. Runs on a schedule (e.g. end-of-week). See <a href="payment-batch-flow.html"><code>./payment-batch-flow.md</code></a>.</li>
+<li><strong>Payment-processing batch</strong> — picks up bookings with <code>status = ready_for_payment</code>, SQL-JOINs across confirmed bookings + sittings, generates the JFEPS Excel, persists <code>ctam_payments</code> + <code>ctam_payment_schedules</code>, dispatches via email to the Payment Authoriser. Runs on a schedule (e.g. end-of-week). See <a href="payment-batch-flow.html"><code>./payment-batch-flow.md</code></a>.</li>
 <li><strong>Payment Authoriser → JFEPS / Liberata</strong> — authoriser reviews the email and uploads to Liberata via the existing JFEPS workflow. Out-of-band.</li>
 <li><strong>Liberata processing</strong> — Liberata pays the fee-paid JOH. External system.</li>
 </ul>
@@ -103,7 +103,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ul>
 <li>All UI → service calls flow through Azure API Management.</li>
 <li>Each service's <code>JWTFilter</code> validates the JWT signature against HMCTS IdP's JWKS before the controller runs.</li>
-<li>The same <code>JWTFilter</code> calls <code>POST /authz/check</code> against <code>ram-authorisation</code> for roles + jurisdiction + Region/Area scope + activation flag (FR57).</li>
+<li>The same <code>JWTFilter</code> calls <code>POST /authz/check</code> against <code>ctam-authorisation</code> for roles + jurisdiction + Region/Area scope + activation flag (FR57).</li>
 <li>Cross-service calls forward the user's JWT.</li>
 </ul>
 <p><img src="absence-to-reconciliation.png" alt="Absence → Vacancy → Booking → Sitting → Reconciliation sequence" /></p>
@@ -153,7 +153,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>5 — Reconciliation</td>
 <td>RSU</td>
 <td>Manual at MVP (automated reconciliation feed from Liberata is post-MVP)</td>
-<td><code>ram_payment_reconciliations.status = matched</code></td>
+<td><code>ctam_payment_reconciliations.status = matched</code></td>
 </tr>
 </tbody>
 </table>
@@ -183,7 +183,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><a href="../../../architecture.html"><code>../../architecture.md</code> → Step 4 <em>Authentication &amp; Security</em></a>, <a href="../../../architecture-summary.html"><code>../../architecture-summary.md</code> → <em>Authentication &amp; Authorisation</em></a></td>
 </tr>
 <tr>
-<td>Per-table column-level detail (<code>ram_bookings</code>, <code>ram_vacancies</code>, <code>ram_payments</code>, <code>ram_payment_schedules</code>, <code>ram_payment_reconciliations</code>, <code>ram_notification_dispatches</code>, <code>ram_auth_users</code>)</td>
+<td>Per-table column-level detail (<code>ctam_bookings</code>, <code>ctam_vacancies</code>, <code>ctam_payments</code>, <code>ctam_payment_schedules</code>, <code>ctam_payment_reconciliations</code>, <code>ctam_notification_dispatches</code>, <code>ctam_auth_users</code>)</td>
 <td><a href="../data-tables.html"><code>../data-tables.md</code></a></td>
 </tr>
 <tr>

@@ -1,6 +1,6 @@
 # Claude Code skills shipped from this repo
 
-This repository provides four Claude Code slash commands for analysing and documenting software systems. They were built to produce the AS-IS analysis pack and supporting artefacts for the JI → RAM Pathfinder programme, and are reusable against any input folder.
+This repository provides four Claude Code slash commands for analysing and documenting software systems. They were built to produce the AS-IS analysis pack and supporting artefacts for the JI → CTAM Pathfinder programme, and are reusable against any input folder.
 
 | Slash command | What it does |
 |---|---|
@@ -84,8 +84,8 @@ OK — prerequisites satisfied.
 Clone the repository:
 
 ```sh
-git clone git@github.com:hmcts/ram-analysis.git
-cd ram-analysis
+git clone git@github.com:hmcts/ctam-analysis.git
+cd ctam-analysis
 ```
 
 The slash command entry-point lives at `.claude/commands/docs-to-c4.md`; the implementation (scripts, assets, references) lives at `.claude/lib/docs-to-c4/`. Both are auto-discovered by Claude Code when you open a session in this project directory.

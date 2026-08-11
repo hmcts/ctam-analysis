@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RAM Pathfinder Architecture Summary — RAM Pathfinder Documentation</title>
+<title>CTAM Pathfinder Architecture Summary — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,11 +88,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
-<h1 id="ram-pathfinder-architecture-summary">RAM Pathfinder Architecture Summary</h1>
-<p>RAM Pathfinder — HMCTS's API-driven greenfield platform for judicial (JOH) availability and scheduling. It replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool) in the SSCS Tribunals jurisdiction in wave 1 (GAPS, the SSCS case-management system, is retained) and the as-is <strong>JI application (Oracle APEX)</strong> in the Courts jurisdictions in waves 2+<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Scope boundary<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>: RAM is the <strong>system of record for JOH availability and scheduling</strong> — case management, panel composition, and hearing types live in external systems that consume RAM's APIs; no external system writes into RAM.</p>
+<h1 id="ctam-pathfinder-architecture-summary">CTAM Pathfinder Architecture Summary</h1>
+<p>CTAM Pathfinder — HMCTS's API-driven greenfield platform for judicial (JOH) availability and scheduling. It replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool) in the SSCS Tribunals jurisdiction in wave 1 (GAPS, the SSCS case-management system, is retained) and the as-is <strong>JI application (Oracle APEX)</strong> in the Courts jurisdictions in waves 2+<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Scope boundary<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>: CTAM is the <strong>system of record for JOH availability and scheduling</strong> — case management, panel composition, and hearing types live in external systems that consume CTAM's APIs; no external system writes into CTAM.</p>
 <p>This file describes what is built and how it runs. For rationale, alternatives, gap and assumption registers, data-table inventory, conventions, repo structure, changelog, and build sequence, see <a href="architecture.html"><code>./architecture.md</code></a> and the siblings under <a href="architecture"><code>./architecture/</code></a>.</p>
 <details class="section" id="system-context"><summary><span class="section-title">System context</span></summary><div class="section-body">
-<p><img src="architecture/tobe/diagrams/system-context.png" alt="RAM Pathfinder System Context — high-level service map and key interactions" /></p>
+<p><img src="architecture/tobe/diagrams/system-context.png" alt="CTAM Pathfinder System Context — high-level service map and key interactions" /></p>
 </div></details><details class="section" id="service-decomposition-11-services--ui"><summary><span class="section-title">Service decomposition (11 services + UI)</span></summary><div class="section-body">
 <h3 id="domain-services">Domain services</h3>
 <table>
@@ -104,27 +104,27 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-joh</code></td>
-<td>JOH operational state — working patterns, ticket/location overlays, jurisdictional split (renamed from <code>ram-judge</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>; the canonical JOH person record is <code>jo_people</code>, owned by Reference Data)</td>
+<td><code>ctam-joh</code></td>
+<td>JOH operational state — working patterns, ticket/location overlays, jurisdictional split (renamed from <code>ctam-judge</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>; the canonical JOH person record is <code>jo_people</code>, owned by Reference Data)</td>
 </tr>
 <tr>
-<td><code>ram-absence</code></td>
+<td><code>ctam-absence</code></td>
 <td>Absence records + approval workflow; triggers vacancy creation</td>
 </tr>
 <tr>
-<td><code>ram-vacancy</code></td>
+<td><code>ctam-vacancy</code></td>
 <td>Cover-required vacancies; <code>filled</code> flag UPDATE-granted to Booking</td>
 </tr>
 <tr>
-<td><code>ram-booking</code></td>
+<td><code>ctam-booking</code></td>
 <td>Fee-paid bookings + verification; row-locks target vacancy in-transaction</td>
 </tr>
 <tr>
-<td><code>ram-sitting</code></td>
+<td><code>ctam-sitting</code></td>
 <td>Salaried-JOH sittings; verification; AM/PM split</td>
 </tr>
 <tr>
-<td><code>ram-payment</code></td>
+<td><code>ctam-payment</code></td>
 <td>Payments + reconciliation; JFEPS-shaped Excel schedule via Notification</td>
 </tr>
 </tbody>
@@ -139,15 +139,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-authorisation</code></td>
-<td>Per-request authz authority; <strong>two-population identity resolution</strong> (JOH via <code>jo_people</code> → <code>personnel_number</code> → <code>ram_joh_identities</code> RAM JOH UUID; admin staff via <code>ram_auth_staff_identities</code> → RAM-assigned UUID); roles, <strong>jurisdiction</strong>, Region/Area scope, (jurisdiction, region) activation flags</td>
+<td><code>ctam-authorisation</code></td>
+<td>Per-request authz authority; <strong>two-population identity resolution</strong> (JOH via <code>jo_people</code> → <code>personnel_number</code> → <code>ctam_joh_identities</code> CTAM JOH UUID; admin staff via <code>ctam_auth_staff_identities</code> → CTAM-assigned UUID); roles, <strong>jurisdiction</strong>, Region/Area scope, (jurisdiction, region) activation flags</td>
 </tr>
 <tr>
-<td><code>ram-reference-data</code></td>
-<td>Facade over the two-tier reference datastore — tier (a) upstream-sourced <code>jo_*</code> (JOH eLinks, nightly in-process sync) + <code>mrd_*</code> (MRD weekly Excel via blob drop), read-only in RAM; tier (b) RAM-owned regions/offices/calendar/vocabularies. Read directly via SQL by other services; jurisdiction-filtered API</td>
+<td><code>ctam-reference-data</code></td>
+<td>Facade over the two-tier reference datastore — tier (a) upstream-sourced <code>jo_*</code> (JOH eLinks, nightly in-process sync) + <code>mrd_*</code> (MRD weekly Excel via blob drop), read-only in CTAM; tier (b) CTAM-owned regions/offices/calendar/vocabularies. Read directly via SQL by other services; jurisdiction-filtered API</td>
 </tr>
 <tr>
-<td><code>ram-notification</code></td>
+<td><code>ctam-notification</code></td>
 <td>Outbound transactional email (booking / absence acks; JFEPS schedule emails)</td>
 </tr>
 </tbody>
@@ -162,11 +162,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-itinerary</code></td>
+<td><code>ctam-itinerary</code></td>
 <td>Court + Judge itinerary; Forward Look; SQL JOINs over the shared schema (no own tables)</td>
 </tr>
 <tr>
-<td><code>ram-mi-feed</code></td>
+<td><code>ctam-mi-feed</code></td>
 <td>Aggregate reports; DA&amp;I consumer feed (post-MVP); SQL JOINs over the shared schema (no own tables); aggregate-only — no case-level data</td>
 </tr>
 </tbody>
@@ -181,8 +181,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-ui</code></td>
-<td>Business SPA (MVP); per-domain modules; GOV.UK Design System; WCAG 2.2 AA; HMCTS IdP SSO. (<code>ram-admin-ui</code> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> — MVP admin operations are DBA-via-SQL per runbook.)</td>
+<td><code>ctam-ui</code></td>
+<td>Business SPA (MVP); per-domain modules; GOV.UK Design System; WCAG 2.2 AA; HMCTS IdP SSO. (<code>ctam-admin-ui</code> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> — MVP admin operations are DBA-via-SQL per runbook.)</td>
 </tr>
 </tbody>
 </table>
@@ -196,7 +196,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-mock-auth</code></td>
+<td><code>ctam-mock-auth</code></td>
 <td>OIDC issuer for dev / CI / integration environments only — <strong>never deployed to production</strong></td>
 </tr>
 </tbody>
@@ -224,7 +224,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Schema evolution</td>
-<td>Liquibase (RAM Pathfinder DDL only)</td>
+<td>Liquibase (CTAM Pathfinder DDL only)</td>
 </tr>
 <tr>
 <td>Container orchestration</td>
@@ -236,15 +236,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Identity provider</td>
-<td>HMCTS IdP via OIDC <code>authorization_code</code> (production, human users only); <code>ram-mock-auth</code> in dev / CI / integration; JWKS endpoint provides JWT-signature public keys to every RAM Pathfinder service</td>
+<td>HMCTS IdP via OIDC <code>authorization_code</code> (production, human users only); <code>ctam-mock-auth</code> in dev / CI / integration; JWKS endpoint provides JWT-signature public keys to every CTAM Pathfinder service</td>
 </tr>
 <tr>
 <td>Service-to-service auth</td>
-<td><strong>User-initiated</strong>: JWT propagation via <code>RestClient</code> interceptor (forward inbound user JWT). <strong>Batch / scheduled</strong> (payment batch only at MVP): OAuth <code>client_credentials</code> against <code>ram-mock-auth</code>; production issuer per G7.1 (default recommendation: Azure Workload Identity).</td>
+<td><strong>User-initiated</strong>: JWT propagation via <code>RestClient</code> interceptor (forward inbound user JWT). <strong>Batch / scheduled</strong> (payment batch only at MVP): OAuth <code>client_credentials</code> against <code>ctam-mock-auth</code>; production issuer per G7.1 (default recommendation: Azure Workload Identity).</td>
 </tr>
 <tr>
 <td>Per-request auth</td>
-<td>Custom <code>JWTFilter</code> (HMCTS Crime template pattern, <code>io.jsonwebtoken:jjwt</code>) — validates JWT signature against IdP JWKS, then calls <code>ram-authorisation</code> for authz</td>
+<td>Custom <code>JWTFilter</code> (HMCTS Crime template pattern, <code>io.jsonwebtoken:jjwt</code>) — validates JWT signature against IdP JWKS, then calls <code>ctam-authorisation</code> for authz</td>
 </tr>
 <tr>
 <td>Secrets</td>
@@ -267,43 +267,43 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="data-tier"><summary><span class="section-title">Data tier</span></summary><div class="section-body">
 <ul>
 <li>One PostgreSQL Flexible Server instance in UK South. One shared schema. Zone-redundant HA (primary + standby in different AZs; synchronous replication; automatic failover &lt;60 s).</li>
-<li>55 tables: 52 service-owned production + 1 shared infrastructure (<code>ram_configuration_values</code>) + 2 dev-only (mock-auth).</li>
-<li><strong>Two-tier reference data (FR6/FR7):</strong> tier (a) upstream-sourced <code>jo_*</code>/<code>mrd_*</code> tables — written only by the ingestion mechanisms, never hand-edited, corrections at source; tier (b) RAM-owned tables — maintained in RAM. Separate tables preserve lineage.</li>
-<li>Domain tables reference JOHs by <code>joh_id</code> → <code>ram_joh_identities</code> (the RAM-assigned canonical JOH identifier); <code>personnel_number</code> is the upstream link to <code>jo_people</code>. The sync never hard-deletes <code>jo_people</code> rows and <code>ram_joh_identities</code> rows are never deleted, so RAM domain FKs are insulated from upstream churn.</li>
-<li>Per-service DB roles (<code>ram_joh</code>, <code>ram_booking</code>, <code>ram_payment</code>, …) with explicit grants. A service has <code>ALL</code> on its own tables; only the specific grants it needs on others. Only <code>ram_reference_data</code> holds INSERT/UPDATE on tier-(a) tables.</li>
+<li>55 tables: 52 service-owned production + 1 shared infrastructure (<code>ctam_configuration_values</code>) + 2 dev-only (mock-auth).</li>
+<li><strong>Two-tier reference data (FR6/FR7):</strong> tier (a) upstream-sourced <code>jo_*</code>/<code>mrd_*</code> tables — written only by the ingestion mechanisms, never hand-edited, corrections at source; tier (b) CTAM-owned tables — maintained in CTAM. Separate tables preserve lineage.</li>
+<li>Domain tables reference JOHs by <code>joh_id</code> → <code>ctam_joh_identities</code> (the CTAM-assigned canonical JOH identifier); <code>personnel_number</code> is the upstream link to <code>jo_people</code>. The sync never hard-deletes <code>jo_people</code> rows and <code>ctam_joh_identities</code> rows are never deleted, so CTAM domain FKs are insulated from upstream churn.</li>
+<li>Per-service DB roles (<code>ctam_joh</code>, <code>ctam_booking</code>, <code>ctam_payment</code>, …) with explicit grants. A service has <code>ALL</code> on its own tables; only the specific grants it needs on others. Only <code>ctam_reference_data</code> holds INSERT/UPDATE on tier-(a) tables.</li>
 <li><strong>Cross-service reads</strong> — direct SQL JOIN using SELECT grants. No caching at MVP.</li>
-<li><strong>Cross-service simple writes</strong> — direct UPDATE on UPDATE-granted columns within the writer's transaction (e.g. Booking writes <code>ram_vacancies.filled</code>).</li>
+<li><strong>Cross-service simple writes</strong> — direct UPDATE on UPDATE-granted columns within the writer's transaction (e.g. Booking writes <code>ctam_vacancies.filled</code>).</li>
 <li><strong>Cross-service workflows</strong> — REST API call to the owning service.</li>
 <li><strong>Read models</strong> — SQL JOIN over the shared schema. No API fan-out.</li>
 </ul>
 <p>Full per-table inventory: <a href="architecture/tobe/data-tables.html"><code>./architecture/data-tables.md</code></a>.</p>
 </div></details><details class="section" id="authentication--authorisation"><summary><span class="section-title">Authentication &amp; Authorisation</span></summary><div class="section-body">
-<p>Most runtime requests are user-initiated. The one exception is the payment-processing batch (<code>ram-payment-batch</code>), which runs on a schedule and authenticates as a service principal.</p>
+<p>Most runtime requests are user-initiated. The one exception is the payment-processing batch (<code>ctam-payment-batch</code>), which runs on a schedule and authenticates as a service principal.</p>
 <p>The auth flow:</p>
 <ol type="1">
 <li>User authenticates at HMCTS IdP (SSO). IdP issues a JWT.</li>
-<li>User calls <code>ram-ui</code> with the JWT; UI forwards the bearer token through APIM to the target service.</li>
-<li>The service's <code>JWTFilter</code> validates the JWT against HMCTS IdP's JWKS, then calls <code>ram-authorisation</code> for authz scope.</li>
+<li>User calls <code>ctam-ui</code> with the JWT; UI forwards the bearer token through APIM to the target service.</li>
+<li>The service's <code>JWTFilter</code> validates the JWT against HMCTS IdP's JWKS, then calls <code>ctam-authorisation</code> for authz scope.</li>
 <li>Cross-service calls forward the user's JWT — the upstream service copies the inbound <code>Authorization</code> header onto outbound calls. The downstream <code>JWTFilter</code> validates the same JWT.</li>
 </ol>
 <p>Details:</p>
 <ul>
-<li><strong>End-user authentication</strong> — HMCTS IdP, OIDC <code>authorization_code</code>. SSO. JWT issued. <code>ram-mock-auth</code> (Spring Authorization Server) is the OIDC issuer in non-production. Mock-to-real cutover is a Spring profile change (issuer-url + JWKS URL flip; no code change).</li>
+<li><strong>End-user authentication</strong> — HMCTS IdP, OIDC <code>authorization_code</code>. SSO. JWT issued. <code>ctam-mock-auth</code> (Spring Authorization Server) is the OIDC issuer in non-production. Mock-to-real cutover is a Spring profile change (issuer-url + JWKS URL flip; no code change).</li>
 <li><strong>JWT signature validation</strong> — each service's <code>JWTFilter</code> (HMCTS Crime template, <code>io.jsonwebtoken:jjwt</code>) validates signature and issuer using the IdP's JWKS endpoint (<code>/oauth2/jwks</code> on mock; HMCTS IdP's JWKS URL in production). Validation runs before any controller. Public keys cached per the issuer's cache headers.</li>
-<li><strong>End-user authorisation</strong> — after JWT validation, <code>JWTFilter</code> calls <code>POST /authz/check</code> against <code>ram-authorisation</code>. Authorisation resolves the IdP email to the canonical RAM identifier<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> — the <strong>RAM JOH UUID</strong> via <code>jo_people</code> → <code>personnel_number</code> → <code>ram_joh_identities</code> for JOH users, or the <strong>RAM-assigned staff UUID</strong> via <code>ram_auth_staff_identities</code> for HMCTS admin staff — then returns roles + <strong>jurisdiction</strong> + Region/Area scope + activation flag (FR57). Both populations share the same authorisation model. Result stored in a request-scoped <code>AuthDetails</code> bean.</li>
+<li><strong>End-user authorisation</strong> — after JWT validation, <code>JWTFilter</code> calls <code>POST /authz/check</code> against <code>ctam-authorisation</code>. Authorisation resolves the IdP email to the canonical CTAM identifier<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> — the <strong>CTAM JOH UUID</strong> via <code>jo_people</code> → <code>personnel_number</code> → <code>ctam_joh_identities</code> for JOH users, or the <strong>CTAM-assigned staff UUID</strong> via <code>ctam_auth_staff_identities</code> for HMCTS admin staff — then returns roles + <strong>jurisdiction</strong> + Region/Area scope + activation flag (FR57). Both populations share the same authorisation model. Result stored in a request-scoped <code>AuthDetails</code> bean.</li>
 <li><strong>JWT propagation (user-initiated cross-service calls)</strong> — the <code>RestClient</code> interceptor copies the inbound <code>Authorization: Bearer &lt;user-jwt&gt;</code> header onto outbound calls. The downstream <code>JWTFilter</code> validates the same JWT.</li>
-<li><strong>Service-principal auth (batch)</strong> — the payment batch authenticates against <code>ram-mock-auth</code> (non-prod) via OAuth <code>client_credentials</code>, then attaches the service JWT to outbound calls (e.g. Notification). Production issuer is deferred (default: Azure Workload Identity — <code>architecture/gaps.md</code> G7.1).</li>
+<li><strong>Service-principal auth (batch)</strong> — the payment batch authenticates against <code>ctam-mock-auth</code> (non-prod) via OAuth <code>client_credentials</code>, then attaches the service JWT to outbound calls (e.g. Notification). Production issuer is deferred (default: Azure Workload Identity — <code>architecture/gaps.md</code> G7.1).</li>
 <li><strong>Identity bootstrap verification</strong> — user/authorisation records are bootstrapped by mechanisms outside the PRD's scope (restructured D9 — no legacy user migration); before each wave's cutover, a verification pass confirms every bootstrapped user in both populations maps to a real IdP principal.</li>
 </ul>
 <p><strong>MVP non-user-initiated flows:</strong></p>
 <ul>
-<li>Payment batch (<code>ram-payment-batch</code>) — scheduled (e.g. weekly), authenticates as a service principal, picks up confirmed bookings/sittings without payment records, generates the JFEPS Excel, dispatches via Notification → HMCTS Email → Payment Authoriser. Sequence: <a href="architecture/tobe/sequence-diagrams/payment-batch-flow.html"><code>./architecture/sequence-diagrams/payment-batch-flow.md</code></a>.</li>
+<li>Payment batch (<code>ctam-payment-batch</code>) — scheduled (e.g. weekly), authenticates as a service principal, picks up confirmed bookings/sittings without payment records, generates the JFEPS Excel, dispatches via Notification → HMCTS Email → Payment Authoriser. Sequence: <a href="architecture/tobe/sequence-diagrams/payment-batch-flow.html"><code>./architecture/sequence-diagrams/payment-batch-flow.md</code></a>.</li>
 </ul>
 <p><strong>Out of scope at MVP:</strong></p>
 <ul>
 <li>Other non-user-initiated flows (more scheduled jobs, async messaging, event bus) — would use the same service-principal pattern.</li>
 <li>DA&amp;I post-MVP MI Feed integration — auth model TBD. See <a href="architecture/tobe/gaps.html"><code>./architecture/gaps.md</code> G7.2</a>.</li>
-<li>Production service-auth issuer — <code>ram-mock-auth</code> covers Phase 0–8; deferred per G7.1.</li>
+<li>Production service-auth issuer — <code>ctam-mock-auth</code> covers Phase 0–8; deferred per G7.1.</li>
 </ul>
 </div></details><details class="section" id="api-patterns"><summary><span class="section-title">API patterns</span></summary><div class="section-body">
 <table>
@@ -328,7 +328,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>OpenAPI</td>
-<td>Generated via Swagger Core; published per-service by Gradle (via the <code>maven-publish</code> plugin) as Maven-format artefacts (<code>uk.gov.hmcts.ram:api-ram-{service}:{version}</code>). The OpenAPI document is the API's contract surface.</td>
+<td>Generated via Swagger Core; published per-service by Gradle (via the <code>maven-publish</code> plugin) as Maven-format artefacts (<code>uk.gov.hmcts.ctam:api-ctam-{service}:{version}</code>). The OpenAPI document is the API's contract surface.</td>
 </tr>
 <tr>
 <td>Pagination</td>
@@ -363,11 +363,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>User request</td>
-<td>User (with JWT) → <code>ram-ui</code> → APIM (rate limits, routing) → service</td>
+<td>User (with JWT) → <code>ctam-ui</code> → APIM (rate limits, routing) → service</td>
 </tr>
 <tr>
 <td>Per-request JWT validation</td>
-<td>Each RAM Pathfinder service's <code>JWTFilter</code> validates the inbound JWT signature against <strong>HMCTS IdP's JWKS endpoint</strong> before any controller is invoked</td>
+<td>Each CTAM Pathfinder service's <code>JWTFilter</code> validates the inbound JWT signature against <strong>HMCTS IdP's JWKS endpoint</strong> before any controller is invoked</td>
 </tr>
 <tr>
 <td>Cross-service call (within a user request)</td>
@@ -375,11 +375,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Batch / scheduled flow (no user context)</td>
-<td>Batch component (e.g. <code>ram-payment-batch</code>) authenticates as a service principal via OAuth <code>client_credentials</code> against the OIDC issuer (<code>ram-mock-auth</code> non-prod); attaches the resulting service JWT to outbound calls (Notification, etc.); receiving services validate via the same JWKS path. <strong>MVP scope: payment batch only.</strong></td>
+<td>Batch component (e.g. <code>ctam-payment-batch</code>) authenticates as a service principal via OAuth <code>client_credentials</code> against the OIDC issuer (<code>ctam-mock-auth</code> non-prod); attaches the resulting service JWT to outbound calls (Notification, etc.); receiving services validate via the same JWKS path. <strong>MVP scope: payment batch only.</strong></td>
 </tr>
 <tr>
 <td>Per-request authz</td>
-<td>After JWT validation, the same <code>JWTFilter</code> calls <code>POST /authz/check</code> against <code>ram-authorisation</code></td>
+<td>After JWT validation, the same <code>JWTFilter</code> calls <code>POST /authz/check</code> against <code>ctam-authorisation</code></td>
 </tr>
 <tr>
 <td>Reference Data reads</td>
@@ -387,7 +387,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Reference Data writes</td>
-<td>Via <code>ram-reference-data</code> API (admin / Phase 0 seeding)</td>
+<td>Via <code>ctam-reference-data</code> API (admin / Phase 0 seeding)</td>
 </tr>
 <tr>
 <td>Cross-service workflow</td>
@@ -403,17 +403,17 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Outbound email</td>
-<td>Domain service → <code>ram-notification</code> → HMCTS Email → recipient (or, for Payment, → JFEPS via authoriser upload)</td>
+<td>Domain service → <code>ctam-notification</code> → HMCTS Email → recipient (or, for Payment, → JFEPS via authoriser upload)</td>
 </tr>
 <tr>
 <td>Configuration</td>
-<td>Per-service: Spring profiles + <code>application.yml</code> + Azure Key Vault. Cross-service policy values: shared <code>ram_configuration_values</code> infrastructure table (read-only via direct SQL; no API).</td>
+<td>Per-service: Spring profiles + <code>application.yml</code> + Azure Key Vault. Cross-service policy values: shared <code>ctam_configuration_values</code> infrastructure table (read-only via direct SQL; no API).</td>
 </tr>
 </tbody>
 </table>
 </div></details><details class="section" id="deployment-topology"><summary><span class="section-title">Deployment topology</span></summary><div class="section-body">
 <ul>
-<li><strong>Infrastructure provisioning</strong> — <strong>Terraform</strong> (HMCTS standard). Product-level shared estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) lives in the dedicated <strong><code>ram-shared-infrastructure</code></strong> repo (HMCTS CNP standard; decision #13), provisioned + independently verified in Epic 0.0; per-service resources (Key Vault namespaces, MRD blob storage, Static Web App) in their own repos. Terraform provisions; Helm deploys; Liquibase owns schema.</li>
+<li><strong>Infrastructure provisioning</strong> — <strong>Terraform</strong> (HMCTS standard). Product-level shared estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) lives in the dedicated <strong><code>ctam-shared-infrastructure</code></strong> repo (HMCTS CNP standard; decision #13), provisioned + independently verified in Epic 0.0; per-service resources (Key Vault namespaces, MRD blob storage, Static Web App) in their own repos. Terraform provisions; Helm deploys; Liquibase owns schema.</li>
 <li><strong>Production region</strong> — Azure UK South.</li>
 <li><strong>HA</strong> — multi-AZ within UK South for every component:
 <ul>
@@ -429,18 +429,18 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="phased-rollout-jurisdiction-first"><summary><span class="section-title">Phased rollout (jurisdiction-first)</span></summary><div class="section-body">
 <ul>
 <li><strong>Boundary</strong> — jurisdiction first, then per-region within jurisdiction. Wave 1 = the <strong>SSCS</strong> jurisdiction (replacing ListAssist; GAPS case management retained), all in-jurisdiction applicable roles in one wave. Waves 2+ = Courts jurisdictions (Civil, Crime, Family, Crown) per HMCTS judicial region (replacing APEX/JI).<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></li>
-<li><strong>Mechanism</strong> — per-user activation flag in <code>ram_auth_user_activation_flags</code> carrying the (jurisdiction, region) tuple (FR57). Migrated-wave users authenticate; non-migrated users are rejected at the <code>JWTFilter</code> boundary. Cutover flip: <code>UPDATE ram_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'</code> per the rollout runbook; flip-off rolls back to the incumbent.</li>
-<li><strong>Wave gates</strong> — automated tests passing (unit, integration with Testcontainers PostgreSQL, contract); manual UAT signed off by jurisdiction-incumbent-experienced users (ListAssist users for wave 1; APEX users for waves 2+); data readiness verified (reference data current per <code>ram_sync_status</code>; bootstrapped users verified against IdP principals); for wave 1, the SSCS-cohort readiness assessment<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>; programme sign-off.</li>
+<li><strong>Mechanism</strong> — per-user activation flag in <code>ctam_auth_user_activation_flags</code> carrying the (jurisdiction, region) tuple (FR57). Migrated-wave users authenticate; non-migrated users are rejected at the <code>JWTFilter</code> boundary. Cutover flip: <code>UPDATE ctam_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'</code> per the rollout runbook; flip-off rolls back to the incumbent.</li>
+<li><strong>Wave gates</strong> — automated tests passing (unit, integration with Testcontainers PostgreSQL, contract); manual UAT signed off by jurisdiction-incumbent-experienced users (ListAssist users for wave 1; APEX users for waves 2+); data readiness verified (reference data current per <code>ctam_sync_status</code>; bootstrapped users verified against IdP principals); for wave 1, the SSCS-cohort readiness assessment<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>; programme sign-off.</li>
 <li><strong>Build sequence</strong> — Phase 0 cross-cutting services (incl. upstream ingestion) + UI shell; Phases 1–6 domain services in dependency order (JOH → Absence → Vacancy → Booking → Sitting → Payment); Phases 7–8 read-models (Itinerary, MI Feed); Pre-Phase-9 real-IdP cutover; Phase 9+ jurisdiction-first rollout waves.</li>
 </ul>
 </div></details><details class="section" id="upstream-reference-data-ingestion-no-legacy-migration"><summary><span class="section-title">Upstream reference-data ingestion (no legacy migration)</span></summary><div class="section-body">
-<p>Per the revised D3 (2026-06-10), <strong>RAM Pathfinder migrates nothing from ListAssist or APEX</strong> — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from upstream sources of truth, in-process within <code>ram-reference-data</code>:</p>
+<p>Per the revised D3 (2026-06-10), <strong>CTAM Pathfinder migrates nothing from ListAssist or APEX</strong> — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from upstream sources of truth, in-process within <code>ctam-reference-data</code>:</p>
 <ul>
-<li><strong>JOH eLinks API</strong> → 15 <code>jo_*</code> tables. Nightly <code>@Scheduled</code> pull; full-refresh upsert on the upstream natural key; rows absent upstream are marked inactive, never hard-deleted. Sync state in <code>ram_sync_status</code>.</li>
+<li><strong>JOH eLinks API</strong> → 15 <code>jo_*</code> tables. Nightly <code>@Scheduled</code> pull; full-refresh upsert on the upstream natural key; rows absent upstream are marked inactive, never hard-deleted. Sync state in <code>ctam_sync_status</code>.</li>
 <li><strong>MRD (Master Reference Data)</strong> → <code>mrd_*</code> tables. Weekly Excel feed dropped into an Azure Blob container; a <code>@Scheduled</code> task validates, upserts, and archives. Transitional until MRD's public APIs ship.</li>
 <li>No new deployable, no new service principal — the tasks write the service's own tables. A sync failure leaves the previous good state; reference data is at most one cycle stale, never partially written.</li>
 <li>Historical data stays in the cohort's incumbent system and is accessed there as needed.</li>
-<li>User/authorisation data is <strong>not</strong> ingested — <code>auth_*</code> tables are strictly RAM-internal<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, bootstrapped outside the PRD's scope.</li>
+<li>User/authorisation data is <strong>not</strong> ingested — <code>auth_*</code> tables are strictly CTAM-internal<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, bootstrapped outside the PRD's scope.</li>
 </ul>
 </div></details><details class="section" id="external-integrations"><summary><span class="section-title">External integrations</span></summary><div class="section-body">
 <table>
@@ -454,13 +454,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td>HMCTS IdP</td>
-<td>inbound (human authN only) + JWKS used by RAM Pathfinder services for JWT signature validation</td>
-<td>OIDC <code>authorization_code</code> flow for human users; every RAM Pathfinder service's <code>JWTFilter</code> validates inbound user JWTs against IdP JWKS before allowing access to RAM Pathfinder APIs. <strong>Service-principal token issuance</strong> for the payment batch is handled by <code>ram-mock-auth</code> in non-prod; production decision per G7.1.</td>
+<td>inbound (human authN only) + JWKS used by CTAM Pathfinder services for JWT signature validation</td>
+<td>OIDC <code>authorization_code</code> flow for human users; every CTAM Pathfinder service's <code>JWTFilter</code> validates inbound user JWTs against IdP JWKS before allowing access to CTAM Pathfinder APIs. <strong>Service-principal token issuance</strong> for the payment batch is handled by <code>ctam-mock-auth</code> in non-prod; production decision per G7.1.</td>
 </tr>
 <tr>
 <td>JOH eLinks API</td>
 <td>inbound (reference data — MVP per NFR24)</td>
-<td>Canonical source for the 15 <code>jo_*</code> judicial-holder entities; nightly scheduled pull by <code>ram-reference-data</code>. Read-only in RAM; corrections at source; no data flows upstream from RAM.</td>
+<td>Canonical source for the 15 <code>jo_*</code> judicial-holder entities; nightly scheduled pull by <code>ctam-reference-data</code>. Read-only in CTAM; corrections at source; no data flows upstream from CTAM.</td>
 </tr>
 <tr>
 <td>MRD</td>
@@ -480,7 +480,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>External case-management systems (SSCS: <strong>GAPS</strong> — retained case management; Courts: Listing systems)</td>
 <td>outbound (from Phase 9,<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a>)</td>
-<td>Consume RAM's JOH availability + booking APIs; never write into RAM</td>
+<td>Consume CTAM's JOH availability + booking APIs; never write into CTAM</td>
 </tr>
 <tr>
 <td>DA&amp;I</td>
@@ -525,7 +525,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><a href="architecture/tobe/data-tables.html"><code>./architecture/data-tables.md</code></a></td>
 </tr>
 <tr>
-<td>HMCTS Crime SpringBoot starter, dependencies, RAM Pathfinder overlay</td>
+<td>HMCTS Crime SpringBoot starter, dependencies, CTAM Pathfinder overlay</td>
 <td><a href="architecture/tobe/starter-template.html"><code>./architecture/starter-template.md</code></a></td>
 </tr>
 <tr>
@@ -550,16 +550,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <hr />
 <ol>
 <li id="fn1"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>D12 (2026-06-10) — CTAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn11"><p>D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>D12 (2026-06-10) — CTAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

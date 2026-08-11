@@ -1,7 +1,7 @@
 # Delivery Control Plane
 
-This folder is the **control plane** for RAM Pathfinder delivery. It lives in
-`ram-analysis` and orchestrates *what to build next*, *whether it traces to a
+This folder is the **control plane** for CTAM Pathfinder delivery. It lives in
+`ctam-analysis` and orchestrates *what to build next*, *whether it traces to a
 requirement*, and *how a finished story reports back* — **without ever editing
 service code**. Full rationale: [`../architecture/delivery-operating-model.md`](../architecture/delivery-operating-model.md).
 
@@ -13,12 +13,12 @@ service code**. Full rationale: [`../architecture/delivery-operating-model.md`](
 | `ledger/` | Traceability ledger, **sharded one file per epic** (`ledger/epic-0.x.yaml`) so multiple people update different epics without conflicts. Each shard carries epic-level `status`+`owner` and per-story `status`+`owner`+`pr`. Schema + concurrency rules: [`ledger/README.md`](ledger/README.md). |
 | `README.md` | This file — the dispatch/signal loop and how it maps to BMad skills. |
 
-Not here (deliberately): the **context bus** (`ram-architecture` publish + `arch-v1.0` tag) and **per-repo scaffolding** (`ram-scaffold.sh`, `_arch/` submodule, per-repo `CLAUDE.md`) — those are downstream. The control plane only *references* `bus_version` as a string.
+Not here (deliberately): the **context bus** (`ctam-architecture` publish + `arch-v1.0` tag) and **per-repo scaffolding** (`ctam-scaffold.sh`, `_arch/` submodule, per-repo `CLAUDE.md`) — those are downstream. The control plane only *references* `bus_version` as a string.
 
 ## The delivery loop
 
 ```
-[ram-analysis: control plane]                    [ram-{service}: execution unit]
+[ctam-analysis: control plane]                    [ctam-{service}: execution unit]
   1. SELECT next  ── read dispatch-graph + ledger → next buildable epic/story
         │
   2. DISPATCH ──── compile story packet (story + Gherkin ACs + distilled context
@@ -41,10 +41,10 @@ shared state may run **in parallel**.
 
 | Step | Skill | Runs in |
 |---|---|---|
-| Select / plan | `bmad-sprint-planning` (reads `dispatch-graph.yaml`) | `ram-analysis` |
-| Dispatch | `bmad-create-story` / `compile-epic-context` → story packet | `ram-analysis` |
+| Select / plan | `bmad-sprint-planning` (reads `dispatch-graph.yaml`) | `ctam-analysis` |
+| Dispatch | `bmad-create-story` / `compile-epic-context` → story packet | `ctam-analysis` |
 | Execute | `bmad-dev-story` → `bmad-code-review` | target repo |
-| Signal | `bmad-sprint-status` (updates the epic's `ledger/epic-*.yaml` shard) | `ram-analysis` |
+| Signal | `bmad-sprint-status` (updates the epic's `ledger/epic-*.yaml` shard) | `ctam-analysis` |
 
 ## Conventions
 

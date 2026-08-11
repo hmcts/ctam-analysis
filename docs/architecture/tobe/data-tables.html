@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Authoritative Table Ownership Mapping — RAM Pathfinder Documentation</title>
+<title>Authoritative Table Ownership Mapping — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -92,42 +92,42 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <blockquote>
 <p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. The parent's <em>Data Architecture</em> section holds the strategy (shared schema, per-service DB roles, table-name convention, Liquibase, the two-tier reference-data ownership model, upstream ingestion). This file holds the per-table inventory.</p>
 </blockquote>
-<details class="section" id="ram-pathfinder-tables-not-legacy-tables"><summary><span class="section-title">RAM Pathfinder tables, not legacy tables</span></summary><div class="section-body">
-<p>This is the inventory of RAM Pathfinder database tables, grouped by owning service. The table list, column shapes, FK relationships, and ownership boundaries are RAM Pathfinder's design.</p>
-<p>ListAssist and APEX have their own (different) schemas; neither is in this inventory and neither is owned by any RAM Pathfinder service. <strong>No legacy data is migrated from either system</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from the upstream sources of truth:</p>
+<details class="section" id="ctam-pathfinder-tables-not-legacy-tables"><summary><span class="section-title">CTAM Pathfinder tables, not legacy tables</span></summary><div class="section-body">
+<p>This is the inventory of CTAM Pathfinder database tables, grouped by owning service. The table list, column shapes, FK relationships, and ownership boundaries are CTAM Pathfinder's design.</p>
+<p>ListAssist and APEX have their own (different) schemas; neither is in this inventory and neither is owned by any CTAM Pathfinder service. <strong>No legacy data is migrated from either system</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from the upstream sources of truth:</p>
 <ul>
-<li><strong>JOH eLinks API</strong> → the 15 <code>jo_*</code> tables (nightly in-process scheduled sync inside <code>ram-reference-data</code>).</li>
+<li><strong>JOH eLinks API</strong> → the 15 <code>jo_*</code> tables (nightly in-process scheduled sync inside <code>ctam-reference-data</code>).</li>
 <li><strong>MRD (Master Reference Data)</strong> → the <code>mrd_*</code> tables (weekly Excel feed via blob drop + scheduled pick-up, until MRD's public APIs ship).</li>
 </ul>
 <p>Both paths are <strong>source-of-truth integration, not legacy-system migration</strong>: the upstream data is current and authoritative; only the ingestion mechanism differs.</p>
-<p>For naming convention rules (<strong><code>ram_</code> prefix on every RAM-owned table</strong>; <code>jo_</code>/<code>mrd_</code> source-system prefixes on upstream-sourced tier-(a) tables; <code>mock_</code> on dev-only mock-auth tables), see <a href="conventions.html"><code>./conventions.md</code> → "Naming Patterns"</a>.</p>
+<p>For naming convention rules (<strong><code>ctam_</code> prefix on every CTAM-owned table</strong>; <code>jo_</code>/<code>mrd_</code> source-system prefixes on upstream-sourced tier-(a) tables; <code>mock_</code> on dev-only mock-auth tables), see <a href="conventions.html"><code>./conventions.md</code> → "Naming Patterns"</a>.</p>
 </div></details><details class="section" id="the-two-ownership-tiers-fr6fr7"><summary><span class="section-title">The two ownership tiers (FR6/FR7)</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
 <th>Tier</th>
 <th>Written by</th>
-<th>Hand-editable in RAM?</th>
+<th>Hand-editable in CTAM?</th>
 <th>Corrections</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>(a) Upstream-sourced</strong> (<code>jo_*</code>, <code>mrd_*</code>)</td>
-<td>The ingestion mechanisms only (<code>ram_reference_data</code> role)</td>
+<td>The ingestion mechanisms only (<code>ctam_reference_data</code> role)</td>
 <td><strong>Never</strong></td>
-<td>At source — Judicial Office for <code>jo_*</code>; the MRD team for <code>mrd_*</code>. Picked up by the next sync. No data flows upstream from RAM.</td>
+<td>At source — Judicial Office for <code>jo_*</code>; the MRD team for <code>mrd_*</code>. Picked up by the next sync. No data flows upstream from CTAM.</td>
 </tr>
 <tr>
-<td><strong>(b) RAM-owned</strong> (everything else)</td>
+<td><strong>(b) CTAM-owned</strong> (everything else)</td>
 <td>The owning service; DBAs via SQL per runbook in MVP<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></td>
 <td>Yes (per tier-(b) rules)</td>
-<td>Within RAM</td>
+<td>Within CTAM</td>
 </tr>
 </tbody>
 </table>
-<p>Separate tables preserve lineage; <code>ram-reference-data</code>'s API exposes both tiers as appropriate but does not blend them.</p>
-</div></details><details class="section" id="reference-data-service-ram-reference-data--33-tables"><summary><span class="section-title">Reference Data service (<code>ram-reference-data</code>) — 33 tables</span></summary><div class="section-body">
+<p>Separate tables preserve lineage; <code>ctam-reference-data</code>'s API exposes both tiers as appropriate but does not blend them.</p>
+</div></details><details class="section" id="reference-data-service-ctam-reference-data--33-tables"><summary><span class="section-title">Reference Data service (<code>ctam-reference-data</code>) — 33 tables</span></summary><div class="section-body">
 <p>Single owner of every reference-data table in the shared schema (FR7). Reads by other services go directly via SQL JOIN with per-service SELECT grants. Writes follow the tier.</p>
 <h3 id="tier-a--joh-elinks-upstream-sourced--15-tables">Tier (a) — JOH eLinks upstream-sourced — 15 tables</h3>
 <p>The 15 <code>jo_*</code> entities named in the revised D3, refreshed nightly by the in-process scheduled sync. Upserts key on the upstream natural key; rows absent upstream are <strong>marked inactive, never hard-deleted</strong> (protects FKs from domain tables).</p>
@@ -142,7 +142,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><code>jo_people</code></td>
-<td>JOH person records; <code>personnel_number</code> is the <strong>upstream natural key</strong> and the link target for <code>ram_joh_identities</code>. RAM's canonical JOH identifier is the UUID in <code>ram_joh_identities</code>, resolved at sign-in from the IdP email<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></td>
+<td>JOH person records; <code>personnel_number</code> is the <strong>upstream natural key</strong> and the link target for <code>ctam_joh_identities</code>. CTAM's canonical JOH identifier is the UUID in <code>ctam_joh_identities</code>, resolved at sign-in from the IdP email<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></td>
 <td>Authorisation (identity lookup), JOH, Booking, Sitting, Itinerary, MI Feed</td>
 </tr>
 <tr>
@@ -235,7 +235,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 </tbody>
 </table>
-<h3 id="ram-internal-sync-tracking--1-table">RAM-internal sync tracking — 1 table</h3>
+<h3 id="ctam-internal-sync-tracking--1-table">CTAM-internal sync tracking — 1 table</h3>
 <table>
 <thead>
 <tr>
@@ -245,13 +245,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_sync_status</code></td>
-<td>Ingestion run log — per-run source, started/finished, outcome, row counts, error detail. RAM-internal tracking entity with no upstream source<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. Feeds the wave-gate "reference data current" check and ops triage.</td>
+<td><code>ctam_sync_status</code></td>
+<td>Ingestion run log — per-run source, started/finished, outcome, row counts, error detail. CTAM-internal tracking entity with no upstream source<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. Feeds the wave-gate "reference data current" check and ops triage.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="ram-owned-joh-identity--1-table">RAM-owned JOH identity — 1 table</h3>
-<p>RAM's canonical JOH identifier, decoupled from upstream. Written by the eLinks sync <strong>mint-only</strong> (a new <code>personnel_number</code> gets a new UUID; existing mappings are never changed or deleted) and SELECT-granted to every domain service. This insulates RAM domain data from upstream <code>jo_people</code> churn.</p>
+<h3 id="ctam-owned-joh-identity--1-table">CTAM-owned JOH identity — 1 table</h3>
+<p>CTAM's canonical JOH identifier, decoupled from upstream. Written by the eLinks sync <strong>mint-only</strong> (a new <code>personnel_number</code> gets a new UUID; existing mappings are never changed or deleted) and SELECT-granted to every domain service. This insulates CTAM domain data from upstream <code>jo_people</code> churn.</p>
 <table>
 <thead>
 <tr>
@@ -263,15 +263,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_joh_identities</code></td>
+<td><code>ctam_joh_identities</code></td>
 <td>Domain</td>
-<td><strong>RAM-assigned canonical JOH identifier.</strong> <code>id uuid PK</code> + <code>personnel_number</code> (unique — the link to <code>jo_people</code>) + audit columns. Every RAM domain table references the JOH by <code>joh_id</code> → <code>ram_joh_identities.id</code>, <strong>never</strong> by <code>personnel_number</code>. Minted eagerly during the nightly eLinks sync.</td>
+<td><strong>CTAM-assigned canonical JOH identifier.</strong> <code>id uuid PK</code> + <code>personnel_number</code> (unique — the link to <code>jo_people</code>) + audit columns. Every CTAM domain table references the JOH by <code>joh_id</code> → <code>ctam_joh_identities.id</code>, <strong>never</strong> by <code>personnel_number</code>. Minted eagerly during the nightly eLinks sync.</td>
 <td>Authorisation (identity resolution), JOH, Absence, Booking, Sitting, Itinerary, MI Feed</td>
 </tr>
 </tbody>
 </table>
-<h3 id="tier-b--ram-owned--15-tables">Tier (b) — RAM-owned — 15 tables</h3>
-<p>Maintained in RAM (DBAs via SQL per runbook in MVP<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>; admin UI post-MVP). Never overwritten by upstream sync.</p>
+<h3 id="tier-b--ctam-owned--15-tables">Tier (b) — CTAM-owned — 15 tables</h3>
+<p>Maintained in CTAM (DBAs via SQL per runbook in MVP<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>; admin UI post-MVP). Never overwritten by upstream sync.</p>
 <table>
 <thead>
 <tr>
@@ -283,99 +283,99 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_regions</code></td>
+<td><code>ctam_regions</code></td>
 <td>Domain</td>
 <td>HMCTS judicial regions (Region/Area scoping; rollout waves within a jurisdiction)</td>
 <td>All services (scoping), Authorisation</td>
 </tr>
 <tr>
-<td><code>ram_offices</code></td>
+<td><code>ctam_offices</code></td>
 <td>Domain</td>
 <td>Offices within regions</td>
 <td>JOH, Booking, Sitting, Itinerary</td>
 </tr>
 <tr>
-<td><code>ram_calendar_periods</code></td>
+<td><code>ctam_calendar_periods</code></td>
 <td>Domain</td>
 <td>Financial-year boundaries; term dates</td>
 <td>JOH (working-pattern horizon to 31st March), Reports</td>
 </tr>
 <tr>
-<td><code>ram_joh_types</code></td>
+<td><code>ctam_joh_types</code></td>
 <td>Vocabulary</td>
 <td>JOH-type controlled list. <strong>Upstream-overlap candidate</strong> — may be retired in favour of <code>jo_appointment_titles</code> / <code>jo_judiciary_roles</code> once the eLinks contract is confirmed (G8.2).</td>
 <td>JOH, Vacancy, Booking</td>
 </tr>
 <tr>
-<td><code>ram_work_types</code></td>
+<td><code>ctam_work_types</code></td>
 <td>Vocabulary</td>
 <td>Work-type controlled list (Crime, Civil, Family, …)</td>
 <td>Sitting, Booking, Vacancy, Itinerary</td>
 </tr>
 <tr>
-<td><code>ram_court_types</code></td>
+<td><code>ctam_court_types</code></td>
 <td>Vocabulary</td>
 <td>Court / location-type controlled list. <strong>Upstream-overlap candidate</strong> vs <code>jo_location_types</code> (G8.2).</td>
 <td>Office records, Itinerary</td>
 </tr>
 <tr>
-<td><code>ram_ticket_types</code></td>
+<td><code>ctam_ticket_types</code></td>
 <td>Vocabulary</td>
 <td>Ticket-type controlled list. <strong>Upstream-overlap candidate</strong> vs <code>jo_tickets</code> / <code>jo_ticket_categories</code> (G8.2).</td>
 <td>JOH tickets, Vacancy matching</td>
 </tr>
 <tr>
-<td><code>ram_session_types</code></td>
+<td><code>ctam_session_types</code></td>
 <td>Vocabulary</td>
 <td>Session-type controlled list (full / AM / PM / evening / reserved-matter)</td>
 <td>Booking, Sitting</td>
 </tr>
 <tr>
-<td><code>ram_absence_types</code></td>
+<td><code>ctam_absence_types</code></td>
 <td>Vocabulary</td>
 <td>Absence-type controlled list (leave, sickness, training, …)</td>
 <td>Absence (FR19)</td>
 </tr>
 <tr>
-<td><code>ram_working_pattern_types</code></td>
+<td><code>ctam_working_pattern_types</code></td>
 <td>Vocabulary</td>
 <td>Working-pattern-type list (None / Daily / Weekly)</td>
 <td>JOH (FR12)</td>
 </tr>
 <tr>
-<td><code>ram_booking_statuses</code></td>
+<td><code>ctam_booking_statuses</code></td>
 <td>Vocabulary</td>
 <td>Booking status list (planned / provisional / confirmed / cancelled / rejected)</td>
 <td>Booking (FR31)</td>
 </tr>
 <tr>
-<td><code>ram_sitting_outcomes</code></td>
+<td><code>ctam_sitting_outcomes</code></td>
 <td>Vocabulary</td>
 <td>Sitting outcome list (confirmed / cancelled / rejected)</td>
 <td>Sitting (FR37)</td>
 </tr>
 <tr>
-<td><code>ram_joh_fee_entitlements</code></td>
+<td><code>ctam_joh_fee_entitlements</code></td>
 <td>Vocabulary</td>
 <td>Per-JOH fee-entitlement list (yes / no / ask-when-booking). Set on the JOH profile (FR11); consumed at booking time (FR33).</td>
 <td>JOH (FR11), Booking (FR33)</td>
 </tr>
 <tr>
-<td><code>ram_payment_lifecycle_statuses</code></td>
+<td><code>ctam_payment_lifecycle_statuses</code></td>
 <td>Vocabulary</td>
 <td>Payment-record lifecycle (pending / requested / paid / reconciled / queried).</td>
-<td>Payment (FR41, FR46), Booking (<code>payment_lifecycle_status_id</code> column UPDATE-granted to <code>ram_payment</code>)</td>
+<td>Payment (FR41, FR46), Booking (<code>payment_lifecycle_status_id</code> column UPDATE-granted to <code>ctam_payment</code>)</td>
 </tr>
 <tr>
-<td><code>ram_reconciliation_statuses</code></td>
+<td><code>ctam_reconciliation_statuses</code></td>
 <td>Vocabulary</td>
 <td>Reconciliation status list (matched / queried / unreconciled)</td>
 <td>Payment (FR46)</td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="authorisation-service-ram-authorisation--6-tables"><summary><span class="section-title">Authorisation service (<code>ram-authorisation</code>) — 6 tables</span></summary><div class="section-body">
-<p>Strictly RAM-internal<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> — populated by programme-management / operational mechanisms outside the PRD's scope; <strong>no external authority provides this data and no legacy system seeds it</strong>. Service prefix used because "users" / "roles" are domain-overloaded terms.</p>
+</div></details><details class="section" id="authorisation-service-ctam-authorisation--6-tables"><summary><span class="section-title">Authorisation service (<code>ctam-authorisation</code>) — 6 tables</span></summary><div class="section-body">
+<p>Strictly CTAM-internal<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> — populated by programme-management / operational mechanisms outside the PRD's scope; <strong>no external authority provides this data and no legacy system seeds it</strong>. Service prefix used because "users" / "roles" are domain-overloaded terms.</p>
 <table>
 <thead>
 <tr>
@@ -386,39 +386,39 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_auth_users</code></td>
+<td><code>ctam_auth_users</code></td>
 <td>Domain</td>
-<td>RAM Pathfinder principal records spanning <strong>both user populations</strong><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>: JOH users link to <code>ram_joh_identities</code> via <code>joh_id</code> (the RAM JOH UUID; <code>ram_joh_identities</code> in turn carries <code>personnel_number</code> → <code>jo_people</code>); admin-staff users link to <code>ram_auth_staff_identities</code>; <code>principal_kind</code> distinguishes them (and service principals). Carries the user's jurisdiction (FK → <code>jo_jurisdictions</code>).</td>
+<td>CTAM Pathfinder principal records spanning <strong>both user populations</strong><a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>: JOH users link to <code>ctam_joh_identities</code> via <code>joh_id</code> (the CTAM JOH UUID; <code>ctam_joh_identities</code> in turn carries <code>personnel_number</code> → <code>jo_people</code>); admin-staff users link to <code>ctam_auth_staff_identities</code>; <code>principal_kind</code> distinguishes them (and service principals). Carries the user's jurisdiction (FK → <code>jo_jurisdictions</code>).</td>
 </tr>
 <tr>
-<td><code>ram_auth_staff_identities</code></td>
+<td><code>ctam_auth_staff_identities</code></td>
 <td>Domain</td>
-<td><strong>RAM-internal staff identity table</strong> for HMCTS administrative staff (RSU, Court users, Tribunal Caseworkers, Finance/Payment Authoriser, MI/Reporting) — not present in JOH eLinks data. Canonical identifier: <strong>RAM-assigned UUID</strong> (architecture decision, 2026-06-11); IdP email is the lookup key, mirroring the JOH email → personnel-number pattern.</td>
+<td><strong>CTAM-internal staff identity table</strong> for HMCTS administrative staff (RSU, Court users, Tribunal Caseworkers, Finance/Payment Authoriser, MI/Reporting) — not present in JOH eLinks data. Canonical identifier: <strong>CTAM-assigned UUID</strong> (architecture decision, 2026-06-11); IdP email is the lookup key, mirroring the JOH email → personnel-number pattern.</td>
 </tr>
 <tr>
-<td><code>ram_auth_roles</code></td>
+<td><code>ctam_auth_roles</code></td>
 <td>Domain</td>
-<td>RAM Pathfinder authorisation roles (shared by both populations — the populations differ in identity source, not authorisation semantics)</td>
+<td>CTAM Pathfinder authorisation roles (shared by both populations — the populations differ in identity source, not authorisation semantics)</td>
 </tr>
 <tr>
-<td><code>ram_auth_user_roles</code></td>
+<td><code>ctam_auth_user_roles</code></td>
 <td>Domain</td>
 <td>User-role junction (many-to-many)</td>
 </tr>
 <tr>
-<td><code>ram_auth_user_region_scopes</code></td>
+<td><code>ctam_auth_user_region_scopes</code></td>
 <td>Domain</td>
 <td>Per-user Region/Area scope assignments</td>
 </tr>
 <tr>
-<td><code>ram_auth_user_activation_flags</code></td>
+<td><code>ctam_auth_user_activation_flags</code></td>
 <td>Domain</td>
-<td>Per-user "active in RAM Pathfinder" flag carrying the <strong>(jurisdiction, region) tuple</strong> (FR57 — jurisdiction-first phased activation). Wave cutover: <code>UPDATE … SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'</code> per the rollout runbook.</td>
+<td>Per-user "active in CTAM Pathfinder" flag carrying the <strong>(jurisdiction, region) tuple</strong> (FR57 — jurisdiction-first phased activation). Wave cutover: <code>UPDATE … SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'</code> per the rollout runbook.</td>
 </tr>
 </tbody>
 </table>
 </div></details><details class="section" id="shared-infrastructure-tables-no-owning-service--1-table"><summary><span class="section-title">Shared infrastructure tables (no owning service) — 1 table</span></summary><div class="section-body">
-<p>Schema-managed by <code>ram-architecture</code>'s Liquibase baseline changelog; SELECT-granted to every RAM Pathfinder service DB role; writes are admin-or-Liquibase-only (no API). <em>(Introduced in v2.2, 2026-05-07 — replaces the dedicated <code>ram-configuration</code> service.)</em></p>
+<p>Schema-managed by <code>ctam-architecture</code>'s Liquibase baseline changelog; SELECT-granted to every CTAM Pathfinder service DB role; writes are admin-or-Liquibase-only (no API). <em>(Introduced in v2.2, 2026-05-07 — replaces the dedicated <code>ctam-configuration</code> service.)</em></p>
 <table>
 <thead>
 <tr>
@@ -429,13 +429,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_configuration_values</code></td>
+<td><code>ctam_configuration_values</code></td>
 <td>Shared infra</td>
 <td>Typed cross-service policy values (D1 — runtime policy keys that need to be visible to multiple services). Per-service configuration that is scoped to a single service uses Spring profiles + <code>application.yml</code> + Azure Key Vault, <strong>not</strong> this table.</td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="notification-service-ram-notification--1-table"><summary><span class="section-title">Notification service (<code>ram-notification</code>) — 1 table</span></summary><div class="section-body">
+</div></details><details class="section" id="notification-service-ctam-notification--1-table"><summary><span class="section-title">Notification service (<code>ctam-notification</code>) — 1 table</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
@@ -446,14 +446,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_notification_dispatches</code></td>
+<td><code>ctam_notification_dispatches</code></td>
 <td>Domain</td>
 <td>Outbound email dispatch log (recipient, content type, dispatched-at, status, retry count, FR9)</td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="joh-service-ram-joh--5-tables"><summary><span class="section-title">JOH service (<code>ram-joh</code>) — 5 tables</span></summary><div class="section-body">
-<p>The upstream JOH person record is <strong><code>jo_people</code></strong> (tier (a), owned by <code>ram-reference-data</code>); RAM's canonical JOH <em>identifier</em> is the UUID in <code>ram_joh_identities</code>. There is no separate <code>johs</code> profile table. <code>ram-joh</code> owns the <strong>RAM-owned operational state and overlays</strong> layered over the upstream entities (FR6 tier (b)), all <strong>keyed by <code>joh_id</code> → <code>ram_joh_identities</code></strong> (<code>personnel_number</code> is the upstream link held only on <code>ram_joh_identities</code>). Profile <em>views</em> (FR11, FR15) compose tier-(a) data with these overlays via <code>ram-reference-data</code>'s read API; the overlay tables are SELECT-granted to <code>ram_reference_data</code> for that composition (Principle 1 cross-service read).</p>
+</div></details><details class="section" id="joh-service-ctam-joh--5-tables"><summary><span class="section-title">JOH service (<code>ctam-joh</code>) — 5 tables</span></summary><div class="section-body">
+<p>The upstream JOH person record is <strong><code>jo_people</code></strong> (tier (a), owned by <code>ctam-reference-data</code>); CTAM's canonical JOH <em>identifier</em> is the UUID in <code>ctam_joh_identities</code>. There is no separate <code>johs</code> profile table. <code>ctam-joh</code> owns the <strong>CTAM-owned operational state and overlays</strong> layered over the upstream entities (FR6 tier (b)), all <strong>keyed by <code>joh_id</code> → <code>ctam_joh_identities</code></strong> (<code>personnel_number</code> is the upstream link held only on <code>ctam_joh_identities</code>). Profile <em>views</em> (FR11, FR15) compose tier-(a) data with these overlays via <code>ctam-reference-data</code>'s read API; the overlay tables are SELECT-granted to <code>ctam_reference_data</code> for that composition (Principle 1 cross-service read).</p>
 <table>
 <thead>
 <tr>
@@ -464,33 +464,33 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_working_patterns</code></td>
+<td><code>ctam_working_patterns</code></td>
 <td>Domain</td>
-<td>Per-JOH working-pattern definition (target sit %, active period, FR12) — RAM-owned operational state</td>
+<td>Per-JOH working-pattern definition (target sit %, active period, FR12) — CTAM-owned operational state</td>
 </tr>
 <tr>
-<td><code>ram_working_pattern_days</code></td>
+<td><code>ctam_working_pattern_days</code></td>
 <td>Domain</td>
 <td>Per-day breakdown within a working pattern (per-day work-type, FR12)</td>
 </tr>
 <tr>
-<td><code>ram_joh_ticket</code></td>
+<td><code>ctam_joh_ticket</code></td>
 <td>Domain</td>
-<td>RAM-overlay tickets and other authorisations layered on top of the upstream <code>jo_tickets</code> set (FR15 layer (b)); add/edit/remove by admin staff — DBAs via SQL in MVP</td>
+<td>CTAM-overlay tickets and other authorisations layered on top of the upstream <code>jo_tickets</code> set (FR15 layer (b)); add/edit/remove by admin staff — DBAs via SQL in MVP</td>
 </tr>
 <tr>
-<td><code>ram_joh_location</code></td>
+<td><code>ctam_joh_location</code></td>
 <td>Domain</td>
-<td>JOH base-location changes recorded in RAM (FR17) — not captured by JOH eLinks and <strong>not propagated back</strong>; RAM-owned operational state over the upstream <code>jo_base_locations</code> baseline</td>
+<td>JOH base-location changes recorded in CTAM (FR17) — not captured by JOH eLinks and <strong>not propagated back</strong>; CTAM-owned operational state over the upstream <code>jo_base_locations</code> baseline</td>
 </tr>
 <tr>
-<td><code>ram_jurisdictional_splits</code></td>
+<td><code>ctam_jurisdictional_splits</code></td>
 <td>Domain</td>
 <td>Per-JOH jurisdictional split percentages (must total 100%, FR16)</td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="absence-service-ram-absence--1-table"><summary><span class="section-title">Absence service (<code>ram-absence</code>) — 1 table</span></summary><div class="section-body">
+</div></details><details class="section" id="absence-service-ctam-absence--1-table"><summary><span class="section-title">Absence service (<code>ctam-absence</code>) — 1 table</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
@@ -501,13 +501,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_absences</code></td>
+<td><code>ctam_absences</code></td>
 <td>Domain</td>
-<td>Absence records (start/end, type, NTBF flag, status, FR19–FR22); references the JOH by <code>joh_id</code> → <code>ram_joh_identities</code></td>
+<td>Absence records (start/end, type, NTBF flag, status, FR19–FR22); references the JOH by <code>joh_id</code> → <code>ctam_joh_identities</code></td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="vacancy-service-ram-vacancy--2-tables"><summary><span class="section-title">Vacancy service (<code>ram-vacancy</code>) — 2 tables</span></summary><div class="section-body">
+</div></details><details class="section" id="vacancy-service-ctam-vacancy--2-tables"><summary><span class="section-title">Vacancy service (<code>ctam-vacancy</code>) — 2 tables</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
@@ -518,18 +518,18 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_vacancies</code></td>
+<td><code>ctam_vacancies</code></td>
 <td>Domain</td>
-<td>Cover-requirement records (FR23, FR24); <code>filled</code> and <code>filled_at</code> columns are UPDATE-granted to <code>ram_booking</code> per Principle 1</td>
+<td>Cover-requirement records (FR23, FR24); <code>filled</code> and <code>filled_at</code> columns are UPDATE-granted to <code>ctam_booking</code> per Principle 1</td>
 </tr>
 <tr>
-<td><code>ram_vacancy_days</code></td>
+<td><code>ctam_vacancy_days</code></td>
 <td>Domain</td>
 <td>Per-day breakdown for vacancies (FR25 — cancel individual days with reason)</td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="booking-service-ram-booking--1-table"><summary><span class="section-title">Booking service (<code>ram-booking</code>) — 1 table</span></summary><div class="section-body">
+</div></details><details class="section" id="booking-service-ctam-booking--1-table"><summary><span class="section-title">Booking service (<code>ctam-booking</code>) — 1 table</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
@@ -540,13 +540,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_bookings</code></td>
+<td><code>ctam_bookings</code></td>
 <td>Domain</td>
-<td>Fee-paid booking records (FR29, FR31); references the JOH by <code>joh_id</code> → <code>ram_joh_identities</code>; <code>payment_lifecycle_status_id</code> column is UPDATE-granted to <code>ram_payment</code> per Principle 1. Has <code>version integer NOT NULL DEFAULT 0</code> (<code>@Version</code> for optimistic locking) and a <code>uq_ram_bookings_vacancy_joh_session_date_type</code> unique constraint enforcing natural-key dedup on retries.</td>
+<td>Fee-paid booking records (FR29, FR31); references the JOH by <code>joh_id</code> → <code>ctam_joh_identities</code>; <code>payment_lifecycle_status_id</code> column is UPDATE-granted to <code>ctam_payment</code> per Principle 1. Has <code>version integer NOT NULL DEFAULT 0</code> (<code>@Version</code> for optimistic locking) and a <code>uq_ctam_bookings_vacancy_joh_session_date_type</code> unique constraint enforcing natural-key dedup on retries.</td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="sitting-service-ram-sitting--1-table"><summary><span class="section-title">Sitting service (<code>ram-sitting</code>) — 1 table</span></summary><div class="section-body">
+</div></details><details class="section" id="sitting-service-ctam-sitting--1-table"><summary><span class="section-title">Sitting service (<code>ctam-sitting</code>) — 1 table</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
@@ -557,13 +557,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_sittings</code></td>
+<td><code>ctam_sittings</code></td>
 <td>Domain</td>
-<td>Salaried-JOH sitting records (FR35, FR37, FR38, FR39, FR40 — including verification state); references the JOH by <code>joh_id</code> → <code>ram_joh_identities</code></td>
+<td>Salaried-JOH sitting records (FR35, FR37, FR38, FR39, FR40 — including verification state); references the JOH by <code>joh_id</code> → <code>ctam_joh_identities</code></td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="payment-service-ram-payment--3-tables"><summary><span class="section-title">Payment service (<code>ram-payment</code>) — 3 tables</span></summary><div class="section-body">
+</div></details><details class="section" id="payment-service-ctam-payment--3-tables"><summary><span class="section-title">Payment service (<code>ctam-payment</code>) — 3 tables</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
@@ -574,28 +574,28 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram_payments</code></td>
+<td><code>ctam_payments</code></td>
 <td>Domain</td>
-<td>Payment request records (FR41, FR42). Has <code>version</code> (<code>@Version</code>) and a <code>uq_ram_payments_cycle_run_date</code> unique constraint enforcing natural-key dedup on retries (FR45 — no double payment submission).</td>
+<td>Payment request records (FR41, FR42). Has <code>version</code> (<code>@Version</code>) and a <code>uq_ctam_payments_cycle_run_date</code> unique constraint enforcing natural-key dedup on retries (FR45 — no double payment submission).</td>
 </tr>
 <tr>
-<td><code>ram_payment_schedules</code></td>
+<td><code>ctam_payment_schedules</code></td>
 <td>Domain</td>
 <td>JFEPS-shaped schedule snapshots (FR43, FR44). JFEPS format preserved for SSCS wave 1<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a>.</td>
 </tr>
 <tr>
-<td><code>ram_payment_reconciliations</code></td>
+<td><code>ctam_payment_reconciliations</code></td>
 <td>Domain</td>
 <td>Reconciliation records (FR46).</td>
 </tr>
 </tbody>
 </table>
-</div></details><details class="section" id="itinerary-service-ram-itinerary--0-tables"><summary><span class="section-title">Itinerary service (<code>ram-itinerary</code>) — 0 tables</span></summary><div class="section-body">
-<p>Read-model service. No persistent state at MVP per Principle 2 — every read is a SQL JOIN over the shared schema across <code>ram_joh_identities</code> (the JOH spine; joined to <code>jo_people</code> for upstream attributes and to <code>ram-joh</code> overlays), <code>ram_absences</code>, <code>ram_vacancies</code>, <code>ram_bookings</code>, <code>ram_sittings</code>. Strategy C cache is post-MVP if measurement justifies.</p>
-</div></details><details class="section" id="mi-feed-service-ram-mi-feed--0-tables"><summary><span class="section-title">MI Feed service (<code>ram-mi-feed</code>) — 0 tables</span></summary><div class="section-body">
-<p>Read-model service. Same pattern as Itinerary; SQL JOIN over the shared schema for aggregate reporting. Aggregate-only by contract — no case-level data (D12: case/hearing data has no tables anywhere in RAM).</p>
-</div></details><details class="section" id="mock-authentication-service-ram-mock-auth--2-tables-devintegration-only"><summary><span class="section-title">Mock authentication service (<code>ram-mock-auth</code>) — 2 tables (dev/integration only)</span></summary><div class="section-body">
-<p>Per <code>ram_mock_auth</code> DB role. <strong>Never deployed to production</strong>; production deployments reject mock-auth issuer URLs (per G5.3 in <a href="gaps.html"><code>./gaps.md</code></a>).</p>
+</div></details><details class="section" id="itinerary-service-ctam-itinerary--0-tables"><summary><span class="section-title">Itinerary service (<code>ctam-itinerary</code>) — 0 tables</span></summary><div class="section-body">
+<p>Read-model service. No persistent state at MVP per Principle 2 — every read is a SQL JOIN over the shared schema across <code>ctam_joh_identities</code> (the JOH spine; joined to <code>jo_people</code> for upstream attributes and to <code>ctam-joh</code> overlays), <code>ctam_absences</code>, <code>ctam_vacancies</code>, <code>ctam_bookings</code>, <code>ctam_sittings</code>. Strategy C cache is post-MVP if measurement justifies.</p>
+</div></details><details class="section" id="mi-feed-service-ctam-mi-feed--0-tables"><summary><span class="section-title">MI Feed service (<code>ctam-mi-feed</code>) — 0 tables</span></summary><div class="section-body">
+<p>Read-model service. Same pattern as Itinerary; SQL JOIN over the shared schema for aggregate reporting. Aggregate-only by contract — no case-level data (D12: case/hearing data has no tables anywhere in CTAM).</p>
+</div></details><details class="section" id="mock-authentication-service-ctam-mock-auth--2-tables-devintegration-only"><summary><span class="section-title">Mock authentication service (<code>ctam-mock-auth</code>) — 2 tables (dev/integration only)</span></summary><div class="section-body">
+<p>Per <code>ctam_mock_auth</code> DB role. <strong>Never deployed to production</strong>; production deployments reject mock-auth issuer URLs (per G5.3 in <a href="gaps.html"><code>./gaps.md</code></a>).</p>
 <table>
 <thead>
 <tr>
@@ -608,18 +608,18 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><code>mock_oauth_clients</code></td>
 <td>Dev-only</td>
-<td>OAuth client registrations (Spring Authorization Server backend). Holds <strong>(a)</strong> the SPA client for human <code>authorization_code</code> flow, and <strong>(b)</strong> service-principal client registrations for <strong>batch / scheduled components</strong> that need a service identity (initially: <code>ram-payment-batch</code>). User-initiated runtime calls between services use <strong>JWT propagation</strong> (no service principal needed); batch / scheduled components — which have no upstream user context — use OAuth <code>client_credentials</code> against this mock issuer. <em>(v2.5 narrowing reverted in v2.6 to support the payment batch. The eLinks sync and MRD pick-up need no service identity — they run in-process inside <code>ram-reference-data</code> writing its own tables.)</em></td>
+<td>OAuth client registrations (Spring Authorization Server backend). Holds <strong>(a)</strong> the SPA client for human <code>authorization_code</code> flow, and <strong>(b)</strong> service-principal client registrations for <strong>batch / scheduled components</strong> that need a service identity (initially: <code>ctam-payment-batch</code>). User-initiated runtime calls between services use <strong>JWT propagation</strong> (no service principal needed); batch / scheduled components — which have no upstream user context — use OAuth <code>client_credentials</code> against this mock issuer. <em>(v2.5 narrowing reverted in v2.6 to support the payment batch. The eLinks sync and MRD pick-up need no service identity — they run in-process inside <code>ctam-reference-data</code> writing its own tables.)</em></td>
 </tr>
 <tr>
 <td><code>mock_user_roster</code></td>
 <td>Dev-only</td>
-<td>Test user roster mirroring a representative subset of <code>ram_auth_users</code> <strong>across both identity populations</strong> (JOH + admin staff) for realistic Authorisation testing (G5.2)</td>
+<td>Test user roster mirroring a representative subset of <code>ctam_auth_users</code> <strong>across both identity populations</strong> (JOH + admin staff) for realistic Authorisation testing (G5.2)</td>
 </tr>
 </tbody>
 </table>
 </div></details><details class="section" id="inventory-totals"><summary><span class="section-title">Inventory totals</span></summary><div class="section-body">
 <ul>
-<li><strong>Reference Data:</strong> 32 tables (15 <code>jo_*</code> + 1 <code>mrd_*</code> + 1 sync tracking + 15 RAM-owned)</li>
+<li><strong>Reference Data:</strong> 32 tables (15 <code>jo_*</code> + 1 <code>mrd_*</code> + 1 sync tracking + 15 CTAM-owned)</li>
 <li><strong>Authorisation:</strong> 6 tables</li>
 <li><strong>Notification:</strong> 1 table</li>
 <li><strong>JOH:</strong> 5 tables</li>
@@ -629,32 +629,32 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Sitting:</strong> 1 table</li>
 <li><strong>Payment:</strong> 3 tables</li>
 <li><strong>Itinerary, MI Feed:</strong> 0 tables (read models)</li>
-<li><strong>Shared infrastructure:</strong> 1 table (<code>ram_configuration_values</code>; no owning service)</li>
+<li><strong>Shared infrastructure:</strong> 1 table (<code>ctam_configuration_values</code>; no owning service)</li>
 <li><strong>Mock auth:</strong> 2 tables (dev/integration only)</li>
 </ul>
 <p><strong>Total: 55 tables</strong> across the shared schema (52 service-owned production + 1 shared infrastructure + 2 dev-only).</p>
-<p><strong>Retry safety convention:</strong> every RAM Pathfinder domain table that supports create has a <code>uq_{table}_{columns}</code> unique constraint on its natural key, and every entity that supports update has a <code>version</code> column for JPA <code>@Version</code> optimistic locking. There are <em>no</em> per-service <code>*_idempotency_keys</code> tables — those were dropped in v2.1 in favour of these PostgreSQL-native primitives. Tier-(a) tables are exempt (single writer: the ingestion mechanism; upserts key on the upstream natural key). See <a href="conventions.html"><code>./conventions.md</code> → "Retry safety and concurrency control"</a> for the pattern.</p>
-<p><strong>On upstream contract validation:</strong> when the JOH eLinks API contract and the first MRD workbook land in Phase 0 (G8.1 in <a href="gaps.html"><code>./gaps.md</code></a>), the validation focus is the <strong>ingestion mapping</strong> — does each <code>jo_*</code>/<code>mrd_*</code> table have a slot for every upstream field RAM needs, and does the upstream natural-key scheme hold? The tier-(b) and domain-table design is fixed by RAM Pathfinder. Upstream-overlap candidates (<code>ram_joh_types</code>, <code>ram_court_types</code>, <code>ram_ticket_types</code> — G8.2) are resolved at that point: retire the RAM-owned vocabulary where the upstream entity covers it. If a fundamental mismatch surfaces, it lands via PR against the architecture document set, exactly as any other architectural change would.</p>
-<p><strong>Fitness function</strong> (Step 4 <em>ArchUnit-style fitness functions</em> in <a href="../../architecture.html"><code>../architecture.md</code></a>) operates against this inventory: every table created by Liquibase DDL must appear here with the matching owning service (or under "Shared infrastructure"); DB role grants must align — including the tier-(a) rule that only <code>ram_reference_data</code> holds INSERT/UPDATE on <code>jo_*</code>/<code>mrd_*</code> tables.</p>
+<p><strong>Retry safety convention:</strong> every CTAM Pathfinder domain table that supports create has a <code>uq_{table}_{columns}</code> unique constraint on its natural key, and every entity that supports update has a <code>version</code> column for JPA <code>@Version</code> optimistic locking. There are <em>no</em> per-service <code>*_idempotency_keys</code> tables — those were dropped in v2.1 in favour of these PostgreSQL-native primitives. Tier-(a) tables are exempt (single writer: the ingestion mechanism; upserts key on the upstream natural key). See <a href="conventions.html"><code>./conventions.md</code> → "Retry safety and concurrency control"</a> for the pattern.</p>
+<p><strong>On upstream contract validation:</strong> when the JOH eLinks API contract and the first MRD workbook land in Phase 0 (G8.1 in <a href="gaps.html"><code>./gaps.md</code></a>), the validation focus is the <strong>ingestion mapping</strong> — does each <code>jo_*</code>/<code>mrd_*</code> table have a slot for every upstream field CTAM needs, and does the upstream natural-key scheme hold? The tier-(b) and domain-table design is fixed by CTAM Pathfinder. Upstream-overlap candidates (<code>ctam_joh_types</code>, <code>ctam_court_types</code>, <code>ctam_ticket_types</code> — G8.2) are resolved at that point: retire the CTAM-owned vocabulary where the upstream entity covers it. If a fundamental mismatch surfaces, it lands via PR against the architecture document set, exactly as any other architectural change would.</p>
+<p><strong>Fitness function</strong> (Step 4 <em>ArchUnit-style fitness functions</em> in <a href="../../architecture.html"><code>../architecture.md</code></a>) operates against this inventory: every table created by Liquibase DDL must appear here with the matching owning service (or under "Shared infrastructure"); DB role grants must align — including the tier-(a) rule that only <code>ctam_reference_data</code> holds INSERT/UPDATE on <code>jo_*</code>/<code>mrd_*</code> tables.</p>
 </div></details><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn10"><p>D11 (2026-06-10, amended 2026-06-18) — SSCS-first pilot: wave 1 replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>; waves 2+ replace JI/APEX per Courts region.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/architecture/data-tables.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#ram-pathfinder-tables-not-legacy-tables">RAM Pathfinder tables, not legacy tables</a></li><li><a href="#the-two-ownership-tiers-fr6fr7">The two ownership tiers (FR6/FR7)</a></li><li><a href="#reference-data-service-ram-reference-data--33-tables">Reference Data service (ram-reference-data) — 33 tables</a></li><li class="h3"><a href="#tier-a--joh-elinks-upstream-sourced--15-tables">Tier (a) — JOH eLinks upstream-sourced — 15 tables</a></li><li class="h3"><a href="#tier-a--mrd-upstream-sourced--1-table">Tier (a) — MRD upstream-sourced — 1 table</a></li><li class="h3"><a href="#ram-internal-sync-tracking--1-table">RAM-internal sync tracking — 1 table</a></li><li class="h3"><a href="#ram-owned-joh-identity--1-table">RAM-owned JOH identity — 1 table</a></li><li class="h3"><a href="#tier-b--ram-owned--15-tables">Tier (b) — RAM-owned — 15 tables</a></li><li><a href="#authorisation-service-ram-authorisation--6-tables">Authorisation service (ram-authorisation) — 6 tables</a></li><li><a href="#shared-infrastructure-tables-no-owning-service--1-table">Shared infrastructure tables (no owning service) — 1 table</a></li><li><a href="#notification-service-ram-notification--1-table">Notification service (ram-notification) — 1 table</a></li><li><a href="#joh-service-ram-joh--5-tables">JOH service (ram-joh) — 5 tables</a></li><li><a href="#absence-service-ram-absence--1-table">Absence service (ram-absence) — 1 table</a></li><li><a href="#vacancy-service-ram-vacancy--2-tables">Vacancy service (ram-vacancy) — 2 tables</a></li><li><a href="#booking-service-ram-booking--1-table">Booking service (ram-booking) — 1 table</a></li><li><a href="#sitting-service-ram-sitting--1-table">Sitting service (ram-sitting) — 1 table</a></li><li><a href="#payment-service-ram-payment--3-tables">Payment service (ram-payment) — 3 tables</a></li><li><a href="#itinerary-service-ram-itinerary--0-tables">Itinerary service (ram-itinerary) — 0 tables</a></li><li><a href="#mi-feed-service-ram-mi-feed--0-tables">MI Feed service (ram-mi-feed) — 0 tables</a></li><li><a href="#mock-authentication-service-ram-mock-auth--2-tables-devintegration-only">Mock authentication service (ram-mock-auth) — 2 tables (dev/integration only)</a></li><li><a href="#inventory-totals">Inventory totals</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#ctam-pathfinder-tables-not-legacy-tables">CTAM Pathfinder tables, not legacy tables</a></li><li><a href="#the-two-ownership-tiers-fr6fr7">The two ownership tiers (FR6/FR7)</a></li><li><a href="#reference-data-service-ctam-reference-data--33-tables">Reference Data service (ctam-reference-data) — 33 tables</a></li><li class="h3"><a href="#tier-a--joh-elinks-upstream-sourced--15-tables">Tier (a) — JOH eLinks upstream-sourced — 15 tables</a></li><li class="h3"><a href="#tier-a--mrd-upstream-sourced--1-table">Tier (a) — MRD upstream-sourced — 1 table</a></li><li class="h3"><a href="#ctam-internal-sync-tracking--1-table">CTAM-internal sync tracking — 1 table</a></li><li class="h3"><a href="#ctam-owned-joh-identity--1-table">CTAM-owned JOH identity — 1 table</a></li><li class="h3"><a href="#tier-b--ctam-owned--15-tables">Tier (b) — CTAM-owned — 15 tables</a></li><li><a href="#authorisation-service-ctam-authorisation--6-tables">Authorisation service (ctam-authorisation) — 6 tables</a></li><li><a href="#shared-infrastructure-tables-no-owning-service--1-table">Shared infrastructure tables (no owning service) — 1 table</a></li><li><a href="#notification-service-ctam-notification--1-table">Notification service (ctam-notification) — 1 table</a></li><li><a href="#joh-service-ctam-joh--5-tables">JOH service (ctam-joh) — 5 tables</a></li><li><a href="#absence-service-ctam-absence--1-table">Absence service (ctam-absence) — 1 table</a></li><li><a href="#vacancy-service-ctam-vacancy--2-tables">Vacancy service (ctam-vacancy) — 2 tables</a></li><li><a href="#booking-service-ctam-booking--1-table">Booking service (ctam-booking) — 1 table</a></li><li><a href="#sitting-service-ctam-sitting--1-table">Sitting service (ctam-sitting) — 1 table</a></li><li><a href="#payment-service-ctam-payment--3-tables">Payment service (ctam-payment) — 3 tables</a></li><li><a href="#itinerary-service-ctam-itinerary--0-tables">Itinerary service (ctam-itinerary) — 0 tables</a></li><li><a href="#mi-feed-service-ctam-mi-feed--0-tables">MI Feed service (ctam-mi-feed) — 0 tables</a></li><li><a href="#mock-authentication-service-ctam-mock-auth--2-tables-devintegration-only">Mock authentication service (ctam-mock-auth) — 2 tables (dev/integration only)</a></li><li><a href="#inventory-totals">Inventory totals</a></li></ul></aside>
 <script>window.__NAV_BASE__="../../";window.__PAGE__="architecture/tobe/data-tables";</script>
 <script src="../../nav.js"></script>
 <script>

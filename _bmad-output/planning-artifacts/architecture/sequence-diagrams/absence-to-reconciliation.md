@@ -1,8 +1,8 @@
 ---
 type: 'Sequence Diagram'
-description: 'Sequence diagram of the user-initiated RAM Pathfinder operational cycle: a Court User logs an absence for a salaried JOH; the absence triggers a vacancy; RSU fills the vacancy with a fee-paid…'
+description: 'Sequence diagram of the user-initiated CTAM Pathfinder operational cycle: a Court User logs an absence for a salaried JOH; the absence triggers a vacancy; RSU fills the vacancy with a fee-paid…'
 resource: 'architecture/tobe/sequence-diagrams/absence-to-reconciliation.html'
-tags: [ram-pathfinder, architecture]
+tags: [ctam-pathfinder, architecture]
 timestamp: '2026-05-07'
 parent: ../../architecture.md
 title: End-to-end sequence — Absence → Vacancy → Booking → Sitting → Reconciliation
@@ -11,7 +11,7 @@ last_updated: 2026-05-07
 
 # Absence → Vacancy → Booking → Sitting → Reconciliation
 
-Sequence diagram of the user-initiated RAM Pathfinder operational cycle: a Court User logs an absence for a salaried JOH; the absence triggers a vacancy; RSU fills the vacancy with a fee-paid booking; the Court User confirms the sitting (marking it ready for payment); RSU reconciles the payment after the batch and external systems complete.
+Sequence diagram of the user-initiated CTAM Pathfinder operational cycle: a Court User logs an absence for a salaried JOH; the absence triggers a vacancy; RSU fills the vacancy with a fee-paid booking; the Court User confirms the sitting (marking it ready for payment); RSU reconciles the payment after the batch and external systems complete.
 
 Five phases, each driven by a user action. Phases are colour-tinted in the diagram.
 
@@ -19,7 +19,7 @@ Five phases, each driven by a user action. Phases are colour-tinted in the diagr
 
 User-initiated activities only. The following sit between Phase 4 and Phase 5 but are not drawn because they are not user-initiated:
 
-- **Payment-processing batch** — picks up bookings with `status = ready_for_payment`, SQL-JOINs across confirmed bookings + sittings, generates the JFEPS Excel, persists `ram_payments` + `ram_payment_schedules`, dispatches via email to the Payment Authoriser. Runs on a schedule (e.g. end-of-week). See [`./payment-batch-flow.md`](./payment-batch-flow.md).
+- **Payment-processing batch** — picks up bookings with `status = ready_for_payment`, SQL-JOINs across confirmed bookings + sittings, generates the JFEPS Excel, persists `ctam_payments` + `ctam_payment_schedules`, dispatches via email to the Payment Authoriser. Runs on a schedule (e.g. end-of-week). See [`./payment-batch-flow.md`](./payment-batch-flow.md).
 - **Payment Authoriser → JFEPS / Liberata** — authoriser reviews the email and uploads to Liberata via the existing JFEPS workflow. Out-of-band.
 - **Liberata processing** — Liberata pays the fee-paid JOH. External system.
 
@@ -29,7 +29,7 @@ Apply to every Court / RSU → service call:
 
 - All UI → service calls flow through Azure API Management.
 - Each service's `JWTFilter` validates the JWT signature against HMCTS IdP's JWKS before the controller runs.
-- The same `JWTFilter` calls `POST /authz/check` against `ram-authorisation` for roles + jurisdiction + Region/Area scope + activation flag (FR57).
+- The same `JWTFilter` calls `POST /authz/check` against `ctam-authorisation` for roles + jurisdiction + Region/Area scope + activation flag (FR57).
 - Cross-service calls forward the user's JWT.
 
 ![Absence → Vacancy → Booking → Sitting → Reconciliation sequence](./absence-to-reconciliation.png)
@@ -45,7 +45,7 @@ Apply to every Court / RSU → service call:
 | 3 — Booking created | RSU | **R5** — booking creation marks the linked vacancy as filled in the same transaction (persistence detail in *Data Architecture*) | Booking persisted; vacancy filled; ack email to fee-paid JOH |
 | 4 — Sitting confirmed | Court User | State transition; record marked ready for the payment batch | Booking status = `ready_for_payment` (the batch picks this up later) |
 | *(out of scope)* | *(none — batch / external)* | *Routine payment-processing batch + Liberata processing* | *JFEPS Excel generated, dispatched, uploaded; JOH paid* |
-| 5 — Reconciliation | RSU | Manual at MVP (automated reconciliation feed from Liberata is post-MVP) | `ram_payment_reconciliations.status = matched` |
+| 5 — Reconciliation | RSU | Manual at MVP (automated reconciliation feed from Liberata is post-MVP) | `ctam_payment_reconciliations.status = matched` |
 
 ## Where to find more detail
 
@@ -55,7 +55,7 @@ Apply to every Court / RSU → service call:
 | Data Architecture (shared schema, per-service DB roles, R5 pessimistic-lock pattern) | [`../../architecture.md` → Step 4 *Data Architecture*](../../architecture.md) |
 | Integration Points — internal call patterns + external systems (HMCTS Email, JFEPS / Liberata) | [`../../architecture.md` → Step 6 *Integration Points*](../../architecture.md) |
 | Authentication / authorisation cross-cutting steps (omitted from diagram) | [`../../architecture.md` → Step 4 *Authentication & Security*](../../architecture.md), [`../../architecture-summary.md` → *Authentication & Authorisation*](../../architecture-summary.md) |
-| Per-table column-level detail (`ram_bookings`, `ram_vacancies`, `ram_payments`, `ram_payment_schedules`, `ram_payment_reconciliations`, `ram_notification_dispatches`, `ram_auth_users`) | [`../data-tables.md`](../data-tables.md) |
+| Per-table column-level detail (`ctam_bookings`, `ctam_vacancies`, `ctam_payments`, `ctam_payment_schedules`, `ctam_payment_reconciliations`, `ctam_notification_dispatches`, `ctam_auth_users`) | [`../data-tables.md`](../data-tables.md) |
 | Reconciliation lifecycle (MVP manual; post-MVP roadmap) | [`../../architecture.md` → Step 4 *Data Flow — Canonical Operational Cycle*](../../architecture.md); PRD `FR46` |
 | Retry-safety conventions (natural-key uniqueness, optimistic locking, pessimistic row locking) | [`../../architecture.md` → *Data Architecture*](../../architecture.md) and [`../data-tables.md`](../data-tables.md) |
 | JWT propagation pattern (the cross-cutting auth step omitted from the diagram) | [`../conventions.md` → *Communication Patterns / JWT propagation*](../conventions.md) |

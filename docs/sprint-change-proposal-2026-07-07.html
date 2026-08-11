@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sprint Change Proposal — 2026-07-07 — RAM Pathfinder Documentation</title>
+<title>Sprint Change Proposal — 2026-07-07 — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -90,7 +90,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="sprint-change-proposal--2026-07-07">Sprint Change Proposal — 2026-07-07</h1>
 <details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
-<p><strong>Trigger:</strong> Requirement to confirm <strong>Gradle (not Maven) as the build tool</strong>, and to make explicit that <code>ram-architecture</code> holds only a <strong>read-only mirror</strong> of API contracts.</p>
+<p><strong>Trigger:</strong> Requirement to confirm <strong>Gradle (not Maven) as the build tool</strong>, and to make explicit that <code>ctam-architecture</code> holds only a <strong>read-only mirror</strong> of API contracts.</p>
 <p><strong>What the change analysis found:</strong> Gradle is <em>already</em> the build tool across every artifact — 57 Gradle references, <code>build.gradle</code>/<code>gradlew</code>, "Gradle Groovy DSL (per HMCTS template)", and <code>changelog.md</code> v1.4 records "Build: Gradle Kotlin DSL → Groovy DSL". <strong>There was no "Maven as build tool" statement anywhere.</strong></p>
 <p>All 16 "Maven" occurrences referred to the <strong>OpenAPI spec artefact being published to a Maven-<em>format</em> artefact repository</strong> (coordinate system <code>groupId:artifactId:version</code>), which is <strong>build-tool-agnostic</strong> — Gradle publishes Maven-format artefacts via its <code>maven-publish</code> plugin (already named correctly in <code>starter-template.md</code>). A literal "Maven → Gradle" swap would have introduced errors ("Gradle artefact", "internal Gradle repo") and mis-renamed the real <code>maven-publish</code> Gradle plugin.</p>
 <p><strong>Resolution chosen (user-approved):</strong> <em>Clarify the wording</em> — name Gradle as the build/publish tool and reduce "Maven" to "Maven-format" (the repository/coordinate format) throughout the live docs. Leave the <code>changelog.md</code> historical record untouched.</p>
@@ -109,7 +109,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
 <p>Canonical rewording pattern:</p>
 <blockquote>
-<p><strong>OLD:</strong> published as a Maven artefact (<code>uk.gov.hmcts.ram:api-ram-{service}:{version}</code>) <strong>NEW:</strong> published by Gradle (via the <code>maven-publish</code> plugin) as a Maven-format artefact (<code>uk.gov.hmcts.ram:api-ram-{service}:{version}</code>) to the internal artefact repository</p>
+<p><strong>OLD:</strong> published as a Maven artefact (<code>uk.gov.hmcts.ctam:api-ctam-{service}:{version}</code>) <strong>NEW:</strong> published by Gradle (via the <code>maven-publish</code> plugin) as a Maven-format artefact (<code>uk.gov.hmcts.ctam:api-ctam-{service}:{version}</code>) to the internal artefact repository</p>
 </blockquote>
 <p>Applied edits (15 live references across 10 files):</p>
 <table>
@@ -204,7 +204,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tbody>
 </table>
 <p><strong>Left untouched (historical):</strong> <code>changelog.md:64</code> (v1.4 record).</p>
-<p><strong>New content — <code>delivery-operating-model.md</code>:</strong> added subsection <strong>"Contract placement within the bus: producer-owned source, read-only mirror only"</strong> establishing that (a) the delivering service repo is the contract source of truth (Gradle <code>maven-publish</code> → Maven-format artefact), (b) consumers pin the producer's versioned artefact, and (c) <code>ram-architecture/api-specs/</code> is a <strong>read-only, automation-regenerated mirror</strong> for discovery/Spectral/diagrams only — never hand-edited, never a build dependency, never a source of truth.</p>
+<p><strong>New content — <code>delivery-operating-model.md</code>:</strong> added subsection <strong>"Contract placement within the bus: producer-owned source, read-only mirror only"</strong> establishing that (a) the delivering service repo is the contract source of truth (Gradle <code>maven-publish</code> → Maven-format artefact), (b) consumers pin the producer's versioned artefact, and (c) <code>ctam-architecture/api-specs/</code> is a <strong>read-only, automation-regenerated mirror</strong> for discovery/Spectral/diagrams only — never hand-edited, never a build dependency, never a source of truth.</p>
 </div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
 <ul>
 <li><strong>Scope classification: Minor</strong> — documentation-consistency change, implemented directly.</li>

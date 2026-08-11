@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Assumptions (A1–A37) — RAM Pathfinder Documentation</title>
+<title>Assumptions (A1–A37) — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -116,7 +116,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A2</strong> <em>(reopened v2.6, 2026-05-07)</em></td>
-<td>HMCTS IdP supports OAuth 2.0 <code>client_credentials</code> grant for service principals — needed in production for the <strong>payment-processing batch</strong> (introduced in v2.6). At MVP this is satisfied by <code>ram-mock-auth</code> (non-prod only); production issuer is a deferred decision (G7.1, with Azure Workload Identity as the default recommendation).</td>
+<td>HMCTS IdP supports OAuth 2.0 <code>client_credentials</code> grant for service principals — needed in production for the <strong>payment-processing batch</strong> (introduced in v2.6). At MVP this is satisfied by <code>ctam-mock-auth</code> (non-prod only); production issuer is a deferred decision (G7.1, with Azure Workload Identity as the default recommendation).</td>
 <td>Pre-Phase-9 decision per G7.1; mock covers Phase 0–8</td>
 <td></td>
 </tr>
@@ -128,7 +128,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A4</strong> <em>(reconciled 2026-06-17)</em></td>
-<td>HMCTS Crime SpringBoot template (<code>hmcts/service-hmcts-crime-springboot-template</code>@<code>main</code>) is the scaffold for RAM Pathfinder. <strong>Base is minimal</strong> — provides Java 25, Spring Boot <strong>4.1.0</strong>, Gradle Groovy DSL, OpenTelemetry, Logstash JSON logging, Lombok, JaCoCo, CycloneDX, gradle-git-properties, ben-manes-versions, Actuator, <code>webmvc-test</code>, Dockerfile. <strong>NOT in the baseline</strong> (added by <code>ram-scaffold.sh</code> from the separate <code>hmcts/service-hmcts-springboot-demo</code> repo or as RAM conventions): Liquibase, Testcontainers, MapStruct, custom JWTFilter/<code>jjwt</code>, OWASP encoder, docker-compose plugin, OpenAPI tooling, Helm chart, Spring Cloud Azure Key Vault.</td>
+<td>HMCTS Crime SpringBoot template (<code>hmcts/service-hmcts-crime-springboot-template</code>@<code>main</code>) is the scaffold for CTAM Pathfinder. <strong>Base is minimal</strong> — provides Java 25, Spring Boot <strong>4.1.0</strong>, Gradle Groovy DSL, OpenTelemetry, Logstash JSON logging, Lombok, JaCoCo, CycloneDX, gradle-git-properties, ben-manes-versions, Actuator, <code>webmvc-test</code>, Dockerfile. <strong>NOT in the baseline</strong> (added by <code>ctam-scaffold.sh</code> from the separate <code>hmcts/service-hmcts-springboot-demo</code> repo or as CTAM conventions): Liquibase, Testcontainers, MapStruct, custom JWTFilter/<code>jjwt</code>, OWASP encoder, docker-compose plugin, OpenAPI tooling, Helm chart, Spring Cloud Azure Key Vault.</td>
 <td>Load-bearing</td>
 <td>Reconciled against <code>main</code> 2026-06-17 (G1.4); the prior "all present" note overstated the baseline; scaffolding scope tracked in G1.4a</td>
 </tr>
@@ -170,7 +170,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A11</strong></td>
-<td>The 12 user roles documented in <code>functional-modules.md</code> line 497 are the authoritative role set for RAM Pathfinder Authorisation</td>
+<td>The 12 user roles documented in <code>functional-modules.md</code> line 497 are the authoritative role set for CTAM Pathfinder Authorisation</td>
 <td>Load-bearing</td>
 <td>Verified against PRD</td>
 </tr>
@@ -182,7 +182,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A13</strong> <em>(revised 2026-05-06)</em></td>
-<td>APEX behaviour is stable for the duration of the build, as observed by UAT users. If APEX changes, UAT scripts and RAM Pathfinder behaviour are updated in lockstep.</td>
+<td>APEX behaviour is stable for the duration of the build, as observed by UAT users. If APEX changes, UAT scripts and CTAM Pathfinder behaviour are updated in lockstep.</td>
 <td>Reversible</td>
 <td>Risk</td>
 </tr>
@@ -218,13 +218,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A19</strong></td>
-<td>No bank details, no case-level data invariants from APEX continue to apply to RAM Pathfinder</td>
+<td>No bank details, no case-level data invariants from APEX continue to apply to CTAM Pathfinder</td>
 <td>Load-bearing</td>
 <td>Per PRD</td>
 </tr>
 <tr>
 <td><strong>A20</strong></td>
-<td>Azure subscription is provisioned per HMCTS / MoJ standard with appropriate RBAC; all resources within it are Terraform-provisioned per the 2026-06-11 decision (shared estate in the dedicated <code>ram-shared-infrastructure</code> repo per decision #13, 2026-07-06)</td>
+<td>Azure subscription is provisioned per HMCTS / MoJ standard with appropriate RBAC; all resources within it are Terraform-provisioned per the 2026-06-11 decision (shared estate in the dedicated <code>ctam-shared-infrastructure</code> repo per decision #13, 2026-07-06)</td>
 <td>Reversible</td>
 <td>Phase 0 prerequisite; Terraform conventions per G9.1</td>
 </tr>
@@ -248,7 +248,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A24</strong></td>
-<td>The 11-service decomposition (revised v2.2, 2026-05-07 — <code>ram-configuration</code> dropped in favour of Spring profiles + Key Vault and a shared <code>ram_configuration_values</code> infrastructure table) is programme-approved and binding</td>
+<td>The 11-service decomposition (revised v2.2, 2026-05-07 — <code>ctam-configuration</code> dropped in favour of Spring profiles + Key Vault and a shared <code>ctam_configuration_values</code> infrastructure table) is programme-approved and binding</td>
 <td>Load-bearing</td>
 <td>Per PRD</td>
 </tr>
@@ -260,7 +260,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A26</strong> <em>(widened v2.6, 2026-05-07)</em></td>
-<td>Mock auth (Spring Authorization Server) provides full OIDC contract parity with the production issuer for (a) human <code>authorization_code</code> and (b) <code>client_credentials</code> for batch service principals (initially <code>ram-payment-batch</code>).</td>
+<td>Mock auth (Spring Authorization Server) provides full OIDC contract parity with the production issuer for (a) human <code>authorization_code</code> and (b) <code>client_credentials</code> for batch service principals (initially <code>ctam-payment-batch</code>).</td>
 <td>Load-bearing</td>
 <td>Phase 0 deliverable; integration tests verify human + service-principal contract parity</td>
 </tr>
@@ -272,13 +272,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A28</strong></td>
-<td>One global PostgreSQL Flexible Server instance is sufficient for the full bounded RAM Pathfinder workload (~hundreds of concurrent users, read-mostly patterns, indexed joins)</td>
+<td>One global PostgreSQL Flexible Server instance is sufficient for the full bounded CTAM Pathfinder workload (~hundreds of concurrent users, read-mostly patterns, indexed joins)</td>
 <td>Load-bearing</td>
 <td>Phase 0 sizing decision; reversible — can introduce read replicas post-MVP per Principle 2</td>
 </tr>
 <tr>
 <td><strong>A29</strong> <em>(reconciled 2026-06-17; Flyway → Liquibase 2026-06-18)</em></td>
-<td>Schema evolution: <strong>Liquibase</strong> (<code>liquibase-core</code>). <strong>Liquibase is NOT in the template baseline</strong> — it is a RAM convention added by <code>ram-scaffold.sh</code> (the HMCTS demo repo's Database branch uses Flyway; RAM standardises on Liquibase, per AR19/G1.4a). Liquibase owns RAM Pathfinder's own DDL — table creation, column add/drop, grants. <strong>Not</strong> upstream data movement; the JOH eLinks sync and MRD ingestion (see <a href="../../architecture.html"><code>../architecture.md</code></a> → <em>Upstream reference-data ingestion</em>; replaced the retracted Phase 0 ETL<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>) load tier-(a) data into tables Liquibase has already created.</td>
+<td>Schema evolution: <strong>Liquibase</strong> (<code>liquibase-core</code>). <strong>Liquibase is NOT in the template baseline</strong> — it is a CTAM convention added by <code>ctam-scaffold.sh</code> (the HMCTS demo repo's Database branch uses Flyway; CTAM standardises on Liquibase, per AR19/G1.4a). Liquibase owns CTAM Pathfinder's own DDL — table creation, column add/drop, grants. <strong>Not</strong> upstream data movement; the JOH eLinks sync and MRD ingestion (see <a href="../../architecture.html"><code>../architecture.md</code></a> → <em>Upstream reference-data ingestion</em>; replaced the retracted Phase 0 ETL<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>) load tier-(a) data into tables Liquibase has already created.</td>
 <td>Tool sourcing corrected 2026-06-17 (was wrongly attributed to the template baseline); ingestion reframing 2026-06-11; Flyway → Liquibase 2026-06-18</td>
 <td></td>
 </tr>
@@ -302,7 +302,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A33</strong> <em>(SUPERSEDED 2026-06-11)</em></td>
-<td><del>Migration tool's APEX-side input mapping revalidated against the APEX SQL dump.</del> Superseded with the ETL. The successor concern — validating the ingestion mapping against the JOH eLinks contract and the first MRD workbook — is G8.1; the table inventory remains RAM Pathfinder's design (now 55 tables in <a href="data-tables.html"><code>./data-tables.md</code></a>).</td>
+<td><del>Migration tool's APEX-side input mapping revalidated against the APEX SQL dump.</del> Superseded with the ETL. The successor concern — validating the ingestion mapping against the JOH eLinks contract and the first MRD workbook — is G8.1; the table inventory remains CTAM Pathfinder's design (now 55 tables in <a href="data-tables.html"><code>./data-tables.md</code></a>).</td>
 <td>Superseded</td>
 <td>Closed — see G8.1.</td>
 </tr>
@@ -314,7 +314,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A35</strong> <em>(softened v2.6, 2026-05-07)</em></td>
-<td>Most MVP runtime requests are user-initiated. One exception: the payment-processing batch (<code>ram-payment-batch</code>), which runs on a schedule and authenticates as a service principal. User-initiated inter-service auth: JWT propagation. Batch inter-service auth: OAuth <code>client_credentials</code> against <code>ram-mock-auth</code> in non-prod; production issuer per G7.1. Other non-user-initiated flows (DA&amp;I service-consumer calls, scheduled aggregations, async messaging) are out of MVP scope and would reuse the service-principal pattern. Phase 0 production migration runs operator-initiated (G4.7); dev/CI seeding via one-off scripts.</td>
+<td>Most MVP runtime requests are user-initiated. One exception: the payment-processing batch (<code>ctam-payment-batch</code>), which runs on a schedule and authenticates as a service principal. User-initiated inter-service auth: JWT propagation. Batch inter-service auth: OAuth <code>client_credentials</code> against <code>ctam-mock-auth</code> in non-prod; production issuer per G7.1. Other non-user-initiated flows (DA&amp;I service-consumer calls, scheduled aggregations, async messaging) are out of MVP scope and would reuse the service-principal pattern. Phase 0 production migration runs operator-initiated (G4.7); dev/CI seeding via one-off scripts.</td>
 <td>Load-bearing</td>
 <td>The payment batch is the only non-user-initiated runtime flow at MVP. Adding more reopens the production service-auth choice (G7.1).</td>
 </tr>
@@ -336,7 +336,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <hr />
 <ol>
 <li id="fn1"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>RAM-assigned JOH UUID</strong> (<code>ram_joh_identities</code>); HMCTS admin staff via a RAM-internal identity table. Both key on a RAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
