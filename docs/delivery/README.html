@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Delivery Control Plane — RAM Pathfinder Documentation</title>
+<title>Delivery Control Plane — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -89,7 +89,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="delivery-control-plane">Delivery Control Plane</h1>
-<p>This folder is the <strong>control plane</strong> for RAM Pathfinder delivery. It lives in <code>ram-analysis</code> and orchestrates <em>what to build next</em>, <em>whether it traces to a requirement</em>, and <em>how a finished story reports back</em> — <strong>without ever editing service code</strong>. Full rationale: <a href="../architecture/tobe/delivery-operating-model.html"><code>../architecture/delivery-operating-model.md</code></a>.</p>
+<p>This folder is the <strong>control plane</strong> for CTAM Pathfinder delivery. It lives in <code>ctam-analysis</code> and orchestrates <em>what to build next</em>, <em>whether it traces to a requirement</em>, and <em>how a finished story reports back</em> — <strong>without ever editing service code</strong>. Full rationale: <a href="../architecture/tobe/delivery-operating-model.html"><code>../architecture/delivery-operating-model.md</code></a>.</p>
 <details class="section" id="files"><summary><span class="section-title">Files</span></summary><div class="section-body">
 <table>
 <thead>
@@ -113,9 +113,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 </tbody>
 </table>
-<p>Not here (deliberately): the <strong>context bus</strong> (<code>ram-architecture</code> publish + <code>arch-v1.0</code> tag) and <strong>per-repo scaffolding</strong> (<code>ram-scaffold.sh</code>, <code>_arch/</code> submodule, per-repo <code>CLAUDE.md</code>) — those are downstream. The control plane only <em>references</em> <code>bus_version</code> as a string.</p>
+<p>Not here (deliberately): the <strong>context bus</strong> (<code>ctam-architecture</code> publish + <code>arch-v1.0</code> tag) and <strong>per-repo scaffolding</strong> (<code>ctam-scaffold.sh</code>, <code>_arch/</code> submodule, per-repo <code>CLAUDE.md</code>) — those are downstream. The control plane only <em>references</em> <code>bus_version</code> as a string.</p>
 </div></details><details class="section" id="the-delivery-loop"><summary><span class="section-title">The delivery loop</span></summary><div class="section-body">
-<pre><code>[ram-analysis: control plane]                    [ram-{service}: execution unit]
+<pre><code>[ctam-analysis: control plane]                    [ctam-{service}: execution unit]
   1. SELECT next  ── read dispatch-graph + ledger → next buildable epic/story
         │
   2. DISPATCH ──── compile story packet (story + Gherkin ACs + distilled context
@@ -142,12 +142,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>Select / plan</td>
 <td><code>bmad-sprint-planning</code> (reads <code>dispatch-graph.yaml</code>)</td>
-<td><code>ram-analysis</code></td>
+<td><code>ctam-analysis</code></td>
 </tr>
 <tr>
 <td>Dispatch</td>
 <td><code>bmad-create-story</code> / <code>compile-epic-context</code> → story packet</td>
-<td><code>ram-analysis</code></td>
+<td><code>ctam-analysis</code></td>
 </tr>
 <tr>
 <td>Execute</td>
@@ -157,7 +157,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>Signal</td>
 <td><code>bmad-sprint-status</code> (updates the epic's <code>ledger/epic-*.yaml</code> shard)</td>
-<td><code>ram-analysis</code></td>
+<td><code>ctam-analysis</code></td>
 </tr>
 </tbody>
 </table>

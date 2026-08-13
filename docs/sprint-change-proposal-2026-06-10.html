@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sprint Change Proposal — 2026-06-10 — RAM Pathfinder Documentation</title>
+<title>Sprint Change Proposal — 2026-06-10 — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -92,22 +92,22 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
 <p>Six product-direction decisions, communicated by the Product Manager during the <strong>Correct Course</strong> workflow run on <strong>2026-06-10</strong>, require structural amendments to the PRD and cascade into multiple downstream artefacts:</p>
 <h3 id="trigger-a--sscs-first-pilot-wave">Trigger A — SSCS-first pilot wave</h3>
-<p>RAM Pathfinder's MVP pilot rollout (Phase 9, wave 1) targets the <strong>SSCS</strong> jurisdiction within the Tribunals jurisdiction, not a single HMCTS Courts judicial region as previously documented. RAM Pathfinder replaces <strong>GAPS</strong> (SSCS's incumbent scheduling system, expected to be decommissioned) for the SSCS cohort in wave 1; APEX/JI continues to serve Courts users in waves 2+. The 11-service architecture and Phase 0–8 build sequence are unchanged.</p>
+<p>CTAM Pathfinder's MVP pilot rollout (Phase 9, wave 1) targets the <strong>SSCS</strong> jurisdiction within the Tribunals jurisdiction, not a single HMCTS Courts judicial region as previously documented. CTAM Pathfinder replaces <strong>GAPS</strong> (SSCS's incumbent scheduling system, expected to be decommissioned) for the SSCS cohort in wave 1; APEX/JI continues to serve Courts users in waves 2+. The 11-service architecture and Phase 0–8 build sequence are unchanged.</p>
 <p><strong>Evidence:</strong> direct stakeholder statement, 2026-06-10.</p>
 <h3 id="trigger-b--no-legacy-data-migration">Trigger B — No legacy data migration</h3>
-<p>RAM Pathfinder does <strong>not</strong> migrate data from any legacy system (APEX, GAPS). Judicial-holder reference data is sourced from upstream APIs — <strong>JOH eLinks API</strong> (canonical source for the 15 <code>jo_*</code> entities listed in the revised D3) and <strong>MRD (Master Reference Data)</strong> via a weekly Excel feed pending availability of MRD's public APIs. Historical data stays in the cohort's incumbent system and is accessed there as needed. The Phase 0 Data Migration ETL is retracted; the directory <code>ram-architecture/migration/</code> is no longer a deliverable.</p>
+<p>CTAM Pathfinder does <strong>not</strong> migrate data from any legacy system (APEX, GAPS). Judicial-holder reference data is sourced from upstream APIs — <strong>JOH eLinks API</strong> (canonical source for the 15 <code>jo_*</code> entities listed in the revised D3) and <strong>MRD (Master Reference Data)</strong> via a weekly Excel feed pending availability of MRD's public APIs. Historical data stays in the cohort's incumbent system and is accessed there as needed. The Phase 0 Data Migration ETL is retracted; the directory <code>ctam-architecture/migration/</code> is no longer a deliverable.</p>
 <p><strong>Evidence:</strong> direct stakeholder statement, 2026-06-10.</p>
 <h3 id="trigger-c--two-distinct-user-populations">Trigger C — Two distinct user populations</h3>
-<p>RAM Pathfinder serves two distinct user populations, both authenticating via the HMCTS IdP tenant but identified through different lookup paths: (a) <strong>Judicial Office Holders (JOHs)</strong> — IdP email looked up against <code>jo_people</code> to resolve the personal number (canonical RAM identifier); (b) <strong>HMCTS administrative staff</strong> — RSU, Court users, Tribunal Caseworkers, Finance/Payment Authoriser, MI/Reporting users — <em>not present</em> in JOH eLinks data; RAM maintains a separate RAM-internal staff identity table. Both populations share the same authorisation model.</p>
+<p>CTAM Pathfinder serves two distinct user populations, both authenticating via the HMCTS IdP tenant but identified through different lookup paths: (a) <strong>Judicial Office Holders (JOHs)</strong> — IdP email looked up against <code>jo_people</code> to resolve the personal number (canonical CTAM identifier); (b) <strong>HMCTS administrative staff</strong> — RSU, Court users, Tribunal Caseworkers, Finance/Payment Authoriser, MI/Reporting users — <em>not present</em> in JOH eLinks data; CTAM maintains a separate CTAM-internal staff identity table. Both populations share the same authorisation model.</p>
 <p><strong>Evidence:</strong> direct stakeholder statement, 2026-06-10.</p>
 <h3 id="trigger-d--jurisdiction-as-first-class-hierarchical-data-dimension">Trigger D — Jurisdiction as first-class hierarchical data dimension</h3>
-<p>Jurisdiction (e.g. Tribunals/SSCS, Courts/Civil, Courts/Crime) is a first-class attribute in <code>ram-authorisation</code> (user scope) and <code>ram-reference-data</code> (API filtering). Modelled as a <strong>hierarchy</strong> where parent jurisdictions (Tribunals, Courts) contain child jurisdictions (SSCS, Civil, Crime, etc.). Sourced from JOH eLinks (<code>jo_jurisdictions</code>); the parent-child shape is preserved natively if upstream provides it, or established on ingest. No separate tagging step.</p>
+<p>Jurisdiction (e.g. Tribunals/SSCS, Courts/Civil, Courts/Crime) is a first-class attribute in <code>ctam-authorisation</code> (user scope) and <code>ctam-reference-data</code> (API filtering). Modelled as a <strong>hierarchy</strong> where parent jurisdictions (Tribunals, Courts) contain child jurisdictions (SSCS, Civil, Crime, etc.). Sourced from JOH eLinks (<code>jo_jurisdictions</code>); the parent-child shape is preserved natively if upstream provides it, or established on ingest. No separate tagging step.</p>
 <p><strong>Evidence:</strong> direct stakeholder statement, 2026-06-10.</p>
 <h3 id="trigger-e--joh-terminology-replaces-judge">Trigger E — JOH terminology replaces "judge"</h3>
-<p>Project-wide adoption of <strong>JOH (Judicial Office Holder)</strong> as the umbrella term where the meaning includes non-judge panel members (Medical Members, Disability-Qualified Members, Disability (Other) Members). "Judge" remains valid where the meaning is specifically a judge (Circuit Judge, Recorder, salaried Tribunal Judge, etc.). Service naming <code>ram-judge</code> → <code>ram-joh</code> (or architecture-phase equivalent) flagged as a follow-up.</p>
+<p>Project-wide adoption of <strong>JOH (Judicial Office Holder)</strong> as the umbrella term where the meaning includes non-judge panel members (Medical Members, Disability-Qualified Members, Disability (Other) Members). "Judge" remains valid where the meaning is specifically a judge (Circuit Judge, Recorder, salaried Tribunal Judge, etc.). Service naming <code>ctam-judge</code> → <code>ctam-joh</code> (or architecture-phase equivalent) flagged as a follow-up.</p>
 <p><strong>Evidence:</strong> direct stakeholder statement, 2026-06-10.</p>
-<h3 id="trigger-f--ram-scope-boundary-clarification">Trigger F — RAM scope boundary clarification</h3>
-<p>RAM Pathfinder is the <strong>system of record</strong> for JOH availability and scheduling — <strong>not</strong> for case management or hearing management. Allocation decisions are made by admin staff via the off-system advertising/matching process (FR27) and recorded in RAM via the UI by those admin staff. Case management, panel composition for specific cases, and hearing types live in external systems (SSCS case management; Courts Listing systems) that <strong>consume</strong> RAM's APIs; no external system writes into RAM.</p>
+<h3 id="trigger-f--ctam-scope-boundary-clarification">Trigger F — CTAM scope boundary clarification</h3>
+<p>CTAM Pathfinder is the <strong>system of record</strong> for JOH availability and scheduling — <strong>not</strong> for case management or hearing management. Allocation decisions are made by admin staff via the off-system advertising/matching process (FR27) and recorded in CTAM via the UI by those admin staff. Case management, panel composition for specific cases, and hearing types live in external systems (SSCS case management; Courts Listing systems) that <strong>consume</strong> CTAM's APIs; no external system writes into CTAM.</p>
 <p><strong>Evidence:</strong> direct stakeholder statement, 2026-06-10.</p>
 </div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
 <h3 id="decisions-log-impact">Decisions Log impact</h3>
@@ -145,7 +145,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>D12</strong> <em>(new)</em></td>
-<td>RAM scope boundary — availability/scheduling, not case/hearing management. Bounds the 11-service decomposition.</td>
+<td>CTAM scope boundary — availability/scheduling, not case/hearing management. Bounds the 11-service decomposition.</td>
 </tr>
 </tbody>
 </table>
@@ -172,15 +172,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR6</strong></td>
-<td>Substantially reshaped — RSU can <strong>view</strong> reference data; two ownership tiers (upstream-sourced read-only + RAM-owned) held in separate tables; corrections at source for tier (a).</td>
+<td>Substantially reshaped — RSU can <strong>view</strong> reference data; two ownership tiers (upstream-sourced read-only + CTAM-owned) held in separate tables; corrections at source for tier (a).</td>
 </tr>
 <tr>
 <td><strong>FR7</strong></td>
-<td>Reshaped — cross-service direct-SQL reads unchanged; writes follow the tier; <code>ram-reference-data</code> is the single owner of all reference-data tables.</td>
+<td>Reshaped — cross-service direct-SQL reads unchanged; writes follow the tier; <code>ctam-reference-data</code> is the single owner of all reference-data tables.</td>
 </tr>
 <tr>
 <td><strong>FR10–FR18</strong></td>
-<td>JOH terminology sweep across the JOH Records &amp; Working Patterns section. Section heading renamed (Judge → JOH). FR14 reframed (contract-type is upstream-only). FR15 reshaped (tickets are upstream-sourced + RAM-overlay layered on top, keyed by personnel_number). FR17 marks location changes as RAM-owned operational state.</td>
+<td>JOH terminology sweep across the JOH Records &amp; Working Patterns section. Section heading renamed (Judge → JOH). FR14 reframed (contract-type is upstream-only). FR15 reshaped (tickets are upstream-sourced + CTAM-overlay layered on top, keyed by personnel_number). FR17 marks location changes as CTAM-owned operational state.</td>
 </tr>
 <tr>
 <td><strong>FR23, FR27</strong></td>
@@ -251,7 +251,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p>Phase-by-Phase Journey Mapping table updated accordingly (now 6 rows).</p>
 <h3 id="glossary-impact">Glossary impact</h3>
 <p>New entries: <strong>GAPS</strong>, <strong>JOH</strong>, <strong>Jurisdiction</strong>, <strong>MRD</strong>, <strong>RTJ</strong>, <strong>SSCS</strong>, <strong>Tribunal Member</strong>, <strong>Tribunal Panel</strong>.</p>
-<p>Amended entries: <strong>JI</strong> (now defined as the Courts cohort's legacy system specifically), <strong>RAM Pathfinder</strong> (replaces GAPS for SSCS wave 1 and JI/APEX for Courts waves 2+).</p>
+<p>Amended entries: <strong>JI</strong> (now defined as the Courts cohort's legacy system specifically), <strong>CTAM Pathfinder</strong> (replaces GAPS for SSCS wave 1 and JI/APEX for Courts waves 2+).</p>
 <h3 id="cascade-into-separate-artefacts-not-modified-in-this-run">Cascade into separate artefacts (NOT modified in this run)</h3>
 <table>
 <thead>
@@ -279,7 +279,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><code>architecture.md</code> + <code>architecture-summary.md</code></td>
-<td>Two-tier reference-data ownership; JOH eLinks + MRD facade architecture; D12 scope boundary; <code>ram-judge</code> → <code>ram-joh</code> rename; personnel_number-keyed RAM-overlay tables</td>
+<td>Two-tier reference-data ownership; JOH eLinks + MRD facade architecture; D12 scope boundary; <code>ctam-judge</code> → <code>ctam-joh</code> rename; personnel_number-keyed CTAM-overlay tables</td>
 </tr>
 <tr>
 <td><code>architecture/data-tables.md</code></td>
@@ -321,7 +321,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ol type="1">
 <li>Add D11 to Decisions Log + update Document Map (D1–D11)</li>
 <li>Executive Summary rewrite + D11 implication amendment (JOH terminology shift)</li>
-<li>Glossary additions (GAPS, JOH, RTJ, SSCS, Tribunal Member, Tribunal Panel) + JI / RAM Pathfinder amendments</li>
+<li>Glossary additions (GAPS, JOH, RTJ, SSCS, Tribunal Member, Tribunal Panel) + JI / CTAM Pathfinder amendments</li>
 <li>Supersede D3 (no data migration; JOH eLinks API + MRD facade) + add MRD glossary entry</li>
 <li>Reframe D5 (jurisdiction-incumbent UAT)</li>
 <li>Reframe D8 (jurisdiction-first rollout; jurisdiction as hierarchical first-class attribute)</li>
@@ -330,13 +330,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Retract FR57 (Phase 0 ETL) + renumber FR58–FR61 → FR57–FR60 + cross-reference updates</li>
 <li>Amend FR4 (jurisdiction-aware admin operations)</li>
 <li>Terminology sweep: "cohort" → "jurisdiction" globally + add Jurisdiction glossary entry</li>
-<li>Amend FR6 (two-tier ownership model: upstream-sourced + RAM-owned, separate tables)</li>
+<li>Amend FR6 (two-tier ownership model: upstream-sourced + CTAM-owned, separate tables)</li>
 <li>Amend FR7 (cross-service reads unchanged; writes follow the tier)</li>
 <li>FR1 + FR2 + FR57 + NFR24 + FR60 cascade amendments</li>
 <li>JOH Records &amp; Working Patterns section (FR10–FR18) — JOH terminology + tier-(b) overlay patterns</li>
 <li>FR23 + FR27 (Vacancy &amp; Cover) JOH terminology</li>
-<li>Booking + Sitting (FR29, FR32, FR33, FR34, FR35, FR36, FR39) JOH terminology + add D12 (RAM scope boundary) + Exec Summary char #6 + D11 implication amendments</li>
-<li>Authentication Model subsection — JI → RAM Pathfinder, two-population model, jurisdiction added</li>
+<li>Booking + Sitting (FR29, FR32, FR33, FR34, FR35, FR36, FR39) JOH terminology + add D12 (CTAM scope boundary) + Exec Summary char #6 + D11 implication amendments</li>
+<li>Authentication Model subsection — JI → CTAM Pathfinder, two-population model, jurisdiction added</li>
 <li>New Journey 1 (SSCS Tribunal Caseworker) + renumber existing journeys 1–5 → 2–6</li>
 <li>Phase-by-Phase Journey Mapping table update (6 rows)</li>
 <li>Integration Requirements table restructure (JOH eLinks + MRD + external case-management systems + JFEPS preservation note)</li>
@@ -362,7 +362,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>Solution Architect (Winston, <code>bmad-agent-architect</code>)</strong></td>
-<td>Lead architecture document amendments: two-tier reference-data ownership; JOH eLinks API + MRD facade; D12 scope boundary; personnel_number-keyed overlay tables; <code>ram-judge</code> → <code>ram-joh</code> rename evaluation.</td>
+<td>Lead architecture document amendments: two-tier reference-data ownership; JOH eLinks API + MRD facade; D12 scope boundary; personnel_number-keyed overlay tables; <code>ctam-judge</code> → <code>ctam-joh</code> rename evaluation.</td>
 </tr>
 <tr>
 <td><strong>Product Owner / Developer agents (<code>bmad-create-epics-and-stories</code>)</strong></td>
@@ -400,7 +400,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-06-10.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li class="h3"><a href="#trigger-a--sscs-first-pilot-wave">Trigger A — SSCS-first pilot wave</a></li><li class="h3"><a href="#trigger-b--no-legacy-data-migration">Trigger B — No legacy data migration</a></li><li class="h3"><a href="#trigger-c--two-distinct-user-populations">Trigger C — Two distinct user populations</a></li><li class="h3"><a href="#trigger-d--jurisdiction-as-first-class-hierarchical-data-dimension">Trigger D — Jurisdiction as first-class hierarchical data dimension</a></li><li class="h3"><a href="#trigger-e--joh-terminology-replaces-judge">Trigger E — JOH terminology replaces "judge"</a></li><li class="h3"><a href="#trigger-f--ram-scope-boundary-clarification">Trigger F — RAM scope boundary clarification</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#decisions-log-impact">Decisions Log impact</a></li><li class="h3"><a href="#functional-requirements-impact">Functional Requirements impact</a></li><li class="h3"><a href="#user-journeys-impact">User Journeys impact</a></li><li class="h3"><a href="#glossary-impact">Glossary impact</a></li><li class="h3"><a href="#cascade-into-separate-artefacts-not-modified-in-this-run">Cascade into separate artefacts (NOT modified in this run)</a></li><li class="h3"><a href="#implementation-readiness-impact">Implementation Readiness impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li class="h3"><a href="#scope-classification-major">Scope classification: Major</a></li><li class="h3"><a href="#recipients-and-responsibilities">Recipients and responsibilities</a></li><li class="h3"><a href="#success-criteria">Success criteria</a></li><li class="h3"><a href="#sequencing-recommendation">Sequencing recommendation</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li class="h3"><a href="#trigger-a--sscs-first-pilot-wave">Trigger A — SSCS-first pilot wave</a></li><li class="h3"><a href="#trigger-b--no-legacy-data-migration">Trigger B — No legacy data migration</a></li><li class="h3"><a href="#trigger-c--two-distinct-user-populations">Trigger C — Two distinct user populations</a></li><li class="h3"><a href="#trigger-d--jurisdiction-as-first-class-hierarchical-data-dimension">Trigger D — Jurisdiction as first-class hierarchical data dimension</a></li><li class="h3"><a href="#trigger-e--joh-terminology-replaces-judge">Trigger E — JOH terminology replaces "judge"</a></li><li class="h3"><a href="#trigger-f--ctam-scope-boundary-clarification">Trigger F — CTAM scope boundary clarification</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#decisions-log-impact">Decisions Log impact</a></li><li class="h3"><a href="#functional-requirements-impact">Functional Requirements impact</a></li><li class="h3"><a href="#user-journeys-impact">User Journeys impact</a></li><li class="h3"><a href="#glossary-impact">Glossary impact</a></li><li class="h3"><a href="#cascade-into-separate-artefacts-not-modified-in-this-run">Cascade into separate artefacts (NOT modified in this run)</a></li><li class="h3"><a href="#implementation-readiness-impact">Implementation Readiness impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li class="h3"><a href="#scope-classification-major">Scope classification: Major</a></li><li class="h3"><a href="#recipients-and-responsibilities">Recipients and responsibilities</a></li><li class="h3"><a href="#success-criteria">Success criteria</a></li><li class="h3"><a href="#sequencing-recommendation">Sequencing recommendation</a></li></ul></aside>
 <script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-06-10";</script>
 <script src="./nav.js"></script>
 <script>

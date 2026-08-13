@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ram-analysis (RAM Pathfinder) — Epic Breakdown — RAM Pathfinder Documentation</title>
+<title>ctam-analysis (CTAM Pathfinder) — Epic Breakdown — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,10 +88,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
-<h1 id="ram-analysis-ram-pathfinder--epic-breakdown">ram-analysis (RAM Pathfinder) — Epic Breakdown</h1>
-<p>This is the <strong>entry point</strong> for the RAM Pathfinder epic and story breakdown. Each section below lives in its own file for maintainability.</p>
+<h1 id="ctam-analysis-ctam-pathfinder--epic-breakdown">ctam-analysis (CTAM Pathfinder) — Epic Breakdown</h1>
+<p>This is the <strong>entry point</strong> for the CTAM Pathfinder epic and story breakdown. Each section below lives in its own file for maintainability.</p>
 <details class="section" id="overview"><summary><span class="section-title">Overview</span></summary><div class="section-body">
-<p>RAM Pathfinder is HMCTS's greenfield JOH availability-and-scheduling platform — rolled out <strong>jurisdiction by jurisdiction</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>: <strong>wave 1 = the Employment Tribunals (ET) jurisdiction</strong> (its scheduling incumbent is not yet identified — gap G8.4); <strong>wave 2 = SSCS</strong>, replacing <strong>ListAssist</strong> (the SSCS judicial-scheduling tool; GAPS, the SSCS case-management system, is retained); <strong>waves 3+ = the Courts jurisdictions</strong>, replacing the as-is JI application (Oracle APEX) per HMCTS judicial region. Scope boundary<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>: availability/scheduling only; case and hearing management live in external systems that consume RAM's APIs. This document decomposes the requirements from the PRD (60 FRs, 42 NFRs, D1–D13 — ET-first wave 1<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>) and the Architecture (HMCTS Crime SpringBoot starter, polyrepo, shared-DB + per-service DB roles, two-tier reference data ingested from JOH eLinks + MRD, two-population identity, Kubernetes on Azure AKS) into implementable stories.</p>
+<p>CTAM Pathfinder is HMCTS's greenfield JOH availability-and-scheduling platform — rolled out <strong>jurisdiction by jurisdiction</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>: <strong>wave 1 = the Employment Tribunals (ET) jurisdiction</strong> (its scheduling incumbent is not yet identified — gap G8.4); <strong>wave 2 = SSCS</strong>, replacing <strong>ListAssist</strong> (the SSCS judicial-scheduling tool; GAPS, the SSCS case-management system, is retained); <strong>waves 3+ = the Courts jurisdictions</strong>, replacing the as-is JI application (Oracle APEX) per HMCTS judicial region. Scope boundary<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>: availability/scheduling only; case and hearing management live in external systems that consume CTAM's APIs. This document decomposes the requirements from the PRD (60 FRs, 42 NFRs, D1–D13 — ET-first wave 1<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>) and the Architecture (HMCTS Crime SpringBoot starter, polyrepo, shared-DB + per-service DB roles, two-tier reference data ingested from JOH eLinks + MRD, two-population identity, Kubernetes on Azure AKS) into implementable stories.</p>
 <p>UX Design document is not present; downstream epics inherit UI requirements directly from PRD FRs (FR55, FR56) and architecture conventions (GOV.UK Design System base, WCAG 2.2 AA per NFR17). This gap is documented in the 2026-05-06 readiness report.</p>
 </div></details><details class="section" id="document-map"><summary><span class="section-title">Document Map</span></summary><div class="section-body">
 <h3 id="foundations-project-wide-context">Foundations (project-wide context)</h3>
@@ -200,7 +200,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <hr />
 <ol>
 <li id="fn1"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>D12 (2026-06-10) — CTAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>

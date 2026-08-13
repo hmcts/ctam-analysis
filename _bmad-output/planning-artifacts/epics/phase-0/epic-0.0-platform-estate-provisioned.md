@@ -1,8 +1,8 @@
 ---
 type: 'Epic'
-description: 'User outcome: The shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) is stood up via Terraform in its own ram-shared-infrastructure repo per the HMCTS CNP standard, provisioned layer-by-layer with each layer independently verifiable…'
+description: 'User outcome: The shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) is stood up via Terraform in its own ctam-shared-infrastructure repo per the HMCTS CNP standard, provisioned layer-by-layer with each layer independently verifiable…'
 resource: 'epics/phase-0/epic-0.0-platform-estate-provisioned.html'
-tags: [ram-pathfinder, epics, phase-0, infrastructure]
+tags: [ctam-pathfinder, epics, phase-0, infrastructure]
 timestamp: '2026-07-06'
 parent: 'epics/phase-0/index.md'
 epic: 0.0
@@ -12,14 +12,14 @@ storyCount: 5
 
 # Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant
 
-**User outcome:** The shared Azure estate — **AKS, a global PostgreSQL Flexible Server, Azure Container Registry, APIM, Application Insights / Log Analytics, and Key Vault** — is stood up via **Terraform** in its own dedicated repository, **`ram-shared-infrastructure`**, following the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a `{product}-shared-infrastructure` repo (not colocated in a service repo). The estate is provisioned **layer-by-layer, and each layer is independently verifiable at deploy time** — so that every Phase 0 service (`ram-reference-data` first, then `ram-authorisation`, `ram-notification`, `ram-ui`) has a *tested* platform to deploy onto, and the team can prove the platform works before any domain service is scaffolded.
+**User outcome:** The shared Azure estate — **AKS, a global PostgreSQL Flexible Server, Azure Container Registry, APIM, Application Insights / Log Analytics, and Key Vault** — is stood up via **Terraform** in its own dedicated repository, **`ctam-shared-infrastructure`**, following the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a `{product}-shared-infrastructure` repo (not colocated in a service repo). The estate is provisioned **layer-by-layer, and each layer is independently verifiable at deploy time** — so that every Phase 0 service (`ctam-reference-data` first, then `ctam-authorisation`, `ctam-notification`, `ctam-ui`) has a *tested* platform to deploy onto, and the team can prove the platform works before any domain service is scaffolded.
 
-**Hosting:** the shared estate lives in **`ram-shared-infrastructure`** (CNP `{product}-shared-infrastructure` convention). This **supersedes AR53's colocated first-consumer rule** — the shared estate is no longer carried inside `ram-reference-data/terraform/`. Each service repo's own `terraform/` continues to hold **only that service's own resources** (e.g. the MRD storage account in `ram-reference-data`, Story 0.1.4).
+**Hosting:** the shared estate lives in **`ctam-shared-infrastructure`** (CNP `{product}-shared-infrastructure` convention). This **supersedes AR53's colocated first-consumer rule** — the shared estate is no longer carried inside `ctam-reference-data/terraform/`. Each service repo's own `terraform/` continues to hold **only that service's own resources** (e.g. the MRD storage account in `ctam-reference-data`, Story 0.1.4).
 
-**Why this is Epic 0.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.1.1. Making them a first-class, independently-tested epic (a) aligns RAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ram-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the **domain** deliverables (0.1 → 0.5) is unchanged.
+**Why this is Epic 0.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.1.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ctam-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the **domain** deliverables (0.1 → 0.5) is unchanged.
 
 **Vertical slice:**
-- **New dedicated repo `ram-shared-infrastructure`** (CNP naming), scaffolded per the manual GitHub web-UI setup runbook (`ram-architecture/runbooks/github-setup.md` — the `gh` CLI is not available)
+- **New dedicated repo `ctam-shared-infrastructure`** (CNP naming), scaffolded per the manual GitHub web-UI setup runbook (`ctam-architecture/runbooks/github-setup.md` — the `gh` CLI is not available)
 - **Terraform-only** provisioning (no Bicep, no portal click-ops), remote state backend, per-environment stacks (`dev` / `staging` / `production`)
 - Shared estate: **AKS** (UK South, multi-AZ) → **PostgreSQL Flexible Server** (zone-redundant HA) + **Key Vault** → **ACR** + **App Insights / Log Analytics** → **APIM**
 - Each layer carries its own **deploy-time acceptance test** so infrastructure is verified as it lands, not assumed
@@ -28,22 +28,22 @@ storyCount: 5
 
 **Key NFRs first exercised here:** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR16 (Key Vault), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness plumbing), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes — the cluster it deploys to).
 
-**Architecture requirements:** **AR53 (revised — dedicated `ram-shared-infrastructure` per CNP)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern).
+**Architecture requirements:** **AR53 (revised — dedicated `ctam-shared-infrastructure` per CNP)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern).
 
-**Out of scope (explicitly):** any domain service scaffolding (`ram-reference-data` — Epic 0.1, Story 0.1.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+); the `ram_configuration_values` Liquibase baseline (owned by `ram-architecture`, lands ahead of Epic 0.1).
+**Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — Epic 0.1, Story 0.1.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+); the `ctam_configuration_values` Liquibase baseline (owned by `ctam-architecture`, lands ahead of Epic 0.1).
 
 ---
 
-## Story 0.0.1: Scaffold `ram-shared-infrastructure` and establish the Terraform foundation
+## Story 0.0.1: Scaffold `ctam-shared-infrastructure` and establish the Terraform foundation
 
 As a **platform engineer**,
-I want the dedicated **`ram-shared-infrastructure`** repo scaffolded per the HMCTS CNP standard, with a working Terraform backend, per-environment stacks, and a plan/apply CI pipeline,
+I want the dedicated **`ctam-shared-infrastructure`** repo scaffolded per the HMCTS CNP standard, with a working Terraform backend, per-environment stacks, and a plan/apply CI pipeline,
 So that **the shared estate has a CNP-compliant home with safe, reviewable, state-backed change management before any resource is provisioned**.
 
 **Acceptance Criteria:**
 
-**Given** the engineer has performed the GitHub manual-setup checklist (`ram-architecture/runbooks/github-setup.md`) **before** scaffolding:
-  - Created the repo **`ram-shared-infrastructure`** under the HMCTS org **via the GitHub web UI** (name follows the CNP `{product}-shared-infrastructure` convention — `product` = `ram`),
+**Given** the engineer has performed the GitHub manual-setup checklist (`ctam-architecture/runbooks/github-setup.md`) **before** scaffolding:
+  - Created the repo **`ctam-shared-infrastructure`** under the HMCTS org **via the GitHub web UI** (name follows the CNP `{product}-shared-infrastructure` convention — `product` = `ctam`),
   - Enabled branch protection on `main` (require PR review, require status checks, require linear history),
   - Configured `CODEOWNERS` scoped to the platform/infra team,
   - Note: the `gh` CLI is **NOT** available — all GitHub admin config happens manually via the web UI per the runbook,
@@ -72,7 +72,7 @@ So that **the shared estate has a CNP-compliant home with safe, reviewable, stat
 
 As a **platform engineer**,
 I want the resource group, virtual network, and AKS cluster provisioned in UK South via Terraform,
-So that **there is a verified Kubernetes target — zone-spread and reachable — for every RAM Pathfinder service to deploy onto**.
+So that **there is a verified Kubernetes target — zone-spread and reachable — for every CTAM Pathfinder service to deploy onto**.
 
 **Acceptance Criteria:**
 
@@ -93,7 +93,7 @@ So that **there is a verified Kubernetes target — zone-spread and reachable �
 
 **Explicitly NOT in scope:**
 - PostgreSQL, Key Vault, ACR, App Insights, APIM — Stories 0.0.3–0.0.5
-- Deploying any RAM service — Epic 0.1
+- Deploying any CTAM service — Epic 0.1
 
 ---
 
@@ -122,7 +122,7 @@ So that **services have an encrypted, TLS-only shared database and a secret stor
 **References:** AR53 (revised); NFR10, NFR11, NFR16; A34.
 
 **Explicitly NOT in scope:**
-- Per-service DB roles/grants and the `ram_configuration_values` baseline (owned by `ram-architecture`; consumed in Epic 0.1)
+- Per-service DB roles/grants and the `ctam_configuration_values` baseline (owned by `ctam-architecture`; consumed in Epic 0.1)
 - ACR, App Insights, APIM — Stories 0.0.4–0.0.5
 
 ---
@@ -180,7 +180,7 @@ So that **the shared public gateway is proven to terminate TLS and route to the 
 **Given** all five layers are applied,
 **When** the engineer reviews the dev estate,
 **Then** the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM) exists in UK South, each layer independently verified,
-**And** the estate is ready for `ram-reference-data` to scaffold and deploy onto (Epic 0.1, Story 0.1.1).
+**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (Epic 0.1, Story 0.1.1).
 
 **References:** AR53 (revised); NFR10, NFR31; A34; gaps.md G9.
 

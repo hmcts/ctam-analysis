@@ -4,9 +4,9 @@ sequenceDiagram
 
     actor User as Judge / Court / RSU
 
-    participant UI as ram-ui itinerary module
-    participant Itin as ram-itinerary
-    participant Authz as ram-authorisation
+    participant UI as ctam-ui itinerary module
+    participant Itin as ctam-itinerary
+    participant Authz as ctam-authorisation
     participant DB as Shared schema
     participant OwnSvc as Owning service
 
@@ -21,7 +21,7 @@ sequenceDiagram
     rect rgb(232, 250, 232)
         Note over User,OwnSvc: Phase 2 — SQL JOIN federated read on shared schema, Strategy A
         Note right of Itin: No fan-out API calls. JOIN respects per-service SELECT grants. Bounded by NFR8 at 30 s p95 for Forward Look.
-        Itin->>DB: SQL JOIN over judges, ram_working_patterns, absences, vacancies, bookings, sittings
+        Itin->>DB: SQL JOIN over judges, ctam_working_patterns, absences, vacancies, bookings, sittings
         DB-->>Itin: result set scoped to auth by region, office, or judge subset
         Itin->>Itin: compose itinerary cells, tag each cell with underlying record type and ID
         Itin-->>UI: 200 itinerary view with clickable cells
@@ -36,4 +36,4 @@ sequenceDiagram
         UI-->>User: render detail view
     end
 
-    Note over User,OwnSvc: NFR37 fallback, designed but not built unless NFR8 breached. Strategy C — ram-itinerary holds a cached projection refreshed on a configured cadence with Cache-Control and Age headers.
+    Note over User,OwnSvc: NFR37 fallback, designed but not built unless NFR8 breached. Strategy C — ctam-itinerary holds a cached projection refreshed on a configured cadence with Cache-Control and Age headers.

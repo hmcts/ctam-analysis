@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Emit a self-contained `docs/graph.html` — a HIERARCHICAL relationship view
-of the RAM Pathfinder planning artefacts (an OKF-bundle visualiser).
+of the CTAM Pathfinder planning artefacts (an OKF-bundle visualiser).
 
 The artefacts form a tree via their `parent` frontmatter (architecture → shards
 & sequence diagrams; epics/index → framework/maps & phase indexes; phase index
@@ -177,7 +177,7 @@ def main() -> int:
         parent_of[rel] = pid
 
     # synthetic nodes: root + group nodes (only groups actually used as a parent)
-    nodes[ROOT] = dict(id=ROOT, label="RAM Pathfinder", group="", okftype="root",
+    nodes[ROOT] = dict(id=ROOT, label="CTAM Pathfinder", group="", okftype="root",
                        href="", faded=False, deg=0, synthetic=True)
     for g in GROUP_ORDER:
         if g in used_groups:
@@ -259,7 +259,7 @@ PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Knowledge graph — RAM Pathfinder Documentation</title>
+<title>Knowledge graph — CTAM Pathfinder Documentation</title>
 <style>__CSS__</style>
 <style>__EXTRA_CSS__</style>
 </head>

@@ -3,7 +3,7 @@ type: 'Validation Report'
 title: 'PRD Validation Report'
 description: 'PRD Being Validated: _bmad-output/planning-artifacts/prd.md'
 resource: 'prd-validation-report-2026-06-17.html'
-tags: [ram-pathfinder, change-control]
+tags: [ctam-pathfinder, change-control]
 timestamp: '2026-06-17'
 validationTarget: '_bmad-output/planning-artifacts/prd.md'
 validationDate: '2026-06-17'
@@ -81,13 +81,13 @@ Beyond the 6 core sections, the PRD carries the expected BMAD extensions for an 
 
 **Total FRs Analyzed:** 60 (FR1–FR60)
 
-**Format Violations:** 0 — every FR is a capability statement ("[Actor] can …" or "RAM Pathfinder [does X]") with a testable outcome.
+**Format Violations:** 0 — every FR is a capability statement ("[Actor] can …" or "CTAM Pathfinder [does X]") with a testable outcome.
 
 **Subjective Adjectives Found:** 0 — no "easy/fast/intuitive/seamless/user-friendly".
 
 **Vague Quantifiers Found:** 0 — the only approximations (`~15 JOH-eLinks entities` in FR7; capacity `~50–100` / `~200–500` in NFR9) are explicitly labelled order-of-magnitude estimates, which is appropriate for capacity planning.
 
-**Implementation Specificity (Informational, not blocking):** ~8 FRs reference concrete tables / SQL / mechanisms — FR1 (`jo_people`), FR6/FR7 (direct-SQL tiers), FR8 (`ram_configuration_values` + Flyway), FR30 (`ram_vacancies` in-process update), FR42 (`ram-payment-batch`, SQL JOIN), FR45 (`(payment_cycle_id, booking_id)` constraint), FR57 (`UPDATE ram_auth_user_activation_flags …`). Strict BMAD purity flags these as leakage, **but** each is deliberately annotated ("implementation per architecture") and reflects the brownfield-rebuild context where the FR contract co-evolves with the architecture. They do not impair testability and are consistent with the accepted 2026-06-10 5/5 assessment. Treated as informational.
+**Implementation Specificity (Informational, not blocking):** ~8 FRs reference concrete tables / SQL / mechanisms — FR1 (`jo_people`), FR6/FR7 (direct-SQL tiers), FR8 (`ctam_configuration_values` + Flyway), FR30 (`ctam_vacancies` in-process update), FR42 (`ctam-payment-batch`, SQL JOIN), FR45 (`(payment_cycle_id, booking_id)` constraint), FR57 (`UPDATE ctam_auth_user_activation_flags …`). Strict BMAD purity flags these as leakage, **but** each is deliberately annotated ("implementation per architecture") and reflects the brownfield-rebuild context where the FR contract co-evolves with the architecture. They do not impair testability and are consistent with the accepted 2026-06-10 5/5 assessment. Treated as informational.
 
 **FR Violations Total:** 0 blocking (1 informational pattern noted)
 
@@ -229,7 +229,7 @@ The domain-complexity CSV frames govtech in US terms (Section 508, FedRAMP); UK 
 
 ### Findings
 
-- **Informational:** the API Backend section carries pre-SSCS-pivot illustrative content — legacy "JI" / "Judge" naming (e.g. "JI is composed of 11 services"; `Judge` service; `POST/GET/PUT /judges`) that predates the `ram-judge`→`ram-joh` rename (D11 / architecture v3.0), and a Reference Data "admin-gated `POST/PUT` writes" endpoint (line ~445) that contradicts the D11 read-only tier-(a) model + D10 admin-write deferral. The section is self-labelled "illustrative — definitive contracts are Phase 0 artefacts," which lowers severity. Recommend a light terminology + endpoint-illustration refresh.
+- **Informational:** the API Backend section carries pre-SSCS-pivot illustrative content — legacy "JI" / "Judge" naming (e.g. "JI is composed of 11 services"; `Judge` service; `POST/GET/PUT /judges`) that predates the `ctam-judge`→`ctam-joh` rename (D11 / architecture v3.0), and a Reference Data "admin-gated `POST/PUT` writes" endpoint (line ~445) that contradicts the D11 read-only tier-(a) model + D10 admin-write deferral. The section is self-labelled "illustrative — definitive contracts are Phase 0 artefacts," which lowers severity. Recommend a light terminology + endpoint-illustration refresh.
 
 ### Summary
 
@@ -322,7 +322,7 @@ The document is structurally exemplary and passes every systematic check with **
 
 1. **Fix the "migrated from APEX" line** (Domain §Technical Constraints, ~line 379). It contradicts the no-migration model (revised D3 / restructured D9 — auth data bootstrapped outside the PRD scope). Reword to the bootstrap model. *(Moderate — the only decision-contradiction in the document.)*
 
-2. **Refresh the illustrative API Backend section.** Update legacy "JI"/"Judge" naming to RAM Pathfinder / `ram-joh` (per D11 / architecture v3.0), and drop the Reference Data "admin-gated `POST/PUT` writes" endpoint illustration to match the D11 read-only tier-(a) model + D10 admin-write deferral. *(Informational — section self-labels as illustrative.)*
+2. **Refresh the illustrative API Backend section.** Update legacy "JI"/"Judge" naming to CTAM Pathfinder / `ctam-joh` (per D11 / architecture v3.0), and drop the Reference Data "admin-gated `POST/PUT` writes" endpoint illustration to match the D11 read-only tier-(a) model + D10 admin-write deferral. *(Informational — section self-labels as illustrative.)*
 
 3. **Correct the journey count.** Journey Requirements Summary says "the **five** journeys" but there are six (J1–J6). *(Cosmetic.)*
 
@@ -402,8 +402,8 @@ The integrations-first restructure (SCP 2026-06-17) did not touch the PRD; all t
 
 All three recommendations applied directly to `prd.md`:
 
-1. **[Moderate — resolved]** Domain §Technical Constraints: "User records … migrated from APEX in Phase 0" → "bootstrapped per the restructured D9 … there is no APEX migration". The three stale "JI" self-references in that bullet also corrected to "RAM Pathfinder". Now consistent with revised D3 / restructured D9.
-2. **[Informational — resolved]** API Backend section: "JI is composed of 11 services" → "RAM Pathfinder…"; "Domain services: Judge, …" → "JOH (`ram-joh`), …"; the Judge endpoint row → JOH endpoints keyed by `personnelNumber` (person record read-only); Reference Data "admin-gated `POST/PUT` writes" → "read-only over both tiers; no write endpoints in MVP" (D10/D11).
+1. **[Moderate — resolved]** Domain §Technical Constraints: "User records … migrated from APEX in Phase 0" → "bootstrapped per the restructured D9 … there is no APEX migration". The three stale "JI" self-references in that bullet also corrected to "CTAM Pathfinder". Now consistent with revised D3 / restructured D9.
+2. **[Informational — resolved]** API Backend section: "JI is composed of 11 services" → "CTAM Pathfinder…"; "Domain services: Judge, …" → "JOH (`ctam-joh`), …"; the Judge endpoint row → JOH endpoints keyed by `personnelNumber` (person record read-only); Reference Data "admin-gated `POST/PUT` writes" → "read-only over both tiers; no write endpoints in MVP" (D10/D11).
 3. **[Cosmetic — resolved]** Journey Requirements Summary: "five journeys" → "six journeys".
 
 PRD `lastEdited` bumped to 2026-06-17; editHistory entry added.

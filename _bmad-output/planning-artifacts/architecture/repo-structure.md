@@ -1,8 +1,8 @@
 ---
 type: 'Architecture Shard'
-description: 'There are two UI repos with the same stack and conventions: ram-ui (business-user-facing) and ram-admin-ui (admin-facing).'
+description: 'There are two UI repos with the same stack and conventions: ctam-ui (business-user-facing) and ctam-admin-ui (admin-facing).'
 resource: 'architecture/tobe/repo-structure.html'
-tags: [ram-pathfinder, architecture]
+tags: [ctam-pathfinder, architecture]
 timestamp: '2026-05-06'
 parent: ../architecture.md
 title: Repository Directory Structures, File Organisation, Local Development Workflow
@@ -17,7 +17,7 @@ extracted_in: architecture.md v1.8 — Strategy B refactor
 ## Complete Project Directory Structure — per backend service
 
 ```
-ram-{service}/
+ctam-{service}/
 ├── README.md                                    (service-specific overview, runbook, contacts)
 ├── settings.gradle
 ├── build.gradle                             (Gradle Groovy DSL (per HMCTS template))
@@ -25,14 +25,14 @@ ram-{service}/
 ├── gradlew, gradlew.bat                         (Gradle Wrapper, committed)
 ├── gradle/wrapper/
 ├── .github/
-│   ├── CODEOWNERS                               (RAM Pathfinder team + service-specific reviewers)
+│   ├── CODEOWNERS                               (CTAM Pathfinder team + service-specific reviewers)
 │   ├── PULL_REQUEST_TEMPLATE.md                 (patterns checklist)
 │   └── workflows/
 │       ├── ci.yml                               (build + test + lint + ArchUnit + Spectral)
 │       ├── deploy-dev.yml
 │       ├── deploy-staging.yml
 │       └── deploy-production.yml                (per-region per-wave gated)
-├── src/main/java/uk/gov/hmcts/ram/{service}/
+├── src/main/java/uk/gov/hmcts/ctam/{service}/
 │   ├── {Service}Application.java
 │   ├── controller/
 │   │   ├── {Resource}Controller.java
@@ -74,12 +74,12 @@ ram-{service}/
 │       ├── 001-init.sql
 │       ├── 002-add-judges-table.sql
 │       └── ...
-├── src/test/java/uk/gov/hmcts/ram/{service}/
+├── src/test/java/uk/gov/hmcts/ctam/{service}/
 │   ├── controller/                              (unit tests, mocked deps)
 │   ├── service/
 │   ├── repository/                              (integration tests, Testcontainers)
 │   └── client/
-├── terraform/                                   (this repo's OWN Azure resources only, per-env stacks dev/staging/production — AR53 revised; the shared estate — AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault — lives in the dedicated ram-shared-infrastructure repo, provisioned in Epic 0.0 per the HMCTS CNP {product}-shared-infrastructure standard)
+├── terraform/                                   (this repo's OWN Azure resources only, per-env stacks dev/staging/production — AR53 revised; the shared estate — AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault — lives in the dedicated ctam-shared-infrastructure repo, provisioned in Epic 0.0 per the HMCTS CNP {product}-shared-infrastructure standard)
 │   ├── dev/
 │   ├── staging/
 │   └── production/
@@ -96,7 +96,7 @@ ram-{service}/
 │       ├── configmap.yaml
 │       └── hpa.yaml
 ├── postman/
-│   ├── ram-{service}-phase{N}.postman_collection.json
+│   ├── ctam-{service}-phase{N}.postman_collection.json
 │   └── README.md                                (how to run; environment files)
 ├── api-spec/
 │   └── openapi.yaml                             (committed snapshot, regenerated on release)
@@ -106,19 +106,19 @@ ram-{service}/
 │   │   └── ADR-001-database-schema.md
 │   ├── runbook.md                               (incident response per service)
 │   ├── api/                                     (extended API docs beyond OpenAPI)
-│   └── uat/                                     (manual UAT scripts: incumbent-vs-RAM Pathfinder behavioural-parity walkthroughs per FR60 / NFR41 revised; domain services only)
+│   └── uat/                                     (manual UAT scripts: incumbent-vs-CTAM Pathfinder behavioural-parity walkthroughs per FR60 / NFR41 revised; domain services only)
 ├── .gitignore
 └── .editorconfig
 ```
 
 ## Complete Project Directory Structure — UI repos
 
-There are **two UI repos** with the same stack and conventions: `ram-ui` (business-user-facing) and `ram-admin-ui` (admin-facing). The split exists so admin workflows (Reference Data maintenance, User & Role admin) cannot leak into business users' nav, and so each has its own CI/CD, CODEOWNERS, and rollout cadence. `ram-admin-ui` mirrors the structure below, with admin modules replacing the per-domain operational modules.
+There are **two UI repos** with the same stack and conventions: `ctam-ui` (business-user-facing) and `ctam-admin-ui` (admin-facing). The split exists so admin workflows (Reference Data maintenance, User & Role admin) cannot leak into business users' nav, and so each has its own CI/CD, CODEOWNERS, and rollout cadence. `ctam-admin-ui` mirrors the structure below, with admin modules replacing the per-domain operational modules.
 
-### `ram-ui` (business)
+### `ctam-ui` (business)
 
 ```
-ram-ui/
+ctam-ui/
 ├── README.md
 ├── package.json
 ├── package-lock.json (or yarn.lock / pnpm-lock.yaml)
@@ -173,7 +173,7 @@ ram-ui/
 │   │       └── errorHandling.ts                 (RFC 9457 problem-details → display)
 │   └── styles/
 │       ├── govuk.scss                           (GOV.UK Design System imports)
-│       └── overrides.scss                       (HMCTS / RAM Pathfinder extensions)
+│       └── overrides.scss                       (HMCTS / CTAM Pathfinder extensions)
 ├── tests/
 │   ├── unit/                                    (Vitest)
 │   └── e2e/                                     (Playwright; one suite per phase)
@@ -196,13 +196,13 @@ ram-ui/
     └── decisions/                               (UI-specific ADRs)
 ```
 
-### `ram-admin-ui` (admin)
+### `ctam-admin-ui` (admin)
 
-Same scaffolding as `ram-ui` above — React + TypeScript + Vite + Vitest + Playwright, GOV.UK Design System, OIDC client, RFC 9457 error handling, axe-core in CI — but with admin modules instead of per-domain operational modules.
+Same scaffolding as `ctam-ui` above — React + TypeScript + Vite + Vitest + Playwright, GOV.UK Design System, OIDC client, RFC 9457 error handling, axe-core in CI — but with admin modules instead of per-domain operational modules.
 
 ```
-ram-admin-ui/
-├── (same top-level scaffolding as ram-ui: package.json, vite.config.ts, etc.)
+ctam-admin-ui/
+├── (same top-level scaffolding as ctam-ui: package.json, vite.config.ts, etc.)
 ├── src/
 │   ├── main.tsx
 │   ├── App.tsx
@@ -218,20 +218,20 @@ ram-admin-ui/
 │   │   │   ├── pages/CalendarAdminPage.tsx      (financial-year boundaries, calendar periods)
 │   │   │   ├── components/NamedOwnerSignOff.tsx (cross-cutting sign-off pattern per FR6)
 │   │   │   ├── hooks/useReferenceDataAdmin.ts
-│   │   │   ├── api/                             (generated TypeScript client from ram-reference-data OpenAPI)
+│   │   │   ├── api/                             (generated TypeScript client from ctam-reference-data OpenAPI)
 │   │   │   └── index.ts
 │   │   └── users-roles/                         (FR4 — system administrators)
 │   │       ├── pages/UserListPage.tsx
 │   │       ├── pages/UserDetailPage.tsx          (role assignment, Region/Area scope)
 │   │       ├── components/RoleAssignmentEditor.tsx
 │   │       ├── hooks/useUserAdmin.ts
-│   │       ├── api/                             (generated TypeScript client from ram-authorisation OpenAPI)
+│   │       ├── api/                             (generated TypeScript client from ctam-authorisation OpenAPI)
 │   │       └── index.ts
-│   ├── shared/                                  (mirrors ram-ui — auth, http client, error handling, layout)
+│   ├── shared/                                  (mirrors ctam-ui — auth, http client, error handling, layout)
 │   │   ├── components/Layout.tsx                 (Admin-specific Header marking this as the admin surface)
 │   │   ├── hooks/useAuth.ts
 │   │   ├── auth/HmctsIdpProvider.tsx
-│   │   ├── auth/ProtectedRoute.tsx               (gates routes by admin role from ram-authorisation)
+│   │   ├── auth/ProtectedRoute.tsx               (gates routes by admin role from ctam-authorisation)
 │   │   └── api/httpClient.ts
 │   └── styles/
 │       ├── govuk.scss
@@ -241,12 +241,12 @@ ram-admin-ui/
 │   └── e2e/                                     (Playwright)
 │       ├── reference-data.spec.ts
 │       └── users-roles.spec.ts
-├── api-clients/                                 (generated; regenerated in CI from ram-reference-data + ram-authorisation OpenAPI specs)
+├── api-clients/                                 (generated; regenerated in CI from ctam-reference-data + ctam-authorisation OpenAPI specs)
 │   ├── reference-data-client/
 │   └── authorisation-client/
-├── helm/                                        (Helm chart for Static Web App / CDN deployment — separate from ram-ui)
+├── helm/                                        (Helm chart for Static Web App / CDN deployment — separate from ctam-ui)
 ├── .github/
-│   ├── CODEOWNERS                                (admin-team scoped; distinct from ram-ui)
+│   ├── CODEOWNERS                                (admin-team scoped; distinct from ctam-ui)
 │   └── workflows/
 │       ├── ci.yml                                (build + test + lint + axe-core)
 │       └── deploy-{env}.yml
@@ -261,12 +261,12 @@ ram-admin-ui/
 - `modules/migration-reports/` — Phase 0 reconciliation report viewer (FR57)
 - `modules/audit/` — post-MVP user-action audit viewer (D7 roadmap)
 
-**Deployment:** independent of `ram-ui`. Same Azure Static Web Apps pattern, separate hostname (e.g. `admin.ram.hmcts.gov.uk` vs `ram.hmcts.gov.uk`), separate Helm release, separate per-environment rollout.
+**Deployment:** independent of `ctam-ui`. Same Azure Static Web Apps pattern, separate hostname (e.g. `admin.ctam.hmcts.gov.uk` vs `ctam.hmcts.gov.uk`), separate Helm release, separate per-environment rollout.
 
-## Complete Project Directory Structure — `ram-architecture` repo
+## Complete Project Directory Structure — `ctam-architecture` repo
 
 ```
-ram-architecture/
+ctam-architecture/
 ├── README.md
 ├── architecture.md                              (the index document — see ../architecture.md)
 ├── architecture/                                (sibling files referenced by architecture.md)
@@ -290,16 +290,16 @@ ram-architecture/
 ├── diagrams/                                    (C4 model, sequence diagrams, deployment topology)
 ├── scaffolding/
 │   ├── README.md
-│   ├── ram-scaffold.sh                          (creates new service from HMCTS starter)
+│   ├── ctam-scaffold.sh                          (creates new service from HMCTS starter)
 │   ├── templates/                               (service-specific overlays applied by the script)
 │   └── conventions/
-├── (migration/ — does not exist: no legacy data migration per the revised D3; reference data arrives via ram-reference-data's upstream ingestion)
+├── (migration/ — does not exist: no legacy data migration per the revised D3; reference data arrives via ctam-reference-data's upstream ingestion)
 │   ├── README.md                                (mapping notes, run procedure, sign-off checklist)
-│   ├── reference-data/                          (extract + transform + POST to ram-reference-data)
+│   ├── reference-data/                          (extract + transform + POST to ctam-reference-data)
 │   │   ├── extract-apex.sql                     (selects against APEX schema; produces CSV/JSON)
-│   │   ├── transform.py (or .ts / .java)        (APEX shape → RAM Pathfinder shape per data-tables.md)
+│   │   ├── transform.py (or .ts / .java)        (APEX shape → CTAM Pathfinder shape per data-tables.md)
 │   │   └── load.py                              (calls Reference Data API: POST /v1/regions etc.)
-│   ├── users-roles/                             (extract + reconcile to IdP + POST to ram-authorisation)
+│   ├── users-roles/                             (extract + reconcile to IdP + POST to ctam-authorisation)
 │   │   ├── extract-apex.sql
 │   │   ├── reconcile.py                         (email-then-employee-number match against IdP principals; produces matched / employee-matched / unmatched buckets)
 │   │   ├── transform.py
@@ -314,14 +314,14 @@ ram-architecture/
 **Why `migration/` lives here, not as a separate service or as Liquibase changesets:**
 
 - The migration is a **one-shot programme deliverable** (Phase 0; re-run per wave for incremental user activation). It is not a runtime service, so it has no `controller/` / `service/` / `repository/` shape.
-- It is **owned by the architecture team** (and the named Phase 0 owners per Risk #13), not by any single domain service. Living under `ram-architecture/` keeps that ownership visible.
-- It **calls RAM Pathfinder APIs** (Reference Data API, Authorisation API) — it does not write directly to RAM Pathfinder tables. Per the v1.6 decision, writes go via the API so validation, idempotency, and any audit-logging hooks fire.
-- It is **separate from Liquibase**. Liquibase in RAM Pathfinder is for RAM Pathfinder's DDL (creating tables, adding columns, granting permissions). The ETL is for moving APEX data into RAM Pathfinder tables that Liquibase has already created.
+- It is **owned by the architecture team** (and the named Phase 0 owners per Risk #13), not by any single domain service. Living under `ctam-architecture/` keeps that ownership visible.
+- It **calls CTAM Pathfinder APIs** (Reference Data API, Authorisation API) — it does not write directly to CTAM Pathfinder tables. Per the v1.6 decision, writes go via the API so validation, idempotency, and any audit-logging hooks fire.
+- It is **separate from Liquibase**. Liquibase in CTAM Pathfinder is for CTAM Pathfinder's DDL (creating tables, adding columns, granting permissions). The ETL is for moving APEX data into CTAM Pathfinder tables that Liquibase has already created.
 
-## Complete Project Directory Structure — `ram-shared-infrastructure` repo
+## Complete Project Directory Structure — `ctam-shared-infrastructure` repo
 
 ```
-ram-shared-infrastructure/
+ctam-shared-infrastructure/
 ├── README.md                          (estate overview, provisioning runbook, contacts)
 ├── terraform/
 │   ├── modules/
@@ -368,7 +368,7 @@ ram-shared-infrastructure/
 - Integration tests: same location, `*IT.java` suffix, Testcontainers PostgreSQL.
 - Contract tests (Pact or equivalent): `src/test/java/.../contract/`.
 - Manual UAT scripts (FR60 / NFR41 revised): `docs/uat/` per domain service — markdown walkthroughs for jurisdiction-incumbent-experienced users to follow side-by-side against the incumbent (`[ET-INCUMBENT-TBD]` wave 1; ListAssist wave 2; APEX waves 3+). Not part of automated CI.
-- E2E tests: separate `tests/e2e/` directory in `ram-ui` repo, Playwright per phase.
+- E2E tests: separate `tests/e2e/` directory in `ctam-ui` repo, Playwright per phase.
 
 **Asset organisation (UI):**
 
@@ -382,8 +382,8 @@ ram-shared-infrastructure/
 
 ```bash
 # Clone the service repo
-git clone https://github.com/hmcts/ram-{service}.git
-cd ram-{service}
+git clone https://github.com/hmcts/ctam-{service}.git
+cd ctam-{service}
 
 # Run locally (uses Testcontainers for DB and stub Authorisation in dev profile)
 ./gradlew bootRun --args='--spring.profiles.active=dev'
@@ -400,8 +400,8 @@ cd ram-{service}
 **Local development for UI:**
 
 ```bash
-git clone https://github.com/hmcts/ram-ui.git
-cd ram-ui
+git clone https://github.com/hmcts/ctam-ui.git
+cd ctam-ui
 
 # Install dependencies
 npm install   # or yarn / pnpm

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PRD Validation Report — RAM Pathfinder Documentation</title>
+<title>PRD Validation Report — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -236,7 +236,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="measurability-validation"><summary><span class="section-title">Measurability Validation</span></summary><div class="section-body">
 <h3 id="functional-requirements">Functional Requirements</h3>
 <p><strong>Total FRs Analyzed:</strong> 60 (FR1–FR60)</p>
-<p><strong>Format Violations:</strong> 0 — every FR follows either the <code>[Actor] can [capability]</code> or <code>RAM Pathfinder [behaviour]</code> pattern.</p>
+<p><strong>Format Violations:</strong> 0 — every FR follows either the <code>[Actor] can [capability]</code> or <code>CTAM Pathfinder [behaviour]</code> pattern.</p>
 <p><strong>Subjective Adjectives:</strong> 0 in FR text (one borderline instance in a journey narrative, already captured in Density Validation — line 286).</p>
 <p><strong>Vague Quantifiers:</strong> 0 ("multiple", "several", "various" not present in any FR).</p>
 <p><strong>Implementation Leakage:</strong> 0 in the strict sense. Technology references (Spring Boot, Kubernetes, JFEPS Excel content-type, Azure Key Vault) are programme-locked architecture constraints from the Technology Stack section, not implementation-leakage at the capability layer.</p>
@@ -313,7 +313,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong>NFR32</strong></td>
 <td>"Migrated transactional history remains in APEX (D3); … from migration onward"</td>
 <td>D3 superseded by D11 — <strong>no migration</strong>. Wording invalid.</td>
-<td>Reframe: "Historical transactional data stays in the jurisdiction's incumbent system (GAPS for SSCS, APEX for Courts); RAM Pathfinder retains only data created in RAM Pathfinder from cutover onward."</td>
+<td>Reframe: "Historical transactional data stays in the jurisdiction's incumbent system (GAPS for SSCS, APEX for Courts); CTAM Pathfinder retains only data created in CTAM Pathfinder from cutover onward."</td>
 </tr>
 <tr>
 <td><strong>NFR36</strong></td>
@@ -329,9 +329,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>NFR41</strong></td>
-<td>"APEX-experienced users walk through the script comparing RAM Pathfinder vs APEX before each rollout wave's cutover"</td>
+<td>"APEX-experienced users walk through the script comparing CTAM Pathfinder vs APEX before each rollout wave's cutover"</td>
 <td>Stale per D5 reframed + FR60 reframed. Should be jurisdiction-incumbent-experienced</td>
-<td>Reword to match FR60: "Jurisdiction-incumbent-experienced users (GAPS-experienced for wave 1; APEX-experienced for waves 2+) walk through the script comparing RAM Pathfinder vs the incumbent before each wave's cutover; sign-off per role per wave is the wave gate."</td>
+<td>Reword to match FR60: "Jurisdiction-incumbent-experienced users (GAPS-experienced for wave 1; APEX-experienced for waves 2+) walk through the script comparing CTAM Pathfinder vs the incumbent before each wave's cutover; sign-off per role per wave is the wave gate."</td>
 </tr>
 <tr>
 <td><strong>NFR-section intro</strong> (line ~617)</td>
@@ -353,10 +353,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p>Specific misalignments:</p>
 <ul>
 <li><strong>User Success bullets</strong> enumerate Courts roles only (RSU, Court users, Judges, Judges' Clerks, Finance, MI) — missing the SSCS roles named in the Executive Summary (Regional Tribunal Judges, Tribunal Judges, Tribunal Members Medical / Disability-Qualified / Disability (Other), Tribunal Caseworkers).</li>
-<li><strong>"Each role can complete its legacy workflow on RAM Pathfinder without re-training, and faster or no slower than APEX"</strong> — APEX-only framing. SSCS wave 1 should reference GAPS.</li>
+<li><strong>"Each role can complete its legacy workflow on CTAM Pathfinder without re-training, and faster or no slower than APEX"</strong> — APEX-only framing. SSCS wave 1 should reference GAPS.</li>
 <li><strong>Business Success bullet "APEX retirement — every region migrated"</strong> — mentions only APEX; missing GAPS decommissioning for SSCS.</li>
 <li><strong>Business Success bullet "Strategic integration platform — at least one HMCTS programme (Tribunals coverage, Actuals, Scheduling &amp; Listing) integrating via API"</strong> — lists <strong>Tribunals coverage as a future programme</strong>, but per D11 Tribunals (SSCS) IS the wave-1 cohort, not a future programme.</li>
-<li><strong>Technical Success bullet "Phase 0 migration correctness — 100% of in-scope Reference Data lists ETL'd into RAM Pathfinder … 100% of active APEX users loaded into Authorisation"</strong> — references the retracted ETL and APEX migration. Entirely invalid under D11/revised D3/superseded D9.</li>
+<li><strong>Technical Success bullet "Phase 0 migration correctness — 100% of in-scope Reference Data lists ETL'd into CTAM Pathfinder … 100% of active APEX users loaded into Authorisation"</strong> — references the retracted ETL and APEX migration. Entirely invalid under D11/revised D3/superseded D9.</li>
 <li><strong>Technical Success bullet "Behavioural parity (D5) — manual UAT script per domain service, walked by APEX-experienced users"</strong> — APEX-experienced only; should be jurisdiction-incumbent per D5 reframed.</li>
 <li><strong>Technical Success bullet "All 11 services live ... Judge"</strong> — should be JOH per D11 terminology shift.</li>
 </ul>
@@ -382,7 +382,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>"Attributable to migration" stale; should be "attributable to cutover"</td>
 </tr>
 <tr>
-<td>"Behavioural parity per domain service — 100% of manual UAT scripts (run by APEX-experienced users comparing RAM Pathfinder vs APEX)"</td>
+<td>"Behavioural parity per domain service — 100% of manual UAT scripts (run by APEX-experienced users comparing CTAM Pathfinder vs APEX)"</td>
 <td>Should be jurisdiction-incumbent per D5/FR60</td>
 </tr>
 <tr>
@@ -463,13 +463,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Growth Features (line 208)</td>
-<td>"<strong>Wave-by-wave rollout</strong>: Phase 10..N — additional regions migrate, wave by wave, until all regions are on RAM Pathfinder and APEX is retired"</td>
+<td>"<strong>Wave-by-wave rollout</strong>: Phase 10..N — additional regions migrate, wave by wave, until all regions are on CTAM Pathfinder and APEX is retired"</td>
 <td>Doesn't mention SSCS wave 1; framing is Courts-only</td>
 </tr>
 <tr>
 <td>Growth Features (line 211)</td>
 <td>"future programmes (<strong>Tribunals</strong>, Actuals, Scheduling &amp; Listing) onboard onto <strong>JI's APIs</strong>"</td>
-<td>Tribunals is wave 1 (not future); "JI's APIs" should be "RAM Pathfinder's APIs"</td>
+<td>Tribunals is wave 1 (not future); "JI's APIs" should be "CTAM Pathfinder's APIs"</td>
 </tr>
 <tr>
 <td>Growth Features (line 212)</td>
@@ -543,14 +543,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td>FR8</td>
-<td>"Cross-service runtime policy values are stored in a shared <code>configuration_values</code> infrastructure table, schema-managed by <code>ram-architecture</code>'s <strong>Flyway baseline migration</strong> and SELECT-granted to every RAM Pathfinder service DB role. Updates are made via <strong>Flyway migrations</strong> or direct admin SQL. Per-service configuration scoped to a single service uses <strong>Spring profiles + <code>application.yml</code> + Azure Key Vault</strong>."</td>
+<td>"Cross-service runtime policy values are stored in a shared <code>configuration_values</code> infrastructure table, schema-managed by <code>ctam-architecture</code>'s <strong>Flyway baseline migration</strong> and SELECT-granted to every CTAM Pathfinder service DB role. Updates are made via <strong>Flyway migrations</strong> or direct admin SQL. Per-service configuration scoped to a single service uses <strong>Spring profiles + <code>application.yml</code> + Azure Key Vault</strong>."</td>
 <td>Tooling-mechanism (Flyway, Spring profiles, application.yml, Azure Key Vault) describes HOW configuration is managed</td>
 <td>Capability is "cross-service runtime policy values must be available to every service" — the storage + admin mechanism is implementation.</td>
 </tr>
 <tr>
 <td>NFR12</td>
-<td>"<strong>Inter-service authentication for user-initiated calls is via JWT propagation</strong> — the user's JWT (issued by HMCTS IdP) is forwarded by the upstream service's outbound HTTP client and validated by the downstream service's <strong><code>JWTFilter</code></strong> against the IdP's JWKS endpoint. <strong>Inter-service authentication for batch / scheduled components</strong> is via OAuth 2.0 <code>client_credentials</code> against <code>ram-mock-auth</code> …"</td>
-<td>Names the filter class (<code>JWTFilter</code>), the mock-auth service (<code>ram-mock-auth</code>), and the OAuth grant type</td>
+<td>"<strong>Inter-service authentication for user-initiated calls is via JWT propagation</strong> — the user's JWT (issued by HMCTS IdP) is forwarded by the upstream service's outbound HTTP client and validated by the downstream service's <strong><code>JWTFilter</code></strong> against the IdP's JWKS endpoint. <strong>Inter-service authentication for batch / scheduled components</strong> is via OAuth 2.0 <code>client_credentials</code> against <code>ctam-mock-auth</code> …"</td>
+<td>Names the filter class (<code>JWTFilter</code>), the mock-auth service (<code>ctam-mock-auth</code>), and the OAuth grant type</td>
 <td>Capability is "inter-service calls authenticate as the originating user (or as a service principal for batch)." Mechanism is architecture.</td>
 </tr>
 <tr>
@@ -656,9 +656,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Severity:</strong> <strong>Pass</strong></p>
 <p><strong>Minor finding:</strong></p>
 <ul>
-<li>Line 347 (Domain-Specific Requirements → UK GDPR): wording says "<strong>JI</strong> does not hold case-level data (REP-BR-NFR-03 from <code>functional-modules.md</code>)." The "JI" reference should be "<strong>RAM Pathfinder</strong>" per the project rename — the constraint applies to RAM Pathfinder going forward, not legacy JI. Single-word substitution.</li>
+<li>Line 347 (Domain-Specific Requirements → UK GDPR): wording says "<strong>JI</strong> does not hold case-level data (REP-BR-NFR-03 from <code>functional-modules.md</code>)." The "JI" reference should be "<strong>CTAM Pathfinder</strong>" per the project rename — the constraint applies to CTAM Pathfinder going forward, not legacy JI. Single-word substitution.</li>
 </ul>
-<p><strong>Recommendation:</strong> GovTech compliance position is strong. All UK public-sector regulatory frameworks (WCAG, GDPR, FOI, GFS 7, Public Sector Bodies Accessibility Regs, GDS, Azure UK data residency) are codified as NFRs or in the Domain-Specific Requirements section. No remediation needed at this layer beyond the one-word JI → RAM Pathfinder fix on line 347.</p>
+<p><strong>Recommendation:</strong> GovTech compliance position is strong. All UK public-sector regulatory frameworks (WCAG, GDPR, FOI, GFS 7, Public Sector Bodies Accessibility Regs, GDS, Azure UK data residency) are codified as NFRs or in the Domain-Specific Requirements section. No remediation needed at this layer beyond the one-word JI → CTAM Pathfinder fix on line 347.</p>
 </div></details><details class="section" id="project-type-compliance-validation"><summary><span class="section-title">Project-Type Compliance Validation</span></summary><div class="section-body">
 <p><strong>Project Type:</strong> <code>api_backend</code> (per frontmatter classification.projectType) <strong>Project-Type Overrides:</strong> <code>ux_ui</code>, <code>visual_design</code>, <code>user_journeys</code> in scope per D4</p>
 <h3 id="required-sections-for-api_backend">Required Sections for api_backend</h3>
@@ -883,7 +883,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><strong>Specific</strong></td>
-<td>Excellent. Every FR uses concrete actor + capability constructions ("RSU users can …", "RAM Pathfinder …"). Lists of fields and enumerated session types make capabilities precise.</td>
+<td>Excellent. Every FR uses concrete actor + capability constructions ("RSU users can …", "CTAM Pathfinder …"). Lists of fields and enumerated session types make capabilities precise.</td>
 </tr>
 <tr>
 <td><strong>Measurable</strong></td>
@@ -1005,7 +1005,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ol type="1">
 <li><p><strong>Sweep Success Criteria + Product Scope (lines 126–222) for D11 alignment.</strong> <em>Biggest single improvement.</em> These sections currently describe the pre-SSCS Courts-only world: User Success enumerates only Courts roles; Business Success doesn't mention GAPS decommissioning; the Measurable Outcomes table references retracted ETL/migration; MVP scope says "wave 1 = one region migrates"; the explicit exclusions list still has "Tribunals coverage" as out-of-MVP. Estimated 15–25 small edits. Restores Executive-Summary-↔︎-Scope-↔︎-Success traceability and lifts the rating to 5/5.</p></li>
 <li><p><strong>Sweep NFR section (NFR13, NFR21, NFR32, NFR36, NFR38, NFR41 + section intro) for D11/D5-reframed alignment.</strong> The 21-edit SSCS cascade reframed FR60 (UAT) and D5 (incumbent) but didn't thread the change into NFRs that reference UAT, migration, and APEX-only rollback. ~6 edits.</p></li>
-<li><p><strong>Fix the 4 stale FR-number cross-references</strong> introduced by the FR57 retraction + FR58–FR61 → FR57–FR60 renumbering (lines 196, 204, 716 NFR38, 741 D11 implication). Plus the <code>## Decisions Log (D1–D9)</code> heading → <code>(D1–D12)</code>. Plus the one-word <code>JI → RAM Pathfinder</code> on line 347. ~5–6 trivial edits.</p></li>
+<li><p><strong>Fix the 4 stale FR-number cross-references</strong> introduced by the FR57 retraction + FR58–FR61 → FR57–FR60 renumbering (lines 196, 204, 716 NFR38, 741 D11 implication). Plus the <code>## Decisions Log (D1–D9)</code> heading → <code>(D1–D12)</code>. Plus the one-word <code>JI → CTAM Pathfinder</code> on line 347. ~5–6 trivial edits.</p></li>
 </ol>
 <h3 id="summary-1">Summary</h3>
 <p><strong>This PRD is:</strong> a programme-grade rebuild specification that demonstrates excellent BMAD discipline on requirements, decisions and compliance, but contains mid-document contradictions from an incomplete SSCS-pivot edit cascade that should be remediated before the architecture-document workstream begins.</p>
@@ -1184,7 +1184,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><code>productCodename</code></td>
 <td>✅ Present</td>
-<td><code>RAM Pathfinder</code></td>
+<td><code>CTAM Pathfinder</code></td>
 </tr>
 <tr>
 <td><code>releaseMode</code></td>
@@ -1263,7 +1263,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>6</td>
-<td><code>JI does not hold case-level data</code> → <code>RAM Pathfinder does not hold case-level data</code></td>
+<td><code>JI does not hold case-level data</code> → <code>CTAM Pathfinder does not hold case-level data</code></td>
 <td>Domain-Specific Requirements → UK GDPR bullet (line 347)</td>
 <td>✅ Applied</td>
 </tr>
@@ -1288,15 +1288,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ol type="1">
 <li><strong>User Success block</strong> — added SSCS jurisdiction (wave 1) sub-group with RTJ / Tribunal Judges / Tribunal Members M/DQ/DO / Caseworkers; preserved Courts (waves 2+) sub-group; added Shared sub-group; APEX-only framing → cohort's incumbent system; judges → JOHs; WCAG-compliant → WCAG 2.2 AA; SSCS GAPS-equivalent verification noted.</li>
 <li><strong>Business Success block</strong> — "APEX retirement" → "Legacy retirement" (GAPS for SSCS + APEX for Courts); Tribunals removed from future-programmes list; "due to migration" → "due to cutover"; judges → JOHs; "per-region rollout" → "per-jurisdiction-then-per-region rollout".</li>
-<li><strong>Technical Success block</strong> — "Judge" service → "JOH (<code>ram-joh</code>) per D11"; Phase 0 migration correctness retracted, replaced with Phase 0 ingestion correctness (JOH eLinks + MRD); behavioural parity reframed per D5; SSCS GAPS-equivalent performance verification noted.</li>
+<li><strong>Technical Success block</strong> — "Judge" service → "JOH (<code>ctam-joh</code>) per D11"; Phase 0 migration correctness retracted, replaced with Phase 0 ingestion correctness (JOH eLinks + MRD); behavioural parity reframed per D5; SSCS GAPS-equivalent performance verification noted.</li>
 <li><strong>Measurable Outcomes table</strong> — migration accuracy rows replaced with ingestion + user-onboarding correctness rows; behavioural-parity row reframed; per-wave feature-parity row generalised; Tribunals removed from API consumer onboarding examples.</li>
 </ol>
 <h3 id="section-b--product-scope-4-proposals-lines-170222">Section B — Product Scope (4 proposals, lines 170–222)</h3>
 <ol start="5" type="1">
-<li><strong>MVP block</strong> — preamble updated for D8 reframed; Phase 0 Foundations bullet rewritten (no migration; JOH eLinks + MRD; two-population identity); 11-service list has Judge → JOH (<code>ram-joh</code>); UI bullet generalised; Phase 9 Pilot rollout = SSCS jurisdiction; behavioural parity reframed.</li>
+<li><strong>MVP block</strong> — preamble updated for D8 reframed; Phase 0 Foundations bullet rewritten (no migration; JOH eLinks + MRD; two-population identity); 11-service list has Judge → JOH (<code>ctam-joh</code>); UI bullet generalised; Phase 9 Pilot rollout = SSCS jurisdiction; behavioural parity reframed.</li>
 <li><strong>Explicit MVP exclusions</strong> — Tribunals coverage removed (it's wave 1, not an exclusion); Migration Reports review UI removed (no migration reports); Reference Data maintenance UI flagged as retracted per D11; Active matching cross-referenced to D12.</li>
-<li><strong>Growth Features</strong> — Migration Reports module removed; Reference Data maintenance flagged as scope-dependent on D11 follow-up; admin-write API endpoints scoped to ram-authorisation only (ram-reference-data writes retracted); wave-by-wave rollout explicitly Courts-cohort; Tribunals removed from future programmes; "JI's APIs" → "RAM Pathfinder's APIs"; historical-data access generalised across cohorts.</li>
-<li><strong>Vision</strong> — Strategic integration platform reframed (Tribunals/SSCS in wave 1; Magistrates as future jurisdiction); Active matching/allocation flagged as external-to-RAM per D12; JFEPS reconciliation: JI → RAM Pathfinder.</li>
+<li><strong>Growth Features</strong> — Migration Reports module removed; Reference Data maintenance flagged as scope-dependent on D11 follow-up; admin-write API endpoints scoped to ctam-authorisation only (ctam-reference-data writes retracted); wave-by-wave rollout explicitly Courts-cohort; Tribunals removed from future programmes; "JI's APIs" → "CTAM Pathfinder's APIs"; historical-data access generalised across cohorts.</li>
+<li><strong>Vision</strong> — Strategic integration platform reframed (Tribunals/SSCS in wave 1; Magistrates as future jurisdiction); Active matching/allocation flagged as external-to-CTAM per D12; JFEPS reconciliation: JI → CTAM Pathfinder.</li>
 </ol>
 <h3 id="section-c--nfr-cohort-sweep-2-proposals-7-nfr-amendments">Section C — NFR cohort sweep (2 proposals; 7 NFR amendments)</h3>
 <ol start="9" type="1">

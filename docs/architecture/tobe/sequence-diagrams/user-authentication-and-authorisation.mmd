@@ -5,12 +5,12 @@ sequenceDiagram
     actor User
     participant UI
     participant IdP as HMCTS IdP / mock-auth
-    participant Svc as Any ram service
-    participant Authz as ram-authorisation
+    participant Svc as Any ctam service
+    participant Authz as ctam-authorisation
 
     rect rgb(232, 240, 250)
         Note over User,Authz: Phase 1 — Login + JWT issuance
-        User->>UI: open RAM Pathfinder app
+        User->>UI: open CTAM Pathfinder app
         UI->>IdP: OIDC authorization_code request
         User->>IdP: authenticate via SSO
         IdP-->>UI: redirect with authorization code
@@ -30,7 +30,7 @@ sequenceDiagram
     rect rgb(250, 240, 230)
         Note over User,Authz: Phase 3 — Per-request authz check + activation gating
         Svc->>Authz: POST /authz/check with principal and endpoint
-        Authz->>Authz: resolve identity — email to personnel number (jo_people) or staff UUID (ram_auth_staff_identities)
+        Authz->>Authz: resolve identity — email to personnel number (jo_people) or staff UUID (ctam_auth_staff_identities)
         Authz->>Authz: resolve roles, jurisdiction, Region/Area scope, activation flag per FR57
         alt principal resolved, activated for the wave, and authorised
             Authz-->>Svc: allowed — returns canonical id, roles, jurisdiction, scope

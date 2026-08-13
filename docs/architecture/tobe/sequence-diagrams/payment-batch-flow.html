@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Payment-batch flow — RAM Pathfinder Documentation</title>
+<title>Payment-batch flow — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -100,24 +100,24 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Included</strong> (the batch's runtime activity):</p>
 <ul>
 <li>Scheduler trigger (Kubernetes CronJob, or Spring <code>@Scheduled</code> annotation — implementation choice deferred).</li>
-<li>Batch acquiring its service-principal token via OAuth <code>client_credentials</code> against <code>ram-mock-auth</code> (non-prod) — production issuer per <a href="../gaps.html"><code>../gaps.md</code> G7.1</a>, default recommendation Azure Workload Identity.</li>
+<li>Batch acquiring its service-principal token via OAuth <code>client_credentials</code> against <code>ctam-mock-auth</code> (non-prod) — production issuer per <a href="../gaps.html"><code>../gaps.md</code> G7.1</a>, default recommendation Azure Workload Identity.</li>
 <li>Batch SQL-JOIN read across the shared schema for eligible records.</li>
-<li>Batch persisting <code>ram_payments</code> + <code>ram_payment_schedules</code> and marking the related bookings as <em>payment requested</em>.</li>
+<li>Batch persisting <code>ctam_payments</code> + <code>ctam_payment_schedules</code> and marking the related bookings as <em>payment requested</em>.</li>
 <li>Batch calling the Notification API (with bearer service token) to dispatch the JFEPS Excel email.</li>
-<li>Authoriser → Liberata upload as the bridge between RAM Pathfinder and the external payment system (out-of-band but architecturally relevant).</li>
+<li>Authoriser → Liberata upload as the bridge between CTAM Pathfinder and the external payment system (out-of-band but architecturally relevant).</li>
 <li>Liberata processing the payment.</li>
 </ul>
 <p><strong>Not included</strong> (explicitly out of scope of this diagram):</p>
 <ul>
 <li>User-initiated activities (logging absences, approving them, creating bookings, confirming sittings, marking payments reconciled) — those are in <a href="absence-to-reconciliation.html"><code>./absence-to-reconciliation.md</code></a>.</li>
-<li>Reconciliation feedback from Liberata back into RAM Pathfinder — at MVP this is a manual RSU action (see the user-initiated diagram, Phase 5). Automated reconciliation feed from Liberata is post-MVP.</li>
+<li>Reconciliation feedback from Liberata back into CTAM Pathfinder — at MVP this is a manual RSU action (see the user-initiated diagram, Phase 5). Automated reconciliation feed from Liberata is post-MVP.</li>
 <li>The mock-auth's internal token-issuing logic (signing, JWKS, etc.) — covered by the architecture's Authentication &amp; Security section and the auth/JWKS sequences in <code>architecture.md</code>.</li>
 </ul>
 </div></details><details class="section" id="cross-cutting-steps-omitted-for-clarity"><summary><span class="section-title">Cross-cutting steps omitted for clarity</span></summary><div class="section-body">
 <ul>
-<li>The Notification API call from the batch to <code>ram-notification</code> flows through Azure API Management (same path as user-initiated calls).</li>
+<li>The Notification API call from the batch to <code>ctam-notification</code> flows through Azure API Management (same path as user-initiated calls).</li>
 <li>Notification's <code>JWTFilter</code> validates the batch's service-principal JWT against the issuer's JWKS — same mechanism as for human user JWTs.</li>
-<li>Notification calls <code>ram-authorisation</code> <code>POST /authz/check</code> to resolve the service principal's permissions (service principals have records in <code>ram_auth_users</code> with a kind flag distinguishing them from humans).</li>
+<li>Notification calls <code>ctam-authorisation</code> <code>POST /authz/check</code> to resolve the service principal's permissions (service principals have records in <code>ctam_auth_users</code> with a kind flag distinguishing them from humans).</li>
 </ul>
 <p><img src="payment-batch-flow.png" alt="Payment-batch sequence — Scheduler → Batch → JFEPS Excel → Authoriser → Liberata" /></p>
 <p><em>Source: <a href="payment-batch-flow.mmd"><code>./payment-batch-flow.mmd</code></a> (Mermaid). Regenerate with <code>mmdc -i payment-batch-flow.mmd -o payment-batch-flow.png -w 2400 -s 2 --backgroundColor white</code>.</em></p>
@@ -153,7 +153,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>4 — Liberata processing</td>
 <td>Payment Authoriser → JFEPS</td>
-<td>Out-of-band; RAM Pathfinder is not in the loop</td>
+<td>Out-of-band; CTAM Pathfinder is not in the loop</td>
 <td>JOH paid; awaiting reconciliation (which is user-initiated — see other diagram)</td>
 </tr>
 </tbody>
@@ -176,11 +176,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><a href="../../../architecture.html"><code>../../architecture.md</code> → Step 4 <em>Authentication &amp; Security</em></a>; <a href="../gaps.html"><code>../gaps.md</code> G1.2 + G7.1</a>; <a href="../assumptions.html"><code>../assumptions.md</code> A2 + A26 + A35</a></td>
 </tr>
 <tr>
-<td><code>ram-payment</code> Repository List entry — synchronous API + batch component</td>
+<td><code>ctam-payment</code> Repository List entry — synchronous API + batch component</td>
 <td><a href="../../../architecture.html"><code>../../architecture.md</code> → Repository List</a></td>
 </tr>
 <tr>
-<td>Per-table column-level detail (<code>ram_payments</code>, <code>ram_payment_schedules</code>, <code>ram_payment_reconciliations</code>, <code>ram_notification_dispatches</code>, <code>mock_oauth_clients</code>)</td>
+<td>Per-table column-level detail (<code>ctam_payments</code>, <code>ctam_payment_schedules</code>, <code>ctam_payment_reconciliations</code>, <code>ctam_notification_dispatches</code>, <code>mock_oauth_clients</code>)</td>
 <td><a href="../data-tables.html"><code>../data-tables.md</code></a></td>
 </tr>
 <tr>

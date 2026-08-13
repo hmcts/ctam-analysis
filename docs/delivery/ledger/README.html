@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ledger (sharded per epic) — RAM Pathfinder Documentation</title>
+<title>Ledger (sharded per epic) — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -93,16 +93,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <details class="section" id="shard-schema"><summary><span class="section-title">Shard schema</span></summary><div class="section-body">
 <pre class="yaml"><code>epic: epic-0.1                 # epic id (matches dispatch-graph.yaml)
 title: ...
-repo: ram-reference-data       # owning repo, or a list when the epic spans repos
+repo: ctam-reference-data       # owning repo, or a list when the epic spans repos
 bus_version: arch-v1.0
 status: not-started            # EPIC-LEVEL rollup (see vocab below)
 owner: null                    # who is driving this epic (name/handle); null = unassigned
 stories:
   - story: 0.1.1
-    repo: ram-reference-data   # per-story repo (may differ from the epic within a multi-repo epic)
+    repo: ctam-reference-data   # per-story repo (may differ from the epic within a multi-repo epic)
     title: ...
     frs: [FR6, FR7, FR8]       # traced requirements (epic granularity unless a story narrows it)
-    bus_version: arch-v1.0     # the ram-architecture version the story was built against
+    bus_version: arch-v1.0     # the ctam-architecture version the story was built against
     status: not-started        # STORY-LEVEL lifecycle (see vocab below)
     owner: null                # who is on this story; null = unassigned
     pr: null                   # PR URL once opened/merged</code></pre>

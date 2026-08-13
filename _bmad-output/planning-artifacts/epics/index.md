@@ -1,12 +1,12 @@
 ---
 type: 'Epics Index'
-title: 'ram-analysis (RAM Pathfinder) — Epic Breakdown'
-description: 'This is the entry point for the RAM Pathfinder epic and story breakdown.'
+title: 'ctam-analysis (CTAM Pathfinder) — Epic Breakdown'
+description: 'This is the entry point for the CTAM Pathfinder epic and story breakdown.'
 resource: 'epics/index.html'
-tags: [ram-pathfinder, epics, employment-tribunals]
+tags: [ctam-pathfinder, epics, employment-tribunals]
 timestamp: '2026-06-11'
-projectName: 'ram-analysis'
-productCodename: 'RAM Pathfinder'
+projectName: 'ctam-analysis'
+productCodename: 'CTAM Pathfinder'
 inputDocuments:
   - '_bmad-output/planning-artifacts/prd.md'
   - '_bmad-output/planning-artifacts/architecture.md'
@@ -22,13 +22,13 @@ stepsCompleted:
   - 'step-04-final-validation-phase-0'
 ---
 
-# ram-analysis (RAM Pathfinder) — Epic Breakdown
+# ctam-analysis (CTAM Pathfinder) — Epic Breakdown
 
-This is the **entry point** for the RAM Pathfinder epic and story breakdown. Each section below lives in its own file for maintainability.
+This is the **entry point** for the CTAM Pathfinder epic and story breakdown. Each section below lives in its own file for maintainability.
 
 ## Overview
 
-RAM Pathfinder is HMCTS's greenfield JOH availability-and-scheduling platform — rolled out **jurisdiction by jurisdiction**[^d13]: **wave 1 = the Employment Tribunals (ET) jurisdiction** (its scheduling incumbent is not yet identified — gap G8.4); **wave 2 = SSCS**, replacing **ListAssist** (the SSCS judicial-scheduling tool; GAPS, the SSCS case-management system, is retained); **waves 3+ = the Courts jurisdictions**, replacing the as-is JI application (Oracle APEX) per HMCTS judicial region. Scope boundary[^d12]: availability/scheduling only; case and hearing management live in external systems that consume RAM's APIs. This document decomposes the requirements from the PRD (60 FRs, 42 NFRs, D1–D13 — ET-first wave 1[^d13]) and the Architecture (HMCTS Crime SpringBoot starter, polyrepo, shared-DB + per-service DB roles, two-tier reference data ingested from JOH eLinks + MRD, two-population identity, Kubernetes on Azure AKS) into implementable stories.
+CTAM Pathfinder is HMCTS's greenfield JOH availability-and-scheduling platform — rolled out **jurisdiction by jurisdiction**[^d13]: **wave 1 = the Employment Tribunals (ET) jurisdiction** (its scheduling incumbent is not yet identified — gap G8.4); **wave 2 = SSCS**, replacing **ListAssist** (the SSCS judicial-scheduling tool; GAPS, the SSCS case-management system, is retained); **waves 3+ = the Courts jurisdictions**, replacing the as-is JI application (Oracle APEX) per HMCTS judicial region. Scope boundary[^d12]: availability/scheduling only; case and hearing management live in external systems that consume CTAM's APIs. This document decomposes the requirements from the PRD (60 FRs, 42 NFRs, D1–D13 — ET-first wave 1[^d13]) and the Architecture (HMCTS Crime SpringBoot starter, polyrepo, shared-DB + per-service DB roles, two-tier reference data ingested from JOH eLinks + MRD, two-population identity, Kubernetes on Azure AKS) into implementable stories.
 
 UX Design document is not present; downstream epics inherit UI requirements directly from PRD FRs (FR55, FR56) and architecture conventions (GOV.UK Design System base, WCAG 2.2 AA per NFR17). This gap is documented in the 2026-05-06 readiness report.
 
@@ -76,7 +76,7 @@ Phase 0 has completed all four steps. Phases 1–9+ are at the framework stage o
 - **Looking for an architecture rule?** Use [requirements-inventory.md](requirements-inventory.md) — ARs are in the Additional Requirements section.
 - **Verifying readiness?** Run `bmad-check-implementation-readiness` from the repo root; it understands this sharded shape.
 
-[^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: RAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
+[^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: CTAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
 
 [^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).
-[^d12]: D12 (2026-06-10) — RAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.
+[^d12]: D12 (2026-06-10) — CTAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.

@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working in this
 
 ## What this repository is
 
-`ram-analysis` is the **central planning, analysis, and delivery-coordination hub for RAM Pathfinder** — HMCTS's greenfield Judicial Office Holder (JOH) availability-and-scheduling platform. It is **not** the implementation and holds no runtime application code. RAM Pathfinder ships as a **16-repo polyrepo** (`ram-shared-infrastructure`, `ram-architecture`, `ram-mock-auth`, `ram-reference-data`, `ram-authorisation`, `ram-notification`, `ram-joh`, `ram-absence`, `ram-vacancy`, `ram-booking`, `ram-sitting`, `ram-payment`, `ram-itinerary`, `ram-mi-feed`, `ram-ui`, `ram-admin-ui`); this repo is the **control plane** that plans and coordinates building those repos.
+`ctam-analysis` is the **central planning, analysis, and delivery-coordination hub for CTAM Pathfinder** — HMCTS's greenfield Judicial Office Holder (JOH) availability-and-scheduling platform. It is **not** the implementation and holds no runtime application code. CTAM Pathfinder ships as a **16-repo polyrepo** (`ctam-shared-infrastructure`, `ctam-architecture`, `ctam-mock-auth`, `ctam-reference-data`, `ctam-authorisation`, `ctam-notification`, `ctam-joh`, `ctam-absence`, `ctam-vacancy`, `ctam-booking`, `ctam-sitting`, `ctam-payment`, `ctam-itinerary`, `ctam-mi-feed`, `ctam-ui`, `ctam-admin-ui`); this repo is the **control plane** that plans and coordinates building those repos.
 
-- **Programme:** ET-first rollout (D13, 2026-08-07) — **wave 1 = the Employment Tribunals (ET) jurisdiction** (its scheduling incumbent is *not yet identified* — gap G8.4, tracked as the placeholder token `[ET-INCUMBENT-TBD]`); **wave 2 = SSCS**, replacing **ListAssist** (GAPS case-management is *retained*); **waves 3+** replace the as-is JI application (Oracle APEX) per Courts region. Scope is availability/scheduling only; case/hearing management stay in external systems that consume RAM's APIs. ET role taxonomy is **provisional** pending the ET as-is analysis pack (G8.5) — do not treat ET role names in the artifacts as confirmed.
+- **Programme:** ET-first rollout (D13, 2026-08-07) — **wave 1 = the Employment Tribunals (ET) jurisdiction** (its scheduling incumbent is *not yet identified* — gap G8.4, tracked as the placeholder token `[ET-INCUMBENT-TBD]`); **wave 2 = SSCS**, replacing **ListAssist** (GAPS case-management is *retained*); **waves 3+** replace the as-is JI application (Oracle APEX) per Courts region. Scope is availability/scheduling only; case/hearing management stay in external systems that consume CTAM's APIs. ET role taxonomy is **provisional** pending the ET as-is analysis pack (G8.5) — do not treat ET role names in the artifacts as confirmed.
 - **Delivery is AI-led (Claude Code) using the BMAD method.** The role split is defined in `_bmad-output/planning-artifacts/architecture/delivery-operating-model.md` — read it before coordinating implementation.
 
 This repo also carries a set of **analysis slash commands** (`/create-data-dependency-architecture`, `/create-functional-modules-architecture`, `/check-for-owasp-top10`, `/docs-to-c4`) under `.claude/lib/` and `.claude/commands/`. These are **supporting tooling** used to produce as-is analysis artifacts — not the deliverable. (`/docs-to-c4` is retired; use the `build_html.py` static-site pipeline instead.)
@@ -18,7 +18,7 @@ This repo also carries a set of **analysis slash commands** (`/create-data-depen
   - `architecture.md` + `architecture/` shards: `repository-strategy.md`, `repo-structure.md`, `conventions.md` (the consistency contract), `data-tables.md`, `delivery-operating-model.md`, `gaps.md`, `assumptions.md`, `changelog.md`, `starter-template.md`, `user-types.md`, FR/NFR coverage, plus `diagrams/` and `sequence-diagrams/`.
   - `epics/` — `framework.md` + `phase-0/` epics with **stories embedded inside each epic** (only Phase 0 is decomposed so far; run `bmad-create-epics-and-stories` per phase for 1–8).
   - `delivery/` — the **delivery control plane**: `dispatch-graph.yaml` (deterministic build order) + `ledger/` (traceability, sharded one file per epic, each with epic/story `status` + `owner`) + `README.md`.
-- **`_bmad-output/project-context.md`** — lean, LLM-optimised implementation rules for the RAM Pathfinder *service* code; seeds each target repo's context.
+- **`_bmad-output/project-context.md`** — lean, LLM-optimised implementation rules for the CTAM Pathfinder *service* code; seeds each target repo's context.
 - **`docs/` — the published static HTML site** (GitHub Pages), generated from planning-artifacts by `scripts/build-html.sh`. Never hand-edit; regenerate.
 - **The rest of `_bmad-output/`** (e.g. `brainstorming/`) is local scratch, not part of any output contract.
 - **Legacy/exploratory at repo root** — `sql/`, `queries/`, `openspec/`, and older `scripts/python/` helpers — earlier iterations, not part of the current delivery workflow. Don't wire new work through them.
@@ -28,7 +28,7 @@ This repo also carries a set of **analysis slash commands** (`/create-data-depen
 Full detail in `architecture/delivery-operating-model.md`. In brief:
 
 - **Control plane** (this repo) — canonical planning + dispatch + traceability. Never edits service code.
-- **Context bus** (`ram-architecture`) — version-pinned published architecture each service repo consumes as a submodule.
+- **Context bus** (`ctam-architecture`) — version-pinned published architecture each service repo consumes as a submodule.
 - **Execution units** (the 15 service/UI/infra repos) — where code lands; each gets a self-contained story packet.
 - Build order is deterministic via `delivery/dispatch-graph.yaml`; progress lives in `delivery/ledger/` (per-epic shards, `status`+`owner` for multi-user coordination).
 - BMAD skills map onto it: **create-story = dispatch, dev-story + code-review = execute, sprint-status = signal.**

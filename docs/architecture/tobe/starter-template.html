@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Starter Template — Initialisation Flow, Build Tool, Dependency Inventory, RAM Pathfinder Conventions — RAM Pathfinder Documentation</title>
+<title>Starter Template — Initialisation Flow, Build Tool, Dependency Inventory, CTAM Pathfinder Conventions — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,29 +88,29 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
-<h1 id="starter-template--initialisation-flow-build-tool-dependency-inventory-ram-pathfinder-conventions">Starter Template — Initialisation Flow, Build Tool, Dependency Inventory, RAM Pathfinder Conventions</h1>
+<h1 id="starter-template--initialisation-flow-build-tool-dependency-inventory-ctam-pathfinder-conventions">Starter Template — Initialisation Flow, Build Tool, Dependency Inventory, CTAM Pathfinder Conventions</h1>
 <blockquote>
-<p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. Selection rationale lives in the parent. This file holds the per-service initialisation flow, dependency inventory, and RAM Pathfinder conventions overlaid by the scaffolding script.</p>
+<p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. Selection rationale lives in the parent. This file holds the per-service initialisation flow, dependency inventory, and CTAM Pathfinder conventions overlaid by the scaffolding script.</p>
 </blockquote>
 <details class="section" id="initialisation-flow-per-service"><summary><span class="section-title">Initialisation Flow (per service)</span></summary><div class="section-body">
-<p>Each new RAM Pathfinder service is scaffolded from the HMCTS starter, then customised. The exact CLI depends on what HMCTS publishes; conceptual flow:</p>
+<p>Each new CTAM Pathfinder service is scaffolded from the HMCTS starter, then customised. The exact CLI depends on what HMCTS publishes; conceptual flow:</p>
 <pre class="bash"><code># Conceptual — actual command per HMCTS published documentation
-git clone https://github.com/hmcts/service-hmcts-crime-springboot-template.git ram-{service-name}
-cd ram-{service-name}
+git clone https://github.com/hmcts/service-hmcts-crime-springboot-template.git ctam-{service-name}
+cd ctam-{service-name}
 git remote remove origin
 git remote add origin &lt;new-repo-url&gt;
 
 # Rename package, artifact, application name to match the service
 # (specific tooling / scripts per HMCTS starter conventions)
-./scripts/rename uk.gov.hmcts.ram.{service-name}
+./scripts/rename uk.gov.hmcts.ctam.{service-name}
 
 # Verify build
 ./gradlew build
 
 # Initial commit on new repo
-git add . &amp;&amp; git commit -m &quot;Scaffold RAM Pathfinder {service-name} from HMCTS starter&quot;
+git add . &amp;&amp; git commit -m &quot;Scaffold CTAM Pathfinder {service-name} from HMCTS starter&quot;
 git push -u origin main</code></pre>
-<p><strong>RAM Pathfinder scaffolding script:</strong> a thin wrapper over the HMCTS starter clone-and-rename steps, with RAM Pathfinder-specific defaults (Azure UK region, Application Insights workspace, naming conventions). Used at service-creation time only — not a runtime dependency.</p>
+<p><strong>CTAM Pathfinder scaffolding script:</strong> a thin wrapper over the HMCTS starter clone-and-rename steps, with CTAM Pathfinder-specific defaults (Azure UK region, Application Insights workspace, naming conventions). Used at service-creation time only — not a runtime dependency.</p>
 </div></details><details class="section" id="build-tool-gradle"><summary><span class="section-title">Build Tool: Gradle</span></summary><div class="section-body">
 <p>Gradle for all 11 services and the scaffolding script.</p>
 <p>Reasons:</p>
@@ -120,8 +120,8 @@ git push -u origin main</code></pre>
 <li>Matches the HMCTS starter's typical default.</li>
 <li>Consistent across all services.</li>
 </ul>
-</div></details><details class="section" id="architectural-decisions-base-template-vs-ram-scaffolding-overlay"><summary><span class="section-title">Architectural Decisions: Base Template vs RAM Scaffolding Overlay</span></summary><div class="section-body">
-<p><strong>Reconciled 2026-06-17 against <code>hmcts/service-hmcts-crime-springboot-template</code>@<code>main</code>.</strong> The base template is <strong>deliberately minimal</strong> — its README states it provides "the core Spring Boot scaffold — actuator, observability, logging — without any domain-specific or infrastructure patterns built in." Feature patterns (database, security, messaging, Azure) live in the <strong>separate <code>hmcts/service-hmcts-springboot-demo</code> repo</strong> across branches. RAM Pathfinder's <code>ram-scaffold.sh</code> therefore overlays those patterns (cherry-picked from the demo repo) plus RAM conventions on top of the minimal base. The two layers:</p>
+</div></details><details class="section" id="architectural-decisions-base-template-vs-ctam-scaffolding-overlay"><summary><span class="section-title">Architectural Decisions: Base Template vs CTAM Scaffolding Overlay</span></summary><div class="section-body">
+<p><strong>Reconciled 2026-06-17 against <code>hmcts/service-hmcts-crime-springboot-template</code>@<code>main</code>.</strong> The base template is <strong>deliberately minimal</strong> — its README states it provides "the core Spring Boot scaffold — actuator, observability, logging — without any domain-specific or infrastructure patterns built in." Feature patterns (database, security, messaging, Azure) live in the <strong>separate <code>hmcts/service-hmcts-springboot-demo</code> repo</strong> across branches. CTAM Pathfinder's <code>ctam-scaffold.sh</code> therefore overlays those patterns (cherry-picked from the demo repo) plus CTAM conventions on top of the minimal base. The two layers:</p>
 <h3 id="a-provided-by-the-base-template-main--verified-in-buildgradle">A. Provided by the base template (<code>main</code>) — verified in <code>build.gradle</code></h3>
 <p><strong>Language &amp; Runtime:</strong></p>
 <ul>
@@ -148,9 +148,9 @@ git push -u origin main</code></pre>
 <li><code>org.apache.tomcat.embed:tomcat-embed-core:11.0.22</code> (pinned).</li>
 </ul>
 <p><strong>Also in base:</strong> Dockerfile (multi-stage), Spring Actuator probes (<code>/actuator/health|info|readiness</code>), Shell init/rename scripts, secure-header / TLS posture.</p>
-<h3 id="b-added-by-ram-scaffoldsh--patterns-from-hmctsservice-hmcts-springboot-demo--ram-conventions-not-in-the-base">B. Added by <code>ram-scaffold.sh</code> — patterns from <code>hmcts/service-hmcts-springboot-demo</code> + RAM conventions (NOT in the base)</h3>
+<h3 id="b-added-by-ctam-scaffoldsh--patterns-from-hmctsservice-hmcts-springboot-demo--ctam-conventions-not-in-the-base">B. Added by <code>ctam-scaffold.sh</code> — patterns from <code>hmcts/service-hmcts-springboot-demo</code> + CTAM conventions (NOT in the base)</h3>
 <blockquote>
-<p>These are the scaffolding script's real scope. Each is <strong>absent from the base <code>build.gradle</code></strong> and must be assembled from the demo repo (branch named) or added as a RAM convention. Versions below are RAM's chosen targets.</p>
+<p>These are the scaffolding script's real scope. Each is <strong>absent from the base <code>build.gradle</code></strong> and must be assembled from the demo repo (branch named) or added as a CTAM convention. Versions below are CTAM's chosen targets.</p>
 </blockquote>
 <table>
 <thead>
@@ -163,7 +163,7 @@ git push -u origin main</code></pre>
 <tbody>
 <tr>
 <td><strong>Liquibase</strong> (<code>liquibase-core</code> + PostgreSQL driver)</td>
-<td>RAM convention (HMCTS demo repo uses Flyway; RAM standardises on Liquibase)</td>
+<td>CTAM convention (HMCTS demo repo uses Flyway; CTAM standardises on Liquibase)</td>
 <td>per Spring Boot 4.1 BOM</td>
 </tr>
 <tr>
@@ -173,7 +173,7 @@ git push -u origin main</code></pre>
 </tr>
 <tr>
 <td><strong>MapStruct</strong> (compile-time DTO↔︎entity mapping)</td>
-<td>RAM convention</td>
+<td>CTAM convention</td>
 <td>1.6.3</td>
 </tr>
 <tr>
@@ -183,12 +183,12 @@ git push -u origin main</code></pre>
 </tr>
 <tr>
 <td><strong><code>org.owasp.encoder:encoder</code></strong> (XSS-safe output)</td>
-<td>RAM convention</td>
+<td>CTAM convention</td>
 <td>1.4.0</td>
 </tr>
 <tr>
 <td><strong><code>com.avast.gradle.docker-compose</code></strong> plugin (local dev deps)</td>
-<td>RAM convention</td>
+<td>CTAM convention</td>
 <td>0.17.21</td>
 </tr>
 <tr>
@@ -198,7 +198,7 @@ git push -u origin main</code></pre>
 </tr>
 <tr>
 <td><strong>Helm chart</strong> for AKS</td>
-<td>RAM convention (G1.4a)</td>
+<td>CTAM convention (G1.4a)</td>
 <td>—</td>
 </tr>
 <tr>
@@ -208,7 +208,7 @@ git push -u origin main</code></pre>
 </tr>
 <tr>
 <td><strong>Spectral · ArchUnit · Spotless · Checkstyle</strong> (CI quality gates)</td>
-<td>RAM convention (AR17)</td>
+<td>CTAM convention (AR17)</td>
 <td>—</td>
 </tr>
 <tr>
@@ -218,26 +218,26 @@ git push -u origin main</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong>Code organisation (base layout, RAM package naming):</strong></p>
+<p><strong>Code organisation (base layout, CTAM package naming):</strong></p>
 <ul>
 <li>Standard Gradle layout: <code>src/main/java</code>, <code>src/main/resources</code>, <code>src/test/java</code>.</li>
-<li>Per-service top-level package <code>uk.gov.hmcts.ram.{service-name}</code> (e.g. <code>uk.gov.hmcts.ram.referencedata</code>, <code>uk.gov.hmcts.ram.booking</code>).</li>
+<li>Per-service top-level package <code>uk.gov.hmcts.ctam.{service-name}</code> (e.g. <code>uk.gov.hmcts.ctam.referencedata</code>, <code>uk.gov.hmcts.ctam.booking</code>).</li>
 <li><code>@SpringBootApplication</code> entrypoint; layered controller / service / repository per <a href="conventions.html"><code>./conventions.md</code></a>.</li>
 </ul>
 <blockquote>
-<p><strong>Correlation-ID filter</strong> and the <strong>APPINSIGHTS export wiring</strong> are partly base (logging/OTel) and partly RAM overlay (the request-entry correlation filter + service-to-service propagation); <code>/actuator/metrics</code> + Prometheus remain unexposed at MVP<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p><strong>Correlation-ID filter</strong> and the <strong>APPINSIGHTS export wiring</strong> are partly base (logging/OTel) and partly CTAM overlay (the request-entry correlation filter + service-to-service propagation); <code>/actuator/metrics</code> + Prometheus remain unexposed at MVP<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 </blockquote>
-</div></details><details class="section" id="per-service-ram-pathfinder-conventions-encoded-in-scaffolding-script-not-in-shared-library"><summary><span class="section-title">Per-service RAM Pathfinder Conventions (encoded in scaffolding script, not in shared library)</span></summary><div class="section-body">
-<p>The scaffolding script applies RAM Pathfinder-specific defaults on top of the HMCTS starter:</p>
+</div></details><details class="section" id="per-service-ctam-pathfinder-conventions-encoded-in-scaffolding-script-not-in-shared-library"><summary><span class="section-title">Per-service CTAM Pathfinder Conventions (encoded in scaffolding script, not in shared library)</span></summary><div class="section-body">
+<p>The scaffolding script applies CTAM Pathfinder-specific defaults on top of the HMCTS starter:</p>
 <ul>
-<li>Group ID: <code>uk.gov.hmcts.ram</code>.</li>
-<li>Naming: artefact <code>ram-{service-name}</code>, package <code>uk.gov.hmcts.ram.{service-name}</code>.</li>
+<li>Group ID: <code>uk.gov.hmcts.ctam</code>.</li>
+<li>Naming: artefact <code>ctam-{service-name}</code>, package <code>uk.gov.hmcts.ctam.{service-name}</code>.</li>
 <li>Default Azure UK region: UK South. (DR scope and target region are an open gap — see <a href="gaps.html"><code>./gaps.md</code> G3.6</a>.)</li>
-<li>Default Application Insights workspace: RAM Pathfinder shared workspace (HMCTS-provided).</li>
+<li>Default Application Insights workspace: CTAM Pathfinder shared workspace (HMCTS-provided).</li>
 <li>Default Reference Data and Authorisation service URL placeholders.</li>
 <li>Boilerplate <code>@ControllerAdvice</code> for <a href="https://datatracker.ietf.org/doc/html/rfc9457">RFC 9457</a> problem-details error envelopes (formerly RFC 7807; obsoleted July 2023 — content type and field shape unchanged).</li>
-<li>Boilerplate <code>JWTFilter</code> + <code>AuthDetails</code> bean (per HMCTS template pattern); modified to call RAM Pathfinder Authorisation service per request (RAM Pathfinder variance from template's claims-only approach — required by FR2/FR57).</li>
-<li>Boilerplate Reference Data direct-SQL access (JPA entities mapped to whitelisted Reference Data tables — both tiers, see <a href="data-tables.html"><code>./data-tables.md</code></a>: upstream-sourced <code>jo_*</code>/<code>mrd_*</code> plus RAM-owned <code>ram_regions</code>, <code>ram_offices</code>, <code>ram_calendar_periods</code> and vocabularies); no client class.</li>
+<li>Boilerplate <code>JWTFilter</code> + <code>AuthDetails</code> bean (per HMCTS template pattern); modified to call CTAM Pathfinder Authorisation service per request (CTAM Pathfinder variance from template's claims-only approach — required by FR2/FR57).</li>
+<li>Boilerplate Reference Data direct-SQL access (JPA entities mapped to whitelisted Reference Data tables — both tiers, see <a href="data-tables.html"><code>./data-tables.md</code></a>: upstream-sourced <code>jo_*</code>/<code>mrd_*</code> plus CTAM-owned <code>ctam_regions</code>, <code>ctam_offices</code>, <code>ctam_calendar_periods</code> and vocabularies); no client class.</li>
 <li><em>(removed 2026-05-06)</em> Boilerplate APEX-comparison test base class — retracted. Behavioural parity is verified via <strong>manual UAT performed by APEX-experienced users</strong> (FR61 / NFR41 revised). Per-service UAT scripts live under <code>docs/uat/</code> in the service repo, not as test code.</li>
 <li>Default port <code>8082</code> (per HMCTS template).</li>
 </ul>
@@ -252,7 +252,7 @@ git push -u origin main</code></pre>
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/architecture/starter-template.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#initialisation-flow-per-service">Initialisation Flow (per service)</a></li><li><a href="#build-tool-gradle">Build Tool: Gradle</a></li><li><a href="#architectural-decisions-base-template-vs-ram-scaffolding-overlay">Architectural Decisions: Base Template vs RAM Scaffolding Overlay</a></li><li class="h3"><a href="#a-provided-by-the-base-template-main--verified-in-buildgradle">A. Provided by the base template (main) — verified in build.gradle</a></li><li class="h3"><a href="#b-added-by-ram-scaffoldsh--patterns-from-hmctsservice-hmcts-springboot-demo--ram-conventions-not-in-the-base">B. Added by ram-scaffold.sh — patterns from hmcts/service-hmcts-springboot-demo + RAM conventions (NOT in the base)</a></li><li><a href="#per-service-ram-pathfinder-conventions-encoded-in-scaffolding-script-not-in-shared-library">Per-service RAM Pathfinder Conventions (encoded in scaffolding script, not in shared library)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#initialisation-flow-per-service">Initialisation Flow (per service)</a></li><li><a href="#build-tool-gradle">Build Tool: Gradle</a></li><li><a href="#architectural-decisions-base-template-vs-ctam-scaffolding-overlay">Architectural Decisions: Base Template vs CTAM Scaffolding Overlay</a></li><li class="h3"><a href="#a-provided-by-the-base-template-main--verified-in-buildgradle">A. Provided by the base template (main) — verified in build.gradle</a></li><li class="h3"><a href="#b-added-by-ctam-scaffoldsh--patterns-from-hmctsservice-hmcts-springboot-demo--ctam-conventions-not-in-the-base">B. Added by ctam-scaffold.sh — patterns from hmcts/service-hmcts-springboot-demo + CTAM conventions (NOT in the base)</a></li><li><a href="#per-service-ctam-pathfinder-conventions-encoded-in-scaffolding-script-not-in-shared-library">Per-service CTAM Pathfinder Conventions (encoded in scaffolding script, not in shared library)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../../";window.__PAGE__="architecture/tobe/starter-template";</script>
 <script src="../../nav.js"></script>
 <script>

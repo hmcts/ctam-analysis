@@ -5,22 +5,22 @@ sequenceDiagram
     actor RSU
 
     participant eLinks as JOH eLinks API (upstream)
-    participant RefData as ram-reference-data
-    participant UI as ram-ui JOH module
-    participant JOH as ram-joh
-    participant Itin as ram-itinerary
+    participant RefData as ctam-reference-data
+    participant UI as ctam-ui JOH module
+    participant JOH as ctam-joh
+    participant Itin as ctam-itinerary
 
     rect rgb(232, 240, 250)
-        Note over eLinks,RefData: Phase 1 — JOH record arrives via the nightly eLinks sync (revised D3 — no manual profile creation in RAM)
+        Note over eLinks,RefData: Phase 1 — JOH record arrives via the nightly eLinks sync (revised D3 — no manual profile creation in CTAM)
         RefData->>eLinks: scheduled pull (nightly, in-process)
         eLinks-->>RefData: jo_* entity payloads
         RefData->>RefData: full-refresh upsert on personnel_number (soft-deactivate, never hard-delete)
-        RefData->>RefData: record run in ram_sync_status
-        Note right of RefData: The new JOH is now in jo_people. Corrections happen at source (Judicial Office) — tier (a) is read-only in RAM per FR6.
+        RefData->>RefData: record run in ctam_sync_status
+        Note right of RefData: The new JOH is now in jo_people. Corrections happen at source (Judicial Office) — tier (a) is read-only in CTAM per FR6.
     end
 
     rect rgb(232, 250, 232)
-        Note over RSU,JOH: Phase 2 — Define working pattern and jurisdictional split (RAM-owned operational state, tier (b))
+        Note over RSU,JOH: Phase 2 — Define working pattern and jurisdictional split (CTAM-owned operational state, tier (b))
         RSU->>UI: find the JOH (search composes jo_people + overlays per FR10/FR11)
         RSU->>UI: open Working Pattern tab, choose None / Daily / Weekly
         RSU->>UI: set target sit %, per-day work types, jurisdictional split
@@ -40,4 +40,4 @@ sequenceDiagram
         UI-->>RSU: confirmation toast
     end
 
-    Note over RSU,Itin: Downstream — ram-itinerary now sees the planned sittings via SQL JOIN, and ram-sitting picks them up for daily confirmation. See itinerary-federated-read.md and salaried-sitting-confirmation.md.
+    Note over RSU,Itin: Downstream — ctam-itinerary now sees the planned sittings via SQL JOIN, and ctam-sitting picks them up for daily confirmation. See itinerary-federated-read.md and salaried-sitting-confirmation.md.
