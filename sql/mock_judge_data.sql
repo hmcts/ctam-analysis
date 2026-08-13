@@ -2,18 +2,18 @@
 -- mock_judge_data.sql
 -- =============================================================================
 --
--- Mock data for the 5 tables owned by ram-judge.
+-- Mock data for the 5 tables owned by ctam-judge.
 -- Three judges threaded across every table so the rows tell a coherent story.
 --
--- NOT production DDL. Production DDL lives in ram-judge's Flyway migrations.
+-- NOT production DDL. Production DDL lives in ctam-judge's Flyway migrations.
 -- This file exists for visualisation, local prototyping, and exploratory
 -- queries against a throwaway PostgreSQL instance.
 --
 -- Depends on mock_ref_data.sql — load that first.
 --
 -- Run with:
---   psql -d ram_mock -f mock_ref_data.sql
---   psql -d ram_mock -f mock_judge_data.sql
+--   psql -d ctam_mock -f mock_ref_data.sql
+--   psql -d ctam_mock -f mock_judge_data.sql
 --
 -- The three judges:
 --   j1 — HHJ Sarah Hawthorne, Circuit Judge, Manchester Crown Court (Northern), full-time

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sprint Change Proposal — 2026-08-07 — RAM Pathfinder Documentation</title>
+<title>Sprint Change Proposal — 2026-08-07 — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -169,7 +169,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
 <h3 id="21-the-central-finding--the-architecture-already-absorbs-this">2.1 The central finding — the architecture already absorbs this</h3>
 <p><strong>The 16-repo decomposition, the data model, and all 60 FRs / 42 NFRs survive unchanged.</strong> This is not luck; it is D8 working as designed.</p>
-<p>D8 (reframed 2026-06-10) made <strong>jurisdiction a first-class hierarchical attribute sourced from upstream <code>jo_jurisdictions</code></strong> — "not invented or tagged by RAM Pathfinder". Every jurisdiction-sensitive mechanism was therefore built to be parameterised, not hardcoded:</p>
+<p>D8 (reframed 2026-06-10) made <strong>jurisdiction a first-class hierarchical attribute sourced from upstream <code>jo_jurisdictions</code></strong> — "not invented or tagged by CTAM Pathfinder". Every jurisdiction-sensitive mechanism was therefore built to be parameterised, not hardcoded:</p>
 <table>
 <thead>
 <tr>
@@ -183,23 +183,23 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>Hierarchy comes from eLinks. Tribunals/ET is a sibling of Tribunals/SSCS — a data value, not a schema change.</td>
 </tr>
 <tr>
-<td><code>ram_auth_user_activation_flags</code></td>
+<td><code>ctam_auth_user_activation_flags</code></td>
 <td>Keyed by the <code>(jurisdiction, region)</code> tuple (FR57). Wave cutover is an <code>UPDATE … WHERE jurisdiction = …</code>. ET is a different WHERE clause.</td>
 </tr>
 <tr>
-<td><code>ram-authorisation</code></td>
+<td><code>ctam-authorisation</code></td>
 <td>Carries the user's jurisdiction alongside roles + Region/Area scope (FR2). Jurisdiction-agnostic.</td>
 </tr>
 <tr>
-<td><code>ram-reference-data</code></td>
+<td><code>ctam-reference-data</code></td>
 <td>Filters API responses by requester jurisdiction (FR6/FR7). Jurisdiction-agnostic.</td>
 </tr>
 <tr>
-<td><code>ram_joh_identities</code> / <code>joh_id</code></td>
-<td>RAM-assigned UUID per JOH (D9 as refined by SCP 2026-07-09). Independent of jurisdiction.</td>
+<td><code>ctam_joh_identities</code> / <code>joh_id</code></td>
+<td>CTAM-assigned UUID per JOH (D9 as refined by SCP 2026-07-09). Independent of jurisdiction.</td>
 </tr>
 <tr>
-<td><code>ram_jurisdictional_splits</code></td>
+<td><code>ctam_jurisdictional_splits</code></td>
 <td>Per-JOH split percentages (FR16). Already multi-jurisdiction by construction.</td>
 </tr>
 <tr>
@@ -280,7 +280,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>R3 — JFEPS/Liberata applicability to ET is unverified.</strong> <em>(Severity: Medium–High)</em> NFR21 asserts the JFEPS Excel → Payment Authoriser → Liberata path is preserved unchanged for wave 1. That was <strong>explicitly verified for SSCS</strong> — <code>sequence-diagrams/payment-batch-flow.md</code> records "SSCS applicability verified (2026-06-11) … tribunal-member payments use the same JFEPS Excel + email-to-Authoriser + Liberata path". <strong>No equivalent verification exists for ET.</strong> If ET lay members are paid through a different route, NFR21 weakens and Phase 6 acquires wave-1 risk it does not currently carry. This verification must be redone.</p>
 <p><strong>R4 — eLinks <code>jo_jurisdictions</code> coverage of ET is unverified.</strong> <em>(Severity: Medium)</em> G8.1 already flags the eLinks contract as unconfirmed. ET's presence, and its parent-child shape under Tribunals, is now a <strong>wave-1 blocker</strong> rather than a general Phase 0 concern.</p>
 <p><strong>R5 — the business case's supporting evidence was gathered for SSCS.</strong> <em>(Severity: Low–Medium; downgraded 2026-08-07 on confirmation that ET is a settled programme decision)</em> Option C was recommended on the grounds that "SSCS is a contained, lower-risk wave that exercises the full platform end-to-end and de-risks every subsequent wave". <strong>The choice of ET is settled and not reopened by this SCP.</strong> What remains is <em>evidence</em>: the wave-1 replacement driver and ET's quantified risk profile, both of which the ET as-is analysis pack (G8.5) supplies. The business case is retargeted with those two items flagged as outstanding evidence rather than open questions.</p>
-<p><strong>Also to confirm:</strong> ET's case-management system — the GAPS analogue that will consume RAM's APIs per D12 (retained, not replaced).</p>
+<p><strong>Also to confirm:</strong> ET's case-management system — the GAPS analogue that will consume CTAM's APIs per D12 (retained, not replaced).</p>
 <p><strong>Net position on prior work:</strong> the SSCS-cohort readiness assessment and SSCS as-is analysis pack were both <em>required but never produced</em>. Demoting SSCS to wave 2 therefore <strong>loses no completed work</strong> — it defers two un-started deliverables and raises two new ET equivalents in their place.</p>
 <hr />
 </div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
@@ -378,9 +378,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <h3 id="41-decisions">4.1 Decisions</h3>
 <p><strong>New D13 — supersedes D11.</strong> <em>(PRD decision table)</em></p>
 <blockquote>
-<p><strong>D13 (new 2026-08-07; supersedes D11) — ET-first pilot wave.</strong> RAM Pathfinder's MVP pilot rollout (Phase 9, wave 1) targets the <strong>Employment Tribunals (ET)</strong> jurisdiction. <strong>Wave 2 = the SSCS Tribunals jurisdiction</strong> (replacing ListAssist; GAPS, the SSCS case-management system, is retained per D11 as amended). <strong>Waves 3+ = Courts jurisdictions</strong> (Civil, Crime, Family, Crown) per HMCTS judicial region, replacing APEX/JI. The 16-repo architecture and the Phase 0–8 build sequence are <strong>unchanged</strong> — jurisdiction is a first-class upstream-sourced attribute per D8, so retargeting the pilot is a data-and-rollout change, not an architectural one.</p>
+<p><strong>D13 (new 2026-08-07; supersedes D11) — ET-first pilot wave.</strong> CTAM Pathfinder's MVP pilot rollout (Phase 9, wave 1) targets the <strong>Employment Tribunals (ET)</strong> jurisdiction. <strong>Wave 2 = the SSCS Tribunals jurisdiction</strong> (replacing ListAssist; GAPS, the SSCS case-management system, is retained per D11 as amended). <strong>Waves 3+ = Courts jurisdictions</strong> (Civil, Crime, Family, Crown) per HMCTS judicial region, replacing APEX/JI. The 16-repo architecture and the Phase 0–8 build sequence are <strong>unchanged</strong> — jurisdiction is a first-class upstream-sourced attribute per D8, so retargeting the pilot is a data-and-rollout change, not an architectural one.</p>
 <p><strong>ET's judicial-scheduling incumbent is not yet identified</strong> (gap G8.4). Until it is, the wave-1 behavioural reference, manual-UAT parity target, rollback target and historical-data location are recorded as <code>[ET-INCUMBENT-TBD]</code>.</p>
-<p><strong>ET JOH type taxonomy is provisional</strong> pending the ET as-is analysis pack (gap G8.5): Employment Judges (salaried and fee-paid), Regional Employment Judges, and non-legal ("lay") members drawn from employer-side and employee-side panels. The JOH umbrella term and the existing <code>ram-joh</code> / <code>ram-booking</code> / <code>ram-sitting</code> decomposition accommodate these without structural change. <strong>Panel composition and hearing types remain out of RAM scope per D12.</strong></p>
+<p><strong>ET JOH type taxonomy is provisional</strong> pending the ET as-is analysis pack (gap G8.5): Employment Judges (salaried and fee-paid), Regional Employment Judges, and non-legal ("lay") members drawn from employer-side and employee-side panels. The JOH umbrella term and the existing <code>ctam-joh</code> / <code>ctam-booking</code> / <code>ctam-sitting</code> decomposition accommodate these without structural change. <strong>Panel composition and hearing types remain out of CTAM scope per D12.</strong></p>
 </blockquote>
 <p><strong>D11</strong> — retained as history, re-scoped: "SSCS-first pilot" → "<strong>SSCS wave</strong>", superseded by D13 for wave ordering. <strong>D5</strong> — parity reference re-parameterised: <code>[ET-INCUMBENT-TBD]</code>-experienced users (wave 1) · ListAssist-experienced (wave 2) · APEX-experienced (waves 3+). <strong>D8</strong> — wave sequence restated: wave 1 = ET, wave 2 = SSCS, waves 3+ = Courts per region. Hierarchy mechanism unchanged. <strong>D12</strong> — unchanged; the external case-management consumer for wave 1 becomes ET's system (to confirm) rather than GAPS.</p>
 <h3 id="42-the-d11-footnote--one-edit-20-files">4.2 The <code>[^d11]</code> footnote — one edit, ~20 files</h3>
@@ -493,7 +493,7 @@ NEW: … `jo_jurisdictions` covering Tribunals/ET + Tribunals/SSCS + Courts exam
 <ul>
 <li><code>CLAUDE.md</code> line 9 · <code>README.md</code> line 9 — programme summary retargeted to the three-tier wave sequence</li>
 <li><code>_bmad-output/project-context.md</code> line 71 — incumbent-parity rule: <code>(ET [ET-INCUMBENT-TBD] wave 1 / ListAssist SSCS wave 2 / APEX Courts waves 3+)</code></li>
-<li><strong><code>.claude/memory/project_bmad_ram_pathfinder_state.md</code></strong> (git-tracked working-state file) — <strong>highest misdirection risk of any file in this list.</strong> Its "Next" and "Remaining cascade" sections instruct the next session to run an <em>SSCS-cohort</em> readiness assessment and commission an <em>SSCS as-is analysis pack</em>; both now retarget to ET. Line 10 additionally carries pre-v3.7 staleness ("SSCS jurisdiction (replacing GAPS)") that the 2026-06-18 correction never reached. Retarget the forward-looking sections; leave the dated <strong>Done</strong> entries as history.</li>
+<li><strong><code>.claude/memory/project_bmad_ctam_pathfinder_state.md</code></strong> (git-tracked working-state file) — <strong>highest misdirection risk of any file in this list.</strong> Its "Next" and "Remaining cascade" sections instruct the next session to run an <em>SSCS-cohort</em> readiness assessment and commission an <em>SSCS as-is analysis pack</em>; both now retarget to ET. Line 10 additionally carries pre-v3.7 staleness ("SSCS jurisdiction (replacing GAPS)") that the 2026-06-18 correction never reached. Retarget the forward-looking sections; leave the dated <strong>Done</strong> entries as history.</li>
 <li><code>scripts/python/build_html.py</code> — add <code>("Sprint Change Proposal — 2026-08-07 (ET-first pilot)", "sprint-change-proposal-2026-08-07", False)</code> to <code>NAV</code>. Leave the two historical SSCS-labelled <code>NAV</code> strings (lines 239, 241) untouched.</li>
 <li><code>architecture/changelog.md</code> — <strong>append v4.0</strong> ("Wave-1 pilot retargets SSCS → Employment Tribunals; SSCS to wave 2; Courts to waves 3+; D13 supersedes D11; new gaps G8.4–G8.6"). Existing rows are immutable history.</li>
 <li><code>docs/**</code> — regenerate via <code>scripts/build-html.sh</code>. Never hand-edit.</li>
@@ -770,7 +770,7 @@ NEW: … `jo_jurisdictions` covering Tribunals/ET + Tribunals/SSCS + Courts exam
 <td>Parity rule</td>
 </tr>
 <tr>
-<td><code>.claude/memory/project_bmad_ram_pathfinder_state.md</code></td>
+<td><code>.claude/memory/project_bmad_ctam_pathfinder_state.md</code></td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">—</td>
 <td style="text-align: right;">1</td>

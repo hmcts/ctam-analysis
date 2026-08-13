@@ -1,4 +1,4 @@
-# RAM Pathfinder — System Context (D2 + ELK prototype)
+# CTAM Pathfinder — System Context (D2 + ELK prototype)
 # Render: d2 --layout elk system-context.d2 system-context-d2.png
 
 direction: down
@@ -37,7 +37,7 @@ classes: {
 }
 
 title: |md
-  # RAM Pathfinder — System Context
+  # CTAM Pathfinder — System Context
   High-level service map · 2026-06-12
 | {near: top-center}
 
@@ -46,7 +46,7 @@ users: "Users\nJOHs · Caseworkers · RSU · Court\nClerks · Finance · MI" {
   style.fill: "#f7f7f7"
 }
 
-ui: "ram-ui\nSPA · GOV.UK Design System" {
+ui: "ctam-ui\nSPA · GOV.UK Design System" {
   style: {fill: "#fff4c8"; stroke: "#b08800"; border-radius: 6; font-size: 16}
 }
 
@@ -54,31 +54,31 @@ apim: "Azure API Management\nJWT validation · rate limits" {
   style: {fill: "#cfe6f7"; stroke: "#3070a0"; border-radius: 6; font-size: 16}
 }
 
-mockauth: "ram-mock-auth\ndev/CI only — never in production" {
+mockauth: "ctam-mock-auth\ndev/CI only — never in production" {
   style: {fill: "#f5dede"; stroke: "#b06060"; stroke-dash: 3; border-radius: 6; font-size: 16}
 }
 
 xcutting: "Cross-cutting services (Phase 0)" {
   style: {fill: "#eaf3fb"; stroke: "#3070a0"; font-size: 18; bold: true}
-  refdata: "ram-reference-data\ntwo-tier: jo_* + mrd_* (read-only)\n+ RAM-owned reference tables" {class: xcut}
-  notify: "ram-notification\noutbound transactional email" {class: xcut}
-  authz: "ram-authorisation\nper-request authz\ntwo-population identity" {class: xcut}
+  refdata: "ctam-reference-data\ntwo-tier: jo_* + mrd_* (read-only)\n+ CTAM-owned reference tables" {class: xcut}
+  notify: "ctam-notification\noutbound transactional email" {class: xcut}
+  authz: "ctam-authorisation\nper-request authz\ntwo-population identity" {class: xcut}
 }
 
 domain: "Domain services (Phases 1–6)" {
   style: {fill: "#eef9f0"; stroke: "#2f7a3e"; font-size: 18; bold: true}
-  joh: "ram-joh\nworking patterns · ticket/location\noverlays · jurisdictional split" {class: domain}
-  absence: "ram-absence\nabsences + approval\ntriggers vacancy creation" {class: domain}
-  vacancy: "ram-vacancy\ncover-required vacancies\nfilled flag granted to Booking" {class: domain}
-  booking: "ram-booking\nfee-paid bookings + verification\nrow-locks target vacancy in-tx" {class: domain}
-  sitting: "ram-sitting\nsalaried-JOH sittings\nverification · AM/PM split" {class: domain}
-  payment: "ram-payment\npayments + reconciliation\nJFEPS Excel via Notification" {class: domain}
+  joh: "ctam-joh\nworking patterns · ticket/location\noverlays · jurisdictional split" {class: domain}
+  absence: "ctam-absence\nabsences + approval\ntriggers vacancy creation" {class: domain}
+  vacancy: "ctam-vacancy\ncover-required vacancies\nfilled flag granted to Booking" {class: domain}
+  booking: "ctam-booking\nfee-paid bookings + verification\nrow-locks target vacancy in-tx" {class: domain}
+  sitting: "ctam-sitting\nsalaried-JOH sittings\nverification · AM/PM split" {class: domain}
+  payment: "ctam-payment\npayments + reconciliation\nJFEPS Excel via Notification" {class: domain}
 }
 
 readmodels: "Read-model services (Phases 7–8)" {
   style: {fill: "#f3e8f9"; stroke: "#7030a0"; font-size: 18; bold: true}
-  itinerary: "ram-itinerary\nCourt + JOH itinerary · Forward Look\nSQL JOINs (no own tables)" {class: readmodel}
-  mifeed: "ram-mi-feed\naggregate reports · DA&I feed\nSQL JOINs (no own tables)" {class: readmodel}
+  itinerary: "ctam-itinerary\nCourt + JOH itinerary · Forward Look\nSQL JOINs (no own tables)" {class: readmodel}
+  mifeed: "ctam-mi-feed\naggregate reports · DA&I feed\nSQL JOINs (no own tables)" {class: readmodel}
 }
 
 db: "PostgreSQL Flexible Server\nsingle shared schema · UK South\n55 tables" {
@@ -86,7 +86,7 @@ db: "PostgreSQL Flexible Server\nsingle shared schema · UK South\n55 tables" {
 }
 
 # External systems are individually placed (grey, dashed) so each sits beside
-# the RAM service it talks to — short edges beat a far-away grouping box.
+# the CTAM service it talks to — short edges beat a far-away grouping box.
 idp: "HMCTS IdP\nOIDC · authN — external" {class: external}
 elinks: "JOH eLinks API — external\n15 jo_* entities" {class: external}
 mrd: "MRD — external\nweekly Excel feed" {class: external}

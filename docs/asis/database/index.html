@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JI as-is database schema — diagrams — RAM Pathfinder Documentation</title>
+<title>JI as-is database schema — diagrams — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -187,15 +187,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><a href="https://github.com/hmcts/ram-analysis/blob/main/scripts/python/parse_ji_ddl.py"><code>scripts/python/parse_ji_ddl.py</code></a></td>
+<td><a href="https://github.com/hmcts/ctam-analysis/blob/main/scripts/python/parse_ji_ddl.py"><code>scripts/python/parse_ji_ddl.py</code></a></td>
 <td>Parses <code>JI_Tables_1.txt</code> → <code>ji_schema.json</code></td>
 </tr>
 <tr>
-<td><a href="https://github.com/hmcts/ram-analysis/blob/main/scripts/python/build_schema_diagram.py"><code>scripts/python/build_schema_diagram.py</code></a></td>
+<td><a href="https://github.com/hmcts/ctam-analysis/blob/main/scripts/python/build_schema_diagram.py"><code>scripts/python/build_schema_diagram.py</code></a></td>
 <td>The schema model: loads JSON → backfills PKs → infers FKs → clusters tables. Run directly it writes <code>ji_schema_companion.md</code>. The D2 generator imports its functions, so the model lives in one place.</td>
 </tr>
 <tr>
-<td><a href="https://github.com/hmcts/ram-analysis/blob/main/scripts/python/build_schema_diagram_d2.py"><code>scripts/python/build_schema_diagram_d2.py</code></a></td>
+<td><a href="https://github.com/hmcts/ctam-analysis/blob/main/scripts/python/build_schema_diagram_d2.py"><code>scripts/python/build_schema_diagram_d2.py</code></a></td>
 <td>Imports the model above → generates <strong>D2</strong> sources (<code>.d2</code>) → renders PNG via the <strong>ELK</strong> layout engine (orthogonal routing, minimised crossings)</td>
 </tr>
 </tbody>

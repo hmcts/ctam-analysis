@@ -74,11 +74,11 @@ To build an accurate **venue → region** map we therefore need the operational 
 - How far back is venue data reliable, and have venue names/regions been re-organised historically (e.g. the move from the predecessor CIPHR system)?
 - Are there SSCS-specific venue types (e.g. Asylum Support "AST" venues) that follow different rules from mainstream SSCS hearings?
 
-## 8. Future state (RAM Pathfinder implications)
+## 8. Future state (CTAM Pathfinder implications)
 
-- If RAM Pathfinder is to schedule at venue granularity, where should the authoritative venue list live, and who should own it?
+- If CTAM Pathfinder is to schedule at venue granularity, where should the authoritative venue list live, and who should own it?
 - Would the operational teams want venue allocation to remain region-led, or move to explicit venue-level allocation?
-- What would "good" look like for a venue → region reference dataset that RAM could consume or maintain?
+- What would "good" look like for a venue → region reference dataset that CTAM could consume or maintain?
 - Are there upcoming changes to SSCS venues, regions, or listing systems we should design around?
 - Who must sign off a venue/region model before it can be used for scheduling?
 

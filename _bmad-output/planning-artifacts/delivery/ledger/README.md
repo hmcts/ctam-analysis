@@ -7,16 +7,16 @@ The traceability ledger is **sharded â€” one file per epic** (`epic-0.0.yaml` â€
 ```yaml
 epic: epic-0.1                 # epic id (matches dispatch-graph.yaml)
 title: ...
-repo: ram-reference-data       # owning repo, or a list when the epic spans repos
+repo: ctam-reference-data       # owning repo, or a list when the epic spans repos
 bus_version: arch-v1.0
 status: not-started            # EPIC-LEVEL rollup (see vocab below)
 owner: null                    # who is driving this epic (name/handle); null = unassigned
 stories:
   - story: 0.1.1
-    repo: ram-reference-data   # per-story repo (may differ from the epic within a multi-repo epic)
+    repo: ctam-reference-data   # per-story repo (may differ from the epic within a multi-repo epic)
     title: ...
     frs: [FR6, FR7, FR8]       # traced requirements (epic granularity unless a story narrows it)
-    bus_version: arch-v1.0     # the ram-architecture version the story was built against
+    bus_version: arch-v1.0     # the ctam-architecture version the story was built against
     status: not-started        # STORY-LEVEL lifecycle (see vocab below)
     owner: null                # who is on this story; null = unassigned
     pr: null                   # PR URL once opened/merged

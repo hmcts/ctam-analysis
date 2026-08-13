@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply the Open Knowledge Format (OKF) interoperability surface to the RAM
+"""Apply the Open Knowledge Format (OKF) interoperability surface to the CTAM
 Pathfinder planning artefacts.
 
 OKF (https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf) is
@@ -69,7 +69,7 @@ def okf_type(rel: str, name: str) -> str:
 
 
 def okf_tags(rel: str, type_: str, body: str) -> list:
-    tags = ["ram-pathfinder"]
+    tags = ["ctam-pathfinder"]
     if rel == "prd" or "PRD" in type_:
         tags.append("prd")
     if rel.startswith("architecture") or "Architecture" in type_ or type_ in ("Sequence Diagram", "Diagram", "Analysis"):

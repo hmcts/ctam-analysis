@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MI Feed / Reports consumption — RAM Pathfinder Documentation</title>
+<title>MI Feed / Reports consumption — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -89,20 +89,20 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="mi-feed--reports-consumption">MI Feed / Reports consumption</h1>
-<p>Sequence diagram of how aggregate management-information is consumed from <code>ram-mi-feed</code>, by two distinct actors:</p>
+<p>Sequence diagram of how aggregate management-information is consumed from <code>ctam-mi-feed</code>, by two distinct actors:</p>
 <ol type="1">
-<li><strong>Internal MI / Reporting users</strong> — at MVP, open the Reports module in <code>ram-ui</code>, pick a standard report (utilisation, sitting analysis, jurisdictional split, etc.), apply parameter filters, render results, and export to Excel or PDF.</li>
+<li><strong>Internal MI / Reporting users</strong> — at MVP, open the Reports module in <code>ctam-ui</code>, pick a standard report (utilisation, sitting analysis, jurisdictional split, etc.), apply parameter filters, render results, and export to Excel or PDF.</li>
 <li><strong>External DA&amp;I consumer</strong> — post-MVP, calls the MI Feed REST API directly as a service principal to ingest aggregate data into their own pipelines, replacing today's manual export-and-transform chain.</li>
 </ol>
-<p>Both paths hit the same backend (<code>ram-mi-feed</code>) and are bound by the <strong>same aggregate-only contract</strong>: no case-level data anywhere in the response, ever (REP-BR-NFR-03 / FR54 / NFR23). This contract is the most important architectural invariant in the read-model layer — it bounds FOI scope (NFR33), protects against the data-scope concerns flagged in the PRD, and is enforced both at the schema level (no case-level columns exist in any RAM Pathfinder table that MI Feed reads from) and at the API-contract level (no case-level field in any response shape).</p>
-<p><code>ram-mi-feed</code> holds <strong>no own tables</strong> — it SQL-JOINs aggregates from the shared schema, the same Strategy A pattern as <code>ram-itinerary</code> (<a href="itinerary-federated-read.html"><code>./itinerary-federated-read.md</code></a>), but with aggregation projections rather than per-record cells.</p>
-<p>The as-is equivalents are Module 12 <em>Reports</em> in <a href="../../asis/functional-modules.html"><code>../../../docs/architecture/asis/functional-modules.md</code></a> and Integration Flow 7 <em>Management Information &amp; Reporting (JI → DA&amp;I)</em> in <a href="../../asis/integration-dependencies.html"><code>../../../docs/architecture/asis/integration-dependencies.md</code></a>. The as-is flow is export-and-transform (Excel/PDF copied out of JI, transformed in DA&amp;I); the RAM Pathfinder MI Feed API is the post-MVP replacement.</p>
+<p>Both paths hit the same backend (<code>ctam-mi-feed</code>) and are bound by the <strong>same aggregate-only contract</strong>: no case-level data anywhere in the response, ever (REP-BR-NFR-03 / FR54 / NFR23). This contract is the most important architectural invariant in the read-model layer — it bounds FOI scope (NFR33), protects against the data-scope concerns flagged in the PRD, and is enforced both at the schema level (no case-level columns exist in any CTAM Pathfinder table that MI Feed reads from) and at the API-contract level (no case-level field in any response shape).</p>
+<p><code>ctam-mi-feed</code> holds <strong>no own tables</strong> — it SQL-JOINs aggregates from the shared schema, the same Strategy A pattern as <code>ctam-itinerary</code> (<a href="itinerary-federated-read.html"><code>./itinerary-federated-read.md</code></a>), but with aggregation projections rather than per-record cells.</p>
+<p>The as-is equivalents are Module 12 <em>Reports</em> in <a href="../../asis/functional-modules.html"><code>../../../docs/architecture/asis/functional-modules.md</code></a> and Integration Flow 7 <em>Management Information &amp; Reporting (JI → DA&amp;I)</em> in <a href="../../asis/integration-dependencies.html"><code>../../../docs/architecture/asis/integration-dependencies.md</code></a>. The as-is flow is export-and-transform (Excel/PDF copied out of JI, transformed in DA&amp;I); the CTAM Pathfinder MI Feed API is the post-MVP replacement.</p>
 <p>Three phases: (1) internal MI user runs a report; (2) post-MVP external DA&amp;I consumer calls the same API; (3) shared aggregation + contract enforcement.</p>
 <details class="section" id="not-in-this-diagram"><summary><span class="section-title">Not in this diagram</span></summary><div class="section-body">
 <ul>
 <li><strong>External consumer onboarding</strong> (service-principal credential issuance, OAuth scopes, rate-limit policy assignment) — programme-management activity, not a runtime flow.</li>
 <li><strong>MI Feed cache</strong> — none at MVP per architecture Principle 2. Considered if NFR8-like measurement shows reports breaching ≤ 30 s.</li>
-<li><strong>Tribunals data extension</strong> — flagged as a strategic gap in <a href="../../asis/data-dependencies.html"><code>../../../docs/architecture/asis/data-dependencies.md</code></a> and the as-is Reports module; out of scope for RAM Pathfinder MVP.</li>
+<li><strong>Tribunals data extension</strong> — flagged as a strategic gap in <a href="../../asis/data-dependencies.html"><code>../../../docs/architecture/asis/data-dependencies.md</code></a> and the as-is Reports module; out of scope for CTAM Pathfinder MVP.</li>
 <li><strong>Per-report parameter validation detail</strong> — varies per report; handled by the controller as standard request validation. Not drawn.</li>
 </ul>
 </div></details><details class="section" id="cross-cutting-steps-omitted-for-clarity"><summary><span class="section-title">Cross-cutting steps omitted for clarity</span></summary><div class="section-body">
@@ -127,7 +127,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>1 — Internal MI user runs a report</td>
 <td>MI / Reporting User</td>
 <td>FR53 — fixed catalogue of standard reports with parameter filters per report. Region/Office/judge-type/date-range scoped per FR49 / R2.</td>
-<td>Tabular report rendered in <code>ram-ui</code>; copy/export to Excel or PDF via FR52</td>
+<td>Tabular report rendered in <code>ctam-ui</code>; copy/export to Excel or PDF via FR52</td>
 </tr>
 <tr>
 <td>2 — External DA&amp;I consumer calls MI Feed API (post-MVP)</td>
@@ -137,7 +137,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>3 — Shared aggregation + contract enforcement</td>
-<td><code>ram-mi-feed</code> (no own tables)</td>
+<td><code>ctam-mi-feed</code> (no own tables)</td>
 <td>Principle 1 + 2 — SQL JOIN over the shared schema with aggregation projections; <strong>no case-level data in any response shape</strong> (REP-BR-NFR-03 / FR54 / NFR23); contract enforced at schema (no case-level columns) and at API shape (no case-level fields)</td>
 <td>Aggregated result with no case-level identifiers; serialised per content-type negotiation (JSON for API; Excel/PDF for internal export)</td>
 </tr>
@@ -153,7 +153,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-mi-feed</code> repo purpose and key functions (no own tables — SQL JOINs)</td>
+<td><code>ctam-mi-feed</code> repo purpose and key functions (no own tables — SQL JOINs)</td>
 <td><a href="../repository-strategy.html"><code>../repository-strategy.md</code></a> Phase 8 row</td>
 </tr>
 <tr>
@@ -166,7 +166,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Reports UI module structure</td>
-<td><a href="../repo-structure.html"><code>../repo-structure.md</code> → <code>ram-ui/src/modules/reports/</code></a></td>
+<td><a href="../repo-structure.html"><code>../repo-structure.md</code> → <code>ctam-ui/src/modules/reports/</code></a></td>
 </tr>
 <tr>
 <td>Service-principal auth for external consumers (open question; pre-Phase-9 decision)</td>

@@ -11,4 +11,4 @@ Do **not** update the auto-memory after every task/change. Only write to memory 
 
 **Why:** Frequent per-change memory writes create churn the user doesn't want (raised 2026-06-17, after I appended a project-state note following each BMAD step / the scaffolding reconciliation).
 
-**How to apply:** Finish the work and report it in-conversation. Skip the reflexive "update project state memory" step unless asked (e.g. "remember this", "save to memory"). Genuine standing preferences/corrections like this one are the exception worth persisting. See [[project-bmad-ram-pathfinder-state]] — keep it as-is; don't keep appending to it unprompted.
+**How to apply:** Finish the work and report it in-conversation. Skip the reflexive "update project state memory" step unless asked (e.g. "remember this", "save to memory"). Genuine standing preferences/corrections like this one are the exception worth persisting. See [[project-bmad-ctam-pathfinder-state]] — keep it as-is; don't keep appending to it unprompted.

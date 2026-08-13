@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Itinerary federated read — Court Itinerary, Judge Itinerary, Forward Look — RAM Pathfinder Documentation</title>
+<title>Itinerary federated read — Court Itinerary, Judge Itinerary, Forward Look — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -89,7 +89,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="itinerary-federated-read--court-itinerary-judge-itinerary-forward-look">Itinerary federated read — Court Itinerary, Judge Itinerary, Forward Look</h1>
-<p>Sequence diagram of how itinerary views are served by <code>ram-itinerary</code>. The service holds <strong>no own tables</strong> — it composes Court Itinerary, Judge Itinerary, and Forward Look views by SQL-JOINing across <code>jo_people</code>, <code>ram_working_patterns</code>, <code>ram_absences</code>, <code>ram_vacancies</code>, <code>ram_bookings</code>, and <code>ram_sittings</code> on the shared schema (architecture Principle 1). This is the canonical <em>Strategy A federated read</em> pattern; NFR8 bounds it at ≤ 30 s p95 for Forward Look across a Region, with NFR37 specifying Strategy C cached projection as the documented fallback if measurement breaches NFR8.</p>
+<p>Sequence diagram of how itinerary views are served by <code>ctam-itinerary</code>. The service holds <strong>no own tables</strong> — it composes Court Itinerary, Judge Itinerary, and Forward Look views by SQL-JOINing across <code>jo_people</code>, <code>ctam_working_patterns</code>, <code>ctam_absences</code>, <code>ctam_vacancies</code>, <code>ctam_bookings</code>, and <code>ctam_sittings</code> on the shared schema (architecture Principle 1). This is the canonical <em>Strategy A federated read</em> pattern; NFR8 bounds it at ≤ 30 s p95 for Forward Look across a Region, with NFR37 specifying Strategy C cached projection as the documented fallback if measurement breaches NFR8.</p>
 <p>The as-is equivalents are Module 3 <em>Court Itinerary</em>, Module 4 <em>Judge Itinerary</em>, and the JFL <em>Judges Forward Look</em> sub-module in <a href="../../asis/functional-modules.html"><code>../../../docs/architecture/asis/functional-modules.md</code></a>.</p>
 <p>Three phases: (1) request + authorisation scoping; (2) SQL JOIN federated read; (3) drill-down deep-link into the underlying record.</p>
 <details class="section" id="not-in-this-diagram"><summary><span class="section-title">Not in this diagram</span></summary><div class="section-body">
@@ -101,9 +101,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 </div></details><details class="section" id="cross-cutting-steps-omitted-for-clarity"><summary><span class="section-title">Cross-cutting steps omitted for clarity</span></summary><div class="section-body">
 <ul>
-<li><strong>Authentication + per-request authorisation</strong> — User's JWT is validated by <code>ram-itinerary</code>'s <code>JWTFilter</code> and resolved to a principal with roles + Region/Area scope. <strong>Authorisation scoping is critical</strong> for this flow: judges see only their own itinerary (R2), courts see their office, RSU sees their region. The diagram's "auth scoping" note captures the architectural rule; full mechanics are in <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a>.</li>
+<li><strong>Authentication + per-request authorisation</strong> — User's JWT is validated by <code>ctam-itinerary</code>'s <code>JWTFilter</code> and resolved to a principal with roles + Region/Area scope. <strong>Authorisation scoping is critical</strong> for this flow: judges see only their own itinerary (R2), courts see their office, RSU sees their region. The diagram's "auth scoping" note captures the architectural rule; full mechanics are in <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a>.</li>
 <li>All UI → service calls flow through Azure API Management.</li>
-<li>Drill-down requests to the underlying service (e.g. <code>ram-sitting</code> for a sitting cell click) follow the same auth pattern.</li>
+<li>Drill-down requests to the underlying service (e.g. <code>ctam-sitting</code> for a sitting cell click) follow the same auth pattern.</li>
 </ul>
 <p><img src="itinerary-federated-read.png" alt="Itinerary federated read sequence" /></p>
 <p><em>Source: <a href="itinerary-federated-read.mmd"><code>./itinerary-federated-read.mmd</code></a> (Mermaid). Regenerate with <code>mmdc -i itinerary-federated-read.mmd -o itinerary-federated-read.png -w 2400 -s 2 --backgroundColor white</code>.</em></p>
@@ -121,20 +121,20 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>1 — Request + authorisation scoping</td>
 <td>User (Judge / Court / RSU)</td>
-<td>FR48–FR50 — select Office + Financial Year + Month (Court Itinerary), Judge + date range (Judge Itinerary), or Region (Forward Look). <code>ram-authorisation</code> returns roles + Region/Area scope per FR2/R2.</td>
-<td><code>ram-itinerary</code> receives the request with the authorised scope (e.g. RSU sees own region; Judge sees only own profile)</td>
+<td>FR48–FR50 — select Office + Financial Year + Month (Court Itinerary), Judge + date range (Judge Itinerary), or Region (Forward Look). <code>ctam-authorisation</code> returns roles + Region/Area scope per FR2/R2.</td>
+<td><code>ctam-itinerary</code> receives the request with the authorised scope (e.g. RSU sees own region; Judge sees only own profile)</td>
 </tr>
 <tr>
 <td>2 — SQL JOIN federated read</td>
-<td><code>ram-itinerary</code> (no own tables)</td>
-<td>Principle 1 + 2 — direct SQL JOINs across <code>jo_people</code>, <code>ram_working_patterns</code>, <code>ram_absences</code>, <code>ram_vacancies</code>, <code>ram_bookings</code>, <code>ram_sittings</code>; respects per-service SELECT grants; bounded by NFR8 (≤ 30 s p95)</td>
+<td><code>ctam-itinerary</code> (no own tables)</td>
+<td>Principle 1 + 2 — direct SQL JOINs across <code>jo_people</code>, <code>ctam_working_patterns</code>, <code>ctam_absences</code>, <code>ctam_vacancies</code>, <code>ctam_bookings</code>, <code>ctam_sittings</code>; respects per-service SELECT grants; bounded by NFR8 (≤ 30 s p95)</td>
 <td>Composed itinerary cells returned to UI, each cell tagged with the underlying record type + ID for drill-down</td>
 </tr>
 <tr>
 <td>3 — Drill-down deep-link</td>
 <td>User</td>
 <td>FR51 — itinerary cells are clickable; UI navigates to the underlying record's detail view in the owning module (Sitting / Absence / Vacancy / Booking)</td>
-<td>User sees the underlying record (e.g. opens the <code>ram-sitting</code> confirmation screen for a sitting cell, or the <code>ram-absence</code> detail for an absence cell)</td>
+<td>User sees the underlying record (e.g. opens the <code>ctam-sitting</code> confirmation screen for a sitting cell, or the <code>ctam-absence</code> detail for an absence cell)</td>
 </tr>
 </tbody>
 </table>
@@ -148,7 +148,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-itinerary</code> repo purpose and key functions (no own tables — SQL JOINs)</td>
+<td><code>ctam-itinerary</code> repo purpose and key functions (no own tables — SQL JOINs)</td>
 <td><a href="../repository-strategy.html"><code>../repository-strategy.md</code></a> Phase 7 row</td>
 </tr>
 <tr>
@@ -165,7 +165,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Itinerary UI module structure</td>
-<td><a href="../repo-structure.html"><code>../repo-structure.md</code> → <code>ram-ui/src/modules/itinerary/</code></a></td>
+<td><a href="../repo-structure.html"><code>../repo-structure.md</code> → <code>ctam-ui/src/modules/itinerary/</code></a></td>
 </tr>
 <tr>
 <td>Upstream producers — judge profiles + working-pattern-driven sittings</td>

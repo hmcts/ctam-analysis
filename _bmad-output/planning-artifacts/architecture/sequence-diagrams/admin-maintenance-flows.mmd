@@ -4,15 +4,15 @@ sequenceDiagram
 
     actor Admin as Sys Admin
 
-    participant AUI as ram-admin-ui
-    participant Authz as ram-authorisation
-    participant Ref as ram-reference-data
+    participant AUI as ctam-admin-ui
+    participant Authz as ctam-authorisation
+    participant Ref as ctam-reference-data
     participant DB as Shared schema
-    participant OtherSvc as Any other ram service
+    participant OtherSvc as Any other ctam service
 
     rect rgb(232, 240, 250)
         Note over Admin,OtherSvc: Phase 1 — Admin login and role-gate
-        Admin->>AUI: open admin.ram.hmcts.gov.uk
+        Admin->>AUI: open admin.ctam.hmcts.gov.uk
         AUI->>Authz: OIDC and POST /authz/check requiring sys-admin role
         Authz-->>AUI: sys-admin allowed, or 403 for non-admin users
         AUI-->>Admin: admin-scoped Home with Reference Data and User & Role nav
@@ -31,10 +31,10 @@ sequenceDiagram
 
     rect rgb(250, 240, 230)
         Note over Admin,OtherSvc: Phase 3 — Path B — User & Role write per FR4
-        Note right of Admin: Affects any of the 5 auth tables — ram_auth_users, ram_auth_roles, ram_auth_user_roles, ram_auth_user_region_scopes, ram_auth_user_activation_flags.
+        Note right of Admin: Affects any of the 5 auth tables — ctam_auth_users, ctam_auth_roles, ctam_auth_user_roles, ctam_auth_user_region_scopes, ctam_auth_user_activation_flags.
         Admin->>AUI: edit user role or Region/Area scope and submit
         AUI->>Authz: POST /v1/users or PUT /v1/users/{id}/roles
-        Authz->>Authz: validate. ram-authorisation is both gatekeeper and writer here
+        Authz->>Authz: validate. ctam-authorisation is both gatekeeper and writer here
         Authz->>DB: persist row to the owning auth table
         Authz-->>AUI: 201 or 200
         AUI-->>Admin: confirmation toast
@@ -51,4 +51,4 @@ sequenceDiagram
         Authz-->>OtherSvc: new effective permissions
     end
 
-    Note over Admin,OtherSvc: Tier-(a) upstream data (jo_*, mrd_*) is ingested by ram-reference-data's scheduled sync — never via these admin flows. These flows cover tier-(b) RAM-owned data only, and are DBA-via-SQL in MVP (D10).
+    Note over Admin,OtherSvc: Tier-(a) upstream data (jo_*, mrd_*) is ingested by ctam-reference-data's scheduled sync — never via these admin flows. These flows cover tier-(b) CTAM-owned data only, and are DBA-via-SQL in MVP (D10).

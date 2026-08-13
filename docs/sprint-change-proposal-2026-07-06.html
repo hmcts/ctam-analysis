@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sprint Change Proposal — Shared infrastructure to a dedicated repo (CNP alignment) — RAM Pathfinder Documentation</title>
+<title>Sprint Change Proposal — Shared infrastructure to a dedicated repo (CNP alignment) — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -89,11 +89,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="sprint-change-proposal--shared-infrastructure-to-a-dedicated-repo-cnp-alignment">Sprint Change Proposal — Shared infrastructure to a dedicated repo (CNP alignment)</h1>
-<p><strong>Date:</strong> 2026-07-06 <strong>Project:</strong> ram-analysis (RAM Pathfinder) <strong>Change scope:</strong> Moderate (backlog reorganisation + architecture doc updates; no code to unwind) <strong>Mode:</strong> Incremental <strong>Decision:</strong> #13 · <strong>Architecture version:</strong> v3.8</p>
+<p><strong>Date:</strong> 2026-07-06 <strong>Project:</strong> ctam-analysis (CTAM Pathfinder) <strong>Change scope:</strong> Moderate (backlog reorganisation + architecture doc updates; no code to unwind) <strong>Mode:</strong> Incremental <strong>Decision:</strong> #13 · <strong>Architecture version:</strong> v3.8</p>
 <hr />
 <details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
-<p><strong>Problem statement.</strong> The HMCTS Cloud Native Platform onboarding guidance for new components (<a href="https://hmcts.github.io/cloud-native-platform/new-component/github-repo.html"><code>new-component/github-repo.html</code></a>) states that <strong>product-level (shared) infrastructure must live in its own dedicated repository</strong>, named <code>{product}-shared-infrastructure</code> — for RAM Pathfinder, <code>ram-shared-infrastructure</code>.</p>
-<p>The current architecture does the opposite. Per <strong>AR53 (the "colocated first-consumer" rule, adopted v3.1 and re-affirmed by decision #12 / SCP 2026-06-17)</strong>, the shared Azure estate — <strong>AKS, PostgreSQL Flexible Server, ACR, APIM, Application Insights</strong> — is provisioned from Terraform <strong>inside <code>ram-reference-data/terraform/</code></strong>, because that is the first service scaffolded under the integrations-first sequencing. (It was itself relocated there from <code>ram-authorisation</code>.)</p>
+<p><strong>Problem statement.</strong> The HMCTS Cloud Native Platform onboarding guidance for new components (<a href="https://hmcts.github.io/cloud-native-platform/new-component/github-repo.html"><code>new-component/github-repo.html</code></a>) states that <strong>product-level (shared) infrastructure must live in its own dedicated repository</strong>, named <code>{product}-shared-infrastructure</code> — for CTAM Pathfinder, <code>ctam-shared-infrastructure</code>.</p>
+<p>The current architecture does the opposite. Per <strong>AR53 (the "colocated first-consumer" rule, adopted v3.1 and re-affirmed by decision #12 / SCP 2026-06-17)</strong>, the shared Azure estate — <strong>AKS, PostgreSQL Flexible Server, ACR, APIM, Application Insights</strong> — is provisioned from Terraform <strong>inside <code>ctam-reference-data/terraform/</code></strong>, because that is the first service scaffolded under the integrations-first sequencing. (It was itself relocated there from <code>ctam-authorisation</code>.)</p>
 <p><strong>Discovery.</strong> Identified during a review of the CNP new-component standards on 2026-07-06, while orienting Phase 0 for sprint planning.</p>
 <p><strong>Why it matters now.</strong> Phase 0 is at the sprint-planning boundary. Deferring the change means either building the estate the non-standard way and re-homing it later, or blocking sprint planning. Neither is necessary: <strong>no implementation has started</strong> (<code>implementation-artifacts/</code> is empty), so this is a re-plan of not-yet-started stories, not a rollback of built work. This is the cheapest possible moment to absorb it.</p>
 <hr />
@@ -101,16 +101,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Epic impact.</strong></p>
 <ul>
 <li><strong>New Epic 0.0</strong> — "Platform estate is provisioned, verifiable, and CNP-compliant" (5 stories). Sequenced first in Phase 0.</li>
-<li><strong>Epic 0.1</strong> — Story 0.1.1 shed its shared-estate provisioning responsibility; it now scaffolds <code>ram-reference-data</code> and <strong>deploys onto</strong> the Epic 0.0 estate. Still 4 stories.</li>
-<li><strong>Epics 0.2–0.5</strong> — dependency wording repointed from "the estate provisioned in <code>ram-reference-data</code>" to "the estate provisioned in Epic 0.0". No story-count change.</li>
+<li><strong>Epic 0.1</strong> — Story 0.1.1 shed its shared-estate provisioning responsibility; it now scaffolds <code>ctam-reference-data</code> and <strong>deploys onto</strong> the Epic 0.0 estate. Still 4 stories.</li>
+<li><strong>Epics 0.2–0.5</strong> — dependency wording repointed from "the estate provisioned in <code>ctam-reference-data</code>" to "the estate provisioned in Epic 0.0". No story-count change.</li>
 <li><strong>Phase 0 totals:</strong> 5 → <strong>6 epics</strong>, 14 → <strong>19 stories</strong>.</li>
 </ul>
 <p><strong>Story impact.</strong> No stories were completed, so none are re-opened. Story 0.1.1 is reduced in scope; five new stories (0.0.1–0.0.5) are added, each carrying a <strong>deploy-time acceptance test</strong> so infrastructure is verified as each Terraform layer lands (the sponsor's explicit requirement).</p>
 <p><strong>Artifact conflicts (all resolved in §4).</strong></p>
 <ul>
 <li><code>requirements-inventory.md</code> — <strong>AR53 inverted</strong>; incidental AR23/AR27 mentions repointed.</li>
-<li><code>architecture/repository-strategy.md</code> — repo list <strong>15 → 16</strong> (new <code>ram-shared-infrastructure</code> row); <code>ram-reference-data</code> row trimmed; strategy/decision lines updated.</li>
-<li><code>architecture/repo-structure.md</code> — per-service <code>terraform/</code> note reworded; <strong>new <code>ram-shared-infrastructure</code> directory structure</strong> added (incl. a <code>verification/</code> folder for the Epic 0.0 smoke checks).</li>
+<li><code>architecture/repository-strategy.md</code> — repo list <strong>15 → 16</strong> (new <code>ctam-shared-infrastructure</code> row); <code>ctam-reference-data</code> row trimmed; strategy/decision lines updated.</li>
+<li><code>architecture/repo-structure.md</code> — per-service <code>terraform/</code> note reworded; <strong>new <code>ctam-shared-infrastructure</code> directory structure</strong> added (incl. a <code>verification/</code> folder for the Epic 0.0 smoke checks).</li>
 <li><code>architecture/framework.md</code> — Platform scope line repointed.</li>
 <li><code>architecture.md</code> — <strong>new decision #13</strong> (supersedes the relocation part of #12).</li>
 <li><code>architecture/changelog.md</code> — <strong>new v3.8</strong> entry.</li>
@@ -118,16 +118,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 <p><strong>Technical impact.</strong></p>
 <ul>
-<li><strong>Repos:</strong> +1 (<code>ram-shared-infrastructure</code>, Terraform-only, no deployable workload). 16 total.</li>
+<li><strong>Repos:</strong> +1 (<code>ctam-shared-infrastructure</code>, Terraform-only, no deployable workload). 16 total.</li>
 <li><strong>Code:</strong> none written yet — zero rework.</li>
 <li><strong>Sequencing:</strong> the <em>domain</em> deliverable ordering (0.1 → 0.5) is unchanged; a "platform estate stands up and is verified first" unit is inserted ahead of it (it was always an implicit prerequisite of old Story 0.1.1).</li>
-<li><strong>Cleaner separation:</strong> <code>ram-reference-data</code> is reduced to its domain, consistent with the polyrepo "minimise shared coupling" principle.</li>
+<li><strong>Cleaner separation:</strong> <code>ctam-reference-data</code> is reduced to its domain, consistent with the polyrepo "minimise shared coupling" principle.</li>
 </ul>
 <p><strong>Secondary flag (not blocking).</strong> The CNP page also states <em>"Repository should be public."</em> This conflicts with the standing "new repos private" default; HMCTS gov-guidance governs the org here. Flagged for a conscious decision at repo-creation time — recorded, not resolved by this SCP.</p>
 <hr />
 </div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
 <p><strong>Chosen path: Direct Adjustment</strong> — add/modify stories and epics within the existing plan; no rollback, no MVP-scope reduction.</p>
-<p><strong>Rationale.</strong> The change is a repo-topology and doc-wording correction plus one new foundational epic. Because nothing is built, Direct Adjustment carries no rework cost. Structuring the estate as its own independently-verified epic (a) satisfies the CNP standard, (b) makes the platform testable in isolation before a service depends on it, and (c) tightens <code>ram-reference-data</code>'s responsibilities.</p>
+<p><strong>Rationale.</strong> The change is a repo-topology and doc-wording correction plus one new foundational epic. Because nothing is built, Direct Adjustment carries no rework cost. Structuring the estate as its own independently-verified epic (a) satisfies the CNP standard, (b) makes the platform testable in isolation before a service depends on it, and (c) tightens <code>ctam-reference-data</code>'s responsibilities.</p>
 <ul>
 <li><strong>Effort estimate:</strong> ~1 day of planning/doc edits (this SCP, applied). The engineering effort was always required — it is re-homed and made explicit as Epic 0.0, not net-new.</li>
 <li><strong>Risk:</strong> Low. No built work touched; the change reduces coupling. Residual risk is the public-vs-private repo policy decision (§2 secondary flag) and the standing G9 Terraform-state/pipeline confirmation.</li>
@@ -148,20 +148,20 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul></li>
 <li><strong><code>epic-0.1</code> Story 0.1.1</strong> — retitled "(onto the Epic 0.0 estate)"; provisioning ACs removed; consume-the-estate ACs added; header/vertical-slice/references updated.</li>
 </ol>
-<p><strong>Architecture</strong> 3. <strong>AR53 inverted</strong> (<code>requirements-inventory.md</code>) — shared estate in dedicated <code>ram-shared-infrastructure</code>; per-service repos keep own resources only. AR23/AR27 and <code>framework.md</code> repointed. 4. <strong><code>repository-strategy.md</code></strong> — new <code>ram-shared-infrastructure</code> row; <code>ram-reference-data</code> row trimmed; total 15 → 16; decision/strategy lines updated. 5. <strong><code>repo-structure.md</code></strong> — per-service <code>terraform/</code> note reworded; new <code>ram-shared-infrastructure</code> tree (Terraform modules + <code>verification/</code> smoke checks) + rationale. 6. <strong><code>epics/phase-0/index.md</code> + <code>epics/index.md</code></strong> — sequencing blockquote, scope-model bullet, epics table (+0.0), summaries, stories-summary table, totals (6 epics / 19 stories); Epics 0.2 dependency repointed. 7. <strong>Audit trail</strong> — new <strong>decision #13</strong> in <code>architecture.md</code> (supersedes #12's relocation); new <strong>changelog v3.8</strong>.</p>
+<p><strong>Architecture</strong> 3. <strong>AR53 inverted</strong> (<code>requirements-inventory.md</code>) — shared estate in dedicated <code>ctam-shared-infrastructure</code>; per-service repos keep own resources only. AR23/AR27 and <code>framework.md</code> repointed. 4. <strong><code>repository-strategy.md</code></strong> — new <code>ctam-shared-infrastructure</code> row; <code>ctam-reference-data</code> row trimmed; total 15 → 16; decision/strategy lines updated. 5. <strong><code>repo-structure.md</code></strong> — per-service <code>terraform/</code> note reworded; new <code>ctam-shared-infrastructure</code> tree (Terraform modules + <code>verification/</code> smoke checks) + rationale. 6. <strong><code>epics/phase-0/index.md</code> + <code>epics/index.md</code></strong> — sequencing blockquote, scope-model bullet, epics table (+0.0), summaries, stories-summary table, totals (6 epics / 19 stories); Epics 0.2 dependency repointed. 7. <strong>Audit trail</strong> — new <strong>decision #13</strong> in <code>architecture.md</code> (supersedes #12's relocation); new <strong>changelog v3.8</strong>.</p>
 <hr />
 </div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
 <p><strong>Change scope classification: Moderate</strong> — backlog reorganisation across epics + architecture doc updates; no code to reorganise (implementation not started).</p>
 <p><strong>Routing:</strong></p>
 <ul>
 <li><strong>Product Owner / Dev</strong> — Epic 0.0 enters sprint planning as the <strong>first</strong> Phase 0 unit; Story 0.1.1 re-estimated to its reduced (scaffold-and-deploy) scope.</li>
-<li><strong>Platform/Infra</strong> — own <code>ram-shared-infrastructure</code>: create the repo (CNP naming, manual GitHub web-UI setup per the runbook; <strong>decide public-vs-private per §2</strong>), stand up the Terraform foundation, and confirm the G9 state-backend/pipeline pattern before the first <code>apply</code>.</li>
+<li><strong>Platform/Infra</strong> — own <code>ctam-shared-infrastructure</code>: create the repo (CNP naming, manual GitHub web-UI setup per the runbook; <strong>decide public-vs-private per §2</strong>), stand up the Terraform foundation, and confirm the G9 state-backend/pipeline pattern before the first <code>apply</code>.</li>
 </ul>
 <p><strong>Success criteria.</strong></p>
 <ul>
-<li><code>ram-shared-infrastructure</code> exists and provisions the dev estate via Terraform.</li>
+<li><code>ctam-shared-infrastructure</code> exists and provisions the dev estate via Terraform.</li>
 <li>Each Epic 0.0 story passes its deploy-time acceptance test (nodes Ready, Postgres TLS-only, Key Vault round-trip, ACR pull, APIM smoke 200).</li>
-<li><code>ram-reference-data</code> (Story 0.1.1) deploys onto the verified estate with no colocated shared-estate Terraform.</li>
+<li><code>ctam-reference-data</code> (Story 0.1.1) deploys onto the verified estate with no colocated shared-estate Terraform.</li>
 <li>Architecture pack self-consistent at v3.8; Phase 0 shows 6 epics / 19 stories throughout.</li>
 </ul>
 <p><strong>Deliverables produced:</strong> this Sprint Change Proposal; the seven applied edit groups (§4); the new Epic 0.0 file.</p>

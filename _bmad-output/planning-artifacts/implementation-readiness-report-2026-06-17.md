@@ -3,10 +3,10 @@ type: 'Readiness Report'
 title: 'Implementation Readiness Assessment Report'
 description: 'Date: 2026-06-17'
 resource: 'implementation-readiness-report-2026-06-17.html'
-tags: [ram-pathfinder, change-control, sscs]
+tags: [ctam-pathfinder, change-control, sscs]
 timestamp: '2026-06-17'
 assessmentDate: '2026-06-17'
-project: 'ram-analysis (RAM Pathfinder)'
+project: 'ctam-analysis (CTAM Pathfinder)'
 assessmentScope: 'SSCS-cohort, integrations-first Phase 0 (post SCP 2026-06-17 / architecture decision #12)'
 stepsCompleted: ['step-01-document-discovery', 'step-02-prd-analysis', 'step-03-epic-coverage-validation', 'step-04-ux-alignment', 'step-05-epic-quality-review', 'step-06-final-assessment']
 documentsUsed:
@@ -21,7 +21,7 @@ readinessVerdict: 'READY for Phase 0 sprint planning — 2 conditions to handle 
 # Implementation Readiness Assessment Report
 
 **Date:** 2026-06-17
-**Project:** ram-analysis (RAM Pathfinder)
+**Project:** ctam-analysis (CTAM Pathfinder)
 **Scope:** SSCS-cohort readiness for the integrations-first Phase 0 (per D11 + SCP 2026-06-17 / architecture decision #12)
 
 ## Document Inventory
@@ -59,9 +59,9 @@ PRD read in full during the 2026-06-17 re-validation. Every FR/NFR enumerated be
 
 ### Functional Requirements (60)
 
-**Identity & Authorisation:** FR1 SSO + canonical-identity resolution (JOH→`jo_people` personnel number; staff→RAM UUID) · FR2 roles + jurisdiction + Region/Area authz · FR3 effective-permissions retrieval · FR4 admin updates role/jurisdiction/scope (MVP: DBA-via-SQL) · FR5 external M2M auth (post-MVP).
-**Foundational Data:** FR6 two-tier Reference Data (tier-a upstream read-only; tier-b RAM-owned) · FR7 direct-SQL reads, writes-follow-the-tier · FR8 shared `ram_configuration_values` · FR9 transactional email + delivery log.
-**JOH Records & Working Patterns:** FR10 search/filter JOHs · FR11 view JOH profile · FR12 working patterns · FR13 auto-populate itineraries to 31 Mar · FR14 salaried FT/PT from eLinks (display) · FR15 ticket info (upstream + overlay) · FR16 jurisdictional-split 100% validation · FR17 base-location switch (RAM-owned) · FR18 link off-circuit/cross-Region JOHs.
+**Identity & Authorisation:** FR1 SSO + canonical-identity resolution (JOH→`jo_people` personnel number; staff→CTAM UUID) · FR2 roles + jurisdiction + Region/Area authz · FR3 effective-permissions retrieval · FR4 admin updates role/jurisdiction/scope (MVP: DBA-via-SQL) · FR5 external M2M auth (post-MVP).
+**Foundational Data:** FR6 two-tier Reference Data (tier-a upstream read-only; tier-b CTAM-owned) · FR7 direct-SQL reads, writes-follow-the-tier · FR8 shared `ctam_configuration_values` · FR9 transactional email + delivery log.
+**JOH Records & Working Patterns:** FR10 search/filter JOHs · FR11 view JOH profile · FR12 working patterns · FR13 auto-populate itineraries to 31 Mar · FR14 salaried FT/PT from eLinks (display) · FR15 ticket info (upstream + overlay) · FR16 jurisdictional-split 100% validation · FR17 base-location switch (CTAM-owned) · FR18 link off-circuit/cross-Region JOHs.
 **Absence:** FR19 record absences · FR20 auto-confirm vs confirm + ack · FR21 sickness extend · FR22 NTBF / needs-cover.
 **Vacancy & Cover:** FR23 auto-create vacancy from approved absence · FR24 standalone vacancies · FR25 edit daily breakdown · FR26 mark filled on booking · FR27 fee-paid match hint · FR28 cancel/close.
 **Booking:** FR29 create fee-paid booking · FR30 markFilled in-transaction · FR31 status tracking · FR32 ack emails · FR33 fee-entitlement Y/N prompt · FR34 double-booking prevention.
@@ -105,10 +105,10 @@ PRD is BMAD Standard, re-validated 5/5 today (0 blocking issues), internally con
 | FR4 | admin updates (MVP data layer) | Epic 0.4 (DBA-via-SQL; UI post-MVP) | ✓ (MVP criterion) |
 | FR6 | two-tier Reference Data | Epic 0.1 (0.1.2 tables, 0.1.3 eLinks, 0.1.4 MRD) + Epic 0.3 (0.3.1 tier-b, 0.3.2 read API) | ✓ |
 | FR7 | direct-SQL reads, writes-follow-tier | Epic 0.1 Story 0.1.2 + Epic 0.3 Story 0.3.1 | ✓ |
-| FR8 | shared `ram_configuration_values` | Epic 0.1 Story 0.1.1 | ✓ |
+| FR8 | shared `ctam_configuration_values` | Epic 0.1 Story 0.1.1 | ✓ |
 | FR9 | transactional email + log | Epic 0.5 (0.5.1/0.5.2) | ✓ |
 | FR55 | role-scoped Home | Epic 0.2 Story 0.2.5 | ✓ |
-| FR56 | business UI (WCAG 2.2 AA) | Epic 0.2 (`ram-ui`; admin stack post-MVP) | ✓ (business) |
+| FR56 | business UI (WCAG 2.2 AA) | Epic 0.2 (`ctam-ui`; admin stack post-MVP) | ✓ (business) |
 | FR57 | per-(jurisdiction,region) activation | Epic 0.4 (flag bootstrap) + Epic 0.2 Story 0.2.5 (banner) | ✓ |
 | FR58 | versioned API + RFC 9457 + OpenAPI | Epic 0.2 Story 0.2.3 (authz API) + Epic 0.3 Story 0.3.2 (read API) | ✓ |
 | FR59 | structured logs + correlation IDs | Epic 0.1 Story 0.1.1 (first) + every story | ✓ |
@@ -152,8 +152,8 @@ None — every Phase 0 story references valid FR numbers.
 ### Alignment (what substitutes for a UX spec)
 
 - **PRD → UI:** FR55/FR56 + the six user journeys define the interaction surface; the parity reference is the **incumbent system** (GAPS for SSCS wave 1; APEX layouts via `docs/architecture/asis/functional-modules.md` for Courts), verified by manual UAT (FR60/NFR41).
-- **Architecture → UI:** the architecture pack **supports** the UI — Frontend Architecture (`ram-ui`: React + TypeScript + Vite, GOV.UK Design System base, TanStack Query, OIDC auth wrapper, RFC 9457 error handling), repo-structure module layout, axe-core accessibility CI. No architectural gap for the UI need.
-- **Epics → UI:** Phase 0's UI scope is a **foundation/shell** (Epic 0.2 Story 0.2.4 scaffolds `ram-ui` with GOV.UK + auth + axe-core CI; Story 0.2.5 renders the role-scoped Home + activation banner). No domain screens in Phase 0.
+- **Architecture → UI:** the architecture pack **supports** the UI — Frontend Architecture (`ctam-ui`: React + TypeScript + Vite, GOV.UK Design System base, TanStack Query, OIDC auth wrapper, RFC 9457 error handling), repo-structure module layout, axe-core accessibility CI. No architectural gap for the UI need.
+- **Epics → UI:** Phase 0's UI scope is a **foundation/shell** (Epic 0.2 Story 0.2.4 scaffolds `ctam-ui` with GOV.UK + auth + axe-core CI; Story 0.2.5 renders the role-scoped Home + activation banner). No domain screens in Phase 0.
 
 ### Warnings
 
@@ -194,11 +194,11 @@ None.
 
 ### 🟡 Minor Concerns
 
-1. **Story 0.1.1 is large.** It combines the `ram-reference-data` scaffold + the entire shared Azure estate Terraform (AKS, PostgreSQL, ACR, APIM, App Insights) + the `ram_configuration_values` baseline + TLS/data-at-rest/log-retention + CI/deploy (~10 AC blocks). Consider splitting shared-estate provisioning into its own story (e.g. 0.1.1 scaffold, 0.1.1b estate) so each fits a single dev-agent session. (Pre-existing sizing inherited from old Story 0.1.1.)
+1. **Story 0.1.1 is large.** It combines the `ctam-reference-data` scaffold + the entire shared Azure estate Terraform (AKS, PostgreSQL, ACR, APIM, App Insights) + the `ctam_configuration_values` baseline + TLS/data-at-rest/log-retention + CI/deploy (~10 AC blocks). Consider splitting shared-estate provisioning into its own story (e.g. 0.1.1 scaffold, 0.1.1b estate) so each fits a single dev-agent session. (Pre-existing sizing inherited from old Story 0.1.1.)
 
 2. **Epics 0.1 / 0.3 / 0.5 are enabling/foundational** (ingestion, read API, notification-contract) rather than end-user-feature epics. This is **acceptable and expected** for Phase 0 — the PRD frames Phase 0 as the platform smoke-test (Key Characteristic 4), and each epic ties to a demoable gate (data flows in; API serves both tiers; `POST /notifications/send` works via Postman). Noted, not a violation.
 
-3. **`ram_configuration_values` baseline ownership.** Story 0.1.1 has the `ram-architecture` Flyway baseline run "ahead of `ram-reference-data`". Confirm at sprint planning that the baseline migration is a discrete, owned step (it's cross-service infrastructure, not part of `ram-reference-data`'s own migrations).
+3. **`ctam_configuration_values` baseline ownership.** Story 0.1.1 has the `ctam-architecture` Flyway baseline run "ahead of `ctam-reference-data`". Confirm at sprint planning that the baseline migration is a discrete, owned step (it's cross-service infrastructure, not part of `ctam-reference-data`'s own migrations).
 
 ### Remediation Summary
 
@@ -232,7 +232,7 @@ The planning artifacts for the integrations-first Phase 0 (SSCS-cohort) are impl
 ### Recommended Next Steps
 
 1. **Proceed to `[SP]` `bmad-sprint-planning`** for Phase 0, leading with Epic 0.1 (ingestion). Bake the two conditions above into the sprint plan (sequencing decision + eLinks risk).
-2. **Optional pre-sprint polish:** split Story 0.1.1 (scaffold vs shared-estate Terraform) — Minor #1; and confirm the `ram_configuration_values` baseline is a discrete owned step — Minor #3.
+2. **Optional pre-sprint polish:** split Story 0.1.1 (scaffold vs shared-estate Terraform) — Minor #1; and confirm the `ctam_configuration_values` baseline is a discrete owned step — Minor #3.
 3. **Housekeeping:** delete the 4 superseded phase-0 stub files (pending from the restructure) for a clean epic folder.
 
 ### Final Note

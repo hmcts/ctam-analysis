@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Salaried sitting confirmation + verifier sign-off — RAM Pathfinder Documentation</title>
+<title>Salaried sitting confirmation + verifier sign-off — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -99,11 +99,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Ad-hoc sitting creation</strong> (FR39) — a small follow-up CRUD; same shape as Phase 2 with a different starting point.</li>
 <li><strong>Sittings → Payments handoff</strong> — Phase 2 of <a href="payment-batch-flow.html"><code>./payment-batch-flow.md</code></a> shows the batch reading confirmed bookings + sittings; not duplicated here.</li>
 <li><strong>Working-pattern generation of the planned sittings being confirmed</strong> — see <a href="joh-onboarding-and-sitting-generation.html"><code>./joh-onboarding-and-sitting-generation.md</code></a> Phase 3.</li>
-<li><strong>External Request-for-Change ticketing</strong> — does not exist in RAM Pathfinder (revised 2026-05-11). Post-verification amendment is a UI action gated by RBAC, with mandatory justification captured in-form and full audit. The legacy APEX "RFC" external workflow is retired.</li>
+<li><strong>External Request-for-Change ticketing</strong> — does not exist in CTAM Pathfinder (revised 2026-05-11). Post-verification amendment is a UI action gated by RBAC, with mandatory justification captured in-form and full audit. The legacy APEX "RFC" external workflow is retired.</li>
 </ul>
 </div></details><details class="section" id="cross-cutting-steps-omitted-for-clarity"><summary><span class="section-title">Cross-cutting steps omitted for clarity</span></summary><div class="section-body">
 <ul>
-<li><strong>Authentication + per-request authorisation</strong> — Court User's and Verifier's JWTs are validated by <code>ram-sitting</code>'s <code>JWTFilter</code> on every call; role gating (only authorised roles can confirm; only Verifiers can verify; a Verifier cannot also be the original confirmer per SIT-NFR-02). See <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a>.</li>
+<li><strong>Authentication + per-request authorisation</strong> — Court User's and Verifier's JWTs are validated by <code>ctam-sitting</code>'s <code>JWTFilter</code> on every call; role gating (only authorised roles can confirm; only Verifiers can verify; a Verifier cannot also be the original confirmer per SIT-NFR-02). See <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a>.</li>
 <li>All UI → service calls flow through Azure API Management.</li>
 </ul>
 <p><img src="salaried-sitting-confirmation.png" alt="Salaried sitting confirmation + verifier sign-off sequence" /></p>
@@ -122,7 +122,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>1 — List daily sittings awaiting confirmation</td>
 <td>Court User</td>
-<td>FR36 — filter by Region/Office/judge/date range; auth scope-gated by <code>ram-authorisation</code></td>
+<td>FR36 — filter by Region/Office/judge/date range; auth scope-gated by <code>ctam-authorisation</code></td>
 <td>UI shows the list of <code>planned</code> sittings for the user's scope</td>
 </tr>
 <tr>
@@ -155,7 +155,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><code>ram-sitting</code> repo purpose and key functions</td>
+<td><code>ctam-sitting</code> repo purpose and key functions</td>
 <td><a href="../repository-strategy.html"><code>../repository-strategy.md</code></a> Phase 5 row</td>
 </tr>
 <tr>
@@ -168,7 +168,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Sitting UI module structure</td>
-<td><a href="../repo-structure.html"><code>../repo-structure.md</code> → <code>ram-ui/src/modules/sitting/</code></a></td>
+<td><a href="../repo-structure.html"><code>../repo-structure.md</code> → <code>ctam-ui/src/modules/sitting/</code></a></td>
 </tr>
 <tr>
 <td>Payment-batch eligibility (the downstream consumer of confirmed sittings)</td>
