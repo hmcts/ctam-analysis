@@ -5,12 +5,12 @@ resource: 'architecture/tobe/gaps.html'
 tags: [ctam-pathfinder, architecture]
 timestamp: '2026-05-08'
 parent: ../architecture.md
-title: Documented Gaps (G1–G9)
-last_updated: 2026-05-08
+title: Documented Gaps (G1–G10)
+last_updated: 2026-08-14
 extracted_in: architecture.md v1.8 — Strategy B refactor
 ---
 
-# Documented Gaps (G1–G9)
+# Documented Gaps (G1–G10)
 
 > Sibling of [`../architecture.md`](../architecture.md). Linked from *Architecture Validation Results*.
 
@@ -111,6 +111,13 @@ Tracked in the PRD's open-items list. Restated here because they affect when the
 | Gap | Detail | Resolution path |
 |---|---|---|
 | **G9.1** | **Terraform state backend + plan/apply pipeline arrangement unconfirmed.** The 2026-06-11 decision mandates Terraform for all Azure provisioning; per decision #13 (2026-07-06) the shared estate lives in the dedicated `ctam-shared-infrastructure` repo (per-service resources per repo). To confirm with HMCTS: the state backend (Azure Storage backend per HMCTS convention vs Terraform Cloud), state isolation per environment stack, who runs plan/apply (GitHub Actions workflow per repo vs platform team), and approval gating for production applies. Cross-repo references (e.g. a service's Key Vault referencing the shared estate's AKS identity) need remote-state or data-source conventions agreed. | Phase 0 prerequisite — confirm HMCTS Terraform conventions before the Epic 0.0 estate apply; record the pattern in `ctam-architecture/runbooks/terraform.md`. |
+
+## G10 — Network & Edge Security Posture (new 2026-08-14)
+
+| Gap | Detail | Resolution path |
+|---|---|---|
+| **G10.1** | **DDoS Protection tier and WAF policy ownership unconfirmed.** Story 0.0.6 (Epic 0.0) attaches a WAF policy (OWASP CRS) to APIM and a DDoS Protection plan to the VNet, but the tier (Standard, paid, vs the Azure-default free Basic tier) and who owns/pays for the WAF policy (product team via Terraform in `ctam-shared-infrastructure` vs an HMCTS-central security-team-managed policy) are not yet confirmed with HMCTS. | Confirm with the HMCTS platform/security team before the Story 0.0.6 apply; record the agreed tier and ownership model in `ctam-architecture/runbooks/terraform.md` alongside G9.1. |
+| **G10.2** | **Cross-repo private-DNS-zone conventions unconfirmed.** Once PostgreSQL, Key Vault, and ACR sit behind private endpoints (Story 0.0.6), each service repo's own Terraform (AR53 — e.g. a service's own Key Vault namespace or future private-endpoint resources) may need to resolve the shared estate's private DNS zones. The remote-state or data-source pattern for this cross-repo reference is not yet agreed — the same class of problem as G9.1's cross-repo remote-state need for the shared AKS identity. | Agree the pattern alongside G9.1's Terraform state-backend conventions, before the first service (`ctam-reference-data`, Epic 0.2) needs to resolve a private DNS zone. |
 
 [^d1]: D1 — Phase 0 Foundations scope: Reference Data, Authorisation (SSO), Notification, API contracts, deployment platform, structured logging.
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.

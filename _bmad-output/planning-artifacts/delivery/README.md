@@ -57,8 +57,8 @@ shared state may run **in parallel**.
 
 The ledger is **sharded per epic** for conflict-free concurrent updates, and every epic and story carries a `status` and an `owner` so it is always visible who is driving what. Claim-before-you-start (set story `status: dispatched` + `owner` and push) is the coordination primitive. Full rules and the status vocab: [`ledger/README.md`](ledger/README.md).
 
-## Current state (2026-07-09)
+## Current state (2026-08-15)
 
-- **Phase 0 fully seeded:** 6 epics, 19 stories, all `not-started`, unassigned (`owner: null`).
+- **Phase 0 fully seeded:** 9 epics, 23 stories, all `not-started`, unassigned (`owner: null`).
 - **Phases 1–8 + post-MVP:** repo-level placeholders in `dispatch-graph.yaml` under `future:` (`decomposed: false`). Promote each to an epic node with a `stories:` list after running `bmad-create-epics-and-stories` for that phase, and add a new `ledger/epic-*.yaml` shard for it.
 - **Optional resolver** ("what's buildable now?") is intentionally deferred until dispatch begins.

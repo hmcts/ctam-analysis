@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-14 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-14">Sprint Change Proposal — 2026-08-14</h1>
+<details class="section" id="add-a-security-hardening-feature-to-epic-00-platform-estate"><summary><span class="section-title">Add a security-hardening feature to Epic 0.0 (platform estate)</span></summary><div class="section-body">
+</div></details><details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a direct request to add a security feature to Epic 0.0 (Platform estate is provisioned, verifiable, and CNP-compliant), raised via <code>bmad-correct-course</code> before any Epic 0.0 story has started (all 5 stories in <code>delivery/ledger/epic-0.0.yaml</code> are <code>status: not-started</code>).</p>
+<p><strong>Problem statement:</strong> Epic 0.0's five stories provision the shared Azure estate (AKS, PostgreSQL Flexible Server, Key Vault, ACR, App Insights/Log Analytics, APIM) and verify <strong>transport encryption</strong> (NFR10 — TLS-only), <strong>encryption at rest</strong> (NFR11), and <strong>secret management</strong> (NFR16). They do <strong>not</strong> verify any <strong>network-perimeter</strong> control: every data-plane resource (PostgreSQL, Key Vault, ACR) is reachable by public endpoint (protected only by auth/TLS, not network isolation), and APIM's own Story 0.0.5 scope is TLS termination + rate limiting only — no WAF, no DDoS protection.</p>
+<p><strong>Evidence (documented in the artifact set, gathered before drafting this proposal):</strong></p>
+<ul>
+<li><strong>NFR15 — Government Functional Standard 7 alignment</strong> (<code>prd.md</code>) commits CTAM Pathfinder to GovS7 Security, including "secure development practices" — but no epic 0.0 acceptance criterion currently operationalises a network-perimeter control, and NFR15 is not cited anywhere in epic 0.0.</li>
+<li><strong>Assumption A22</strong> (<code>architecture/assumptions.md</code>) — "HMCTS-approved security tooling is available and integrated at platform level" — exists but is not tied to any Epic 0.0 story or AC.</li>
+<li>No AR (architecture requirement), and no gap in <code>gaps.md</code>, currently addresses NSGs, private endpoints, WAF, or DDoS protection anywhere in the artifact set.</li>
+</ul>
+<p>This is a <strong>new requirement surfaced by review</strong>, not a failed approach or a misunderstanding of existing scope — it closes a gap between the stated NFR15/A22 intent and what Epic 0.0 actually verifies.</p>
+<p><strong>Scope confirmed with the user:</strong> two specific capabilities —</p>
+<ol type="1">
+<li><strong>Network isolation</strong> — NSGs on the AKS subnets; PostgreSQL, Key Vault, and ACR switched to private-endpoint-only access (public network access disabled).</li>
+<li><strong>WAF + DDoS protection at the APIM edge</strong> — an Azure-managed WAF policy (OWASP Core Rule Set) in front of APIM, plus a DDoS Protection plan on the VNet.</li>
+</ol>
+<p>IaC/container vulnerability scanning, Defender for Cloud, and a CIS/Azure Policy security baseline were considered and <strong>explicitly deferred</strong> (not part of this change) — see §4 alternatives considered.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<ul>
+<li><strong>Epic 0.0</strong> gains a 6th story, <strong>Story 0.0.6: Harden network perimeter and edge protections (dev)</strong>, sequenced after 0.0.2–0.0.5 (it hardens resources those stories provision). Epic 0.0's "vertical slice," "Key NFRs," and "Architecture requirements" summary lines gain NFR15 and a new AR54.</li>
+<li><strong>Story 0.0.5</strong>'s closing capstone AC ("all five layers … ready for <code>ctam-reference-data</code>") is superseded by an equivalent capstone AC moved to the new Story 0.0.6 ("all six layers").</li>
+<li><strong>No other Phase 0 epic is affected.</strong> Epics 0.1–0.5 consume the estate as a black box; none of their acceptance criteria assume public reachability of PostgreSQL/Key Vault/ACR, so none require rewording. (Worth flagging for the Developer agent building <code>ctam-reference-data</code>/<code>ctam-authorisation</code> etc.: connection strings must resolve via the private DNS zone, not a public FQDN — this is an implementation detail of consuming the estate, not a scope change to those epics.)</li>
+<li><strong>No epic becomes obsolete; no resequencing needed.</strong></li>
+</ul>
+<h3 id="artifact-conflicts--updates-required">Artifact conflicts / updates required</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.0-platform-estate-provisioned.md</code></td>
+<td>Add Story 0.0.6 (full AC set below); <code>storyCount</code> 5→6; epic summary lines gain NFR15, AR54, gaps.md G10; Story 0.0.5 capstone AC trimmed, moved/restated in 0.0.6</td>
+</tr>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td>New <strong>AR54</strong> under a new "Network &amp; edge security posture" heading</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td>New <strong>G10 — Network &amp; Edge Security Posture</strong> section (G10.1, G10.2); title/frontmatter <code>G1–G9</code> → <code>G1–G10</code></td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#14</strong> appended to the "Architecture-phase decisions" table (existing rows #1–13 untouched, per changelog convention)</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.2</strong> entry (existing entries untouched — immutable history)</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.0.yaml</code></td>
+<td>New story entry <code>0.0.6</code>, <code>status: not-started</code>, <code>owner: null</code></td>
+</tr>
+<tr>
+<td><code>delivery/dispatch-graph.yaml</code></td>
+<td><code>epic-0.0.stories</code> gains <code>0.0.6</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Story-count propagation: epic table row, epic summary heading/FRs line, epic-stories-summary table row, Total row (19→20 stories)</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 row: "19 stories" → "20 stories"</td>
+</tr>
+<tr>
+<td><code>delivery/README.md</code></td>
+<td>"Current state" line: "19 stories" → "20 stories"; date bumped</td>
+</tr>
+<tr>
+<td><code>docs/*.html</code></td>
+<td>Regenerated via <code>scripts/build-html.sh</code> (never hand-edited)</td>
+</tr>
+</tbody>
+</table>
+<p>No PRD conflict: NFR15 already exists and covers this; no new NFR is needed, no MVP-scope change, no FR added. No UX/UI impact (backend/infra only). No conflict with <code>conventions.md</code>, <code>data-tables.md</code>, <code>repo-structure.md</code>, or <code>repository-strategy.md</code> (Terraform module still lives in <code>ctam-shared-infrastructure</code> per AR53; no repo/table/API changes).</p>
+<h3 id="technical-impact">Technical impact</h3>
+<ul>
+<li>Purely additive Terraform in <code>ctam-shared-infrastructure</code> (not yet scaffolded — Story 0.0.1). No code exists anywhere in the polyrepo yet, so there is <strong>zero migration or rework cost</strong>.</li>
+<li>Two open questions are recorded as gaps rather than blocking the story (pattern precedented by G9.1 for the Terraform state backend):
+<ul>
+<li><strong>G10.1</strong> — DDoS Protection plan tier (Standard vs the Azure-default free Basic tier) and WAF policy ownership/cost sign-off are HMCTS platform-team decisions, not yet confirmed.</li>
+<li><strong>G10.2</strong> — cross-repo private-DNS-zone resolution: once PostgreSQL/Key Vault/ACR sit behind private endpoints, each service repo's own Terraform (AR53) needs a remote-state or data-source convention to resolve the shared estate's private DNS zones — same class of problem as G9.1's cross-repo remote-state need, not yet agreed.</li>
+</ul></li>
+</ul>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Selected: Option 1 — Direct Adjustment</strong> (add a new story within the existing Epic 0.0 structure).</p>
+<p><strong>Rationale:</strong></p>
+<ul>
+<li>All five existing Epic 0.0 stories are <code>not-started</code> — there is nothing to roll back (Option 2 is moot) and no completed work to protect.</li>
+<li>The PRD's MVP and NFR set already anticipate this (NFR15, A22) — no MVP scope reduction or redefinition is needed (Option 3 is moot).</li>
+<li>The change is additive and layer-scoped, consistent with the epic's own "layer-by-layer, independently verifiable" design principle — adding a 6th verifiable layer is a smaller, lower-risk edit than reopening the ACs of Stories 0.0.2–0.0.5.</li>
+</ul>
+<p><strong>Effort:</strong> Low (documentation-only at this stage; the Terraform module itself is a normal-sized addition when Story 0.0.1 work begins — no different in kind from Stories 0.0.2–0.0.5). <strong>Risk:</strong> Low (no code impact; two open sub-questions tracked as gaps, not blockers, following the existing G9.1 precedent). <strong>Timeline impact:</strong> None — Epic 0.0 is not yet dispatched.</p>
+</div></details><details class="section" id="4-alternatives-considered-and-deferred-not-adopted-here"><summary><span class="section-title">4. Alternatives considered (and deferred, not adopted here)</span></summary><div class="section-body">
+<ul>
+<li><strong>IaC/container vulnerability scanning</strong> (tfsec/checkov, Defender for Containers) — valuable, but a CI/tooling concern orthogonal to the Terraform-provisioned estate; better scoped to a future change against <code>conventions.md</code>'s CI-gates list.</li>
+<li><strong>Azure Policy / CIS baseline + Defender for Cloud</strong> — broader platform-governance decision likely owned by HMCTS centrally (per A22); revisit once HMCTS's platform-level security tooling stance is confirmed (ties to G10.1).</li>
+</ul>
+<p>Both remain candidates for a future Sprint Change Proposal if the user wants to pursue them; they are intentionally out of scope here.</p>
+</div></details><details class="section" id="5-detailed-change-proposals"><summary><span class="section-title">5. Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="51-new-story-006-added-to-epic-00-platform-estate-provisionedmd-after-story-005">5.1 New Story 0.0.6 (added to <code>epic-0.0-platform-estate-provisioned.md</code>, after Story 0.0.5)</h3>
+<blockquote>
+</div></details><details class="section" id="story-006-harden-network-perimeter-and-edge-protections-dev-verifiable-via-isolation-and-wafddos-smoke-tests"><summary><span class="section-title">Story 0.0.6: Harden network perimeter and edge protections (dev), verifiable via isolation and WAF/DDoS smoke tests</span></summary><div class="section-body">
+<p>As a <strong>platform engineer</strong>, I want NSGs and private endpoints applied to the shared estate's data-plane resources, and a WAF + DDoS Protection policy applied at the APIM edge, provisioned via Terraform, So that <strong>the shared estate is unreachable from the public internet except through the hardened APIM gateway, and the gateway itself resists common web attacks and volumetric floods, before any service traffic flows through it</strong>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> Stories 0.0.2–0.0.5 have provisioned AKS, PostgreSQL, Key Vault, ACR, and APIM<br/><strong>When</strong> the engineer adds the network-hardening module and runs <code>terraform apply</code> for the dev stack<br/><strong>Then</strong> Network Security Groups are attached to every AKS subnet, permitting only the documented traffic patterns (cluster-internal + APIM ingress; all other inbound denied by default)<br/><strong>And</strong> PostgreSQL Flexible Server, Key Vault, and ACR have public network access <strong>disabled</strong> and are reachable only via <strong>private endpoint</strong> inside the VNet<br/><strong>And</strong> private DNS zones resolve each resource's private endpoint for in-cluster consumers<br/><strong>And</strong> an Azure <strong>DDoS Protection</strong> plan is attached to the VNet (tier per gaps.md G10.1)<br/><strong>And</strong> a <strong>WAF policy</strong> (Azure-managed OWASP Core Rule Set, Prevention mode) is attached in front of APIM.</p>
+<p><strong>Given</strong> the network-hardening module is applied<br/><strong>When</strong> the engineer attempts to reach PostgreSQL, Key Vault, or ACR directly from outside the VNet<br/><strong>Then</strong> the connection is refused/times out — no public endpoint is reachable (verified from outside the cluster)<br/><strong>And</strong> a WAF-triggering request (an OWASP CRS test payload) sent through APIM is blocked (<code>403</code>) before reaching any backend<br/><strong>And</strong> the Story 0.0.5 smoke-API call still succeeds through APIM (the WAF does not false-positive the baseline path)<br/><strong>And</strong> these checks are captured as documented post-apply verification steps.</p>
+<p><strong>Given</strong> all six layers are applied<br/><strong>When</strong> the engineer reviews the dev estate<br/><strong>Then</strong> the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM), each independently verified <strong>and network-hardened</strong>, exists in UK South<br/><strong>And</strong> the estate is ready for <code>ctam-reference-data</code> to scaffold and deploy onto (Epic 0.1, Story 0.1.1).</p>
+<p><strong>References:</strong> AR54 (new); NFR15; NFR10, NFR31; gaps.md G10.</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>IaC/container vulnerability scanning, Defender for Cloud, Azure Policy/CIS baseline — deferred, see §4</li>
+<li>Per-service Kubernetes <code>NetworkPolicy</code> — each service repo's own concern</li>
+<li>Per-service APIM policy additions beyond the shared base WAF/rate-limit policy (AR53)</li>
+</ul>
+</blockquote>
+<p><em>(Story 0.0.5's existing final AC block — "Given all five layers are applied… ready for <code>ctam-reference-data</code>" — is removed from Story 0.0.5 and superseded by the equivalent six-layer AC above in Story 0.0.6.)</em></p>
+<h3 id="52-new-ar54-added-to-epicsrequirements-inventorymd-after-ar53-new-heading">5.2 New AR54 (added to <code>epics/requirements-inventory.md</code>, after AR53, new heading)</h3>
+<blockquote>
+<h3 id="network--edge-security-posture-new-2026-08-14">Network &amp; edge security posture (new 2026-08-14)</h3>
+<ul>
+<li>AR54 — <strong>NSGs + private endpoints for the shared estate's data plane; WAF + DDoS Protection at the APIM edge.</strong> PostgreSQL Flexible Server, Key Vault, and ACR (provisioned in <code>ctam-shared-infrastructure</code>, Epic 0.0) disable public network access and are reachable only via private endpoint from inside the VNet; AKS subnets carry NSGs restricting inbound traffic to cluster-internal + APIM ingress. APIM carries an Azure-managed WAF policy (OWASP CRS, Prevention mode) and the VNet carries a DDoS Protection plan (tier per gaps.md G10.1). Provisioned in the new <strong>Story 0.0.6</strong>, after Stories 0.0.2–0.0.5. Satisfies <strong>NFR15</strong> (GovS7 alignment) at the network-perimeter layer; complements NFR10 (transport encryption) and NFR31 (UK South residency). Cross-repo private-DNS-zone resolution for services consuming these resources is tracked as gaps.md <strong>G10.2</strong>.</li>
+</ul>
+</blockquote>
+<h3 id="53-new-gap-section-g10-added-to-architecturegapsmd-after-g9">5.3 New gap section G10 (added to <code>architecture/gaps.md</code>, after G9)</h3>
+<blockquote>
+</div></details><details class="section" id="g10--network--edge-security-posture-new-2026-08-14"><summary><span class="section-title">G10 — Network &amp; Edge Security Posture (new 2026-08-14)</span></summary><div class="section-body">
+<table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Detail</th>
+<th>Resolution path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>G10.1</strong></td>
+<td><strong>DDoS Protection tier and WAF policy ownership unconfirmed.</strong> Story 0.0.6 (Epic 0.0) attaches a WAF policy (OWASP CRS) to APIM and a DDoS Protection plan to the VNet, but the tier (Standard, paid, vs the Azure-default free Basic tier) and who owns/pays for the WAF policy (product team via Terraform in <code>ctam-shared-infrastructure</code> vs an HMCTS-central security-team-managed policy) are not yet confirmed with HMCTS.</td>
+<td>Confirm with the HMCTS platform/security team before the Story 0.0.6 apply; record the agreed tier and ownership model in <code>ctam-architecture/runbooks/terraform.md</code> alongside G9.1.</td>
+</tr>
+<tr>
+<td><strong>G10.2</strong></td>
+<td><strong>Cross-repo private-DNS-zone conventions unconfirmed.</strong> Once PostgreSQL, Key Vault, and ACR sit behind private endpoints (Story 0.0.6), each service repo's own Terraform (AR53 — e.g. a service's own Key Vault namespace or future private-endpoint resources) may need to resolve the shared estate's private DNS zones. The remote-state or data-source pattern for this cross-repo reference is not yet agreed — the same class of problem as G9.1's cross-repo remote-state need for the shared AKS identity.</td>
+<td>Agree the pattern alongside G9.1's Terraform state-backend conventions, before the first service (<code>ctam-reference-data</code>, Epic 0.1) needs to resolve a private DNS zone.</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</div></details><details class="section" id="6-prd-mvp-impact"><summary><span class="section-title">6. PRD MVP Impact</span></summary><div class="section-body">
+<p><strong>MVP is unaffected.</strong> No FR is added, removed, or reworded. NFR15 already exists in the PRD and already anticipated this class of control; no new NFR is required. No change to Success Criteria, Scope, or Phase mapping.</p>
+<p><strong>High-level action plan:</strong></p>
+<ol type="1">
+<li>Apply the documentation edits in §5 (this proposal) — epic file, requirements inventory, gaps, changelog, architecture decision log, ledger, dispatch graph, index/count propagation.</li>
+<li>Regenerate <code>docs/</code> via <code>scripts/build-html.sh</code>.</li>
+<li>No dispatch action needed yet — Epic 0.0 (including the new Story 0.0.6) remains <code>not-started</code> in the ledger until the team is ready to begin Phase 0 implementation.</li>
+</ol>
+</div></details><details class="section" id="7-implementation-handoff"><summary><span class="section-title">7. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Change scope classification: Minor</strong> — this is a planning-artifact addition to an epic where no story has started; no backlog reorganisation, resequencing, or PM/Architect strategic replan is needed.</p>
+<p><strong>Handoff:</strong></p>
+<ul>
+<li><strong>This session (control-plane edits):</strong> apply all §5 documentation changes directly (this repo holds no runtime code — see CLAUDE.md), then rebuild <code>docs/</code>.</li>
+<li><strong>Developer agent, when Story 0.0.1 is dispatched:</strong> implement the Terraform foundation as normal; Story 0.0.6's module depends on 0.0.2–0.0.5 landing first, per its own acceptance criteria.</li>
+<li><strong>HMCTS platform/security team:</strong> resolve G10.1 (DDoS tier + WAF ownership) before the Story 0.0.6 <code>terraform apply</code>; resolve G10.2 alongside G9.1 before the first service repo needs a private-DNS-zone reference.</li>
+</ul>
+<p><strong>Success criteria:</strong> Story 0.0.6 lands in the epic file, ledger, and dispatch graph consistently with Stories 0.0.1–0.0.5's existing pattern; all story-count references across <code>epics/index.md</code>, <code>epics/phase-0/index.md</code>, and <code>delivery/README.md</code> agree (20 stories, 6 epics); <code>docs/</code> regenerates cleanly.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-14.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#add-a-security-hardening-feature-to-epic-00-platform-estate">Add a security-hardening feature to Epic 0.0 (platform estate)</a></li><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#artifact-conflicts--updates-required">Artifact conflicts / updates required</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-alternatives-considered-and-deferred-not-adopted-here">4. Alternatives considered (and deferred, not adopted here)</a></li><li><a href="#5-detailed-change-proposals">5. Detailed Change Proposals</a></li><li class="h3"><a href="#51-new-story-006-added-to-epic-00-platform-estate-provisionedmd-after-story-005">5.1 New Story 0.0.6 (added to epic-0.0-platform-estate-provisioned.md, after Story 0.0.5)</a></li><li><a href="#story-006-harden-network-perimeter-and-edge-protections-dev-verifiable-via-isolation-and-wafddos-smoke-tests">Story 0.0.6: Harden network perimeter and edge protections (dev), verifiable via isolation and WAF/DDoS smoke tests</a></li><li class="h3"><a href="#52-new-ar54-added-to-epicsrequirements-inventorymd-after-ar53-new-heading">5.2 New AR54 (added to epics/requirements-inventory.md, after AR53, new heading)</a></li><li class="h3"><a href="#network--edge-security-posture-new-2026-08-14">Network &amp; edge security posture (new 2026-08-14)</a></li><li class="h3"><a href="#53-new-gap-section-g10-added-to-architecturegapsmd-after-g9">5.3 New gap section G10 (added to architecture/gaps.md, after G9)</a></li><li><a href="#g10--network--edge-security-posture-new-2026-08-14">G10 — Network &amp; Edge Security Posture (new 2026-08-14)</a></li><li><a href="#6-prd-mvp-impact">6. PRD MVP Impact</a></li><li><a href="#7-implementation-handoff">7. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-14";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

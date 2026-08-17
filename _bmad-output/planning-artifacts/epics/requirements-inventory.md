@@ -282,11 +282,15 @@ sourceDocuments:
 - AR53 — **(revised 2026-07-06)** **All Azure infrastructure is provisioned via Terraform** (HMCTS standard) — no Bicep, no portal click-ops. **Product-level *shared* infrastructure lives in its own dedicated repository, `ctam-shared-infrastructure`**, per the HMCTS Cloud Native Platform `{product}-shared-infrastructure` standard. This **supersedes the prior "colocated first-consumer" rule** (SCP 2026-06-17): the shared estate is no longer carried inside `ctam-reference-data`. Allocation under the revised rule:
   - **`ctam-shared-infrastructure`** carries the **shared estate**: AKS cluster + node pools, PostgreSQL Flexible Server, Azure Container Registry, APIM instance + base policies, Application Insights / Log Analytics workspace (incl. retention settings), Key Vault — provisioned and **independently verified in Epic 0.0**, ahead of any service.
   - **Each service repo** carries Terraform for its **own resources only**: its Key Vault namespace/secrets, service-specific storage, APIM per-API policy additions.
-  - **`ctam-reference-data`** carries the MRD feed storage account + blob container (Epic 0.1 Story 0.1.4 — its own resource).
+  - **`ctam-reference-data`** carries the MRD feed storage account + blob container (Epic 0.3 Story 0.3.1 — its own resource).
   - **`ctam-ui`** carries its Azure Static Web App.
   - Terraform lives under `terraform/` with per-environment stacks (`dev` / `staging` / `production`) in **`ctam-shared-infrastructure`** (shared estate) and in each service repo (own resources); `ctam-scaffold.sh` adds the per-service `terraform/` skeleton alongside the Helm chart (same pattern as G1.4a).
   - **Helm remains the application-deployment mechanism** onto the shared AKS cluster provisioned in Epic 0.0 — Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema. The three do not overlap.
   - Terraform state backend and plan/apply pipeline arrangement are HMCTS-side details to confirm — gaps.md G9.
+
+### Network & edge security posture (new 2026-08-14)
+
+- AR54 — **NSGs + private endpoints for the shared estate's data plane; WAF + DDoS Protection at the APIM edge.** PostgreSQL Flexible Server, Key Vault, and ACR (provisioned in `ctam-shared-infrastructure`, Epic 0.0) disable public network access and are reachable only via private endpoint from inside the VNet; AKS subnets carry NSGs restricting inbound traffic to cluster-internal + APIM ingress. APIM carries an Azure-managed WAF policy (OWASP CRS, Prevention mode) and the VNet carries a DDoS Protection plan (tier per gaps.md G10.1). Provisioned in **Story 0.0.6**, after Stories 0.0.2–0.0.5. Satisfies **NFR15** (GovS7 alignment) at the network-perimeter layer; complements NFR10 (transport encryption) and NFR31 (UK South residency). Cross-repo private-DNS-zone resolution for services consuming these resources is tracked as gaps.md **G10.2**.
 
 ### Identity bootstrap + verification
 

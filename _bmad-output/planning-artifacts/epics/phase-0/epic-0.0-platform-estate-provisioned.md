@@ -7,7 +7,7 @@ timestamp: '2026-07-06'
 parent: 'epics/phase-0/index.md'
 epic: 0.0
 title: 'Platform estate is provisioned, verifiable, and CNP-compliant'
-storyCount: 5
+storyCount: 6
 ---
 
 # Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant
@@ -21,14 +21,14 @@ storyCount: 5
 **Vertical slice:**
 - **New dedicated repo `ctam-shared-infrastructure`** (CNP naming), scaffolded per the manual GitHub web-UI setup runbook (`ctam-architecture/runbooks/github-setup.md` — the `gh` CLI is not available)
 - **Terraform-only** provisioning (no Bicep, no portal click-ops), remote state backend, per-environment stacks (`dev` / `staging` / `production`)
-- Shared estate: **AKS** (UK South, multi-AZ) → **PostgreSQL Flexible Server** (zone-redundant HA) + **Key Vault** → **ACR** + **App Insights / Log Analytics** → **APIM**
+- Shared estate: **AKS** (UK South, multi-AZ) → **PostgreSQL Flexible Server** (zone-redundant HA) + **Key Vault** → **ACR** + **App Insights / Log Analytics** → **APIM** → **network perimeter hardening** (NSGs, private endpoints, WAF, DDoS protection)
 - Each layer carries its own **deploy-time acceptance test** so infrastructure is verified as it lands, not assumed
 
 **FRs covered:** none — this is foundational platform infrastructure with no functional-requirement surface. It is the enablement layer for every Phase 0 FR.
 
-**Key NFRs first exercised here:** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR16 (Key Vault), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness plumbing), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes — the cluster it deploys to).
+**Key NFRs first exercised here:** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR15 (GovS7 alignment — network-perimeter controls, Story 0.0.6), NFR16 (Key Vault), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness plumbing), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes — the cluster it deploys to).
 
-**Architecture requirements:** **AR53 (revised — dedicated `ctam-shared-infrastructure` per CNP)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern).
+**Architecture requirements:** **AR53 (revised — dedicated `ctam-shared-infrastructure` per CNP)**; **AR54 (new — network isolation + edge protections, Story 0.0.6)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern), gaps.md G10 (network/edge security posture — new).
 
 **Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — Epic 0.1, Story 0.1.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+); the `ctam_configuration_values` Liquibase baseline (owned by `ctam-architecture`, lands ahead of Epic 0.1).
 
@@ -177,15 +177,49 @@ So that **the shared public gateway is proven to terminate TLS and route to the 
 **And** an unauthenticated call to a policy-protected route is rejected,
 **And** these checks are captured as documented post-apply verification steps.
 
-**Given** all five layers are applied,
-**When** the engineer reviews the dev estate,
-**Then** the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM) exists in UK South, each layer independently verified,
-**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (Epic 0.1, Story 0.1.1).
-
 **References:** AR53 (revised); NFR10, NFR31; A34; gaps.md G9.
 
 **Explicitly NOT in scope:**
 - Per-service API registration in APIM (each service publishes its own OpenAPI-backed API)
+- Network isolation (NSGs, private endpoints), WAF, and DDoS protection — Story 0.0.6
+- Any domain service — Epic 0.1 onward
+
+---
+
+## Story 0.0.6: Harden network perimeter and edge protections (dev), verifiable via isolation and WAF/DDoS smoke tests
+
+As a **platform engineer**,
+I want NSGs and private endpoints applied to the shared estate's data-plane resources, and a WAF + DDoS Protection policy applied at the APIM edge, provisioned via Terraform,
+So that **the shared estate is unreachable from the public internet except through the hardened APIM gateway, and the gateway itself resists common web attacks and volumetric floods, before any service traffic flows through it**.
+
+**Acceptance Criteria:**
+
+**Given** Stories 0.0.2–0.0.5 have provisioned AKS, PostgreSQL, Key Vault, ACR, and APIM,
+**When** the engineer adds the network-hardening module and runs `terraform apply` for the dev stack,
+**Then** Network Security Groups are attached to every AKS subnet, permitting only the documented traffic patterns (cluster-internal + APIM ingress; all other inbound denied by default),
+**And** PostgreSQL Flexible Server, Key Vault, and ACR have public network access **disabled** and are reachable only via **private endpoint** inside the VNet,
+**And** private DNS zones resolve each resource's private endpoint for in-cluster consumers,
+**And** an Azure **DDoS Protection** plan is attached to the VNet (tier per gaps.md G10.1),
+**And** a **WAF policy** (Azure-managed OWASP Core Rule Set, Prevention mode) is attached in front of APIM.
+
+**Given** the network-hardening module is applied,
+**When** the engineer attempts to reach PostgreSQL, Key Vault, or ACR directly from outside the VNet,
+**Then** the connection is refused/times out — no public endpoint is reachable (verified from outside the cluster),
+**And** a WAF-triggering request (an OWASP CRS test payload) sent through APIM is blocked (`403`) before reaching any backend,
+**And** the Story 0.0.5 smoke-API call still succeeds through APIM (the WAF does not false-positive the baseline path),
+**And** these checks are captured as documented post-apply verification steps.
+
+**Given** all six layers are applied,
+**When** the engineer reviews the dev estate,
+**Then** the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM), each independently verified **and network-hardened**, exists in UK South,
+**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (Epic 0.1, Story 0.1.1).
+
+**References:** AR54 (new); NFR15; NFR10, NFR31; gaps.md G10.
+
+**Explicitly NOT in scope:**
+- IaC/container vulnerability scanning, Defender for Cloud, Azure Policy/CIS baseline — deferred (see the 2026-08-14 Sprint Change Proposal, §4 alternatives considered)
+- Per-service Kubernetes `NetworkPolicy` — each service repo's own concern
+- Per-service APIM policy additions beyond the shared base WAF/rate-limit policy (AR53)
 - Any domain service — Epic 0.1 onward
 
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.

@@ -6,8 +6,9 @@
 # Granularity: EPIC-LEVEL. Nodes are epics (they roll up to the story-level
 # ledger shards, ledger/epic-*.yaml). Epic-level is required for Phase 0 because a single repo appears
 # in more than one epic at different points in the order (e.g. ctam-reference-data
-# in epic-0.1 then again in epic-0.3 after auth; ctam-architecture publishes the
-# bus early but runs the bootstrap epic 0.4 late).
+# in epic-0.2 (JOH) then again in epic-0.3 (MRD), epic-0.5 (JOH+tier-b read API),
+# and epic-0.6 (MRD read API) after auth; ctam-architecture publishes the bus
+# early but runs the bootstrap epic 0.7 late).
 #
 # Buildable-now rule: an epic is dispatchable iff every epic in its `depends_on`
 # has status `done` in its ledger shard (ledger/epic-*.yaml). Epics with disjoint dependency sets and no
@@ -28,7 +29,7 @@ epics:
     phase: 0
     depends_on: []                       # nothing precedes the estate
     decomposed: true
-    stories: [0.0.1, 0.0.2, 0.0.3, 0.0.4, 0.0.5]
+    stories: [0.0.1, 0.0.2, 0.0.3, 0.0.4, 0.0.5, 0.0.6]
 
   arch-baseline:
     title: Context-bus publish + shared Liquibase baseline (ctam_configuration_values)
@@ -39,48 +40,72 @@ epics:
     note: >
       Publish ctam-architecture and tag arch-v1.0 (the bus). Establish the shared
       ctam_configuration_values Liquibase baseline, SELECT-granted to every service
-      role, ahead of the first domain service (epic-0.1). FR8.
+      role, ahead of the first domain service (epic-0.2). FR8.
     stories: []
 
   epic-0.1:
-    title: Upstream JOH/MRD reference data is ingested
-    repo: ctam-reference-data
+    title: Shared PostgreSQL schema design is established and CI-enforced
+    repo: ctam-analysis
     phase: 0
-    depends_on: [epic-0.0, arch-baseline]
+    depends_on: [epic-0.0, arch-baseline] # needs the estate; sequenced alongside the config-values baseline
     decomposed: true
-    stories: [0.1.1, 0.1.2, 0.1.3, 0.1.4]
+    stories: [0.1.1, 0.1.2]
 
   epic-0.2:
+    title: Upstream JOH reference data is ingested
+    repo: ctam-reference-data
+    phase: 0
+    depends_on: [epic-0.0, arch-baseline, epic-0.1]   # needs the estate + config baseline + schema design
+    decomposed: true
+    stories: [0.2.1, 0.2.2, 0.2.3]
+
+  epic-0.3:
+    title: Upstream MRD reference data is ingested
+    repo: ctam-reference-data
+    phase: 0
+    depends_on: [epic-0.1, epic-0.2]      # schema design + JOH's scaffolded repo/ctam_sync_status
+    decomposed: true
+    stories: [0.3.1]
+
+  epic-0.4:
     title: User authenticates and lands on a role-scoped Home page
     repo: [ctam-authorisation, ctam-mock-auth, ctam-ui]
     phase: 0
-    depends_on: [epic-0.0, epic-0.1]     # needs jo_people (0.1.3) + the estate
+    depends_on: [epic-0.0, epic-0.1, epic-0.2]   # needs jo_people (0.2.3) + schema design + the estate
     decomposed: true
-    stories: [0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.2.5]
+    stories: [0.4.1, 0.4.2, 0.4.3, 0.4.4, 0.4.5]
 
-  epic-0.3:
-    title: Reference data served read-only via a versioned, jurisdiction-filtered API
+  epic-0.5:
+    title: JOH and tier-(b) reference data served read-only via a versioned, jurisdiction-filtered API
     repo: ctam-reference-data
     phase: 0
-    depends_on: [epic-0.1, epic-0.2]     # read API is downstream of auth (JWTFilter + authz/check, D8)
+    depends_on: [epic-0.1, epic-0.2, epic-0.4]   # schema design + JOH tier-a data + downstream of auth (JWTFilter + authz/check, D8)
     decomposed: true
-    stories: [0.3.1, 0.3.2]
+    stories: [0.5.1, 0.5.2]
 
-  epic-0.4:
+  epic-0.6:
+    title: MRD reference data served read-only via a versioned, jurisdiction-filtered API
+    repo: ctam-reference-data
+    phase: 0
+    depends_on: [epic-0.1, epic-0.3, epic-0.4]   # schema design + MRD tier-a data + downstream of auth (JWTFilter + authz/check, D8)
+    decomposed: true
+    stories: [0.6.1]
+
+  epic-0.7:
     title: Both user populations are bootstrapped and verifiable against the IdP
     repo: ctam-architecture
     phase: 0
-    depends_on: [epic-0.1, epic-0.2]     # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster
+    depends_on: [epic-0.1, epic-0.2, epic-0.4]   # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster + schema design
     decomposed: true
-    stories: [0.4.1]
+    stories: [0.7.1]
 
-  epic-0.5:
+  epic-0.8:
     title: Notification service is scaffolded and contractually ready
     repo: ctam-notification
     phase: 0
-    depends_on: [epic-0.0]               # only needs the estate — parallelisable with 0.1/0.2
+    depends_on: [epic-0.0, epic-0.1]      # only needs the estate + schema design — parallelisable with 0.2/0.3/0.4/0.5/0.6
     decomposed: true
-    stories: [0.5.1, 0.5.2]
+    stories: [0.8.1, 0.8.2]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PHASES 1–8 + post-MVP — repo-level placeholders (NOT yet decomposed into
@@ -91,12 +116,12 @@ future:
   phase-1-joh:
     repo: ctam-joh
     phase: 1
-    depends_on: [epic-0.2, epic-0.3]
+    depends_on: [epic-0.4, epic-0.5, epic-0.6]   # profiles compose tier-a JOH + tier-b + MRD Specialisations
     decomposed: false
   phase-2-absence:
     repo: ctam-absence
     phase: 2
-    depends_on: [phase-1-joh, epic-0.5]
+    depends_on: [phase-1-joh, epic-0.8]
     decomposed: false
   phase-3-vacancy:
     repo: ctam-vacancy
@@ -116,7 +141,7 @@ future:
   phase-6-payment:
     repo: [ctam-payment, ctam-payment-batch]
     phase: 6
-    depends_on: [phase-4-booking, phase-5-sitting, epic-0.5]
+    depends_on: [phase-4-booking, phase-5-sitting, epic-0.8]
     decomposed: false
   phase-7-itinerary:
     repo: ctam-itinerary
@@ -131,5 +156,5 @@ future:
   post-mvp-admin-ui:
     repo: ctam-admin-ui
     phase: post-mvp
-    depends_on: [epic-0.2, epic-0.3]
+    depends_on: [epic-0.4, epic-0.5, epic-0.6]
     decomposed: false

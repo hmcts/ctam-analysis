@@ -253,14 +253,17 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Phase × Area framework", "epics/framework", False),
         ("FR coverage map", "epics/fr-coverage-map", False),
     ]),
-    ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0.0 added 2026-07-06)", [
+    ("Implementation — Phase 0 (platform-then-design-then-integrations-first; renumbered 2026-08-15)", [
         ("Phase 0 overview", "epics/phase-0/index", False),
-        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
-        ("Epic 0.1 — Upstream JOH/MRD reference data is ingested (4 stories)", "epics/phase-0/epic-0.1-upstream-reference-data-ingested", False),
-        ("Epic 0.2 — User authenticates (5 stories)", "epics/phase-0/epic-0.2-user-authenticates", False),
-        ("Epic 0.3 — Reference data read-only API (2 stories)", "epics/phase-0/epic-0.3-reference-data-read-only-api", False),
-        ("Epic 0.4 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.4-user-populations-bootstrapped", False),
-        ("Epic 0.5 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.5-system-dispatches-emails", False),
+        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (6 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
+        ("Epic 0.1 — Shared PostgreSQL schema design (2 stories)", "epics/phase-0/epic-0.1-postgres-schema-design", False),
+        ("Epic 0.2 — Upstream JOH reference data is ingested (3 stories)", "epics/phase-0/epic-0.2-joh-reference-data-ingested", False),
+        ("Epic 0.3 — Upstream MRD reference data is ingested (1 story)", "epics/phase-0/epic-0.3-mrd-reference-data-ingested", False),
+        ("Epic 0.4 — User authenticates (5 stories)", "epics/phase-0/epic-0.4-user-authenticates", False),
+        ("Epic 0.5 — JOH + tier-(b) read-only API (2 stories)", "epics/phase-0/epic-0.5-reference-data-read-only-api", False),
+        ("Epic 0.6 — MRD read-only API (1 story)", "epics/phase-0/epic-0.6-mrd-reference-data-read-only-api", False),
+        ("Epic 0.7 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.7-user-populations-bootstrapped", False),
+        ("Epic 0.8 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.8-system-dispatches-emails", False),
     ]),
 ]
 

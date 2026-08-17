@@ -46,3 +46,11 @@ stories:
     status: not-started
     owner: null
     pr: null
+  - story: 0.0.6
+    repo: ctam-shared-infrastructure
+    title: Harden network perimeter and edge protections (dev), verifiable via isolation and WAF/DDoS smoke tests
+    frs: [NFR15, NFR10, NFR31]
+    bus_version: arch-v1.0
+    status: not-started
+    owner: null
+    pr: null

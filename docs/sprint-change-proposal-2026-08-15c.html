@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-15c — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-15c">Sprint Change Proposal — 2026-08-15c</h1>
+<details class="section" id="split-epic-05-reference-data-read-only-api-into-a-johtier-b-api-and-an-mrd-api"><summary><span class="section-title">Split Epic 0.5 (Reference Data read-only API) into a JOH+tier-(b) API and an MRD API</span></summary><div class="section-body">
+</div></details><details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a direct request to split Epic 0.5 ("Reference data is served read-only via a versioned, jurisdiction-filtered API") into two APIs — one serving JOH data reads, one serving MRD data reads — mirroring the ingestion split already applied to the former Epic 0.1 (decision #15, SCP 2026-08-15b).</p>
+<p><strong>Problem statement:</strong> Epic 0.5 bundled the read-only REST API for <strong>two upstream ownership boundaries</strong> (JOH tier-(a), MRD tier-(a)) plus tier-(b) CTAM-owned data under one epic and one story (0.5.2). This mirrored the pre-split ingestion epic's problem: the API surface didn't visibly reflect that JOH and MRD are separate upstream sources with separate contracts. A closer read also surfaced a <strong>pre-existing gap</strong>: Story 0.5.2's acceptance criteria enumerated <code>GET /v1/reference-data/regions</code>, <code>/offices</code>, <code>/calendar</code>, <code>/vocabularies/{list}</code> (tier b) and <code>/johs</code>, <code>/jurisdictions</code>, <code>/tickets</code> (tier a JOH) — but never actually listed an MRD/Specialisations endpoint, despite the epic's user outcome claiming to serve "both tiers." This split closes that gap explicitly.</p>
+<p><strong>Design decision — where does tier-(b) data go:</strong> none of the 15 tier-(b) CTAM-owned tables (<code>ctam_regions</code>, <code>ctam_offices</code>, <code>ctam_calendar_periods</code>, and 12 operational vocabularies) are MRD-sourced; several are JOH/booking-domain vocabularies (<code>ctam_joh_types</code>, <code>ctam_joh_fee_entitlements</code>, etc.). Tier-(b) therefore stays with the JOH-side API — the only split that keeps the result at exactly two APIs, per the user's request. This was stated as an assumption and executed; the user did not raise an objection.</p>
+<p><strong>Numbering strategy:</strong> full cascading renumber, consistent with the two prior splits in this session (decision #15 for ingestion, and the Epic 0.0 network-hardening split before it) — the user has consistently chosen this over a lower-blast-radius append-at-the-end alternative.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact--phase-0-renumbered-again">Epic impact — Phase 0 renumbered again</h3>
+<table>
+<thead>
+<tr>
+<th>Old</th>
+<th>New</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Epic 0.0–0.4</td>
+<td>Unchanged</td>
+<td>No change</td>
+</tr>
+<tr>
+<td>Epic 0.5 (JOH+MRD+tier-b read API, 2 stories)</td>
+<td><strong>Epic 0.5</strong></td>
+<td>Trimmed to JOH tier-(a) + tier-(b) only; Story 0.5.2's AC no longer references MRD; title updated to "JOH and tier-(b) reference data served read-only..."</td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Epic 0.6 (new)</strong></td>
+<td>MRD reference data served read-only via a versioned, jurisdiction-filtered API — 1 story (0.6.1), including the previously-missing <code>GET /v1/reference-data/mrd/specialisms</code> endpoint</td>
+</tr>
+<tr>
+<td>Epic 0.6 (bootstrap, 1 story)</td>
+<td><strong>Epic 0.7</strong></td>
+<td>Both user populations bootstrapped (story renumbered 0.6.1 → 0.7.1)</td>
+</tr>
+<tr>
+<td>Epic 0.7 (notification, 2 stories)</td>
+<td><strong>Epic 0.8</strong></td>
+<td>Notification service (stories renumbered 0.7.1/0.7.2 → 0.8.1/0.8.2)</td>
+</tr>
+</tbody>
+</table>
+<p>Phase 0: <strong>8 → 9 epics, 22 → 23 stories.</strong> All epics remain <code>not-started</code> — no code impact.</p>
+<h3 id="dependency-graph-impact-deliverydispatch-graphyaml">Dependency graph impact (<code>delivery/dispatch-graph.yaml</code>)</h3>
+<ul>
+<li><strong>Epic 0.5</strong> <code>depends_on</code> drops <code>epic-0.3</code> (MRD) — it no longer serves MRD data. Now <code>[epic-0.1, epic-0.2, epic-0.4]</code>.</li>
+<li><strong>Epic 0.6 (new)</strong> <code>depends_on: [epic-0.1, epic-0.3, epic-0.4]</code> — schema design, MRD tier-(a) data, and auth (same auth dependency Epic 0.5 has, since both read APIs sit downstream of <code>JWTFilter</code>/<code>authz/check</code>).</li>
+<li><strong>Epic 0.7</strong> (bootstrap) and <strong>Epic 0.8</strong> (notification) dependency sets are unchanged in substance — only the node names shift (0.6→0.7, 0.7→0.8).</li>
+<li><code>future.phase-1-joh</code> now depends on <code>[epic-0.4, epic-0.5, epic-0.6]</code> — <code>ctam-joh</code> composes JOH profiles from both the JOH+tier-b API and the MRD API (Specialisations are part of a JOH profile view, per FR11/FR15).</li>
+<li><code>future.post-mvp-admin-ui</code> similarly gains the Epic 0.6 dependency.</li>
+<li><code>future.phase-2-absence</code> and <code>future.phase-6-payment</code>'s notification dependency shifts <code>epic-0.7</code> → <code>epic-0.8</code>.</li>
+</ul>
+<h3 id="artifact-impact-exhaustive">Artifact impact (exhaustive)</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.5-reference-data-read-only-api.md</code></td>
+<td>Rewritten in place (same filename, same epic number) — trimmed to JOH tier-(a) + tier-(b); MRD dependency and endpoint references removed; explicit pointers to Epic 0.6 added.</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.6-mrd-reference-data-read-only-api.md</code></td>
+<td><strong>New file.</strong> 1 story: MRD read API, including the <code>mrd/specialisms</code> endpoint that was missing from the original Epic 0.5.</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.7-user-populations-bootstrapped.md</code></td>
+<td>Renamed from <code>epic-0.6-*</code>. Story renumbered 0.6.1→0.7.1; internal "Epic 0.4" (auth) references unaffected (auth stays 0.4).</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.8-system-dispatches-emails.md</code></td>
+<td>Renamed from <code>epic-0.7-*</code>. Stories renumbered 0.7.x→0.8.x.</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Full rewrite: 9-epic table, epic summaries, epic-stories-summary table, scope-model bullets.</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code>, <code>delivery/README.md</code></td>
+<td>Phase 0 count: 8→9 epics, 22→23 stories.</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>FR6, FR7, FR58 rows split to name both Epic 0.5 (JOH+tier-b) and Epic 0.6 (MRD) explicitly; FR1/FR4/FR57 bootstrap references shifted 0.6→0.7; FR9 notification reference shifted 0.7→0.8.</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Bootstrap-verification reference shifted 0.6→0.7.</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.5.yaml</code></td>
+<td>Rewritten — titles updated, story count unchanged (2).</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.6.yaml</code></td>
+<td><strong>New</strong> — MRD read-API epic, 1 story.</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.7.yaml</code> / <code>epic-0.8.yaml</code></td>
+<td>Renamed from <code>0.6</code>/<code>0.7</code>; <code>epic:</code> field and story IDs renumbered.</td>
+</tr>
+<tr>
+<td><code>delivery/dispatch-graph.yaml</code></td>
+<td>Full rewrite — 9 epic nodes + updated <code>future:</code> dependency edges (see above).</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#16</strong>.</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.4</strong> entry (existing entries untouched).</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>NAV list: Epic 0.5 relabelled "JOH + tier-(b) read-only API", new Epic 0.6 entry, Epic 0.6/0.7 (bootstrap/notification) renumbered to 0.7/0.8.</td>
+</tr>
+</tbody>
+</table>
+<p>No hits found (per pre-edit sweep) in <code>architecture/gaps.md</code>, <code>architecture/repository-strategy.md</code>, or <code>epics/requirements-inventory.md</code> — none of those referenced the old Epic 0.5/0.6/0.7 numbers or story IDs, so they needed no changes. No PRD, UX, or <code>data-tables.md</code>/<code>conventions.md</code> conflict — no FR/NFR/schema change, just an API-surface reorganisation of already-planned work.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Selected: Option 1 — Direct Adjustment</strong>, executed as a full renumber per the established pattern in this session.</p>
+<p><strong>Rationale:</strong> Epic 0.5 (and everything downstream of it) remains <code>not-started</code> — nothing to roll back, no MVP scope change. The split makes an implicit gap (the missing MRD read endpoint) explicit and gives each upstream source's data an API surface that matches its ingestion epic, which is the same reasoning that justified the ingestion split (decision #15).</p>
+<p><strong>Effort:</strong> Moderate for this session (one epic trimmed, one new epic authored, two epics renumbered, ledger/dispatch-graph/cross-reference updates) — smaller in scope than the decision #15 renumber since only 3 epics (0.5, 0.6, 0.7) were touched rather than the whole Phase 0 lineup. <strong>Zero</strong> cost to the engineering team — no code exists yet. <strong>Risk:</strong> Low. A pre-edit sweep across the full planning-artifacts tree (<code>epics/</code>, <code>architecture/</code>, <code>delivery/</code>, <code>scripts/python/build_html.py</code>) was run before any edit, confirming the exact set of cross-references to update and ruling out hits in <code>gaps.md</code>, <code>repository-strategy.md</code>, and <code>requirements-inventory.md</code>.</p>
+</div></details><details class="section" id="4-prd-mvp-impact"><summary><span class="section-title">4. PRD MVP Impact</span></summary><div class="section-body">
+<p>None. No FR/NFR added, removed, or reworded; no MVP scope change. FR6's read-API coverage is unchanged in substance — it's now explicitly attributed to two epics instead of one.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Change scope classification: Minor</strong> — planning-artifact reorganisation of two not-started epics (plus a two-epic cascade shift); no backlog reorganisation beyond the mechanical renumber, no PM/Architect strategic replan.</p>
+<p><strong>Handoff:</strong> applied directly in this session (control-plane documentation only, per CLAUDE.md — this repo holds no runtime code). <code>docs/</code> regenerated via <code>scripts/build-html.sh</code>.</p>
+<p><strong>Success criteria:</strong> Epic 0.5 and Epic 0.6 each read as a complete, independently-demoable read API for their upstream source; every cross-reference to the renumbered bootstrap (0.7) and notification (0.8) epics resolves correctly; the dispatch graph's <code>future:</code> section correctly reflects that Phase 1 (<code>ctam-joh</code>) depends on both read APIs; <code>docs/</code> regenerates cleanly with no broken NAV links.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-15c.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#split-epic-05-reference-data-read-only-api-into-a-johtier-b-api-and-an-mrd-api">Split Epic 0.5 (Reference Data read-only API) into a JOH+tier-(b) API and an MRD API</a></li><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact--phase-0-renumbered-again">Epic impact — Phase 0 renumbered again</a></li><li class="h3"><a href="#dependency-graph-impact-deliverydispatch-graphyaml">Dependency graph impact (delivery/dispatch-graph.yaml)</a></li><li class="h3"><a href="#artifact-impact-exhaustive">Artifact impact (exhaustive)</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-prd-mvp-impact">4. PRD MVP Impact</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-15c";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
