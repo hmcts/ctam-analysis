@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-18 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-18">Sprint Change Proposal — 2026-08-18</h1>
+<details class="section" id="rename-epic-05s-file-to-epic-05-joh-reference-data-read-only-apimd"><summary><span class="section-title">Rename Epic 0.5's file to <code>epic-0.5-joh-reference-data-read-only-api.md</code></span></summary><div class="section-body">
+</div></details><details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a direct request to change the name of Epic 0.5 to <code>jo-reference-data-read-only-api</code>.</p>
+<p><strong>Problem statement:</strong> since SCP 2026-08-15c (Decision #16) split the Reference Data read API into two epics — Epic 0.5 (JOH tier-(a) + tier-(b)) and Epic 0.6 (MRD) — Epic 0.5's filename, <code>epic-0.5-reference-data-read-only-api.md</code>, has been the only Phase 0 epic slug that does not name its upstream source. Its sibling and its ingestion counterparts all do:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>JOH</th>
+<th>MRD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ingestion</td>
+<td><code>epic-0.2-joh-reference-data-ingested</code></td>
+<td><code>epic-0.3-mrd-reference-data-ingested</code></td>
+</tr>
+<tr>
+<td>Read API</td>
+<td><code>epic-0.5-reference-data-read-only-api</code> ← <strong>asymmetric</strong></td>
+<td><code>epic-0.6-mrd-reference-data-read-only-api</code></td>
+</tr>
+</tbody>
+</table>
+<p>Before the v4.4 split there was a single read-API epic, so the unqualified slug was unambiguous. After the split it reads as though Epic 0.5 covers <em>all</em> reference data, which is precisely the ambiguity Decision #16 set out to remove at the read-API layer.</p>
+<p><strong>Evidence:</strong> <code>_bmad-output/planning-artifacts/architecture/changelog.md</code> v4.4 row (Decision #16); the four sibling filenames listed above; <code>epics/phase-0/epic-0.5-*.md</code> line 15, which states MRD data has its own separate read API (Epic 0.6).</p>
+<p><strong>Issue type:</strong> editorial / naming consistency — <strong>not</strong> a technical limitation, requirement change, or strategic pivot.</p>
+<p><strong>Two decisions confirmed with the user during analysis:</strong></p>
+<ol type="1">
+<li><strong>Slug token: <code>joh</code>, not <code>jo</code>.</strong> The request said <code>jo-</code>, but <code>jo_*</code> is the <em>database table prefix</em> for upstream-sourced tables (<code>architecture/conventions.md</code>, Data &amp; persistence), whereas <code>joh</code> is the domain term used in every epic slug. <code>jo-</code> would have been the only epic slug of its kind. The user selected <code>joh-reference-data-read-only-api</code>.</li>
+<li><strong>Slug and <code>resource:</code> path only — the epic title is unchanged.</strong> The user selected the lower-blast-radius option, so <code>title:</code> and the H1 remain <em>"JOH and tier-(b) reference data is served read-only via a versioned, jurisdiction-filtered API"</em>, and the ledger/dispatch-graph titles stay valid.</li>
+</ol>
+<p><strong>Known and accepted residual:</strong> the slug names the epic's upstream source (as its three siblings do) but not its full tier coverage — Epic 0.5 also delivers the 15 tier-(b) CTAM-owned tables (<code>ctam_regions</code>, <code>ctam_offices</code>, <code>ctam_calendar_periods</code> + 12 operational vocabularies), none of which are MRD-sourced. The <code>title:</code> remains the authoritative scope statement. The alternative <code>epic-0.5-joh-and-tier-b-reference-data-read-only-api</code> was offered and not selected.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic--story-impact">Epic / story impact</h3>
+<p><strong>None.</strong> Epic number, <code>epic:</code> front-matter key, title, story IDs (0.5.1, 0.5.2), acceptance criteria, FR coverage (FR6, FR7, FR58, FR59), NFR coverage, and <code>depends_on</code> edges are all unchanged. Only the file's name, its own <code>resource:</code> front-matter, and inbound link targets change.</p>
+<h3 id="dependency-graph-and-ledger-impact">Dependency-graph and ledger impact</h3>
+<p><strong>None.</strong> <code>delivery/dispatch-graph.yaml</code> (node <code>epic-0.5</code>, <code>depends_on: [epic-0.1, epic-0.2, epic-0.4]</code>, and the <code>future:</code> edges at lines 119/159) and <code>delivery/ledger/epic-0.5.yaml</code> (<code>epic: epic-0.5</code>) key on the <strong>epic number</strong>, never the slug. Verified by repo-wide sweep — neither file contains the slug.</p>
+<h3 id="artifact-impact-exhaustive--every-live-reference">Artifact impact (exhaustive — every live reference)</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Occurrences</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.5-reference-data-read-only-api.md</code></td>
+<td>filename + 1</td>
+<td>Renamed to <code>epic-0.5-joh-reference-data-read-only-api.md</code>; <code>resource:</code> front-matter (line 4) retargeted to the matching <code>.html</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>2</td>
+<td>Epics-table link (line 41) and the "Full epic with stories" link (line 95)</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>4</td>
+<td>FR6 row (×2 — tier-(b) tables + read API), FR7 row, FR58 row</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>1</td>
+<td>NAV entry (line 263) — required so the page still renders on the published site</td>
+</tr>
+<tr>
+<td><code>docs/epics/phase-0/*.html</code></td>
+<td>generated</td>
+<td>Rebuilt via <code>scripts/build-html.sh</code>; the stale <code>epic-0.5-reference-data-read-only-api.html</code> deleted</td>
+</tr>
+</tbody>
+</table>
+<h3 id="immutable-history--deliberately-not-rewritten">Immutable history — deliberately NOT rewritten</h3>
+<p>Per the repo convention ("leave dated reports and existing changelog entries as immutable history — add, don't rewrite"), three references to the old filename are preserved verbatim:</p>
+<ul>
+<li><code>sprint-change-proposal-2026-08-15b.md</code> line 58 — code span, prose only</li>
+<li><code>sprint-change-proposal-2026-08-15c.md</code> line 49 — code span, prose only</li>
+<li><code>architecture/changelog.md</code> v4.4 row — contains an actual markdown <strong>link</strong> to the old path, which no longer resolves. Accepted as audit trail; the new v4.5 entry states this explicitly so the dead link is documented rather than surprising.</li>
+</ul>
+<h3 id="other-artifacts-checked--no-impact">Other artifacts checked — no impact</h3>
+<p><code>prd.md</code>, <code>architecture.md</code> and its shards (other than the changelog entry being added), <code>epics/index.md</code>, <code>epics/framework.md</code>, <code>epics/requirements-inventory.md</code>, <code>delivery/README.md</code>, <code>_bmad-output/project-context.md</code>. No UX specification exists for this epic (Epic 0.5 delivers no UI surface — NFR17–NFR19 explicitly do not apply in Phase 0). No spec document. No deployment, IaC, monitoring, test, or CI/CD artifact references the slug.</p>
+<h3 id="technical-impact">Technical impact</h3>
+<p><strong>None.</strong> No FR, NFR, or AR changes. No schema, API contract, or endpoint changes. No code impact — implementation has not started and Epic 0.5 is <code>not-started</code> in the ledger.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Selected: Option 1 — Direct Adjustment.</strong> Rename the file and update every live inbound reference plus the site NAV; add this SCP and a changelog entry; regenerate <code>docs/</code>.</p>
+<p><strong>Rationale:</strong> the change is a pure naming correction with no story, scope, dependency, or requirement effect. Rollback (Option 2) is not applicable — nothing has been implemented to revert. An MVP review (Option 3) is not applicable — MVP scope is untouched.</p>
+<p><strong>Effort:</strong> Low (documentation + one NAV line). <strong>Risk:</strong> Low — the only failure mode is a missed inbound link, mitigated by a repo-wide sweep before and after. <strong>Timeline impact:</strong> None.</p>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-file-rename">4.1 File rename</h3>
+<pre><code>OLD: _bmad-output/planning-artifacts/epics/phase-0/epic-0.5-reference-data-read-only-api.md
+NEW: _bmad-output/planning-artifacts/epics/phase-0/epic-0.5-joh-reference-data-read-only-api.md</code></pre>
+<p><strong>Rationale:</strong> symmetry with <code>epic-0.2-joh-*</code> / <code>epic-0.3-mrd-*</code> / <code>epic-0.6-mrd-*</code>.</p>
+<h3 id="42-epic-05-front-matter-line-4">4.2 Epic 0.5 front-matter (line 4)</h3>
+<p><strong>OLD:</strong></p>
+<blockquote>
+<p><code>resource: 'epics/phase-0/epic-0.5-reference-data-read-only-api.html'</code></p>
+</blockquote>
+<p><strong>NEW:</strong></p>
+<blockquote>
+<p><code>resource: 'epics/phase-0/epic-0.5-joh-reference-data-read-only-api.html'</code></p>
+</blockquote>
+<p><strong>Rationale:</strong> the <code>resource:</code> path must match the generated HTML filename, which derives from the markdown filename.</p>
+<h3 id="43-epicsphase-0indexmd-lines-41-95">4.3 <code>epics/phase-0/index.md</code> (lines 41, 95)</h3>
+<p><strong>OLD (line 41):</strong></p>
+<blockquote>
+<p><code>| [0.5](epic-0.5-reference-data-read-only-api.html) | JOH and tier-(b) reference data served read-only via a versioned, jurisdiction-filtered API | 2 | 🟡 Planned |</code></p>
+</blockquote>
+<p><strong>NEW (line 41):</strong></p>
+<blockquote>
+<p><code>| [0.5](epic-0.5-joh-reference-data-read-only-api.html) | JOH and tier-(b) reference data served read-only via a versioned, jurisdiction-filtered API | 2 | 🟡 Planned |</code></p>
+</blockquote>
+<p><strong>OLD (line 95):</strong></p>
+<blockquote>
+<p><code>→ [Full epic with stories](epic-0.5-reference-data-read-only-api.html)</code></p>
+</blockquote>
+<p><strong>NEW (line 95):</strong></p>
+<blockquote>
+<p><code>→ [Full epic with stories](epic-0.5-joh-reference-data-read-only-api.html)</code></p>
+</blockquote>
+<p><strong>Rationale:</strong> link targets only — the visible row text and epic title are unchanged.</p>
+<h3 id="44-epicsfr-coverage-mapmd-fr6-2-fr7-fr58">4.4 <code>epics/fr-coverage-map.md</code> (FR6 ×2, FR7, FR58)</h3>
+<p>Link targets <code>phase-0/epic-0.5-reference-data-read-only-api.md</code> → <code>phase-0/epic-0.5-joh-reference-data-read-only-api.md</code>. Visible link labels (<code>Epic 0.5</code>) and all coverage prose unchanged.</p>
+<p><strong>Rationale:</strong> these are the only live cross-artifact links into Epic 0.5; leaving them would break the FR traceability path from the coverage map to the epic.</p>
+<h3 id="45-scriptspythonbuild_htmlpy-nav-line-263">4.5 <code>scripts/python/build_html.py</code> NAV (line 263)</h3>
+<p><strong>OLD:</strong></p>
+<blockquote>
+<p><code>("Epic 0.5 — JOH + tier-(b) read-only API (2 stories)", "epics/phase-0/epic-0.5-reference-data-read-only-api", False),</code></p>
+</blockquote>
+<p><strong>NEW:</strong></p>
+<blockquote>
+<p><code>("Epic 0.5 — JOH + tier-(b) read-only API (2 stories)", "epics/phase-0/epic-0.5-joh-reference-data-read-only-api", False),</code></p>
+</blockquote>
+<p><strong>Rationale:</strong> required by the repo convention that every planning artifact carries a NAV entry; the label already reads "JOH + tier-(b)" and needs no change.</p>
+<h3 id="46-new-architecturechangelogmd-entry--v45">4.6 New <code>architecture/changelog.md</code> entry — v4.5</h3>
+<p>Added above the v4.4 row (newest-first). Records the rename, the <code>joh</code>-over-<code>jo</code> decision, the title-unchanged decision, the accepted tier-(b) naming residual, and the preserved-but-now-stale v4.4 link.</p>
+<p><strong>Rationale:</strong> repo convention — every cross-cutting change gets a Sprint Change Proposal plus a changelog entry.</p>
+<h3 id="47-regenerate-docs">4.7 Regenerate <code>docs/</code></h3>
+<p>Run <code>scripts/build-html.sh</code>, then delete the orphaned <code>docs/epics/phase-0/epic-0.5-reference-data-read-only-api.html</code>.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Minor</strong> — direct implementation, no backlog reorganization, no replan.</p>
+<ul>
+<li><strong>No PO involvement needed:</strong> no story added, removed, resequenced, or rescoped.</li>
+<li><strong>No PM/Architect involvement needed:</strong> no new architecture decision number was allocated, because a filename is not an architecture decision. The changelog entry is recorded as an editorial/consistency change.</li>
+<li><strong>Recipient:</strong> Developer agent (control plane) — apply the five edits above, add this SCP + the v4.5 changelog entry, regenerate <code>docs/</code>.</li>
+<li><strong>Commit:</strong> the user reviews and commits externally via VSCode (git writes are blocked inside Claude).</li>
+</ul>
+<p><strong>Success criteria:</strong></p>
+<ol type="1">
+<li>A repo-wide sweep for <code>epic-0.5-reference-data-read-only-api</code> returns <strong>only</strong> the three immutable-history hits listed in §2.</li>
+<li><code>epics/phase-0/index.md</code> and <code>epics/fr-coverage-map.md</code> links resolve to the renamed file.</li>
+<li><code>scripts/build-html.sh</code> completes and produces <code>docs/epics/phase-0/epic-0.5-joh-reference-data-read-only-api.html</code>, reachable from the site NAV.</li>
+<li>The stale <code>docs/epics/phase-0/epic-0.5-reference-data-read-only-api.html</code> no longer exists.</li>
+<li><code>delivery/ledger/epic-0.5.yaml</code> and <code>delivery/dispatch-graph.yaml</code> are unmodified (<code>git diff</code> shows no change).</li>
+</ol>
+</div></details><details class="section" id="6-separate-finding--not-part-of-this-change"><summary><span class="section-title">6. Separate Finding — Not Part of This Change</span></summary><div class="section-body">
+<p><code>scripts/python/build_html.py</code>'s <strong>"Change Control &amp; Readiness"</strong> NAV group lists 8 Sprint Change Proposals but <strong>4 are missing</strong>: <code>2026-08-14</code>, <code>2026-08-15</code>, <code>2026-08-15b</code>, <code>2026-08-15c</code>. Those four markdown files exist and are authoritative history, but are unreachable from the published site — including SCP 2026-08-15b/c, which define the current Phase 0 numbering. Also missing: <code>implementation-readiness-report-2026-06-17</code>, <code>-2026-08-11</code>, and both <code>prd-validation-report-*</code> files.</p>
+<p>This pre-dates the present change and is <strong>out of scope</strong> here. Flagged for a follow-up SCP or a direct NAV fix at the user's discretion.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-18.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#rename-epic-05s-file-to-epic-05-joh-reference-data-read-only-apimd">Rename Epic 0.5's file to epic-0.5-joh-reference-data-read-only-api.md</a></li><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic--story-impact">Epic / story impact</a></li><li class="h3"><a href="#dependency-graph-and-ledger-impact">Dependency-graph and ledger impact</a></li><li class="h3"><a href="#artifact-impact-exhaustive--every-live-reference">Artifact impact (exhaustive — every live reference)</a></li><li class="h3"><a href="#immutable-history--deliberately-not-rewritten">Immutable history — deliberately NOT rewritten</a></li><li class="h3"><a href="#other-artifacts-checked--no-impact">Other artifacts checked — no impact</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li class="h3"><a href="#41-file-rename">4.1 File rename</a></li><li class="h3"><a href="#42-epic-05-front-matter-line-4">4.2 Epic 0.5 front-matter (line 4)</a></li><li class="h3"><a href="#43-epicsphase-0indexmd-lines-41-95">4.3 epics/phase-0/index.md (lines 41, 95)</a></li><li class="h3"><a href="#44-epicsfr-coverage-mapmd-fr6-2-fr7-fr58">4.4 epics/fr-coverage-map.md (FR6 ×2, FR7, FR58)</a></li><li class="h3"><a href="#45-scriptspythonbuild_htmlpy-nav-line-263">4.5 scripts/python/build_html.py NAV (line 263)</a></li><li class="h3"><a href="#46-new-architecturechangelogmd-entry--v45">4.6 New architecture/changelog.md entry — v4.5</a></li><li class="h3"><a href="#47-regenerate-docs">4.7 Regenerate docs/</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li><a href="#6-separate-finding--not-part-of-this-change">6. Separate Finding — Not Part of This Change</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-18";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

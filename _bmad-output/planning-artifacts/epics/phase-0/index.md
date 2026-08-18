@@ -38,7 +38,7 @@ phaseName: 'Foundations'
 | [0.2](epic-0.2-joh-reference-data-ingested.md) | Upstream JOH reference data is ingested | 3 | 🟡 Planned |
 | [0.3](epic-0.3-mrd-reference-data-ingested.md) | Upstream MRD reference data is ingested | 1 | 🟡 Planned |
 | [0.4](epic-0.4-user-authenticates.md) | User authenticates and lands on a role-scoped Home page | 5 | 🟡 Planned |
-| [0.5](epic-0.5-reference-data-read-only-api.md) | JOH and tier-(b) reference data served read-only via a versioned, jurisdiction-filtered API | 2 | 🟡 Planned |
+| [0.5](epic-0.5-joh-reference-data-read-only-api.md) | JOH and tier-(b) reference data served read-only via a versioned, jurisdiction-filtered API | 2 | 🟡 Planned |
 | [0.6](epic-0.6-mrd-reference-data-read-only-api.md) | MRD reference data served read-only via a versioned, jurisdiction-filtered API | 1 | 🟡 Planned |
 | [0.7](epic-0.7-user-populations-bootstrapped.md) | Both user populations are bootstrapped and verifiable against the IdP | 1 | 🟡 Planned |
 | [0.8](epic-0.8-system-dispatches-emails.md) | Notification service is scaffolded and contractually ready | 2 | 🟡 Planned |
@@ -92,7 +92,7 @@ phaseName: 'Foundations'
 
 **FRs covered (Phase 0 surface):** FR6 (tier-(b) maintenance + read API over tier (a) JOH + tier (b)), FR7, FR58
 
-→ [Full epic with stories](epic-0.5-reference-data-read-only-api.md)
+→ [Full epic with stories](epic-0.5-joh-reference-data-read-only-api.md)
 
 ### Epic 0.6: MRD reference data served read-only via a versioned, jurisdiction-filtered API (1 story)
 

@@ -232,6 +232,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Changelog", "architecture/tobe/changelog", False),
     ]),
     ("Change Control & Readiness", [
+        ("Sprint Change Proposal — 2026-08-18 (Epic 0.5 filename aligned to the joh slug convention)", "sprint-change-proposal-2026-08-18", False),
         ("Sprint Change Proposal — 2026-08-13 (programme renamed RAM → CTAM)", "sprint-change-proposal-2026-08-13", False),
         ("Sprint Change Proposal — 2026-07-09 (CTAM-assigned JOH identity; personnel_number → upstream link)", "sprint-change-proposal-2026-07-09", False),
         ("Sprint Change Proposal — 2026-07-07 (Gradle vs Maven-format terminology; contract read-only mirror)", "sprint-change-proposal-2026-07-07", False),
@@ -260,7 +261,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Epic 0.2 — Upstream JOH reference data is ingested (3 stories)", "epics/phase-0/epic-0.2-joh-reference-data-ingested", False),
         ("Epic 0.3 — Upstream MRD reference data is ingested (1 story)", "epics/phase-0/epic-0.3-mrd-reference-data-ingested", False),
         ("Epic 0.4 — User authenticates (5 stories)", "epics/phase-0/epic-0.4-user-authenticates", False),
-        ("Epic 0.5 — JOH + tier-(b) read-only API (2 stories)", "epics/phase-0/epic-0.5-reference-data-read-only-api", False),
+        ("Epic 0.5 — JOH + tier-(b) read-only API (2 stories)", "epics/phase-0/epic-0.5-joh-reference-data-read-only-api", False),
         ("Epic 0.6 — MRD read-only API (1 story)", "epics/phase-0/epic-0.6-mrd-reference-data-read-only-api", False),
         ("Epic 0.7 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.7-user-populations-bootstrapped", False),
         ("Epic 0.8 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.8-system-dispatches-emails", False),

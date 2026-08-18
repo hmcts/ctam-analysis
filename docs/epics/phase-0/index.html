@@ -149,7 +149,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>🟡 Planned</td>
 </tr>
 <tr>
-<td><a href="epic-0.5-reference-data-read-only-api.html">0.5</a></td>
+<td><a href="epic-0.5-joh-reference-data-read-only-api.html">0.5</a></td>
 <td>JOH and tier-(b) reference data served read-only via a versioned, jurisdiction-filtered API</td>
 <td>2</td>
 <td>🟡 Planned</td>
@@ -204,7 +204,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <h3 id="epic-05-joh-and-tier-b-reference-data-served-read-only-via-a-versioned-jurisdiction-filtered-api-2-stories">Epic 0.5: JOH and tier-(b) reference data served read-only via a versioned, jurisdiction-filtered API (2 stories)</h3>
 <p><strong>User outcome:</strong> Tier-(b) CTAM-owned reference data (regions, offices, calendar, operational vocabularies) is created, seeded, and DBA-maintained per runbook<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> (Story 0.5.1); tier-(b) plus JOH tier-(a) data (sourced from Epic 0.2) is served by the versioned <strong>read-only</strong>, <strong>jurisdiction-filtered</strong> REST API (Story 0.5.2). Sequenced after Epic 0.4 (depends on <code>JWTFilter</code> + <code>authz/check</code>). MRD reads are a separate API — <strong>Epic 0.6</strong> — since none of the 15 tier-(b) tables are MRD-sourced.</p>
 <p><strong>FRs covered (Phase 0 surface):</strong> FR6 (tier-(b) maintenance + read API over tier (a) JOH + tier (b)), FR7, FR58</p>
-<p>→ <a href="epic-0.5-reference-data-read-only-api.html">Full epic with stories</a></p>
+<p>→ <a href="epic-0.5-joh-reference-data-read-only-api.html">Full epic with stories</a></p>
 <h3 id="epic-06-mrd-reference-data-served-read-only-via-a-versioned-jurisdiction-filtered-api-1-story">Epic 0.6: MRD reference data served read-only via a versioned, jurisdiction-filtered API (1 story)</h3>
 <p><strong>User outcome:</strong> MRD-sourced supplementary judicial reference data — notably JOH Specialisations, ingested in <strong>Epic 0.3</strong> — is queryable read-only via <code>ctam-reference-data</code>'s versioned REST API, <strong>jurisdiction-filtered</strong>, on its own API surface separate from Epic 0.5. Same service, same OpenAPI artefact, distinct resource group — the MRD ownership boundary stays visible at the API layer, not just in the ingestion mechanism. Sequenced after Epic 0.4 (depends on <code>JWTFilter</code> + <code>authz/check</code>).</p>
 <p><strong>FRs covered (Phase 0 surface):</strong> FR6 (read API over MRD tier (a)), FR7, FR58</p>

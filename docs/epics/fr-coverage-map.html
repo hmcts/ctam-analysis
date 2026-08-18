@@ -133,13 +133,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR6</strong></td>
-<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.2-joh-reference-data-ingested.html">Epic 0.2</a> Story 0.2.2 (tables) + Story 0.2.3 (eLinks sync) + <a href="phase-0/epic-0.3-mrd-reference-data-ingested.html">Epic 0.3</a> Story 0.3.1 (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-0/epic-0.5-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.1 (tables + seed + DBA runbook). <strong>Read API</strong>: JOH + tier (b) via <a href="phase-0/epic-0.5-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.2; MRD via <a href="phase-0/epic-0.6-mrd-reference-data-read-only-api.html">Epic 0.6</a> Story 0.6.1 — two API surfaces, one per upstream ownership boundary.</td>
+<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.2-joh-reference-data-ingested.html">Epic 0.2</a> Story 0.2.2 (tables) + Story 0.2.3 (eLinks sync) + <a href="phase-0/epic-0.3-mrd-reference-data-ingested.html">Epic 0.3</a> Story 0.3.1 (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-0/epic-0.5-joh-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.1 (tables + seed + DBA runbook). <strong>Read API</strong>: JOH + tier (b) via <a href="phase-0/epic-0.5-joh-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.2; MRD via <a href="phase-0/epic-0.6-mrd-reference-data-read-only-api.html">Epic 0.6</a> Story 0.6.1 — two API surfaces, one per upstream ownership boundary.</td>
 <td><strong>YES — tier-(b) RSU maintenance UI</strong> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Tier (a) never gets a CTAM write surface in any phase.</td>
 <td>Two ownership tiers in separate tables preserve lineage</td>
 </tr>
 <tr>
 <td>FR7</td>
-<td><a href="phase-0/epic-0.2-joh-reference-data-ingested.html">Epic 0.2</a> Story 0.2.2 (tier-(a) grants) + <a href="phase-0/epic-0.5-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.1 (tier-(b) grants + pattern complete) + <a href="phase-0/epic-0.6-mrd-reference-data-read-only-api.html">Epic 0.6</a> Story 0.6.1 (MRD direct-SQL read pattern)</td>
+<td><a href="phase-0/epic-0.2-joh-reference-data-ingested.html">Epic 0.2</a> Story 0.2.2 (tier-(a) grants) + <a href="phase-0/epic-0.5-joh-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.1 (tier-(b) grants + pattern complete) + <a href="phase-0/epic-0.6-mrd-reference-data-read-only-api.html">Epic 0.6</a> Story 0.6.1 (MRD direct-SQL read pattern)</td>
 <td>—</td>
 <td>Direct SQL via SELECT grants; <strong>writes follow the tier</strong> (ingestion for tier (a); DBA SQL for tier (b))</td>
 </tr>
@@ -175,7 +175,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR58</strong></td>
-<td><a href="phase-0/epic-0.4-user-authenticates.html">Epic 0.4</a> Story 0.4.3 (Authorisation read API — first exercise) + <a href="phase-0/epic-0.5-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.2 (JOH + tier-(b) read API) + <a href="phase-0/epic-0.6-mrd-reference-data-read-only-api.html">Epic 0.6</a> Story 0.6.1 (MRD read API) + every service story</td>
+<td><a href="phase-0/epic-0.4-user-authenticates.html">Epic 0.4</a> Story 0.4.3 (Authorisation read API — first exercise) + <a href="phase-0/epic-0.5-joh-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.2 (JOH + tier-(b) read API) + <a href="phase-0/epic-0.6-mrd-reference-data-read-only-api.html">Epic 0.6</a> Story 0.6.1 (MRD read API) + every service story</td>
 <td>—</td>
 <td>API-as-Product read-side standards</td>
 </tr>

@@ -1,7 +1,7 @@
 ---
 type: 'Epic'
 description: 'User outcome: Tier-(b) CTAM-owned reference data (Regions, Offices, calendar / financial-year boundaries, operational vocabularies) exists, is seeded, and is maintainable by DBAs via direct SQL per…'
-resource: 'epics/phase-0/epic-0.5-reference-data-read-only-api.html'
+resource: 'epics/phase-0/epic-0.5-joh-reference-data-read-only-api.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-06-17'
 parent: 'epics/phase-0/index.md'
