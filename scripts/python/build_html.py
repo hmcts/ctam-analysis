@@ -232,6 +232,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Changelog", "architecture/tobe/changelog", False),
     ]),
     ("Change Control & Readiness", [
+        ("Sprint Change Proposal — 2026-08-19 (agent delivery rules; TDD + coverage/mutation gates)", "sprint-change-proposal-2026-08-19", False),
         ("Sprint Change Proposal — 2026-08-13 (programme renamed RAM → CTAM)", "sprint-change-proposal-2026-08-13", False),
         ("Sprint Change Proposal — 2026-07-09 (CTAM-assigned JOH identity; personnel_number → upstream link)", "sprint-change-proposal-2026-07-09", False),
         ("Sprint Change Proposal — 2026-07-07 (Gradle vs Maven-format terminology; contract read-only mirror)", "sprint-change-proposal-2026-07-07", False),
@@ -248,6 +249,9 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
     ("Implementation — Epics (Foundations)", [
         ("Delivery operating model (control plane · context bus · execution units)", "architecture/tobe/delivery-operating-model", False),
         ("Delivery control plane (dispatch graph + traceability ledger)", "delivery/README", False),
+        ("Delivery pilots — method tests", "delivery/pilots/README", False),
+        ("Pilot 0.5 — notification log-only slice", "delivery/pilots/pilot-0.5-notification-logonly", False),
+        ("Pilot 0.5 — findings log", "delivery/pilots/pilot-0.5-findings", False),
         ("Epics index", "epics/index", False),
         ("Requirements inventory", "epics/requirements-inventory", False),
         ("Phase × Area framework", "epics/framework", False),

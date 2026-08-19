@@ -1,11 +1,11 @@
 ---
 project_name: 'ctam-analysis (CTAM Pathfinder)'
 user_name: 'Ramnish'
-date: '2026-07-08'
+date: '2026-08-19'
 sections_completed: ['technology_stack', 'delivery_discipline', 'backend', 'data_persistence', 'api_formats', 'frontend', 'testing', 'workflow_enforcement', 'critical_dont_miss']
 existing_patterns_found: 40
 status: 'complete'
-rule_count: 45
+rule_count: 49
 optimized_for_llm: true
 ---
 
@@ -67,13 +67,17 @@ _This file contains critical rules and patterns that AI agents must follow when 
 ### Testing
 
 - Unit `*Test.java` (mock deps) · Integration `*IT.java` (Testcontainers PostgreSQL) · Contract (Pact) — every commit. E2E (Playwright) one suite per phase as a gate.
-- **Coverage target = behaviour coverage, not line coverage;** PRs justify behaviour, not coverage stats.
+- **TDD is mandatory and evidence-based** (agent-rules R2/T1): no edit to `src/main/**` without a test that was *run* and failed **on an assertion** first — a compile error is not a red test. Use `./scripts/red.sh <TestClass>`; paste red, then green.
+- **Coverage target = behaviour coverage, not line coverage;** PRs justify behaviour, not coverage stats. **Backed by build-failing floors (2026-08-19):** JaCoCo **≥ 85% line / ≥ 75% branch** and PIT mutation **≥ 70%** on `service` + `domain` (`config`, `dto`, `*Application`, generated code excluded). Mutation score is the load-bearing number — **a test that asserts nothing is a rule breach, not a pass**.
+- **Every AC maps to a named test** whose name states the behaviour; carry the AC id in `@DisplayName`. One behaviour per test; no logic in tests; no `@Disabled`; no `Thread.sleep`; no ambient clock (inject `java.time.Clock`). **Never H2** — Testcontainers PostgreSQL for every schema change.
 - **Incumbent parity (`[ET-INCUMBENT-TBD]` ET wave 1 / ListAssist SSCS wave 2 / APEX Courts waves 3+) is MANUAL UAT** under `docs/uat/` per service — a wave-cutover sign-off gate, **not** a CI harness. No `*ApexParityTest.java`.
 
 ### Workflow & enforcement
 
 - Scaffold every service from the HMCTS Crime SpringBoot template; Gradle Groovy DSL + Wrapper.
-- **CI gates (fail build on violation):** Spotless+Checkstyle (Java), ESLint+Prettier (TS), SQLFluff (SQL), ArchUnit (package/naming/deps), Spectral (OpenAPI ruleset), Pact, JaCoCo + CycloneDX SBOM, axe-core (UI).
+- **CI gates (fail build on violation):** Spotless+Checkstyle (Java), ESLint+Prettier (TS), SQLFluff (SQL), ArchUnit (package/naming/deps), Spectral (OpenAPI ruleset), Pact, JaCoCo coverage floor + PIT mutation threshold, CycloneDX SBOM, axe-core (UI). One command runs the lot: `./scripts/verify.sh`.
+- **Agent delivery rules are binding** — `_arch/agent-rules/` on the context bus (`ctam-architecture`), installed per repo as a lean always-on `CLAUDE.md` plus on-demand rule files. Non-negotiables: **cite or ask** (every non-obvious decision names its authority), **unknown ⇒ stop** (never infer a business rule), **no unsanctioned surface** (no new dependency/table/endpoint/env var without a cited source), **nothing unfinished ships** (no TODO/stub/disabled test), **no success claim without pasted evidence**, **status `in-review`, never `done`**.
+- **Hard modularity limits (build-failing):** method ≤ 30 lines · file ≤ 300 · params ≤ 4 · cyclomatic ≤ 8 · instance fields ≤ 8 · public methods ≤ 10 · one public type per file; `controller` → `service` → (`repository` | `client`), `domain` depends on none of them, entities never cross the API boundary, `@Transactional` on service methods only, constructor injection only. **When a limit blocks you, change the design — never raise the limit or add a suppression.**
 - Git: branch `feature/{ticket}-{desc}`; Conventional Commits (`feat:`/`fix:`/`docs:`/`refactor:`/`test:`/`chore:`), imperative, ≤72-char subject; PRs → `main` (trunk-based). **Commits made externally by the user.**
 - Pattern changes = PR against `architecture.md`/`conventions.md`; **existing services are not force-retrofitted** (no version cascade); new services adopt the new pattern.
 - Logging: SLF4J per class (or Lombok `@Slf4j`); Logstash JSON encoder + OpenTelemetry trace context; `correlationId` in MDC on every line.
@@ -91,7 +95,7 @@ _This file contains critical rules and patterns that AI agents must follow when 
 
 **For AI agents:**
 
-- Read this file before implementing any code in a CTAM Pathfinder service repo.
+- Read this file before implementing any code in a CTAM Pathfinder service repo — then read `_arch/agent-rules/00-core.md` (how to work) alongside it. This file says *what* to build; agent-rules says *how*.
 - Follow ALL rules exactly; when in doubt, prefer the more restrictive option.
 - This is a lean summary — `conventions.md`, `architecture.md`, `repo-structure.md`, and `delivery-operating-model.md` (via the `ctam-architecture` context bus) remain authoritative for detail.
 - Do not run git write commands; surface the diff for the human to commit externally.
@@ -102,4 +106,4 @@ _This file contains critical rules and patterns that AI agents must follow when 
 - When the `ctam-architecture` context bus is stood up, this file seeds each service repo's `CLAUDE.md`; keep it in sync with the pinned bus version.
 - Review periodically; remove rules that become obvious.
 
-Last Updated: 2026-07-08
+Last Updated: 2026-08-19

@@ -143,6 +143,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>Phase 0 deliverable — CTAM Pathfinder architecture team</td>
 </tr>
 <tr>
+<td><strong>G1.4c</strong> <em>(new 2026-08-19)</em></td>
+<td><strong>Quality-gate tool versions are released but unproven on the target toolchain.</strong> The agent-rules enforcement pack (<code>ctam-architecture/agent-rules/enforcement/</code>) pins Checkstyle 14.0.0, Spotless 8.10.0, JaCoCo 0.8.14 (first release with official Java 25 support), ArchUnit 1.5.0 (<code>archunit-junit5</code>), gradle-pitest 1.19.0, pitest 1.25.9 and pitest-junit5 1.2.3 — all verified as released 2026-08-19, but <strong>none of the pack has been compiled or executed</strong>, because the control-plane workspace holds no Java build. The specific unknowns: PIT running <em>on</em> a Java 25 toolchain against Spring Boot 4; whether the scaffolded build is on the JUnit 5 or JUnit 6 platform (which decides <code>archunit-junit5</code> vs <code>archunit-junit6</code>); and ArchUnit/Spectral API drift.</td>
+<td>The first scaffolding story compiles and runs the pack, fixes the drift its per-file validation-status table anticipates, and reports every correction <strong>back to the bus</strong> rather than fixing it per-repo. If PIT cannot run on Java 25, the mutation gate is the part of the amended coverage stance at risk — surface it explicitly rather than dropping it silently.</td>
+<td>Phase 0 deliverable — CTAM Pathfinder architecture team</td>
+</tr>
+<tr>
 <td><strong>G1.5</strong></td>
 <td>HMCTS Email infrastructure (SMTP / Microsoft Graph) availability and authentication mechanism for AKS-hosted services is assumed.</td>
 <td>If unavailable in expected form: alternate transport (Azure Communication Services Email) is a documented fallback; Notification service contract unchanged.</td>
@@ -354,6 +360,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong>G6.6</strong> <em>(new)</em></td>
 <td><strong>Table-name collision risk.</strong> Without schema isolation, two services could create tables with the same name in the shared schema.</td>
 <td>Mitigation: ArchUnit-style fitness function in CI verifies no two services' Liquibase changelogs create overlapping table names. Authoritative table-ownership mapping documented in <a href="data-tables.html"><code>./data-tables.md</code></a>. Code review backs the fitness function.</td>
+</tr>
+<tr>
+<td><strong>G6.7</strong> <em>(new 2026-08-19)</em></td>
+<td><strong>Contradictory status code for optimistic-lock failure.</strong> <a href="conventions.html"><code>./conventions.md</code></a> → <em>Process Patterns</em> maps <code>OptimisticLockingFailureException</code> to <strong>409</strong> (<code>concurrency</code>); the same file's <em>Communication Patterns</em> section ("Retry safety and concurrency control") says optimistic locking for lost-update returns <strong>412</strong>. Both are current text, so an implementer has no authoritative answer — and the choice is visible to every consumer's retry logic. Found while authoring the agent delivery rules (SCP 2026-08-19).</td>
+<td>Resolve to one code and correct the other location. Until then the agent rules make an optimistic-lock path an explicit stop-and-ask (<code>agent-rules/30-api-contracts.md</code> → C7), so no service silently picks one. Recommended resolution: <strong>409</strong> for a lost-update conflict on an unconditional request, reserving <strong>412</strong> for a genuine <code>If-Match</code> precondition failure — but this needs a decision, not an inference.</td>
 </tr>
 </tbody>
 </table>

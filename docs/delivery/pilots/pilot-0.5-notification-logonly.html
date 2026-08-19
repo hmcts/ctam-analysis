@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pilot 0.5 — notification service, log-only slice — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="pilot-05--notification-service-log-only-slice">Pilot 0.5 — notification service, log-only slice</h1>
+<blockquote>
+<p><strong>Epic 0.5 is not being delivered by this pilot.</strong> <a href="../../epics/phase-0/epic-0.5-system-dispatches-emails.html"><code>epic-0.5-system-dispatches-emails.md</code></a> and <a href="../ledger/epic-0.5.yaml"><code>ledger/epic-0.5.yaml</code></a> are untouched, and stories 0.5.1 / 0.5.2 remain <code>not-started</code>. This pilot builds a <strong>variant slice</strong> with its own acceptance criteria, recorded below.</p>
+</blockquote>
+<details class="section" id="why-this-pilot-exists"><summary><span class="section-title">Why this pilot exists</span></summary><div class="section-body">
+<p>To find out whether the delivery method actually works before committing eight phases of work to it. Three specific mechanisms are unproven:</p>
+<ol type="1">
+<li><strong>The dispatch → execute → signal loop</strong> — can a <em>cold</em> session in a service repo implement a story from <code>CLAUDE.md</code> + the story packet + the pinned bus, with no further context?</li>
+<li><strong>The context bus</strong> — does a repo pinned at <code>arch-v1.0</code> resolve everything the rules cite?</li>
+<li><strong>The enforcement pack</strong> — none of it has ever compiled or run (<strong>G1.4c</strong>). Does it work, and does it catch real violations?</li>
+</ol>
+<h3 id="hypotheses-under-test">Hypotheses under test</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Hypothesis</th>
+<th>How the pilot answers it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>H1</strong></td>
+<td>A cold session needs nothing beyond <code>CLAUDE.md</code>, the packet, and <code>_arch/</code></td>
+<td>The story is executed in a <strong>fresh session</strong> in <code>ctam-notification</code>, not in the session that authored the rules. Every clarification it needs is a defect in the packet or the rules</td>
+</tr>
+<tr>
+<td><strong>H2</strong></td>
+<td>The enforcement pack runs and catches real violations</td>
+<td>Run the gate on the bare scaffold first, then per behaviour. Log every enforcer that failed to run, and every violation it caught</td>
+</tr>
+<tr>
+<td><strong>H3</strong></td>
+<td><code>require-red-test.sh</code> raises the cost of skipping TDD without obstructing legitimate work</td>
+<td>Count denials and note whether any were false positives</td>
+</tr>
+<tr>
+<td><strong>H4</strong></td>
+<td>The rules are complete enough to work from</td>
+<td>Collect every point where a rule was silent, ambiguous, or wrong</td>
+</tr>
+<tr>
+<td><strong>H5</strong></td>
+<td>The gate is fast enough for a per-behaviour loop</td>
+<td>Record wall-clock for <code>check</code> and for the full gate including PIT</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The retro is the deliverable.</strong> Working code is the by-product.</p>
+</div></details><details class="section" id="scope--what-is-built"><summary><span class="section-title">Scope — what is built</span></summary><div class="section-body">
+<p>A single Spring Boot service, <code>ctam-notification</code>, exposing <strong>one</strong> endpoint that records that a notification was requested by writing <strong>one structured log line</strong>. No email, no database, no auth.</p>
+<pre><code>POST /v1/notifications/send
+  request   { &quot;templateId&quot;: &quot;absence-ack&quot;,
+              &quot;recipient&quot;:  &quot;someone@example.gov.uk&quot;,
+              &quot;payload&quot;:    { &quot;absenceId&quot;: &quot;…&quot; } }
+  202       { &quot;deliveryId&quot;: &quot;&lt;uuid&gt;&quot;, &quot;status&quot;: &quot;logged&quot; }
+  400       application/problem+json   — body could not be parsed
+  422       application/problem+json   — field validation, or unknown template</code></pre>
+<p>Expected shape, per <code>_arch/architecture/conventions.md</code> → <em>Structure Patterns</em>:</p>
+<pre><code>src/main/java/uk/gov/hmcts/ctam/notification/
+├── NotificationApplication.java
+├── controller/NotificationController.java
+├── service/NotificationDispatchService.java        ← the behaviour under test
+├── dto/SendNotificationRequest.java                ← record + JSR-380 constraints
+│   └── SendNotificationResponse.java               ← record
+├── error/NotificationExceptionAdvice.java          ← RFC 9457 @ControllerAdvice
+├── exception/UnknownTemplateException.java         ← extends BusinessRuleViolation
+└── config/ClockConfig.java                         ← java.time.Clock bean (M20)
+    └── CorrelationIdFilter.java                    ← inbound read-or-generate → MDC</code></pre>
+<p>No <code>repository/</code>, no <code>domain/</code>, no <code>client/</code>, no Liquibase changelog. Anything not on that list needs a citation or a decision (<strong>R6</strong>).</p>
+</div></details><details class="section" id="acceptance-criteria"><summary><span class="section-title">Acceptance criteria</span></summary><div class="section-body">
+<p>Numbered <code>AC-n</code> and carried into test <code>@DisplayName</code>s per <strong>T6</strong>.</p>
+<h3 id="ac-1--a-valid-request-is-accepted-and-logged">AC-1 — a valid request is accepted and logged</h3>
+<pre class="gherkin"><code>Given the service is running
+And the request body is {&quot;templateId&quot;:&quot;absence-ack&quot;,&quot;recipient&quot;:&quot;judge@example.gov.uk&quot;,&quot;payload&quot;:{&quot;absenceId&quot;:&quot;7f3c…&quot;}}
+When POST /v1/notifications/send is called
+Then the response status is 202 Accepted
+And the response body is {&quot;deliveryId&quot;:&quot;&lt;a uuid&gt;&quot;,&quot;status&quot;:&quot;logged&quot;}
+And exactly one INFO log entry is written
+And that entry contains the deliveryId, the templateId and the correlation id
+And that entry does NOT contain the recipient address, nor any value from payload</code></pre>
+<blockquote>
+<p>The last line is <strong>S1</strong> in action: <code>recipient</code> is an email address, so it is personal data and must not reach the logs. "Log a line saying we received a request" therefore logs the <em>identifiers</em>, never the <em>content</em>.</p>
+</blockquote>
+<h3 id="ac-2--an-unknown-template-is-a-business-rule-failure">AC-2 — an unknown template is a business-rule failure</h3>
+<pre class="gherkin"><code>Given the request body carries templateId &quot;no-such-template&quot;
+When POST /v1/notifications/send is called
+Then the response status is 422 Unprocessable Entity
+And the content type is application/problem+json
+And the problem type identifies the business-rule category
+And no log entry states that a notification request was accepted</code></pre>
+<p>Permitted templates for the pilot: <strong><code>absence-ack</code> only.</strong> The per-template permitted-callers list from Epic 0.5.2 is out of scope (it needs authorisation).</p>
+<h3 id="ac-3--field-validation-failure-is-422">AC-3 — field validation failure is 422</h3>
+<pre class="gherkin"><code>Given the request body is well-formed JSON
+And recipient is not a valid email address
+When POST /v1/notifications/send is called
+Then the response status is 422 Unprocessable Entity
+And the content type is application/problem+json
+And the problem type identifies the validation category
+And the problem detail names the offending field
+And no INFO log entry states that a notification request was accepted</code></pre>
+<blockquote>
+<p><strong>This resolves a documented conflict — see Deviation D-4.</strong> Epic 0.5.2's AC says 400 here; <code>conventions.md</code> maps <code>MethodArgumentNotValidException</code> to 422. <strong>422 wins.</strong></p>
+</blockquote>
+<h3 id="ac-4--an-unparseable-body-is-400">AC-4 — an unparseable body is 400</h3>
+<pre class="gherkin"><code>Given the request body is not valid JSON
+When POST /v1/notifications/send is called
+Then the response status is 400 Bad Request
+And the content type is application/problem+json
+And the problem detail does not echo the raw body</code></pre>
+<blockquote>
+<p><code>conventions.md</code> defines 400 for "malformed request (parsing failure)" but does not map <code>HttpMessageNotReadableException</code> to a <code>type</code> category. Pilot decision under <strong>C8</strong>: use the <strong><code>validation</code></strong> category. Flagged for the retro as a candidate addition to the conventions' exception→status table. The "does not echo the raw body" line is <strong>C10</strong> — a malformed body may contain personal data.</p>
+</blockquote>
+<h3 id="ac-5--the-correlation-id-is-read-or-generated-and-reaches-the-log">AC-5 — the correlation id is read or generated, and reaches the log</h3>
+<pre class="gherkin"><code>Given a request arrives with header Correlation-Id: 11111111-2222-3333-4444-555555555555
+When POST /v1/notifications/send is called
+Then the log entry for that request carries that correlation id
+
+Given a request arrives with no Correlation-Id header
+When POST /v1/notifications/send is called
+Then a correlation id is generated
+And the log entry for that request carries it</code></pre>
+<blockquote>
+<p>Deliberately says nothing about echoing the header back in the response: <code>conventions.md</code> specifies inbound read-or-generate, MDC, and outbound propagation only. Adding a response header would be inventing surface (<strong>R6</strong>). There are no outbound calls in this slice.</p>
+</blockquote>
+<h3 id="ac-6--the-generated-spec-is-convention-clean">AC-6 — the generated spec is convention-clean</h3>
+<pre class="gherkin"><code>Given the OpenAPI spec is generated from the code by Swagger Core
+When the CTAM Spectral ruleset is run against it
+Then the lint passes with no errors
+And the spec documents POST /v1/notifications/send with its 202, 400 and 422 responses</code></pre>
+</div></details><details class="section" id="out-of-scope--and-why"><summary><span class="section-title">Out of scope — and why</span></summary><div class="section-body">
+<p>Everything in Epic 0.5 not listed above. Explicitly:</p>
+<table>
+<thead>
+<tr>
+<th>Epic 0.5 element</th>
+<th>Why it is out</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMTP / Mailpit / HMCTS email infrastructure</td>
+<td>The point of the pilot is to remove external dependencies</td>
+</tr>
+<tr>
+<td><code>ctam_notification_dispatches</code> table + Liquibase changelog</td>
+<td>No container runtime on the authoring machine, so Testcontainers cannot run (<strong>D-2</strong>)</td>
+</tr>
+<tr>
+<td><code>@Scheduled</code> worker, <code>FOR UPDATE SKIP LOCKED</code>, retry budget, <code>queued → sending → sent / failed / dead-lettered</code></td>
+<td>Depends on persistence</td>
+</tr>
+<tr>
+<td><code>JWTFilter</code>, <code>AuthDetails</code>, per-template caller roles, 401/403</td>
+<td>Depends on <code>ctam-authorisation</code> and <code>ctam-mock-auth</code>, neither of which exists (<strong>D-3</strong>)</td>
+</tr>
+<tr>
+<td><code>GET /v1/notifications/delivery-log</code></td>
+<td>Nothing is persisted, so there is nothing to read</td>
+</tr>
+<tr>
+<td>Maven spec artefact publish, Helm chart deploy to AKS, Postman collection in CI</td>
+<td>Not needed to test the method</td>
+</tr>
+<tr>
+<td>Actuator SMTP health indicator</td>
+<td>No SMTP</td>
+</tr>
+</tbody>
+</table>
+</div></details><details class="section" id="deviation-register"><summary><span class="section-title">Deviation register</span></summary><div class="section-body">
+<p>Each deviation is a rule or an authored AC that this pilot knowingly departs from. <strong>Nothing here may be treated as precedent for real delivery.</strong></p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Deviation</th>
+<th>Rule / source affected</th>
+<th>Approved by</th>
+<th>Consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D-1</strong></td>
+<td>Epic 0.5's SMTP dispatch replaced by a single log line</td>
+<td>Epic 0.5 vertical slice, FR9 (partial)</td>
+<td>Ramnish, 2026-08-19</td>
+<td>FR9 is <strong>not</strong> covered by this pilot. <code>ledger/epic-0.5.yaml</code> stays <code>not-started</code></td>
+</tr>
+<tr>
+<td><strong>D-2</strong></td>
+<td>No persistence, no Liquibase, no integration tests</td>
+<td><strong>P1–P16</strong>, <strong>T8</strong>, <strong>P6</strong> not exercised</td>
+<td>Ramnish, 2026-08-19</td>
+<td>The persistence half of the rules is <strong>untested by this pilot</strong>. Highest-value follow-up once a container runtime exists</td>
+</tr>
+<tr>
+<td><strong>D-3</strong></td>
+<td><strong>The endpoint is unauthenticated.</strong> No <code>JWTFilter</code>, no <code>AuthDetails</code></td>
+<td><strong>S9</strong>, <strong>S10</strong>, <strong>S11</strong> waived</td>
+<td>Ramnish, 2026-08-19</td>
+<td><strong>This build must never be deployed anywhere.</strong> Recorded as <code>not_production_bound: true</code> in the pilot ledger. The first real story on this repo must add the filter before anything else</td>
+</tr>
+<tr>
+<td><strong>D-4</strong></td>
+<td>Field validation returns <strong>422</strong>, not the 400 that Epic 0.5.2's AC states</td>
+<td>Epic 0.5.2 AC vs <code>conventions.md</code> → <em>Process Patterns</em></td>
+<td>Ramnish, 2026-08-19</td>
+<td><code>conventions.md</code> wins. Epic 0.5.2's wording should be corrected by a later SCP — a real defect this pilot surfaced, not a pilot-only choice</td>
+</tr>
+<tr>
+<td><strong>D-5</strong></td>
+<td>Parse failure mapped to 400 with the <code>validation</code> category</td>
+<td><strong>C8</strong> — no mapping exists in <code>conventions.md</code> for <code>HttpMessageNotReadableException</code></td>
+<td>agent, pending confirmation</td>
+<td>Candidate addition to the conventions' exception→status table. Raise in the retro</td>
+</tr>
+<tr>
+<td><strong>D-6</strong></td>
+<td>No Pact contract test; <code>verify.sh</code> Pact step will fail by design</td>
+<td><strong>C2</strong>, <strong>T9</strong>, <strong>Q6</strong></td>
+<td>Ramnish, 2026-08-19</td>
+<td>Nothing consumes this service yet, so there is no contract to verify against. The gate being unrunnable for a first-in-line service is itself a finding</td>
+</tr>
+<tr>
+<td><strong>D-7</strong></td>
+<td>No Maven spec artefact published, no Helm deploy</td>
+<td>Epic 0.5.2 AC, <strong>C5</strong></td>
+<td>Ramnish, 2026-08-19</td>
+<td>No internal artefact repository is reachable from a local pilot</td>
+</tr>
+</tbody>
+</table>
+</div></details><details class="section" id="definition-of-done-for-this-pilot"><summary><span class="section-title">Definition of done for this pilot</span></summary><div class="section-body">
+<p>The standard checklist in <code>_arch/agent-rules/90-definition-of-done.md</code> applies, with these recorded exceptions:</p>
+<ul>
+<li><strong>Q6 (contract tests)</strong> — waived per <strong>D-6</strong>. Spectral must still pass.</li>
+<li><strong>Q7 (schema change proved from an empty database)</strong> — not applicable per <strong>D-2</strong>.</li>
+<li>Everything else stands: every AC has a named test (<strong>Q1</strong>), every behaviour was driven red-first with pasted evidence (<strong>Q2</strong>), the rest of the gate passes with pasted output (<strong>Q3</strong>), no leftovers (<strong>Q4</strong>), no unsanctioned surface (<strong>Q5</strong>), the diff is minimal (<strong>Q10</strong>), and status ends at <code>in-review</code> (<strong>Q13</strong>).</li>
+</ul>
+<p>Plus, uniquely for a pilot:</p>
+<ul>
+<li><strong>A retro document</strong> recording, per hypothesis H1–H5: what the cold session had to ask for, which enforcers failed to run, which violations were genuinely caught, every place a rule was silent or wrong, and the measured gate timings.</li>
+</ul>
+</div></details><details class="section" id="execution-protocol"><summary><span class="section-title">Execution protocol</span></summary><div class="section-body">
+<p>The sequencing matters — it is the thing being tested.</p>
+<ol type="1">
+<li><strong>Dispatch</strong> <em>(control plane, <code>ctam-analysis</code>)</em> — this document, plus the packet generated into the service repo as <code>docs/stories/pilot-0.5.1.md</code>.</li>
+<li><strong>Prerequisites</strong> <em>(human)</em> — publish and tag <code>arch-v1.0</code>; create the private <code>ctam-notification</code> repo; install JDK 25.</li>
+<li><strong>Scaffold</strong> <em>(service repo)</em> — clone the HMCTS Crime template, rename to <code>uk.gov.hmcts.ctam.notification</code>, install the enforcement pack, add <code>_arch/</code> at <code>arch-v1.0</code>, <strong>then run the gate on the bare skeleton and fix what breaks.</strong> De-risking <strong>G1.4c</strong> before the story starts is what stops a Checkstyle typo from being mistaken for a finding about the method.</li>
+<li><strong>Execute</strong> <em>(a <strong>fresh</strong> session, in <code>ctam-notification</code>)</em> — <code>bmad-dev-story</code> against the packet. <strong>Not</strong> the session that authored the rules: an author cannot test their own instructions, because everything the packet omits is already in their head.</li>
+<li><strong>Review</strong> — <code>bmad-code-review</code>, then the human commits and raises the PR.</li>
+<li><strong>Signal</strong> <em>(control plane)</em> — update <a href="ledger-pilot-0.5.yaml"><code>ledger-pilot-0.5.yaml</code></a>; write the retro.</li>
+</ol>
+</div></details><details class="section" id="what-this-pilot-cannot-tell-you"><summary><span class="section-title">What this pilot cannot tell you</span></summary><div class="section-body">
+<p>Worth stating plainly so its result is not over-read. It says nothing about persistence, Liquibase, transactions, optimistic locking (so <strong>G6.7</strong> stays open), Testcontainers, contract testing, deployment, or the observability estate. It tests the <strong>code-shape and discipline</strong> half of the method on a service small enough to read in full — not the integration half.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/delivery/pilots/pilot-0.5-notification-logonly.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#why-this-pilot-exists">Why this pilot exists</a></li><li class="h3"><a href="#hypotheses-under-test">Hypotheses under test</a></li><li><a href="#scope--what-is-built">Scope — what is built</a></li><li><a href="#acceptance-criteria">Acceptance criteria</a></li><li class="h3"><a href="#ac-1--a-valid-request-is-accepted-and-logged">AC-1 — a valid request is accepted and logged</a></li><li class="h3"><a href="#ac-2--an-unknown-template-is-a-business-rule-failure">AC-2 — an unknown template is a business-rule failure</a></li><li class="h3"><a href="#ac-3--field-validation-failure-is-422">AC-3 — field validation failure is 422</a></li><li class="h3"><a href="#ac-4--an-unparseable-body-is-400">AC-4 — an unparseable body is 400</a></li><li class="h3"><a href="#ac-5--the-correlation-id-is-read-or-generated-and-reaches-the-log">AC-5 — the correlation id is read or generated, and reaches the log</a></li><li class="h3"><a href="#ac-6--the-generated-spec-is-convention-clean">AC-6 — the generated spec is convention-clean</a></li><li><a href="#out-of-scope--and-why">Out of scope — and why</a></li><li><a href="#deviation-register">Deviation register</a></li><li><a href="#definition-of-done-for-this-pilot">Definition of done for this pilot</a></li><li><a href="#execution-protocol">Execution protocol</a></li><li><a href="#what-this-pilot-cannot-tell-you">What this pilot cannot tell you</a></li></ul></aside>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="delivery/pilots/pilot-0.5-notification-logonly";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
