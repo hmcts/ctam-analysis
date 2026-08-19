@@ -114,7 +114,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>Control plane</strong></td>
 <td><code>ctam-analysis</code> (this workspace)</td>
-<td>Canonical PRD/architecture/epics/stories · sprint &amp; story queue · the machine-readable <strong>dispatch graph</strong> · the <strong>traceability ledger</strong> (FR/NFR → epic → story → repo → PR) · story-packet generation ("dispatch")</td>
+<td>Canonical PRD/architecture/epics/stories · the BMad <strong>sprint status</strong> (<code>implementation-artifacts/sprint-status.yaml</code>) · story-packet generation ("dispatch") · the pre-dispatch check</td>
 <td>Edit service code</td>
 </tr>
 <tr>
@@ -154,7 +154,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <blockquote>
 <p><strong>A service repo re-syncs to a newer <code>ctam-architecture</code> version only by an explicit, committed submodule bump. The bus never mutates a downstream repo silently.</strong></p>
 </blockquote>
-<p>Consequence: a convention change is <strong>one PR in <code>ctam-architecture</code></strong> (publish <code>arch-v(N+1)</code>) <strong>+ one deliberate bump PR per repo that adopts it</strong> — auditable, staged, reversible. This is precisely what prevents "central truth" from becoming "16 things silently drifting." Repos may sit on different bus versions intentionally (e.g. a phase-6 service on <code>arch-v1.9</code> while phase-1 services haven't yet needed the bump); the ledger records each repo's pinned version.</p>
+<p>Consequence: a convention change is <strong>one PR in <code>ctam-architecture</code></strong> (publish <code>arch-v(N+1)</code>) <strong>+ one deliberate bump PR per repo that adopts it</strong> — auditable, staged, reversible. This is precisely what prevents "central truth" from becoming "16 things silently drifting." Repos may sit on different bus versions intentionally (e.g. a phase-6 service on <code>arch-v1.9</code> while phase-1 services haven't yet needed the bump); each repo's pinned version is recorded in its own <code>CLAUDE.md</code> and in every story packet's <code>bus_version</code> — the pin lives with the repo that holds it, not in a central table that would drift.</p>
 <h3 id="contract-placement-within-the-bus-producer-owned-source-read-only-mirror-only">Contract placement within the bus: producer-owned source, read-only mirror only</h3>
 <p>The context-bus row above lists "aggregated OpenAPI contracts." That aggregation is a <strong>read-only mirror — and nothing more.</strong> API contracts follow the same "single source of truth, referenced not copied" rule as the architecture prose, but with a different transport:</p>
 <ul>
@@ -170,46 +170,25 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <blockquote>
 <p><strong>Rule:</strong> the architecture repo never <em>owns</em> a contract and never <em>serves</em> one to a build. It reflects contracts; it does not hold them. Hand-editing the mirror, or consuming it as source, re-introduces the exact drift this model exists to prevent.</p>
 </blockquote>
-</div></details><details class="section" id="decision-2--sequencing-driver-a-machine-readable-dispatch-graph"><summary><span class="section-title">Decision 2 — Sequencing driver: a machine-readable dispatch graph</span></summary><div class="section-body">
-<p>The build order is <strong>encoded as data in the control plane</strong>, not re-decided conversationally each sprint. This makes dispatch <strong>deterministic</strong>: given the ledger state, the "next buildable story" is a lookup, not a judgement call, and independent work is visible for safe parallel fan-out.</p>
-<p>The graph lives at <code>_bmad-output/planning-artifacts/delivery/dispatch-graph.yaml</code> and encodes repo- and epic-level dependencies derived from <a href="repository-strategy.html"><code>./repository-strategy.md</code></a> and <a href="../../epics/framework.html"><code>../epics/framework.md</code></a>:</p>
-<pre class="yaml"><code># dispatch-graph.yaml — repo build order + dependencies. Source of truth for &quot;what&#39;s next&quot;.
-bus_version: arch-v1.0          # current published context-bus version
-repos:
-  ctam-shared-infrastructure:
-    phase: 0
-    depends_on: []              # nothing precedes the estate
-    epics: [epic-0.0]
-  ctam-mock-auth:
-    phase: 0
-    depends_on: [ctam-shared-infrastructure]
-    epics: [epic-0.2]           # dev/CI OIDC issuer, needed before auth integration
-  ctam-reference-data:
-    phase: 0
-    depends_on: [ctam-shared-infrastructure]
-    epics: [epic-0.1, epic-0.3] # integrations-first: jo_people before sign-in
-  ctam-authorisation:
-    phase: 0
-    depends_on: [ctam-shared-infrastructure, ctam-mock-auth, ctam-reference-data]
-    epics: [epic-0.2, epic-0.4]
-  ctam-notification:
-    phase: 0
-    depends_on: [ctam-shared-infrastructure]
-    epics: [epic-0.5]
-  ctam-ui:
-    phase: 0
-    depends_on: [ctam-authorisation]
-    epics: [epic-0.ui-shell]
-  ctam-joh:        { phase: 1, depends_on: [ctam-authorisation, ctam-reference-data], epics: [] }
-  ctam-absence:    { phase: 2, depends_on: [ctam-joh, ctam-notification], epics: [] }
-  ctam-vacancy:    { phase: 3, depends_on: [ctam-absence], epics: [] }
-  ctam-booking:    { phase: 4, depends_on: [ctam-vacancy], epics: [] }
-  ctam-sitting:    { phase: 5, depends_on: [ctam-joh], epics: [] }
-  ctam-payment:    { phase: 6, depends_on: [ctam-booking, ctam-sitting, ctam-notification], epics: [] }
-  ctam-itinerary:  { phase: 7, depends_on: [ctam-joh, ctam-absence, ctam-vacancy, ctam-booking, ctam-sitting], epics: [] }
-  ctam-mi-feed:    { phase: 8, depends_on: [ctam-itinerary], epics: [] }
-  ctam-admin-ui:   { phase: post-mvp, depends_on: [ctam-reference-data, ctam-authorisation], epics: [] }</code></pre>
-<p><strong>Buildable-now rule:</strong> a story is dispatchable iff every repo in its <code>depends_on</code> has its prerequisite epics marked <code>done</code> in the ledger. Anything with all-satisfied dependencies and no shared state can run <strong>in parallel</strong> — the core advantage of AI-led delivery over sequential human squads. <code>phases 1–8</code> epics are populated into this graph as they are decomposed (only phase 0 is decomposed today).</p>
+</div></details><details class="section" id="decision-2--sequencing-driver-the-epics-themselves"><summary><span class="section-title">Decision 2 — Sequencing driver: the epics themselves</span></summary><div class="section-body">
+<p><em>Rewritten 2026-08-19 (SCP 2026-08-19d). This decision previously introduced a bespoke <code>delivery/dispatch-graph.yaml</code>. That file has been retired: five of its nine fields duplicated the epic files (title, story list, phase, <code>decomposed</code>) or the bus tag (<code>bus_version</code>), no BMad skill ever read it, and the two fields that mattered belong on the epic itself.</em></p>
+<p>Build order is <strong>structured data on each epic</strong>, in its frontmatter:</p>
+<pre class="yaml"><code>epic: 0.1
+title: &#39;Upstream JOH/MRD reference data is ingested&#39;
+storyCount: 4
+repo: ctam-reference-data          # or a list: [ctam-authorisation, ctam-mock-auth, ctam-ui]
+depends_on: [epic-0.0, epic-0.6]   # epic ids, resolved against sprint-status.yaml</code></pre>
+<p>Two fields, on the artefact that is already authored, parsed and version-controlled — and the artefact <code>bmad-sprint-planning</code> already reads.</p>
+<p><strong>Why on the epic rather than in a graph file:</strong></p>
+<ul>
+<li><strong><code>repo:</code> has nowhere else structured to live.</strong> BMad has no concept of which repository a story lands in; a 16-repo polyrepo needs one. Previously it existed only in epic prose.</li>
+<li><strong><code>depends_on:</code> is a property of the epic</strong>, not of a separate index. Keeping it beside the epic means it cannot fall out of step with the epic it describes.</li>
+<li><strong>No duplication.</strong> The story list, title, phase and decomposition state are already in the epic file and in <code>sprint-status.yaml</code>; a graph repeated all four.</li>
+<li><strong>No second <code>bus_version</code> claim.</strong> The graph asserted one; the real pin is each repo's submodule. Two claims is a drift risk, not a convenience.</li>
+</ul>
+<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every id in its <code>depends_on</code> is <code>done</code> in <code>sprint-status.yaml</code>. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong> — the core advantage of AI-led delivery. Epic 0.5 (Notification) needs only the estate, so it can run alongside 0.1/0.2.</p>
+<p>This is checked by <code>scripts/dispatch-preflight.sh &lt;story-id&gt;</code>, which is read-only and also confirms the story is still <code>backlog</code> and that no branch on the target remote already claims it (see <em>Multi-user coordination</em> below).</p>
+<p><strong>Phases 1–8</strong> are not yet decomposed into epics, so they have no frontmatter to carry. Their dependency edges are recorded as prose in <a href="../../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em>, and each phase gains structured frontmatter when <code>bmad-create-epics-and-stories</code> runs for it.</p>
 </div></details><details class="section" id="the-per-story-delivery-flow"><summary><span class="section-title">The per-story delivery flow</span></summary><div class="section-body">
 <p>Each story travels the same four steps. The "transport" is a <strong>lossless generate</strong>, not a copy — so there is no independent copy to drift.</p>
 <pre><code>[ctam-analysis: control plane]                    [ctam-{service}: execution unit]
@@ -227,7 +206,7 @@ repos:
         │                                       implements; diff surfaced for VSCode commit
         │                                                 │
   4. SIGNAL ◄─────────────────────────────────────────────┘
-     ledger updated: story done, repo, PR link, bus version</code></pre>
+     sprint-status.yaml updated: story -&gt; done  (bmad-sprint-status)</code></pre>
 <p>Mapped to the installed BMAD skills:</p>
 <table>
 <thead>
@@ -255,62 +234,126 @@ repos:
 </tr>
 <tr>
 <td>4 · Signal</td>
-<td><code>bmad-sprint-status</code> / <code>bmad-sprint-planning</code> updating the ledger</td>
+<td><code>bmad-sprint-status</code> updating <code>sprint-status.yaml</code></td>
 <td><code>ctam-analysis</code></td>
 </tr>
 <tr>
 <td>Sprint setup</td>
-<td><code>bmad-sprint-planning</code> reads <code>dispatch-graph.yaml</code> → next buildable stories</td>
+<td><code>bmad-sprint-planning</code> parses the epics → <code>sprint-status.yaml</code>; <code>scripts/dispatch-preflight.sh</code> picks the next buildable story</td>
 <td><code>ctam-analysis</code></td>
 </tr>
 </tbody>
 </table>
 <h3 id="story-packet-schema-docsstoriesidmd-in-the-target-repo">Story packet schema (<code>docs/stories/&lt;id&gt;.md</code> in the target repo)</h3>
-<p>Self-contained so the repo is readable standalone by a fresh Claude session <em>or</em> a human HMCTS dev:</p>
+<p><em>Rewritten 2026-08-19 (SCP 2026-08-19b). The earlier version of this section specified a bespoke layout while the table above mapped dispatch to <code>bmad-create-story</code> — two incompatible instructions three lines apart. A hand-authored packet followed the layout, <code>bmad-dev-story</code> then had no <code>## Tasks / Subtasks</code> to work through and no <code>## Dev Agent Record</code> to write into, and the pilot caught it. The contract below removes the contradiction.</em></p>
+<p><strong>The packet is BMad's story template, plus CTAM's polyrepo fields. Three rules, in priority order:</strong></p>
+<ol type="1">
+<li><strong>Every top-level section is BMad's</strong> — <code>## Story</code>, <code>## Acceptance Criteria</code>, <code>## Tasks / Subtasks</code>, <code>## Dev Notes</code>, <code>## Dev Agent Record</code>, and <code>### File List</code> — at BMad's heading level, with BMad's spelling. <code>bmad-dev-story</code> reads and writes them by exact heading; renaming or dropping one breaks the dev workflow.</li>
+<li><strong>CTAM content is added only as frontmatter and as subsections of <code>## Dev Notes</code>.</strong> Never as a new top-level section. Context distilled from the bus, the rules that apply, out-of-scope boundaries, recorded deviations and definition-of-done deltas are all <code>###</code> under Dev Notes.</li>
+<li><strong>There is exactly one status: the <code>Status:</code> line, in BMad's vocabulary</strong> (<code>ready-for-dev | in-progress | review | done</code>). The packet frontmatter carries <strong>no</strong> <code>status</code> key. <code>sprint-status.yaml</code> uses the same vocabulary, so a status means one thing everywhere: set the story to <code>ready-for-dev</code> there in the same change that lands the packet.</li>
+</ol>
+<p>Canonical template, versioned with the bus so every repo gets the same one:</p>
+<pre><code>ctam-architecture/agent-rules/templates/story-packet.md</code></pre>
 <pre class="markdown"><code>---
 story_id: 0.1.4
 epic: epic-0.1-upstream-reference-data-ingested
 repo: ctam-reference-data
-bus_version: arch-v1.0
-frs: [FR6, FR7, NFR24]
-depends_on_stories: [0.0.3]      # optional intra-graph prerequisites
-status: dispatched               # dispatched | in-progress | in-review | done
+bus_version: arch-v1.0            # the target repo&#39;s actual _arch pin, not an aspiration
+frs: [FR6, FR7]
+nfrs: [NFR24]
+depends_on_stories: [0.0.3]       # optional intra-graph prerequisites
+sprint_status_key: 0-1-4-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
 ---
-# Story 0.1.4 — &lt;title&gt;
-## Context (distilled, from ctam-architecture @ arch-v1.0)   ← what this story needs, not the whole arch
-## Acceptance criteria (Gherkin, verbatim from the epic)
-## Out of scope / boundaries
-## Definition of done (tests, ArchUnit, Spectral, UAT hooks per repo-structure.md)</code></pre>
-<h3 id="traceability-ledger-_bmad-outputplanning-artifactsdeliveryledger--sharded-per-epic">Traceability ledger (<code>_bmad-output/planning-artifacts/delivery/ledger/</code> — sharded per epic)</h3>
-<p>One authoritative view of programme progress — the thing a fat orchestrator would give you, without the coupling. It is <strong>sharded one file per epic</strong> (<code>ledger/epic-0.x.yaml</code>) so multiple people update different epics without git conflicts; each shard carries epic-level <code>status</code>+<code>owner</code> and per-story <code>status</code>+<code>owner</code>+<code>pr</code> for "who is working on what" visibility (schema + concurrency rules in <code>delivery/ledger/README.md</code>):</p>
-<pre class="yaml"><code># ledger/epic-0.1.yaml
-epic: epic-0.1
-title: Upstream JOH/MRD reference data is ingested
-repo: ctam-reference-data
-status: in-progress            # epic rollup: not-started | in-progress | blocked | in-review | done
-owner: alice
-stories:
-  - story: 0.1.4
-    repo: ctam-reference-data
-    frs: [FR6, FR7, NFR24]
-    bus_version: arch-v1.0
-    status: done               # not-started | dispatched | in-progress | in-review | done
-    owner: bob
-    pr: https://github.com/hmcts/ctam-reference-data/pull/12</code></pre>
-<p>Reverse lookups it enables: <em>which stories cover FR6?</em> · <em>which repos are on which bus version?</em> · <em>what's blocked vs. buildable-now?</em> · <em>who owns each epic/story?</em> · <em>is every FR/NFR delivered?</em></p>
-</div></details><details class="section" id="human-gates-and-the-git-write-constraint"><summary><span class="section-title">Human gates and the git-write constraint</span></summary><div class="section-body">
-<p>Claude does not perform git operations in this programme (per the repo-root <a href="../../../CLAUDE.md"><code>CLAUDE.md</code></a>; enforced by the <code>.claude/hooks/block-git-writes.sh</code> hook in this workspace). That is a <strong>feature of this model, not friction</strong>: each repo boundary is a deliberate human gate. Claude <em>prepares</em> work (generates packets, writes code, surfaces diffs); the human reviews and commits via VSCode — which is exactly what per-repo CODEOWNERS/branch-protection exist to enforce. Dispatch and signal steps likewise produce reviewable diffs in <code>ctam-analysis</code>, committed the same way.</p>
+# Story 0.1.4: &lt;title&gt;
+Status: ready-for-dev
+## Story                    (as a / I want / so that)
+## Acceptance Criteria      (numbered; Gherkin inside an item — AC-3 must resolve to item 3)
+## Tasks / Subtasks         (checkboxes citing AC numbers, ordered as the TDD loop will run)
+## Dev Notes
+### Context distilled from the bus     ← what this story needs, cited; not the whole architecture
+### Rules that apply                   ← the agent-rules ids that will bite on this story
+### Project Structure Notes            ← expected files; variances with rationale
+### Out of scope / boundaries
+### Recorded deviations                ← omit entirely when there are none
+### Definition of done                 ← only the deltas from 90-definition-of-done.md
+### References                         ← [Source: _arch/architecture/&lt;file&gt;.md#&lt;heading&gt;]
+## Dev Agent Record
+### Agent Model Used
+### Debug Log References
+### Completion Notes List   (red/green evidence per R2, gate output per R12)
+### File List               (written by the implementing session)</code></pre>
+<p><strong>Enforcement, because prose did not hold:</strong></p>
+<ul>
+<li><strong><code>ctam-analysis/scripts/validate-story-packet.sh &lt;packet&gt;</code></strong> fails on a missing BMad section, a CTAM section promoted to top level, a missing frontmatter key, a duplicate <code>status:</code> key, an out-of-vocabulary <code>Status:</code>, unnumbered ACs, or absent task checkboxes. Run it before a packet is reported ready.</li>
+<li><strong><code>_bmad/custom/bmad-create-story.toml</code></strong> (committed team customization) points the skill at the canonical template, at the target-repo output location, and at the validator. This is why the reconciliation is executable rather than aspirational.</li>
+</ul>
+<p><strong>Prerequisite, easy to miss:</strong> <code>bmad-create-story</code> refuses to run without <code>{implementation_artifacts}/sprint-status.yaml</code>, which only <code>bmad-sprint-planning</code> creates. Dispatch therefore starts with sprint planning, once per phase — not with story creation.</p>
+<h3 id="programme-progress-_bmad-outputimplementation-artifactssprint-statusyaml">Programme progress (<code>_bmad-output/implementation-artifacts/sprint-status.yaml</code>)</h3>
+<p><em>Replaced the bespoke per-epic ledger 2026-08-19 (SCP 2026-08-19d). The ledger carried <code>status</code>, <code>owner</code>, <code>pr</code>, <code>repo</code>, <code>frs</code> and <code>bus_version</code> per story; at the point it was retired every entry still read <code>not-started</code> / <code>owner: null</code> / <code>pr: null</code>, so no state was lost.</em></p>
+<p>One authoritative view of programme progress — the thing a fat orchestrator would give you, without the coupling — generated by <code>bmad-sprint-planning</code> from the epic files:</p>
+<pre class="yaml"><code>development_status:
+  epic-0.1: backlog
+  0-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter: backlog
+  0-1-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection: backlog
+  ...
+  epic-0.1-retrospective: optional</code></pre>
+<p><strong>One status vocabulary</strong>, BMad's: stories <code>backlog → ready-for-dev → in-progress → review → done</code>; epics <code>backlog → in-progress → done</code>. The story packet's <code>Status:</code> line uses the same words. There is no second vocabulary anywhere — the previous two-vocabulary arrangement was the source of a documented contradiction.</p>
+<p><strong>What BMad does not model, and where it now lives instead:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Home</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Target repo</td>
+<td>the epic's <code>repo:</code> frontmatter, and the packet's <code>repo:</code></td>
+</tr>
+<tr>
+<td>Requirements traced</td>
+<td>the packet's <code>frs:</code> / <code>nfrs:</code> frontmatter</td>
+</tr>
+<tr>
+<td>Bus version built against</td>
+<td>the packet's <code>bus_version:</code>, and the repo's <code>CLAUDE.md</code></td>
+</tr>
+<tr>
+<td>PR link</td>
+<td>the PR itself, and the packet's <em>Dev Agent Record</em></td>
+</tr>
+<tr>
+<td>Who is working on it</td>
+<td><strong>the branch on the target remote</strong> — a branch is the claim</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reverse lookups</strong> the ledger used to answer — <em>which stories cover FR6? which repos are on which bus version?</em> — are now <strong>generated</strong> from packet frontmatter rather than maintained by hand. That trades an always-available table for one that has to be produced, and buys the elimination of a hand-maintained copy that would drift.</p>
+<p><strong>Multi-user coordination</strong> is by convention: <strong>one dispatcher at a time.</strong> <code>sprint-status.yaml</code> is a single file, so concurrent dispatch would conflict on it. <code>scripts/dispatch-preflight.sh</code> is the backstop — read-only, and it refuses a story that is not <code>backlog</code>, that a remote branch already claims, or whose prerequisites are not <code>done</code>. Execution parallelises freely, because it happens in different service repos.</p>
+</div></details><details class="section" id="human-gates-and-the-branch-protection-constraint"><summary><span class="section-title">Human gates and the branch-protection constraint</span></summary><div class="section-body">
+<p><em>Revised 2026-08-19 (SCP 2026-08-19c). The original constraint was "Claude performs no git operations"; the gate is now the pull request.</em></p>
+<p>An agent <strong>may</strong> create a feature branch, commit to it, and push it. An agent <strong>may not</strong> write to a protected branch (<code>main</code>/<code>master</code>), force-push, delete or rename branches, create tags, discard uncommitted work, or use <code>gh</code>/<code>hub</code>. Opening, approving and merging the pull request are the human's, backed by server-side branch protection.</p>
+<p>Enforced by <code>.claude/hooks/block-git-writes.sh</code> (the same file in every repo, published on the bus at <code>agent-rules/enforcement/claude/hooks/</code>), which resolves the current branch — including on an unborn branch in a freshly initialised repo — and refuses history-writing operations while HEAD is protected.</p>
+<p><strong>Why this is still a real gate, and a better one than "no commits":</strong></p>
+<ul>
+<li><strong>The review boundary is unchanged.</strong> Nothing reaches <code>main</code> without a human reading a diff. What changed is <em>where</em> the human reads it: a PR with commit-by-commit history, instead of an uncommitted working tree in someone's editor.</li>
+<li><strong>The history becomes evidence.</strong> Red-green cycles committed as they happen are reviewable; the same work squashed into a human's single commit is not. This matters more in AI-led delivery than in hand-written code, because the sequence is the thing a reviewer needs to check (<strong>R2</strong>).</li>
+<li><strong>Per-repo CODEOWNERS and branch protection do the enforcing</strong>, which is what they exist for — rather than a convention that every agent must remember.</li>
+<li><strong>Tags stay human</strong> because <code>arch-vN</code> is consumed by pinned submodules across the polyrepo: a stray tag silently changes what every downstream repo can adopt.</li>
+</ul>
+<p>Dispatch and signal steps in <code>ctam-analysis</code> follow the same rule: a branch and a PR, not a direct write to <code>main</code>.</p>
 </div></details><details class="section" id="parallel-execution"><summary><span class="section-title">Parallel execution</span></summary><div class="section-body">
-<p>Because polyrepo has no shared runtime state, stories whose dependencies are satisfied can be implemented concurrently — one isolated Claude session (or git worktree) per repo. The <code>dispatch-graph.yaml</code> makes the safe-to-parallelise set explicit at any moment. Recommended ceiling: parallelise across <em>repos</em>, serialise <em>within</em> a repo (per-repo history stays linear and reviewable).</p>
+<p>Because polyrepo has no shared runtime state, stories whose dependencies are satisfied can be implemented concurrently — one isolated Claude session (or git worktree) per repo. Each epic's <code>depends_on</code> frontmatter plus <code>sprint-status.yaml</code> make the safe-to-parallelise set explicit at any moment; <code>scripts/dispatch-preflight.sh</code> reports it per story. Recommended ceiling: parallelise across <em>repos</em>, serialise <em>within</em> a repo (per-repo history stays linear and reviewable).</p>
 </div></details><details class="section" id="what-this-means-for-the-two-planning-homes"><summary><span class="section-title">What this means for the two planning homes</span></summary><div class="section-body">
 <ul>
-<li><strong><code>ctam-analysis</code> (this workspace)</strong> stays the canonical author of PRD/architecture/epics/stories and gains two new control-plane artefacts: <code>delivery/dispatch-graph.yaml</code> and <code>delivery/ledger/</code> (traceability ledger, sharded per epic).</li>
+<li><strong><code>ctam-analysis</code> (this workspace)</strong> stays the canonical author of PRD/architecture/epics/stories. Its delivery state is BMad's own <code>implementation-artifacts/sprint-status.yaml</code>; the polyrepo facts BMad does not model (<code>repo:</code>, <code>depends_on:</code>) sit in each epic's frontmatter. It holds no bespoke tracking artefact.</li>
 <li><strong><code>ctam-architecture</code></strong> becomes the <em>published</em> context bus — a mirror/publish target of the canonical architecture, tagged per version (<code>arch-vN</code>), consumed by every service repo as a pinned submodule. When it is scaffolded, this operating-model shard travels into it with the rest of the architecture, per <a href="repo-structure.html"><code>./repo-structure.md</code></a>'s <code>decisions/</code> + <code>architecture/</code> layout.</li>
 </ul>
 </div></details><details class="section" id="bootstrapping-order-first-moves"><summary><span class="section-title">Bootstrapping order (first moves)</span></summary><div class="section-body">
 <ol type="1">
 <li>Publish <code>ctam-architecture</code> and tag <code>arch-v1.0</code> (the current architecture set becomes the first bus version).</li>
-<li>Encode <code>dispatch-graph.yaml</code> + initialise the per-epic <code>delivery/ledger/</code> shards in this workspace.</li>
+<li>Run <code>bmad-sprint-planning</code> in this workspace to generate <code>sprint-status.yaml</code> from the epics. <code>bmad-create-story</code> cannot run without it.</li>
 <li>Scaffold <code>ctam-shared-infrastructure</code> (no <code>depends_on</code>) via <code>ctam-scaffold.sh</code>; wire its <code>_arch/</code> submodule + <code>CLAUDE.md</code>.</li>
 <li>Dispatch epic 0.0's stories → execute → signal. Then follow the graph: mock-auth / reference-data / notification (parallelisable) → authorisation → UI shell.</li>
 </ol>
@@ -318,7 +361,7 @@ stories:
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/architecture/delivery-operating-model.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#the-problem-this-shard-resolves">The problem this shard resolves</a></li><li><a href="#core-principle-separate-the-control-plane-from-the-data-plane-join-them-with-a-versioned-context-bus">Core principle: separate the control plane from the data plane, join them with a versioned context bus</a></li><li><a href="#decision-1--context-bus-binding-git-submodule-version-pinned">Decision 1 — Context bus binding: git submodule, version-pinned</a></li><li class="h3"><a href="#the-bus-pinning-rule-this-is-what-makes-the-model-safe">The bus-pinning rule (this is what makes the model safe)</a></li><li class="h3"><a href="#contract-placement-within-the-bus-producer-owned-source-read-only-mirror-only">Contract placement within the bus: producer-owned source, read-only mirror only</a></li><li><a href="#decision-2--sequencing-driver-a-machine-readable-dispatch-graph">Decision 2 — Sequencing driver: a machine-readable dispatch graph</a></li><li><a href="#the-per-story-delivery-flow">The per-story delivery flow</a></li><li class="h3"><a href="#story-packet-schema-docsstoriesidmd-in-the-target-repo">Story packet schema (docs/stories/&lt;id&gt;.md in the target repo)</a></li><li class="h3"><a href="#traceability-ledger-_bmad-outputplanning-artifactsdeliveryledger--sharded-per-epic">Traceability ledger (_bmad-output/planning-artifacts/delivery/ledger/ — sharded per epic)</a></li><li><a href="#human-gates-and-the-git-write-constraint">Human gates and the git-write constraint</a></li><li><a href="#parallel-execution">Parallel execution</a></li><li><a href="#what-this-means-for-the-two-planning-homes">What this means for the two planning homes</a></li><li><a href="#bootstrapping-order-first-moves">Bootstrapping order (first moves)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#the-problem-this-shard-resolves">The problem this shard resolves</a></li><li><a href="#core-principle-separate-the-control-plane-from-the-data-plane-join-them-with-a-versioned-context-bus">Core principle: separate the control plane from the data plane, join them with a versioned context bus</a></li><li><a href="#decision-1--context-bus-binding-git-submodule-version-pinned">Decision 1 — Context bus binding: git submodule, version-pinned</a></li><li class="h3"><a href="#the-bus-pinning-rule-this-is-what-makes-the-model-safe">The bus-pinning rule (this is what makes the model safe)</a></li><li class="h3"><a href="#contract-placement-within-the-bus-producer-owned-source-read-only-mirror-only">Contract placement within the bus: producer-owned source, read-only mirror only</a></li><li><a href="#decision-2--sequencing-driver-the-epics-themselves">Decision 2 — Sequencing driver: the epics themselves</a></li><li><a href="#the-per-story-delivery-flow">The per-story delivery flow</a></li><li class="h3"><a href="#story-packet-schema-docsstoriesidmd-in-the-target-repo">Story packet schema (docs/stories/&lt;id&gt;.md in the target repo)</a></li><li class="h3"><a href="#programme-progress-_bmad-outputimplementation-artifactssprint-statusyaml">Programme progress (_bmad-output/implementation-artifacts/sprint-status.yaml)</a></li><li><a href="#human-gates-and-the-branch-protection-constraint">Human gates and the branch-protection constraint</a></li><li><a href="#parallel-execution">Parallel execution</a></li><li><a href="#what-this-means-for-the-two-planning-homes">What this means for the two planning homes</a></li><li><a href="#bootstrapping-order-first-moves">Bootstrapping order (first moves)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../../";window.__PAGE__="architecture/tobe/delivery-operating-model";</script>
 <script src="../../nav.js"></script>
 <script>

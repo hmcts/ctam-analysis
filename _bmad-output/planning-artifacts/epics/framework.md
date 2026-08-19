@@ -56,6 +56,8 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 **Component(s)**: `ctam-architecture` (scaffolding script + ADRs), GitHub Actions workflows, shared Liquibase baseline changelog, APIM policies, Helm chart conventions.
 
+**Concrete epics in this area**: [Epic 0.0](phase-0/epic-0.0-platform-estate-provisioned.md) (the Azure estate) and [Epic 0.6](phase-0/epic-0.6-context-bus-and-shared-baseline.md) (the published context bus + the shared `ctam_configuration_values` baseline).
+
 **Primary FR/NFR coverage**: FR8, FR58, FR59, NFR25–NFR28, NFR40, NFR42; underpins every AR1–AR52.
 
 ### Phase 0 · Area: Identity & Authorisation
@@ -129,6 +131,26 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 **Primary FR/NFR coverage**: FR4 *(UI surface)*, FR6 *(tier-(b) UI surface)*, FR56 *(stack)*, NFR17, NFR18, NFR19. Also AR42–AR45b. All post-MVP[^d10].
 
 → **Phase 0 concrete epics + stories:** [phase-0/](phase-0/index.md)
+
+## Phase dependency order
+
+*Added 2026-08-19 (SCP 2026-08-19d), folded in from the retired `delivery/dispatch-graph.yaml`.*
+
+Phase 0's dependencies are structured data, held in each epic's frontmatter (`repo:` and `depends_on:`) — that is what `scripts/dispatch-preflight.sh` reads. Phases 1–8 are **not yet decomposed into epics**, so their edges are recorded here as prose until `bmad-create-epics-and-stories` runs for each phase and gives them frontmatter of their own.
+
+| Phase | Repo(s) | Depends on | Why |
+|---|---|---|---|
+| **1 — JOH** | `ctam-joh` | Phase 0 epics 0.2, 0.3 | needs auth + reference-data reads |
+| **2 — Absence** | `ctam-absence` | Phase 1, epic 0.5 | absence hangs off JOH records; acknowledgement emails need Notification |
+| **3 — Vacancy** | `ctam-vacancy` | Phase 2 | vacancies are created from absences |
+| **4 — Booking** | `ctam-booking` | Phase 3 | bookings fill vacancies |
+| **5 — Sitting** | `ctam-sitting` | Phase 1 | sittings are generated from JOH working patterns — **parallelisable with 3 and 4** |
+| **6 — Payment** | `ctam-payment`, `ctam-payment-batch` | Phases 4 and 5, epic 0.5 | pays for bookings and sittings; the batch is the first `client_credentials` consumer |
+| **7 — Itineraries** | `ctam-itinerary` | Phases 1–5 | a federated read model over everything above; owns no tables |
+| **8 — MI Feed** | `ctam-mi-feed` | Phase 7 | reporting over the read model; owns no tables |
+| **post-MVP — Admin UI** | `ctam-admin-ui` | Phase 0 epics 0.2, 0.3 | needs auth + reference data[^d10] |
+
+**Parallelism worth keeping in view:** epic 0.5 (Notification) needs only the estate, so it can run alongside 0.1/0.2; and Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in Phase 0 is close to a straight line.
 
 ## Phase 1 — JOH
 

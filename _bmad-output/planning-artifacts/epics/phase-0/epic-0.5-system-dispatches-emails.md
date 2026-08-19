@@ -8,6 +8,8 @@ parent: 'epics/phase-0/index.md'
 epic: 0.5
 title: 'Notification service is scaffolded and contractually ready'
 storyCount: 2
+repo: ctam-notification
+depends_on: [epic-0.0]                      # only needs the estate — parallelisable with 0.1/0.2
 ---
 
 # Epic 0.5: Notification service is scaffolded and contractually ready

@@ -1,9 +1,12 @@
 .claude/skills/bmad-*
 build/
 _bmad/*
+# _bmad/custom/ is the team-owned customization layer BMad designates as committed
+# (see the header of _bmad/config.toml). The installer never touches it.
+!_bmad/
 .venv/
 .tmp/
 
 .DS_Store
 */.DS_Store
-scripts/python/__pycache__/
+__pycache__/

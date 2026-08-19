@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.6: Context bus is published and the shared configuration baseline exists — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+
+<h1 id="epic-06-context-bus-is-published-and-the-shared-configuration-baseline-exists">Epic 0.6: Context bus is published and the shared configuration baseline exists</h1>
+<blockquote>
+<p><strong>Runs between Epic 0.0 and Epic 0.1 — the number is not the order.</strong> Sequence comes from <code>depends_on</code>, not from the epic number: this epic depends on Epic 0.0 and Epic 0.1 depends on it. Note the dependency is <strong>story-specific in practice</strong> — Story 0.6.1 (publish and tag the bus) needs nothing and is already done; only Story 0.6.2 (the Liquibase baseline) needs Epic 0.0's shared PostgreSQL. <code>depends_on</code> is epic-level, so it records the stricter of the two; expect <code>dispatch-preflight.sh</code> to flag Epic 0.0 as a blocker for 0.6.1 even though that story is complete. It is numbered 0.6 because renumbering the authored epics 0.1–0.5 would break every FR mapping and cross-reference for no benefit.</p>
+<p><strong>History:</strong> this was <code>arch-baseline</code> in <code>delivery/dispatch-graph.yaml</code>, a node marked <code>decomposed: false</code>. That made it invisible to every BMad skill — it appeared in no sprint status, had no stories, and could not be dispatched. Promoted to a real epic when the dispatch graph was retired (SCP 2026-08-19d).</p>
+</blockquote>
+<p><strong>User outcome:</strong> Every service repo can pin one published, versioned copy of the architecture (the <strong>context bus</strong>), and every service can read cross-service runtime policy values from one shared table it does not own. Both exist before the first domain service is scaffolded, so no service has to invent a local copy of shared truth or a local config table.</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li><code>ctam-architecture</code> published as the context bus: the architecture set (<code>architecture.md</code> + <code>architecture/</code> shards + <code>prd.md</code> mirror) plus the authored <code>agent-rules/</code> pack, tagged <code>arch-vN</code></li>
+<li>The publish mechanism is reproducible, not hand-copied (<code>ctam-analysis/scripts/publish-arch.sh</code>)</li>
+<li><code>ctam_configuration_values</code> created by a Liquibase <strong>baseline changelog owned by <code>ctam-architecture</code></strong> — the one table with no owning service (per <code>data-tables.md</code>)</li>
+<li><code>SELECT</code> granted to every service DB role; no service granted write</li>
+<li>Both verifiable: a service repo can add the submodule at the tag and read it; a service role can read the table and cannot write it</li>
+</ul>
+<p><strong>FRs covered:</strong> FR8 (shared cross-service policy values)</p>
+<p><strong>Key NFRs:</strong> NFR16 (secrets stay in Key Vault — this table is for policy, never secrets), NFR40 (auditable trail: bus versions are tags, schema changes are changelogs)</p>
+<p><strong>Out of scope for Phase 0 (deferred):</strong></p>
+<ul>
+<li>A UI or API for editing configuration values — <strong>post-MVP</strong>; MVP maintenance is DBA-via-SQL per operational runbooks<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li>Publishing <code>diagrams/</code>, <code>sequence-diagrams/</code> or <code>architecture/analysis/</code> to the bus — added when a consumer needs them, not speculatively</li>
+<li>The <code>api-specs/</code> read-only contract mirror — arrives with the first published service spec (Epic 0.3)</li>
+</ul>
+<hr />
+<h2 id="story-061-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v10">Story 0.6.1: Publish <code>ctam-architecture</code> as the context bus and tag <code>arch-v1.0</code></h2>
+<p>As a <strong>platform engineer</strong>, I want the architecture set and the agent-rules pack published in <code>ctam-architecture</code> and tagged, So that <strong>every service repo can pin exactly one version of shared truth</strong> as a submodule, and adopt a newer one only by a deliberate, auditable bump.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the canonical architecture lives in <code>ctam-analysis/_bmad-output/planning-artifacts/</code><br/><strong>When</strong> <code>ctam-analysis/scripts/publish-arch.sh</code> is run<br/><strong>Then</strong> <code>architecture.md</code>, <code>architecture-summary.md</code>, <code>prd.md</code> and every <code>architecture/*.md</code> shard are copied into <code>ctam-architecture</code><br/><strong>And</strong> <code>architecture/PUBLISHED.md</code> states that those files are a mirror and must never be hand-edited<br/><strong>And</strong> the script performs no version-control operations of its own.</p>
+<p><strong>Given</strong> the published payload plus the authored <code>agent-rules/</code> pack are on <code>main</code><br/><strong>When</strong> the release is tagged<br/><strong>Then</strong> an annotated tag <code>arch-v1.0</code> exists on <code>ctam-architecture</code><br/><strong>And</strong> the tag is pushed and readable by <code>git ls-remote --tags</code><br/><strong>And</strong> tagging was performed by a human — a Claude session cannot create tags (agent-rules R13).</p>
+<p><strong>Given</strong> a service repo needs shared truth<br/><strong>When</strong> it adds <code>ctam-architecture</code> as a submodule at <code>_arch/</code> and checks out <code>arch-v1.0</code><br/><strong>Then</strong> <code>_arch/agent-rules/00-core.md</code> and <code>_arch/architecture/conventions.md</code> both resolve<br/><strong>And</strong> the pinned version is recorded in the repo's <code>CLAUDE.md</code> and in each story packet's <code>bus_version</code>.</p>
+<p><strong>Given</strong> a convention later changes<br/><strong>When</strong> the change is published<br/><strong>Then</strong> it is a new tag (<code>arch-v(N+1)</code>) plus a deliberate submodule bump in each adopting repo — the bus never mutates a downstream repo silently.</p>
+<p><strong>References:</strong> FR8; NFR40; AR2; <code>architecture/delivery-operating-model.md</code> (Decision 1, the bus-pinning rule); <code>architecture/repo-structure.md</code> (the <code>ctam-architecture</code> tree).</p>
+<hr />
+<h2 id="story-062-shared-ctam_configuration_values-liquibase-baseline-with-per-service-select-grants">Story 0.6.2: Shared <code>ctam_configuration_values</code> Liquibase baseline with per-service SELECT grants</h2>
+<p>As a <strong>service developer</strong>, I want one shared, typed table of cross-service runtime policy values that my service can read but not write, So that policy visible to several services (session-timeout warnings, batch schedules, feature flags) lives in exactly one place, instead of being duplicated per service or hard-coded.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the shared PostgreSQL instance from Epic 0.0 exists<br/><strong>And</strong> the engineer adds <code>ctam-architecture</code>'s Liquibase <strong>baseline</strong> changelog<br/><strong>When</strong> Liquibase applies it<br/><strong>Then</strong> <code>ctam_configuration_values</code> exists in the shared schema<br/><strong>And</strong> it holds <strong>typed</strong> policy values — a key, a value, and the value's type — with <code>id uuid</code> primary key and <code>created_at</code> / <code>updated_at timestamptz NOT NULL</code>, per <code>conventions.md</code> → <em>Naming Patterns</em><br/><strong>And</strong> no column beyond that minimal shape is added without a cited need (agent-rules R6)<br/><strong>And</strong> the table is documented as <strong>shared infrastructure with no owning service</strong> in <code>architecture/data-tables.md</code>.</p>
+<p><strong>Given</strong> the table exists<br/><strong>When</strong> DB roles are granted<br/><strong>Then</strong> every service role holds <code>SELECT</code> on it<br/><strong>And</strong> <strong>no service role holds INSERT, UPDATE or DELETE</strong> — writes are DBA-only in MVP<br/><strong>And</strong> the grants are codified in <code>ctam-architecture</code>'s changelog, not applied by hand (per <code>gaps.md</code> G6.4).</p>
+<p><strong>Given</strong> a service reads a policy value<br/><strong>When</strong> it does so<br/><strong>Then</strong> it reads via JPA against the shared schema — there is no configuration client or service to call<br/><strong>And</strong> the value is treated as policy, never as a secret: secrets remain in Azure Key Vault (NFR16).</p>
+<p><strong>Given</strong> an integration test runs<br/><strong>When</strong> the baseline changelog is applied to an empty database via Testcontainers<br/><strong>Then</strong> the table and its grants are created from scratch and asserted — proving the changelog, not the developer's local database (agent-rules P6).</p>
+<p><strong>References:</strong> FR8; NFR16; <code>architecture/data-tables.md</code> (shared-infrastructure row); <code>architecture/conventions.md</code> → <em>Naming Patterns</em>; <code>gaps.md</code> G6.4 (grant maintenance).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Any write path, UI or API for configuration values — post-MVP<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li>Per-service configuration, which stays in Spring profiles + <code>application.yml</code> + Key Vault (FR8 revised v2.2)</li>
+</ul>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.6-context-bus-and-shared-baseline.md</code></p>
+</main>
+
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.6-context-bus-and-shared-baseline";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

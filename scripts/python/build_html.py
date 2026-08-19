@@ -232,6 +232,9 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Changelog", "architecture/tobe/changelog", False),
     ]),
     ("Change Control & Readiness", [
+        ("Sprint Change Proposal — 2026-08-19d (ledger + dispatch graph retired for BMad sprint status)", "sprint-change-proposal-2026-08-19d", False),
+        ("Sprint Change Proposal — 2026-08-19c (human gate: commit → pull request)", "sprint-change-proposal-2026-08-19c", False),
+        ("Sprint Change Proposal — 2026-08-19b (story-packet schema reconciled with BMad)", "sprint-change-proposal-2026-08-19b", False),
         ("Sprint Change Proposal — 2026-08-19 (agent delivery rules; TDD + coverage/mutation gates)", "sprint-change-proposal-2026-08-19", False),
         ("Sprint Change Proposal — 2026-08-13 (programme renamed RAM → CTAM)", "sprint-change-proposal-2026-08-13", False),
         ("Sprint Change Proposal — 2026-07-09 (CTAM-assigned JOH identity; personnel_number → upstream link)", "sprint-change-proposal-2026-07-09", False),
@@ -248,10 +251,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
     ]),
     ("Implementation — Epics (Foundations)", [
         ("Delivery operating model (control plane · context bus · execution units)", "architecture/tobe/delivery-operating-model", False),
-        ("Delivery control plane (dispatch graph + traceability ledger)", "delivery/README", False),
-        ("Delivery pilots — method tests", "delivery/pilots/README", False),
-        ("Pilot 0.5 — notification log-only slice", "delivery/pilots/pilot-0.5-notification-logonly", False),
-        ("Pilot 0.5 — findings log", "delivery/pilots/pilot-0.5-findings", False),
+        ("Delivery control plane (dispatch → execute → signal)", "delivery/README", False),
         ("Epics index", "epics/index", False),
         ("Requirements inventory", "epics/requirements-inventory", False),
         ("Phase × Area framework", "epics/framework", False),
@@ -265,6 +265,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Epic 0.3 — Reference data read-only API (2 stories)", "epics/phase-0/epic-0.3-reference-data-read-only-api", False),
         ("Epic 0.4 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.4-user-populations-bootstrapped", False),
         ("Epic 0.5 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.5-system-dispatches-emails", False),
+        ("Epic 0.6 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.6-context-bus-and-shared-baseline", False),
     ]),
 ]
 

@@ -8,6 +8,8 @@ parent: 'epics/phase-0/index.md'
 epic: 0.2
 title: 'User authenticates and lands on a role-scoped Home page'
 storyCount: 5
+repo: [ctam-authorisation, ctam-mock-auth, ctam-ui]
+depends_on: [epic-0.0, epic-0.1]            # needs jo_people (0.1.3) + the estate
 ---
 
 # Epic 0.2: User authenticates and lands on a role-scoped Home page

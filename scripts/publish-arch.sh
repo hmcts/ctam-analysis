@@ -8,8 +8,8 @@
 # never hand-edit it — change the canonical file and re-run this script. Runnable from anywhere.
 #
 # This script performs NO version-control operations. After running it, the human reviews the
-# diff in the bus repo, commits it, and publishes the arch-vN tag externally (see the pilot
-# packet or the delivery operating model for the exact command sequence).
+# diff in the bus repo, commits it, and publishes the arch-vN tag externally (see
+# the delivery operating model for the bus-pinning rule).
 #
 # See _bmad-output/planning-artifacts/architecture/delivery-operating-model.md.
 
