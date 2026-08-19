@@ -16,6 +16,8 @@ storyCount: 1
 
 **Depends on Epic 0.1** (schema design), **Epic 0.3** (MRD tier-(a) data), and **Epic 0.4** (auth — read endpoints are downstream of `JWTFilter` + `authz/check`, per D8).
 
+**Dispatch after Epic 0.5, not alongside it.** The graph makes this epic independent of Epic 0.5 — different upstream source, different dependency set — but both land in `ctam-reference-data` and both rewrite the **same two files**: the single published `api-ctam-reference-data` OpenAPI spec and the single Phase 0 Postman collection (this epic's own ACs say "same collection file as Epic 0.5"). Running them concurrently would put two writers on one artefact in one repo, against `delivery/ledger/README.md`'s "serialise within a repo" rule. The constraint is recorded in `delivery/dispatch-graph.yaml` → `repo_serialisation`: **0.2 → 0.3 → 0.5 → 0.6**.
+
 **Vertical slice:**
 - Reference Data **read-only** REST API over MRD tier-(a) data (`mrd_specialisms`, and further `mrd_*` tables as MRD entities enter scope per Epic 0.3), **jurisdiction-filtered responses**[^d8], for consumption by `ctam-ui`, downstream services, and OpenAPI clients. **No `POST`/`PUT`/`DELETE` endpoints** — MRD tier-(a) tables are written only by the Epic 0.3 ingestion mechanism
 - Same API-as-Product read-side standards as Epic 0.5: URL versioning (`/v1/reference-data/...`), OpenAPI 3.x spec published (by Gradle `maven-publish`) as a Maven-format artefact, RFC 9457 problem-details errors, RFC 9745 `Deprecation` + RFC 8594 `Sunset` deprecation signalling (FR58)

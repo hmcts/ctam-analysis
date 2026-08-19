@@ -1,0 +1,26 @@
+# Ledger shard — Epic 0M.2. Schema, status vocab, and concurrency model: ./README.md
+# Phase 0-Mock — the pre-Phase-0 tier standing up the upstream stand-ins.
+# This epic is a dependency OF epic-0.3. Order authority: ../dispatch-graph.yaml.
+epic: epic-0M.2
+title: Upstream MRD reference data has a contract-shaped mock source
+repo: ctam-mrd-mock
+bus_version: arch-v1.0
+status: not-started        # epic-level rollup: not-started | in-progress | blocked | in-review | done
+owner: null                # who is driving this epic (name/handle); null = unassigned
+stories:
+  - story: 0M.2.1
+    repo: ctam-mrd-mock
+    title: Scaffold ctam-mrd-mock with a production-refusal safeguard
+    frs: []                  # enablement infrastructure — no direct FR (cf. epic-0.0, epic-0.1)
+    bus_version: arch-v1.0
+    status: not-started      # not-started | dispatched | in-progress | in-review | done
+    owner: null
+    pr: null
+  - story: 0M.2.2
+    repo: ctam-mrd-mock
+    title: ctam-mrd-mock publishes conformant and deliberately-malformed MRD workbooks on demand and on the weekly cadence
+    frs: [NFR24]             # the MRD MVP integration exercised pre-arrangement; gaps.md G8.1 de-risked, not closed
+    bus_version: arch-v1.0
+    status: not-started
+    owner: null
+    pr: null

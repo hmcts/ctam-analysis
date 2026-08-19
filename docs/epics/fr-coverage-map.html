@@ -90,7 +90,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="fr-coverage-map">FR Coverage Map</h1>
 <p>This is the canonical FR-to-Epic mapping. It is updated each time a phase advances from framework to concrete epics + stories. The Phase × Area framework in <a href="framework.html">framework.md</a> is the architectural spine; this map is the implementation index.</p>
-<details class="section" id="phase-0-concrete-epics-0108"><summary><span class="section-title">Phase 0 (concrete epics 0.1–0.8)</span></summary><div class="section-body">
+<blockquote>
+<p><strong>Epics with no FR of their own.</strong> Four epics are <strong>enablement infrastructure</strong> and appear in no FR row: Phase 0's <strong>0.0</strong> (platform estate) and <strong>0.1</strong> (schema design), and the whole of <a href="phase-0-mock/index.html"><strong>Phase 0-Mock</strong></a> — <strong>0M.1</strong> (<a href="phase-0-mock/epic-0M.1-joh-reference-data-mocked.html"><code>ctam-joh-mock</code></a>) and <strong>0M.2</strong> (<a href="phase-0-mock/epic-0M.2-mrd-reference-data-mocked.html"><code>ctam-mrd-mock</code></a>). They are prerequisites for the FR-bearing epics rather than requirement coverage in their own right — 0M.1 and 0M.2 specifically enable the FR6/FR7 tier-(a) rows below (and, through <code>jo_people</code>, FR1) by standing in for the unconfirmed JOH eLinks and MRD contracts per gaps.md G8.1.</p>
+</blockquote>
+<details class="section" id="phase-0-mock--phase-0-concrete-epics-0m10m2-and-0008"><summary><span class="section-title">Phase 0-Mock + Phase 0 (concrete epics 0M.1–0M.2 and 0.0–0.8)</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
@@ -133,7 +136,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR6</strong></td>
-<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.2-joh-reference-data-ingested.html">Epic 0.2</a> Story 0.2.2 (tables) + Story 0.2.3 (eLinks sync) + <a href="phase-0/epic-0.3-mrd-reference-data-ingested.html">Epic 0.3</a> Story 0.3.1 (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-0/epic-0.5-joh-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.1 (tables + seed + DBA runbook). <strong>Read API</strong>: JOH + tier (b) via <a href="phase-0/epic-0.5-joh-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.2; MRD via <a href="phase-0/epic-0.6-mrd-reference-data-read-only-api.html">Epic 0.6</a> Story 0.6.1 — two API surfaces, one per upstream ownership boundary.</td>
+<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.2-joh-reference-data-ingested.html">Epic 0.2</a> Story 0.2.2 (tables) + Story 0.2.3 (eLinks sync) + <a href="phase-0/epic-0.3-mrd-reference-data-ingested.html">Epic 0.3</a> Story 0.3.1 (MRD ingestion) — read-only in CTAM, corrections at source; both built against the <a href="phase-0-mock/epic-0M.1-joh-reference-data-mocked.html">Epic 0M.1</a> / <a href="phase-0-mock/epic-0M.2-mrd-reference-data-mocked.html">Epic 0M.2</a> upstream stand-ins (G8.1). <strong>Tier (b)</strong>: <a href="phase-0/epic-0.5-joh-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.1 (tables + seed + DBA runbook). <strong>Read API</strong>: JOH + tier (b) via <a href="phase-0/epic-0.5-joh-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.2; MRD via <a href="phase-0/epic-0.6-mrd-reference-data-read-only-api.html">Epic 0.6</a> Story 0.6.1 — two API surfaces, one per upstream ownership boundary.</td>
 <td><strong>YES — tier-(b) RSU maintenance UI</strong> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Tier (a) never gets a CTAM write surface in any phase.</td>
 <td>Two ownership tiers in separate tables preserve lineage</td>
 </tr>
@@ -343,7 +346,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/fr-coverage-map.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-concrete-epics-0108">Phase 0 (concrete epics 0.1–0.8)</a></li><li><a href="#phases-19-fr10fr54-fr60--pending">Phases 1–9+ (FR10–FR54, FR60) — pending</a></li><li><a href="#post-mvp-roadmap-consolidated">Post-MVP roadmap (consolidated)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-mock--phase-0-concrete-epics-0m10m2-and-0008">Phase 0-Mock + Phase 0 (concrete epics 0M.1–0M.2 and 0.0–0.8)</a></li><li><a href="#phases-19-fr10fr54-fr60--pending">Phases 1–9+ (FR10–FR54, FR60) — pending</a></li><li><a href="#post-mvp-roadmap-consolidated">Post-MVP roadmap (consolidated)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../";window.__PAGE__="epics/fr-coverage-map";</script>
 <script src="../nav.js"></script>
 <script>

@@ -13,6 +13,7 @@ purpose: 'Phase × Area architectural framework — the spine that organises con
 
 CTAM Pathfinder is built in **10 sequential phases (0–9+)** per the PRD's Phase-by-Phase Journey Mapping and the architecture's Repository Strategy:
 
+- **Phase 0-Mock** is a **pre-Phase-0 tier**: contract-shaped stand-ins for the two unconfirmed upstream contracts (gaps.md G8.1), built before the ingestion epics that consume them. Not a slot in the 0–9 sequence.
 - **Phase 0** is cross-cutting foundations (multiple parallel areas).
 - **Phases 1–8** each deliver one service end-to-end (backend + UI module).
 - **Phase 9+** is the jurisdiction-first wave rollout[^d8][^d13]: wave 1 = the **Employment Tribunals (ET) jurisdiction** (incumbent `[ET-INCUMBENT-TBD]`, gap G8.4); wave 2 = the **SSCS jurisdiction** (replacing ListAssist; GAPS case management retained); waves 3+ = Courts jurisdictions per-region (replacing APEX/JI).
@@ -23,6 +24,7 @@ The first level of grouping below is **Phase** (delivery sequence); the second l
 
 | Phase | Area | Component(s) | Primary FR/NFR coverage |
 |---|---|---|---|
+| **0-Mock** | Upstream Source Stand-Ins *(pre-Phase-0)* | `ctam-joh-mock` (eLinks-shaped JSON API), `ctam-mrd-mock` (MRD workbook publisher) — dev/CI/integration only, never production | none *(enablement)*; NFR24, NFR39; gaps.md G8.1 |
 | **0** | Platform & DevEx | `ctam-architecture` (scaffolding), GitHub Actions, APIM, AKS, Application Insights, shared `ctam_configuration_values` | FR8, FR58, FR59, NFR25–NFR28, NFR40, NFR42 |
 | **0** | Identity & Authorisation | `ctam-mock-auth`, `ctam-authorisation` (two-population identity resolution; jurisdiction-aware) | FR1–FR4, FR57 *(flag surface)*, NFR12, NFR13 |
 | **0** | Upstream Reference-Data Ingestion | `ctam-reference-data` in-process eLinks sync + MRD blob ingestion (tier (a): `jo_*`, `mrd_*`, `ctam_sync_status`) | FR6 *(tier a)*, FR7, NFR24 |
@@ -44,15 +46,27 @@ The first level of grouping below is **Phase** (delivery sequence); the second l
 
 Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30–NFR33, accessibility NFR17–NFR19, maintainability NFR39) are inherited by every phase; their architectural support lives in Phase 0 (Platform & DevEx) and is exercised in every domain phase.
 
+## Phase 0-Mock — Upstream Source Stand-Ins
+
+> A **pre-Phase-0 tier**, not a slot in the 0–9 sequence. Its two epics are dependencies **of** Epic 0.2 and Epic 0.3; nothing else in the programme depends on them. The **implementation plan** is the two concrete epics in [phase-0-mock/](phase-0-mock/index.md).
+
+### Phase 0-Mock · Area: Upstream Source Stand-Ins
+
+**Scope**: two deployable, dev/CI/integration-only stand-ins for CTAM's upstream sources of truth, delivered **before** the ingestion epics that consume them because neither upstream feed is available (gaps.md **G8.1**, a wave-1 blocker). **`ctam-joh-mock`** is a **brownfield adoption** (SCP 2026-08-18d): an existing **Node/Express** implementation of the **documented eLinks People API v5** — the `people?updated_since=` change feed, the `leavers`/`deleted` feeds, `people/:id` and `reference_data/:attribute_name`, bearer-authenticated with the documented pagination and error envelopes — serving the **real production reference-data exports** of 2026-06-01, with synthetic people generated deterministically. It is the single documented exception to AR2–AR17 (**AR55.1**). This epic adopts and hardens it (container, Helm, probes, structured logs, production-refusal guards, CI, SBOM) and adds what it lacks: a machine-readable OpenAPI spec, a guaranteed **Employment Tribunals cohort** (ET is a *location* under `jurisdiction_id` 34, not a jurisdiction), fixture-identity alignment across all three mocks, and fault-injection modes (malformed payload, per-record non-conformance, unreachable/5xx, slow response, plus change-feed-specific faults). **`ctam-mrd-mock`** generates an MRD-shaped `.xlsx` from a fixture set whose Specialisations reference the same personnel numbers as the JOH fixtures, and publishes it into a configurable blob container — local Azurite in CI — on demand and on the real weekly cadence, in conformant, per-row-non-conformant, structurally-invalid, and byte-identical-re-drop variants. Both are scaffolded from the HMCTS starter like every other service, publish versioned contracts (API spec / column dictionary) as CTAM's **written expectation** of each upstream, and carry the three-layer production-refusal safeguard established by `ctam-mock-auth`: Spring `production`-profile refusal, `deploy-production.yml` exclusion, and CI lint against production manifests referencing them. Neither owns any table in the shared schema. **Neither closes G8.1** — they convert an open discovery exercise into a diff against a written, executable expectation, and turn each external-team dependency into a configuration cutover.
+
+**Component(s)**: `ctam-joh-mock`, `ctam-mrd-mock`.
+
+**Primary FR/NFR coverage**: none directly — **enablement** for FR1 (the `jo_people` lookup target) and FR6/FR7 tier-(a), in the same sense as the platform-estate and schema-design areas. NFR10, NFR14, NFR16, NFR24, NFR25–NFR28, NFR31, NFR39, NFR40, NFR42; **AR55 (revised)**, **AR55.1 (the Node/Express exception)**, AR56; gaps.md G5.3 *(widened to cover all three mocks)*, **G8.1** *(eLinks contract now documented and three of its assumptions falsified — findings F1–F4 on Epic 0M.1; still open, MRD half untouched)*, **G8.5** *(ET legal role titles evidenced; lay-member panels still provisional)*, **G8.7** *(new — governance of the production reference-data exports)*.
+
 ## Phase 0 — Foundations
 
 > Phase 0 is the platform smoke-test (per PRD Key Characteristic 4). All API-as-Product standards (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), `Deprecation`/`Sunset`) are exercised on Reference Data reads and Authorisation lookups before any domain service is built.
 >
-> The Areas below are the **architectural map**. The **implementation plan** is the eight concrete user-value epics in [phase-0/](phase-0/index.md).
+> The Areas below are the **architectural map**. The **implementation plan** is the nine concrete user-value epics in [phase-0/](phase-0/index.md), preceded by the two [Phase 0-Mock](phase-0-mock/index.md) epics.
 
 ### Phase 0 · Area: Platform & DevEx
 
-**Scope**: **Terraform provisioning of the Azure estate** (HMCTS standard, per AR53 revised — shared estate in the dedicated `ctam-shared-infrastructure` repo, provisioned in Epic 0.0; per-service resources in each service's `terraform/`). Service scaffolding (`ctam-scaffold.sh` over HMCTS Crime SpringBoot template, incl. the per-repo `terraform/` skeleton), per-service GitHub Actions pipeline (`ci.yml` + `deploy-{env}.yml` + per-region per-wave gated production deploy), OpenAPI/Spectral/ArchUnit/Spotless/Checkstyle tooling, structured Logback JSON logging conventions, OpenTelemetry → Application Insights wiring, shared `ctam_configuration_values` infrastructure table managed by `ctam-architecture` Liquibase baseline changelog, Azure API Management at the edge (rate limits, deprecation headers, `/actuator/*` restriction), AKS UK South multi-AZ HA, Helm chart conventions, Azure Key Vault integration.
+**Scope**: **Terraform provisioning of the Azure estate** (HMCTS standard, per AR53 revised — shared estate in the dedicated `ctam-shared-infrastructure` repo, provisioned in Epic 0.0; per-service resources in each service's `terraform/`, including its own APIM API definition + per-API policy per `architecture/conventions.md`). Service scaffolding (`ctam-scaffold.sh` over HMCTS Crime SpringBoot template, incl. the per-repo `terraform/` skeleton — **built in Epic 0.A**, which precedes Epic 0.0), per-service GitHub Actions pipeline (`ci.yml` + `deploy-{env}.yml` + per-region per-wave gated production deploy), OpenAPI/Spectral/ArchUnit/Spotless/Checkstyle tooling, structured Logback JSON logging conventions, OpenTelemetry → Application Insights wiring, shared `ctam_configuration_values` infrastructure table **plus every per-service DB role** managed by `ctam-architecture`'s Liquibase baseline changelog (**Epic 0.B**), Azure API Management at the edge (rate limits, deprecation headers, `/actuator/*` restriction), AKS UK South multi-AZ HA, Helm chart conventions, Azure Key Vault integration.
 
 **Component(s)**: `ctam-architecture` (scaffolding script + ADRs), GitHub Actions workflows, shared Liquibase baseline changelog, APIM policies, Helm chart conventions.
 
@@ -70,7 +84,7 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 **Scope**: `ctam-reference-data` service owning **all 32 reference-data tables across two ownership tiers** (FR6/FR7): **tier (a) upstream-sourced** — 15 `jo_*` JOH eLinks entities + `mrd_*` MRD entities + `ctam_sync_status`, written only by the ingestion mechanisms, read-only in CTAM, corrections at source; **tier (b) CTAM-owned** — `ctam_regions`, `ctam_offices`, `ctam_calendar_periods` + 12 operational vocabularies, DBA-maintained per runbook in MVP[^d10]. **Read-only, jurisdiction-filtered** versioned REST API over both tiers[^d8]. Per-service DB SELECT grants for direct-SQL reads (per FR7 / Principle 2). API-as-Product standards exercised here first (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), deprecation signalling).
 
-**Ingestion (in Epic 0.2's and Epic 0.3's vertical slices — sign-in depends on `jo_people`)**: nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`) + weekly MRD Excel via Azure Blob drop (validate / upsert / archive; idempotent per file; reader swaps for the MRD API post-MVP). Per AR46–AR49.
+**Ingestion (in Epic 0.2's and Epic 0.3's vertical slices — sign-in depends on `jo_people`; both built against the Epic 0M.1 / Epic 0M.2 stand-ins from [Phase 0-Mock](phase-0-mock/index.md))**: nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`) + weekly MRD Excel via Azure Blob drop (validate / upsert / archive; idempotent per file; reader swaps for the MRD API post-MVP). Per AR46–AR49.
 
 **Component(s)**: `ctam-reference-data` (backend incl. ingestion tasks). The tier-(b) maintenance UI (FR6) is post-MVP `ctam-admin-ui`[^d10].
 

@@ -16,6 +16,8 @@ storyCount: 1
 
 **No legacy user migration of any kind**[^d3]: no APEX user dump, no IdP reconciliation ETL, no unmatched-record CSV workflow — none of these exist or will exist. **No admin UI in MVP**[^d10] — operational user/role/scope maintenance happens via direct SQL by DBAs; an admin UI surface is on the post-MVP roadmap.
 
+**Cross-repo shape — read this before implementing.** The scripts and the verification job live in **`ctam-architecture`**, but they **write into tables owned by two other services**: `ctam_auth_*` (owned by `ctam-authorisation`) and the `jo_*` fixtures (owned by `ctam-reference-data`). That is deliberate — bootstrap is a programme operation, not a service feature, and neither service exposes a write API for it (admin writes are post-MVP[^d10]). It has two consequences this epic must honour: the scripts run under the **documented bootstrap role from Epic 0.B, Story 0.B.1** (not as a service role, not as a shared admin account), and they **must not** create or alter any table — every table already exists from its owning service's Liquibase changelog. Ownership of the schema stays with the owning service; only the data load is here.
+
 **Vertical slice:**
 - Dev/CI seed scripts (one-off, per AR52) populating **both populations**: `jo_*` fixtures (where no live eLinks connection exists), `ctam_auth_staff_identities` rows, `ctam_auth_users` (with `principal_kind` + jurisdiction), `ctam_auth_user_roles`, `ctam_auth_user_region_scopes`, `ctam_auth_user_activation_flags` (all FALSE, keyed by (jurisdiction, region) per FR57) — mirroring `ctam-mock-auth`'s test-user roster (AR35)
 - **Bootstrap-verification job**: confirms every `ctam_auth_users` row (both populations) resolves to an IdP principal — by email against the IdP directory (mock in Phase 0–8; real HMCTS IdP at the pre-Phase-9 cutover per G1.3) — and produces a verification report; failures block the wave gate
@@ -45,9 +47,11 @@ So that **Epic 0.4's two-population sign-in works end-to-end in every environmen
 **Acceptance Criteria:**
 
 **Given** the engineer creates the dev/CI seed scripts (one-off scripts per AR52; not a runtime API, not Liquibase changesets),
+**And** the scripts run under the documented **bootstrap DB role** from Epic 0.B, Story 0.B.1 — with INSERT on the tables it seeds and **no DDL privilege**, so a seed script cannot alter another service's schema,
+**And** the identities they seed match the **shared identity set published by `ctam-joh-mock`** (Epic 0M.1, Story 0M.1.2) and therefore the `ctam-mock-auth` roster (Story 0.4.2) — one reference set across all four consumers, not three that need reconciling,
 **When** the scripts run against a fresh dev/CI database,
 **Then** they populate: representative `jo_*` fixtures (incl. `jo_people` rows whose emails match `ctam-mock-auth`'s JOH test users, with stable personnel numbers, a minted `ctam_joh_identities` UUID per JOH fixture, and `jo_jurisdictions` covering Tribunals/ET + Tribunals/SSCS + Courts examples) where no live eLinks connection exists,
-**And** `ctam_auth_staff_identities` rows (CTAM-assigned UUIDs) whose emails match the mock-auth admin-staff test users,
+**And** `ctam_auth_staff_identities` rows (CTAM-assigned UUIDs) whose emails match the mock-auth admin-staff test users (same shared identity set),
 **And** `ctam_auth_users` rows for both populations with `principal_kind`, the link to `ctam_joh_identities.id` (JOH) or `ctam_auth_staff_identities.id` (staff), and a jurisdiction (FK → `jo_jurisdictions`),
 **And** role assignments (`ctam_auth_user_roles`) and Region/Area scopes (`ctam_auth_user_region_scopes`) covering every documented role across both populations,
 **And** `ctam_auth_user_activation_flags` rows keyed by (jurisdiction, region), **all FALSE** except designated test users flagged TRUE so the Epic 0.4 demo can show both the activated and non-activated paths (FR57),

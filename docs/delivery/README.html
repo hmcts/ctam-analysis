@@ -105,7 +105,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><code>ledger/</code></td>
-<td>Traceability ledger, <strong>sharded one file per epic</strong> (<code>ledger/epic-0.x.yaml</code>) so multiple people update different epics without conflicts. Each shard carries epic-level <code>status</code>+<code>owner</code> and per-story <code>status</code>+<code>owner</code>+<code>pr</code>. Schema + concurrency rules: <a href="ledger/README.html"><code>ledger/README.md</code></a>.</td>
+<td>Traceability ledger, <strong>sharded one file per epic</strong> (<code>ledger/epic-0.x.yaml</code>) so multiple people update different epics without conflicts. Each shard carries epic-level <code>status</code>+<code>owner</code> and per-story <code>status</code>+<code>owner</code>+<code>pr</code>, plus optional <code>touches:</code> (secondary repos a story lands an artefact in) and <code>note:</code> (a cross-repo consumption constraint). Schema + concurrency rules: <a href="ledger/README.html"><code>ledger/README.md</code></a>.</td>
 </tr>
 <tr>
 <td><code>README.md</code></td>
@@ -113,7 +113,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 </tbody>
 </table>
-<p>Not here (deliberately): the <strong>context bus</strong> (<code>ctam-architecture</code> publish + <code>arch-v1.0</code> tag) and <strong>per-repo scaffolding</strong> (<code>ctam-scaffold.sh</code>, <code>_arch/</code> submodule, per-repo <code>CLAUDE.md</code>) — those are downstream. The control plane only <em>references</em> <code>bus_version</code> as a string.</p>
+<p>Not <em>executed</em> here (deliberately): the <strong>context bus</strong> publish and <strong>per-repo scaffolding</strong> run in <code>ctam-architecture</code>, not in this repo — the control plane only <em>references</em> <code>bus_version</code> as a string. They are, however, <strong>tracked</strong> here: as of SCP 2026-08-18e they are Epics <strong>0.A</strong> (bus publish + <code>arch-v1.0</code> tag + <code>ctam-scaffold.sh</code> + the GitHub/Terraform runbooks) and <strong>0.B</strong> (the <code>ctam_configuration_values</code> baseline + per-service DB roles), with their own ledger shards. Before that they sat in an undecomposed <code>arch-baseline</code> node with no stories and no owner, while eight Phase 0 / Phase 0-Mock stories already assumed their output.</p>
 </div></details><details class="section" id="the-delivery-loop"><summary><span class="section-title">The delivery loop</span></summary><div class="section-body">
 <pre><code>[ctam-analysis: control plane]                    [ctam-{service}: execution unit]
   1. SELECT next  ── read dispatch-graph + ledger → next buildable epic/story
@@ -128,7 +128,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
         │                                                 │  (human commits via VSCode)
   4. SIGNAL ◄──────────────────────────────────────────────┘
         └ ledger: → done, fill `pr`, record bus_version</code></pre>
-<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every epic in its <code>depends_on</code> is <code>done</code> in the ledger. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong>.</p>
+<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every epic in its <code>depends_on</code> is <code>done</code> in the ledger. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong> — but check <code>dispatch-graph.yaml</code>'s <strong><code>repo_serialisation</code></strong> block too: some graph-independent epics share a repo and share mutable files inside it, so they must still be dispatched in order.</p>
 </div></details><details class="section" id="bmad-skill-mapping"><summary><span class="section-title">BMad skill mapping</span></summary><div class="section-body">
 <table>
 <thead>
@@ -170,16 +170,20 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 </div></details><details class="section" id="multi-user--ownership"><summary><span class="section-title">Multi-user &amp; ownership</span></summary><div class="section-body">
 <p>The ledger is <strong>sharded per epic</strong> for conflict-free concurrent updates, and every epic and story carries a <code>status</code> and an <code>owner</code> so it is always visible who is driving what. Claim-before-you-start (set story <code>status: dispatched</code> + <code>owner</code> and push) is the coordination primitive. Full rules and the status vocab: <a href="ledger/README.html"><code>ledger/README.md</code></a>.</p>
-</div></details><details class="section" id="current-state-2026-08-15"><summary><span class="section-title">Current state (2026-08-15)</span></summary><div class="section-body">
+</div></details><details class="section" id="current-state-2026-08-18"><summary><span class="section-title">Current state (2026-08-18)</span></summary><div class="section-body">
 <ul>
-<li><strong>Phase 0 fully seeded:</strong> 9 epics, 23 stories, all <code>not-started</code>, unassigned (<code>owner: null</code>).</li>
+<li><strong>Phase 0-Mock fully seeded:</strong> 2 epics, 4 stories (<code>epic-0M.1</code>, <code>epic-0M.2</code>), all <code>not-started</code>, unassigned (<code>owner: null</code>).</li>
+<li><strong>Phase 0 fully seeded:</strong> 11 epics, 27 stories, all <code>not-started</code>, unassigned (<code>owner: null</code>) — 9 numbered epics (<code>0.0</code>–<code>0.8</code>) plus the two lettered <code>ctam-architecture</code> enablement epics <strong><code>0.A</code></strong> (3 stories) and <strong><code>0.B</code></strong> (1 story) added by SCP 2026-08-18e.</li>
+<li><strong><code>0.A</code> precedes <code>0.0</code>.</strong> The letter is an identifier, not a position: the order is <code>0.A → 0.0 → 0.B → 0.1 → …</code>. <code>0.A</code> is lettered precisely so that adding it moved no existing story id.</li>
+<li><strong>Two phases are seeded, and the graph — not the numbering — is the order.</strong> <strong>Phase 0-Mock</strong> (epics <code>0M.1</code>, <code>0M.2</code>) is a pre-Phase-0 tier standing up contract-shaped stand-ins for both upstream sources; <strong>Phase 0</strong> (epics <code>0.0</code>–<code>0.8</code>) is foundations. The <code>0M.</code> prefix marks the tier so sequencing is never inferred from a number (SCP 2026-08-18c, decision #18).</li>
+<li><strong>Build order is a partial order.</strong> Both <code>0M.</code> epics become dispatchable as soon as their dependencies are <code>done</code> (<code>epic-0.A</code> + <code>epic-0.0</code>, and <code>epic-0.1</code> for <code>0M.2</code>); they do not wait on each other. <code>epic-0M.1</code> gates <code>epic-0.2</code>, <code>epic-0M.2</code> gates <code>epic-0.3</code>, and <code>epic-0.8</code> is parallelisable with all of them. Any linearization respecting those edges is valid — read <code>dispatch-graph.yaml</code>, don't memorise a sequence.</li>
 <li><strong>Phases 1–8 + post-MVP:</strong> repo-level placeholders in <code>dispatch-graph.yaml</code> under <code>future:</code> (<code>decomposed: false</code>). Promote each to an epic node with a <code>stories:</code> list after running <code>bmad-create-epics-and-stories</code> for that phase, and add a new <code>ledger/epic-*.yaml</code> shard for it.</li>
 <li><strong>Optional resolver</strong> ("what's buildable now?") is intentionally deferred until dispatch begins.</li>
 </ul>
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/delivery/README.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#files">Files</a></li><li><a href="#the-delivery-loop">The delivery loop</a></li><li><a href="#bmad-skill-mapping">BMad skill mapping</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#multi-user--ownership">Multi-user &amp; ownership</a></li><li><a href="#current-state-2026-08-15">Current state (2026-08-15)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#files">Files</a></li><li><a href="#the-delivery-loop">The delivery loop</a></li><li><a href="#bmad-skill-mapping">BMad skill mapping</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#multi-user--ownership">Multi-user &amp; ownership</a></li><li><a href="#current-state-2026-08-18">Current state (2026-08-18)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../";window.__PAGE__="delivery/README";</script>
 <script src="../nav.js"></script>
 <script>

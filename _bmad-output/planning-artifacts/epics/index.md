@@ -46,7 +46,8 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 
 | Phase | Folder | Status |
 |---|---|---|
-| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 9 epics, 23 stories |
+| **0-Mock** — Upstream Source Stand-Ins *(pre-Phase-0)* | [phase-0-mock/](phase-0-mock/index.md) | 🟡 Planned — 2 epics, 4 stories |
+| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 11 epics, 27 stories *(incl. the lettered `ctam-architecture` enablement epics 0.A and 0.B)* |
 | **1** — JOH | _to be storied_ | ⚪ Framework only |
 | **2** — Absence | _to be storied_ | ⚪ Framework only |
 | **3** — Vacancy | _to be storied_ | ⚪ Framework only |
@@ -66,12 +67,14 @@ Each phase advances through four steps of the `bmad-create-epics-and-stories` wo
 3. **Create stories** — produce Gherkin-AC user stories sized for a single dev-agent session
 4. **Final validation** — verify FR/NFR coverage, dependency soundness, architecture compliance
 
-Phase 0 has completed all four steps. Phases 1–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
+Phase 0-Mock and Phase 0 have both completed all four steps. Phases 1–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
+
+> **Phase 0-Mock is a pre-Phase-0 tier, not a slot in the 0–9 sequence.** Its two epics — **0M.1** (`ctam-joh-mock`) and **0M.2** (`ctam-mrd-mock`) — stand up contract-shaped stand-ins for CTAM's two unconfirmed upstream contracts (gaps.md **G8.1**) and are dependencies **of** Epics 0.2 and 0.3; nothing else depends on them. The `0M.` prefix marks the tier so sequencing is never inferred from a number. [`../delivery/dispatch-graph.yaml`](../delivery/dispatch-graph.yaml) is the single authority on order (SCP 2026-08-18c).
 
 ## How to find your way
 
 - **Looking for what to build next?** Start at the phase index (e.g. [phase-0/index.md](phase-0/index.md)) and pick an epic.
-- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 0.1.5). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`.
+- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 0.1.5). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`. Phase 0-Mock follows the same shape with a `0M` phase token: `Story 0M.1.2` in `phase-0-mock/epic-0M.1-{slug}.md`.
 - **Looking for an FR?** Use [fr-coverage-map.md](fr-coverage-map.md).
 - **Looking for an architecture rule?** Use [requirements-inventory.md](requirements-inventory.md) — ARs are in the Additional Requirements section.
 - **Verifying readiness?** Run `bmad-check-implementation-readiness` from the repo root; it understands this sharded shape.

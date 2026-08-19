@@ -44,18 +44,19 @@ So that **downstream phases** (Phase 2 absence ack, Phase 4 booking ack, Phase 6
 
 **Acceptance Criteria:**
 
-**Given** the engineer has manually pre-created the private GitHub repo `ctam-notification` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`; the `gh` CLI is **not** available — see Story 0.2.1 for the canonical manual-setup pattern),
-**And** runs `ctam-scaffold.sh ctam-notification`,
+**Given** the engineer has manually pre-created the private GitHub repo `ctam-notification` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`, Epic 0.A Story 0.A.3; the `gh` CLI is **not** available — see Story 0.2.1 for the canonical manual-setup pattern),
+**And** runs `ctam-scaffold.sh ctam-notification` (Epic 0.A Story 0.A.2),
 **When** the scaffold completes,
 **Then** the new repo has the same baseline as Stories 0.2.1 / 0.4.1 (Spring Boot 4, Helm chart, GitHub Actions, Actuator, structured logs, OpenAPI tooling, Spectral, ArchUnit, Spotless, Checkstyle, Pact, Postman),
-**And** Group ID is `uk.gov.hmcts.ctam`, artefact is `ctam-notification`, package is `uk.gov.hmcts.ctam.notification`, default port is 8082,
+**And** Group ID is `uk.gov.hmcts.ctam`, artefact is `ctam-notification`, package is `uk.gov.hmcts.ctam.notification`, and the port is **8084** per the per-service port allocation in `architecture/conventions.md` (**not** 8082 — that is `ctam-reference-data`'s; see the note in Story 0.4.1),
 **And** initial commit is *"Scaffold CTAM Pathfinder notification from HMCTS starter"* (per AR4).
 
 **Given** the engineer adds the Liquibase changeset `db/changelog/001-init-notification-schema.sql`,
 **When** Liquibase applies it,
 **Then** a `ctam_notification_dispatches` table exists with columns: `id` (UUID PK), `template_id`, `recipient`, `payload` (JSONB), `status` (queued / sending / sent / failed / dead-lettered), `attempt_count`, `last_attempt_at`, `last_error`, `created_at`, `sent_at`, `created_by_principal` (the IdP principal that initiated the send — for audit), `version` (for `@Version` optimistic locking per AR21),
-**And** `ctam_notification` DB role owns the table,
-**And** the schema is documented in `architecture/data-tables.md`, conforming to the design published in Epic 0.1.
+**And** the `ctam_notification` DB role — provisioned in **Epic 0.B, Story 0.B.1** — owns the table,
+**And** the schema is documented in `architecture/data-tables.md` **in `ctam-analysis`** (a second repo for this story — recorded as `touches:` in the ledger shard), conforming to the design published in Epic 0.1,
+**And** this service's `terraform/` carries its own APIM API definition + per-API policy against the shared instance, per the pattern established in Story 0.2.1 (`architecture/conventions.md`).
 
 **Given** the engineer configures SMTP,
 **When** the service starts in dev profile,

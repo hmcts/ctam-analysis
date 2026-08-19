@@ -10,6 +10,7 @@ stories:
     repo: ctam-architecture
     title: Identity seed scripts (both populations), bootstrap-verification job, and the production bootstrap runbook
     frs: [FR1, FR4, FR57]
+    note: scripts live here but WRITE INTO tables owned by ctam-authorisation (ctam_auth_*) and ctam-reference-data (jo_* fixtures) — they run under the documented bootstrap role from story 0.B.1, and align to the shared identity set published by story 0M.1.2
     bus_version: arch-v1.0
     status: not-started      # not-started | dispatched | in-progress | in-review | done
     owner: null

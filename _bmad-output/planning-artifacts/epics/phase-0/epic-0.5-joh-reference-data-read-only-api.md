@@ -16,6 +16,10 @@ storyCount: 2
 
 **Depends on Epic 0.1** (schema design — the tier-(b) tables created here conform to the design published there), **Epic 0.2** (JOH tier-(a) data), and **Epic 0.4** (auth — read endpoints are downstream of `JWTFilter` + `authz/check`, per D8).
 
+**Cross-repo shape:** the tables and the API land in `ctam-reference-data`, but **Story 0.5.1 also writes a runbook into `ctam-architecture`** (`runbooks/reference-data-maintenance.md`) — recorded as `touches: [ctam-architecture, ctam-analysis]` in the ledger shard so the dispatch packet covers both diffs. Story 0.5.2 additionally **consumes** `ctam-authorisation`'s published contract: this is the programme's **first cross-service runtime dependency**, so `ctam-reference-data` implements its own `JWTFilter` calling `POST /authz/check` (no shared library — per `architecture/conventions.md`).
+
+**Within-repo sequencing:** third of four epics in `ctam-reference-data` (0.2 → 0.3 → 0.5 → 0.6). Epic 0.6 is graph-independent of this one but rewrites the **same** OpenAPI artefact and the **same** Postman collection, so the two are dispatched in order — see `delivery/dispatch-graph.yaml` → `repo_serialisation`.
+
 **Vertical slice:**
 - Tier-(b) CTAM-owned tables (15: `ctam_regions`, `ctam_offices`, `ctam_calendar_periods` + 12 operational vocabularies incl. `ctam_joh_types`, `ctam_joh_fee_entitlements`) with service-owned Liquibase changelogs (per AR18–AR20) — the `ctam-reference-data` service itself was scaffolded in Epic 0.2, Story 0.2.1
 - Tier-(b) seed data via a Liquibase seed changeset + the DBA maintenance runbook (D10 operating model)
@@ -52,7 +56,7 @@ So that **CTAM-owned reference data that does not exist upstream (Regions, Offic
 **When** the engineer adds the Liquibase changeset `db/changelog/003-init-tier-b-ctam-owned-tables.sql`,
 **Then** the 15 tier-(b) tables exist with schemas per `architecture/data-tables.md`: `ctam_regions`, `ctam_offices`, `ctam_calendar_periods`, plus the 12 operational vocabularies (`ctam_joh_types`, `ctam_work_types`, `ctam_court_types`, `ctam_ticket_types`, `ctam_session_types`, `ctam_absence_types`, `ctam_working_pattern_types`, `ctam_booking_statuses`, `ctam_sitting_outcomes`, `ctam_joh_fee_entitlements`, `ctam_payment_lifecycle_statuses`, `ctam_reconciliation_statuses`),
 **And** the `ctam_reference_data` DB role owns the tables (per AR19),
-**And** SELECT grants exist for every current and placeholder service DB role (per FR7, AR22),
+**And** SELECT grants are made to every current and forward-declared service DB role — **all provisioned in Epic 0.B, Story 0.B.1**, so the grants apply rather than failing on an unknown role (per FR7, AR22),
 **And** the ArchUnit/grants fitness function verifies ownership and that the upstream sync code paths **cannot write tier-(b) tables** (tier separation per FR6 — CTAM-owned data is never overwritten by sync),
 **And** the three upstream-overlap candidates (`ctam_joh_types`, `ctam_court_types`, `ctam_ticket_types`) carry a schema comment referencing gaps.md G8.2 (each may retire in favour of its `jo_*` counterpart once the eLinks contract is confirmed).
 
@@ -60,13 +64,15 @@ So that **CTAM-owned reference data that does not exist upstream (Regions, Offic
 **When** Liquibase applies it,
 **Then** `ctam_regions`, `ctam_offices`, `ctam_calendar_periods`, and all 12 vocabularies are populated with the documented controlled-list values (cross-referenced to the architecture's data-tables inventory),
 **And** the seed values include the ET wave-1-relevant entries (e.g. session and work types applicable to Employment Tribunal sittings) flagged for confirmation against the **ET as-is pack** (gap G8.5)[^d13],
+**And** where a seed value depends on what "ET" *means* in the upstream data, it keys off the **documented ET predicate published by `ctam-joh-mock`** (Epic 0M.1, Story 0M.1.2 — the exact location, ticket and appointment-title ids) rather than a locally re-derived definition,
 **And** dev/CI environments get the same seed via the standard Liquibase changelog path (no separate seeding mechanism for tier (b)).
 
-**Given** the DBA maintenance runbook is written at `ctam-architecture/runbooks/reference-data-maintenance.md`,
+**Given** the DBA maintenance runbook is written at `ctam-architecture/runbooks/reference-data-maintenance.md` — **a second repo for this story**: the tables land in `ctam-reference-data`, this runbook lands in the bus alongside the Epic 0.A runbooks,
 **When** a tier-(b) change is needed in MVP (e.g. a new office, a vocabulary value),
 **Then** the runbook documents: the change request trail (who asked, why), the SQL pattern per table, the verification query, and the rollback statement,
 **And** the runbook states explicitly that tier-(a) (`jo_*`/`mrd_*`) tables are **never** hand-edited — corrections happen at source (Judicial Office / MRD team) and arrive via the next sync (FR6),
-**And** the runbook is referenced from the service README.
+**And** the runbook is referenced from the service README,
+**And** `architecture/data-tables.md` is updated in `ctam-analysis` with the as-created tier-(b) rows.
 
 **References:** FR6 (tier (b)), FR7, FR59; NFR14, NFR40; AR18–AR20, AR22, AR49; D10, D11; gaps.md G8.2.
 

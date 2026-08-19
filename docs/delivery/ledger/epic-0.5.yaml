@@ -10,6 +10,7 @@ stories:
     repo: ctam-reference-data
     title: Tier-(b) CTAM-owned reference tables, seed data, and the DBA maintenance runbook
     frs: [FR6, FR7]
+    touches: [ctam-architecture, ctam-analysis]   # runbooks/reference-data-maintenance.md lands in the bus; data-tables.md tier-(b) rows
     bus_version: arch-v1.0
     status: not-started      # not-started | dispatched | in-progress | in-review | done
     owner: null

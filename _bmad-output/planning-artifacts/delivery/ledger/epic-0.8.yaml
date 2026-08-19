@@ -10,6 +10,7 @@ stories:
     repo: ctam-notification
     title: Scaffold ctam-notification service + delivery log table + SMTP integration
     frs: [FR9, NFR22]
+    touches: [ctam-analysis]   # explicit AC: ctam_notification_dispatches documented in architecture/data-tables.md
     bus_version: arch-v1.0
     status: not-started      # not-started | dispatched | in-progress | in-review | done
     owner: null

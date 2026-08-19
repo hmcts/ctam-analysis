@@ -196,9 +196,16 @@ Per `ctam_mock_auth` DB role. **Never deployed to production**; production deplo
 | `mock_oauth_clients` | Dev-only | OAuth client registrations (Spring Authorization Server backend). Holds **(a)** the SPA client for human `authorization_code` flow, and **(b)** service-principal client registrations for **batch / scheduled components** that need a service identity (initially: `ctam-payment-batch`). User-initiated runtime calls between services use **JWT propagation** (no service principal needed); batch / scheduled components — which have no upstream user context — use OAuth `client_credentials` against this mock issuer. *(v2.5 narrowing reverted in v2.6 to support the payment batch. The eLinks sync and MRD pick-up need no service identity — they run in-process inside `ctam-reference-data` writing its own tables.)* |
 | `mock_user_roster` | Dev-only | Test user roster mirroring a representative subset of `ctam_auth_users` **across both identity populations** (JOH + admin staff) for realistic Authorisation testing (G5.2) |
 
+## Upstream source mocks (`ctam-joh-mock`, `ctam-mrd-mock`) — 0 tables (dev/integration only)
+
+**Neither mock owns any table in the shared schema**, and neither carries a Liquibase changelog. Their datasets are **in-repo resource files** — JSON entity fixtures for `ctam-joh-mock` (AR55), workbook fixtures for `ctam-mrd-mock` (AR56) — version-tagged in the repo rather than persisted in PostgreSQL. This is deliberate: a mock upstream must not be able to write into, or hold a schema lock on, the datastore its consumer owns, and keeping fixtures as files means the Epic 0.1 schema fitness function's "every Liquibase-created table appears here with the correct owning service" rule needs no exception for them.
+
+Both are **never deployed to production** (gaps.md G5.3 as widened). The tables they *stand in for* are owned by `ctam-reference-data`: the 15 `jo_*` entities that `ctam-joh-mock` serves, and the `mrd_*` entities that `ctam-mrd-mock`'s workbook populates. Note the contrast with `ctam-mock-auth` above, which *does* own 2 dev-only tables because it is a stateful OIDC issuer (client registrations + user roster) rather than a stateless fixture server.
+
 ## Inventory totals
 
 - **Reference Data:** 32 tables (15 `jo_*` + 1 `mrd_*` + 1 sync tracking + 15 CTAM-owned)
+- **Upstream source mocks (`ctam-joh-mock`, `ctam-mrd-mock`):** 0 tables — fixtures are in-repo files
 - **Authorisation:** 6 tables
 - **Notification:** 1 table
 - **JOH:** 5 tables

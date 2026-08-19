@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.A: Context bus published, scaffolding toolchain built, and platform runbooks written — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="epic-0a-context-bus-published-scaffolding-toolchain-built-and-platform-runbooks-written">Epic 0.A: Context bus published, scaffolding toolchain built, and platform runbooks written</h1>
+<p><strong>User outcome:</strong> <code>ctam-architecture</code> exists as a real repo and is published as the <strong>version-pinned context bus</strong> (tagged <code>arch-v1.0</code>) that every service repo consumes as a submodule; the <strong><code>ctam-scaffold.sh</code></strong> toolchain assembles a fully conformant service repo from the deliberately-minimal HMCTS Crime SpringBoot template; and the two platform runbooks every other Phase 0 story opens with — <strong><code>runbooks/github-setup.md</code></strong> (manual GitHub web-UI setup, AR51) and <strong><code>runbooks/terraform.md</code></strong> (state backend, plan/apply, cross-repo remote-state conventions) — are written and agreed. So that <strong>every subsequent Phase 0 and Phase 0-Mock story has the enablement it already assumes in its first Given clause</strong>, rather than depending on undeclared work.</p>
+<p><strong>Hosting:</strong> <code>ctam-architecture</code> — the <strong>context bus</strong> in the delivery operating model. This epic holds no deployable workload and owns no table in the shared schema. It is the only Phase 0 epic that precedes <strong>Epic 0.0</strong>.</p>
+<p><strong>Why this epic exists (and why it is lettered, not numbered):</strong> eight stories across Phase 0 and Phase 0-Mock open with <em>"the engineer has performed the GitHub manual-setup checklist (<code>ctam-architecture/runbooks/github-setup.md</code>)"</em> and five of them continue <em>"…runs <code>ctam-scaffold.sh {service}</code>"</em> — Stories 0.0.1, 0.2.1, 0.4.1, 0.4.2, 0.8.1, 0M.1.1, 0M.2.1. <code>ctam-scaffold.sh</code> is recorded as a <strong>Phase 0 deliverable</strong> in gaps.md <strong>G1.4a</strong>/<strong>G1.4b</strong>, and the bus publish + <code>arch-v1.0</code> tag is step 1 of the bootstrapping order in <code>architecture/delivery-operating-model.md</code>. None of it had an epic, a story, a ledger shard, or an owner: it sat inside the <code>arch-baseline</code> dispatch-graph node, marked <code>decomposed: false</code>, whose note covered only the <code>ctam_configuration_values</code> table. Lettering (<code>0.A</code>) rather than inserting at <code>0.0</code> keeps all 23 existing Phase 0 story ids stable — the same convention already used for the <code>0M.</code> tier (SCP 2026-08-18c, decision #18). <strong>Sequencing is the graph, never the letter.</strong></p>
+<p><strong>Why the DB baseline is a separate epic (0.B):</strong> the shared <code>ctam_configuration_values</code> baseline and the per-service DB roles are also <code>ctam-architecture</code>-owned, but they cannot be applied until Epic 0.0 Story 0.0.3 has provisioned PostgreSQL — while <em>this</em> epic must precede Epic 0.0 Story 0.0.1. Keeping both in one epic would make <code>epic-0.0</code> and the <code>ctam-architecture</code> node mutually dependent — a cycle under the buildable-now rule. They are therefore split: <strong>0.A precedes Epic 0.0; <a href="epic-0.B-shared-db-baseline-and-service-roles.html">Epic 0.B</a> follows it.</strong></p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li><strong>New repo <code>ctam-architecture</code></strong>, created per the manual GitHub web-UI runbook (AR51 — the <code>gh</code> CLI is <strong>not</strong> available), carrying the canonical architecture set published from <code>ctam-analysis</code>, tagged <strong><code>arch-v1.0</code></strong> — the <code>bus_version</code> every ledger shard already records</li>
+<li><strong><code>ctam-scaffold.sh</code></strong> + the starter-template overlay inventoried in <code>architecture/starter-template.md</code> §B: the ~9 capabilities the minimal base does <strong>not</strong> provide (Liquibase, Testcontainers, MapStruct, <code>JWTFilter</code> + <code>jjwt</code>, OWASP encoder, docker-compose plugin, OpenAPI tooling, Spring Cloud Azure Key Vault, the CI quality gates), plus the Helm chart and per-repo <code>terraform/</code> skeleton</li>
+<li><strong>The CI ruleset bundle</strong> the scaffold wires into every repo it creates: ArchUnit conventions (G4.4), the Spectral OpenAPI ruleset (G4.5), Spotless/Checkstyle, SQLFluff, and the schema-convention fitness function authored in <strong>Epic 0.1, Story 0.1.2</strong> — so a repo scaffolded in Phase 3 picks up the same gates as <code>ctam-reference-data</code> without re-deriving them</li>
+<li><strong><code>runbooks/github-setup.md</code></strong> (AR51) and <strong><code>runbooks/terraform.md</code></strong> (gaps.md <strong>G9.1</strong>, <strong>G10.1</strong>, <strong>G10.2</strong> — state backend, per-environment stack isolation, who runs plan/apply, production approval gating, and the cross-repo remote-state/data-source pattern a service's <code>terraform/</code> needs to reference the shared estate)</li>
+</ul>
+<p><strong>FRs covered:</strong> none — this is programme enablement with no functional-requirement surface. It is the layer every Phase 0 FR is delivered <em>through</em>.</p>
+<p><strong>Key NFRs first exercised here:</strong> none newly introduced. The scaffold is where NFR25–NFR28 (structured logs, App Insights ingestion, probes), NFR39 (API-as-Product tooling) and NFR40 (per-service deployable) become <strong>repeatable</strong> rather than per-repo effort.</p>
+<p><strong>Architecture requirements:</strong> AR2–AR17 (the scaffold assembles them), AR24 (Helm chart), AR28–AR32, AR41, AR51 (manual GitHub setup — non-negotiable), AR53 (revised — per-repo <code>terraform/</code> skeleton); gaps.md G1.4, <strong>G1.4a</strong>, <strong>G1.4b</strong>, G4.4, G4.5, <strong>G9.1</strong>, <strong>G10.1</strong>, <strong>G10.2</strong>; <code>architecture/starter-template.md</code> §B; <code>architecture/delivery-operating-model.md</code> (context bus + bootstrapping order).</p>
+<p><strong>Out of scope (explicitly):</strong> the shared <code>ctam_configuration_values</code> Liquibase baseline, per-service DB roles, and the grants convention — <strong><a href="epic-0.B-shared-db-baseline-and-service-roles.html">Epic 0.B</a></strong> (they need the Epic 0.0 PostgreSQL server). Provisioning any Azure resource (Epic 0.0). Scaffolding any actual service repo — each service's scaffold run is a story in its own epic (0.2.1, 0.4.1, 0.4.2, 0.8.1, 0M.2.1); this epic delivers the <strong>tool</strong>, not its invocations. The schema-convention fitness function itself (<strong>Epic 0.1, Story 0.1.2</strong> — this epic wires it into the scaffold). The <code>reference-data-maintenance.md</code> (Story 0.5.1) and <code>identity-bootstrap.md</code> (Story 0.7.1) runbooks — authored by the stories whose domain they document, into this repo.</p>
+<hr />
+<details class="section" id="story-0a1-publish-ctam-architecture-as-the-version-pinned-context-bus-and-tag-arch-v10"><summary><span class="section-title">Story 0.A.1: Publish <code>ctam-architecture</code> as the version-pinned context bus and tag <code>arch-v1.0</code></span></summary><div class="section-body">
+<p>As <strong>every service repo that will consume shared architecture</strong> (and the control plane that pins a version against each story), I want <code>ctam-architecture</code> created and published with the canonical architecture set, tagged <code>arch-v1.0</code>, and consumable as a submodule, So that <strong><code>bus_version: arch-v1.0</code> — already recorded against all 27 Phase 0 and Phase 0-Mock stories in the ledger — refers to something that exists</strong>, and every repo reads one pinned truth instead of a copy.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the engineer has performed the GitHub manual-setup checklist for <code>ctam-architecture</code> (Story 0.A.3 — private repo created via the <strong>GitHub web UI</strong>, branch protection on <code>main</code>, <code>CODEOWNERS</code> scoped to the architecture team; the <code>gh</code> CLI is <strong>not</strong> available per AR51)<br/><strong>When</strong> the canonical architecture set is published from <code>ctam-analysis</code><br/><strong>Then</strong> the repo carries the published architecture per <code>architecture/repo-structure.md</code>'s <code>ctam-architecture</code> layout — <code>architecture/</code> (the sharded set incl. <code>conventions.md</code>, <code>data-tables.md</code>, <code>delivery-operating-model.md</code>, <code>repository-strategy.md</code>), <code>decisions/</code> (ADRs), <code>runbooks/</code>, and <code>scaffolding/</code><br/><strong>And</strong> the publish is a <strong>one-way projection</strong> from <code>ctam-analysis</code> (the canonical author) into <code>ctam-architecture</code> (the published mirror) — the direction of travel is documented in the repo README so no one edits architecture in the bus and expects it to survive<br/><strong>And</strong> the OpenAPI contract directory is present and documented as a <strong>read-only mirror</strong> of producer-published artefacts (per SCP 2026-07-07) — contracts are owned by their producing service, never authored here.</p>
+<p><strong>Given</strong> the architecture set is published<br/><strong>When</strong> the engineer tags the repo<br/><strong>Then</strong> the tag <strong><code>arch-v1.0</code></strong> exists and is the version every Phase 0 story packet pins (matching <code>bus_version</code> in <code>delivery/dispatch-graph.yaml</code> and all 12 ledger shards)<br/><strong>And</strong> a <code>CHANGELOG</code> or release note records what <code>arch-v1.0</code> contains, so a later bus bump is a reviewable diff rather than a moving target<br/><strong>And</strong> the submodule consumption pattern is documented: how a service repo wires <code>_arch/</code> plus its own <code>CLAUDE.md</code>, and that <strong>re-syncing is an explicit submodule bump</strong>, never automatic.</p>
+<p><strong>Given</strong> the bus is tagged<br/><strong>When</strong> the control plane dispatches its first story packet<br/><strong>Then</strong> the packet's pinned <code>bus_version</code> resolves to the <code>arch-v1.0</code> tag<br/><strong>And</strong> <code>_bmad-output/project-context.md</code> is confirmed as the seed for each service repo's <code>CLAUDE.md</code> at the pinned version (per its own Usage Guidelines).</p>
+<p><strong>References:</strong> <code>architecture/delivery-operating-model.md</code> (context bus; bootstrapping order step 1); <code>architecture/repo-structure.md</code>; AR51; SCP 2026-07-07 (contracts are a read-only mirror).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li><code>ctam-scaffold.sh</code> — Story 0.A.2</li>
+<li>The runbooks — Story 0.A.3</li>
+<li>The <code>ctam_configuration_values</code> baseline and per-service DB roles — Epic 0.B</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-0a2-build-ctam-scaffoldsh-and-the-starter-template-overlay"><summary><span class="section-title">Story 0.A.2: Build <code>ctam-scaffold.sh</code> and the starter-template overlay</span></summary><div class="section-body">
+<p>As a <strong>platform engineer scaffolding any CTAM Pathfinder service</strong>, I want <code>ctam-scaffold.sh</code> to assemble a fully conformant service repo from the minimal HMCTS Crime SpringBoot template — including every capability the base template omits and every CI gate the programme enforces, So that <strong>the five stories that invoke it (0.2.1, 0.4.1, 0.4.2, 0.8.1, 0M.2.1) each get an identical, version-pinned baseline</strong> instead of the first service defining conventions the rest re-derive by hand.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the HMCTS Crime SpringBoot template base is <strong>deliberately minimal</strong> (reconciled 2026-06-17 per gaps.md <strong>G1.4</strong> — it provides Java 25, Spring Boot 4.1.0, Gradle Groovy DSL, Logstash JSON logging, OpenTelemetry, Lombok, JaCoCo, CycloneDX, gradle-git-properties, ben-manes-versions, Actuator, Dockerfile, <code>webmvc-test</code>)<br/><strong>When</strong> the engineer builds <code>ctam-scaffold.sh</code> in <code>ctam-architecture/scaffolding/</code><br/><strong>Then</strong> the script overlays every capability listed in <code>architecture/starter-template.md</code> §B that the base omits (per <strong>G1.4a</strong>, <strong>G1.4b</strong>): <strong>Liquibase</strong> (a CTAM convention — the HMCTS demo repo's Database branch uses Flyway; <strong>Flyway must not be used</strong>), Testcontainers, MapStruct, the custom <code>JWTFilter</code> + <code>jjwt</code>, the OWASP Java Encoder, the gradle-docker-compose plugin, springdoc OpenAPI tooling, and <code>spring-cloud-azure-starter-keyvault-secrets</code><br/><strong>And</strong> it lays down the <strong>Helm chart</strong> (<code>charts/{service}/</code> with <code>values-dev|staging|production.yaml</code>, probes, <code>topologySpreadConstraints</code> per AR24) and the per-repo <strong><code>terraform/</code></strong> skeleton with <code>dev</code>/<code>staging</code>/<code>production</code> stacks holding <strong>only that service's own resources</strong> (AR53 revised)<br/><strong>And</strong> it lays down <code>.github/workflows/ci.yml</code> + <code>deploy-dev|staging|production.yml</code> (AR28), <code>CODEOWNERS</code>, <code>PULL_REQUEST_TEMPLATE.md</code> (AR29), and the <code>postman/</code> collection skeleton (AR41)<br/><strong>And</strong> the versions the script pins match the inventory in <code>architecture/starter-template.md</code> §B — <strong>one place</strong>, so a version bump is a single reviewable change rather than a sweep across service repos<br/><strong>And</strong> the demo-repo branch versions the overlay cherry-picks from are <strong>verified at build time</strong>, not assumed (per G1.4a).</p>
+<p><strong>Given</strong> the programme enforces CI gates in every repo<br/><strong>When</strong> the scaffold runs<br/><strong>Then</strong> it wires the shared ruleset bundle into the new repo's <code>ci.yml</code>: <strong>ArchUnit</strong> convention checks (gaps.md <strong>G4.4</strong>), the <strong>Spectral</strong> OpenAPI ruleset for the API-as-Product standards (<strong>G4.5</strong> — error envelope, RFC 9457 references, <code>/v1/</code> versioning prefix, <code>Deprecation</code>/<code>Sunset</code> headers), <strong>Spotless + Checkstyle</strong>, <strong>SQLFluff</strong>, and the <strong>schema-convention fitness function authored in Epic 0.1, Story 0.1.2</strong><br/><strong>And</strong> the rulesets live in <code>ctam-architecture</code> and are <strong>referenced</strong> by each repo at the pinned bus version — not copied per repo, so a rule change does not require editing 15 repos<br/><strong>And</strong> the script records, in the repo it creates, which bus version its rulesets came from.</p>
+<p><strong>Given</strong> the <code>gh</code> CLI is <strong>not</strong> available in the engineering environment (AR51)<br/><strong>When</strong> the engineer runs the script<br/><strong>Then</strong> it operates <strong>locally only</strong>, then pushes to a remote the engineer has <strong>already created manually via the GitHub web UI</strong>, on a feature branch, via plain <code>git</code><br/><strong>And</strong> it makes no GitHub API call and attempts no repo creation, no branch-protection change, and no PR operation<br/><strong>And</strong> it fails with a clear diagnostic if the pre-created remote is absent, pointing at <code>runbooks/github-setup.md</code>.</p>
+<p><strong>Given</strong> the script is complete<br/><strong>When</strong> it is validated before the first real service uses it<br/><strong>Then</strong> a throwaway scaffold run produces a project that builds, passes every wired CI gate, serves <code>/actuator/health</code> <code>200 OK</code>, and emits structured JSON logs with a <code>correlationId</code> — the same baseline Story 0.2.1 asserts<br/><strong>And</strong> the throwaway repo is discarded; <strong><code>ctam-reference-data</code> (Story 0.2.1) remains the first real service scaffolded</strong>.</p>
+<p><strong>References:</strong> AR2–AR17, AR24, AR28, AR29, AR41, AR51, AR53 (revised); gaps.md <strong>G1.4</strong>, <strong>G1.4a</strong>, <strong>G1.4b</strong>, <strong>G4.4</strong>, <strong>G4.5</strong>; <code>architecture/starter-template.md</code> §B; <code>architecture/conventions.md</code>; depends on Story 0.1.2 for the schema fitness function it wires (the wiring is here; the rule authoring is there).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Any actual service scaffold run — Stories 0.2.1, 0.4.1, 0.4.2, 0.8.1, 0M.2.1</li>
+<li><code>ctam-shared-infrastructure</code>'s Terraform skeleton — <strong>Story 0.0.1</strong> lays that down directly; it is Terraform-only with no Java workload, so <code>ctam-scaffold.sh</code> does <strong>not</strong> apply to it</li>
+<li><code>ctam-joh-mock</code> — adopted brownfield in Node/Express, the one documented AR2–AR17 exception (AR55.1, Epic 0M.1); it is never scaffolded by this script</li>
+<li>The schema-convention ruleset itself — Epic 0.1, Story 0.1.2</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-0a3-write-the-github-setup-and-terraform-conventions-runbooks"><summary><span class="section-title">Story 0.A.3: Write the GitHub-setup and Terraform-conventions runbooks</span></summary><div class="section-body">
+<p>As <strong>every engineer who creates a repo or applies infrastructure in this programme</strong>, I want the manual GitHub-setup checklist and the Terraform conventions written down in <code>ctam-architecture/runbooks/</code>, So that <strong>the eight stories that open by citing <code>runbooks/github-setup.md</code> cite a document that exists</strong>, and the Terraform questions blocking the Epic 0.0 apply (gaps.md G9.1, G10.1, G10.2) are answered once, in one place, before the first <code>terraform apply</code>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the <code>gh</code> CLI is <strong>not</strong> available and all GitHub admin work is manual (AR51 — a non-negotiable constraint of the engineering environment)<br/><strong>When</strong> the engineer writes <code>runbooks/github-setup.md</code><br/><strong>Then</strong> it documents, as a checklist an engineer can follow without prior context: creating the private repo under the HMCTS org <strong>via the web UI</strong> with the CTAM naming convention, enabling branch protection on <code>main</code> (require PR review, require status checks, require linear history), setting team access and <code>CODEOWNERS</code>, and the <strong>manual PR-open and merge</strong> steps<br/><strong>And</strong> it states explicitly that <code>ctam-scaffold.sh</code> performs <strong>no</strong> GitHub admin operation, so the manual steps are never assumed to be automated<br/><strong>And</strong> every Phase 0 / Phase 0-Mock story that cites this runbook resolves against the checklist it actually contains (0.0.1, 0.2.1, 0.4.1, 0.4.2, 0.8.1, 0M.1.1, 0M.2.1, and Story 0.A.1's own repo creation).</p>
+<p><strong>Given</strong> Terraform is mandated for all Azure provisioning (2026-06-11 decision) and three gaps block the first apply<br/><strong>When</strong> the engineer writes <code>runbooks/terraform.md</code><br/><strong>Then</strong> it records the <strong>agreed</strong> answers to gaps.md <strong>G9.1</strong>: the state backend (Azure Storage backend per HMCTS convention vs Terraform Cloud), state isolation per environment stack, who runs plan/apply (per-repo GitHub Actions vs the platform team), and production approval gating<br/><strong>And</strong> it records the agreed answer to <strong>G10.1</strong>: the DDoS Protection tier and <strong>who owns/pays for the WAF policy</strong> (product team via <code>ctam-shared-infrastructure</code> Terraform vs an HMCTS-central security-managed policy)<br/><strong>And</strong> it records the agreed <strong>cross-repo reference pattern</strong> for <strong>G10.2</strong>: how a service repo's own <code>terraform/</code> resolves the shared estate's outputs — private DNS zones, AKS managed identity, APIM instance id — via remote state or data sources, since every service repo needs this from <code>ctam-reference-data</code> (Epic 0.2) onward<br/><strong>And</strong> it records the <strong>per-service APIM registration ownership rule</strong> (AR53 clarification, see <code>architecture/conventions.md</code>): the <strong>shared</strong> APIM instance and base policies belong to <code>ctam-shared-infrastructure</code>; each <strong>service's own API definition and per-API policy</strong> belong to that service's <code>terraform/</code>, applied against the shared instance by the documented cross-repo reference pattern<br/><strong>And</strong> each answer is marked <strong>agreed with HMCTS</strong> (with date and named contact) or <strong>outstanding</strong> — an outstanding answer is a tracked blocker on Story 0.0.1, not silent inheritance of a default.</p>
+<p><strong>Given</strong> the runbooks are written<br/><strong>When</strong> an engineer follows either one end-to-end<br/><strong>Then</strong> no step requires knowledge held only by its author<br/><strong>And</strong> both are linked from <code>ctam-architecture</code>'s README and from the Phase 0 index, so they are discoverable at the point of use<br/><strong>And</strong> the remaining two Phase 0 runbooks are noted as authored by their own stories into this repo — <code>reference-data-maintenance.md</code> (Story 0.5.1) and <code>identity-bootstrap.md</code> (Story 0.7.1).</p>
+<p><strong>References:</strong> AR51 (manual GitHub setup), AR53 (revised — per-repo Terraform; APIM ownership clarification), AR27, AR39; gaps.md <strong>G9.1</strong>, <strong>G10.1</strong>, <strong>G10.2</strong>; D10 (<code>gh</code> CLI not available).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Applying any Terraform — Epic 0.0</li>
+<li>The <code>reference-data-maintenance.md</code> runbook (Story 0.5.1) and the <code>identity-bootstrap.md</code> runbook (Story 0.7.1) — authored by those stories, into this repo</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.A-architecture-context-bus-and-scaffolding.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#story-0a1-publish-ctam-architecture-as-the-version-pinned-context-bus-and-tag-arch-v10">Story 0.A.1: Publish ctam-architecture as the version-pinned context bus and tag arch-v1.0</a></li><li><a href="#story-0a2-build-ctam-scaffoldsh-and-the-starter-template-overlay">Story 0.A.2: Build ctam-scaffold.sh and the starter-template overlay</a></li><li><a href="#story-0a3-write-the-github-setup-and-terraform-conventions-runbooks">Story 0.A.3: Write the GitHub-setup and Terraform-conventions runbooks</a></li></ul></aside>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.A-architecture-context-bus-and-scaffolding";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

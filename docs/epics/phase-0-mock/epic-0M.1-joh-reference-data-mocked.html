@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0M.1: Upstream JOH reference data has a contract-shaped mock source — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="epic-0m1-upstream-joh-reference-data-has-a-contract-shaped-mock-source">Epic 0M.1: Upstream JOH reference data has a contract-shaped mock source</h1>
+<blockquote>
+<p><strong>This epic was rewritten on 2026-08-18 (SCP 2026-08-18d, decision #19) from a greenfield build into a brownfield adoption.</strong> A working mock of the eLinks People API v5 already exists at <code>ctam-jomockapi</code>, built from the <strong>real</strong> contract documentation (<code>Swagger UI.pdf</code>, <code>apiresponses.docx</code>) and the <strong>real</strong> production reference-data exports dated 2026-06-01. The original version of this epic assumed CTAM would scaffold a Spring Boot service and serve fixtures shaped by <em>guessing</em> the contract from <code>architecture/data-tables.md</code>. That premise is obsolete: the contract is documented and the mock is built. What remains is adoption, hardening, and the two capabilities the existing implementation lacks.</p>
+</blockquote>
+<p><strong>User outcome:</strong> The existing eLinks v5 mock is <strong>adopted into the CTAM delivery framework</strong> as <strong><code>ctam-joh-mock</code></strong> — containerised, deployed onto the shared Azure estate from <strong>Epic 0.0</strong>, observable, production-refusing, CI-gated, and publishing a <strong>machine-readable contract</strong> — and is <strong>extended</strong> with the two things Epic 0.2 cannot proceed without: a <strong>guaranteed Employment Tribunals cohort</strong> in its data, and <strong>fault-injection modes</strong> that make Story 0.2.3's failure-path acceptance criteria executable. The result is that Epic 0.2's nightly sync is built and negative-tested against a stand-in that reflects the <strong>real</strong> contract over a real HTTP hop, and the cutover to live eLinks is a configuration change.</p>
+<p><strong>What already exists</strong> (working and tested — do not rebuild):</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>eLinks v5 endpoint surface</td>
+<td><code>GET /</code> · <code>GET /api/v5/healthcheck</code> · <code>GET /api/v5/reference_data/:attribute_name[/:reference_id]</code> · <code>GET /api/v5/people/:id</code> · <code>GET /api/v5/people?updated_since=</code> · <code>GET /api/v5/leavers?left_since=</code> · <code>GET /api/v5/deleted?deleted_since=</code></td>
+</tr>
+<tr>
+<td>Base paths</td>
+<td>Mounted both bare and under <code>/elinks</code>, matching the swagger server declaration</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>Bearer-token gate with the documented <code>401 Unauthorized. Invalid or missing token.</code> body; any non-empty token accepted; <code>/</code> and <code>/healthcheck</code> public</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Real error envelope (<code>message</code> + <code>errors[]</code>): required-param, <code>YYYY-MM-DD</code> date validity (rejects <code>2026-02-31</code>), positive-integer <code>page</code>/<code>per_page</code></td>
+</tr>
+<tr>
+<td>Pagination</td>
+<td>Documented envelope — <code>current_page</code>, <code>more_pages</code>, <code>results_per_page</code>, <code>pages</code>, <code>results</code></td>
+</tr>
+<tr>
+<td>Change-feed semantics</td>
+<td><code>/people</code> mixes full profiles with compact <code>LeaverResponse</code>/<code>DeletedResponse</code> stubs in one <code>results</code> array; <code>/people/:id</code> 404s for a deleted person</td>
+</tr>
+<tr>
+<td>Reference data</td>
+<td>Served from the <strong>real</strong> production exports: Locations 1,999 · BaseLocations 1,461 · AppointmentTitles 193 · JudiciaryRoles 163 · Tickets 158 · TicketCategories 53 · plus the small fixed vocabularies</td>
+</tr>
+<tr>
+<td>Generated people</td>
+<td>100 JOHs, deterministic under a fixed seed (<code>20260811</code>), appointments/roles/authorisations joined against the real reference data; ~85% active / ~10% leaver / ~5% deleted; 100 leavers, 100 deleted</td>
+</tr>
+<tr>
+<td>Tests</td>
+<td>4 <code>node:test</code> cases covering public endpoints, the 401 path, pagination + <code>/elinks</code> base path, and the validation failures</td>
+</tr>
+<tr>
+<td>Contract provenance</td>
+<td><code>Swagger UI.pdf</code> + <code>apiresponses.docx</code> in-repo — the evidence base for gaps.md G8.1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What this epic must add</strong> (the actual work):</p>
+<ol type="1">
+<li><strong>Framework adoption</strong> — rename to <code>ctam-joh-mock</code>, GitHub setup per AR51, container image, Helm chart, deployment onto the Epic 0.0 estate, k8s probes, structured JSON logs + correlation ID into the shared Application Insights workspace, CI workflows with lint/test/audit/SBOM.</li>
+<li><strong>The production-refusal safeguard</strong> — currently <strong>absent</strong>. Nothing today prevents this mock running in, or being pointed at from, production. Three guards required per AR55 and gaps.md G5.3.</li>
+<li><strong>A machine-readable OpenAPI spec</strong> — the contract exists only as a PDF. AR55 requires a published spec; NFR39 requires API-as-Product treatment.</li>
+<li><strong>A guaranteed ET cohort</strong> — people are currently generated with weighted jurisdiction ids and no guarantee that any hold an Employment Tribunals appointment. G8.1's wave-1 condition needs deliberate ET coverage.</li>
+<li><strong>Fixture-identity alignment</strong> with <code>ctam-mrd-mock</code> (Epic 0M.2), the <code>ctam-mock-auth</code> roster (Epic 0.4) and the bootstrap fixtures (Epic 0.7) — currently <code>personal_code</code> is a random 10-digit string, shared with nothing.</li>
+<li><strong>Fault-injection modes</strong> — <strong>absent</strong>. Without them Story 0.2.3's four failure-path ACs and Story 0.3.1's variants have no mechanism.</li>
+</ol>
+<p><strong>Stack exception — Node/Express, deliberately.</strong> This service is <strong>the one documented exception to AR2–AR17</strong> (revised AR55). It is not scaffolded from the HMCTS Crime SpringBoot template, carries no Gradle build, and runs on Node 22 LTS + Express 4. The house standard's three reasons for mandating the Java scaffold — convention consistency across the deployable estate, a shared supply-chain baseline, and reviewer familiarity — apply weakly here: the mock is <strong>non-production</strong>, owns <strong>no table in the shared schema</strong>, is <strong>not a consumer or producer of any CTAM API contract</strong>, and sits outside the Java dependency graph entirely. Rewriting ~14 working, tested endpoints, a reference-data loader and a seeded generator in Java would buy conformance in a service no user or production system ever reaches. <strong>What the exception does not waive:</strong> containerisation, the Helm chart, k8s probes, structured JSON logging with correlation IDs, App Insights ingestion, the production-refusal guards, CI quality gates, dependency audit + SBOM, and a published API contract. It is an exception on <strong>language and build tooling only</strong> — not on operability, observability, security, or contract discipline.</p>
+<p><strong>Hosting:</strong> deployed onto the shared Azure estate provisioned in <strong>Epic 0.0</strong>. <strong>Never deployed to production</strong> (AR55). <strong>Owns no tables in the shared schema</strong> — reference data is served from in-repo files and people are generated in memory.</p>
+<p><strong>Dependency change:</strong> <code>depends_on</code> is now <code>[epic-0.A, epic-0.0]</code> (<code>arch-baseline</code> was decomposed into Epics 0.A and 0.B by SCP 2026-08-18e; this epic needs 0.A's scaffold/CI/logging conventions, and <strong>not</strong> 0.B, since it owns no table in the shared schema). <strong>Epic 0.1 has been dropped as a prerequisite</strong>, because the reason for it no longer holds: the mock's shape used to be derived from the <code>jo_*</code> schema in <code>architecture/data-tables.md</code>, and is now derived from the <strong>real eLinks contract</strong>. This inverts the information flow — Epic 0.1's <code>jo_*</code> schema design should now be validated <em>against</em> this contract rather than the reverse. That inversion is recorded as a finding in §<em>Findings</em> below and in gaps.md G8.1; it is <strong>not</strong> actioned here. Epic 0.2 continues to depend on both Epic 0.1 and this epic, so nothing downstream is weakened.</p>
+<p><strong>FRs covered:</strong> none directly — <strong>enablement infrastructure</strong> for FR1 (<code>jo_people</code> as the identity-lookup target) and FR6/FR7 tier-(a), in the same sense as Epics 0.0 and 0.1.</p>
+<p><strong>Key NFRs exercised:</strong> NFR10 (TLS at APIM), NFR16 (Key Vault — the outbound token the sync presents), NFR24 (the JOH eLinks MVP integration exercised end-to-end pre-connection), NFR25–NFR28 (structured logs, App Insights ingestion, liveness/readiness), NFR31 (UK South), NFR39 (API-as-Product — a published, versioned contract), NFR40 (per-service deployable), NFR42 (Postman collection).</p>
+<p><strong>Out of scope (explicitly):</strong> the nightly sync, the <code>jo_*</code> tables and <code>ctam_sync_status</code> (<strong>Epic 0.2</strong>). MRD's mock feed (<strong>Epic 0M.2</strong>). Any production deployment or connection to the live eLinks API (never — AR55). Standing in for the HMCTS IdP (that is <code>ctam-mock-auth</code>, Story 0.4.2). <strong>Correcting the four architecture assumptions this implementation falsifies</strong> — recorded below and in gaps.md, actioned in a follow-up SCP per SCP 2026-08-18d decision 4. Rewriting the mock in Java (explicitly not wanted — see the stack exception). Closing G8.1 (only a real eLinks connection closes it).</p>
+<hr />
+<details class="section" id="findings--what-this-implementation-proves-about-the-real-contract"><summary><span class="section-title">Findings — what this implementation proves about the real contract</span></summary><div class="section-body">
+<p>These are <strong>evidence</strong>, not assumptions, and they contradict four load-bearing statements in the current artifact set. They are <strong>recorded here and in gaps.md G8.1; none is actioned in this epic.</strong> A follow-up SCP owns the corrections. Any story dispatched against Epic 0.2, 0.4, 0.5 or 0.7 before that SCP lands must read this section first.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Current artifacts assert</th>
+<th>The documented contract + real data show</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F1</strong></td>
+<td><strong>AR46</strong> — nightly <strong>full-refresh-upsert</strong> across the 15 <code>jo_*</code> tables; rows absent upstream are "marked inactive, never hard-deleted"</td>
+<td>The API is a <strong>change feed</strong>. <code>GET /people?updated_since=</code> returns only what changed, and departure/deletion arrive as <strong>explicit signals</strong> — dedicated <code>GET /leavers?left_since=</code> and <code>GET /deleted?deleted_since=</code> feeds, plus compact leaver/deleted stubs mixed into the people feed. Absence carries no meaning, so inferring deactivation from it is both unnecessary and wrong. A full-refresh design also discards the <code>updated_since</code> watermark the API is built around.</td>
+</tr>
+<tr>
+<td><strong>F2</strong></td>
+<td><strong>G8.1 / D8 / Story 0.2.2</strong> — <code>jo_jurisdictions</code> carries the upstream <strong>parent-child hierarchy</strong> ("natively or derivable on ingest")</td>
+<td><code>REF_Jurisdiction</code> is <strong>flat</strong>: 5 rows — Courts (30), Tribunals (34), Magistrates (84), Coroners (86), Skills (87) — with schema <code>id, name, start_date, end_date, created_at, updated_at</code>. <strong>There is no <code>parent_id</code> and no hierarchy to derive.</strong> The hierarchy CTAM needs exists, but on <strong>other</strong> entities: <code>locations.parent_id</code>, <code>base_locations.parent_id</code>, and <code>ticket_categories.parent_category_id</code>.</td>
+</tr>
+<tr>
+<td><strong>F3</strong></td>
+<td><strong>G8.1 wave-1 blocker</strong> — eLinks must carry the <strong>Employment Tribunals jurisdiction</strong>, with its parent-child shape under Tribunals</td>
+<td><strong>ET is not a jurisdiction.</strong> It is a <strong>Location</strong>: <code>1036 "Employment Tribunal (England &amp; Wales)"</code> (<code>type_id</code> 4, <code>parent_id</code> 1675, <code>jurisdiction_id</code> 34 = Tribunals), alongside <code>1035 "Employment Appeal Tribunal"</code> and <code>1037 "Employment Tribunal Scotland"</code>. ET also surfaces as <strong>tickets</strong> (1413 ET E&amp;W, 380 ET Scotland, 379 EAT, in categories 56/57/58) and <strong>10 appointment titles</strong>. So the wave-1 ET predicate is a <em>(jurisdiction = Tribunals) + (location subtree / ticket set)</em> expression, <strong>not</strong> a jurisdiction id. <strong>Consequence: FR57's activation flags, keyed on <code>(jurisdiction, region)</code>, cannot express "ET" as specified.</strong></td>
+</tr>
+<tr>
+<td><strong>F4</strong></td>
+<td><strong>D9 / Story 0.2.2 / AR46</strong> — <code>jo_people.personnel_number</code> is the upstream natural key that <code>ctam_joh_identities</code> binds to</td>
+<td>The API exposes <strong><code>per_id</code></strong> and <strong><code>personal_code</code></strong>. <strong>No <code>personnel_number</code> field exists anywhere</strong> in the contract or the responses. The two-population identity chain (IdP email → <code>jo_people</code> → <code>personnel_number</code> → CTAM JOH UUID) needs re-keying onto whichever of these is the stable business identifier.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>F3 also partially resolves G8.5.</strong> <em>"Employment Judge"</em> (48) and <em>"Regional Employment Judge"</em> (71) are <strong>confirmed real</strong> appointment titles, as are seven more ET titles and the judiciary role <em>"Acting Regional Employment Judge"</em> (90004) — so that half of the provisional ET taxonomy is now evidenced. The other half is <strong>not</strong>: the employer-side / employee-side <strong>lay-member panels</strong> appear nowhere in this reference data. G8.5 stays open for the panel structure, and the ET as-is analysis pack remains a wave-1 deliverable.</p>
+<p><strong>What is NOT resolved.</strong> G8.1 remains <strong>open</strong>. This evidence is contract documentation plus a reference-data export, not a live connection: no one has authenticated against the real API, confirmed the update cadence or SLA, verified that <code>updated_since</code> behaves as documented under load, or seen a real person payload. And the MRD half of G8.1 is untouched.</p>
+<hr />
+</div></details><details class="section" id="story-0m11-adopt-ctam-joh-mock-into-the-delivery-framework-and-make-it-deployable-observable-and-production-refusing"><summary><span class="section-title">Story 0M.1.1: Adopt <code>ctam-joh-mock</code> into the delivery framework and make it deployable, observable, and production-refusing</span></summary><div class="section-body">
+<p>As a <strong>platform engineer</strong>, I want the existing eLinks v5 mock adopted as a first-class CTAM repo — renamed, containerised, deployed onto the Epic 0.0 estate, observable, CI-gated, and hard-guarded against ever reaching production, So that <strong>Epic 0.2's sync can be built against a deployed stand-in over a real HTTP hop</strong> rather than a developer's laptop, and so that no configuration mistake can ever point a production service at synthetic judicial data.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the working implementation currently at <code>ctam-jomockapi</code><br/><strong>When</strong> it is adopted into the framework<br/><strong>Then</strong> the repo is named <strong><code>ctam-joh-mock</code></strong>, matching AR55, the repository-strategy row, the dispatch-graph <code>repo:</code> key and both ledger shards<br/><strong>And</strong> the GitHub manual-setup checklist has been performed for it (<code>ctam-architecture/runbooks/github-setup.md</code>) — private repo, branch protection on <code>main</code> — noting the <code>gh</code> CLI is <strong>not</strong> available (per AR51)<br/><strong>And</strong> <code>CODEOWNERS</code> and <code>PULL_REQUEST_TEMPLATE.md</code> exist (per AR29)<br/><strong>And</strong> <code>.gitignore</code> covers <code>node_modules/</code> <strong>and</strong> <code>.DS_Store</code><br/><strong>And</strong> the existing endpoint behaviour, validation shapes, pagination envelope, seeded determinism and 4 passing tests are <strong>preserved unchanged</strong> — this story adds around the implementation, it does not alter its API surface.</p>
+<p><strong>Given</strong> the contract provenance documents <code>Swagger UI.pdf</code> and <code>apiresponses.docx</code> are the <strong>evidence base for gaps.md G8.1</strong><br/><strong>When</strong> the repo is reorganised<br/><strong>Then</strong> both are retained in the repo under a <code>contract/</code> directory (not deleted, not moved out)<br/><strong>And</strong> a <code>contract/README.md</code> records their provenance, the date they were obtained, and that they — not CTAM's own guesses — are the source of the implemented shape<br/><strong>And</strong> the <code>ReferenceData/</code> exports are retained with a note recording their source and export date (2026-06-01).</p>
+<p><strong>Given</strong> the <code>ReferenceData/</code> exports are <strong>real production reference data from eLinks</strong><br/><strong>When</strong> the repo is adopted<br/><strong>Then</strong> a documented check confirms they contain <strong>organisational reference data only</strong> — appointment titles, locations, base locations, judiciary roles, tickets, ticket categories, contract types, genders, location types, jurisdictions — and <strong>no personal data of any judicial office holder</strong> (verified: no name, contact, or identity columns in any export)<br/><strong>And</strong> that finding is recorded in the repo alongside the exports, satisfying NFR14 (no forbidden data) for this repo<br/><strong>And</strong> a data-owner sign-off that these exports may be held in this repository is obtained <strong>or</strong> recorded as an outstanding action with a named owner — this AC is the story's external-dependency gate and is tracked in sprint planning.</p>
+<p><strong>Given</strong> the service must deploy onto the shared Azure estate provisioned and verified in <strong>Epic 0.0</strong><br/><strong>When</strong> the deployment artefacts are added<br/><strong>Then</strong> a <code>Dockerfile</code> builds a container on a <strong>Node 22 LTS</strong> base image, running as a non-root user<br/><strong>And</strong> a Helm chart exists at <code>charts/ctam-joh-mock/</code> with <code>values-dev.yaml</code> / <code>values-staging.yaml</code> / <code>values-production.yaml</code> overlays (per AR24)<br/><strong>And</strong> the chart declares <strong>liveness</strong> and <strong>readiness</strong> probes (per NFR28) on endpoints that are <strong>outside the mocked <code>/api/v5</code> contract surface</strong> — so the mock's own API shape is never polluted by CTAM operational concerns, and <code>GET /api/v5/healthcheck</code> continues to mean exactly what the real eLinks API means by it<br/><strong>And</strong> the image is pushed to the shared ACR provisioned in Epic 0.0<br/><strong>And</strong> the service is reachable over TLS via the shared APIM gateway with HTTP-only requests rejected (per NFR10)<br/><strong>And</strong> the deployment fails fast with a clear diagnostic if any Epic 0.0 estate dependency is absent.</p>
+<p><strong>Given</strong> the AR55 stack exception waives language and build tooling but <strong>not</strong> observability<br/><strong>When</strong> the service runs in any deployed environment<br/><strong>Then</strong> it emits <strong>structured JSON logs to stdout</strong> carrying a <code>correlationId</code> per request, in the same shape the Java services emit (per AR30–AR32, NFR25)<br/><strong>And</strong> those logs and traces land in the <strong>shared Application Insights workspace</strong> provisioned in Epic 0.0 (per NFR26, NFR27)<br/><strong>And</strong> a request that fails validation or auth is logged with its correlation ID so a confusing ingestion result can be traced to the exact request that produced it.</p>
+<p><strong>Given</strong> the production-refusal safeguard is <strong>currently absent from the implementation</strong><br/><strong>When</strong> it is added<br/><strong>Then</strong> the service <strong>refuses to start</strong> when its environment indicates production — exiting non-zero with the fatal message <em>"ctam-joh-mock must not be deployed to production"</em> (mirroring AR35 and <code>ctam-mock-auth</code>'s guard, per AR55 and gaps.md G5.3)<br/><strong>And</strong> <code>deploy-production.yml</code> is configured to <strong>never</strong> deploy <code>ctam-joh-mock</code><br/><strong>And</strong> a CI lint check <strong>fails</strong> any production Helm values file that names <code>ctam-joh-mock</code> as an eLinks endpoint<br/><strong>And</strong> every deployed environment serves an unmissable <em>"Mock upstream source — synthetic judicial office holder data, not for production"</em> banner on the <code>/docs</code> console<br/><strong>And</strong> every generated person payload is identifiable as synthetic on inspection, so a stray record cannot be mistaken for real judicial data.</p>
+<p><strong>Given</strong> CI must gate this repo as it gates every other<br/><strong>When</strong> <code>.github/workflows/ci.yml</code> runs on a pull request<br/><strong>Then</strong> it installs from <code>package-lock.json</code> with a reproducible install, runs the <code>node:test</code> suite, runs a linter, runs <code>npm audit</code> at a defined severity threshold, and runs <code>helm lint</code><br/><strong>And</strong> it generates a <strong>CycloneDX SBOM</strong> for the Node dependency tree — the AR10 requirement satisfied with the ecosystem's equivalent tooling rather than the Gradle plugin<br/><strong>And</strong> <code>deploy-dev.yml</code> deploys to the dev AKS cluster in UK South on merge to <code>main</code> (per AR23, NFR31)<br/><strong>And</strong> all checks pass on the adopted baseline before any behaviour change is made in Story 0M.1.2.</p>
+<p><strong>References:</strong> NFR10, NFR14, NFR25–NFR28, NFR31, NFR40; AR23, AR24, AR28, AR29, AR30–AR32, AR51, <strong>AR55 (revised — Node/Express exception + brownfield adoption)</strong>; gaps.md G5.3 (widened), <strong>G8.7 (new — production reference-data governance)</strong>; <strong>depends on Epic 0.A</strong> (Helm/CI/logging conventions + the GitHub-setup runbook — formerly <code>arch-baseline</code>) and <strong>Epic 0.0</strong> (estate).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>The OpenAPI spec, the ET cohort, fixture-identity alignment, and fault injection — Story 0M.1.2</li>
+<li>Any change to the existing endpoint behaviour or response shapes — preserved as-is</li>
+<li>Rewriting in Java — explicitly excluded by the AR55 exception</li>
+<li>Acting on findings F1–F4 — a follow-up SCP owns those</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-0m12-publish-the-contract-guarantee-an-et-cohort-align-fixture-identity-and-add-fault-injection"><summary><span class="section-title">Story 0M.1.2: Publish the contract, guarantee an ET cohort, align fixture identity, and add fault injection</span></summary><div class="section-body">
+<p>As a <strong>platform engineer building the Epic 0.2 nightly sync</strong>, I want the mock to publish a machine-readable contract, to guarantee that Employment Tribunals office holders exist in its data, to share identity keys with the other mocks, and to fail on demand in each way the real API could fail, So that <strong>Epic 0.2's cleanse → transform → persist pipeline and every one of its failure paths are implemented and proven</strong> against a stand-in that reflects the real contract — and so that the wave-1 ET cohort is testable end-to-end across all three mocks.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the contract currently exists only as <code>Swagger UI.pdf</code><br/><strong>When</strong> a machine-readable spec is produced<br/><strong>Then</strong> an <strong>OpenAPI 3.x</strong> document describes every endpoint, parameter, response envelope and error shape the implementation serves<br/><strong>And</strong> it is generated from — or verified against — the running implementation, so spec and behaviour cannot silently diverge<br/><strong>And</strong> it is published as a versioned artefact consumable by <code>ctam-reference-data</code> (per NFR39, mirroring the <code>api-ctam-{service}</code> convention)<br/><strong>And</strong> each field is marked <strong>evidenced</strong> (present in <code>Swagger UI.pdf</code> / <code>apiresponses.docx</code> / the real reference-data exports) or <strong>inferred</strong> (a documented deviation — the three the README already records: the full reference-data column set rather than the generic schema, <code>appointments</code> always an array, and <code>include_previous_appointments</code> folded into the same array)<br/><strong>And</strong> the spec states prominently that it is <strong>CTAM's reading of the eLinks v5 contract from documentation, not a contract agreed with Judicial Office</strong> — so a reader never mistakes it for an upstream commitment<br/><strong>And</strong> a Postman collection covering every endpoint exists at <code>postman/ctam-joh-mock-phase0.postman_collection.json</code> (per AR41, NFR42).</p>
+<p><strong>Given</strong> gaps.md <strong>G8.1</strong>'s wave-1 condition requires the Employment Tribunals cohort to be present and exercisable, and finding <strong>F3</strong> establishes that ET is expressed as <strong>locations 1035/1036/1037 under <code>jurisdiction_id</code> 34 (Tribunals)</strong>, as <strong>tickets 379/380/1413</strong>, and as <strong>10 ET appointment titles</strong> rather than as a jurisdiction<br/><strong>When</strong> the generated cohort is made deterministic for ET<br/><strong>Then</strong> a <strong>guaranteed, non-zero, documented number</strong> of generated people hold a current appointment at an <strong>ET location</strong> with an <strong>ET appointment title</strong> (e.g. 48 <em>Employment Judge</em>, 71 <em>Regional Employment Judge</em>) and an authorisation carrying an <strong>ET ticket</strong><br/><strong>And</strong> that cohort is reachable through the change feed, the leavers feed and the deleted feed — so wave-1 scoping is testable across all three, not just the happy path<br/><strong>And</strong> the ET predicate the fixtures satisfy is <strong>written down</strong> in the repo — the exact location ids, ticket ids and appointment-title ids that constitute "ET" in this data — so <code>ctam-reference-data</code>, <code>ctam-authorisation</code> and the FR57 activation work all key off one documented definition instead of three re-derived guesses<br/><strong>And</strong> the fixture set is <strong>version-tagged</strong>, so a sync run recorded in <code>ctam_sync_status</code> traces to the exact dataset version it consumed<br/><strong>And</strong> determinism is preserved — the same fixture version yields byte-identical payloads across restarts, so CI assertions stay stable.</p>
+<p><strong>Given</strong> the same test identities must resolve across all three mocks and the bootstrap<br/><strong>When</strong> fixture identity is aligned<br/><strong>Then</strong> a documented subset of generated people carries <strong>stable, non-random identity keys</strong> (<code>per_id</code> / <code>personal_code</code>) that are the same values referenced by <code>ctam-mrd-mock</code>'s Specialisations fixtures (<strong>Epic 0M.2</strong>, Story 0M.2.2), the <code>ctam-mock-auth</code> JOH test-user roster (<strong>Epic 0.4</strong>, Story 0.4.2) and the bootstrap-verification fixtures (<strong>Epic 0.7</strong>)<br/><strong>And</strong> the shared identity set is published in the repo as the single reference all four consumers read<br/><strong>And</strong> at least one shared identity is an <strong>ET</strong> office holder, so the wave-1 sign-in path is exercisable end-to-end<br/><strong>And</strong> the current behaviour of <code>personal_code</code> being a random 10-digit string is replaced for that subset only — the remaining generated population may stay randomised.</p>
+<blockquote>
+<p><strong>Note on <code>personnel_number</code> (finding F4).</strong> The artifact set currently specifies <code>jo_people.personnel_number</code> as the upstream natural key; <strong>the contract has no such field</strong>. This story does <strong>not</strong> invent one and does <strong>not</strong> re-key the identity chain — it aligns on the keys the contract actually exposes (<code>per_id</code>, <code>personal_code</code>) and leaves the D9 correction to the follow-up SCP. Story dispatch for Epic 0.4 Story 0.4.3 must not assume <code>personnel_number</code> exists upstream.</p>
+</blockquote>
+<p><strong>Given</strong> Story 0.2.3's failure-path acceptance criteria need each failure mode to be reproducible, and <strong>no fault injection exists today</strong><br/><strong>When</strong> fault-injection modes are added — selectable by configuration or request header, and <strong>inert unless explicitly selected</strong> so the default behaviour stays clean<br/><strong>Then</strong> the mock can return a <strong>structurally malformed payload</strong> (non-parseable JSON, or a missing expected block) — driving Story 0.2.3's "previous good state remains fully in place" AC<br/><strong>And</strong> it can return <strong>valid JSON containing individually non-conformant records</strong> — missing required fields, wrong types, unresolvable reference ids, duplicate natural keys within one page — driving the per-record <strong>quarantine</strong> ACs, including that conformant records still persist<br/><strong>And</strong> it can be made <strong>unreachable</strong> or return <strong>5xx</strong> — driving the "API is unreachable mid-sync" AC<br/><strong>And</strong> it can return a <strong>slow response</strong>, exercising the sync's timeout handling<br/><strong>And</strong> it can return a <strong>paginated feed that changes underneath the consumer</strong> between page requests, and a page whose <code>pagination</code> envelope is internally inconsistent — the failure modes a change-feed API has and a full-refresh dump does not, which no existing acceptance criterion covers because <strong>finding F1</strong> was unknown when Epic 0.2 was written<br/><strong>And</strong> every fault mode is documented in the OpenAPI spec and covered by the Postman collection<br/><strong>And</strong> the test suite is extended to cover each fault mode plus the reference-data and single-person endpoints, which the current 4 tests do not reach.</p>
+<p><strong>Given</strong> the Epic 0.2 sync will consume this mock<br/><strong>When</strong> the sync's integration tests run in CI<br/><strong>Then</strong> they execute against a <strong>real HTTP hop</strong> to a deployed or container-hosted instance, not an in-process stub<br/><strong>And</strong> the same suite is expected to run unchanged against the real eLinks API once access exists — the only change being base URL and credential<br/><strong>And</strong> the mock's fixture version is recorded against each run in <code>ctam_sync_status</code>.</p>
+<p><strong>Given</strong> the real eLinks API eventually becomes reachable (gaps.md <strong>G8.1</strong>)<br/><strong>When</strong> live behaviour is compared against this mock's published OpenAPI spec<br/><strong>Then</strong> the delta is recorded as an architectural PR per G8.1, covering <strong>at minimum</strong> the update cadence and SLA, <code>updated_since</code> semantics under load, real pagination behaviour at scale, the authentication scheme, and whether every <strong>inferred</strong> field marked in the spec holds<br/><strong>And</strong> the mock's spec, fixtures and ET predicate are updated to match and re-tagged<br/><strong>And</strong> <strong>G8.1 remains open until the sync has run against the real API</strong> — a documented contract and a passing mock are explicitly <strong>not</strong> closure. This AC is the epic's external-dependency gate and is tracked in sprint planning.</p>
+<p><strong>References:</strong> FR1 (enablement), FR6/FR7 tier-(a) (enablement); NFR16, NFR24, NFR39, NFR42; AR41, <strong>AR55 (revised)</strong>; gaps.md <strong>G8.1</strong> (contract now documented; three assumptions falsified; still open), <strong>G8.5</strong> (ET titles confirmed; panel structure still open); D8, D13.</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>The sync, the <code>jo_*</code> tables, <code>ctam_sync_status</code> — Epic 0.2</li>
+<li>The MRD workbook mock — Epic 0M.2</li>
+<li>Acting on findings F1–F4 (AR46's sync model, the jurisdiction-hierarchy source, the FR57 ET predicate, the identity re-keying) — follow-up SCP</li>
+<li>Inventing a <code>personnel_number</code> field the contract does not have</li>
+<li>Closing G8.1 — only a real eLinks connection closes it</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0-mock/epic-0M.1-joh-reference-data-mocked.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#findings--what-this-implementation-proves-about-the-real-contract">Findings — what this implementation proves about the real contract</a></li><li><a href="#story-0m11-adopt-ctam-joh-mock-into-the-delivery-framework-and-make-it-deployable-observable-and-production-refusing">Story 0M.1.1: Adopt ctam-joh-mock into the delivery framework and make it deployable, observable, and production-refusing</a></li><li><a href="#story-0m12-publish-the-contract-guarantee-an-et-cohort-align-fixture-identity-and-add-fault-injection">Story 0M.1.2: Publish the contract, guarantee an ET cohort, align fixture identity, and add fault injection</a></li></ul></aside>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0-mock/epic-0M.1-joh-reference-data-mocked";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

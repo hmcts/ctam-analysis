@@ -128,9 +128,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
+<td><strong>0-Mock</strong> — Upstream Source Stand-Ins <em>(pre-Phase-0)</em></td>
+<td><a href="phase-0-mock/index.html">phase-0-mock/</a></td>
+<td>🟡 Planned — 2 epics, 4 stories</td>
+</tr>
+<tr>
 <td><strong>0</strong> — Foundations</td>
 <td><a href="phase-0/index.html">phase-0/</a></td>
-<td>🟡 Planned — 9 epics, 23 stories</td>
+<td>🟡 Planned — 11 epics, 27 stories <em>(incl. the lettered <code>ctam-architecture</code> enablement epics 0.A and 0.B)</em></td>
 </tr>
 <tr>
 <td><strong>1</strong> — JOH</td>
@@ -187,11 +192,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Create stories</strong> — produce Gherkin-AC user stories sized for a single dev-agent session</li>
 <li><strong>Final validation</strong> — verify FR/NFR coverage, dependency soundness, architecture compliance</li>
 </ol>
-<p>Phase 0 has completed all four steps. Phases 1–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).</p>
+<p>Phase 0-Mock and Phase 0 have both completed all four steps. Phases 1–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).</p>
+<blockquote>
+<p><strong>Phase 0-Mock is a pre-Phase-0 tier, not a slot in the 0–9 sequence.</strong> Its two epics — <strong>0M.1</strong> (<code>ctam-joh-mock</code>) and <strong>0M.2</strong> (<code>ctam-mrd-mock</code>) — stand up contract-shaped stand-ins for CTAM's two unconfirmed upstream contracts (gaps.md <strong>G8.1</strong>) and are dependencies <strong>of</strong> Epics 0.2 and 0.3; nothing else depends on them. The <code>0M.</code> prefix marks the tier so sequencing is never inferred from a number. <a href="../delivery/dispatch-graph.yaml"><code>../delivery/dispatch-graph.yaml</code></a> is the single authority on order (SCP 2026-08-18c).</p>
+</blockquote>
 </div></details><details class="section" id="how-to-find-your-way"><summary><span class="section-title">How to find your way</span></summary><div class="section-body">
 <ul>
 <li><strong>Looking for what to build next?</strong> Start at the phase index (e.g. <a href="phase-0/index.html">phase-0/index.md</a>) and pick an epic.</li>
-<li><strong>Looking for a specific story?</strong> Stories are named <code>Story {phase}.{epic}.{n}</code> (e.g. Story 0.1.5). They live under <code>phase-{n}/epic-{n}.{m}-{slug}.md</code>.</li>
+<li><strong>Looking for a specific story?</strong> Stories are named <code>Story {phase}.{epic}.{n}</code> (e.g. Story 0.1.5). They live under <code>phase-{n}/epic-{n}.{m}-{slug}.md</code>. Phase 0-Mock follows the same shape with a <code>0M</code> phase token: <code>Story 0M.1.2</code> in <code>phase-0-mock/epic-0M.1-{slug}.md</code>.</li>
 <li><strong>Looking for an FR?</strong> Use <a href="fr-coverage-map.html">fr-coverage-map.md</a>.</li>
 <li><strong>Looking for an architecture rule?</strong> Use <a href="requirements-inventory.html">requirements-inventory.md</a> — ARs are in the Additional Requirements section.</li>
 <li><strong>Verifying readiness?</strong> Run <code>bmad-check-implementation-readiness</code> from the repo root; it understands this sharded shape.</li>

@@ -1,7 +1,7 @@
 # Ledger shard — Epic 0.1. Schema, status vocab, and concurrency model: ./README.md
 epic: epic-0.1
 title: Shared PostgreSQL schema design is established and CI-enforced
-repo: ctam-analysis
+repo: [ctam-analysis, ctam-architecture]   # 0.1.1 authors the design here; 0.1.2 packages the fitness function into the bus
 bus_version: arch-v1.0
 status: not-started        # epic-level rollup: not-started | in-progress | blocked | in-review | done
 owner: null                # who is driving this epic (name/handle); null = unassigned
@@ -10,6 +10,7 @@ stories:
     repo: ctam-analysis
     title: Finalize and publish the canonical relational schema design
     frs: []
+    touches: [ctam-architecture]   # the signed-off design is published to the bus for every service repo to read
     bus_version: arch-v1.0
     status: not-started      # not-started | dispatched | in-progress | in-review | done
     owner: null
@@ -18,6 +19,7 @@ stories:
     repo: ctam-architecture
     title: Build the schema-convention CI fitness function
     frs: []
+    note: authored here; WIRED INTO each repo by ctam-scaffold.sh (story 0.A.2) — no per-repo adoption story needed
     bus_version: arch-v1.0
     status: not-started
     owner: null

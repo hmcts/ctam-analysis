@@ -10,6 +10,7 @@ stories:
     repo: ctam-reference-data
     title: Scaffold ctam-reference-data from the HMCTS starter (onto the Epic 0.0 estate)
     frs: [FR6, FR7, FR8]
+    note: consumes ctam-scaffold.sh + runbooks/github-setup.md (epic-0.A) and the ctam_configuration_values baseline + ctam_reference_data DB role (epic-0.B); its own terraform/ carries the service's APIM API definition + per-API policy against the shared instance
     bus_version: arch-v1.0
     status: not-started      # not-started | dispatched | in-progress | in-review | done
     owner: null
@@ -18,6 +19,7 @@ stories:
     repo: ctam-reference-data
     title: Tier-(a) upstream jo_* tables, ctam_sync_status, and tier-(a) write protection
     frs: [FR6, FR7]
+    touches: [ctam-analysis]   # architecture/data-tables.md updated with the as-created shape
     bus_version: arch-v1.0
     status: not-started
     owner: null
@@ -26,6 +28,8 @@ stories:
     repo: ctam-reference-data
     title: JOH reference data flows into CTAM nightly from the JOH eLinks API
     frs: [FR6, FR7, NFR24]
+    note: consumes ctam-joh-mock's published contract, ET predicate, shared identity set and fault-injection modes (epic-0M.1) — a dependency, not an artefact landed there
+    note: built and negative-tested against ctam-joh-mock (epic-0M.1, phase 0-mock) — real eLinks is a config cutover; G8.1 stays open
     bus_version: arch-v1.0
     status: not-started
     owner: null

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-18d — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-18d">Sprint Change Proposal — 2026-08-18d</h1>
+<details class="section" id="adopt-the-existing-elinks-v5-mock-as-ctam-joh-mock-epic-0m1-rewritten-accept-nodeexpress-as-a-scoped-exception-and-record-four-falsified-assumptions"><summary><span class="section-title">Adopt the existing eLinks v5 mock as <code>ctam-joh-mock</code> (Epic 0M.1 rewritten), accept Node/Express as a scoped exception, and record four falsified assumptions</span></summary><div class="section-body">
+</div></details><details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a working set of mock APIs for the upstream source data exists at <code>ctam-jomockapi</code>, with a request to create an epic under Phase 0-Mock and adopt the implementation into the framework.</p>
+<p><strong>What was found.</strong> The implementation is a <strong>Node/Express mock of the Judicial Office eLinks People API v5</strong>, and it is substantially more than a stub. It was built from the <strong>real contract documentation</strong> — <code>Swagger UI.pdf</code> for the endpoint and parameter surface, <code>apiresponses.docx</code> for complete example payloads where the PDF export truncated them — and it serves the <strong>real production reference-data exports</strong> dated 2026-06-01. It is working, tested, and deterministic.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Endpoints</td>
+<td><code>GET /</code> · <code>/api/v5/healthcheck</code> · <code>/api/v5/reference_data/:attribute_name[/:reference_id]</code> · <code>/api/v5/people/:id</code> · <code>/api/v5/people?updated_since=</code> · <code>/api/v5/leavers?left_since=</code> · <code>/api/v5/deleted?deleted_since=</code></td>
+</tr>
+<tr>
+<td>Base paths</td>
+<td>Mounted bare <strong>and</strong> under <code>/elinks</code>, matching the swagger server declaration</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>Bearer gate with the documented <code>401 Unauthorized. Invalid or missing token.</code> body; <code>/</code> and <code>/healthcheck</code> public</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Real error envelope (<code>message</code> + <code>errors[]</code>): required params, <code>YYYY-MM-DD</code> validity (rejects <code>2026-02-31</code>), positive-integer pagination</td>
+</tr>
+<tr>
+<td>Pagination</td>
+<td>Documented envelope — <code>current_page</code>, <code>more_pages</code>, <code>results_per_page</code>, <code>pages</code>, <code>results</code></td>
+</tr>
+<tr>
+<td>Change-feed semantics</td>
+<td><code>/people</code> mixes full profiles with compact leaver/deleted stubs in one <code>results</code> array; <code>/people/:id</code> 404s a deleted person</td>
+</tr>
+<tr>
+<td>Reference data</td>
+<td><strong>Real production exports</strong> — Locations 1,999 · BaseLocations 1,461 · AppointmentTitles 193 · JudiciaryRoles 163 · Tickets 158 · TicketCategories 53 · plus fixed vocabularies</td>
+</tr>
+<tr>
+<td>People</td>
+<td>100 synthetic JOHs, deterministic under seed <code>20260811</code>, appointments/roles/authorisations joined against the real reference data; ~85% active / ~10% leaver / ~5% deleted; plus 100 leavers, 100 deleted</td>
+</tr>
+<tr>
+<td>Tests</td>
+<td>4 <code>node:test</code> cases — public endpoints, the 401 path, pagination + <code>/elinks</code> base path, validation failures</td>
+</tr>
+<tr>
+<td>Provenance</td>
+<td><code>Swagger UI.pdf</code> + <code>apiresponses.docx</code> retained in-repo</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The problem this creates — and it is not the one the request implies.</strong> Two distinct issues surfaced, and only the first is what was asked about.</p>
+<p><strong>Issue A — an epic exists whose premise is now obsolete.</strong> Epic 0M.1 (written earlier the same day, SCP 2026-08-18b) specifies scaffolding <code>ctam-joh-mock</code> greenfield from the HMCTS Crime SpringBoot template and serving fixtures shaped by <strong>guessing</strong> the contract from <code>architecture/data-tables.md</code>, publishing that guess as CTAM's "provisional written expectation." Both halves of that premise are dead: the contract is documented, and the mock is built. Leaving Epic 0M.1 as written would have the programme rebuild working software in a different language to satisfy a plan that predates the evidence by hours.</p>
+<p><strong>Issue B — the implementation is evidence, and it contradicts the architecture.</strong> This is the more consequential finding. <code>ctam-jomockapi</code> is not just an implementation; it is the first hard evidence CTAM has about what the eLinks contract actually looks like. <strong>Four load-bearing statements in the artifact set are falsified by it.</strong> Because the request was scoped to adoption, these are recorded here in full and corrected in a follow-up — but they must not be allowed to sit quietly inside an epic file.</p>
+<p><strong>Evidence.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What it establishes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>package.json</code>, <code>server.js</code>, <code>src/routes/*</code></td>
+<td>Node 22 / Express 4; 14 route handlers; dual base-path mounting</td>
+</tr>
+<tr>
+<td><code>README.md</code></td>
+<td>Provenance (<code>Swagger UI.pdf</code> + <code>apiresponses.docx</code>), auth behaviour, the three documented deviations from the swagger schema</td>
+</tr>
+<tr>
+<td><code>src/lib/validation.js</code>, <code>src/lib/pagination.js</code></td>
+<td>The real error and pagination envelopes, reproduced exactly</td>
+</tr>
+<tr>
+<td><code>src/db.js</code>, <code>src/lib/personGenerator.js</code></td>
+<td>Fixed-seed determinism; <code>per_id</code> / <code>personal_code</code> identity keys; <strong>no <code>personnel_number</code></strong></td>
+</tr>
+<tr>
+<td><code>ReferenceData/*REF_Jurisdiction.json</code></td>
+<td><strong>5 flat jurisdictions</strong>, no <code>parent_id</code>: Courts 30, Tribunals 34, Magistrates 84, Coroners 86, Skills 87</td>
+</tr>
+<tr>
+<td><code>ReferenceData/*REF_Location.csv</code></td>
+<td>Header <code>id,name,type_id,parent_id,jurisdiction_id,…</code>; rows 1035 EAT, <strong>1036 <code>Employment Tribunal (England &amp; Wales)</code></strong> (<code>parent_id</code> 1675, <code>jurisdiction_id</code> 34), 1037 ET Scotland</td>
+</tr>
+<tr>
+<td><code>ReferenceData/*REF_AppointmentTitle.csv</code></td>
+<td><code>48 Employment Judge</code>, <code>71 Regional Employment Judge</code>, +8 further ET titles</td>
+</tr>
+<tr>
+<td><code>ReferenceData/*REF_Ticket.csv</code> / <code>*REF_TicketCategory.csv</code></td>
+<td>ET tickets 379 / 380 / 1413; <code>ticket_categories</code> carries <code>parent_category_id</code></td>
+</tr>
+<tr>
+<td><code>test/api.test.js</code></td>
+<td>4 passing tests — and, by omission, the absence of coverage for reference-data and single-person endpoints</td>
+</tr>
+<tr>
+<td>Absence in the tree</td>
+<td><strong>No</strong> Dockerfile, Helm chart, CI workflows, production-refusal guard, machine-readable OpenAPI, or fault injection</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Issue type:</strong> new capability arrived from outside the plan (brownfield adoption), <strong>plus</strong> discovery evidence that invalidates prior assumptions. Not a technical limitation, not a scope change, not a pivot.</p>
+<p><strong>Four decisions confirmed with the user during analysis:</strong></p>
+<ol type="1">
+<li><strong>Rewrite Epic 0M.1 as the adoption epic</strong> — it keeps its number, slot and story ids; the story <em>content</em> is replaced. Alternatives offered and not selected: a new Epic 0M.3 with 0M.1 retired, or 0M.3 now with 0M.1 surviving as a later Spring Boot port.</li>
+<li><strong>Keep Node/Express and document a scoped exception.</strong> Porting to Spring Boot, and adopting silently with no exception recorded, were both offered and not selected.</li>
+<li><strong>Rename the repo to <code>ctam-joh-mock</code></strong> to match AR55, the repository-strategy row, the dispatch graph and both ledger shards. Adopting as <code>ctam-jomockapi</code> was offered and not selected.</li>
+<li><strong>Record the four findings now; correct them in a follow-up SCP.</strong> Folding the AR46 / D8 / D9 / FR57 corrections into this change was offered and not selected; so was mentioning them informally without recording them against the gaps.</li>
+</ol>
+<p><strong>One correction to the request, made explicit.</strong> The request asked to <em>create</em> an epic. Decision 1 rewrites the existing Epic 0M.1 instead, so <strong>no new epic file is created</strong> — creating one would have left two epics delivering the same capability, one of them specifying a rebuild in a language we have just agreed not to use.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Epic 0M.1</strong></td>
+<td><strong>Rewritten.</strong> Number, title, slot and story ids (<code>0M.1.1</code>, <code>0M.1.2</code>) unchanged; <strong>both stories' content fully replaced</strong>. Adds a what-exists inventory, a what-must-be-added list, the stack-exception rationale, and a new <strong>Findings</strong> section carrying F1–F4. <code>depends_on</code> drops <code>epic-0.1</code>.</td>
+</tr>
+<tr>
+<td><strong>Epic 0M.2</strong> (<code>ctam-mrd-mock</code>)</td>
+<td><strong>No change to its stories.</strong> Its relationship to 0M.1 shifts in one respect worth noting: the two mocks are no longer of equal evidential status — 0M.1 now reflects documented vendor material, 0M.2 is still CTAM's guess. The Phase 0-Mock index records the asymmetry.</td>
+</tr>
+<tr>
+<td><strong>Epic 0.2</strong> (JOH ingestion)</td>
+<td><strong>No change in this SCP</strong> — but it is the epic most affected by findings F1–F4, and its Story 0.2.3 acceptance criteria will need rework once the follow-up SCP lands (AR46's full-refresh model does not fit a change-feed API). <code>depends_on</code> unchanged: still <code>[epic-0.0, arch-baseline, epic-0.1, epic-0M.1]</code>.</td>
+</tr>
+<tr>
+<td><strong>Epics 0.4, 0.7</strong></td>
+<td><strong>No change</strong> — but both key on <code>personnel_number</code>, which finding <strong>F4</strong> shows does not exist upstream. Flagged, not actioned.</td>
+</tr>
+<tr>
+<td><strong>Epics 0.0, 0.1, 0.3, 0.5, 0.6, 0.8</strong></td>
+<td><strong>No change.</strong></td>
+</tr>
+<tr>
+<td><strong>Phases 1–8, post-MVP</strong></td>
+<td><strong>No change.</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Totals unchanged: Phase 0-Mock 2 epics / 4 stories; Phase 0 9 epics / 23 stories.</strong> No story added, removed or renumbered.</p>
+<h3 id="dependency-graph-impact">Dependency-graph impact</h3>
+<p><code>epic-0M.1.depends_on</code> becomes <code>[epic-0.0, arch-baseline]</code> — <strong><code>epic-0.1</code> dropped</strong>. The justification is specific: that edge existed because the mock's fixtures were to be shaped by the <code>jo_*</code> schema in <code>data-tables.md</code>. The mock's shape now comes from the real contract, so the dependency has no remaining basis — and the information flow is <strong>inverted</strong>: Epic 0.1's schema design should now be validated <em>against</em> this contract. That inversion is recorded as a finding, not actioned. <code>epic-0.2</code> still depends on <strong>both</strong> <code>epic-0.1</code> and <code>epic-0M.1</code>, so nothing downstream is weakened. Graph <strong>re-verified acyclic</strong>; both ordering constraints hold.</p>
+<p>Practical effect: Epic 0M.1 becomes dispatchable as soon as <code>epic-0.0</code> and <code>arch-baseline</code> are <code>done</code>, without waiting for the schema-design epic.</p>
+<h3 id="artifact-impact-exhaustive">Artifact impact (exhaustive)</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0-mock/epic-0M.1-joh-reference-data-mocked.md</code></td>
+<td><strong>Full rewrite</strong> — adoption framing, what-exists table, what-must-be-added list, stack-exception rationale, <strong>new Findings section (F1–F4)</strong>, both stories replaced, <code>depends_on</code> note</td>
+</tr>
+<tr>
+<td><code>epics/phase-0-mock/index.md</code></td>
+<td>0M.1 summary rewritten; epics-table row; demo row; three scope-model bullets (deployables, published contracts, fixture identity); the "does not close G8.1" paragraph qualified for the now-asymmetric evidence; validation section gains the asymmetry and the outstanding-corrections risk</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Phase 0-Mock Area scope paragraph and FR/NFR coverage line</td>
+</tr>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td><strong>AR55 revised</strong> (v5 contract surface, real exports, evidenced/inferred spec marking, ET-as-location, fault modes); <strong>AR55.1 new</strong> (the scoped Node/Express exception)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td><strong>Decision #19</strong>; the <em>Phasing of Upstream Integrations</em> <code>ctam-joh-mock</code> block rewritten around documented-contract reality</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td><code>ctam-joh-mock</code> row rewritten; both mock rows' <code>Phase</code> corrected <code>0</code> → <code>0-mock</code>; new paragraph on why one of the three mocks is not a Java service</td>
+</tr>
+<tr>
+<td><code>architecture/conventions.md</code></td>
+<td>Scaffold-rule carve-out pointing at AR55.1</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td><strong>G8.1 major update</strong> (contract documented; F1–F4; revised closure condition; JOH half partly evidenced, MRD half wholly open); <strong>G8.5 partly evidenced</strong>; <strong>G8.7 new</strong> (production-export governance)</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td><strong>v4.8</strong></td>
+</tr>
+<tr>
+<td><code>delivery/dispatch-graph.yaml</code></td>
+<td><code>epic-0M.1.depends_on</code>; adoption + inverted-flow note</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0M.1.yaml</code></td>
+<td>Both story titles; NFR14 trace on 0M.1.1; adoption + findings note</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>This SCP's NAV entry</td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>Regenerated</td>
+</tr>
+</tbody>
+</table>
+<h3 id="artifacts-checked--no-impact">Artifacts checked — no impact</h3>
+<p><code>prd.md</code> (<strong>deliberately untouched</strong> — findings F1–F4 implicate D9, FR57 and NFR24, and correcting them is the follow-up SCP's job; changing the PRD here would exceed the agreed scope), <code>business-case.md</code>, <code>architecture-summary.md</code> (its mock rows cite AR55/AR56, not epic numbers or stack), <code>architecture/data-tables.md</code> (the mock still owns no tables; <strong>the <code>jo_*</code> schema itself is implicated by F1/F2/F4 but is the follow-up's scope</strong>), <code>architecture/starter-template.md</code>, <code>architecture/assumptions.md</code>, <code>architecture/delivery-operating-model.md</code>, all sequence diagrams, <code>epics/fr-coverage-map.md</code> (0M.1 still bears no FR), <code>epics/index.md</code>, <code>epics/phase-0/*</code> (all nine epics), <code>delivery/README.md</code>, <code>delivery/ledger/</code> (other shards), <code>_bmad-output/project-context.md</code>, root <code>CLAUDE.md</code> (still 18 repos — none added or removed), all dated reports and prior SCPs.</p>
+<p><strong>No UX impact.</strong></p>
+<h3 id="technical-impact">Technical impact</h3>
+<p><strong>No FR or NFR content changed. No schema, CTAM API contract, or endpoint change. No repo added or removed — still 18.</strong> No code impact on any other repo.</p>
+<p><strong>New for the adopted repo:</strong> a container image, a Helm chart, CI workflows, a production-refusal guard, structured logging, an SBOM, an OpenAPI artefact, and a rename. <strong>New infrastructure footprint:</strong> one AKS deployment, one ACR image stream, one APIM registration — all dev/CI/integration only.</p>
+<p><strong>One genuinely new class of technical debt is accepted:</strong> the estate now contains a <strong>Node service in a Java polyrepo</strong>. Its CI, dependency-audit and SBOM tooling are ecosystem-specific and will not be covered by whatever the Java repos standardise on. That cost is accepted knowingly for a non-production service; AR55.1 states it is not precedent.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Selected: Option 1 — Direct Adjustment.</strong> Rewrite Epic 0M.1 in place, revise AR55 and add AR55.1, record the findings against the gaps, and adjust the dependency edge.</p>
+<p><strong>Rationale.</strong> Rollback is not applicable — nothing is implemented in CTAM, and "rolling back" would mean discarding working software. An MVP review is not applicable — no requirement or scope boundary moves.</p>
+<p>The choice that matters is <strong>adopt rather than rebuild</strong>, and it is justified by more than sunk cost. This implementation encodes something CTAM could not otherwise buy: <strong>the real contract's actual shape</strong>. A Spring Boot rewrite would reproduce the endpoints but would re-introduce exactly the risk the mock exists to remove — a CTAM engineer re-deriving payload shapes, and re-guessing wherever the rewrite is ambiguous. Adopting the artefact that was written <em>against the documentation, with the documentation in the repo</em> keeps the provenance chain intact.</p>
+<p><strong>The honest cost.</strong> A Node service in a Java estate (accepted, scoped, documented as non-precedent); ecosystem-specific CI tooling; and an adopted codebase that has not been through CTAM code review, has 4 tests covering perhaps a third of its surface, and lacks every operational concern the house standard mandates. Story 0M.1.1 is deliberately weighted toward closing that operational gap rather than toward features.</p>
+<p><strong>Effort:</strong> Medium. <strong>Risk:</strong> Medium, and concentrated in two places worth naming plainly:</p>
+<ul>
+<li><strong>The production-refusal guard does not exist yet.</strong> Until Story 0M.1.1 lands, nothing prevents this service running anywhere it is deployed, or a misconfigured environment pointing at it. This is the single highest-priority item in the epic, and it is why 0M.1.1 precedes 0M.1.2.</li>
+<li><strong>Mock-reality divergence, now with a sharper edge.</strong> A mock built from documentation <em>feels</em> authoritative in a way a hand-guessed fixture set does not — which makes an unnoticed inference more dangerous, not less. Mitigated by requiring every field to be marked <em>evidenced</em> or <em>inferred</em>, by keeping the provenance documents in the repo, and by G8.1 remaining explicitly unclosable by mock success.</li>
+</ul>
+<p><strong>Timeline impact:</strong> favourable. Epic 0M.1's build work shrinks substantially, and dropping the <code>epic-0.1</code> edge lets it start earlier. Findings F1–F4 will add rework to Epic 0.2 once the follow-up SCP lands — <strong>that rework is discovered, not created, by this change</strong>, and discovering it now is considerably cheaper than discovering it during Epic 0.2's implementation.</p>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-epic-0m1--rewritten">4.1 Epic 0M.1 — rewritten</h3>
+<p>Story ids and the epic's identity are preserved; content is replaced.</p>
+<p><strong>Story 0M.1.1 — OLD:</strong> <em>"Scaffold <code>ctam-joh-mock</code> with a production-refusal safeguard"</em> — scaffold from the HMCTS starter via <code>ctam-scaffold.sh</code>, Java/Gradle baseline, package <code>uk.gov.hmcts.ctam.johmock</code>, port 8090, no Liquibase changelog, plus the three production guards.</p>
+<p><strong>Story 0M.1.1 — NEW:</strong> <em>"Adopt <code>ctam-joh-mock</code> into the delivery framework and make it deployable, observable, and production-refusing"</em> — rename; GitHub setup per AR51; <code>CODEOWNERS</code>/PR template; <code>.gitignore</code> covering <code>node_modules/</code> and <code>.DS_Store</code>; <strong>preserve the existing API surface, validation shapes, seeded determinism and 4 passing tests unchanged</strong>; retain <code>Swagger UI.pdf</code> + <code>apiresponses.docx</code> under <code>contract/</code> with a provenance README; retain the <code>ReferenceData/</code> exports with their source and export date; <strong>an NFR14 forbidden-data check</strong> confirming the exports are organisational-only with <strong>no personal data</strong> (verified during this analysis) plus a <strong>data-owner sign-off or a named outstanding action</strong> (gaps.md G8.7); a non-root Node 22 LTS container; a Helm chart with per-environment overlays; <strong>liveness/readiness probes on endpoints outside the mocked <code>/api/v5</code> surface</strong>, so <code>GET /api/v5/healthcheck</code> keeps meaning exactly what the real eLinks API means by it; ACR push; TLS via APIM; structured JSON logs with correlation IDs into shared App Insights; <strong>the three production-refusal guards</strong>; and CI running reproducible install + tests + lint + <code>npm audit</code> + <code>helm lint</code> + a <strong>CycloneDX SBOM</strong>.</p>
+<p><strong>Rationale:</strong> the greenfield scaffold story described work that must not happen. Its one still-valid element — the production guards — is retained and promoted, because it is the gap that carries actual risk today.</p>
+<p><strong>Story 0M.1.2 — OLD:</strong> <em>"<code>ctam-joh-mock</code> serves all 15 <code>jo_*</code> entities on the expected eLinks contract, with fault injection"</em> — build the entity endpoints, author ET-flavoured fixtures, publish an OpenAPI spec as CTAM's provisional expectation, add fault modes.</p>
+<p><strong>Story 0M.1.2 — NEW:</strong> <em>"Publish the contract, guarantee an ET cohort, align fixture identity, and add fault injection"</em> — the endpoints already exist, so the story reduces to the four genuine gaps: (a) a <strong>machine-readable OpenAPI 3.x</strong> spec generated from or verified against the implementation, each field marked <em>evidenced</em> or <em>inferred</em> (including the three deviations the README already documents), stating prominently that it is <strong>CTAM's reading of the contract, not a contract agreed with Judicial Office</strong>, plus a Postman collection; (b) a <strong>guaranteed, documented ET cohort</strong> — a non-zero number of people holding a current appointment at an ET <strong>location</strong> with an ET <strong>appointment title</strong> and an ET <strong>ticket</strong>, reachable through the change, leavers and deleted feeds, with the ET predicate (the exact location/ticket/title ids) <strong>written down</strong> so <code>ctam-reference-data</code>, <code>ctam-authorisation</code> and the FR57 work all key off one definition; (c) <strong>fixture-identity alignment</strong> so a documented subset carries stable keys shared with <code>ctam-mrd-mock</code>, the <code>ctam-mock-auth</code> roster and the Epic 0.7 bootstrap, at least one of them an ET holder; (d) <strong>fault injection</strong>, inert unless selected — malformed payload, per-record non-conformance, unreachable/5xx, slow response, <strong>and two change-feed-specific faults</strong> (a feed shifting between page requests; an internally inconsistent pagination envelope) that no existing acceptance criterion covers because finding <strong>F1</strong> was unknown when Epic 0.2 was written. Plus test coverage for each fault mode and for the reference-data and single-person endpoints the current 4 tests never reach.</p>
+<p><strong>Rationale:</strong> "serve the entities" is done. What is missing is the contract artefact, the ET guarantee G8.1's wave-1 condition needs, cross-mock identity, and the failure-path mechanism Epic 0.2's ACs depend on.</p>
+<h3 id="42-ar55-revised-ar551-new">4.2 AR55 revised; AR55.1 new</h3>
+<p><strong>AR55</strong> now describes the adopted reality: the v5 surface including the change feed and the leaver/deleted feeds; real production reference data; an OpenAPI spec that is CTAM's reading of vendor documentation with <em>evidenced</em>/<em>inferred</em> markers; a guaranteed ET cohort defined as locations under <code>jurisdiction_id</code> 34 plus ET tickets and titles, <strong>not</strong> a jurisdiction; fault-injection modes; the three production guards; no shared-schema tables; and that passing against the mock is <strong>not</strong> closure of G8.1.</p>
+<p><strong>AR55.1</strong> records the stack exception: <code>ctam-joh-mock</code> is <strong>the single documented exception to AR2–AR17</strong> and to <code>conventions.md</code>'s scaffold rule, running Node 22 LTS + Express 4. It states the justification (non-production; no shared-schema table; neither produces nor consumes a CTAM API contract; outside the Java dependency graph; a rewrite would discard working tested code for conformance nothing reaches), enumerates what the exception <strong>does not waive</strong> (container, Helm, probes outside the mocked surface, structured logs with correlation IDs, App Insights, production guards, CI gates, CycloneDX SBOM, published contract), and states that <strong>no other repo may cite it as precedent</strong>.</p>
+<h3 id="43-gap-amendments">4.3 Gap amendments</h3>
+<p><strong>G8.1 — major update.</strong> Records that the eLinks v5 contract is now <strong>documented</strong> and its real reference data in hand, then states plainly that <strong>three of the gap's own stated assumptions are falsified</strong> (F1 change-feed vs full-refresh; F2 flat jurisdiction with hierarchy elsewhere; F3 ET-as-location, which means the gap's wave-1 condition <strong>cannot be satisfied as written</strong> and FR57's activation key cannot express ET) plus F4 (no <code>personnel_number</code>). Revises the closure condition — no longer phrased as "ET jurisdiction coverage" — and splits the gap's status: <strong>JOH half partly evidenced, MRD half wholly open</strong>.</p>
+<p><strong>G8.5 — partly evidenced.</strong> ET legal titles are <strong>confirmed real</strong> (<code>Employment Judge</code> 48, <code>Regional Employment Judge</code> 71, +7 more, judiciary role 90004). The employer-side/employee-side <strong>lay-member panels appear nowhere</strong> in the reference data. Panel composition becomes the substantive remainder of the ET as-is pack.</p>
+<p><strong>G8.7 — new.</strong> Governance of the real production exports held in the repo. Records the verified finding that they are <strong>organisational reference data only, no personal data</strong> (NFR14 satisfied on the forbidden-data test), and identifies what is <strong>not</strong> settled: whether Judicial Office accepts production exports being held in a CTAM repository, and under what refresh/retention terms. Tied to an explicit AC on Story 0M.1.1.</p>
+<h3 id="44-dependency-edge">4.4 Dependency edge</h3>
+<pre><code>OLD: epic-0M.1  depends_on: [epic-0.0, arch-baseline, epic-0.1]
+NEW: epic-0M.1  depends_on: [epic-0.0, arch-baseline]</code></pre>
+<p><strong>Rationale:</strong> the <code>epic-0.1</code> edge existed so the mock's fixtures would conform to the <code>jo_*</code> schema. The mock's shape now comes from the real contract, so the edge has no basis — and the flow is inverted. <code>epic-0.2</code> still depends on both, so nothing downstream weakens.</p>
+<h3 id="45-decision-19-and-changelog-v48">4.5 Decision #19 and changelog v4.8</h3>
+<p>Both record the adoption, the stack exception, the dropped edge, all four findings with their contradicted targets named, the G8.5 partial evidence, the new G8.7, and that <strong>G8.1 stays open</strong>.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong>, with an architect-owned tail. An epic's stories are fully replaced, a new architecture rule (AR55.1) is created, three gaps move, and a dependency edge changes — but no requirement or scope boundary moves, so this is not a replan.</p>
+<ul>
+<li><strong>Developer agent (control plane):</strong> the artifact sweep in §2, this SCP, the v4.8 changelog entry, the NAV entry, and the <code>docs/</code> regeneration.</li>
+<li><strong>Architect:</strong> decision #19; AR55 revision and AR55.1; the <code>conventions.md</code> carve-out; the G8.1 / G8.5 / G8.7 amendments. <strong>And the follow-up SCP</strong> — see below.</li>
+<li><strong>PO / DEV (backlog):</strong> Epic 0M.1's two stories re-scoped in the ledger; 0M.1 becomes dispatchable earlier (drops the <code>epic-0.1</code> wait). <strong>Story 0M.1.1 should be treated as the higher priority of the two</strong> — the production-refusal guard does not exist yet.</li>
+<li><strong>Repo owner:</strong> rename <code>ctam-jomockapi</code> → <code>ctam-joh-mock</code> locally and on GitHub, per AR51 (manual, web UI; the <code>gh</code> CLI is not available).</li>
+<li><strong>Commit:</strong> the user reviews and commits externally via VSCode (git writes are blocked inside Claude).</li>
+</ul>
+<p><strong>The follow-up SCP is the most important output of this change.</strong> It owns:</p>
+<ol type="1">
+<li><strong>AR46</strong> — replace the full-refresh-upsert sync model with a change-feed model: <code>updated_since</code> watermarking, consumption of the explicit <code>leavers</code> / <code>deleted</code> feeds, and removal of the "infer deactivation from absence" rule. Rework Epic 0.2 Story 0.2.3's acceptance criteria accordingly.</li>
+<li><strong>D8 / <code>jo_jurisdictions</code></strong> — decide where the jurisdiction hierarchy comes from now that <code>REF_Jurisdiction</code> is flat: <code>locations.parent_id</code>, <code>ticket_categories.parent_category_id</code>, or a CTAM-owned tier-(b) hierarchy. Update Story 0.2.2 and <code>data-tables.md</code>.</li>
+<li><strong>FR57 / ET scoping</strong> — re-express the wave-1 activation predicate, since <code>(jurisdiction, region)</code> cannot say "ET". This touches the PRD.</li>
+<li><strong>D9 / identity</strong> — re-key the two-population chain from <code>personnel_number</code> onto <code>per_id</code> / <code>personal_code</code>. This touches the PRD, Epics 0.2, 0.4 and 0.7, and <code>data-tables.md</code>.</li>
+<li><strong>The Epic 0.1 inversion</strong> — Epic 0.1's <code>jo_*</code> schema design should be validated against the documented contract rather than authored independently of it.</li>
+</ol>
+<p><strong>Success criteria:</strong></p>
+<ol type="1">
+<li>Epic 0M.1 describes adoption, not a greenfield build; both stories' content is replaced; story ids <code>0M.1.1</code>/<code>0M.1.2</code> and the epic's number/title are unchanged.</li>
+<li>Epic 0M.1 carries a <strong>Findings</strong> section stating F1–F4, each naming the artifact it contradicts, and stating that none is actioned in this epic.</li>
+<li><code>gaps.md</code> G8.1 states the contract is documented, names the three falsified assumptions, revises the closure condition, and still marks the gap <strong>open</strong>; G8.5 records the ET-title evidence and the missing panel structure; <strong>G8.7 exists</strong>.</li>
+<li><code>AR55</code> is revised and <strong><code>AR55.1</code> exists</strong>, scoping the exception to language and build tooling, enumerating what is not waived, and stating it is not precedent; <code>conventions.md</code> carries the matching carve-out.</li>
+<li><code>dispatch-graph.yaml</code> parses, is <strong>acyclic</strong>, <code>epic-0M.1.depends_on</code> is <code>[epic-0.0, arch-baseline]</code>, and <code>epic-0.2.depends_on</code> still contains <strong>both</strong> <code>epic-0.1</code> and <code>epic-0M.1</code>.</li>
+<li>Phase totals unchanged — Phase 0-Mock 2 epics / 4 stories; Phase 0 9 epics / 23 stories. No story added, removed or renumbered.</li>
+<li><code>prd.md</code> is unmodified (<code>git diff</code> shows no change) — the PRD-level corrections belong to the follow-up.</li>
+<li><code>scripts/build-html.sh</code> completes and this SCP plus the rewritten epic render and are reachable from the NAV.</li>
+</ol>
+</div></details><details class="section" id="6-pre-existing-findings--not-part-of-this-change"><summary><span class="section-title">6. Pre-existing Findings — Not Part of This Change</span></summary><div class="section-body">
+<ol type="1">
+<li><strong>Site NAV is still missing four Sprint Change Proposals</strong> — <code>2026-08-14</code>, <code>2026-08-15</code>, <code>2026-08-15b</code>, <code>2026-08-15c</code> — plus <code>implementation-readiness-report-2026-06-17</code>, <code>-2026-08-11</code>, and both <code>prd-validation-report-*</code> files. Flagged in SCP 2026-08-18 §6, 2026-08-18b §6 and 2026-08-18c §6, and <strong>still open</strong>. Fourth time of asking.</li>
+<li><strong><code>scripts/python/__pycache__/build_html.cpython-314.pyc</code> is tracked in git</strong> and churns on every site build. Needs a <code>.gitignore</code> entry.</li>
+<li><strong><code>architecture/delivery-operating-model.md</code>'s illustrative dispatch-graph snippet</strong> still carries pre-2026-08-15 epic ids for the non-mock repos; marked <code>ILLUSTRATIVE SHAPE ONLY</code> rather than renumbered.</li>
+<li><strong>The adopted repo has not been through CTAM code review</strong>, and its 4 tests do not reach the reference-data or single-person endpoints. Story 0M.1.2 extends coverage; a review pass against the CTAM code-review standard is not currently scheduled by any story and may deserve one.</li>
+</ol>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-18d.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#adopt-the-existing-elinks-v5-mock-as-ctam-joh-mock-epic-0m1-rewritten-accept-nodeexpress-as-a-scoped-exception-and-record-four-falsified-assumptions">Adopt the existing eLinks v5 mock as ctam-joh-mock (Epic 0M.1 rewritten), accept Node/Express as a scoped exception, and record four falsified assumptions</a></li><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#dependency-graph-impact">Dependency-graph impact</a></li><li class="h3"><a href="#artifact-impact-exhaustive">Artifact impact (exhaustive)</a></li><li class="h3"><a href="#artifacts-checked--no-impact">Artifacts checked — no impact</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li class="h3"><a href="#41-epic-0m1--rewritten">4.1 Epic 0M.1 — rewritten</a></li><li class="h3"><a href="#42-ar55-revised-ar551-new">4.2 AR55 revised; AR55.1 new</a></li><li class="h3"><a href="#43-gap-amendments">4.3 Gap amendments</a></li><li class="h3"><a href="#44-dependency-edge">4.4 Dependency edge</a></li><li class="h3"><a href="#45-decision-19-and-changelog-v48">4.5 Decision #19 and changelog v4.8</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li><a href="#6-pre-existing-findings--not-part-of-this-change">6. Pre-existing Findings — Not Part of This Change</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-18d";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

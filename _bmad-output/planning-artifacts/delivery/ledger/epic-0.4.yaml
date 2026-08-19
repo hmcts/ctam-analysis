@@ -18,6 +18,7 @@ stories:
     repo: ctam-mock-auth
     title: User can authenticate against ctam-mock-auth and receive a JWT
     frs: [FR1, NFR12, NFR13]
+    note: the test-user roster must match the shared identity set published by ctam-joh-mock (story 0M.1.2) and seeded by story 0.7.1
     bus_version: arch-v1.0
     status: not-started
     owner: null
@@ -26,6 +27,7 @@ stories:
     repo: ctam-authorisation
     title: ctam-authorisation validates JWTs and resolves identity, roles, jurisdiction + Region/Area scope
     frs: [FR2, FR3, FR4, FR57, NFR12, NFR13]
+    touches: [ctam-analysis]   # architecture/data-tables.md rows for the 6 ctam_auth_* tables
     bus_version: arch-v1.0
     status: not-started
     owner: null

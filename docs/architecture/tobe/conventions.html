@@ -114,6 +114,75 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Unique constraints:</strong> named <code>uq_{table}_{columns}</code>. Per-table examples in <a href="data-tables.html"><code>./data-tables.md</code></a>.</li>
 <li><strong>Audit columns:</strong> every table has <code>created_at timestamptz NOT NULL</code>, <code>updated_at timestamptz NOT NULL</code>. <code>created_by</code> and <code>updated_by</code> (UUID, FK to user identity) added when D7 user-action audit is implemented post-MVP.</li>
 </ul>
+<p><strong>Service ports (local dev / docker-compose) — added 2026-08-18, SCP 2026-08-18e:</strong></p>
+<p>Every service is allocated a <strong>distinct</strong> local port. AR3's "default port 8082" is the <strong>HMCTS template default</strong>, not a per-service allocation: reading it as one assigned <code>8082</code> to <code>ctam-reference-data</code>, <code>ctam-authorisation</code> <em>and</em> <code>ctam-notification</code>, which collides in exactly the multi-service local stack the Phase 0 demo gate requires. This table is the allocation; <code>ctam-scaffold.sh</code> (Story 0.A.2) sets the port from it.</p>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Port</th>
+<th>Repo</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ctam-reference-data</code></td>
+<td><strong>8082</strong></td>
+<td><code>ctam-payment</code></td>
+<td><strong>8090</strong></td>
+</tr>
+<tr>
+<td><code>ctam-authorisation</code></td>
+<td><strong>8083</strong></td>
+<td><code>ctam-itinerary</code></td>
+<td><strong>8091</strong></td>
+</tr>
+<tr>
+<td><code>ctam-notification</code></td>
+<td><strong>8084</strong></td>
+<td><code>ctam-mi-feed</code></td>
+<td><strong>8092</strong></td>
+</tr>
+<tr>
+<td><code>ctam-joh</code></td>
+<td><strong>8085</strong></td>
+<td><code>ctam-mock-auth</code></td>
+<td><strong>8100</strong></td>
+</tr>
+<tr>
+<td><code>ctam-absence</code></td>
+<td><strong>8086</strong></td>
+<td><code>ctam-joh-mock</code></td>
+<td><strong>8101</strong></td>
+</tr>
+<tr>
+<td><code>ctam-vacancy</code></td>
+<td><strong>8087</strong></td>
+<td><code>ctam-mrd-mock</code></td>
+<td><strong>8102</strong></td>
+</tr>
+<tr>
+<td><code>ctam-booking</code></td>
+<td><strong>8088</strong></td>
+<td><code>ctam-ui</code></td>
+<td><strong>5173</strong> (Vite)</td>
+</tr>
+<tr>
+<td><code>ctam-sitting</code></td>
+<td><strong>8089</strong></td>
+<td><code>ctam-admin-ui</code></td>
+<td><strong>5174</strong> (Vite)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>8082–8092</strong> production services (allocation follows the phase order); <strong>8100–8102</strong> the three non-production mocks, banded separately so a mock port can never be confused for a service's; <strong>5173/5174</strong> the two SPAs on Vite defaults. Supporting containers keep their own defaults: PostgreSQL 5432, Mailpit 1025 (SMTP) / 8025 (UI), Azurite 10000–10002. <code>ctam-shared-infrastructure</code> has no port — it is Terraform-only. Adding a service means adding a row here first.</p>
+<p><strong>Per-service APIM registration ownership — added 2026-08-18, SCP 2026-08-18e:</strong></p>
+<ul>
+<li>The <strong>APIM instance, its base policies, the WAF and the rate-limit defaults</strong> belong to <code>ctam-shared-infrastructure</code> (Epic 0.0, Story 0.0.5 / 0.0.6). No service repo modifies them.</li>
+<li>Each <strong>service's own API definition and per-API policy</strong> belong to <strong>that service's <code>terraform/</code></strong>, applied against the shared instance using the cross-repo remote-state/data-source pattern recorded in <code>ctam-architecture/runbooks/terraform.md</code> (Story 0.A.3; gaps.md G10.2). This is what Story 0.0.5's "per-service API registration is out of scope" defers <em>to</em>.</li>
+<li>Consequence for every scaffolded service: its <code>terraform/</code> carries <strong>both</strong> its Key Vault namespace <strong>and</strong> its APIM API + per-API policy. The scaffold skeleton (Story 0.A.2) provides both stubs.</li>
+</ul>
 <p><strong>API endpoints:</strong></p>
 <ul>
 <li><strong>Resources:</strong> plural nouns — <code>/v1/johs</code>, <code>/v1/bookings</code>, <code>/v1/payments</code>.</li>
@@ -424,7 +493,7 @@ return &lt;ActualContent data={data} /&gt;;</code></pre></li>
 </div></details><details class="section" id="enforcement-guidelines"><summary><span class="section-title">Enforcement Guidelines</span></summary><div class="section-body">
 <p><strong>All CTAM Pathfinder services MUST:</strong></p>
 <ul>
-<li>Use the HMCTS Crime SpringBoot template as scaffold (per <a href="starter-template.html"><code>./starter-template.md</code></a>) and customise per service.</li>
+<li>Use the HMCTS Crime SpringBoot template as scaffold (per <a href="starter-template.html"><code>./starter-template.md</code></a>) and customise per service. <strong>One documented exception:</strong> <code>ctam-joh-mock</code> runs on Node 22 LTS + Express 4 per <strong>AR55.1</strong> — a non-production stand-in adopted brownfield, scoped to language and build tooling only, and explicitly not precedent for any other repo.</li>
 <li>Follow the package layout <code>uk.gov.hmcts.ctam.{service}.{layer}</code>.</li>
 <li>Use Gradle Groovy DSL (per HMCTS Crime SpringBoot template) with Gradle Wrapper.</li>
 <li>Implement RFC 9457 errors via per-service <code>@ControllerAdvice</code> (no shared library).</li>

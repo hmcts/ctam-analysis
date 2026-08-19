@@ -14,7 +14,7 @@ storyCount: 2
 
 **User outcome:** The shared relational schema design for every Phase 0 table — tier-(a) upstream-sourced (`jo_*`, `mrd_*`), tier-(b) CTAM-owned, and each service's own domain tables — is authored, reviewed, and published as the canonical reference (`architecture/data-tables.md`), together with a machine-checked convention fitness function (naming, PK/FK/timestamp, tier-prefix rules) that every subsequent service's Liquibase changelog must pass in CI. So that every Phase 0 service creates tables against one agreed, enforced shape from the start, rather than drifting per-service and being reconciled later.
 
-**Hosting:** this is a design-and-tooling epic, not a service. The schema reference lives in this control-plane repo (`architecture/data-tables.md`, already the canonical source per `CLAUDE.md`); the fitness-function ruleset is authored here and published (via `ctam-architecture`) for every service repo's own CI pipeline to invoke against its own Liquibase changelogs — no new deployable, no new repo.
+**Hosting — two repos.** This is a design-and-tooling epic, not a service. **Story 0.1.1** lands in this control-plane repo (`ctam-analysis`: `architecture/data-tables.md`, already the canonical source per `CLAUDE.md`) and is published to the bus. **Story 0.1.2** lands in **`ctam-architecture`**, where the ruleset lives; **`ctam-scaffold.sh` (Epic 0.A, Story 0.A.2) wires it into every repo it creates**, so no per-service adoption story is needed and a repo scaffolded in Phase 3 picks up the same gate as `ctam-reference-data`. No new deployable, no new repo.
 
 **Why this precedes ingestion:** Story 0.2.2 (JOH tier-(a) tables) and Story 0.3.1 (MRD tables) are the first Liquibase changesets written against this schema; Epic 0.4 (auth's `ctam_auth_*` tables) and Epic 0.5 (tier-(b) tables) follow. Making the design and its enforcement explicit and reviewed *before* any of those changesets are written means every table lands right the first time, rather than each service inventing its own PK/FK/naming pattern and drifting from `architecture/conventions.md`.
 
@@ -29,7 +29,7 @@ storyCount: 2
 
 **Architecture requirements:** `architecture/conventions.md` (Data & persistence — PK `id uuid`, FK `{entity_singular}_id`, `created_at`/`updated_at timestamptz NOT NULL`, tier-prefix rules); `architecture/data-tables.md` (the per-table ownership inventory this epic finalises and enforces).
 
-**Out of scope (explicitly):** provisioning the PostgreSQL Flexible Server itself (Epic 0.0, Story 0.0.3 — this epic designs the schema that server will hold, not the server). Creating any actual table (Epic 0.2 Story 0.2.2 for `jo_*`, Epic 0.3 Story 0.3.1 for `mrd_*`, Epic 0.4 for `ctam_auth_*`, Epic 0.5 Story 0.5.1 for tier-(b)). The `ctam_configuration_values` shared infrastructure table baseline (owned by `ctam-architecture`, established ahead of Epic 0.2 per the `arch-baseline` dispatch-graph node — a separate, narrower concern to this epic's general-purpose conventions).
+**Out of scope (explicitly):** provisioning the PostgreSQL Flexible Server itself (Epic 0.0, Story 0.0.3 — this epic designs the schema that server will hold, not the server). Creating any actual table (Epic 0.2 Story 0.2.2 for `jo_*`, Epic 0.3 Story 0.3.1 for `mrd_*`, Epic 0.4 for `ctam_auth_*`, Epic 0.5 Story 0.5.1 for tier-(b)). The `ctam_configuration_values` shared infrastructure table baseline **and the per-service DB roles** — both `ctam-architecture`-owned and delivered in **[Epic 0.B](epic-0.B-shared-db-baseline-and-service-roles.md), Story 0.B.1**, which precedes this epic (they were previously the undecomposed `arch-baseline` dispatch node). A separate, narrower concern to this epic's general-purpose conventions.
 
 ---
 
@@ -69,7 +69,7 @@ So that **a changeset violating the agreed schema design (Story 0.1.1) fails CI 
 **Acceptance Criteria:**
 
 **Given** the schema design published in Story 0.1.1,
-**When** the fitness function is built and packaged (via `ctam-architecture`, alongside the other shared CI conventions each service's scaffold pulls in),
+**When** the fitness function is built and packaged in **`ctam-architecture`** (alongside the ArchUnit and Spectral rulesets the scaffold pulls in — Epic 0.A, Story 0.A.2),
 **Then** it checks, for every table in a service's Liquibase changelog: a `uuid` primary key named `id` (never `bigint`/`serial`), FK columns named `{entity_singular}_id`, `created_at`/`updated_at timestamptz NOT NULL` present, and the table name prefixed per its tier/ownership (`ctam_` CTAM-owned, `jo_`/`mrd_` upstream tier-(a) — writable only by `ctam-reference-data`'s changelog, `mock_` dev-only),
 **And** a changeset violating any rule fails the check with a specific, actionable message (which rule, which table/column) — not a generic lint failure,
 **And** the SQLFluff configuration is the same one referenced in `project-context.md`'s CI-gates list, not a second, divergent linter.

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.B: Shared database baseline and per-service DB roles are established — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+
+<h1 id="epic-0b-shared-database-baseline-and-per-service-db-roles-are-established">Epic 0.B: Shared database baseline and per-service DB roles are established</h1>
+<p><strong>User outcome:</strong> The shared <strong><code>ctam_configuration_values</code></strong> infrastructure table exists on the Epic 0.0 PostgreSQL server, managed by <code>ctam-architecture</code>'s Liquibase baseline changelog (FR8); <strong>every per-service PostgreSQL role exists</strong> — <code>ctam_reference_data</code>, <code>ctam_authorisation</code>, <code>ctam_notification</code>, <code>ctam_mock_auth</code>, plus the forward-declared roles for Phases 1–8 — each <code>SELECT</code>-granted on the baseline table; and the <strong>grants convention</strong> (who may grant what, in whose changelog) is written down. So that <strong>the first table-creating story can grant privileges to roles that actually exist</strong>, and the DB-level write boundaries the architecture depends on are real from the first <code>liquibase update</code> rather than retrofitted.</p>
+<p><strong>Hosting:</strong> <code>ctam-architecture</code> — the baseline changelog and the role-provisioning changeset are bus-owned, not service-owned (per FR8, AR19, <code>architecture/data-tables.md</code> → <em>Shared infrastructure</em>). No deployable workload; this epic owns exactly one shared table.</p>
+<p><strong>Why this is its own epic:</strong> the work is <code>ctam-architecture</code>-owned like <a href="epic-0.A-architecture-context-bus-and-scaffolding.html">Epic 0.A</a>, but it <strong>cannot run until Epic 0.0 Story 0.0.3 has provisioned the PostgreSQL server</strong>, whereas Epic 0.A must precede Epic 0.0 Story 0.0.1. Splitting them keeps the dispatch graph acyclic: <strong>0.A → 0.0 → 0.B → 0.1 → …</strong></p>
+<p><strong>Why it is not simply part of Epic 0.0:</strong> Story 0.0.3 provisions the <em>server</em>; this epic establishes the <em>shared schema baseline and access model</em> on it. Story 0.0.3 excludes both explicitly, and <code>ctam-shared-infrastructure</code> is Terraform-only — it holds no Liquibase changelog and owns no table.</p>
+<p><strong>The gap this closes.</strong> Story 0.2.2 asserts <em>"the <code>ctam_reference_data</code> DB role owns the tables"</em>, <em>"SELECT grants exist for <code>ctam_authorisation</code>"</em> and <em>"placeholder roles for future services"</em>; Story 0.5.1 asserts <em>"SELECT grants exist for every current and placeholder service DB role"</em>; Stories 0.2.1, 0.4.1 and 0.8.1 each assert their service's role <em>"has SELECT on <code>ctam_configuration_values</code>"</em>. Nothing created those roles. <code>architecture.md</code> says grants live in the table-owning service's Liquibase changelog and are worth <em>"~10 minutes/role on Day 1"</em> — but never says <strong>whose</strong> Day 1. This epic is that Day 1.</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li><code>ctam-architecture</code>'s <strong>Liquibase baseline changelog</strong> creating <code>ctam_configuration_values</code> (FR8, AR19) on the Epic 0.0 server, conforming to the schema design published in <strong>Epic 0.1</strong> where the two overlap — note the deliberate ordering: the baseline lands <strong>before</strong> Epic 0.1 in the graph, so this epic's own table is reviewed against <code>architecture/conventions.md</code> directly and re-checked by Story 0.1.2's fitness function once that exists</li>
+<li><strong>Per-service PostgreSQL role provisioning</strong> for all 15 role names in the programme (11 services + <code>ctam_mock_auth</code> + the two mocks that need no role, documented as such), each with the documented baseline grants</li>
+<li>The <strong>grants convention</strong> documented in <code>ctam-architecture/runbooks/</code> and enforced by the fitness function: a grant lives in the <strong>table-owning</strong> service's changelog; tier-(a) <code>jo_*</code>/<code>mrd_*</code> tables are INSERT/UPDATE-able by <code>ctam_reference_data</code> only (AR49); every other role gets at most SELECT</li>
+</ul>
+<p><strong>FRs covered:</strong> <strong>FR8</strong> (shared cross-service configuration values — the table, its Liquibase management, and the SELECT grant to every service role). Enablement for FR6/FR7 tier ownership across every table-creating epic.</p>
+<p><strong>Key NFRs first exercised here:</strong> NFR11 (the first data at rest on the shared server), NFR15 (change trail — every role and grant change arrives as a reviewed Liquibase changeset, never ad-hoc SQL).</p>
+<p><strong>Architecture requirements:</strong> AR18 (single shared schema, per-service roles with explicit grants), AR19 (<code>ctam-architecture</code> owns the baseline changelog), AR22 (SELECT on <code>ctam_configuration_values</code> for every service role), AR49 (tier-(a) write protection); <code>architecture/data-tables.md</code> → <em>Shared infrastructure</em>; gaps.md <strong>G6.4</strong> (grant-maintenance model).</p>
+<p><strong>Out of scope (explicitly):</strong> provisioning the PostgreSQL server (Epic 0.0, Story 0.0.3). The canonical schema design and its CI fitness function (<strong>Epic 0.1</strong>). Creating any <strong>service-owned</strong> table — each service's own changelog creates its own tables (0.2.2 <code>jo_*</code>, 0.3.1 <code>mrd_*</code>, 0.4.3 <code>ctam_auth_*</code>, 0.5.1 tier-(b), 0.8.1 <code>ctam_notification_dispatches</code>). Seeding identity or reference data (Stories 0.5.1, 0.7.1). Any admin API or UI over configuration values (there is none, in any phase — updates are Liquibase-or-admin-SQL per FR8).</p>
+<hr />
+<h2 id="story-0b1-shared-ctam_configuration_values-baseline-per-service-db-roles-and-the-grants-convention">Story 0.B.1: Shared <code>ctam_configuration_values</code> baseline, per-service DB roles, and the grants convention</h2>
+<p>As <strong>every CTAM Pathfinder service</strong> (and the DBAs who operate the shared database), I want the shared configuration table created by <code>ctam-architecture</code>'s Liquibase baseline, every per-service DB role provisioned with its baseline grants, and the grants convention documented, So that <strong>the first service to create a table can grant to roles that exist</strong>, cross-service reads work from Day 1, and the DB enforces the write boundaries the architecture relies on (FR8, AR18, AR22, AR49).</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the shared PostgreSQL Flexible Server is provisioned and TLS-verified per <strong>Epic 0.0, Story 0.0.3</strong><br/><strong>And</strong> <code>ctam-architecture</code> is published as the context bus per <strong>Epic 0.A, Story 0.A.1</strong><br/><strong>When</strong> the engineer adds the baseline Liquibase changelog to <code>ctam-architecture</code><br/><strong>Then</strong> the shared <strong><code>ctam_configuration_values</code></strong> table exists with the schema in <code>architecture/data-tables.md</code> → <em>Shared infrastructure</em> (per FR8, AR19)<br/><strong>And</strong> it conforms to the naming/typing rules in <code>architecture/conventions.md</code> — <code>id uuid</code> PK, <code>created_at</code>/<code>updated_at timestamptz NOT NULL</code>, <code>ctam_</code> prefix — reviewed directly here because this table lands <strong>before</strong> Epic 0.1's fitness function exists<br/><strong>And</strong> the changelog is applied by a documented, repeatable mechanism (a pipeline job or k8s Job in <code>ctam-architecture</code>), <strong>not</strong> by hand from an engineer's laptop<br/><strong>And</strong> writes to the table are <strong>Liquibase-or-admin-SQL only</strong> — there is no configuration API and no service holds INSERT/UPDATE (per FR8).</p>
+<p><strong>Given</strong> every service in the programme needs its own DB role (AR18, AR22)<br/><strong>When</strong> the engineer adds the role-provisioning changeset<br/><strong>Then</strong> roles exist for the <strong>four Phase 0 / Phase 0-Mock services that hold data or need a connection</strong> — <code>ctam_reference_data</code>, <code>ctam_authorisation</code>, <code>ctam_notification</code>, <code>ctam_mock_auth</code> — and the remaining service roles are <strong>forward-declared</strong> so later grants resolve: <code>ctam_joh</code>, <code>ctam_absence</code>, <code>ctam_vacancy</code>, <code>ctam_booking</code>, <code>ctam_sitting</code>, <code>ctam_payment</code>, <code>ctam_payment_batch</code>, <code>ctam_itinerary</code>, <code>ctam_mi_feed</code><br/><strong>And</strong> <code>ctam-joh-mock</code> and <code>ctam-mrd-mock</code> are documented as holding <strong>no role and no table</strong> (they own nothing in the shared schema — AR55, AR56)<br/><strong>And</strong> every role is granted <code>SELECT</code> on <code>ctam_configuration_values</code> (per AR22) — satisfying the corresponding ACs in Stories 0.2.1, 0.4.1 and 0.8.1<br/><strong>And</strong> no role is granted anything beyond that here — table-level grants arrive with the tables, in the owning service's changelog<br/><strong>And</strong> role credentials are stored in <strong>Azure Key Vault</strong> (never in a repo, never in a Helm values file — NFR16), and the Key Vault path convention each service's <code>values-{env}.yaml</code> reads is documented.</p>
+<p><strong>Given</strong> cross-service grants must stay reviewable as the estate grows (gaps.md <strong>G6.4</strong>)<br/><strong>When</strong> the engineer documents the grants convention in <code>ctam-architecture/runbooks/</code><br/><strong>Then</strong> it states the ownership rule — <strong>whoever writes the Liquibase changelog owns the table, and grants on that table live in that changelog</strong> — with the worked example from <code>architecture.md</code> (<code>GRANT SELECT ON ctam_vacancies TO ctam_booking;</code> plus the column-scoped UPDATE)<br/><strong>And</strong> it states the <strong>tier-(a) rule</strong> verbatim: only <code>ctam_reference_data</code> holds INSERT/UPDATE on <code>jo_*</code>/<code>mrd_*</code>; every other role gets at most SELECT (AR49, FR6)<br/><strong>And</strong> it states the <strong>Day-1 posture</strong>: grants start broad and tighten as access patterns become visible (per <code>architecture.md</code> → <em>Data Architecture</em>), with the tightening recorded as changesets rather than a rewrite<br/><strong>And</strong> the PR checklist item ("grants checklist") is added to the scaffold's <code>PULL_REQUEST_TEMPLATE.md</code> (Story 0.A.2) so every table-touching PR surfaces its grant changes.</p>
+<p><strong>Given</strong> the baseline and roles are in place<br/><strong>When</strong> the first service connects (<code>ctam-reference-data</code>, Story 0.2.1)<br/><strong>Then</strong> it authenticates with <strong>its own role</strong> — not a shared admin account — over TLS to the Epic 0.0 server<br/><strong>And</strong> <code>SELECT</code> on <code>ctam_configuration_values</code> succeeds<br/><strong>And</strong> an attempted write to <code>ctam_configuration_values</code> is <strong>refused by the database</strong><br/><strong>And</strong> the same check is repeatable for <code>ctam_authorisation</code> (Story 0.4.1) and <code>ctam_notification</code> (Story 0.8.1) without new grant work.</p>
+<p><strong>References:</strong> <strong>FR8</strong>; NFR11, NFR15, NFR16; AR18, AR19, AR22, AR49; <code>architecture/data-tables.md</code> → <em>Shared infrastructure</em>; <code>architecture/conventions.md</code> (Data &amp; persistence); gaps.md <strong>G6.4</strong>; <strong>depends on Epic 0.0</strong> (Story 0.0.3 — the server) and <strong>Epic 0.A</strong> (Story 0.A.1 — the repo).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Any service-owned table or its grants — the owning service's own story (0.2.2, 0.3.1, 0.4.3, 0.5.1, 0.8.1)</li>
+<li>The canonical schema design and the CI fitness function — Epic 0.1</li>
+<li>Seed data of any kind — Stories 0.5.1 (tier b) and 0.7.1 (identity)</li>
+</ul>
+
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.B-shared-db-baseline-and-service-roles.md</code></p>
+</main>
+
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.B-shared-db-baseline-and-service-roles";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

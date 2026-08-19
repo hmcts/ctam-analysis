@@ -10,6 +10,9 @@ stories:
     repo: ctam-reference-data
     title: MRD supplementary reference data is ingested from the weekly Excel feed
     frs: [FR6, FR7, NFR24]
+    touches: [ctam-analysis]   # architecture/data-tables.md mrd_* rows
+    note: consumes ctam-mrd-mock's column dictionary + variant modes (epic-0M.2), and provisions the drop container as a named exception to the Story 0.0.6 perimeter posture
+    note: built and negative-tested against ctam-mrd-mock (epic-0M.2, phase 0-mock) — real MRD feed is a drop-source change; G8.1 stays open
     bus_version: arch-v1.0
     status: not-started      # not-started | dispatched | in-progress | in-review | done
     owner: null

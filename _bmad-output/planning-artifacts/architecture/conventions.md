@@ -37,6 +37,29 @@ This document is the consistency contract for the 11 services and the UI. Patter
 - **Unique constraints:** named `uq_{table}_{columns}`. Per-table examples in [`./data-tables.md`](./data-tables.md).
 - **Audit columns:** every table has `created_at timestamptz NOT NULL`, `updated_at timestamptz NOT NULL`. `created_by` and `updated_by` (UUID, FK to user identity) added when D7 user-action audit is implemented post-MVP.
 
+**Service ports (local dev / docker-compose) — added 2026-08-18, SCP 2026-08-18e:**
+
+Every service is allocated a **distinct** local port. AR3's "default port 8082" is the **HMCTS template default**, not a per-service allocation: reading it as one assigned `8082` to `ctam-reference-data`, `ctam-authorisation` *and* `ctam-notification`, which collides in exactly the multi-service local stack the Phase 0 demo gate requires. This table is the allocation; `ctam-scaffold.sh` (Story 0.A.2) sets the port from it.
+
+| Repo | Port | Repo | Port |
+|---|---|---|---|
+| `ctam-reference-data` | **8082** | `ctam-payment` | **8090** |
+| `ctam-authorisation` | **8083** | `ctam-itinerary` | **8091** |
+| `ctam-notification` | **8084** | `ctam-mi-feed` | **8092** |
+| `ctam-joh` | **8085** | `ctam-mock-auth` | **8100** |
+| `ctam-absence` | **8086** | `ctam-joh-mock` | **8101** |
+| `ctam-vacancy` | **8087** | `ctam-mrd-mock` | **8102** |
+| `ctam-booking` | **8088** | `ctam-ui` | **5173** (Vite) |
+| `ctam-sitting` | **8089** | `ctam-admin-ui` | **5174** (Vite) |
+
+**8082–8092** production services (allocation follows the phase order); **8100–8102** the three non-production mocks, banded separately so a mock port can never be confused for a service's; **5173/5174** the two SPAs on Vite defaults. Supporting containers keep their own defaults: PostgreSQL 5432, Mailpit 1025 (SMTP) / 8025 (UI), Azurite 10000–10002. `ctam-shared-infrastructure` has no port — it is Terraform-only. Adding a service means adding a row here first.
+
+**Per-service APIM registration ownership — added 2026-08-18, SCP 2026-08-18e:**
+
+- The **APIM instance, its base policies, the WAF and the rate-limit defaults** belong to `ctam-shared-infrastructure` (Epic 0.0, Story 0.0.5 / 0.0.6). No service repo modifies them.
+- Each **service's own API definition and per-API policy** belong to **that service's `terraform/`**, applied against the shared instance using the cross-repo remote-state/data-source pattern recorded in `ctam-architecture/runbooks/terraform.md` (Story 0.A.3; gaps.md G10.2). This is what Story 0.0.5's "per-service API registration is out of scope" defers *to*.
+- Consequence for every scaffolded service: its `terraform/` carries **both** its Key Vault namespace **and** its APIM API + per-API policy. The scaffold skeleton (Story 0.A.2) provides both stubs.
+
 **API endpoints:**
 
 - **Resources:** plural nouns — `/v1/johs`, `/v1/bookings`, `/v1/payments`.
@@ -294,7 +317,7 @@ The MVP-relevant case is the **payment-processing batch** (`ctam-payment-batch`)
 
 **All CTAM Pathfinder services MUST:**
 
-- Use the HMCTS Crime SpringBoot template as scaffold (per [`./starter-template.md`](./starter-template.md)) and customise per service.
+- Use the HMCTS Crime SpringBoot template as scaffold (per [`./starter-template.md`](./starter-template.md)) and customise per service. **One documented exception:** `ctam-joh-mock` runs on Node 22 LTS + Express 4 per **AR55.1** — a non-production stand-in adopted brownfield, scoped to language and build tooling only, and explicitly not precedent for any other repo.
 - Follow the package layout `uk.gov.hmcts.ctam.{service}.{layer}`.
 - Use Gradle Groovy DSL (per HMCTS Crime SpringBoot template) with Gradle Wrapper.
 - Implement RFC 9457 errors via per-service `@ControllerAdvice` (no shared library).
