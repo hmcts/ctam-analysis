@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0M.2: Upstream MRD reference data has a contract-shaped mock source — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+
+<h1 id="epic-0m2-upstream-mrd-reference-data-has-a-contract-shaped-mock-source">Epic 0M.2: Upstream MRD reference data has a contract-shaped mock source</h1>
+<p><strong>User outcome:</strong> The <strong>MRD weekly Excel feed</strong> — CTAM's upstream source for supplementary judicial reference data (notably JOH Specialisations), and whose delivery arrangements are <strong>unconfirmed</strong> (gaps.md <strong>G8.1</strong>: "the MRD team can deliver the weekly workbook to an Azure Blob container in an agreed shape") — has a deployable stand-in: <strong><code>ctam-mrd-mock</code></strong>. It generates a workbook in the expected shape from a version-tagged fixture set and publishes it into a <strong>configurable</strong> blob container, on demand and on the real weekly cadence, in <strong>conformant and deliberately-malformed variants</strong>. This means the Epic 0.3 ingestion — cleanse, transform, persist, archive, reject — can be <strong>built, demoed, negative-tested, and CI-gated before the MRD team's first real workbook exists</strong>.</p>
+<p>Mirroring the Epic 0.2 / Epic 0.3 ingestion split, MRD gets its <strong>own</strong> mock epic rather than sharing Epic 0M.1's: a different format (Excel workbook vs JSON API), a different cadence (weekly vs nightly), and a different delivery mechanism (Blob drop vs API pull) mean the two stand-ins share almost no implementation. <strong>Sequenced before Epic 0.3</strong> — this epic sits in <strong>Phase 0-Mock</strong>, the pre-Phase-0 tier that stands up the upstream stand-ins, and Epic 0.3's <code>depends_on</code> names it.</p>
+<p><strong>What this epic does not do:</strong> it does <strong>not</strong> close G8.1. The mock encodes CTAM's <em>expectation</em> of the workbook shape, derived from the <code>mrd_*</code> schema published in <strong>Epic 0.1</strong> — it is not evidence about what the MRD team will actually send. G8.1 closes only when the ingestion runs against a <strong>real</strong> workbook. What it buys is that the first real workbook arrives as a <strong>diff against a written, executable expectation</strong>, with the ingestion pipeline already proven.</p>
+<p><strong>Hosting:</strong> a standalone deployable, scaffolded from the HMCTS Crime SpringBoot template via <code>ctam-scaffold.sh</code> (AR2–AR17), deployed onto the shared Azure estate provisioned in <strong>Epic 0.0</strong>. <strong>Never deployed to production</strong> (AR56) — same three-layer safeguard as <code>ctam-mock-auth</code> and <code>ctam-joh-mock</code>. <strong>Owns no tables in the shared schema</strong> — fixtures are in-repo resource files.</p>
+<p><strong>Container-target-agnostic by design:</strong> the mock writes to <strong>whichever</strong> blob container its configuration names. It does <strong>not</strong> provision the MRD drop container — that stays where it belongs, in <code>ctam-reference-data</code>'s own <code>terraform/</code> (<strong>Epic 0.3</strong>, Story 0.3.1), because the consumer owns the resource the real MRD team will drop into. In CI the mock targets a <strong>local Azurite</strong> container via the existing <code>gradle-docker-compose</code> plugin; in dev it targets the Epic 0.3 container once that exists. This is deliberate: it keeps the dependency edges acyclic (this epic depends only on Epics 0.0/0.1, never on Epic 0.3) and means the mock is verifiable standalone before the real container is provisioned.</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li><strong>New repo <code>ctam-mrd-mock</code></strong> scaffolded per the Story 0.2.1 pattern (manual GitHub web-UI setup per AR51), port <strong>8102</strong> per the per-service port allocation in <code>architecture/conventions.md</code> (the three non-production mocks are banded at 8100–8102; was 8091, which the allocation gives to <code>ctam-itinerary</code>)</li>
+<li><strong>Production refusal safeguard</strong> — profile guard + pipeline guard + CI lint (AR56, gaps.md G5.3 widened)</li>
+<li><strong>Workbook generator</strong> producing an <code>.xlsx</code> in the expected MRD shape — sheets, columns, and controlled vocabularies derived from the <code>mrd_*</code> schema published in <code>architecture/data-tables.md</code> (<strong>Epic 0.1</strong>)</li>
+<li><strong>Version-tagged fixture set</strong> whose Specialisations reference the <strong>same <code>personnel_number</code> values</strong> as the <code>ctam-joh-mock</code> fixtures (Epic 0M.1), so the MRD ingestion's referential checks resolve against JOH data that actually exists</li>
+<li><strong>Variant modes</strong> — conformant, per-row non-conformant, structurally invalid (missing sheet/column), and duplicate re-drop — each driving a specific Story 0.3.1 acceptance criterion</li>
+<li><strong>On-demand trigger + weekly <code>@Scheduled</code> publish</strong> mirroring the real cadence, so the Epic 0.3 polling cycle is exercised as it will actually behave</li>
+<li><strong>Published workbook template + column dictionary</strong> as the provisional MRD feed contract — the artefact the first real workbook is diffed against (G8.1)</li>
+</ul>
+<p><strong>FRs covered:</strong> none directly — <strong>enablement infrastructure</strong> for FR6/FR7 tier-(a), in the same way Epic 0.0 and Epic 0.1 are enablement for everything downstream.</p>
+<p><strong>Key NFRs exercised here:</strong> NFR10 (TLS), NFR16 (Key Vault — the storage credential), NFR24 (the MRD MVP integration is exercised end-to-end pre-arrangement), NFR25–NFR28 (structured logs, App Insights, probes), NFR31 (UK South), NFR40 (per-service deployable), NFR42 (Postman collection).</p>
+<p><strong>Out of scope (explicitly):</strong> the ingestion itself, the <code>mrd_*</code> tables, and the archive/reject handling (<strong>Epic 0.3</strong>). <strong>Provisioning the MRD drop container</strong> — that is Epic 0.3, Story 0.3.1, in <code>ctam-reference-data</code>'s <code>terraform/</code>. The JOH eLinks mock (<strong>Epic 0M.1</strong>). Mocking MRD's future <strong>public APIs</strong> (post-MVP — the blob-drop seam is the documented upgrade point per AR47; a future API mock would be a post-MVP concern). Any production deployment or production data (never — AR56). Asserting anything about the real MRD workbook shape — G8.1 stays open.</p>
+<hr />
+<h2 id="story-0m21-scaffold-ctam-mrd-mock-with-a-production-refusal-safeguard">Story 0M.2.1: Scaffold <code>ctam-mrd-mock</code> with a production-refusal safeguard</h2>
+<p>As a <strong>platform engineer</strong>, I want <code>ctam-mrd-mock</code> scaffolded from the HMCTS starter on the same baseline as every other CTAM service, and hard-guarded against ever running in production, So that <strong>the MRD stand-in is a first-class, observable, CI-gated deployable</strong> — and so that no configuration mistake can ever drop synthetic judicial reference data into a production container.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the engineer has performed the GitHub manual-setup checklist for <code>ctam-mrd-mock</code> (<code>ctam-architecture/runbooks/github-setup.md</code>) — empty private repo created via the <strong>GitHub web UI</strong>, branch protection on <code>main</code> — noting the <code>gh</code> CLI is <strong>not</strong> available (per AR51; Story 0.2.1 is the canonical pattern)<br/><strong>When</strong> the engineer runs <code>ctam-scaffold.sh ctam-mrd-mock</code><br/><strong>Then</strong> the service has the same scaffolded baseline as Story 0.2.1 — Spring Boot 4.0.x, Gradle Groovy DSL, Lombok + MapStruct, springdoc-openapi, JaCoCo, CycloneDX SBOM, Testcontainers, Spectral/ArchUnit/Spotless/Checkstyle, Helm chart with dev/staging/production overlays, <code>.github/workflows/</code>, <code>CODEOWNERS</code>, <code>PULL_REQUEST_TEMPLATE.md</code> (per AR2–AR17, AR24, AR28, AR29)<br/><strong>And</strong> Group ID is <code>uk.gov.hmcts.ctam</code>, artefact is <code>ctam-mrd-mock</code>, base package is <code>uk.gov.hmcts.ctam.mrdmock</code>, and the port is <strong>8102</strong> per the allocation in <code>architecture/conventions.md</code> (mock band 8100–8102)<br/><strong>And</strong> an Excel-writing library is on the classpath, matching the reader library Epic 0.3's ingestion uses — so producer and consumer cannot disagree about workbook encoding<br/><strong>And</strong> a Postman collection skeleton exists at <code>postman/ctam-mrd-mock-phase0.postman_collection.json</code> (per AR41, NFR42)<br/><strong>And</strong> the repo carries <strong>no Liquibase changelog and no shared-schema tables</strong> — fixtures are in-repo resource files under <code>src/main/resources/fixtures/</code>.</p>
+<p><strong>Given</strong> <code>ctam-mrd-mock</code> is starting up<br/><strong>When</strong> the Spring profile in use is <code>production</code><br/><strong>Then</strong> the application refuses to start with a fatal error message <em>"ctam-mrd-mock must not be deployed to production"</em> (per AR56, mirroring AR35 and gaps.md G5.3 as widened)<br/><strong>And</strong> the <code>deploy-production.yml</code> workflow is configured to never deploy <code>ctam-mrd-mock</code><br/><strong>And</strong> a CI lint check fails any production Helm values file that names a production storage account as this service's publish target.</p>
+<p><strong>Given</strong> the mock's blob target is <strong>configuration, not a provisioned resource it owns</strong><br/><strong>When</strong> the engineer runs it locally or in CI<br/><strong>Then</strong> a local <strong>Azurite</strong> container started by the existing <code>gradle-docker-compose</code> plugin serves as the publish target, and the full publish path is verifiable <strong>without any Azure resource existing</strong><br/><strong>And</strong> the storage credential for a non-local target is read from Azure Key Vault (per NFR16) — never from source control or a baked image (per AR25)<br/><strong>And</strong> the service refuses to start if its configured target container is absent, with a clear diagnostic naming the container it expected.</p>
+<p><strong>Given</strong> the shared Azure estate is provisioned and verified in <strong>Epic 0.0</strong><br/><strong>When</strong> <code>ctam-mrd-mock</code>'s Helm chart is deployed to the dev AKS cluster<br/><strong>Then</strong> the pod passes liveness + readiness probes (per NFR28)<br/><strong>And</strong> <code>/actuator/health</code> returns <code>200 OK</code> with <code>{"status":"UP"}</code><br/><strong>And</strong> structured JSON logs carrying a <code>correlationId</code> land in the shared Application Insights workspace (per AR30–AR32, NFR25–NFR27)<br/><strong>And</strong> its trigger API is reachable over TLS via the shared APIM gateway, with HTTP-only requests rejected (per NFR10)<br/><strong>And</strong> every generated workbook carries an unmissable <em>"Mock MRD feed — synthetic judicial data, not for production"</em> marker in a header row or document property, so a stray file is identifiable on sight.</p>
+<p><strong>Given</strong> the engineer opens a PR <strong>manually via the GitHub web UI</strong> and it is merged after review<br/><strong>When</strong> <code>ci.yml</code> and then <code>deploy-dev.yml</code> run<br/><strong>Then</strong> build + test + Spectral + ArchUnit + Spotless + Checkstyle + Helm lint all pass<br/><strong>And</strong> the service deploys to dev AKS in UK South (per AR23, NFR31)<br/><strong>And</strong> the image is pushed to the shared ACR provisioned in Epic 0.0.</p>
+<p><strong>References:</strong> NFR10, NFR16, NFR25–NFR28, NFR31, NFR40, NFR42; AR2–AR17, AR23–AR32, AR41, AR51, <strong>AR56 (new)</strong>; gaps.md G5.3 (widened); <strong>depends on Epic 0.0</strong> (estate) and <strong>Epic 0.1</strong> (the <code>mrd_*</code> schema the fixtures conform to).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>The workbook generator and fixture set — Story 0M.2.2</li>
+<li>Provisioning the MRD drop container — Epic 0.3, Story 0.3.1</li>
+<li>The JOH eLinks mock — Epic 0M.1</li>
+</ul>
+<hr />
+<h2 id="story-0m22-ctam-mrd-mock-publishes-conformant-and-deliberately-malformed-mrd-workbooks-on-demand-and-on-the-weekly-cadence">Story 0M.2.2: <code>ctam-mrd-mock</code> publishes conformant and deliberately-malformed MRD workbooks on demand and on the weekly cadence</h2>
+<p>As a <strong>platform engineer building the Epic 0.3 MRD ingestion</strong>, I want the mock to drop a workbook in the expected MRD shape into the configured container — on demand and on the real weekly schedule — and to be able to produce each malformed variant the real feed could send, So that <strong>the cleanse → transform → persist → archive pipeline (AR47) and every one of its rejection and quarantine paths are implemented and proven against a real blob hop before the MRD team's first workbook lands</strong> — and so that the mock's workbook template becomes the written expectation the real workbook is diffed against (G8.1).</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the <code>mrd_*</code> relational schema is finalized and published in <code>architecture/data-tables.md</code> (<strong>Epic 0.1</strong>, Story 0.1.1)<br/><strong>When</strong> the engineer implements the workbook generator<br/><strong>Then</strong> the generated <code>.xlsx</code> carries the expected <strong>sheets and columns</strong> for every <code>mrd_*</code> entity in scope — <code>mrd_specialisms</code> at minimum, extensible as further MRD entities enter scope<br/><strong>And</strong> every field CTAM's ingestion needs per <code>data-tables.md</code> has a column (the workbook is <strong>field-complete by construction</strong> — the executable form of G8.1's "every upstream field CTAM needs has a slot" check)<br/><strong>And</strong> the workbook shape is documented as a <strong>column dictionary</strong> in the repo (sheet name, column name, type, controlled vocabulary, required/optional, natural key) published alongside the service and explicitly labelled <strong>provisional — CTAM's expectation of the MRD feed, not an agreed contract</strong><br/><strong>And</strong> any column whose upstream name, type, or vocabulary is a <strong>guess</strong> is marked as such, so the diff against the first real workbook is pre-annotated.</p>
+<p><strong>Given</strong> the fixture set is authored for the <strong>wave-1 ET cohort</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><br/><strong>When</strong> a conformant workbook is generated<br/><strong>Then</strong> its Specialisations rows reference the <strong>same <code>personnel_number</code> values</strong> as the <code>ctam-joh-mock</code> fixtures (<strong>Epic 0M.1</strong>, Story 0M.1.2) and resolvable jurisdiction codes — so Epic 0.3's <strong>referential</strong> cleansing checks pass against JOH data that actually exists, rather than against orphan keys<br/><strong>And</strong> the fixture set is <strong>version-tagged</strong>, so a run recorded in <code>ctam_sync_status</code> traces to the exact fixture version consumed<br/><strong>And</strong> repeated generation from the same fixture version produces a <strong>semantically identical</strong> workbook (deterministic content — so CI assertions are stable)<br/><strong>And</strong> ET-specific vocabulary values are marked <strong>provisional pending the ET as-is analysis pack</strong> (gaps.md <strong>G8.5</strong>).</p>
+<p><strong>Given</strong> the mock is deployed and its target container configured<br/><strong>When</strong> the weekly <code>@Scheduled</code> publish fires, or an engineer calls the on-demand trigger endpoint<br/><strong>Then</strong> a workbook is written into the configured container under the expected drop path and naming convention<br/><strong>And</strong> the trigger endpoint accepts a <strong>variant</strong> parameter selecting which workbook to produce<br/><strong>And</strong> the trigger endpoint requires authentication and returns RFC 9457 problem-details on failure (per AR37, NFR39)<br/><strong>And</strong> the publish is recorded in the mock's own structured logs with the fixture version and variant, so a confusing ingestion result can be traced back to what was actually dropped.</p>
+<p><strong>Given</strong> Story 0.3.1's failure-path acceptance criteria need each variant to be reproducible<br/><strong>When</strong> a variant is selected<br/><strong>Then</strong> the mock can produce a <strong>structurally invalid</strong> workbook — a required <strong>sheet or column missing</strong> — driving Story 0.3.1's whole-file rejection AC (no <code>mrd_*</code> table modified, file moved to <code>rejected/</code> with a validation report)<br/><strong>And</strong> it can produce a workbook with <strong>individually non-conformant rows</strong> — missing required fields, invalid types, unresolvable vocabulary values, unresolvable personnel numbers / jurisdiction codes, malformed date and numeric cell formats, untrimmed text — driving Story 0.3.1's per-row <strong>quarantine</strong> ACs, including that conformant rows still persist<br/><strong>And</strong> it can produce <strong>cross-sheet lookup failures</strong>, so the transform stage's resolution logic is exercised on the unhappy path<br/><strong>And</strong> it can <strong>re-drop a byte-identical workbook</strong>, driving Story 0.3.1's <strong>idempotency</strong> AC (no duplicate rows, no spurious updates)<br/><strong>And</strong> each variant is documented and covered by the Postman collection.</p>
+<p><strong>Given</strong> <code>ctam-mrd-mock</code> and the Epic 0.3 ingestion are both deployed to dev<br/><strong>When</strong> the mock publishes and the ingestion's polling cycle picks the file up<br/><strong>Then</strong> the ingestion's integration tests execute against a <strong>real blob hop</strong> — Azurite in CI, the Epic 0.3 container in dev — rather than a hand-placed test file<br/><strong>And</strong> <code>ctam_sync_status</code> records the run (source = <code>mrd-excel</code>) with the mock's fixture version recorded as the source version<br/><strong>And</strong> the same test suite is expected to run unchanged against the real MRD feed — the only change is which container is configured and who drops into it.</p>
+<p><strong>Given</strong> the MRD team's first real workbook eventually lands (gaps.md <strong>G8.1</strong>)<br/><strong>When</strong> it is compared against this mock's published column dictionary<br/><strong>Then</strong> the delta is recorded as an architectural PR per G8.1, listing every sheet/column whose name, type, or vocabulary differs from CTAM's written expectation<br/><strong>And</strong> the mock's fixtures and column dictionary are updated to match reality and re-tagged<br/><strong>And</strong> <strong>G8.1 remains open until the ingestion has run against a real workbook</strong> — the mock passing is explicitly <strong>not</strong> closure. This AC is the epic's external-dependency gate and is tracked in sprint planning.</p>
+<p><strong>References:</strong> FR6/FR7 tier-(a) (enablement); NFR16, NFR24, NFR25–NFR28, NFR39, NFR42; AR37, AR47, AR48, <strong>AR56 (new)</strong>; gaps.md <strong>G8.1</strong> (de-risked, not closed), <strong>G8.5</strong> (ET vocabulary provisional); D3 (revised), D13.</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>The ingestion, the <code>mrd_*</code> tables, archive/reject handling — Epic 0.3</li>
+<li>Provisioning the drop container — Epic 0.3, Story 0.3.1</li>
+<li>Mocking MRD's future public APIs — post-MVP (the blob-drop seam is the upgrade point per AR47)</li>
+<li>Closing G8.1 — only a real workbook closes it</li>
+</ul>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0-mock/epic-0M.2-mrd-reference-data-mocked.md</code></p>
+</main>
+
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0-mock/epic-0M.2-mrd-reference-data-mocked";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

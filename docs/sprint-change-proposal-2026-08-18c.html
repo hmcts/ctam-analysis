@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-18c — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-18c">Sprint Change Proposal — 2026-08-18c</h1>
+<details class="section" id="create-epicsphase-0-mock-as-a-distinct-pre-phase-0-phase-and-move-both-mock-epics-into-it-renumbered-0m1--0m2"><summary><span class="section-title">Create <code>epics/phase-0-mock/</code> as a distinct pre-Phase-0 phase and move both mock epics into it, renumbered <code>0M.1</code> / <code>0M.2</code></span></summary><div class="section-body">
+</div></details><details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a direct request to create <code>phase-0-mock</code> and move all the mock epics into it.</p>
+<p><strong>Problem statement.</strong> SCP 2026-08-18b (decision #17, earlier today) added two upstream stand-in epics — <code>ctam-joh-mock</code> and <code>ctam-mrd-mock</code> — and, to avoid renumbering 23 already-written Phase 0 stories for the <strong>third</strong> time in four days, <strong>appended</strong> them as Epics <strong>0.9</strong> and <strong>0.10</strong> rather than inserting them at 0.2/0.3. That was the right call on churn and the wrong shape to leave standing, because it created a durable trap:</p>
+<blockquote>
+<p>Two epics whose numbers sort <strong>after</strong> Epic 0.8, but which must build <strong>before</strong> Epic 0.2.</p>
+</blockquote>
+<p>The mitigation was five warning notes — in the dispatch-graph header, the Phase 0 index blockquote, <code>epics/index.md</code>, <code>delivery/README.md</code>, and the site-NAV section label — each saying some version of <em>"an epic number is an identifier, not a build position."</em> That is load-bearing documentation defending against a misreading the identifier itself invites. Anyone reading the epic list without reading the notes draws the wrong conclusion, and sprint planning that trusts the numbering dispatches in the wrong order.</p>
+<p><strong>The deeper point the numbering obscured.</strong> These two epics are not foundations. Epic 0.0 provisions the estate, Epic 0.1 designs the schema, Epics 0.2–0.8 build the platform — all of that is CTAM's own product. The stand-ins are <strong>scaffolding that makes foundations buildable</strong>: the only work in the programme whose sole purpose is to be thrown into contact with a contract nobody has seen (gaps.md <strong>G8.1</strong>), and the only work explicitly guaranteed never to reach production. Filing that alongside "Notification service is scaffolded" flattens a real structural distinction.</p>
+<p><strong>Evidence.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>delivery/dispatch-graph.yaml</code> (pre-change)</td>
+<td>A <code>NOTE ON EPIC NUMBERS</code> block existed purely to prevent misreading <code>epic-0.9</code>/<code>epic-0.10</code> as late work</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code> (pre-change)</td>
+<td>Table rows tagged <em>"(builds before 0.2)"</em> / <em>"(builds before 0.3)"</em> — the number contradicting the annotation beside it</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code>, <code>delivery/README.md</code>, <code>build_html.py</code> NAV (pre-change)</td>
+<td>The same warning restated three more times</td>
+</tr>
+<tr>
+<td>Verified topological sort</td>
+<td><code>… → epic-0.1 → epic-0.9 → epic-0.2 → epic-0.10 → epic-0.3 → …</code> — numerically non-monotonic by design</td>
+</tr>
+<tr>
+<td>SCP 2026-08-18b §1, decision 1</td>
+<td>The append choice recorded with its cost accepted explicitly, as a known trade</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Issue type:</strong> structural / organisational correction of a change made earlier the same day. Not a technical limitation, not a new requirement, not a scope change.</p>
+<p><strong>Three decisions confirmed with the user during analysis:</strong></p>
+<ol type="1">
+<li><strong><code>phase-0-mock</code> is a distinct phase, sequenced before Phase 0</strong> — its own <code>index.md</code>, its own row in the epics phase table and in <code>framework.md</code>, its own NAV group. Phase 0 reverts to 9 epics / 23 stories; Phase 0-Mock carries 2 epics / 4 stories. (The alternative — a folder that only groups files while the epics stay counted in Phase 0 — was offered and not selected; it would have moved the files without removing the trap.)</li>
+<li><strong>Renumber to <code>0M.1</code> / <code>0M.2</code></strong>, stories <code>0M.1.1</code>, <code>0M.1.2</code>, <code>0M.2.1</code>, <code>0M.2.2</code>. Keeping 0.9/0.10 was offered and not selected.</li>
+<li><strong><code>ctam-mock-auth</code> stays as Story 0.4.2 inside Epic 0.4.</strong> The request said "all the mock epics"; there are only <strong>two</strong> mock <em>epics</em> — the third mock is a story. Extracting it was offered and not selected.</li>
+</ol>
+<p><strong>On that third point, the reasoning matters</strong> because it defines what this phase is <em>for</em>. Epic 0.4's user outcome is <em>"a user signs in and lands on a role-scoped Home page"</em> — that demo requires the issuer, <code>ctam-authorisation</code> and <code>ctam-ui</code> together. Pulling the issuer out would leave Epic 0.4 unable to demo anything on its own, renumber three sibling stories, and buy only folder tidiness. And the two things are not the same kind of mock: <code>ctam-mock-auth</code> is an <strong>identity-provider</strong> mock sitting inside a working auth slice; Phase 0-Mock holds <strong>upstream data-source</strong> mocks that stand in for external teams' data contracts. Phase 0-Mock is therefore scoped as <em>"upstream source stand-ins"</em>, not <em>"everything with 'mock' in the name"</em> — and its index says so explicitly, so the boundary survives the next reader who notices the asymmetry.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0.9 → 0M.1</strong> (<code>ctam-joh-mock</code>)</td>
+<td>File moved to <code>epics/phase-0-mock/epic-0M.1-joh-reference-data-mocked.md</code>; <code>epic:</code>, <code>parent:</code>, <code>resource:</code>, <code>tags:</code> front-matter retargeted; H1 and both story headings renumbered; phase framing added. <strong>Scope, ACs, dependencies, FR/NFR/AR coverage all unchanged.</strong></td>
+</tr>
+<tr>
+<td><strong>0.10 → 0M.2</strong> (<code>ctam-mrd-mock</code>)</td>
+<td>Same treatment → <code>epic-0M.2-mrd-reference-data-mocked.md</code>. <strong>Scope, ACs, dependencies, coverage unchanged.</strong></td>
+</tr>
+<tr>
+<td><strong>Epic 0.2</strong></td>
+<td><code>depends_on: epic-0.9</code> → <code>epic-0M.1</code>; five prose/AC cross-references renumbered. No story, AC, or scope change.</td>
+</tr>
+<tr>
+<td><strong>Epic 0.3</strong></td>
+<td><code>depends_on: epic-0.10</code> → <code>epic-0M.2</code>; four cross-references renumbered. No story, AC, or scope change.</td>
+</tr>
+<tr>
+<td><strong>Epic 0.4</strong></td>
+<td><strong>No change.</strong> Story 0.4.2 (<code>ctam-mock-auth</code>) stays; no story renumbered.</td>
+</tr>
+<tr>
+<td><strong>Epics 0.0, 0.1, 0.5–0.8</strong></td>
+<td><strong>No change.</strong></td>
+</tr>
+<tr>
+<td><strong>Phases 1–8, post-MVP</strong></td>
+<td><strong>No change</strong> — the <code>future:</code> nodes never referenced either epic.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Totals: Phase 0-Mock 2 epics / 4 stories. Phase 0 back to 9 epics / 23 stories.</strong> No <em>Phase 0</em> story id changed; the four <em>mock</em> story ids changed as decided.</p>
+<h3 id="dependency-graph-impact">Dependency-graph impact</h3>
+<p>Nodes renamed <code>epic-0.9</code> → <code>epic-0M.1</code>, <code>epic-0.10</code> → <code>epic-0M.2</code>, moved into a <code>phase: 0-mock</code> block positioned ahead of the Phase 0 nodes, with the <code>NOTE ON EPIC NUMBERS</code> block replaced by a factual <code>PHASES REPRESENTED HERE</code> note. <strong>Re-verified acyclic</strong>, with both constraints holding: <code>epic-0M.1</code> before <code>epic-0.2</code>, <code>epic-0M.2</code> before <code>epic-0.3</code>.</p>
+<p><strong>A documentation error from 18b was corrected in passing.</strong> SCP 2026-08-18b quoted a single topological order (<code>… 0.1 → 0.9 → 0.2 → 0.10 → 0.3 …</code>) as if it were <em>the</em> build order. It is one of several valid linearizations: both stand-ins share identical prerequisites, so they unblock <strong>together</strong> as soon as Epic 0.1 is <code>done</code> and do not wait on each other. Re-running the sort after the move produced <code>… 0.1 → 0M.1 → 0M.2 → 0.2 → 0.3 …</code> — equally valid, and proof the single-line form was misleading. The order is now documented as a <strong>partial</strong> order everywhere it appears:</p>
+<pre><code>epic-0.0 → arch-baseline → epic-0.1 → { epic-0M.1, epic-0M.2, epic-0.8 }
+                                          │           │
+                                          ▼           ▼
+                                      epic-0.2 → epic-0.3 → epic-0.4
+                                          → epic-0.5 → epic-0.6 → epic-0.7</code></pre>
+<h3 id="artifact-impact-exhaustive">Artifact impact (exhaustive)</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0-mock/index.md</code></td>
+<td><strong>New</strong> — phase index: why the phase exists, what it does <em>not</em> do (G8.1 not closed), scope model incl. the <code>ctam-mock-auth</code> boundary, epics table, summaries, demo table, partial-order diagram, validation framing</td>
+</tr>
+<tr>
+<td><code>epics/phase-0-mock/epic-0M.1-joh-reference-data-mocked.md</code></td>
+<td><strong>Moved + renumbered</strong> from <code>phase-0/epic-0.9-*</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0-mock/epic-0M.2-mrd-reference-data-mocked.md</code></td>
+<td><strong>Moved + renumbered</strong> from <code>phase-0/epic-0.10-*</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Two table rows, two summaries and two demo rows removed; totals 27 → 23; "eleven"/"nine" concrete epics; sequencing note rewritten as a cross-phase pointer; mock-first scope bullet retargeted; retirement-path paragraph moved to the new index (one post-MVP item retained); Epic 0.2 demo row mock name</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>New <strong>0-Mock</strong> phase row; phase-0 row reverted to 9/23; story-id convention note extended with the <code>0M</code> token; "Phase 0 has completed all four steps" → both phases</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>New <strong><code>## Phase 0-Mock</code></strong> heading with the <em>Upstream Source Stand-Ins</em> Area moved under it; phase-summary row relabelled <code>0</code> → <code>0-Mock</code>; phase-level bullet list gains Phase 0-Mock; Phase 0 blockquote "eleven" → "nine" + pointer; ingestion cross-ref</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>Heading now names both phases; the <em>epics with no FR of their own</em> note and the FR6 tier-(a) links retargeted to <code>phase-0-mock/</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.2-*.md</code>, <code>epic-0.3-*.md</code></td>
+<td>Stand-in references renumbered (9 edits total)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td><strong>Decision #18</strong>; <strong>#17 marked "placement and numbering superseded by #18"</strong> with an in-cell pointer stating what is superseded and what stands; <em>Phasing of Upstream Integrations</em> section names the new tier</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td>G8.1's epic references and the final-AC citation renumbered</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code></td>
+<td>Illustrative graph's two <code>epics:</code> entries</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td><strong>v4.7</strong> entry</td>
+</tr>
+<tr>
+<td><code>delivery/dispatch-graph.yaml</code></td>
+<td>Nodes renamed + moved to a <code>phase: 0-mock</code> block; header note replaced; section banner widened; <code>epic-0.2</code>/<code>epic-0.3</code> edges</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0M.1.yaml</code>, <code>epic-0M.2.yaml</code></td>
+<td><strong>Renamed</strong> from <code>epic-0.9.yaml</code> / <code>epic-0.10.yaml</code>; <code>epic:</code> and <code>story:</code> keys renumbered; header comment reframed</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.2.yaml</code>, <code>epic-0.3.yaml</code></td>
+<td>Story <code>note:</code> references</td>
+</tr>
+<tr>
+<td><code>delivery/README.md</code></td>
+<td>Two phase lines in <em>Current state</em>; the epic-number warning replaced by a two-phase statement plus the partial-order explanation</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/README.md</code></td>
+<td>Shard range now names the <code>0M.</code> shards</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td><strong>New Phase 0-Mock NAV group</strong> placed before Phase 0 (build order); the two stale Phase 0 entries removed; Phase 0 section label restored; this SCP's entry added and 18b's relabelled as superseded on numbering</td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>Regenerated; the two stale <code>docs/epics/phase-0/epic-0.9-*.html</code> / <code>epic-0.10-*.html</code> deleted</td>
+</tr>
+</tbody>
+</table>
+<h3 id="immutable-history--deliberately-not-rewritten">Immutable history — deliberately NOT rewritten</h3>
+<ul>
+<li><strong><code>sprint-change-proposal-2026-08-18b.md</code></strong> — 25 references to 0.9/0.10 and to "11 epics / 27 stories", preserved verbatim. It is the record of that decision, not a description of today.</li>
+<li><strong><code>architecture/changelog.md</code> v4.6</strong> — likewise preserved; the new v4.7 row states explicitly that v4.6's counts no longer describe current state, so the discrepancy is documented rather than surprising.</li>
+<li><strong><code>architecture.md</code> decision #17</strong> — marked superseded <strong>in place</strong> rather than rewritten, following the repo's established D11→D13 and "AR53 (revised)" convention. Its cell now names precisely what #18 supersedes (placement, numbering, counts) and what still stands (the two repos, AR55/AR56, the G5.3 widening, G8.1's position, the mock-first rationale).</li>
+</ul>
+<h3 id="artifacts-checked--no-impact">Artifacts checked — no impact</h3>
+<p><code>prd.md</code>, <code>business-case.md</code>, <code>epics/requirements-inventory.md</code> (AR55/AR56 describe the repos and their behaviour, not epic numbers — no edit needed), <code>architecture-summary.md</code> (its two mock rows cite AR55/AR56, not epic numbers), <code>architecture/repository-strategy.md</code> (repo rows, no epic numbers), <code>architecture/data-tables.md</code>, <code>architecture/conventions.md</code>, <code>architecture/repo-structure.md</code>, <code>architecture/assumptions.md</code>, all sequence diagrams, <code>_bmad-output/project-context.md</code>, root <code>CLAUDE.md</code> (the 18-repo list is unaffected — no repo was added or removed), all dated reports and prior SCPs.</p>
+<p><strong>No UX impact.</strong> Neither epic has a UI surface.</p>
+<h3 id="technical-impact">Technical impact</h3>
+<p><strong>None.</strong> No FR, NFR, or AR content changed. No schema, API contract, or endpoint change. No repo added or removed — still 18. No code impact: implementation has not started and every epic in both phases is <code>not-started</code> in the ledger.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Selected: Option 1 — Direct Adjustment.</strong> Create the phase, move and renumber the two epics, sweep every live reference, and mark the superseded decision in place.</p>
+<p><strong>Rationale.</strong> Rollback (Option 2) is not applicable — nothing is implemented; and "rolling back" to 0.9/0.10 is precisely what this change corrects. An MVP review (Option 3) is not applicable — no requirement or scope boundary moves.</p>
+<p><strong>Why now rather than later.</strong> This is the cheapest moment it will ever be. Nothing is implemented, no story packet has been dispatched, no service repo exists, and the artifacts being renumbered are less than a day old — so the sweep is 19 files with no code, no PRs and no in-flight work to reconcile. Every day this waits, the five warning notes get read by more people and the trap gets more chances to fire.</p>
+<p><strong>Effort:</strong> Low-Medium — one new index, two file moves with internal renumbering, two ledger renames, and a 19-file reference sweep. <strong>Risk:</strong> Low; the only failure mode is a missed reference, mitigated by a token sweep before and after plus a re-run acyclicity check. <strong>Timeline impact:</strong> none — no epic's scope, dependencies or story count changed, and the build order is semantically identical to what #17 established.</p>
+<p><strong>What this change deliberately does not fix:</strong> G8.1 remains open, both fixture sets remain provisional pending the ET as-is pack (G8.5), and the mock-reality-divergence risk is unchanged. This is an organisational correction, and it should not be read as progress against the underlying upstream-contract risk.</p>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-new-phase-folder-and-index">4.1 New phase folder and index</h3>
+<pre><code>NEW: _bmad-output/planning-artifacts/epics/phase-0-mock/index.md</code></pre>
+<p>Front-matter <code>type: 'Phase Index'</code>, <code>phase: 0-mock</code>, <code>phaseName: 'Upstream Source Stand-Ins'</code>, <code>parent: 'epics/index.md'</code> — matching <code>phase-0/index.md</code>'s shape. Content: why the phase exists (G8.1 quoted), what it does not do (G8.1 not closed; fixtures are not ET evidence), the scope model including the explicit <code>ctam-mock-auth</code> boundary, the epics table, both summaries, the demo table, the partial-order diagram, and a validation section framing the real readiness question as <em>"is every guessed field annotated and is the diff protocol in place"</em> rather than <em>"do the mocks work"</em>.</p>
+<h3 id="42-epic-moves-and-renumbering">4.2 Epic moves and renumbering</h3>
+<pre><code>OLD: epics/phase-0/epic-0.9-joh-reference-data-mocked.md
+NEW: epics/phase-0-mock/epic-0M.1-joh-reference-data-mocked.md
+
+OLD: epics/phase-0/epic-0.10-mrd-reference-data-mocked.md
+NEW: epics/phase-0-mock/epic-0M.2-mrd-reference-data-mocked.md</code></pre>
+<p>Front-matter: <code>epic: 0.9</code> → <code>epic: 0M.1</code>; <code>parent:</code> → <code>epics/phase-0-mock/index.md</code>; <code>resource:</code> → the new <code>.html</code> path; <code>tags:</code> <code>phase-0</code> → <code>phase-0-mock</code>. Headings: <code># Epic 0.9:</code> → <code># Epic 0M.1:</code>; <code>## Story 0.9.1:</code> → <code>## Story 0M.1.1:</code>; <code>## Story 0.9.2:</code> → <code>## Story 0M.1.2:</code> (and the 0.10/0M.2 equivalents). Sibling cross-references between the two epics renumbered. One sentence added to each: the epic sits in Phase 0-Mock, the pre-Phase-0 tier. <strong>No acceptance criterion, dependency, or coverage statement changed.</strong></p>
+<h3 id="43-ledger-shard-renames">4.3 Ledger shard renames</h3>
+<pre><code>OLD: delivery/ledger/epic-0.9.yaml   NEW: delivery/ledger/epic-0M.1.yaml
+OLD: delivery/ledger/epic-0.10.yaml  NEW: delivery/ledger/epic-0M.2.yaml</code></pre>
+<p><code>epic:</code> keys → <code>epic-0M.1</code> / <code>epic-0M.2</code>; <code>story:</code> keys → <code>0M.1.1</code>/<code>0M.1.2</code>/<code>0M.2.1</code>/<code>0M.2.2</code>. Header comments reframed from <em>"epic number is an identifier, not a build position"</em> to <em>"Phase 0-Mock — the pre-Phase-0 tier…"</em>. <code>status</code>, <code>owner</code>, <code>frs</code>, <code>bus_version</code>, <code>pr</code> untouched.</p>
+<h3 id="44-dispatch-graph">4.4 Dispatch graph</h3>
+<p><strong>Header — OLD:</strong></p>
+<blockquote>
+<p><code># NOTE ON EPIC NUMBERS: an epic number is an IDENTIFIER, NOT a position in the build order. … epics 0.9 (ctam-joh-mock) and 0.10 (ctam-mrd-mock) were appended after 0.8 to avoid renumbering 23 existing stories …</code></p>
+</blockquote>
+<p><strong>NEW:</strong></p>
+<blockquote>
+<p><code># PHASES REPRESENTED HERE: phase 0-mock (the pre-Phase-0 upstream stand-in tier, epics 0M.x) and phase 0 (foundations, epics 0.x). Phase 0-Mock is NOT a slot in the 0-9 sequence: its epics are dependencies OF epic-0.2 and epic-0.3 and nothing else depends on them. The 0M. prefix marks the tier so sequencing is never inferred from a number.</code></p>
+</blockquote>
+<p><strong>Rationale:</strong> the note changes from a warning about a misleading identifier to a statement of fact about two phases. Both nodes move into a <code>phase: 0-mock</code> block ahead of the Phase 0 nodes; <code>epic-0.2</code> gains <code>epic-0M.1</code> and <code>epic-0.3</code> gains <code>epic-0M.2</code>.</p>
+<h3 id="45-phase-0-index--the-two-epics-leave">4.5 Phase 0 index — the two epics leave</h3>
+<p>Table rows, epic summaries and demo-table rows for 0.9/0.10 removed; totals 27 → 23 stories; "eleven concrete user-value epics" → "nine". The old warning blockquote becomes a cross-phase pointer:</p>
+<p><strong>OLD:</strong></p>
+<blockquote>
+<p><strong>An epic number is an identifier, not a position in the build order.</strong> The two upstream stand-in epics were appended as <strong>0.9</strong> and <strong>0.10</strong> rather than inserted at 0.2/0.3, so that 23 already-written stories did not have to be renumbered …</p>
+</blockquote>
+<p><strong>NEW:</strong></p>
+<blockquote>
+<p><strong>Epics 0M.1 and 0M.2 are not Phase 0 epics</strong> — they live in <a href="../phase-0-mock/index.md"><strong>Phase 0-Mock</strong></a>, a pre-Phase-0 tier that stands up contract-shaped stand-ins for both upstream sources (gaps.md <strong>G8.1</strong>) before the ingestion epics consume them. They appear in the arrow order above because Epic 0.2 and Epic 0.3 each <code>depends_on</code> one of them, but they are counted in Phase 0-Mock's totals, not Phase 0's.</p>
+</blockquote>
+<p>A prerequisite note under the epics table records the cross-phase dependency so a reader of Phase 0 alone still sees it. The sequencing arrow keeps each mock immediately before its consumer — a valid linearization that communicates the pairing — while the two places that <em>quote the dispatch graph</em> now show the partial order.</p>
+<h3 id="46-decision-18-and-the-supersession-of-17">4.6 Decision #18 and the supersession of #17</h3>
+<p><strong>#17's title cell</strong> gains <em>"(SCP 2026-08-18b; <strong>placement and numbering superseded by #18</strong>)"</em>, and its resolution cell gains a closing note naming exactly what is superseded (the tier placement, the 0.9/0.10 numbering, the "9 → 11 epics, 23 → 27 stories" counts, and the append-rather-than-insert rationale) and what still stands (both repos, AR55/AR56, the G5.3 widening, the G8.1 position, the mock-first rationale).</p>
+<p><strong>#18</strong> records the move, the renumbering, the reasoning — that putting sequencing information <em>in the identifier</em> makes five warning notes unnecessary rather than load-bearing — the corrected counts, the partial-order clarification, and the explicit statement that <code>ctam-mock-auth</code> stays in Epic 0.4.</p>
+<h3 id="47-site-nav">4.7 Site NAV</h3>
+<p>A new group, <strong>"Implementation — Phase 0-Mock (upstream source stand-ins; pre-Phase-0 tier)"</strong>, placed <strong>before</strong> the Phase 0 group so NAV order matches build order. The two stale Phase 0 entries are removed and the Phase 0 section label reverts to its pre-18b text. 18b's SCP entry is relabelled to flag it as superseded on numbering.</p>
+<h3 id="48-regenerate-docs">4.8 Regenerate <code>docs/</code></h3>
+<p>Run <code>scripts/build-html.sh</code>, then delete the two orphaned <code>docs/epics/phase-0/epic-0.9-*.html</code> and <code>epic-0.10-*.html</code>.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong> — a phase is added and four story ids change, so the backlog view and any sprint-planning tooling reading epic ids must be reconciled; but no requirement, scope boundary, dependency or architectural principle moves, so this is not a replan.</p>
+<ul>
+<li><strong>PO / DEV (backlog):</strong> two ledger shards renamed with renumbered story ids; Phase 0 totals reverted to 9/23; Phase 0-Mock seeded at 2/4. <strong>Sprint planning must read <code>dispatch-graph.yaml</code></strong> — and must now read it for the <em>partial</em> order, not a single sequence: both <code>0M.</code> epics unblock together once <code>epic-0.1</code> is <code>done</code>.</li>
+<li><strong>Architect:</strong> decision #18; #17's supersession markers; the <em>Phasing of Upstream Integrations</em> retargeting; the G8.1 citation updates.</li>
+<li><strong>Developer agent (control plane):</strong> the 19-file sweep, this SCP, the v4.7 changelog entry, the NAV group, and the <code>docs/</code> regeneration incl. deleting the two orphaned pages.</li>
+<li><strong>Commit:</strong> the user reviews and commits externally via VSCode (git writes are blocked inside Claude).</li>
+</ul>
+<p><strong>Success criteria:</strong></p>
+<ol type="1">
+<li>No live artifact references <code>epic-0.9</code>, <code>epic-0.10</code>, <code>Epic 0.9</code>, <code>Epic 0.10</code>, or story ids <code>0.9.x</code> / <code>0.10.x</code> — the only remaining hits are SCP 2026-08-18b, changelog v4.6, and decision #17, all deliberate history.</li>
+<li><code>delivery/dispatch-graph.yaml</code> parses, is <strong>acyclic</strong>, and satisfies <code>epic-0M.1 &lt; epic-0.2</code> and <code>epic-0M.2 &lt; epic-0.3</code>.</li>
+<li><code>epics/phase-0/</code> contains exactly 9 epic files plus <code>index.md</code>; <code>epics/phase-0-mock/</code> contains exactly 2 epic files plus <code>index.md</code>.</li>
+<li><code>delivery/ledger/</code> contains 9 <code>epic-0.x.yaml</code> shards plus <code>epic-0M.1.yaml</code> and <code>epic-0M.2.yaml</code>; all <code>not-started</code>, <code>owner: null</code>.</li>
+<li>Phase counts read consistently: <strong>Phase 0 = 9 epics / 23 stories</strong>, <strong>Phase 0-Mock = 2 epics / 4 stories</strong> in <code>epics/index.md</code>, <code>epics/phase-0/index.md</code>, <code>epics/phase-0-mock/index.md</code>, and <code>delivery/README.md</code>.</li>
+<li>No <strong>Phase 0</strong> story id changed anywhere; Epic 0.4 is unmodified.</li>
+<li><code>scripts/build-html.sh</code> completes; all three Phase 0-Mock pages render and are reachable from a NAV group ordered before Phase 0; the two orphaned <code>epic-0.9-*.html</code> / <code>epic-0.10-*.html</code> no longer exist.</li>
+<li><code>prd.md</code>, <code>epics/requirements-inventory.md</code>, <code>architecture/repository-strategy.md</code> and root <code>CLAUDE.md</code> are unmodified (<code>git diff</code> shows no change) — no requirement, AR, repo or repo-count moved.</li>
+</ol>
+</div></details><details class="section" id="6-pre-existing-findings--not-part-of-this-change"><summary><span class="section-title">6. Pre-existing Findings — Not Part of This Change</span></summary><div class="section-body">
+<ol type="1">
+<li><strong>Site NAV is still missing four Sprint Change Proposals</strong> — <code>2026-08-14</code>, <code>2026-08-15</code>, <code>2026-08-15b</code>, <code>2026-08-15c</code> — plus <code>implementation-readiness-report-2026-06-17</code>, <code>-2026-08-11</code>, and both <code>prd-validation-report-*</code> files. Flagged in SCP 2026-08-18 §6, re-flagged in 2026-08-18b §6, and <strong>still open</strong>. This change adds only its own entry. 08-15b/c define the current Phase 0 numbering and remain unreachable from the published site.</li>
+<li><strong><code>architecture/delivery-operating-model.md</code>'s illustrative dispatch-graph snippet</strong> still carries pre-2026-08-15 epic ids for the non-mock repos. Marked <code>ILLUSTRATIVE SHAPE ONLY</code> in 18b; the two mock entries were updated here for consistency, but the surrounding stale ids are left as prose illustration.</li>
+<li><strong><code>scripts/python/__pycache__/build_html.cpython-314.pyc</code> is tracked in git</strong> and changes on every site build, adding noise to every diff. Unrelated to this change; worth a <code>.gitignore</code> entry.</li>
+</ol>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-18c.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#create-epicsphase-0-mock-as-a-distinct-pre-phase-0-phase-and-move-both-mock-epics-into-it-renumbered-0m1--0m2">Create epics/phase-0-mock/ as a distinct pre-Phase-0 phase and move both mock epics into it, renumbered 0M.1 / 0M.2</a></li><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#dependency-graph-impact">Dependency-graph impact</a></li><li class="h3"><a href="#artifact-impact-exhaustive">Artifact impact (exhaustive)</a></li><li class="h3"><a href="#immutable-history--deliberately-not-rewritten">Immutable history — deliberately NOT rewritten</a></li><li class="h3"><a href="#artifacts-checked--no-impact">Artifacts checked — no impact</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li class="h3"><a href="#41-new-phase-folder-and-index">4.1 New phase folder and index</a></li><li class="h3"><a href="#42-epic-moves-and-renumbering">4.2 Epic moves and renumbering</a></li><li class="h3"><a href="#43-ledger-shard-renames">4.3 Ledger shard renames</a></li><li class="h3"><a href="#44-dispatch-graph">4.4 Dispatch graph</a></li><li class="h3"><a href="#45-phase-0-index--the-two-epics-leave">4.5 Phase 0 index — the two epics leave</a></li><li class="h3"><a href="#46-decision-18-and-the-supersession-of-17">4.6 Decision #18 and the supersession of #17</a></li><li class="h3"><a href="#47-site-nav">4.7 Site NAV</a></li><li class="h3"><a href="#48-regenerate-docs">4.8 Regenerate docs/</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li><a href="#6-pre-existing-findings--not-part-of-this-change">6. Pre-existing Findings — Not Part of This Change</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-18c";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -7,30 +7,32 @@ timestamp: '2026-07-06'
 parent: 'epics/phase-0/index.md'
 epic: 0.0
 title: 'Platform estate is provisioned, verifiable, and CNP-compliant'
-storyCount: 5
+storyCount: 6
 ---
 
 # Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant
 
 **User outcome:** The shared Azure estate — **AKS, a global PostgreSQL Flexible Server, Azure Container Registry, APIM, Application Insights / Log Analytics, and Key Vault** — is stood up via **Terraform** in its own dedicated repository, **`ctam-shared-infrastructure`**, following the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a `{product}-shared-infrastructure` repo (not colocated in a service repo). The estate is provisioned **layer-by-layer, and each layer is independently verifiable at deploy time** — so that every Phase 0 service (`ctam-reference-data` first, then `ctam-authorisation`, `ctam-notification`, `ctam-ui`) has a *tested* platform to deploy onto, and the team can prove the platform works before any domain service is scaffolded.
 
-**Hosting:** the shared estate lives in **`ctam-shared-infrastructure`** (CNP `{product}-shared-infrastructure` convention). This **supersedes AR53's colocated first-consumer rule** — the shared estate is no longer carried inside `ctam-reference-data/terraform/`. Each service repo's own `terraform/` continues to hold **only that service's own resources** (e.g. the MRD storage account in `ctam-reference-data`, Story 0.1.4).
+**Hosting:** the shared estate lives in **`ctam-shared-infrastructure`** (CNP `{product}-shared-infrastructure` convention). This **supersedes AR53's colocated first-consumer rule** — the shared estate is no longer carried inside `ctam-reference-data/terraform/`. Each service repo's own `terraform/` continues to hold **only that service's own resources** — the MRD storage account in `ctam-reference-data` (Epic 0.3, Story 0.3.1), each service's Key Vault namespace, and each service's own APIM API definition + per-API policy (`architecture/conventions.md` → *Per-service APIM registration ownership*).
 
-**Why this is Epic 0.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.1.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ctam-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the **domain** deliverables (0.1 → 0.5) is unchanged.
+**Prerequisite: [Epic 0.A](epic-0.A-architecture-context-bus-and-scaffolding.md).** Story 0.0.1 opens with the GitHub manual-setup checklist at `ctam-architecture/runbooks/github-setup.md`, and the first `terraform apply` needs the state-backend and plan/apply conventions in `runbooks/terraform.md` (gaps.md G9.1, G10.1, G10.2) — both delivered in Epic 0.A, which therefore precedes this epic. Epic 0.A is *lettered* precisely so this epic keeps its number.
+
+**Why this is Epic 0.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of the first domain service (Epic 0.2, Story 0.2.1). Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ctam-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the **domain** deliverables (0.2 → 0.6) is unchanged.
 
 **Vertical slice:**
 - **New dedicated repo `ctam-shared-infrastructure`** (CNP naming), scaffolded per the manual GitHub web-UI setup runbook (`ctam-architecture/runbooks/github-setup.md` — the `gh` CLI is not available)
 - **Terraform-only** provisioning (no Bicep, no portal click-ops), remote state backend, per-environment stacks (`dev` / `staging` / `production`)
-- Shared estate: **AKS** (UK South, multi-AZ) → **PostgreSQL Flexible Server** (zone-redundant HA) + **Key Vault** → **ACR** + **App Insights / Log Analytics** → **APIM**
+- Shared estate: **AKS** (UK South, multi-AZ) → **PostgreSQL Flexible Server** (zone-redundant HA) + **Key Vault** → **ACR** + **App Insights / Log Analytics** → **APIM** → **network perimeter hardening** (NSGs, private endpoints, WAF, DDoS protection)
 - Each layer carries its own **deploy-time acceptance test** so infrastructure is verified as it lands, not assumed
 
 **FRs covered:** none — this is foundational platform infrastructure with no functional-requirement surface. It is the enablement layer for every Phase 0 FR.
 
-**Key NFRs first exercised here:** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR16 (Key Vault), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness plumbing), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes — the cluster it deploys to).
+**Key NFRs first exercised here:** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR15 (GovS7 alignment — network-perimeter controls, Story 0.0.6), NFR16 (Key Vault), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness plumbing), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes — the cluster it deploys to).
 
-**Architecture requirements:** **AR53 (revised — dedicated `ctam-shared-infrastructure` per CNP)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern).
+**Architecture requirements:** **AR53 (revised — dedicated `ctam-shared-infrastructure` per CNP)**; **AR54 (new — network isolation + edge protections, Story 0.0.6)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern), gaps.md G10 (network/edge security posture — new).
 
-**Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — Epic 0.1, Story 0.1.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+); the `ctam_configuration_values` Liquibase baseline (owned by `ctam-architecture`, lands ahead of Epic 0.1).
+**Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — **Epic 0.2, Story 0.2.1**); any service's own per-repo `terraform/` resources, including its APIM API definition and per-API policy (they stay in their service repos — see `architecture/conventions.md`); production-region rollout gating (Phase 9+); the `ctam_configuration_values` Liquibase baseline **and the per-service DB roles** (both `ctam-architecture`-owned — **[Epic 0.B](epic-0.B-shared-db-baseline-and-service-roles.md)**, which follows this epic because it needs the Story 0.0.3 server); the scaffolding toolchain and platform runbooks (**[Epic 0.A](epic-0.A-architecture-context-bus-and-scaffolding.md)**, which precedes it).
 
 ---
 
@@ -42,14 +44,14 @@ So that **the shared estate has a CNP-compliant home with safe, reviewable, stat
 
 **Acceptance Criteria:**
 
-**Given** the engineer has performed the GitHub manual-setup checklist (`ctam-architecture/runbooks/github-setup.md`) **before** scaffolding:
+**Given** the engineer has performed the GitHub manual-setup checklist (`ctam-architecture/runbooks/github-setup.md`, written in **Epic 0.A, Story 0.A.3**) **before** scaffolding:
   - Created the repo **`ctam-shared-infrastructure`** under the HMCTS org **via the GitHub web UI** (name follows the CNP `{product}-shared-infrastructure` convention — `product` = `ctam`),
   - Enabled branch protection on `main` (require PR review, require status checks, require linear history),
   - Configured `CODEOWNERS` scoped to the platform/infra team,
   - Note: the `gh` CLI is **NOT** available — all GitHub admin config happens manually via the web UI per the runbook,
 **When** the engineer lays down the Terraform skeleton,
 **Then** the repo contains per-environment stacks `terraform/dev/`, `terraform/staging/`, `terraform/production/` with pinned provider versions (`azurerm`),
-**And** a remote state backend is configured (Azure Storage account + container, per the HMCTS-confirmed pattern — gaps.md G9),
+**And** a remote state backend is configured per the pattern recorded in `ctam-architecture/runbooks/terraform.md` (**Story 0.A.3**; Azure Storage account + container per the HMCTS-confirmed convention — gaps.md G9.1),
 **And** `.github/workflows/ci.yml` runs `terraform fmt -check`, `terraform validate`, and `terraform plan` on every PR,
 **And** a gated `apply` workflow runs only on merge to `main`, per environment, with manual approval for staging/production,
 **And** `CODEOWNERS` and `PULL_REQUEST_TEMPLATE.md` (infra-change checklist) exist.
@@ -60,11 +62,13 @@ So that **the shared estate has a CNP-compliant home with safe, reviewable, stat
 **And** on merge, a no-op `apply` against the dev stack succeeds and writes state to the remote backend,
 **And** the run is observable in the CI logs with the plan output attached to the PR.
 
-**References:** AR53 (revised); gaps.md G9; D10 (`gh` CLI not available — manual GitHub web-UI setup).
+**References:** AR53 (revised); gaps.md G9.1; AR51 / D10 (`gh` CLI not available — manual GitHub web-UI setup); **depends on Epic 0.A** (the runbooks).
+
+> **Not scaffolded by `ctam-scaffold.sh`.** This repo is **Terraform-only** — no Java workload, no Gradle build, no Helm chart. The scaffold script (Story 0.A.2) targets Spring Boot services; this repo's skeleton is laid down directly, as this story's ACs describe. (`architecture/delivery-operating-model.md`'s bootstrapping order previously said otherwise; corrected 2026-08-18.)
 
 **Explicitly NOT in scope:**
 - Any actual Azure resources — Stories 0.0.2–0.0.5
-- Any service repo scaffolding — Epic 0.1
+- Any service repo scaffolding — Epic 0.2 onward
 
 ---
 
@@ -93,7 +97,7 @@ So that **there is a verified Kubernetes target — zone-spread and reachable �
 
 **Explicitly NOT in scope:**
 - PostgreSQL, Key Vault, ACR, App Insights, APIM — Stories 0.0.3–0.0.5
-- Deploying any CTAM service — Epic 0.1
+- Deploying any CTAM service — Epic 0.2 onward
 
 ---
 
@@ -122,7 +126,7 @@ So that **services have an encrypted, TLS-only shared database and a secret stor
 **References:** AR53 (revised); NFR10, NFR11, NFR16; A34.
 
 **Explicitly NOT in scope:**
-- Per-service DB roles/grants and the `ctam_configuration_values` baseline (owned by `ctam-architecture`; consumed in Epic 0.1)
+- **Per-service DB roles/grants and the `ctam_configuration_values` baseline** — `ctam-architecture`-owned, delivered in **[Epic 0.B](epic-0.B-shared-db-baseline-and-service-roles.md), Story 0.B.1**, which depends on this story's server. (This exclusion previously pointed at "Epic 0.1", where no story delivered it and no role was ever created.)
 - ACR, App Insights, APIM — Stories 0.0.4–0.0.5
 
 ---
@@ -177,16 +181,58 @@ So that **the shared public gateway is proven to terminate TLS and route to the 
 **And** an unauthenticated call to a policy-protected route is rejected,
 **And** these checks are captured as documented post-apply verification steps.
 
-**Given** all five layers are applied,
-**When** the engineer reviews the dev estate,
-**Then** the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM) exists in UK South, each layer independently verified,
-**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (Epic 0.1, Story 0.1.1).
-
 **References:** AR53 (revised); NFR10, NFR31; A34; gaps.md G9.
 
 **Explicitly NOT in scope:**
-- Per-service API registration in APIM (each service publishes its own OpenAPI-backed API)
-- Any domain service — Epic 0.1 onward
+- **Per-service API registration in APIM** — each service's API definition + per-API policy live in **that service's own `terraform/`**, applied against this shared instance via the cross-repo pattern in `runbooks/terraform.md` (Story 0.A.3, gaps.md G10.2). Ownership rule: `architecture/conventions.md` → *Per-service APIM registration ownership*.
+- Network isolation (NSGs, private endpoints), WAF, and DDoS protection — Story 0.0.6
+- Any domain service — Epic 0.2 onward
+
+---
+
+## Story 0.0.6: Harden network perimeter and edge protections (dev), verifiable via isolation and WAF/DDoS smoke tests
+
+As a **platform engineer**,
+I want NSGs and private endpoints applied to the shared estate's data-plane resources, and a WAF + DDoS Protection policy applied at the APIM edge, provisioned via Terraform,
+So that **the shared estate is unreachable from the public internet except through the hardened APIM gateway, and the gateway itself resists common web attacks and volumetric floods, before any service traffic flows through it**.
+
+**Acceptance Criteria:**
+
+**Given** Stories 0.0.2–0.0.5 have provisioned AKS, PostgreSQL, Key Vault, ACR, and APIM,
+**When** the engineer adds the network-hardening module and runs `terraform apply` for the dev stack,
+**Then** Network Security Groups are attached to every AKS subnet, permitting only the documented traffic patterns (cluster-internal + APIM ingress; all other inbound denied by default),
+**And** PostgreSQL Flexible Server, Key Vault, and ACR have public network access **disabled** and are reachable only via **private endpoint** inside the VNet,
+**And** private DNS zones resolve each resource's private endpoint for in-cluster consumers,
+**And** an Azure **DDoS Protection** plan is attached to the VNet (tier per gaps.md G10.1),
+**And** a **WAF policy** (Azure-managed OWASP Core Rule Set, Prevention mode) is attached in front of APIM.
+
+**Given** the network-hardening module is applied,
+**When** the engineer attempts to reach PostgreSQL, Key Vault, or ACR directly from outside the VNet,
+**Then** the connection is refused/times out — no public endpoint is reachable (verified from outside the cluster),
+**And** a WAF-triggering request (an OWASP CRS test payload) sent through APIM is blocked (`403`) before reaching any backend,
+**And** the Story 0.0.5 smoke-API call still succeeds through APIM (the WAF does not false-positive the baseline path),
+**And** these checks are captured as documented post-apply verification steps.
+
+**Given** all six layers are applied,
+**When** the engineer reviews the dev estate,
+**Then** the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM), each independently verified **and network-hardened**, exists in UK South,
+**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (**Epic 0.2, Story 0.2.1**).
+
+**Given** two Phase 0 resources are provisioned in **service** repos rather than here — `ctam-ui`'s Azure Static Web App (Story 0.4.4) and `ctam-reference-data`'s MRD drop storage account, which an **external team must write into** (Story 0.3.1),
+**When** the perimeter posture is documented,
+**Then** the "reachable only through the hardened APIM gateway" claim is stated with its **explicit exceptions named**, so the posture is accurate rather than aspirational,
+**And** for each exception the compensating controls are recorded (for the SPA: HTTPS-only, its own edge protections, no data-plane access; for the drop container: scoped write access for the named MRD principal, private-endpoint read from the cluster, no public list/read),
+**And** each exception's owning repo is named — the control lives in that repo's `terraform/`, and this story owns only the documented posture it must satisfy,
+**And** an exception not yet agreed with the HMCTS security team is recorded as an outstanding action with a named owner, not assumed.
+
+**References:** AR54 (new); NFR15; NFR10, NFR31; gaps.md G10.
+
+**Explicitly NOT in scope:**
+- IaC/container vulnerability scanning, Defender for Cloud, Azure Policy/CIS baseline — deferred (see the 2026-08-14 Sprint Change Proposal, §4 alternatives considered)
+- Per-service Kubernetes `NetworkPolicy` — each service repo's own concern
+- Per-service APIM policy additions beyond the shared base WAF/rate-limit policy (AR53) — see the ownership rule in `architecture/conventions.md`
+- **Implementing** the two exception controls above — they live in `ctam-ui` (Story 0.4.4) and `ctam-reference-data` (Story 0.3.1); this story owns the posture they must satisfy
+- Any domain service — Epic 0.2 onward
 
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.

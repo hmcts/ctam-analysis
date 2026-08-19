@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-18e — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-18e">Sprint Change Proposal — 2026-08-18e</h1>
+<details class="section" id="phase-0-reviewed-from-the-perspective-of-which-repos-each-epic-and-story-actually-touches--ten-findings-all-remediated-pre-dispatch"><summary><span class="section-title">Phase 0 reviewed from the perspective of <em>which repos each epic and story actually touches</em> — ten findings, all remediated pre-dispatch</span></summary><div class="section-body">
+</div></details><details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a direct request to <em>"review the phase 0 stories especially from the perspective of which repos are affected by the Phase 0 epics/stories"</em>.</p>
+<p><strong>Issue type:</strong> pre-dispatch consistency and completeness review of an existing plan. <strong>Not</strong> a technical limitation, a new requirement, or a scope change. No story has been dispatched and no code exists, so every finding is corrected on paper at zero rework cost — which is the whole point of running the review now.</p>
+<p><strong>Problem statement.</strong> Phase 0's <em>declared</em> repo attribution — <code>repo:</code> in <code>delivery/dispatch-graph.yaml</code> and in the twelve ledger shards — is narrower than the repo work its <strong>acceptance criteria actually require</strong>. The gap takes three forms:</p>
+<ol type="1">
+<li><strong>Work with no owner.</strong> A whole repo's worth of <code>ctam-architecture</code> deliverables that eight stories open by assuming — <code>ctam-scaffold.sh</code>, <code>runbooks/github-setup.md</code>, the <code>arch-v1.0</code> bus tag, <code>runbooks/terraform.md</code> — sat inside a single dispatch-graph node marked <code>decomposed: false</code>, with no stories, no ledger shard, and no owner. <strong>Per-service PostgreSQL role creation had no owner at all</strong>, while two stories grant privileges to those roles.</li>
+<li><strong>Boundaries no story owns.</strong> Per-service APIM registration was excluded by the estate epic and only half-claimed by the service epics. Two publicly-reachable resources are provisioned in <em>service</em> repos while the <em>estate</em> repo asserts the perimeter is closed.</li>
+<li><strong>Attribution the ledger cannot express.</strong> Story-level <code>repo:</code> is single-valued, but eight stories commit an artefact into a second repo. Dispatch packets built from the ledger would have been under-scoped, and the claim-before-you-start lock would not have covered the second repo.</li>
+</ol>
+<p><strong>Evidence.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F1</strong> <code>ctam-architecture</code> load-bearing, no epic</td>
+<td>Stories 0.0.1, 0.2.1, 0.4.1, 0.4.2, 0.8.1, 0M.1.1, 0M.2.1 each open with <code>runbooks/github-setup.md</code>; five continue "runs <code>ctam-scaffold.sh</code>". <code>arch-baseline</code> node: <code>decomposed: false</code>, <code>stories: []</code>, no ledger shard, note covering only <code>ctam_configuration_values</code>. gaps.md G1.4a/G1.4b call <code>ctam-scaffold.sh</code> a "Phase 0 deliverable" with no story</td>
+</tr>
+<tr>
+<td><strong>F2</strong> per-service DB role creation unassigned</td>
+<td>Story 0.0.3 <em>Explicitly NOT in scope</em>: "Per-service DB roles/grants … (owned by <code>ctam-architecture</code>; consumed in Epic 0.1)" — but no Epic 0.1 story delivers them, and the <code>arch-baseline</code> note never mentioned roles. Story 0.2.2 then grants SELECT to <code>ctam_authorisation</code> "and placeholder roles for future services"; Story 0.5.1 to "every current and placeholder service DB role"</td>
+</tr>
+<tr>
+<td><strong>F3</strong> APIM registration ownership contradictory</td>
+<td>Story 0.0.5 excludes "per-service API registration in APIM"; Story 0.4.1's <code>terraform/</code> lists an "APIM per-API policy"; Story 0.2.1 requires "registers its API through APIM" but describes its <code>terraform/</code> as Key Vault + MRD storage only; Epic 0.8 never mentions it. The cross-repo remote-state pattern it needs was only gap G10.2</td>
+</tr>
+<tr>
+<td><strong>F4</strong> ledger cannot express multi-repo stories</td>
+<td>Story 0.5.1 AC writes <code>ctam-architecture/runbooks/reference-data-maintenance.md</code>; Story 0.8.1 AC says "the schema is documented in <code>architecture/data-tables.md</code>" (this repo); Story 0.7.1's scripts write into <code>ctam_auth_*</code> and <code>jo_*</code>, owned by two other services. All recorded with a single <code>repo:</code></td>
+</tr>
+<tr>
+<td><strong>F5</strong> graph permits unsafe within-repo parallelism</td>
+<td>Epics 0.5 and 0.6 have disjoint dependency sets, the same <code>repo: ctam-reference-data</code>, and Story 0.6.1 states its Postman coverage lands in the "same collection file as Epic 0.5" and its OpenAPI additions in the same <code>api-ctam-reference-data</code> artefact — against <code>ledger/README.md</code>'s own "serialise within a repo" rule</td>
+</tr>
+<tr>
+<td><strong>F6</strong> port <code>8082</code> on three services</td>
+<td>Stories 0.2.1, 0.4.1, 0.8.1 all state "default port is 8082 (per AR3)"; AR3 itself says "Default port 8082". Raised in <code>implementation-readiness-report-2026-08-11.md</code> §2 (under the pre-renumbering ids 0.1.1/0.2.1/0.5.1) and still open. Meanwhile Epic 0M.2 had independently adopted 8091 — no allocation table existed anywhere</td>
+</tr>
+<tr>
+<td><strong>F7</strong> ET predicate / identity set not cited</td>
+<td>Story 0M.1.2 publishes the ET predicate and shared identity set as "the single reference all four consumers read". Stories 0.4.2, 0.5.1 and 0.7.1 each defined their own alignment; none cited it</td>
+</tr>
+<tr>
+<td><strong>F8</strong> public surfaces outside the stated perimeter</td>
+<td>Story 0.0.6 asserts the estate is "unreachable from the public internet except through the hardened APIM gateway". Story 0.4.4 provisions an Azure Static Web App in <code>ctam-ui</code>'s <code>terraform/</code> (hosting choice still open — gaps.md G3.5); Story 0.3.1 provisions a storage container an <strong>external team must write into</strong></td>
+</tr>
+<tr>
+<td><strong>F9</strong> renumbering drift</td>
+<td>Epic 0.0 pointed at "Epic 0.1, Story 0.1.1" for the <code>ctam-reference-data</code> scaffold, "Story 0.1.4" for MRD storage, "Epic 0.1 onward" for domain services; Epic 0.4 pointed at "Epic 0.6" for the bootstrap (now 0.7) twice; <code>delivery-operating-model.md</code>'s ledger example used story <code>0.1.4</code>, and its bootstrapping order scaffolded Terraform-only <code>ctam-shared-infrastructure</code> with the Java scaffolder and named a parallel set the current graph forbids</td>
+</tr>
+<tr>
+<td><strong>F10</strong> <code>ctam-analysis</code> not in the repo inventory</td>
+<td><code>dispatch-graph.yaml</code> and <code>ledger/epic-0.1.yaml</code> name <code>repo: ctam-analysis</code>; <code>repository-strategy.md</code>'s 18-repo table does not contain it</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Declared repo coverage — the answer to the question asked.</strong> Phase 0 + Phase 0-Mock touch <strong>9 of the 18 product repos</strong>, plus <code>ctam-analysis</code>. Nine repos are untouched until Phase 1+ (<code>ctam-joh</code>, <code>ctam-absence</code>, <code>ctam-vacancy</code>, <code>ctam-booking</code>, <code>ctam-sitting</code>, <code>ctam-payment</code>, <code>ctam-itinerary</code>, <code>ctam-mi-feed</code>, and post-MVP <code>ctam-admin-ui</code>). <strong>That part was correct and consistent with the graph</strong> — no epic reaches into a repo that belongs to a later phase, and no later-phase repo is silently pulled forward. The findings are all about <em>under</em>-declaration, never over-reach.</p>
+<p><strong>Three decisions confirmed with the user before drafting:</strong></p>
+<ol type="1">
+<li><strong>F1 → a new decomposed epic</strong>, lettered <code>0.A</code>, rather than decomposing the <code>arch-baseline</code> node in place or documenting it as untracked programme setup. Lettering keeps all 23 existing Phase 0 story ids stable.</li>
+<li><strong>F4 → add an optional <code>touches:</code> field</strong> to the ledger story schema, rather than making <code>repo:</code> a list or splitting every cross-repo story into per-repo stories. <code>repo:</code> stays single-valued so the claim lock remains unambiguous.</li>
+<li><strong>F6/F9 → fix all of it now</strong>, including <code>delivery-operating-model.md</code>'s stale example and bootstrapping order, rather than deferring either.</li>
+</ol>
+<p><strong>One consequence of decision 1 that emerged during drafting.</strong> The <code>ctam-architecture</code> work does not fit in one epic. <code>runbooks/github-setup.md</code> must exist <strong>before</strong> Story 0.0.1 creates a repo; the <code>ctam_configuration_values</code> baseline and the DB roles cannot be applied <strong>until</strong> Story 0.0.3 has provisioned PostgreSQL. Putting both in one epic makes <code>epic-0.0</code> and that epic mutually dependent — a <strong>cycle</strong> under the buildable-now rule, and a latent one that already existed in the old <code>arch-baseline</code> node (<code>depends_on: [epic-0.0]</code>, while Story 0.0.1 depended on its runbook). It is therefore split in two: <strong>Epic 0.A precedes Epic 0.0; Epic 0.B follows it.</strong></p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NEW 0.A</strong> (<code>ctam-architecture</code>, 3 stories)</td>
+<td>Bus publish + <code>arch-v1.0</code> tag (0.A.1); <code>ctam-scaffold.sh</code> + starter overlay + CI ruleset wiring (0.A.2); the GitHub-setup and Terraform-conventions runbooks (0.A.3). <code>depends_on: []</code> — <strong>precedes Epic 0.0</strong></td>
+</tr>
+<tr>
+<td><strong>NEW 0.B</strong> (<code>ctam-architecture</code>, 1 story)</td>
+<td><code>ctam_configuration_values</code> baseline <strong>+ per-service DB role provisioning + the grants convention</strong> (0.B.1). <code>depends_on: [epic-0.A, epic-0.0]</code></td>
+</tr>
+<tr>
+<td><strong>0.0</strong></td>
+<td><code>depends_on</code> gains <code>epic-0.A</code>. Stale refs fixed (0.1.1 → 0.2.1; Story 0.1.4 → Epic 0.3 Story 0.3.1; "Epic 0.1 onward" → "Epic 0.2 onward"). Story 0.0.1 gains an explicit "not scaffolded by <code>ctam-scaffold.sh</code> — Terraform-only" note. Story 0.0.3's exclusion now points at Epic 0.B instead of a story that never existed. Story 0.0.5's APIM exclusion now names what it defers <em>to</em>. <strong>Story 0.0.6 gains an AC</strong> requiring the perimeter claim to name its two exceptions with compensating controls and owning repos. No story added, removed or renumbered</td>
+</tr>
+<tr>
+<td><strong>0.1</strong></td>
+<td><code>repo:</code> becomes <code>[ctam-analysis, ctam-architecture]</code>; <code>depends_on</code> gains <code>epic-0.B</code>. Story 0.1.1 gains <code>touches: [ctam-architecture]</code>; Story 0.1.2 gains a note recording that Story 0.A.2 wires it into every scaffolded repo — closing the "authored but never adopted" gap. No AC change</td>
+</tr>
+<tr>
+<td><strong>0.2</strong></td>
+<td><code>depends_on</code> gains <code>epic-0.A</code> + <code>epic-0.B</code>. Story 0.2.1: port stated as <strong>8082 per the allocation table</strong>; <code>terraform/</code> now explicitly includes its own APIM API + per-API policy; the config-values AC rewritten to consume Epic 0.B (role exists, authenticates as it, write refused); the APIM AC rewritten to establish the reusable cross-repo registration pattern; CI gates now include SQLFluff + the schema fitness function. Story 0.2.2: grants now resolve against Epic 0.B roles, plus a <code>data-tables.md</code> update AC</td>
+</tr>
+<tr>
+<td><strong>0.3</strong></td>
+<td>Story 0.3.1 gains four ACs on the drop container: named perimeter exception, scoped write for the MRD principal only, the <code>runbooks/terraform.md</code> cross-repo pattern, and an outstanding-action gate if the access model is unagreed. Grants resolve against Epic 0.B roles; <code>data-tables.md</code> update AC added. Within-repo sequencing note added</td>
+</tr>
+<tr>
+<td><strong>0.4</strong></td>
+<td><code>depends_on</code> gains <code>epic-0.A</code> + <code>epic-0.B</code>. Two stale "Epic 0.6" → "Epic 0.7". <strong>Ports: <code>ctam-authorisation</code> 8082 → 8083, <code>ctam-mock-auth</code> → 8100</strong>, with an AC that it runs alongside <code>ctam-reference-data</code> without a clash. Story 0.4.2's roster now drawn from Story 0M.1.2's shared identity set. Story 0.4.4's SWA gains the G3.5 confirmation point and the perimeter-exception controls. A "three repos, one epic" note explains why the span is deliberate</td>
+</tr>
+<tr>
+<td><strong>0.5</strong></td>
+<td>Cross-repo shape stated up front (runbook → <code>ctam-architecture</code>; first cross-service runtime dependency on <code>ctam-authorisation</code>). Grants resolve against Epic 0.B roles. ET seed values now key off Story 0M.1.2's ET predicate. <code>data-tables.md</code> update AC added. Within-repo sequencing note added</td>
+</tr>
+<tr>
+<td><strong>0.6</strong></td>
+<td>Gains a <strong>"dispatch after Epic 0.5, not alongside it"</strong> section naming the two shared files. No AC change</td>
+</tr>
+<tr>
+<td><strong>0.7</strong></td>
+<td>Gains a <strong>"cross-repo shape — read this before implementing"</strong> section: the scripts live in <code>ctam-architecture</code> but write into two other services' tables; they run under the Epic 0.B bootstrap role with <strong>no DDL privilege</strong>; identities come from Story 0M.1.2's shared set</td>
+</tr>
+<tr>
+<td><strong>0.8</strong></td>
+<td><code>depends_on</code> gains <code>epic-0.A</code> + <code>epic-0.B</code>. Story 0.8.1: port 8082 → <strong>8084</strong>; the DB role is Epic 0.B's; the <code>data-tables.md</code> write is called out as a second repo; its <code>terraform/</code> carries its own APIM API + policy</td>
+</tr>
+<tr>
+<td><strong>0M.1</strong></td>
+<td><code>depends_on: [epic-0.0, arch-baseline]</code> → <code>[epic-0.A, epic-0.0]</code>. No AC change</td>
+</tr>
+<tr>
+<td><strong>0M.2</strong></td>
+<td><code>depends_on</code> rewired to <code>[epic-0.A, epic-0.0, epic-0.1]</code>. <strong>Port 8091 → 8102</strong> (the allocation gives 8091 to <code>ctam-itinerary</code>; the three mocks band at 8100–8102)</td>
+</tr>
+<tr>
+<td><strong>Phases 1–8, post-MVP</strong></td>
+<td><strong>No change.</strong> The <code>future:</code> nodes referenced neither <code>arch-baseline</code> nor any changed story</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Totals: Phase 0 goes from 9 epics / 23 stories to 11 epics / 27 stories.</strong> No pre-existing story id moved. Phase 0-Mock stays at 2 epics / 4 stories.</p>
+<h3 id="dependency-graph-impact">Dependency-graph impact</h3>
+<p>The graph gains a genuine head and loses a latent cycle:</p>
+<pre><code>epic-0.A  →  epic-0.0  →  epic-0.B  →  epic-0.1  →  ┬→ epic-0M.1 → epic-0.2 → epic-0.4 → epic-0.5 → epic-0.6
+(bus,        (estate)     (baseline    (schema      ├→ epic-0M.2 → epic-0.3 ──────┘         └→ epic-0.7
+ scaffold,                + roles)      design)     └→ epic-0.8 (parallel throughout)
+ runbooks)</code></pre>
+<p><code>epic-0M.1</code> no longer waits on the DB baseline (it owns no table); <code>epic-0.8</code> still parallelises with the ingestion and auth chains. <strong>New:</strong> a <code>repo_serialisation</code> block constrains within-repo order for the two repos carrying four epics each.</p>
+<h3 id="artefact-impact">Artefact impact</h3>
+<table>
+<thead>
+<tr>
+<th>Artefact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.A-…md</code>, <code>epic-0.B-…md</code></td>
+<td><strong>New</strong></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.0 … 0.8</code></td>
+<td>Edits per the table above (all eight touched)</td>
+</tr>
+<tr>
+<td><code>epics/phase-0-mock/epic-0M.2-…md</code></td>
+<td>Port 8091 → 8102</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Sequencing blockquote, scope model, epic table (now with a <strong>Repo</strong> column), <strong>new "Repo coverage at a glance" section</strong>, two epic summaries, story-summary rows, totals 23 → 27</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 row: 9 epics/23 stories → 11/27</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Platform &amp; DevEx scope: scaffold attributed to Epic 0.A; baseline + roles to Epic 0.B; APIM per-service ownership noted</td>
+</tr>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td><strong>AR3 amended</strong> (port allocation replaces "default port 8082"); AR53 clarified with the APIM ownership split</td>
+</tr>
+<tr>
+<td><code>delivery/dispatch-graph.yaml</code></td>
+<td><code>arch-baseline</code> → <code>epic-0.A</code> + <code>epic-0.B</code>; six <code>depends_on</code> lists rewired; <code>epic-0.1</code> <code>repo:</code> becomes a list; <strong>new <code>repo_serialisation</code> block</strong>; header note on lettered nodes</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.A.yaml</code>, <code>epic-0.B.yaml</code></td>
+<td><strong>New shards</strong> (11 → 13)</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.1/0.2/0.3/0.4/0.5/0.7/0.8.yaml</code></td>
+<td><code>touches:</code> on six stories; <code>note:</code> on five</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/README.md</code></td>
+<td><code>touches:</code>/<code>note:</code> in the schema block + a new section defining <code>repo</code> vs <code>touches</code> vs <code>note</code>; concurrency rule points at <code>repo_serialisation</code>; eleven → thirteen shards</td>
+</tr>
+<tr>
+<td><code>delivery/README.md</code></td>
+<td>Files table; "not executed here" reframed as "tracked as 0.A/0.B"; buildable-now rule cross-refs <code>repo_serialisation</code>; current state 11 epics/27 stories</td>
+</tr>
+<tr>
+<td><code>architecture/conventions.md</code></td>
+<td><strong>New: per-service port allocation table</strong> (19 rows) and <strong>per-service APIM registration ownership rule</strong></td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td><code>ctam-analysis</code> declared as the 19th repo / control plane, with why it is not a product repo</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code></td>
+<td>Ledger example story id + <code>touches:</code>; <strong>bootstrapping order rewritten</strong> (7 steps); parallel-execution section gains the within-repo caveat</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td>G1.4a, G1.4b, G4.4, G4.5, G9.1, G10.1, G10.2 owners → the specific 0.A stories; G6.4 notes role creation is now 0.B.1</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New v-entry</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>NAV: two new epics + this SCP</td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>Regenerated</td>
+</tr>
+</tbody>
+</table>
+<h3 id="prd-impact">PRD impact</h3>
+<p><strong>None.</strong> No FR, NFR or decision (D1–D13) changes. The only FR touched is <strong>FR8</strong>, which gains a <em>traceable owner</em> (Story 0.B.1) rather than a new requirement — it was previously covered by a node with no story. MVP scope, wave ordering, and the ET-first D13 framing are untouched.</p>
+<h3 id="technical-impact">Technical impact</h3>
+<p>No code exists yet, so there is no rework. Three findings would have caused <strong>hard failures at implementation time</strong> and are worth naming as the review's concrete payoff:</p>
+<ul>
+<li><strong>F2</strong>: Story 0.2.2's first <code>liquibase update</code> would have failed on <code>GRANT … TO ctam_authorisation</code> — the role did not exist and nothing created it.</li>
+<li><strong>F6</strong>: the Phase 0 demo gate requires <code>ctam-reference-data</code>, <code>ctam-authorisation</code> and <code>ctam-notification</code> running together locally; all three were assigned port 8082.</li>
+<li><strong>F1</strong>: Story 0.0.1 — the first story in the programme — opens by citing a runbook that no story wrote.</li>
+</ul>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct Adjustment</strong> (Option 1). Selected; the other two paths were evaluated and rejected:</p>
+<ul>
+<li><strong>Rollback</strong> (Option 2) — <strong>not applicable.</strong> Nothing is implemented; every story is <code>not-started</code> with <code>owner: null</code>.</li>
+<li><strong>MVP review</strong> (Option 3) — <strong>not warranted.</strong> No finding touches scope, sequence, or deliverable set. All ten are attribution, ownership and consistency defects inside an otherwise sound plan.</li>
+</ul>
+<p><strong>Effort:</strong> Medium — 26 files, all planning artefacts, no code. <strong>Risk:</strong> Low — two additive epics, no story renumbered, no AC removed. Every AC added is either an owner for work already assumed or an explicit statement of a boundary that was previously implied.</p>
+<p><strong>Why now rather than at dispatch:</strong> each finding is a paper edit today. F2 becomes a failed pipeline, F6 a confusing local-environment debugging session, and F1 a blocked first story on day one.</p>
+<p><strong>Alternatives considered and rejected within the chosen path:</strong></p>
+<ul>
+<li><strong>Numbering the enablement epics <code>0.-1</code>/<code>0.0</code> and shifting everything</strong> — rejected: renumbering 23 stories for the fourth time in four days, for zero semantic gain. Lettering is the established local convention (SCP 2026-08-18c).</li>
+<li><strong>Folding the DB baseline into Epic 0.0</strong> — rejected: <code>ctam-shared-infrastructure</code> is Terraform-only and owns no table; the baseline changelog is <code>ctam-architecture</code>-owned per FR8/AR19.</li>
+<li><strong>Making per-service APIM registration <code>ctam-shared-infrastructure</code>'s job</strong> — rejected: it would make the estate repo a bottleneck on every service's release and contradict AR53's per-repo ownership. Recording the cross-repo reference pattern (G10.2) is the cheaper fix.</li>
+<li><strong>Splitting the six cross-repo stories</strong> — rejected with the user (decision 2): it fragments vertical slices and grows Phase 0 to ~30 stories for bookkeeping that <code>touches:</code> handles.</li>
+</ul>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<p>Applied in full; the <em>Artefact impact</em> table above is the manifest. The four substantive additions:</p>
+<p><strong>(a) Epic 0.A — 3 stories, <code>ctam-architecture</code>, <code>depends_on: []</code></strong></p>
+<p><code>0.A.1</code> bus publish + <code>arch-v1.0</code> tag (one-way projection from <code>ctam-analysis</code>; submodule consumption documented; contracts a read-only mirror per SCP 2026-07-07). <code>0.A.2</code> <code>ctam-scaffold.sh</code> + the starter overlay (every G1.4a/G1.4b capability; Liquibase not Flyway; versions pinned in one place; <strong>wires the shared CI ruleset bundle including Story 0.1.2's schema fitness function</strong>; local-only, no <code>gh</code> CLI; validated by a throwaway run so <code>ctam-reference-data</code> stays the first real service). <code>0.A.3</code> <code>runbooks/github-setup.md</code> + <code>runbooks/terraform.md</code> (G9.1, G10.1, G10.2 recorded as <strong>agreed-with-date-and-contact or outstanding-with-owner</strong>, never a silent default; carries the APIM ownership rule).</p>
+<p><strong>(b) Epic 0.B — 1 story, <code>ctam-architecture</code>, <code>depends_on: [epic-0.A, epic-0.0]</code></strong></p>
+<p><code>0.B.1</code> the <code>ctam_configuration_values</code> baseline (applied by a repeatable pipeline job, not from a laptop; no write path for any service) <strong>plus</strong> roles for the four Phase 0 services and forward-declared roles for Phases 1–8, each <code>SELECT</code>-granted on the baseline table, credentials in Key Vault; <code>ctam-joh-mock</code>/<code>ctam-mrd-mock</code> documented as holding <strong>no role and no table</strong>; the grants convention (owner-writes-the-grant, the tier-(a) rule, the Day-1 broad-then-tighten posture, the PR grants checklist).</p>
+<p><strong>(c) <code>touches:</code> / <code>note:</code> in the ledger schema</strong></p>
+<p><code>repo:</code> = the one repo whose PR the story lands in (the claim). <code>touches:</code> = additional repos where it commits an artefact. <code>note:</code> = a cross-repo consumption or sequencing constraint that lands no artefact. Rule of thumb documented: <em>do I commit a file there?</em> → <code>touches:</code>; <em>do I only read from it?</em> → <code>note:</code>.</p>
+<p>Applied to <strong>eight stories</strong> — 0.1.1 → the bus · 0.2.2 / 0.3.1 / 0.4.3 / 0.8.1 → <code>data-tables.md</code> in <code>ctam-analysis</code> · 0.5.1 → both (<code>runbooks/reference-data-maintenance.md</code> <strong>and</strong> <code>data-tables.md</code>) · 0.A.1 / 0.B.1 → <code>ctam-analysis</code> — and <strong>six <code>note:</code> entries</strong> (0.1.2's scaffold wiring, 0.2.1's consumed prerequisites, 0.2.3's and 0.3.1's mock consumption, 0.4.2's roster alignment, 0.7.1's write-into-two-services shape). Stories 0.2.3 and 0.3.1 deliberately carry <code>note:</code> rather than <code>touches:</code> for their mocks: they <em>consume</em> a published contract, they do not commit into that repo.</p>
+<p><strong>(d) <code>repo_serialisation</code> in the dispatch graph</strong></p>
+<p><code>ctam-reference-data</code>: <code>0.2 → 0.3 → 0.5 → 0.6</code>, with the shared artefacts named (one OpenAPI spec, one Postman collection, one changelog sequence). <code>ctam-architecture</code>: <code>0.A → 0.B → 0.1 (story 0.1.2) → 0.7</code>. Dispatch must satisfy this <strong>and</strong> <code>depends_on</code>.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong> — backlog and control-plane reorganisation. No code, no PRD change, no strategic replan.</p>
+<table>
+<thead>
+<tr>
+<th>Recipient</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Product Owner / Delivery (control plane)</strong></td>
+<td>Own Epics 0.A and 0.B as the new head of the Phase 0 queue; assign <code>owner</code> on both before the first dispatch. <code>bmad-sprint-planning</code> must read <code>repo_serialisation</code> as well as <code>depends_on</code></td>
+</tr>
+<tr>
+<td><strong>Solution Architect</strong></td>
+<td>Two items need an external answer before their story can complete, both pre-existing gaps now attached to a story: <strong>G9.1/G10.1/G10.2</strong> (Terraform state backend, DDoS tier + WAF ownership, cross-repo reference pattern) → Story 0.A.3, blocking the Epic 0.0 apply; and the <strong>G3.5</strong> hosting choice + the two perimeter exceptions → Stories 0.4.4 / 0.3.1 / 0.0.6, needing HMCTS security sign-off</td>
+</tr>
+<tr>
+<td><strong>Developer (execution)</strong></td>
+<td>Nothing yet — no story is dispatchable until Epic 0.A is owned and 0.A.1 is dispatched</td>
+</tr>
+<tr>
+<td><strong>Tech writer / control plane</strong></td>
+<td><code>docs/</code> regenerated via <code>scripts/build-html.sh</code>; the human commits the diff via VSCode per the git-write constraint</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Success criteria for this change:</strong></p>
+<ol type="1">
+<li>Every Phase 0 / Phase 0-Mock story's first <code>Given</code> clause names an artefact some story in the graph delivers. <em>(Verified for all 27.)</em></li>
+<li>No story grants a privilege to a DB role that no story creates. <em>(Verified: 0.2.2, 0.3.1, 0.5.1, 0.8.1 all resolve to 0.B.1.)</em></li>
+<li>No two services share a local port. <em>(Verified against the new allocation table.)</em></li>
+<li>Every story that commits into a second repo carries <code>touches:</code>. <em>(Six stories.)</em></li>
+<li><code>dispatch-graph.yaml</code> is acyclic and has exactly one zero-dependency node (<code>epic-0.A</code>). <em>(Verified.)</em></li>
+</ol>
+</div></details><details class="section" id="6-deferred--recorded-not-actioned"><summary><span class="section-title">6. Deferred — recorded, not actioned</span></summary><div class="section-body">
+<p>Two items surfaced in the review, are <strong>not</strong> repo-attribution defects, and are deliberately left for a separate pass rather than widened into this one:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Detail</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>authz/check</code> path inconsistency</strong></td>
+<td>Story 0.4.3 uses <code>POST /authz/check</code> in its <code>JWTFilter</code> AC and <code>POST /v1/authz/check</code> in its endpoint ACs — within one story. <code>architecture/conventions.md</code> and <code>architecture.md</code> (5 occurrences) use the unversioned form, while <strong>AR38 mandates a <code>/v1/</code> prefix on every resource</strong>. Every service's <code>JWTFilter</code> calls this path, so it needs one deliberate sweep, not a find-replace</td>
+<td>Solution Architect — sweep <code>architecture.md</code>, <code>conventions.md</code>, <code>project-context.md</code> and Epic 0.4 together; recommend standardising on <code>POST /v1/authz/check</code> per AR38</td>
+</tr>
+<tr>
+<td><strong><code>FR59</code> / <code>NFR59</code> mix-up</strong></td>
+<td>Epic 0.2's <em>Key NFRs</em> line reads "NFR59 (structured logs first exercised at scaffold)"; structured logging is <strong>FR59</strong> (there is no NFR59). Cosmetic, in one line of one epic</td>
+<td>Control plane — fold into the next epic-text pass</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Change log entry:</strong> <code>architecture/changelog.md</code> — v3.x (2026-08-18e).</p>
+<p><strong>Immutability note:</strong> this proposal <em>adds</em>. Prior SCPs, readiness reports and changelog entries are historical record and are not rewritten. The 2026-08-11 readiness report's port-collision finding (its §2, item 2) is <strong>now remediated</strong> — that report stands as written, and this document is where the fix is recorded.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-18e.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-reviewed-from-the-perspective-of-which-repos-each-epic-and-story-actually-touches--ten-findings-all-remediated-pre-dispatch">Phase 0 reviewed from the perspective of which repos each epic and story actually touches — ten findings, all remediated pre-dispatch</a></li><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#dependency-graph-impact">Dependency-graph impact</a></li><li class="h3"><a href="#artefact-impact">Artefact impact</a></li><li class="h3"><a href="#prd-impact">PRD impact</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li><a href="#6-deferred--recorded-not-actioned">6. Deferred — recorded, not actioned</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-18e";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

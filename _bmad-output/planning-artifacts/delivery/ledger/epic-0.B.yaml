@@ -1,0 +1,21 @@
+# Ledger shard — Epic 0.B. Schema, status vocab, and concurrency model: ./README.md
+# ctam-architecture-owned, but AFTER epic-0.0 (needs the PostgreSQL server from
+# story 0.0.3) — hence split from epic-0.A, which must precede epic-0.0.
+# Closes the unassigned per-service DB role creation that stories 0.2.2 / 0.5.1
+# grant against (SCP 2026-08-18e).
+epic: epic-0.B
+title: Shared database baseline and per-service DB roles are established
+repo: ctam-architecture
+bus_version: arch-v1.0
+status: not-started        # epic-level rollup: not-started | in-progress | blocked | in-review | done
+owner: null                # who is driving this epic (name/handle); null = unassigned
+stories:
+  - story: 0.B.1
+    repo: ctam-architecture
+    title: Shared ctam_configuration_values baseline, per-service DB roles, and the grants convention
+    frs: [FR8, NFR15, NFR16]
+    touches: [ctam-analysis]  # data-tables.md "Shared infrastructure" row reviewed/confirmed against the applied baseline
+    bus_version: arch-v1.0
+    status: not-started      # not-started | dispatched | in-progress | in-review | done
+    owner: null
+    pr: null

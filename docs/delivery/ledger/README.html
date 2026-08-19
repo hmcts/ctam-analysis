@@ -89,7 +89,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="ledger-sharded-per-epic">Ledger (sharded per epic)</h1>
-<p>The traceability ledger is <strong>sharded — one file per epic</strong> (<code>epic-0.0.yaml</code> … <code>epic-0.5.yaml</code>) — so multiple people can update different epics concurrently without git conflicts. Because the dispatch graph pushes work to run in parallel across different epics/repos, concurrent writers naturally touch <strong>different shards</strong>. Rationale and the full concurrency model: <a href="../README.html"><code>../README.md</code></a>.</p>
+<p>The traceability ledger is <strong>sharded — one file per epic</strong> (<code>epic-0.0.yaml</code> … <code>epic-0.8.yaml</code>, plus the lettered <code>ctam-architecture</code> enablement shards <code>epic-0.A.yaml</code> / <code>epic-0.B.yaml</code> and <code>epic-0M.1.yaml</code> / <code>epic-0M.2.yaml</code> for Phase 0-Mock) — so multiple people can update different epics concurrently without git conflicts. Because the dispatch graph pushes work to run in parallel across different epics/repos, concurrent writers naturally touch <strong>different shards</strong>. Rationale and the full concurrency model: <a href="../README.html"><code>../README.md</code></a>.</p>
 <details class="section" id="shard-schema"><summary><span class="section-title">Shard schema</span></summary><div class="section-body">
 <pre class="yaml"><code>epic: epic-0.1                 # epic id (matches dispatch-graph.yaml)
 title: ...
@@ -102,10 +102,20 @@ stories:
     repo: ctam-reference-data   # per-story repo (may differ from the epic within a multi-repo epic)
     title: ...
     frs: [FR6, FR7, FR8]       # traced requirements (epic granularity unless a story narrows it)
+    touches: [ctam-analysis]   # OPTIONAL — secondary repos this story also lands an artefact in
+    note: ...                  # OPTIONAL — a cross-repo consumption or sequencing constraint
     bus_version: arch-v1.0     # the ctam-architecture version the story was built against
     status: not-started        # STORY-LEVEL lifecycle (see vocab below)
     owner: null                # who is on this story; null = unassigned
     pr: null                   # PR URL once opened/merged</code></pre>
+</div></details><details class="section" id="repo-vs-touches-vs-note-added-2026-08-18-scp-2026-08-18e"><summary><span class="section-title"><code>repo</code> vs <code>touches</code> vs <code>note</code> (added 2026-08-18, SCP 2026-08-18e)</span></summary><div class="section-body">
+<p>Several Phase 0 stories deliver into <strong>more than one repo</strong> — Story 0.5.1 creates tables in <code>ctam-reference-data</code> <em>and</em> writes <code>runbooks/reference-data-maintenance.md</code> into <code>ctam-architecture</code>; Story 0.8.1 creates a table <em>and</em> documents it in <code>architecture/data-tables.md</code> here in <code>ctam-analysis</code>. A single-valued <code>repo:</code> hid that, so dispatch packets came out under-scoped.</p>
+<ul>
+<li><strong><code>repo:</code></strong> — the <strong>one</strong> repo whose PR this story lands in. This is the claim: it stays single-valued so "claim before you start" locks exactly one repo's history. (Epic-level <code>repo:</code> may still be a list when an epic spans repos.)</li>
+<li><strong><code>touches:</code></strong> — additional repos where this story lands a <strong>committed artefact</strong> (a runbook, a doc row, a published spec). A dispatch packet must include them; the reviewer of the <code>repo:</code> PR should expect a companion diff.</li>
+<li><strong><code>note:</code></strong> — a cross-repo <strong>consumption or sequencing</strong> constraint that lands no artefact: "consumes the contract published by 0M.1.2", "runs under the role created in 0.B.1". Not a second repo to write to; context the implementer needs.</li>
+</ul>
+<p>Rule of thumb: <em>do I commit a file there?</em> → <code>touches:</code>. <em>Do I only read from or depend on it?</em> → <code>note:</code>.</p>
 </div></details><details class="section" id="status-vocab"><summary><span class="section-title">Status vocab</span></summary><div class="section-body">
 <ul>
 <li><strong>Epic-level</strong> (<code>status:</code> at the top): <code>not-started</code> · <code>in-progress</code> · <code>blocked</code> · <code>in-review</code> · <code>done</code>.</li>
@@ -118,14 +128,14 @@ stories:
 <ul>
 <li><strong>Epic <code>owner</code></strong> = the person accountable for the epic end-to-end.</li>
 <li><strong>Story <code>owner</code></strong> = the person currently implementing that story (lets two people share one epic on different stories).</li>
-<li>To see the whole board at a glance, scan the six shards' epic headers (<code>status</code> + <code>owner</code>); for finer detail, the per-story <code>owner</code>/<code>status</code>.</li>
+<li>To see the whole board at a glance, scan the thirteen shards' epic headers (<code>status</code> + <code>owner</code>); for finer detail, the per-story <code>owner</code>/<code>status</code>.</li>
 </ul>
 </div></details><details class="section" id="concurrency-rules"><summary><span class="section-title">Concurrency rules</span></summary><div class="section-body">
 <ul>
 <li><strong>Pull <code>main</code> before</strong> you select / dispatch / signal.</li>
 <li><strong>Claim before you start:</strong> set story <code>status: dispatched</code> + <code>owner</code>, and push, before writing code — that is the lock.</li>
 <li><strong>One story = one small, atomic commit/PR</strong> to the shard.</li>
-<li><strong>Work in parallel by epic/repo, not within a repo</strong> — keeps writers off each other's shards.</li>
+<li><strong>Work in parallel by epic/repo, not within a repo</strong> — keeps writers off each other's shards. The graph alone does not enforce this: several epics are graph-independent yet share a repo <em>and</em> share mutable files in it (Epics 0.5/0.6 both rewrite the one <code>api-ctam-reference-data</code> spec and the one Phase 0 Postman collection). <code>dispatch-graph.yaml</code>'s <strong><code>repo_serialisation</code></strong> block is the authority on that ordering — check it as well as <code>depends_on</code> before dispatching.</li>
 <li>Roll the epic-level <code>status</code>/<code>owner</code> up from its stories (e.g. epic → <code>in-progress</code> when its first story is <code>dispatched</code>; <code>done</code> when all stories are <code>done</code>).</li>
 </ul>
 </div></details><details class="section" id="target-state-projection"><summary><span class="section-title">Target state (projection)</span></summary><div class="section-body">
@@ -133,7 +143,7 @@ stories:
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/delivery/ledger/README.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#shard-schema">Shard schema</a></li><li><a href="#status-vocab">Status vocab</a></li><li><a href="#ownership--visibility-who-is-working-on-what">Ownership &amp; visibility ("who is working on what")</a></li><li><a href="#concurrency-rules">Concurrency rules</a></li><li><a href="#target-state-projection">Target state (projection)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#shard-schema">Shard schema</a></li><li><a href="#repo-vs-touches-vs-note-added-2026-08-18-scp-2026-08-18e">repo vs touches vs note (added 2026-08-18, SCP 2026-08-18e)</a></li><li><a href="#status-vocab">Status vocab</a></li><li><a href="#ownership--visibility-who-is-working-on-what">Ownership &amp; visibility ("who is working on what")</a></li><li><a href="#concurrency-rules">Concurrency rules</a></li><li><a href="#target-state-projection">Target state (projection)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../../";window.__PAGE__="delivery/ledger/README";</script>
 <script src="../../nav.js"></script>
 <script>

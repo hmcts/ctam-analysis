@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Implementation Readiness Assessment Report — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="implementation-readiness-assessment-report">Implementation Readiness Assessment Report</h1>
+<p><strong>Date:</strong> 2026-08-11 <strong>Project:</strong> ram-analysis (RAM Pathfinder) <strong>Scope:</strong> Epic Phase 0 (Foundations)</p>
+<details class="section" id="document-inventory"><summary><span class="section-title">Document Inventory</span></summary><div class="section-body">
+<h3 id="prd">PRD</h3>
+<p><strong>Whole document (in use):</strong></p>
+<ul>
+<li><code>prd.md</code> (124,468 bytes, modified 2026-08-07 12:19)</li>
+</ul>
+<p><strong>Historical (not the active PRD — dated validation reports, immutable records):</strong></p>
+<ul>
+<li><code>prd-validation-report-2026-06-10.md</code></li>
+<li><code>prd-validation-report-2026-06-17.md</code></li>
+</ul>
+<h3 id="architecture">Architecture</h3>
+<p><strong>Whole document (entry point):</strong></p>
+<ul>
+<li><code>architecture.md</code> (100,815 bytes, modified 2026-08-07 12:07) — per project convention, this is the canonical entry point linking to sharded topic files below, not a duplicate of them.</li>
+</ul>
+<p><strong>Sharded (<code>architecture/</code>):</strong></p>
+<ul>
+<li><code>assumptions.md</code>, <code>changelog.md</code>, <code>conventions.md</code>, <code>data-tables.md</code>, <code>delivery-operating-model.md</code>, <code>functional-requirements-coverage.md</code>, <code>gaps.md</code>, <code>non-functional-requirements-coverage.md</code>, <code>repo-structure.md</code>, <code>repository-strategy.md</code>, <code>starter-template.md</code>, <code>user-types.md</code></li>
+<li><code>analysis/</code> (subfolder), <code>diagrams/</code>, <code>sequence-diagrams/</code></li>
+</ul>
+<p><strong>⚠️ Needs confirmation — possible duplicate:</strong></p>
+<ul>
+<li><code>architecture-summary.md</code> (23,476 bytes, modified 2026-08-07 12:07) exists alongside <code>architecture.md</code>. Need to confirm this is an intentional distilled summary (e.g. for onboarding/context-bus seeding) rather than a stale/competing full copy.</li>
+</ul>
+<h3 id="epics--stories-sharded--epics">Epics &amp; Stories (sharded — <code>epics/</code>)</h3>
+<ul>
+<li><code>index.md</code> — programme entry point</li>
+<li><code>framework.md</code> — Phase × Area architectural framework</li>
+<li><code>requirements-inventory.md</code> — FR/NFR/AR inventory</li>
+<li><code>fr-coverage-map.md</code> — FR → Epic traceability</li>
+<li><code>phase-0/index.md</code> + 6 epic files:
+<ul>
+<li><code>epic-0.0-platform-estate-provisioned.md</code></li>
+<li><code>epic-0.1-upstream-reference-data-ingested.md</code></li>
+<li><code>epic-0.2-user-authenticates.md</code></li>
+<li><code>epic-0.3-reference-data-read-only-api.md</code></li>
+<li><code>epic-0.4-user-populations-bootstrapped.md</code></li>
+<li><code>epic-0.5-system-dispatches-emails.md</code></li>
+</ul></li>
+</ul>
+<p>No duplicates found (whole <code>epic*.md</code> files do not exist alongside the sharded folder).</p>
+<h3 id="ux-design-documents">UX Design Documents</h3>
+<p><strong>Not present — documented, accepted gap.</strong> <code>epics/index.md</code> explicitly records <code>uxDocument: 'not-present-accepted-gap'</code> and notes downstream epics inherit UI requirements directly from PRD FR55/FR56 and GOV.UK Design System conventions (NFR17). This is a known, pre-accepted condition, not an oversight — will be verified in Step 4 (UX Alignment), not re-litigated as a missing-document blocker here.</p>
+</div></details><details class="section" id="issues-found"><summary><span class="section-title">Issues Found</span></summary><div class="section-body">
+<ol type="1">
+<li><strong>⚠️ Needs your confirmation:</strong> <code>architecture-summary.md</code> vs <code>architecture.md</code> — please confirm which is authoritative for this assessment (expected: <code>architecture.md</code> + shards; <code>architecture-summary.md</code> treated as a derived artifact only).</li>
+<li><strong>No blocking duplicates</strong> in PRD or Epics.</li>
+<li><strong>UX gap is pre-accepted</strong> per documented decision — carried forward as context, not flagged as missing.</li>
+</ol>
+</div></details><details class="section" id="prd-analysis"><summary><span class="section-title">PRD Analysis</span></summary><div class="section-body">
+<p><em>Source: <code>prd.md</code> (read in full, 872 lines), cross-checked against <code>architecture/functional-requirements-coverage.md</code>, <code>architecture/non-functional-requirements-coverage.md</code>, <code>epics/requirements-inventory.md</code>.</em></p>
+<h3 id="functional-requirements-extracted">Functional Requirements Extracted</h3>
+<p><strong>Total: 60 (FR1–FR60), verified contiguous, no gaps or duplicates.</strong> Full text captured for all 60; grouped by domain area in the PRD: Identity &amp; Authorisation (FR1–FR5), Foundational Data Management (FR6–FR9), JOH Records &amp; Working Patterns (FR10–FR18), Absence Workflow (FR19–FR22), Vacancy &amp; Cover (FR23–FR28), Booking Management (FR29–FR34), Sitting Management (FR35–FR40), Payment &amp; Reconciliation (FR41–FR47), Itineraries &amp; Reporting (FR48–FR54), Platform Operations &amp; Migration (FR55–FR60).</p>
+<p><strong>Phase 0 draws exclusively from three groups: FR1–FR9 (Identity/Authorisation + Foundational Data) and FR55–FR59 (Platform Operations), consistent with D1's locked Phase 0 scope.</strong> FR10–FR54 and FR60 belong to Phases 1–9+ and are correctly out of Phase 0 scope (see Epic Coverage Validation below).</p>
+<p>Key Phase-0-relevant FR texts (verbatim from <code>prd.md</code>):</p>
+<ul>
+<li><strong>FR1</strong>[^d11][^d9]: Authenticated users access RAM Pathfinder via HMCTS IdP single sign-on; password, session, and account lifecycle are owned by the IdP. At authentication time, the IdP email is resolved to RAM Pathfinder's canonical identifier — the <strong>personal number</strong> (JOH, via <code>jo_people</code>) or a RAM-internal staff identifier (admin staff).</li>
+<li><strong>FR2</strong>[^d8][^d11]: Authorisation service maps each authenticated principal to roles + jurisdiction + Region/Area scope; authorises every system call against that mapping.</li>
+<li><strong>FR3</strong>: Authorised users can retrieve their effective permissions for their authenticated session.</li>
+<li><strong>FR4</strong>[^d10][^d11]: System administrators can update role/jurisdiction/Region-Area assignments. MVP: DBA-via-SQL; admin-UI surface post-MVP.</li>
+<li><strong>FR5</strong> <em>(post-MVP)</em>: Machine-to-machine auth mechanism — no M2M consumers in MVP scope; open question tracked as gap G7.</li>
+<li><strong>FR6</strong>[^d10][^d11]: Two-tier Reference Data — (a) upstream-sourced (JOH eLinks + MRD, read-only in RAM, corrections at source), (b) RAM-owned (DBA-via-SQL in MVP, admin UI post-MVP). RSU users view both tiers via <code>ram-reference-data</code>'s versioned read API.</li>
+<li><strong>FR7</strong>[^d11]: Every service reads Reference Data via direct SQL on the shared schema (SELECT-granted per DB role); writes follow the tier.</li>
+<li><strong>FR8</strong> <em>(revised v2.2)</em>: Shared <code>ram_configuration_values</code> table for cross-service runtime policy values, Liquibase-managed, SELECT-granted to every service.</li>
+<li><strong>FR9</strong>: Transactional email dispatch (booking/absence acknowledgements, payment schedules) via HMCTS email infrastructure, with delivery log.</li>
+<li><strong>FR55</strong>: Authenticated users land on a role-scoped Home page (navigation, Region/Area selector, summary tiles, contextual help).</li>
+<li><strong>FR56</strong>[^d10]: <code>ram-ui</code> (business-user SPA) replicates the as-is APEX functional surface, WCAG 2.2 AA. MVP = <code>ram-ui</code> only; <code>ram-admin-ui</code> post-MVP.</li>
+<li><strong>FR57</strong>[^d10][^d11]: Per-jurisdiction, per-region phased activation via <code>ram_auth_user_activation_flags</code>; all-FALSE at bootstrap; per-wave DBA flip at cutover.</li>
+<li><strong>FR58</strong>: Every service exposes a versioned API contract, RFC 9457 problem-details, published OpenAPI; <code>Deprecation</code>/<code>Sunset</code> headers (RFC 9745/8594).</li>
+<li><strong>FR59</strong>: Every service emits structured logs with correlation IDs and consistent error categorisation.</li>
+<li><strong>FR60</strong>[^d11][^d5] <em>(Phase 9+, not Phase 0, but load-bearing context)</em>: Manual incumbent-parity UAT script per domain service, per wave. Wave 1 (ET): <code>[ET-INCUMBENT-TBD]</code>-experienced users, role set provisional pending G8.5, panel blocked on G8.4.</li>
+</ul>
+<h3 id="non-functional-requirements-extracted">Non-Functional Requirements Extracted</h3>
+<p><strong>Total: 42 (NFR1–NFR42), verified contiguous, no gaps.</strong> Grouped: Performance (NFR1–9), Security (NFR10–16), Accessibility (NFR17–19), Integration (NFR20–24), Observability (NFR25–29), Data Privacy &amp; Sovereignty (NFR30–33), Reliability &amp; Availability (NFR34–38), Maintainability (NFR39–42).</p>
+<p><strong>Cross-cutting NFRs verified across Phase 0 stories</strong> (per <code>epics/phase-0/index.md</code>): NFR10 (TLS), NFR11 (data-at-rest), NFR12 (JWT propagation), NFR13 (authz enforcement incl. jurisdiction), NFR14 (no forbidden data), NFR15 (change trails), NFR16 (Key Vault), NFR17–19 (business UI WCAG — admin UI deferred), NFR20 (HMCTS IdP via mock), NFR22 (HMCTS email), NFR24 (JOH eLinks + MRD MVP integrations), NFR25–28 (observability), NFR31 (Azure UK South), NFR39 (API-as-Product), NFR40 (per-service deployable), NFR42 (Postman collections).</p>
+<p>Notably <strong>NFR20 — HMCTS IdP integration is a hard Phase 0 dependency</strong> (OIDC or SAML, whichever the IdP exposes) — Epic 0.2 substitutes <code>ram-mock-auth</code> for Phase 0–8, deferring the real IdP integration decision; this is a known, accepted architectural stance (AR35), not a Phase 0 gap, but worth carrying forward as a pre-Phase-9 cutover dependency.</p>
+<h3 id="additional-requirements">Additional Requirements</h3>
+<p><strong>Decisions log (D1–D13)</strong> — D1 locks Phase 0 scope; D3 (no data migration, upstream ingestion only); D9 (two user populations, RAM-assigned UUIDs); D10 (admin UI post-MVP, DBA-via-SQL runbooks); D13 (2026-08-07, supersedes D11) — <strong>ET-first pilot</strong>, wave 1 = ET, wave 2 = SSCS, waves 3+ = Courts; reworded ~12 FR/NFRs without renumbering or epic restructuring (Phase 0 stays at 6 epics / 19 stories).</p>
+<p><strong>Architecture-derived requirements (AR) directly relevant to Phase 0:</strong> AR23/AR53 (Terraform-provisioned shared Azure estate, Epic 0.0), AR46–AR49 (JOH eLinks nightly sync, MRD weekly ingestion, sync-status tracking, tier-(a) write protection via DB grants + ArchUnit), AR34–AR36 (<code>JWTFilter</code> + <code>authz/check</code>, <code>ram-mock-auth</code> as dev/CI OIDC issuer, <code>client_credentials</code> for batch), AR18/AR22 (shared schema, direct-SQL cross-service reads, no client class/cache), AR52 (identity bootstrap + verification job), AR30–AR33 (notification dispatch + structured logging/OTel wiring).</p>
+<p><strong>Open gaps material to Phase 0/wave-1 readiness:</strong> <strong>G8.4</strong> (ET scheduling incumbent unidentified — blocks D5 behavioural reference, FR60/NFR41 UAT target, NFR36 rollback target, NFR32 historical-data location), <strong>G8.5</strong> (ET role/JOH-type taxonomy provisional, pending an as-is analysis pack that does not yet exist), <strong>G8.6</strong> (JFEPS/Liberata applicability to ET unverified), <strong>G8.1</strong> (promoted to wave-1 blocker — JOH eLinks must be confirmed to carry ET data), <strong>G7/G7.1</strong> (post-MVP service-principal auth mechanism open), <strong>G3.6</strong> (disaster-recovery scope open), <strong>G1.3</strong> (bootstrap-verification job detail), <strong>G5.3</strong> (<code>ram-mock-auth</code> production-profile refusal behaviour).</p>
+<h3 id="prd-completeness-assessment">PRD Completeness Assessment</h3>
+<p>The PRD is structurally sound: FR/NFR numbering is contiguous and complete, both architecture coverage documents independently confirm 100% architectural support with none unaddressed, and the D13 change cascade explicitly enumerates exactly which FRs/NFRs were reworded for the ET-first pivot without touching numbering, epics, or code — a disciplined, traceable change record.</p>
+<p><strong>None of the Phase-0-relevant FRs/NFRs (FR1–FR9, FR55–FR59, NFR24 + cross-cutting NFRs) are themselves blocked by G8.4–G8.6</strong> — those gaps bite at the wave-1/Phase-9 cutover gate, not at Phase 0 build. Phase 0 is buildable as scoped.</p>
+<p><strong>Two findings worth carrying into the final assessment:</strong></p>
+<ol type="1">
+<li><strong>🟡 Minor — FR1 wording drift.</strong> <code>prd.md</code>'s FR1 text states the canonical identifier is the <strong>personal number</strong>; <code>architecture/functional-requirements-coverage.md</code> and <code>epics/requirements-inventory.md</code> both state it is the <strong>RAM JOH UUID</strong> (<code>jo_people</code> → <code>personnel_number</code> → <code>ram_joh_identities</code>) — the latter reflects the D9 refinement dated 2026-07-09, which was not backfilled into <code>prd.md</code>'s own FR1 text. The artifacts agree in substance (personnel_number is the upstream <em>link</em>, not the canonical RAM identifier) but are not word-for-word aligned. Low risk — a documentation-sync fix, not a design ambiguity — but flag for correction before Phase 0 story implementation to avoid an agent taking <code>prd.md</code>'s FR1 literally.</li>
+<li><strong>⚪ Informational — Journey 1 (wave-1 ET journey) is explicitly marked "PROVISIONAL — structural placeholder"</strong> in the PRD's own text, consistent with G8.4/G8.5. Not a Phase 0 blocker (Phase 0 has no ET-specific content), but confirms the provisional-taxonomy caveat in <code>CLAUDE.md</code> is accurately reflected upstream.</li>
+</ol>
+</div></details><details class="section" id="epic-coverage-validation"><summary><span class="section-title">Epic Coverage Validation</span></summary><div class="section-body">
+<h3 id="epic-fr-coverage-extracted-from-epicsfr-coverage-mapmd-the-canonical-frepic-index">Epic FR Coverage Extracted (from <code>epics/fr-coverage-map.md</code>, the canonical FR→Epic index)</h3>
+<table>
+<thead>
+<tr>
+<th>FR/NFR</th>
+<th>Phase 0 Epic Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR1</td>
+<td>Epic 0.2 (Stories 0.2.3/0.2.5) + Epic 0.1 (<code>jo_people</code> ingested) + Epic 0.4 (auth records)</td>
+</tr>
+<tr>
+<td>FR2</td>
+<td>Epic 0.2 Story 0.2.3</td>
+</tr>
+<tr>
+<td>FR3</td>
+<td>Epic 0.2 Story 0.2.3</td>
+</tr>
+<tr>
+<td>FR4</td>
+<td>Epic 0.4 (data layer only; UI post-MVP)</td>
+</tr>
+<tr>
+<td>FR5</td>
+<td>— (post-MVP, intentional pre-existing deferral)</td>
+</tr>
+<tr>
+<td>FR6</td>
+<td>Epic 0.1 Story 0.1.2/0.1.3/0.1.4 (tier a) + Epic 0.3 Story 0.3.1/0.3.2 (tier b + read API)</td>
+</tr>
+<tr>
+<td>FR7</td>
+<td>Epic 0.1 Story 0.1.2 (tier-a grants) + Epic 0.3 Story 0.3.1 (tier-b grants)</td>
+</tr>
+<tr>
+<td>FR8</td>
+<td>Epic 0.1 Story 0.1.1</td>
+</tr>
+<tr>
+<td>FR9</td>
+<td>Epic 0.5</td>
+</tr>
+<tr>
+<td>FR55</td>
+<td>Epic 0.2 Story 0.2.5</td>
+</tr>
+<tr>
+<td>FR56</td>
+<td>Epic 0.2 (business stack; admin stack post-MVP)</td>
+</tr>
+<tr>
+<td>FR57</td>
+<td>Epic 0.4 (initial flag state; cutover flip is Phase 9+)</td>
+</tr>
+<tr>
+<td>FR58</td>
+<td>Epic 0.2 Story 0.2.3 + Epic 0.3 Story 0.3.2 + every service story</td>
+</tr>
+<tr>
+<td>FR59</td>
+<td>Epic 0.1 Story 0.1.1 + every service story</td>
+</tr>
+<tr>
+<td>NFR24</td>
+<td>Epic 0.1 Stories 0.1.3/0.1.4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total FRs claimed covered by Phase 0 epics: 13 of 60 FR numbers touched (FR1–FR4, FR6–FR9, FR55–FR59), plus NFR24 and the cross-cutting NFR cohort listed above.</strong> This matches exactly what a Phase 0 (foundations-only) scope should cover — no domain-service FRs (FR10–FR54) or the wave-rollout FR60 are expected here.</p>
+<h3 id="fr-coverage-analysis-phase-0-relevant-scope-only">FR Coverage Analysis (Phase-0-relevant scope only)</h3>
+<table>
+<thead>
+<tr>
+<th>FR/NFR</th>
+<th>PRD Requirement (gist)</th>
+<th>Epic Coverage</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR1</td>
+<td>IdP SSO → canonical identifier resolution</td>
+<td>Epic 0.1 + 0.2 (0.2.3/0.2.5) + 0.4</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR2</td>
+<td>Authorisation: roles + jurisdiction + scope</td>
+<td>Epic 0.2 (0.2.3)</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR3</td>
+<td>Effective-permissions lookup</td>
+<td>Epic 0.2 (0.2.3)</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR4</td>
+<td>Admin role/jurisdiction/scope updates</td>
+<td>Epic 0.4 (data layer only)</td>
+<td>✓ Covered <em>(MVP scope: DBA-via-SQL, matches D10 — UI surface correctly excluded)</em></td>
+</tr>
+<tr>
+<td>FR5</td>
+<td>M2M auth mechanism</td>
+<td>—</td>
+<td>⚪ Correctly excluded — pre-existing post-MVP deferral (PRD v2.5), not a Phase 0 gap</td>
+</tr>
+<tr>
+<td>FR6</td>
+<td>Two-tier Reference Data view + maintenance</td>
+<td>Epic 0.1 (tier a) + Epic 0.3 (tier b + read API)</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR7</td>
+<td>Direct-SQL cross-service reads</td>
+<td>Epic 0.1 + Epic 0.3</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR8</td>
+<td>Shared <code>ram_configuration_values</code></td>
+<td>Epic 0.1 (0.1.1)</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR9</td>
+<td>Transactional email + delivery log</td>
+<td>Epic 0.5</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR55</td>
+<td>Role-scoped Home page</td>
+<td>Epic 0.2 (0.2.5)</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR56</td>
+<td><code>ram-ui</code> business SPA, WCAG 2.2 AA</td>
+<td>Epic 0.2</td>
+<td>✓ Covered <em>(admin stack correctly deferred per D10)</em></td>
+</tr>
+<tr>
+<td>FR57</td>
+<td>Per-jurisdiction/region activation flags</td>
+<td>Epic 0.4 (initial state only)</td>
+<td>✓ Covered <em>(cutover flip correctly deferred to Phase 9+ per D8/D13)</em></td>
+</tr>
+<tr>
+<td>FR58</td>
+<td>API-as-Product standards</td>
+<td>Epic 0.2 + Epic 0.3 + every story</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR59</td>
+<td>Structured logging + correlation IDs</td>
+<td>Epic 0.1 (0.1.1) + every story</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>NFR24</td>
+<td>JOH eLinks + MRD MVP integration</td>
+<td>Epic 0.1 (0.1.3/0.1.4)</td>
+<td>✓ Covered</td>
+</tr>
+<tr>
+<td>FR10–FR54</td>
+<td>Domain-service FRs (JOH, Absence, Vacancy, Booking, Sitting, Payment, Itinerary, MI)</td>
+<td>—</td>
+<td>⚪ Correctly out of scope — Phases 1–8 per <code>fr-coverage-map.md</code></td>
+</tr>
+<tr>
+<td>FR60</td>
+<td>Wave-rollout manual UAT</td>
+<td>—</td>
+<td>⚪ Correctly out of scope — Phase 9+ per <code>fr-coverage-map.md</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="missing-fr-coverage">Missing FR Coverage</h3>
+<p><strong>None found.</strong> Every FR/NFR that D1 assigns to Phase 0 has a named epic and, in most cases, a named story. No orphaned Phase-0-relevant FR, and no epic claims coverage of an FR that doesn't exist in the PRD (spot-checked against the verified 60-FR/42-NFR count from PRD Analysis above).</p>
+<p>One <strong>traceability nuance, not a gap:</strong> FR58 and FR59 are each covered by an explicit story (0.2.3/0.3.2 and 0.1.1 respectively) <em>and</em> reasserted as "every service story" — this is intentional (API-as-Product standards and structured logging are cross-cutting non-functional patterns every story must satisfy, not one-off features), but a reviewer unfamiliar with the pattern could misread "every service story" as vague hand-waving. Recommend Epic 0.1/0.2/0.3 story ACs each explicitly re-affirm FR58/FR59 compliance (even one line) so the traceability claim is checkable story-by-story, not just asserted at the epic level.</p>
+<h3 id="coverage-statistics-phase-0-scope">Coverage Statistics (Phase 0 scope)</h3>
+<ul>
+<li>Total PRD FRs: 60 (+ 42 NFRs)</li>
+<li>FRs in Phase 0's declared scope (D1): 13 FR numbers (FR1–FR4, FR6–FR9, FR55–FR59) + NFR24 + ~16 cross-cutting NFRs</li>
+<li>FRs covered by Phase 0 epics: 13 of 13 (100% of in-scope FRs)</li>
+<li>FRs correctly deferred to later phases: 47 (FR5, FR10–FR54, FR60) — all traced to a named future phase in <code>fr-coverage-map.md</code>, none silently dropped</li>
+<li><strong>Coverage percentage (Phase-0-scoped FRs): 100%</strong></li>
+</ul>
+</div></details><details class="section" id="ux-alignment-assessment"><summary><span class="section-title">UX Alignment Assessment</span></summary><div class="section-body">
+<h3 id="ux-document-status">UX Document Status</h3>
+<p><strong>Not found</strong> — and, per the document inventory, this is a pre-existing, explicitly documented decision (<code>epics/index.md</code> frontmatter: <code>uxDocument: 'not-present-accepted-gap'</code>), recorded originally in the 2026-05-06 readiness report. This is not a fresh finding; it is being re-verified against current PRD/Architecture content below.</p>
+<h3 id="is-uxui-implied">Is UX/UI implied?</h3>
+<p>Yes. The PRD is explicit about a business-facing UI:</p>
+<ul>
+<li><strong>FR55</strong> — authenticated users land on a role-scoped Home page (navigation, Region/Area selector, summary tiles, contextual help).</li>
+<li><strong>FR56</strong> (footnoted D10) — <code>ram-ui</code> (business-user SPA) replicates the functional surface of the as-is APEX UI and must meet <strong>WCAG 2.2 Level AA</strong>. <code>ram-admin-ui</code> is explicitly <strong>post-MVP</strong> per D10 — so Phase 0 only needs to support <code>ram-ui</code>.</li>
+<li><strong>NFR17</strong> (WCAG 2.2 AA, tested per UI page per domain phase gate), <strong>NFR18</strong> (assistive-tech: keyboard nav, ARIA, screen-reader), <strong>NFR19</strong> (Public Sector Bodies Accessibility Regulations 2018, incl. published accessibility statement).</li>
+</ul>
+<h3 id="alignment-check--prd--architecture">Alignment check — PRD ↔︎ Architecture</h3>
+<ul>
+<li>Architecture/<code>project-context.md</code> mandates <strong>React 18 + TypeScript 5 + Vite 5 + GOV.UK Design System</strong> specifically <em>because</em> it's the accessibility-compliant base for WCAG 2.2 AA (NFR17) — direct traceability from NFR to tech choice, no gap.</li>
+<li>Epic 0.2 (<code>User authenticates and lands on a role-scoped Home page</code>) is the Phase 0 vehicle for FR55/FR56/NFR17 — a role-scoped Home page is its stated demoable outcome.</li>
+<li>No UX document means there is <strong>no independently-authored user-journey / wireframe / interaction-design artifact</strong> to check epics against — the epics inherit UI requirements directly from PRD prose + GOV.UK Design System conventions instead of a UX spec. For a role-scoped Home page (Epic 0.2) this is a thin surface and low risk. It becomes higher-risk <strong>from Phase 1 onward</strong> as <code>ram-ui</code> grows more screens (absence, vacancy, booking, sitting, payment, itinerary, MI) without a UX artifact to keep those journeys consistent — worth flagging as a forward risk, not a Phase-0 blocker.</li>
+</ul>
+<h3 id="warnings">Warnings</h3>
+<p>⚠️ <strong>Carried-forward, not new:</strong> absence of a UX document remains an accepted gap for Phase 0 (thin UI surface: sign-in → Home page). <strong>Recommend revisiting before Phase 1 story creation</strong> (Absence domain), once <code>ram-ui</code> gains real user workflows beyond a single landing page — at that point GOV.UK Design System conventions alone may not be sufficient to keep multi-screen journeys coherent.</p>
+<p>No NEW alignment issues found between PRD, Architecture, and the (documented-absent) UX layer for Phase 0 scope.</p>
+</div></details><details class="section" id="epic-quality-review"><summary><span class="section-title">Epic Quality Review</span></summary><div class="section-body">
+<p><em>Standard applied: create-epics-and-stories best practices (user value focus, epic independence, no forward dependencies, story sizing, BDD acceptance criteria, DB-creation timing, starter-template usage, greenfield indicators). All 6 Phase 0 epic files + <code>index.md</code> + <code>framework.md</code> read in full.</em></p>
+<h3 id="epic-structure-validation">Epic Structure Validation</h3>
+<p>Phase 0's 6 epics / 19 stories are unusually well-documented — every epic states FRs/NFRs covered, an explicit "out of scope" list, and traces back to architecture decisions (D3/D8/D9/D10/D13, AR-numbers, gaps.md). That rigor is a genuine strength. However, the review surfaced <strong>one systemic, epic-breaking sequencing defect</strong> (Epics 0.2 and 0.3 both have hard functional dependencies on Epic 0.4, which is sequenced <em>after</em> them), plus several concrete factual/titling defects.</p>
+<h3 id="story-quality-assessment">Story Quality Assessment</h3>
+<ul>
+<li><strong>AC form:</strong> All 19 stories consistently use Given/When/Then BDD structure — no vague ACs found; consistently measurable (<code>kubectl get nodes</code> Ready, specific HTTP status codes, specific response shapes/file paths).</li>
+<li><strong>Error/failure-path coverage:</strong> Consistently present and above the checklist bar — TLS-refused checks, sync-failure rollback, workbook-validation rejection, 400/401/403/405 paths, non-activated-user rejection.</li>
+<li><strong>Story sizing:</strong> Each story is a coherent, shippable unit; no forward references <em>within</em> an epic.</li>
+<li><strong>Cross-epic story coupling:</strong> This is where the real problems live — see Dependency Analysis.</li>
+</ul>
+<h3 id="dependency-analysis">Dependency Analysis</h3>
+<p>Declared chain (<code>index.md</code>): <code>0.0 → 0.1 → 0.2 → 0.3 → 0.4 → 0.5</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Edge</th>
+<th>Direction</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1 → 0.0</td>
+<td>backward</td>
+<td>✅ fine</td>
+</tr>
+<tr>
+<td>0.1 → 0.2 (Story 0.1.3, AC3)</td>
+<td>forward</td>
+<td>🟠 soft/testability issue</td>
+</tr>
+<tr>
+<td>0.2 → 0.1</td>
+<td>backward</td>
+<td>✅ fine</td>
+</tr>
+<tr>
+<td><strong>0.2 → 0.4</strong> (Stories 0.2.3, 0.2.5)</td>
+<td><strong>forward</strong></td>
+<td>🔴 hard functional dependency</td>
+</tr>
+<tr>
+<td>0.3 → 0.2</td>
+<td>backward</td>
+<td>✅ fine</td>
+</tr>
+<tr>
+<td><strong>0.3 → 0.4</strong> (Story 0.3.2)</td>
+<td><strong>forward</strong></td>
+<td>🔴 hard functional dependency (same root cause)</td>
+</tr>
+<tr>
+<td>0.4 → 0.2 (Story 0.4.1, closing AC)</td>
+<td>forward</td>
+<td>🟠 soft/testability issue</td>
+</tr>
+<tr>
+<td>0.5 → 0.2</td>
+<td>backward</td>
+<td>✅ fine — 0.4 already precedes 0.5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Core problem:</strong> Epic 0.2 Story 0.2.3's own scope note states <em>"the auth tables are created here; they're populated by Epic 0.4's seed scripts ... not by API writes."</em> Yet 0.2.3's happy-path ACs require exactly that seeded data to exist (<code>POST /v1/authz/check</code> resolving a test JOH to roles/jurisdiction/regions/areas/activation state); Story 0.2.5 needs a seeded non-activated user to demo the activation banner; Story 0.3.2 needs seeded users in two different jurisdictions to demo jurisdiction-filtering. Since Epic 0.4 (which owns this seeding) is sequenced <em>after</em> 0.2 and 0.3, neither can be demoed or CI-verified end-to-end in isolation — contradicting the stated epic-independence model and the Phase 0 demo-gate claim in <code>index.md</code>. Not a circular dependency (0.4 doesn't need 0.2/0.3 to deliver its own value), but the two are mutually entangled for end-to-end verification.</p>
+<h3 id="best-practices-compliance-checklist-summary--full-per-epic-checklist-available-on-request">Best Practices Compliance Checklist (summary — full per-epic checklist available on request)</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>User Value</th>
+<th>Independence</th>
+<th>Sizing</th>
+<th>ACs</th>
+<th>DB Timing</th>
+<th>Starter Template</th>
+<th>Greenfield</th>
+<th>Traceability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0 Platform estate</td>
+<td>✅ (foundations exception)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>N/A</td>
+<td>N/A (Terraform-only)</td>
+<td>✅</td>
+<td>~ (minor: log-retention sign-off pending)</td>
+</tr>
+<tr>
+<td>0.1 Reference data ingested</td>
+<td>✅</td>
+<td>~ (soft fwd-ref, Finding 4)</td>
+<td>✅</td>
+<td>✅</td>
+<td>~ (minor, Finding 7)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>0.2 User authenticates</td>
+<td>✅</td>
+<td>❌ <strong>fails</strong> (Finding 1)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>~ (Findings 2, 6)</td>
+</tr>
+<tr>
+<td>0.3 Reference data read API</td>
+<td>✅</td>
+<td>❌ <strong>fails</strong> (Finding 1, same root cause)</td>
+<td>✅</td>
+<td>✅</td>
+<td>~ (minor, Finding 7)</td>
+<td>N/A (reuses 0.1's service)</td>
+<td>N/A</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>0.4 User populations bootstrapped</td>
+<td>✅</td>
+<td>✅ (its own fwd-ref is soft, Finding 5)</td>
+<td>✅</td>
+<td>✅</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>0.5 Notification service</td>
+<td>~ <strong>title drift</strong> (Finding 3)</td>
+<td>✅ (only epic where ordering fully works)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="findings-by-severity">Findings by Severity</h3>
+<p><strong>🔴 Critical</strong></p>
+<ol type="1">
+<li><strong>Epic 0.2 and Epic 0.3 have a hard forward dependency on Epic 0.4 — sequencing is functionally broken.</strong> Stories 0.2.3, 0.2.5, and 0.3.2 all require seeded identity/authorisation data that, per the epics' own text, is Epic 0.4's deliverable — but Epic 0.4 is sequenced two epics later. Neither Epic 0.2 nor 0.3 can be demoed or CI-verified end-to-end as currently sequenced. <strong>Remediation (either):</strong> (a) split Epic 0.4 into a "dev/CI seed data" sub-story pulled forward to immediately follow Epic 0.2's schema story, leaving the full bootstrap-verification job + production runbook in place at 0.4; or (b) add a minimal seed-fixture sub-story inside Epic 0.2 itself (mirroring the fixture pattern Epic 0.1 already uses for <code>jo_*</code> data per AR52), reserving Epic 0.4 for the full verification job and production runbook only.</li>
+</ol>
+<p><strong>🟠 Major</strong></p>
+<ol start="2" type="1">
+<li><strong>Default port <code>8082</code> is identically assigned to three unrelated services</strong> — Story 0.1.1 (<code>ram-reference-data</code>), Story 0.2.1 (<code>ram-authorisation</code>), and Story 0.5.1 (<code>ram-notification</code>) all state "default port is 8082 (per AR3)." Looks like a copy-paste artifact rather than a deliberate per-service convention; will collide in any local multi-service dev/CI stack — which Phase 0's own demo gate requires. <strong>Remediation:</strong> verify the intended per-service port table in <code>architecture/conventions.md</code> (AR3) and correct each story before scaffolding.</li>
+<li><strong>Epic 0.5's title drifts toward a technical-milestone framing</strong> — filename <code>epic-0.5-system-dispatches-emails.md</code> is user/outcome-framed, but the actual title is "Notification service is scaffolded and contractually ready" (the exact "disguised technical milestone" pattern the standard flags), even though the underlying content (<code>POST /v1/notifications/send</code> → Mailpit) is genuinely demoable. <strong>Remediation:</strong> retitle to match filename intent, e.g. "System dispatches transactional emails via a versioned, contract-published API."</li>
+<li><strong>Epic 0.1 Story 0.1.3's AC forward-references Epic 0.2 Story 0.2.3</strong> as its own verification mechanism ("When <code>ram-authorisation</code> (Epic 0.2, Story 0.2.3) looks up a seeded JOH email..."), making 0.1.3 not independently verifiable as written. <strong>Remediation:</strong> move this AC into Epic 0.2 Story 0.2.3 as a <em>Given</em> precondition, not one of 0.1.3's own completion criteria.</li>
+<li><strong>Epic 0.4 Story 0.4.1's closing AC has the same forward-reference pattern in reverse</strong> ("When the Epic 0.2 Playwright suite executes...") — same issue as Finding 4, and combined with Finding 1 shows 0.2 and 0.4 are mutually entangled for verification despite being modeled as independent sequential epics. <strong>Remediation:</strong> reframe as an epic-level cross-reference in <code>index.md</code>, not a story-level AC.</li>
+<li><strong><code>framework.md</code>'s FR attribution is inconsistent with the concrete epics for FR4</strong> — <code>framework.md</code>'s Identity &amp; Authorisation Area row lists FR4, but the concrete Epic 0.2 does not claim FR4 (it's delivered by Epic 0.4 instead). A reader cross-checking <code>framework.md</code> against the Phase 0 epics would reasonably but incorrectly conclude FR4 lands in Epic 0.2. <strong>Remediation:</strong> correct <code>framework.md</code>'s Area table or add a cross-reference footnote.</li>
+</ol>
+<p><strong>🟡 Minor</strong></p>
+<ol start="7" type="1">
+<li>Bulk-style table creation within single stories (Story 0.1.2: 15 <code>jo_*</code> tables + <code>ram_sync_status</code>; Story 0.3.1: 15 tier-(b) tables, both in one changeset) — each set is consumed by the very next story so this is likely acceptable, but larger than the checklist's per-need principle would ideally prefer; worth a light check that no individual table sits unused for more than one story.</li>
+<li><strong><code>ram_configuration_values</code> Liquibase baseline (FR8) has no owning story in Phase 0</strong> — Stories 0.1.1 and 0.2.1 both treat it as a pre-existing <em>Given</em> attributed to <code>ram-architecture</code>, but no Phase 0 epic/story actually delivers it as tracked work. If this has real implementation cost, it needs an explicit story or a <code>delivery/dispatch-graph.yaml</code> entry.</li>
+<li>Story 0.0.4's log-retention AC embeds an unresolved external dependency ("90 days non-prod, subject to HMCTS sign-off") — honest and well-flagged, but the AC's own measurable value is conditional on a sign-off that hasn't happened yet; worth a fallback value or an explicit blocking-dependency note in sprint planning.</li>
+<li>ET role-taxonomy/incumbent placeholders (<code>[ET-INCUMBENT-TBD]</code> G8.4, provisional taxonomy G8.5) are consistently and transparently flagged in Story 0.3.1 — not a Phase 0 defect, since they bite at Phase 9+ wave rollout, not Phase 0's own functional completion. No action needed within Phase 0.</li>
+</ol>
+</div></details><details class="section" id="summary-and-recommendations"><summary><span class="section-title">Summary and Recommendations</span></summary><div class="section-body">
+<h3 id="overall-readiness-status">Overall Readiness Status</h3>
+<p><strong>NEEDS WORK</strong></p>
+<p>Phase 0's planning artifacts are strong on documentation discipline and traceability (100% FR/NFR coverage for Phase 0's declared scope, consistent BDD acceptance criteria across all 19 stories, transparent gap-tracking for the ET-first pivot). But <strong>one critical structural defect</strong> means Epics 0.2 and 0.3 — half the epics in this phase — cannot currently be demoed or CI-verified in isolation as sequenced. This is a fixable sequencing/story-scoping problem, not a fundamental re-architecture, so it does not warrant NOT READY — but it should not be waved through as-is either.</p>
+<h3 id="critical-issues-requiring-immediate-action">Critical Issues Requiring Immediate Action</h3>
+<ol type="1">
+<li><strong>🔴 Epic 0.2 and Epic 0.3 have a hard forward dependency on Epic 0.4's seed data.</strong> Stories 0.2.3, 0.2.5, and 0.3.2 all require identity/authorisation/jurisdiction data that Epic 0.4 (sequenced two epics later) is the one that seeds. As written, neither epic's happy-path ACs are independently executable. <strong>Fix before implementation starts on Epic 0.2:</strong> either pull a minimal dev/CI seed-fixture sub-story forward into Epic 0.2 (reserving Epic 0.4 for the full bootstrap-verification job + production runbook), or resequence Epic 0.4's seed-scripts portion ahead of Epic 0.2.</li>
+</ol>
+<h3 id="other-issues-to-address-non-blocking-address-opportunistically">Other Issues to Address (non-blocking, address opportunistically)</h3>
+<ul>
+<li><strong>🟠 Major (4):</strong> default port <code>8082</code> collision across three service-scaffold stories (0.1.1/0.2.1/0.5.1); Epic 0.5 title reads as a technical milestone despite demoable content; Epic 0.1 Story 0.1.3 and Epic 0.4 Story 0.4.1 each embed a forward-reference AC to the other's epic instead of framing it as a cross-epic integration note.</li>
+<li><strong>🟡 Minor (4):</strong> bulk multi-table DDL within single stories (0.1.2, 0.3.1) — likely fine, worth a light check; <code>ram_configuration_values</code> (FR8) has no owning Phase 0 story despite being a dependency two stories rely on; Story 0.0.4's log-retention AC rests on an unconfirmed HMCTS sign-off; ET incumbent/taxonomy placeholders are already transparently tracked (no action needed, noted for completeness).</li>
+<li><strong>🟡 Minor (documentation):</strong> <code>prd.md</code> FR1 text ("personal number" as canonical identifier) has not been backfilled with the 2026-07-09 D9 refinement that both <code>architecture/functional-requirements-coverage.md</code> and <code>epics/requirements-inventory.md</code> already reflect (RAM JOH UUID is canonical; personnel_number is only the upstream link). Low risk but could mislead an implementing agent reading <code>prd.md</code> literally.</li>
+<li><strong>⚪ Needs your confirmation (not re-checked further):</strong> <code>architecture-summary.md</code> alongside <code>architecture.md</code> — confirm it's a derived/summary artifact and not meant as an alternate source of truth.</li>
+<li><strong>⚪ Forward risk (not a Phase 0 blocker):</strong> no UX design document exists (documented, accepted gap for Phase 0's thin UI surface). Recommend revisiting before Phase 1 story creation once <code>ram-ui</code> grows beyond a single Home page.</li>
+<li><strong>🟡 Minor traceability nuance:</strong> FR58/FR59 coverage is asserted partly via "every service story" — recommend each Epic 0.1/0.2/0.3 story AC explicitly re-affirm compliance so the claim is checkable story-by-story.</li>
+</ul>
+<h3 id="recommended-next-steps">Recommended Next Steps</h3>
+<ol type="1">
+<li><strong>Resolve the Epic 0.2/0.3 ↔︎ Epic 0.4 dependency</strong> before dev-agent work starts on either epic — this is the one item that would actually block a "single dev-agent session" story from being completable as scoped.</li>
+<li><strong>Fix the <code>8082</code> port collision</strong> across Stories 0.1.1, 0.2.1, and 0.5.1 against the actual <code>architecture/conventions.md</code> (AR3) port table before any service is scaffolded.</li>
+<li><strong>Retitle Epic 0.5</strong> to a user/outcome-framed title matching its filename intent.</li>
+<li><strong>Correct <code>framework.md</code>'s FR4 attribution</strong> and reconcile <code>prd.md</code> FR1's wording with the D9-refined canonical-identifier text already used downstream.</li>
+<li><strong>Confirm <code>architecture-summary.md</code>'s status</strong> (derived artifact vs. alternate source of truth) so future assessments don't need to re-flag it.</li>
+<li>Everything else in this report is either already correctly handled (UX gap, ET placeholders, FR/NFR coverage) or a minor/opportunistic fix — safe to defer without blocking Phase 0 kickoff.</li>
+</ol>
+<h3 id="final-note">Final Note</h3>
+<p>This assessment identified <strong>15 findings</strong> across 5 categories (document inventory, PRD analysis, epic coverage, UX alignment, epic quality) — 1 critical, 4 major, 6 minor, and 4 informational/no-action items. FR/NFR traceability for Phase 0's declared scope is complete (100%), and the UX gap is a pre-existing, correctly documented decision, not a new finding. The one critical issue (Epic 0.2/0.3 forward dependency on Epic 0.4) should be resolved before implementation begins on those two epics; the remaining issues can be fixed opportunistically without blocking Phase 0 kickoff.</p>
+<hr />
+<p><strong>Assessed by:</strong> BMAD Implementation Readiness workflow (Claude Code) <strong>Date:</strong> 2026-08-11</p>
+</div></details><details class="section" id="documents-in-scope-for-this-assessment"><summary><span class="section-title">Documents In Scope For This Assessment</span></summary><div class="section-body">
+<ul>
+<li>PRD: <code>prd.md</code></li>
+<li>Architecture: <code>architecture.md</code> + all files under <code>architecture/</code></li>
+<li>Epics: <code>epics/index.md</code>, <code>epics/framework.md</code>, <code>epics/requirements-inventory.md</code>, <code>epics/fr-coverage-map.md</code>, <code>epics/phase-0/index.md</code> + 6 Phase-0 epic files</li>
+<li>UX: none (accepted gap, documented in <code>epics/index.md</code>)</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/implementation-readiness-report-2026-08-11.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#document-inventory">Document Inventory</a></li><li class="h3"><a href="#prd">PRD</a></li><li class="h3"><a href="#architecture">Architecture</a></li><li class="h3"><a href="#epics--stories-sharded--epics">Epics &amp; Stories (sharded — epics/)</a></li><li class="h3"><a href="#ux-design-documents">UX Design Documents</a></li><li><a href="#issues-found">Issues Found</a></li><li><a href="#prd-analysis">PRD Analysis</a></li><li class="h3"><a href="#functional-requirements-extracted">Functional Requirements Extracted</a></li><li class="h3"><a href="#non-functional-requirements-extracted">Non-Functional Requirements Extracted</a></li><li class="h3"><a href="#additional-requirements">Additional Requirements</a></li><li class="h3"><a href="#prd-completeness-assessment">PRD Completeness Assessment</a></li><li><a href="#epic-coverage-validation">Epic Coverage Validation</a></li><li class="h3"><a href="#epic-fr-coverage-extracted-from-epicsfr-coverage-mapmd-the-canonical-frepic-index">Epic FR Coverage Extracted (from epics/fr-coverage-map.md, the canonical FR→Epic index)</a></li><li class="h3"><a href="#fr-coverage-analysis-phase-0-relevant-scope-only">FR Coverage Analysis (Phase-0-relevant scope only)</a></li><li class="h3"><a href="#missing-fr-coverage">Missing FR Coverage</a></li><li class="h3"><a href="#coverage-statistics-phase-0-scope">Coverage Statistics (Phase 0 scope)</a></li><li><a href="#ux-alignment-assessment">UX Alignment Assessment</a></li><li class="h3"><a href="#ux-document-status">UX Document Status</a></li><li class="h3"><a href="#is-uxui-implied">Is UX/UI implied?</a></li><li class="h3"><a href="#alignment-check--prd--architecture">Alignment check — PRD ↔︎ Architecture</a></li><li class="h3"><a href="#warnings">Warnings</a></li><li><a href="#epic-quality-review">Epic Quality Review</a></li><li class="h3"><a href="#epic-structure-validation">Epic Structure Validation</a></li><li class="h3"><a href="#story-quality-assessment">Story Quality Assessment</a></li><li class="h3"><a href="#dependency-analysis">Dependency Analysis</a></li><li class="h3"><a href="#best-practices-compliance-checklist-summary--full-per-epic-checklist-available-on-request">Best Practices Compliance Checklist (summary — full per-epic checklist available on request)</a></li><li class="h3"><a href="#findings-by-severity">Findings by Severity</a></li><li><a href="#summary-and-recommendations">Summary and Recommendations</a></li><li class="h3"><a href="#overall-readiness-status">Overall Readiness Status</a></li><li class="h3"><a href="#critical-issues-requiring-immediate-action">Critical Issues Requiring Immediate Action</a></li><li class="h3"><a href="#other-issues-to-address-non-blocking-address-opportunistically">Other Issues to Address (non-blocking, address opportunistically)</a></li><li class="h3"><a href="#recommended-next-steps">Recommended Next Steps</a></li><li class="h3"><a href="#final-note">Final Note</a></li><li><a href="#documents-in-scope-for-this-assessment">Documents In Scope For This Assessment</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="implementation-readiness-report-2026-08-11";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

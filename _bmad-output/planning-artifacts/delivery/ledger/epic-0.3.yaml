@@ -1,6 +1,6 @@
 # Ledger shard — Epic 0.3. Schema, status vocab, and concurrency model: ./README.md
 epic: epic-0.3
-title: Reference data served read-only via a versioned, jurisdiction-filtered API
+title: Upstream MRD reference data is ingested
 repo: ctam-reference-data
 bus_version: arch-v1.0
 status: not-started        # epic-level rollup: not-started | in-progress | blocked | in-review | done
@@ -8,17 +8,12 @@ owner: null                # who is driving this epic (name/handle); null = unas
 stories:
   - story: 0.3.1
     repo: ctam-reference-data
-    title: Tier-(b) CTAM-owned reference tables, seed data, and the DBA maintenance runbook
-    frs: [FR6, FR7]
+    title: MRD supplementary reference data is ingested from the weekly Excel feed
+    frs: [FR6, FR7, NFR24]
+    touches: [ctam-analysis]   # architecture/data-tables.md mrd_* rows
+    note: consumes ctam-mrd-mock's column dictionary + variant modes (epic-0M.2), and provisions the drop container as a named exception to the Story 0.0.6 perimeter posture
+    note: built and negative-tested against ctam-mrd-mock (epic-0M.2, phase 0-mock) — real MRD feed is a drop-source change; G8.1 stays open
     bus_version: arch-v1.0
     status: not-started      # not-started | dispatched | in-progress | in-review | done
-    owner: null
-    pr: null
-  - story: 0.3.2
-    repo: ctam-reference-data
-    title: Reference Data read-only REST API with jurisdiction filtering, versioning, OpenAPI, RFC 9457 errors
-    frs: [FR6, FR7, FR58]
-    bus_version: arch-v1.0
-    status: not-started
     owner: null
     pr: null

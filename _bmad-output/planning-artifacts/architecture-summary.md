@@ -58,6 +58,8 @@ This file describes what is built and how it runs. For rationale, alternatives, 
 | Component | Description |
 |---|---|
 | `ctam-mock-auth` | OIDC issuer for dev / CI / integration environments only — **never deployed to production** |
+| `ctam-joh-mock` | Stand-in for the **JOH eLinks API** (AR55) — serves all 15 `jo_*` entities as JSON in CTAM's expected contract shape, from version-tagged ET-flavoured fixtures, with fault-injection modes. Dev / CI / integration only — **never deployed to production**. Owns no shared-schema tables. Does **not** close gaps.md G8.1. |
+| `ctam-mrd-mock` | Stand-in for the **MRD weekly Excel feed** (AR56) — publishes conformant and deliberately-malformed workbooks into a configurable blob container (Azurite in CI) on demand and on the weekly cadence. Dev / CI / integration only — **never deployed to production**. Owns no shared-schema tables. Does **not** close gaps.md G8.1. |
 
 ## Technology stack
 
@@ -120,6 +122,7 @@ Details:
 - Other non-user-initiated flows (more scheduled jobs, async messaging, event bus) — would use the same service-principal pattern.
 - DA&I post-MVP MI Feed integration — auth model TBD. See [`./architecture/gaps.md` G7.2](./architecture/gaps.md).
 - Production service-auth issuer — `ctam-mock-auth` covers Phase 0–8; deferred per G7.1.
+- **Real upstream contracts (JOH eLinks + MRD) — unconfirmed, G8.1.** `ctam-joh-mock` and `ctam-mrd-mock` cover dev/CI/integration and make the ingestion buildable and negative-testable pre-contract; they encode CTAM's written expectation, not evidence, so G8.1 closes only against real upstream data.
 
 ## API patterns
 

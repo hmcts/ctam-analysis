@@ -1,6 +1,6 @@
 ---
 type: 'Architecture Shard'
-description: 'How epics/stories authored in ctam-analysis are delivered into the 16-repo polyrepo: ctam-analysis is the control plane (planning + dispatch + traceability), ctam-architecture is the version-pinned context bus (git submodule), and each service repo is a self-contained execution unit. AI-led (Claude Code) delivery, deterministic dispatch order.'
+description: 'How epics/stories authored in ctam-analysis are delivered into the 18-repo polyrepo: ctam-analysis is the control plane (planning + dispatch + traceability), ctam-architecture is the version-pinned context bus (git submodule), and each service repo is a self-contained execution unit. AI-led (Claude Code) delivery, deterministic dispatch order.'
 resource: 'architecture/tobe/delivery-operating-model.html'
 tags: [ctam-pathfinder, architecture, delivery, operating-model]
 timestamp: '2026-07-07'
@@ -15,7 +15,7 @@ last_updated: 2026-07-07
 
 ## The problem this shard resolves
 
-Epics and stories are authored **once, centrally** in this planning workspace (`ctam-analysis`): the PRD, the architecture, and the per-phase epics with embedded Gherkin acceptance criteria all live here. But the code that satisfies them is delivered across a **16-repo polyrepo** ([`./repository-strategy.md`](./repository-strategy.md)), each repo with its own pipeline, CODEOWNERS, and release cadence. Delivery is **AI-led** — Claude Code agents implement the stories.
+Epics and stories are authored **once, centrally** in this planning workspace (`ctam-analysis`): the PRD, the architecture, and the per-phase epics with embedded Gherkin acceptance criteria all live here. But the code that satisfies them is delivered across an **18-repo polyrepo** ([`./repository-strategy.md`](./repository-strategy.md)), each repo with its own pipeline, CODEOWNERS, and release cadence. Delivery is **AI-led** — Claude Code agents implement the stories.
 
 That creates one central question: *does the planning workspace become the thing that edits code in all 16 repos, or do stories get copied out and detached?* Both naive answers fail:
 
@@ -62,7 +62,7 @@ ctam-{service}/
 
 > **A service repo re-syncs to a newer `ctam-architecture` version only by an explicit, committed submodule bump. The bus never mutates a downstream repo silently.**
 
-Consequence: a convention change is **one PR in `ctam-architecture`** (publish `arch-v(N+1)`) **+ one deliberate bump PR per repo that adopts it** — auditable, staged, reversible. This is precisely what prevents "central truth" from becoming "16 things silently drifting." Repos may sit on different bus versions intentionally (e.g. a phase-6 service on `arch-v1.9` while phase-1 services haven't yet needed the bump); the ledger records each repo's pinned version.
+Consequence: a convention change is **one PR in `ctam-architecture`** (publish `arch-v(N+1)`) **+ one deliberate bump PR per repo that adopts it** — auditable, staged, reversible. This is precisely what prevents "central truth" from becoming "18 things silently drifting." Repos may sit on different bus versions intentionally (e.g. a phase-6 service on `arch-v1.9` while phase-1 services haven't yet needed the bump); the ledger records each repo's pinned version.
 
 ### Contract placement within the bus: producer-owned source, read-only mirror only
 
@@ -85,6 +85,8 @@ The graph lives at `_bmad-output/planning-artifacts/delivery/dispatch-graph.yaml
 
 ```yaml
 # dispatch-graph.yaml — repo build order + dependencies. Source of truth for "what's next".
+# ILLUSTRATIVE SHAPE ONLY — the epic ids below pre-date the 2026-08-15 Phase 0
+# renumbering (SCPs 2026-08-15b/c). The live file is the authority; read it, not this.
 bus_version: arch-v1.0          # current published context-bus version
 repos:
   ctam-shared-infrastructure:
@@ -95,6 +97,14 @@ repos:
     phase: 0
     depends_on: [ctam-shared-infrastructure]
     epics: [epic-0.2]           # dev/CI OIDC issuer, needed before auth integration
+  ctam-joh-mock:
+    phase: 0
+    depends_on: [ctam-shared-infrastructure]
+    epics: [epic-0M.1]          # dev/CI eLinks stand-in (phase 0-mock), needed BEFORE the JOH ingestion epic
+  ctam-mrd-mock:
+    phase: 0
+    depends_on: [ctam-shared-infrastructure]
+    epics: [epic-0M.2]          # dev/CI MRD feed stand-in (phase 0-mock), needed BEFORE the MRD ingestion epic
   ctam-reference-data:
     phase: 0
     depends_on: [ctam-shared-infrastructure]
@@ -190,14 +200,17 @@ repo: ctam-reference-data
 status: in-progress            # epic rollup: not-started | in-progress | blocked | in-review | done
 owner: alice
 stories:
-  - story: 0.1.4
+  - story: 0.3.1
     repo: ctam-reference-data
     frs: [FR6, FR7, NFR24]
+    touches: [ctam-analysis]   # optional: a second repo this story lands an artefact in
     bus_version: arch-v1.0
     status: done               # not-started | dispatched | in-progress | in-review | done
     owner: bob
     pr: https://github.com/hmcts/ctam-reference-data/pull/12
 ```
+
+`repo:` is the one repo whose PR the story lands in (the claim); `touches:` names secondary repos it also commits to, and `note:` records a cross-repo dependency that lands no artefact. Full schema: [`../delivery/ledger/README.md`](../../delivery/ledger/README.md).
 
 Reverse lookups it enables: *which stories cover FR6?* · *which repos are on which bus version?* · *what's blocked vs. buildable-now?* · *who owns each epic/story?* · *is every FR/NFR delivered?*
 
@@ -209,6 +222,8 @@ Claude does not perform git operations in this programme (per the repo-root [`CL
 
 Because polyrepo has no shared runtime state, stories whose dependencies are satisfied can be implemented concurrently — one isolated Claude session (or git worktree) per repo. The `dispatch-graph.yaml` makes the safe-to-parallelise set explicit at any moment. Recommended ceiling: parallelise across *repos*, serialise *within* a repo (per-repo history stays linear and reviewable).
 
+**`depends_on` alone does not enforce that ceiling.** Several Phase 0 epics are graph-independent yet share a repo *and* share mutable files inside it — Epics 0.5 and 0.6 both rewrite the single `api-ctam-reference-data` OpenAPI artefact and the single Phase 0 Postman collection. The `repo_serialisation` block in `dispatch-graph.yaml` records the within-repo order for the two repos carrying four epics each (`ctam-reference-data`, `ctam-architecture`); dispatch must respect it as well as `depends_on` (SCP 2026-08-18e).
+
 ## What this means for the two planning homes
 
 - **`ctam-analysis` (this workspace)** stays the canonical author of PRD/architecture/epics/stories and gains two new control-plane artefacts: `delivery/dispatch-graph.yaml` and `delivery/ledger/` (traceability ledger, sharded per epic).
@@ -216,8 +231,13 @@ Because polyrepo has no shared runtime state, stories whose dependencies are sat
 
 ## Bootstrapping order (first moves)
 
-1. Publish `ctam-architecture` and tag `arch-v1.0` (the current architecture set becomes the first bus version).
-2. Encode `dispatch-graph.yaml` + initialise the per-epic `delivery/ledger/` shards in this workspace.
-3. Scaffold `ctam-shared-infrastructure` (no `depends_on`) via `ctam-scaffold.sh`; wire its `_arch/` submodule + `CLAUDE.md`.
-4. Dispatch epic 0.0's stories → execute → signal. Then follow the graph: mock-auth / reference-data / notification (parallelisable) → authorisation → UI shell.
+*Corrected 2026-08-18 (SCP 2026-08-18e) — the previous version scaffolded a Terraform-only repo with the Java scaffolder and named a parallel set the current graph does not permit.*
+
+1. Publish `ctam-architecture` and tag `arch-v1.0` (the current architecture set becomes the first bus version) — now tracked as **epic 0.A, story 0.A.1**.
+2. Encode `dispatch-graph.yaml` + initialise the per-epic `delivery/ledger/` shards in this workspace. *(Done.)*
+3. Build `ctam-scaffold.sh` + the starter overlay and write `runbooks/github-setup.md` + `runbooks/terraform.md` — **stories 0.A.2 and 0.A.3**. Every later repo creation depends on all three.
+4. Create `ctam-shared-infrastructure` and lay down its **Terraform** skeleton directly (**story 0.0.1**). It is **not** scaffolded by `ctam-scaffold.sh` — that script targets Spring Boot services, and this repo has no Java workload, no Gradle build and no Helm chart.
+5. Dispatch epic 0.0's remaining stories (0.0.2–0.0.6) → execute → signal.
+6. Apply the shared DB baseline + per-service DB roles (**epic 0.B**), then publish the schema design + fitness function (**epic 0.1**).
+7. Then follow the graph. The genuinely parallel set at that point is **`ctam-joh-mock` (0M.1) · `ctam-mrd-mock` (0M.2) · `ctam-notification` (0.8)** — `ctam-reference-data` (0.2) waits on 0M.1, and `ctam-mock-auth` is **story 0.4.2 inside epic 0.4**, so it is not independently dispatchable ahead of `ctam-authorisation`. Read [`../delivery/dispatch-graph.yaml`](../../delivery/dispatch-graph.yaml) — including its `repo_serialisation` block — rather than memorising a sequence.
 ```

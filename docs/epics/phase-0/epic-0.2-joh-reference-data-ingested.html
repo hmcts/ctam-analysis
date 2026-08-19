@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.2: Upstream JOH reference data is ingested — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="epic-02-upstream-joh-reference-data-is-ingested">Epic 0.2: Upstream JOH reference data is ingested</h1>
+<p><strong>User outcome:</strong> Judicial-holder reference data flows into CTAM Pathfinder from its upstream source of truth — the <strong>JOH eLinks API</strong> (15 <code>jo_*</code> entities, nightly) — so that <code>jo_people</code> exists and is current, <code>jo_jurisdictions</code> is available as the first-class jurisdiction dimension (D8), and judicial-holder reference data is authoritative in CTAM <strong>without any legacy migration</strong> (revised D3, NFR24). This is the platform's foundational data layer: every downstream consumer of JOH identity and reference data depends on it, and JOH sign-in (Epic 0.4) is impossible until <code>jo_people</code> — the identity-lookup target — is populated.</p>
+<p><strong>Hosting:</strong> the ingestion runs in-process inside <code>ctam-reference-data</code> — no separate <code>ctam-integrations</code> repo. <code>ctam-reference-data</code> is the first <strong>domain</strong> service scaffolded; it deploys onto the shared Azure estate provisioned in <strong>Epic 0.0</strong> (<code>ctam-shared-infrastructure</code>) and carries only its <strong>own</strong> per-repo Terraform — Key Vault namespace, its own APIM API definition + per-API policy, and later the MRD storage account (Epic 0.3, Story 0.3.1).</p>
+<p><strong>Upstream stand-in:</strong> the real JOH eLinks contract is <strong>unconfirmed</strong> (gaps.md <strong>G8.1</strong>, a wave-1 blocker), so this epic is built and demoed against <strong><code>ctam-joh-mock</code></strong> — the contract-shaped, deployable stand-in delivered in <strong>Epic 0M.1</strong> (<a href="../phase-0-mock/index.html">Phase 0-Mock</a>), serving all 15 <code>jo_*</code> entities from a version-tagged ET-flavoured fixture set with on-demand fault injection. Epic 0.2's <code>depends_on</code> therefore names Epic 0M.1. Cutting over to real eLinks is a <strong>configuration change</strong> (base URL + Key Vault credential), mirroring the <code>ctam-mock-auth</code> → HMCTS IdP pattern; <strong>G8.1 closes only when this sync has run against real upstream data</strong>, not when it passes against the mock.</p>
+<p><strong>Prerequisites in <code>ctam-architecture</code>:</strong> the <strong>GitHub manual-setup runbook</strong> and <strong><code>ctam-scaffold.sh</code></strong> this epic's first story invokes are delivered in <strong><a href="epic-0.A-architecture-context-bus-and-scaffolding.html">Epic 0.A</a></strong> (Stories 0.A.3 and 0.A.2); the shared <strong><code>ctam_configuration_values</code> baseline and this service's <code>ctam_reference_data</code> DB role</strong> in <strong><a href="epic-0.B-shared-db-baseline-and-service-roles.html">Epic 0.B</a></strong> (Story 0.B.1). Both appear in this epic's <code>depends_on</code>.</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li><strong>First scaffolded backend service: <code>ctam-reference-data</code></strong> (HMCTS Crime SpringBoot template + <code>ctam-scaffold.sh</code> conventions per AR2–AR4 — the script itself is Story 0.A.2; this epic is its first real invocation)</li>
+<li><strong>Consumes the shared Azure estate</strong> (AKS, shared global PostgreSQL Flexible Server + per-service DB roles, ACR, APIM, App Insights, Key Vault) <strong>provisioned in Epic 0.0</strong> per AR53 (revised — dedicated <code>ctam-shared-infrastructure</code>)</li>
+<li>Consumes the shared <code>ctam_configuration_values</code> Liquibase baseline and the per-service DB roles established by <code>ctam-architecture</code> in <strong>Epic 0.B</strong> (FR8) — this service's role holds SELECT on the baseline table</li>
+<li>Tier-(a) upstream-sourced tables: 15 <code>jo_*</code> + <code>ctam_sync_status</code> (CTAM-internal ingestion run log — shared with the MRD ingestion in Epic 0.3), service-owned Liquibase changelogs (AR18–AR20), tier-(a) write-protection (only <code>ctam_reference_data</code> holds INSERT/UPDATE — AR49, FR6)</li>
+<li><strong>JOH eLinks nightly in-process <code>@Scheduled</code> sync</strong> (AR46, AR48) — each run is a three-stage pipeline: <strong>cleanse</strong> the raw JSON payload (reject/quarantine malformed records, normalise/type-coerce fields, de-duplicate natural keys), <strong>transform</strong> cleansed JSON entities into the relational <code>jo_*</code> table shape (per <code>architecture/data-tables.md</code>), <strong>persist</strong> via full-refresh-upsert to the shared PostgreSQL instance</li>
+</ul>
+<p><strong>FRs covered:</strong> FR1 (the identity-lookup <em>target</em> data — <code>jo_people</code> populated), FR6 tier-(a), FR7 tier-(a) grants, FR8 (shared <code>ctam_configuration_values</code> baseline first lands here); NFR24 (JOH eLinks MVP integration).</p>
+<p><strong>Key NFRs first exercised here:</strong> NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR16 (Key Vault — incl. the eLinks API credential), NFR24 (JOH eLinks integration), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness probes), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes), NFR42 (Postman collections), NFR59 (structured logs first exercised at scaffold).</p>
+<p><strong>Out of scope (explicitly):</strong> the mock eLinks source itself — the <code>ctam-joh-mock</code> repo, its fixtures, and its fault-injection modes (<strong>Epic 0M.1</strong>). MRD supplementary reference data ingestion (<strong>Epic 0.3</strong> — a separate upstream source with its own format, cadence, and delivery mechanism). The read-only Reference Data API + jurisdiction filtering (Epic 0.5, Story 0.5.2 — downstream of auth). Tier-(b) CTAM-owned reference tables (Epic 0.5, Story 0.5.1). All authentication / authorisation / UI (Epic 0.4). Hand-editing of tier-(a) data in CTAM (never, in any phase — corrections at source per FR6).</p>
+<hr />
+<details class="section" id="story-021-scaffold-ctam-reference-data-from-the-hmcts-starter-onto-the-epic-00-estate"><summary><span class="section-title">Story 0.2.1: Scaffold <code>ctam-reference-data</code> from the HMCTS starter (onto the Epic 0.0 estate)</span></summary><div class="section-body">
+<p>As a <strong>platform engineer</strong>, I want to scaffold the <strong>first</strong> CTAM Pathfinder backend service — <code>ctam-reference-data</code> — from the HMCTS Crime SpringBoot template using <code>ctam-scaffold.sh</code>, and to deploy it onto the shared Azure estate provisioned in Epic 0.0, So that <strong>subsequent services follow a consistent, version-pinned, supply-chain-secured baseline</strong>, and the team can demonstrate the deployment pipeline end-to-end against the already-verified platform estate before any domain logic is written.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the engineer has performed the GitHub manual-setup checklist (<code>ctam-architecture/runbooks/github-setup.md</code>, written in <strong>Epic 0.A, Story 0.A.3</strong>) <strong>before</strong> running the scaffold:</p>
+<ul>
+<li>Created an empty private GitHub repo <code>ctam-reference-data</code> under the HMCTS org <strong>via the GitHub web UI</strong></li>
+<li>Enabled branch protection on <code>main</code> via Settings → Branches (require PR review, require status checks, require linear history)</li>
+<li>Note: the <code>gh</code> CLI is <strong>NOT</strong> available in the engineering environment — all GitHub admin config (repo creation, branch protection, team access) happens manually via the web UI per the runbook<br/><strong>And</strong> the engineer has a clean local development environment with Java 25, Gradle Wrapper, and Docker<br/><strong>When</strong> the engineer runs <code>ctam-scaffold.sh ctam-reference-data</code> from <code>ctam-architecture/scaffolding/</code> (the script and its overlay are delivered in <strong>Epic 0.A, Story 0.A.2</strong>)<br/><strong>Then</strong> the script scaffolds a Spring Boot 4.0.x project <strong>locally</strong> from <code>https://github.com/hmcts/service-hmcts-crime-springboot-template</code>, then commits and pushes to the pre-created remote on a feature branch via plain <code>git</code> (no <code>gh</code> CLI invocation)<br/><strong>And</strong> the project contents include a Spring Boot 4.0.x scaffold from <code>https://github.com/hmcts/service-hmcts-crime-springboot-template</code><br/><strong>And</strong> Gradle build uses Groovy DSL with Spring Boot Gradle plugin 4.1.0 and <code>io.spring.dependency-management:1.1.7</code> (per AR5)<br/><strong>And</strong> Group ID is <code>uk.gov.hmcts.ctam</code>, artefact is <code>ctam-reference-data</code>, base package is <code>uk.gov.hmcts.ctam.referencedata</code>, and the port is <strong>8082</strong> per the per-service port allocation in <code>architecture/conventions.md</code> (AR3's "default port 8082" is the template default; the allocation table is the authority — <code>ctam-reference-data</code> keeps 8082 as the first service scaffolded)<br/><strong>And</strong> initial commit message is exactly <em>"Scaffold CTAM Pathfinder reference-data from HMCTS starter"</em> (per AR4)<br/><strong>And</strong> Lombok 1.18.46 + MapStruct 1.6.3 are configured (per AR6)<br/><strong>And</strong> JJWT 0.13.0 + OWASP Encoder 1.4.0 are on the classpath (per AR7)<br/><strong>And</strong> springdoc-openapi is configured for OpenAPI 3.x generation (per AR8)<br/><strong>And</strong> JaCoCo, CycloneDX SBOM, gradle-git-properties, gradle-versions, and gradle-docker-compose plugins are configured (per AR9–AR13)<br/><strong>And</strong> Spring Boot Test with JUnit 5 (<code>junit-bom:6.0.3</code>), Testcontainers PostgreSQL 1.21.4, Spring Boot Testcontainers 4.1.0, and spring-boot-starter-webmvc-test are configured (per AR14–AR15)<br/><strong>And</strong> Spectral, ArchUnit, Spotless, and Checkstyle are configured (per AR17), <strong>together with SQLFluff and the schema-convention fitness function</strong> the scaffold wires in from the bus (Epic 0.1 Story 0.1.2 authors the rules; Epic 0.A Story 0.A.2 wires them) — so a non-conformant changeset fails CI from this repo's first PR onward<br/><strong>And</strong> a Helm chart skeleton exists at <code>charts/ctam-reference-data/</code> with <code>values-dev.yaml</code>, <code>values-staging.yaml</code>, <code>values-production.yaml</code> overlays (per AR24)<br/><strong>And</strong> a <code>terraform/</code> directory exists with per-environment stacks (<code>dev</code> / <code>staging</code> / <code>production</code>) holding <strong>only this service's own resources</strong> — its Key Vault namespace, <strong>its own APIM API definition + per-API policy</strong> (per <code>architecture/conventions.md</code> → <em>Per-service APIM registration ownership</em>), and later the MRD storage account (Epic 0.3, Story 0.3.1) — the shared estate and the APIM instance itself live in <code>ctam-shared-infrastructure</code> (Epic 0.0), per AR53 (revised)<br/><strong>And</strong> GitHub Actions workflows exist at <code>.github/workflows/ci.yml</code>, <code>deploy-dev.yml</code>, <code>deploy-staging.yml</code>, <code>deploy-production.yml</code> (per AR28)<br/><strong>And</strong> <code>CODEOWNERS</code> and <code>PULL_REQUEST_TEMPLATE.md</code> exist (per AR29)<br/><strong>And</strong> a Postman collection skeleton exists at <code>postman/ctam-reference-data-phase0.postman_collection.json</code> (per AR41).</li>
+</ul>
+<p><strong>Given</strong> the scaffolded service runs locally via <code>./gradlew bootRun</code> after a <code>docker-compose up postgres</code><br/><strong>When</strong> the engineer queries <code>http://localhost:8082/actuator/health</code><br/><strong>Then</strong> the response is <code>200 OK</code> with body <code>{"status":"UP"}</code><br/><strong>And</strong> <code>/actuator/info</code> returns Git metadata embedded by gradle-git-properties (per NFR28, AR11)<br/><strong>And</strong> <code>/actuator/readiness</code> returns <code>200 OK</code><br/><strong>And</strong> structured JSON logs via Logstash Logback Encoder 9.0 appear on stdout (per AR30, NFR25)<br/><strong>And</strong> logs include a <code>correlationId</code> populated by <code>CorrelationIdFilter</code> for each request (per AR32) — FR59 structured logging is first exercised here.</p>
+<p><strong>Given</strong> the shared Azure estate has been provisioned and independently verified in <strong>Epic 0.0</strong> (<code>ctam-shared-infrastructure</code>) — AKS, PostgreSQL Flexible Server, ACR, APIM + base policies, Application Insights / Log Analytics, Key Vault — all in UK South with the documented SKUs (per A34, gaps.md G9)<br/><strong>When</strong> <code>ctam-reference-data</code>'s Helm chart is deployed to the dev AKS cluster<br/><strong>Then</strong> the service reaches the shared cluster, database, registry, gateway, and observability estate provisioned in Epic 0.0 (this story <strong>consumes</strong> the estate; it does not provision it — AR53 revised)<br/><strong>And</strong> the deployment fails fast with a clear diagnostic if any Epic 0.0 estate dependency is absent (making the Epic 0.0 → 0.1 sequencing explicit).</p>
+<p><strong>Given</strong> the <code>ctam-architecture</code> Liquibase baseline changelog and the per-service DB roles were applied in <strong>Epic 0.B, Story 0.B.1</strong> (it owns the shared infrastructure table and provisions every service role)<br/><strong>When</strong> this service connects<br/><strong>Then</strong> the shared <code>ctam_configuration_values</code> infrastructure table exists (per FR8, AR19)<br/><strong>And</strong> the <strong><code>ctam_reference_data</code> DB role exists</strong> and this service authenticates as it — not as a shared admin account — with its credential read from Key Vault (per NFR16)<br/><strong>And</strong> that role has <code>SELECT</code> on <code>ctam_configuration_values</code>, and an attempted write is refused by the database (per AR22)<br/><strong>And</strong> <code>ctam-reference-data</code>'s own service-owned Liquibase changelog directory (<code>src/main/resources/db/changelog/</code>, master <code>db.changelog-master.yaml</code>) exists but is empty (tier-(a) tables created in Story 0.2.2).</p>
+<p><strong>Given</strong> the shared APIM gateway (instance + base policies + WAF provisioned and TLS-verified in Epic 0.0, Stories 0.0.5/0.0.6)<br/><strong>When</strong> <code>ctam-reference-data</code> registers <strong>its own API definition and per-API policy from this repo's <code>terraform/</code></strong> against that shared instance — using the cross-repo remote-state/data-source pattern recorded in <code>ctam-architecture/runbooks/terraform.md</code> (Story 0.A.3, gaps.md G10.2) — and an HTTP request reaches the gateway<br/><strong>Then</strong> the service's API is reachable over TLS (the gateway TLS floor itself is verified in Epic 0.0 per NFR10)<br/><strong>And</strong> HTTP-only requests are rejected with a redirect to HTTPS<br/><strong>And</strong> this repo's Terraform modifies <strong>only</strong> its own API and policy — the shared instance, base policies, WAF and rate-limit defaults stay owned by <code>ctam-shared-infrastructure</code> (<code>architecture/conventions.md</code>)<br/><strong>And</strong> because this is the <strong>first</strong> service to register, the pattern it uses is confirmed as reusable by Stories 0.4.1 and 0.8.1 rather than re-derived by each.</p>
+<p><strong>Given</strong> the shared PostgreSQL Flexible Server (provisioned + encryption/TLS-verified in Epic 0.0, Story 0.0.3)<br/><strong>When</strong> the Helm chart's <code>values-dev.yaml</code> is applied<br/><strong>Then</strong> the database connection string references the shared Epic 0.0 PostgreSQL instance (storage-encrypted at rest per NFR11; TLS-only per NFR10 — both verified in Epic 0.0)<br/><strong>And</strong> <code>ctam-reference-data</code> connects successfully using its own DB role.</p>
+<p><strong>Given</strong> the shared Application Insights workspace (provisioned in Epic 0.0, Story 0.0.4, with the agreed retention policy)<br/><strong>When</strong> the deployed service emits telemetry<br/><strong>Then</strong> <code>ctam-reference-data</code>'s structured logs and traces land in the shared workspace (retention is owned by Epic 0.0 per NFR26).</p>
+<p><strong>Given</strong> the engineer pushes the initial commit to a feature branch via <code>git push</code><br/><strong>And</strong> opens a Pull Request from that branch to <code>main</code> <strong>manually via the GitHub web UI</strong> (no <code>gh</code> CLI)<br/><strong>When</strong> the GitHub Actions <code>ci.yml</code> workflow runs<br/><strong>Then</strong> the workflow runs build + test + Spectral lint + ArchUnit + Spotless + Checkstyle + Helm lint<br/><strong>And</strong> all checks pass on the scaffolded baseline<br/><strong>And</strong> code coverage report is produced by JaCoCo.</p>
+<p><strong>Given</strong> the PR is merged to <code>main</code> <strong>via the GitHub web UI</strong> (the engineer clicks "Merge pull request" after reviewer approval; no <code>gh</code> CLI)<br/><strong>When</strong> <code>deploy-dev.yml</code> triggers automatically<br/><strong>Then</strong> the service deploys to the dev AKS cluster in UK South (per AR23, NFR31)<br/><strong>And</strong> the container image is pushed to Azure Container Registry<br/><strong>And</strong> the deployed pod passes liveness + readiness probes (per NFR28)<br/><strong>And</strong> Azure Application Insights receives the first structured log entries via OpenTelemetry Collector (per AR31, NFR27).</p>
+<p><strong>References:</strong> FR8, FR58, FR59; NFR10, NFR11, NFR15, NFR16, NFR24, NFR25–NFR28, NFR31, NFR40, NFR42; AR2–AR17, AR23–AR32, AR41, AR53 (revised — estate provisioned in Epic 0.0); <strong>D10</strong> (<code>gh</code> CLI not available — manual GitHub web-UI setup per <code>ctam-architecture/runbooks/github-setup.md</code>); <strong>depends on Epic 0.0</strong> (shared estate).</p>
+<blockquote>
+<p><strong>Scaffolding note:</strong> the HMCTS Crime SpringBoot template base is minimal; <code>ctam-scaffold.sh</code> assembles the remaining dependencies (Liquibase, Testcontainers, MapStruct, OWASP encoder, docker-compose plugin, OpenAPI tooling, Helm, Key Vault, the CI quality gates) from <code>hmcts/service-hmcts-springboot-demo</code> + CTAM conventions — inventory in <code>architecture/starter-template.md</code> §B (G1.4).</p>
+</blockquote>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Tier-(a) <code>jo_*</code> tables and <code>ctam_sync_status</code> — Story 0.2.2</li>
+<li>The eLinks sync — Story 0.2.3</li>
+<li>MRD ingestion (its own tables, storage account, and mechanism) — Epic 0.3</li>
+<li>The <code>ctam-joh-mock</code> upstream stand-in (its own repo and scaffold) — Epic 0M.1</li>
+<li>Tier-(b) CTAM-owned tables + the read-only API — Epic 0.5</li>
+<li><strong><code>ctam-scaffold.sh</code> itself, the GitHub-setup runbook, the <code>ctam_configuration_values</code> baseline and the DB roles</strong> — Epics 0.A and 0.B; this story <em>consumes</em> all four</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-022-tier-a-upstream-jo_-tables-ctam_sync_status-and-tier-a-write-protection"><summary><span class="section-title">Story 0.2.2: Tier-(a) upstream <code>jo_*</code> tables, <code>ctam_sync_status</code>, and tier-(a) write protection</span></summary><div class="section-body">
+<p>As a <strong>CTAM Pathfinder platform</strong> (and every downstream consumer of JOH identity and reference data), I want the 15 <code>jo_*</code> upstream-sourced tables and the <code>ctam_sync_status</code> run-log created with service-owned Liquibase changelogs and enforced single-writer ownership, So that <strong><code>jo_people</code> and the rest of the tier-(a) surface exist with the correct schema and write protection before the eLinks sync populates them</strong> (FR6 tier (a), AR49).</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> <code>ctam-reference-data</code> is scaffolded per Story 0.2.1<br/><strong>When</strong> the engineer adds the Liquibase changeset <code>db/changelog/001-init-tier-a-upstream-tables.sql</code> (formatted-SQL, included from <code>db.changelog-master.yaml</code>)<br/><strong>Then</strong> the 15 <code>jo_*</code> tables exist with schemas per <code>architecture/data-tables.md</code> (<code>jo_people</code>, <code>jo_appointments</code>, <code>jo_judiciary_role_assignments</code>, <code>jo_authorisations_with_dates</code>, <code>jo_appointment_titles</code>, <code>jo_base_locations</code>, <code>jo_contract_types</code>, <code>jo_genders</code>, <code>jo_judiciary_roles</code>, <code>jo_jurisdictions</code>, <code>jo_locations</code>, <code>jo_location_types</code>, <code>jo_tickets</code>, <code>jo_ticket_categories</code>, <code>jo_ticket_category_types</code>)<br/><strong>And</strong> <code>ctam_sync_status</code> exists (CTAM-internal ingestion run log — shared by the MRD ingestion in Epic 0.3, Story 0.3.1)<br/><strong>And</strong> <code>jo_people.personnel_number</code> is the upstream natural key, to which CTAM binds a stable <code>ctam_joh_identities.id</code> (UUID) — the CTAM-assigned canonical JOH identifier referenced by every downstream domain table (per AR22); <code>personnel_number</code> is the upstream link only<br/><strong>And</strong> <code>jo_jurisdictions</code> preserves the upstream parent-child hierarchy shape (or establishes it on ingest)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><br/><strong>And</strong> the <code>ctam_reference_data</code> DB role owns the tables; <strong>no other role holds INSERT/UPDATE on any <code>jo_*</code> table</strong> (tier-(a) write protection per AR49, FR6)<br/><strong>And</strong> SELECT grants are made to <code>ctam_authorisation</code> (identity lookup, Epic 0.4) and to the forward-declared roles for future services — <strong>all of which exist because Epic 0.B, Story 0.B.1 provisioned them</strong>, so these grants apply rather than failing on an unknown role<br/><strong>And</strong> the grants live in <strong>this</strong> service's changelog because it owns the tables (the grants convention documented in Story 0.B.1)<br/><strong>And</strong> the ArchUnit/grants fitness function in CI verifies the tier-(a) write-protection rule<br/><strong>And</strong> <code>architecture/data-tables.md</code> is updated in <code>ctam-analysis</code> to match the as-created shape of all 16 tables — the design (Story 0.1.1) and the applied schema do not drift apart.</p>
+<p><strong>References:</strong> FR6 tier (a), FR7 (writes follow the tier); NFR15; AR18–AR20, AR22, AR49; D3 (revised), D8, D9 (restructured).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>The eLinks sync that populates these tables — Story 0.2.3</li>
+<li>The <code>mrd_*</code> tables and their own Liquibase changeset — Epic 0.3, Story 0.3.1</li>
+<li>Tier-(b) CTAM-owned tables (regions, offices, vocabularies) — Epic 0.5, Story 0.5.1</li>
+<li>The read-only REST API — Epic 0.5, Story 0.5.2</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-023-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api"><summary><span class="section-title">Story 0.2.3: JOH reference data flows into CTAM nightly from the JOH eLinks API</span></summary><div class="section-body">
+<p>As a <strong>CTAM Pathfinder platform</strong> (and every downstream consumer of JOH identity and reference data), I want an in-process scheduled sync that pulls the JOH eLinks API nightly and refreshes the tier-(a) <code>jo_*</code> tables, So that <strong><code>jo_people</code> exists and is current — making JOH sign-in resolvable (FR1), jurisdiction available (<code>jo_jurisdictions</code>, D8), and judicial-holder reference data authoritative without any legacy migration</strong> (revised D3, NFR24).</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the tier-(a) <code>jo_*</code> tables and <code>ctam_sync_status</code> exist per Story 0.2.2<br/><strong>When</strong> the engineer implements the eLinks sync as an in-process <code>@Scheduled</code> task (per AR46 — no new deployable, no service principal)<br/><strong>Then</strong> the sync runs on its nightly schedule and pulls all 15 entities' JSON payloads from the JOH eLinks API using the outbound credential held in Azure Key Vault (per NFR16)<br/><strong>And</strong> a <strong>cleansing stage</strong> runs on each payload before any write: structurally malformed (non-parseable) JSON is rejected for that entity set; individual records with missing required fields, invalid types, or unresolvable enumerations are quarantined (skipped and logged) rather than silently written; string fields are trimmed and normalised; optional fields absent upstream are defaulted per the <code>jo_*</code> schema; records sharing the same natural key within one payload are de-duplicated (last-write-wins)<br/><strong>And</strong> a <strong>transform stage</strong> maps each cleansed JSON entity to its relational <code>jo_*</code> table shape per <code>architecture/data-tables.md</code> — including assembling <code>jo_jurisdictions</code>' parent-child hierarchy from the upstream structure (native or derived, per D8) — before any database write<br/><strong>And</strong> a <strong>persist stage</strong> <strong>full-refresh-upserts</strong> the transformed rows into the <code>jo_*</code> tables keyed on the upstream natural key (<code>personnel_number</code> for <code>jo_people</code>), and mints a <code>ctam_joh_identities</code> row (a stable CTAM JOH UUID keyed to <code>personnel_number</code>) for any <code>jo_people</code> row lacking one<br/><strong>And</strong> rows absent upstream after a successful cleanse+transform are <strong>marked inactive — never hard-deleted</strong> (FK protection per AR46)<br/><strong>And</strong> the run is recorded in <code>ctam_sync_status</code> with source, started/finished timestamps, outcome, per-entity row counts split by <strong>cleansed / quarantined / persisted</strong>, and error detail (per AR48)<br/><strong>And</strong> the sync is also manually triggerable by ops (e.g. an actuator-adjacent admin endpoint or k8s Job) for out-of-cycle refreshes.</p>
+<p><strong>Given</strong> the JOH eLinks API is unreachable or returns a structurally malformed payload (not valid JSON, or missing an entire expected entity block) mid-sync — reproducible on demand via <code>ctam-joh-mock</code>'s fault-injection modes (<strong>Epic 0M.1</strong>, Story 0M.1.2)<br/><strong>When</strong> the sync fails<br/><strong>Then</strong> the previous good state remains fully in place (ingestion is transactional per entity set — never partially written, per AR48)<br/><strong>And</strong> the failure is recorded in <code>ctam_sync_status</code> and surfaced via structured logs with correlation ID for ops triage<br/><strong>And</strong> reference data is at most one sync cycle stale.</p>
+<p><strong>Given</strong> a payload parses as valid JSON but contains individual non-conformant records (cleansing-stage quarantine, not a structural failure) — likewise reproducible via <code>ctam-joh-mock</code>'s fault-injection modes<br/><strong>When</strong> the sync processes that entity set<br/><strong>Then</strong> the conformant records still proceed through transform and persist for that run (a per-record quarantine does not fail the whole entity set)<br/><strong>And</strong> the quarantined records are counted and logged in <code>ctam_sync_status</code> for ops to escalate to the JOH eLinks team.</p>
+<p><strong>Given</strong> the sync has run successfully at least once in dev<br/><strong>When</strong> <code>ctam-authorisation</code> (Epic 0.4, Story 0.4.3) looks up a seeded JOH email<br/><strong>Then</strong> the lookup resolves against <code>jo_people</code> to a <code>personnel_number</code>, and via <code>ctam_joh_identities</code> to the CTAM JOH UUID<br/><strong>And</strong> dev and CI run the sync against <strong><code>ctam-joh-mock</code></strong> (<strong>Epic 0M.1</strong>) — a deployed, contract-shaped stand-in reached over a real HTTP hop, not an in-process stub — so the whole cleanse/transform/persist path is exercised end-to-end while real eLinks access does not exist<br/><strong>And</strong> the fixture version served by the mock is recorded against the run in <code>ctam_sync_status</code>, so a result can always be traced to the exact upstream payload set that produced it<br/><strong>And</strong> switching to real eLinks changes <strong>configuration only</strong> — the base URL and the Key Vault credential — with no change to the sync code or its test suite.</p>
+<p><strong>Given</strong> the JOH eLinks API contract has not yet been confirmed (gaps.md G8.1)<br/><strong>When</strong> the contract lands<br/><strong>Then</strong> the ingestion mapping is validated against it (every upstream field CTAM needs has a slot; the natural-key scheme holds; cadence/SLA workable)<br/><strong>And</strong> the comparison is made against <strong><code>ctam-joh-mock</code>'s published OpenAPI spec</strong> — CTAM's written, executable expectation of the contract (<strong>Epic 0M.1</strong>) — so the exercise is a <strong>diff</strong>, not an open discovery<br/><strong>And</strong> any unmapped upstream structure raises an architectural PR (per G8.1) — this AC is the story's external-dependency gate and is tracked explicitly in sprint planning<br/><strong>And</strong> passing against the mock is explicitly <strong>not</strong> closure of G8.1.</p>
+<p><strong>References:</strong> FR1 (identity lookup target), FR6 tier (a), FR7 (writes follow the tier); NFR16, NFR24, NFR25–NFR28; AR46, AR48, AR49, <strong>AR55</strong>; gaps.md G8.1; D3 (revised), D8, D9 (restructured); <strong>depends on Epic 0M.1</strong> (<code>ctam-joh-mock</code>, Phase 0-Mock).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>The <code>ctam-joh-mock</code> stand-in itself — Epic 0M.1</li>
+<li>MRD ingestion — Epic 0.3</li>
+<li>The read-only REST API — Epic 0.5, Story 0.5.2</li>
+</ul>
+</div></details><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.2-joh-reference-data-ingested.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#story-021-scaffold-ctam-reference-data-from-the-hmcts-starter-onto-the-epic-00-estate">Story 0.2.1: Scaffold ctam-reference-data from the HMCTS starter (onto the Epic 0.0 estate)</a></li><li><a href="#story-022-tier-a-upstream-jo_-tables-ctam_sync_status-and-tier-a-write-protection">Story 0.2.2: Tier-(a) upstream jo_* tables, ctam_sync_status, and tier-(a) write protection</a></li><li><a href="#story-023-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api">Story 0.2.3: JOH reference data flows into CTAM nightly from the JOH eLinks API</a></li></ul></aside>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.2-joh-reference-data-ingested";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

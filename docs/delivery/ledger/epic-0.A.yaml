@@ -1,0 +1,38 @@
+# Ledger shard — Epic 0.A. Schema, status vocab, and concurrency model: ./README.md
+# ctam-architecture enablement, lettered so no existing Phase 0 story id moves.
+# Replaces the former undecomposed `arch-baseline` dispatch node (SCP 2026-08-18e).
+# PRECEDES epic-0.0 — story 0.0.1 opens by citing runbooks/github-setup.md (0.A.3).
+epic: epic-0.A
+title: Context bus published, scaffolding toolchain built, and platform runbooks written
+repo: ctam-architecture
+bus_version: arch-v1.0
+status: not-started        # epic-level rollup: not-started | in-progress | blocked | in-review | done
+owner: null                # who is driving this epic (name/handle); null = unassigned
+stories:
+  - story: 0.A.1
+    repo: ctam-architecture
+    title: Publish ctam-architecture as the version-pinned context bus and tag arch-v1.0
+    frs: []                  # programme enablement — no direct FR (cf. epic-0.0, epic-0.1)
+    touches: [ctam-analysis]  # the canonical architecture set is projected FROM the control plane
+    bus_version: arch-v1.0
+    status: not-started      # not-started | dispatched | in-progress | in-review | done
+    owner: null
+    pr: null
+  - story: 0.A.2
+    repo: ctam-architecture
+    title: Build ctam-scaffold.sh and the starter-template overlay
+    frs: []                  # enablement; gaps G1.4a/G1.4b/G4.4/G4.5 close here
+    note: wires the Epic 0.1 story 0.1.2 schema fitness function + the ArchUnit/Spectral rulesets into every repo it scaffolds
+    bus_version: arch-v1.0
+    status: not-started
+    owner: null
+    pr: null
+  - story: 0.A.3
+    repo: ctam-architecture
+    title: Write the GitHub-setup and Terraform-conventions runbooks
+    frs: []                  # enablement; gaps G9.1/G10.1/G10.2 recorded as agreed-or-outstanding here
+    note: github-setup.md is cited by 8 stories (0.0.1, 0.2.1, 0.4.1, 0.4.2, 0.8.1, 0M.1.1, 0M.2.1, 0.A.1); terraform.md gates the first Epic 0.0 apply
+    bus_version: arch-v1.0
+    status: not-started
+    owner: null
+    pr: null

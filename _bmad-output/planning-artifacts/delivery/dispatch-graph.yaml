@@ -6,12 +6,26 @@
 # Granularity: EPIC-LEVEL. Nodes are epics (they roll up to the story-level
 # ledger shards, ledger/epic-*.yaml). Epic-level is required for Phase 0 because a single repo appears
 # in more than one epic at different points in the order (e.g. ctam-reference-data
-# in epic-0.1 then again in epic-0.3 after auth; ctam-architecture publishes the
-# bus early but runs the bootstrap epic 0.4 late).
+# in epic-0.2 (JOH) then again in epic-0.3 (MRD), epic-0.5 (JOH+tier-b read API),
+# and epic-0.6 (MRD read API) after auth; ctam-architecture publishes the bus
+# early but runs the bootstrap epic 0.7 late).
+#
+# PHASES REPRESENTED HERE: phase 0-mock (the pre-Phase-0 upstream stand-in tier,
+# epics 0M.x) and phase 0 (foundations, epics 0.x). Phase 0-Mock is NOT a slot in
+# the 0-9 sequence: its epics are dependencies OF epic-0.2 and epic-0.3 and
+# nothing else depends on them. The 0M. prefix marks the tier so sequencing is
+# never inferred from a number (SCP 2026-08-18c, decision #18).
 #
 # Buildable-now rule: an epic is dispatchable iff every epic in its `depends_on`
 # has status `done` in its ledger shard (ledger/epic-*.yaml). Epics with disjoint dependency sets and no
-# shared state may run IN PARALLEL (the AI-led advantage).
+# shared state may run IN PARALLEL (the AI-led advantage) — SUBJECT TO the
+# `repo_serialisation` block below: two epics that are graph-independent but land
+# in the SAME repo are NOT safe to run concurrently.
+#
+# LETTERED NODES: epic-0.A and epic-0.B are ctam-architecture enablement epics,
+# lettered so no existing Phase 0 story id moves (same convention as the 0M. tier).
+# They replace the former undecomposed `arch-baseline` node (SCP 2026-08-18e).
+# Order is the graph, never the letter: 0.A -> 0.0 -> 0.B -> 0.1 -> ...
 #
 # Authoritative sources: repository-strategy.md, epics/framework.md,
 # architecture/delivery-operating-model.md. Keep in sync when those change.
@@ -19,68 +33,171 @@
 bus_version: arch-v1.0        # ctam-architecture context-bus version repos pin against
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PHASE 0 — foundations (fully decomposed into stories)
+# WITHIN-REPO SERIALISATION (SCP 2026-08-18e)
+#
+# The buildable-now rule is necessary but not sufficient. ledger/README.md's
+# concurrency rule is "parallelise across repos, serialise WITHIN a repo" — but the
+# graph alone cannot express that, because several epics with disjoint dependency
+# sets share a repo AND share mutable files inside it. Dispatch must respect both.
+#
+# Read this as: within each repo listed, dispatch epics in the given order even
+# when the graph would permit them concurrently.
+# ─────────────────────────────────────────────────────────────────────────────
+repo_serialisation:
+  ctam-reference-data:
+    order: [epic-0.2, epic-0.3, epic-0.5, epic-0.6]
+    reason: >
+      Four epics, one repo. epic-0.5 and epic-0.6 are graph-independent of each
+      other yet both mutate the SAME artefacts: the single published OpenAPI spec
+      (uk.gov.hmcts.ctam:api-ctam-reference-data), the single Phase 0 Postman
+      collection (postman/ctam-reference-data-phase0.postman_collection.json —
+      epic-0.6 story 0.6.1 says "same collection file as Epic 0.5"), and one
+      Liquibase changelog sequence (001 jo_*, 002 mrd_*, 003 tier-b). Same for
+      epic-0.2 / epic-0.3. Run them in order; keep the repo history linear.
+  ctam-architecture:
+    order: [epic-0.A, epic-0.B, "epic-0.1 (story 0.1.2 only)", epic-0.7]
+    reason: >
+      Bus repo. epic-0.A creates it, epic-0.B adds the baseline changelog + roles,
+      epic-0.1's story 0.1.2 packages the fitness function into it, epic-0.7 adds
+      the seed scripts + verification job + identity-bootstrap runbook. epic-0.7 is
+      graph-independent of epic-0.5/0.6 but shares this repo with nothing else
+      running at that point — the constraint is against a later phase re-entering.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PHASE 0-MOCK + PHASE 0 — both fully decomposed into stories.
+# Nodes carry a `phase:` key (`0-mock` or `0`); the 0M. epics are the
+# pre-Phase-0 upstream stand-in tier. Order is the graph, not the numbering.
 # ─────────────────────────────────────────────────────────────────────────────
 epics:
+  epic-0.A:
+    title: Context bus published, scaffolding toolchain built, and platform runbooks written
+    repo: ctam-architecture
+    phase: 0
+    depends_on: []                       # precedes everything — epic-0.0's first story cites its github-setup runbook
+    decomposed: true
+    note: >
+      Lettered, not numbered, so no existing Phase 0 story id moves (same convention
+      as the 0M. tier, SCP 2026-08-18c). Delivers what eight Phase 0 / Phase 0-Mock
+      stories already assume: the arch-v1.0 bus tag, ctam-scaffold.sh + the starter
+      overlay (gaps G1.4a/G1.4b), and runbooks/github-setup.md (AR51) +
+      runbooks/terraform.md (G9.1, G10.1, G10.2). Split from epic-0.B to keep the
+      graph acyclic: 0.A -> 0.0 -> 0.B. Was the undecomposed `arch-baseline` node
+      (SCP 2026-08-18e).
+    stories: [0.A.1, 0.A.2, 0.A.3]
+
   epic-0.0:
     title: Platform estate is provisioned, verifiable, and CNP-compliant
     repo: ctam-shared-infrastructure
     phase: 0
-    depends_on: []                       # nothing precedes the estate
+    depends_on: [epic-0.A]               # story 0.0.1 opens with the github-setup runbook (0.A.3); Terraform conventions from 0.A.3 gate the first apply
     decomposed: true
-    stories: [0.0.1, 0.0.2, 0.0.3, 0.0.4, 0.0.5]
+    stories: [0.0.1, 0.0.2, 0.0.3, 0.0.4, 0.0.5, 0.0.6]
 
-  arch-baseline:
-    title: Context-bus publish + shared Liquibase baseline (ctam_configuration_values)
+  epic-0.B:
+    title: Shared database baseline and per-service DB roles are established
     repo: ctam-architecture
     phase: 0
-    depends_on: [epic-0.0]               # baseline changelog needs the shared PostgreSQL
-    decomposed: false                    # programme setup, not a BMad-decomposed epic
+    depends_on: [epic-0.A, epic-0.0]     # needs the bus repo (0.A.1) and the provisioned PostgreSQL server (0.0.3)
+    decomposed: true
     note: >
-      Publish ctam-architecture and tag arch-v1.0 (the bus). Establish the shared
-      ctam_configuration_values Liquibase baseline, SELECT-granted to every service
-      role, ahead of the first domain service (epic-0.1). FR8.
-    stories: []
+      The ctam_configuration_values Liquibase baseline (FR8) PLUS per-service DB role
+      provisioning + the grants convention. Role creation previously had no owner:
+      epic-0.0 story 0.0.3 excludes it, and stories 0.2.2 / 0.5.1 grant to roles
+      nothing created. Separate from epic-0.A because it needs the server that
+      epic-0.0 provisions, while epic-0.A must precede epic-0.0 (SCP 2026-08-18e).
+    stories: [0.B.1]
 
   epic-0.1:
-    title: Upstream JOH/MRD reference data is ingested
-    repo: ctam-reference-data
+    title: Shared PostgreSQL schema design is established and CI-enforced
+    repo: [ctam-analysis, ctam-architecture]   # 0.1.1 authors the design here; 0.1.2 packages the fitness function in the bus
     phase: 0
-    depends_on: [epic-0.0, arch-baseline]
+    depends_on: [epic-0.0, epic-0.B]     # needs the estate; sequenced after the config-values baseline + service roles
     decomposed: true
-    stories: [0.1.1, 0.1.2, 0.1.3, 0.1.4]
+    stories: [0.1.1, 0.1.2]
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # PHASE 0-MOCK — upstream source stand-ins (pre-Phase-0 tier).
+  # Dev/CI/integration-only; never deploy to production (AR55, AR56; gaps.md
+  # G5.3 widened). Neither closes G8.1 — see epics/phase-0-mock/index.md.
+  # ───────────────────────────────────────────────────────────────────────────
+  epic-0M.1:
+    title: Upstream JOH reference data has a contract-shaped mock source
+    repo: ctam-joh-mock
+    phase: 0-mock
+    # BROWNFIELD ADOPTION (SCP 2026-08-18d, decision #19): a working Node/Express
+    # mock of the real eLinks v5 contract already exists and is adopted, not built.
+    # epic-0.1 DROPPED as a prerequisite: the mock's shape derives from the real
+    # documented contract, not from CTAM's jo_* schema — the information flow is
+    # inverted (epic-0.1's schema should be validated AGAINST this contract).
+    # epic-0.2 still depends on BOTH epic-0.1 and epic-0M.1, so nothing downstream
+    # is weakened. Node/Express is the one AR2-AR17 exception (AR55.1).
+    depends_on: [epic-0.A, epic-0.0]        # scaffold/Helm/CI/logging conventions (0.A) + the estate to deploy onto; owns no table, so epic-0.B is not needed
+    decomposed: true
+    stories: [0M.1.1, 0M.1.2]
+
+  epic-0M.2:
+    title: Upstream MRD reference data has a contract-shaped mock source
+    repo: ctam-mrd-mock
+    phase: 0-mock
+    depends_on: [epic-0.A, epic-0.0, epic-0.1]   # scaffold conventions + estate + the mrd_* schema; owns no table, so epic-0.B is not needed; deliberately NOT epic-0.3 — the mock is container-target-agnostic (Azurite in CI), so no cycle
+    decomposed: true
+    stories: [0M.2.1, 0M.2.2]
 
   epic-0.2:
+    title: Upstream JOH reference data is ingested
+    repo: ctam-reference-data
+    phase: 0
+    depends_on: [epic-0.A, epic-0.0, epic-0.B, epic-0.1, epic-0M.1]   # scaffold toolchain + estate + config baseline & its DB role + schema design + the ctam-joh-mock upstream stand-in (phase 0-mock, G8.1)
+    decomposed: true
+    stories: [0.2.1, 0.2.2, 0.2.3]
+
+  epic-0.3:
+    title: Upstream MRD reference data is ingested
+    repo: ctam-reference-data
+    phase: 0
+    depends_on: [epic-0.1, epic-0.2, epic-0M.2]   # schema design + JOH's scaffolded repo/ctam_sync_status + the ctam-mrd-mock upstream stand-in (phase 0-mock, G8.1)
+    decomposed: true
+    stories: [0.3.1]
+
+  epic-0.4:
     title: User authenticates and lands on a role-scoped Home page
     repo: [ctam-authorisation, ctam-mock-auth, ctam-ui]
     phase: 0
-    depends_on: [epic-0.0, epic-0.1]     # needs jo_people (0.1.3) + the estate
+    depends_on: [epic-0.A, epic-0.0, epic-0.B, epic-0.1, epic-0.2]   # needs jo_people (0.2.3) + schema design + the estate + the scaffold toolchain + its DB roles
     decomposed: true
-    stories: [0.2.1, 0.2.2, 0.2.3, 0.2.4, 0.2.5]
+    stories: [0.4.1, 0.4.2, 0.4.3, 0.4.4, 0.4.5]
 
-  epic-0.3:
-    title: Reference data served read-only via a versioned, jurisdiction-filtered API
+  epic-0.5:
+    title: JOH and tier-(b) reference data served read-only via a versioned, jurisdiction-filtered API
     repo: ctam-reference-data
     phase: 0
-    depends_on: [epic-0.1, epic-0.2]     # read API is downstream of auth (JWTFilter + authz/check, D8)
+    depends_on: [epic-0.1, epic-0.2, epic-0.4]   # schema design + JOH tier-a data + downstream of auth (JWTFilter + authz/check, D8)
     decomposed: true
-    stories: [0.3.1, 0.3.2]
+    stories: [0.5.1, 0.5.2]
 
-  epic-0.4:
+  epic-0.6:
+    title: MRD reference data served read-only via a versioned, jurisdiction-filtered API
+    repo: ctam-reference-data
+    phase: 0
+    depends_on: [epic-0.1, epic-0.3, epic-0.4]   # schema design + MRD tier-a data + downstream of auth (JWTFilter + authz/check, D8)
+    decomposed: true
+    stories: [0.6.1]
+
+  epic-0.7:
     title: Both user populations are bootstrapped and verifiable against the IdP
     repo: ctam-architecture
     phase: 0
-    depends_on: [epic-0.1, epic-0.2]     # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster
+    depends_on: [epic-0.1, epic-0.2, epic-0.4]   # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster + schema design
     decomposed: true
-    stories: [0.4.1]
+    stories: [0.7.1]
 
-  epic-0.5:
+  epic-0.8:
     title: Notification service is scaffolded and contractually ready
     repo: ctam-notification
     phase: 0
-    depends_on: [epic-0.0]               # only needs the estate — parallelisable with 0.1/0.2
+    depends_on: [epic-0.A, epic-0.0, epic-0.B, epic-0.1]   # scaffold toolchain + estate + its DB role + schema design — parallelisable with 0.2/0.3/0.4/0.5/0.6
     decomposed: true
-    stories: [0.5.1, 0.5.2]
+    stories: [0.8.1, 0.8.2]
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PHASES 1–8 + post-MVP — repo-level placeholders (NOT yet decomposed into
@@ -91,12 +208,12 @@ future:
   phase-1-joh:
     repo: ctam-joh
     phase: 1
-    depends_on: [epic-0.2, epic-0.3]
+    depends_on: [epic-0.4, epic-0.5, epic-0.6]   # profiles compose tier-a JOH + tier-b + MRD Specialisations
     decomposed: false
   phase-2-absence:
     repo: ctam-absence
     phase: 2
-    depends_on: [phase-1-joh, epic-0.5]
+    depends_on: [phase-1-joh, epic-0.8]
     decomposed: false
   phase-3-vacancy:
     repo: ctam-vacancy
@@ -116,7 +233,7 @@ future:
   phase-6-payment:
     repo: [ctam-payment, ctam-payment-batch]
     phase: 6
-    depends_on: [phase-4-booking, phase-5-sitting, epic-0.5]
+    depends_on: [phase-4-booking, phase-5-sitting, epic-0.8]
     decomposed: false
   phase-7-itinerary:
     repo: ctam-itinerary
@@ -131,5 +248,5 @@ future:
   post-mvp-admin-ui:
     repo: ctam-admin-ui
     phase: post-mvp
-    depends_on: [epic-0.2, epic-0.3]
+    depends_on: [epic-0.4, epic-0.5, epic-0.6]
     decomposed: false

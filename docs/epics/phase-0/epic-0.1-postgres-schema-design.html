@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.1: Shared PostgreSQL schema design is established and CI-enforced — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+
+<h1 id="epic-01-shared-postgresql-schema-design-is-established-and-ci-enforced">Epic 0.1: Shared PostgreSQL schema design is established and CI-enforced</h1>
+<p><strong>User outcome:</strong> The shared relational schema design for every Phase 0 table — tier-(a) upstream-sourced (<code>jo_*</code>, <code>mrd_*</code>), tier-(b) CTAM-owned, and each service's own domain tables — is authored, reviewed, and published as the canonical reference (<code>architecture/data-tables.md</code>), together with a machine-checked convention fitness function (naming, PK/FK/timestamp, tier-prefix rules) that every subsequent service's Liquibase changelog must pass in CI. So that every Phase 0 service creates tables against one agreed, enforced shape from the start, rather than drifting per-service and being reconciled later.</p>
+<p><strong>Hosting — two repos.</strong> This is a design-and-tooling epic, not a service. <strong>Story 0.1.1</strong> lands in this control-plane repo (<code>ctam-analysis</code>: <code>architecture/data-tables.md</code>, already the canonical source per <code>CLAUDE.md</code>) and is published to the bus. <strong>Story 0.1.2</strong> lands in <strong><code>ctam-architecture</code></strong>, where the ruleset lives; <strong><code>ctam-scaffold.sh</code> (Epic 0.A, Story 0.A.2) wires it into every repo it creates</strong>, so no per-service adoption story is needed and a repo scaffolded in Phase 3 picks up the same gate as <code>ctam-reference-data</code>. No new deployable, no new repo.</p>
+<p><strong>Why this precedes ingestion:</strong> Story 0.2.2 (JOH tier-(a) tables) and Story 0.3.1 (MRD tables) are the first Liquibase changesets written against this schema; Epic 0.4 (auth's <code>ctam_auth_*</code> tables) and Epic 0.5 (tier-(b) tables) follow. Making the design and its enforcement explicit and reviewed <em>before</em> any of those changesets are written means every table lands right the first time, rather than each service inventing its own PK/FK/naming pattern and drifting from <code>architecture/conventions.md</code>.</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li>Finalize and publish the canonical relational schema design in <code>architecture/data-tables.md</code>: every table's owning service, tier (a/b), PK/FK shape, and the naming/typing conventions already set out in <code>architecture/conventions.md</code> (Data &amp; persistence)</li>
+<li>A schema-convention fitness function — a SQLFluff ruleset plus a naming/shape linter — packaged for every service repo's CI pipeline to run against its own Liquibase changelogs</li>
+<li>No new Azure resource, no new repo, no new service — this epic is documentation + shared tooling only, consumed by every table-creating story that follows</li>
+</ul>
+<p><strong>FRs covered:</strong> none — this is foundational data-design infrastructure with no functional-requirement surface of its own. It is the enablement layer for FR6/FR7 (tier ownership + grants) across every Phase 0 epic that creates tables.</p>
+<p><strong>Key NFRs first exercised here:</strong> none newly introduced; this epic operationalises the schema conventions already implied by <code>architecture/conventions.md</code> (Data &amp; persistence) ahead of any table's creation.</p>
+<p><strong>Architecture requirements:</strong> <code>architecture/conventions.md</code> (Data &amp; persistence — PK <code>id uuid</code>, FK <code>{entity_singular}_id</code>, <code>created_at</code>/<code>updated_at timestamptz NOT NULL</code>, tier-prefix rules); <code>architecture/data-tables.md</code> (the per-table ownership inventory this epic finalises and enforces).</p>
+<p><strong>Out of scope (explicitly):</strong> provisioning the PostgreSQL Flexible Server itself (Epic 0.0, Story 0.0.3 — this epic designs the schema that server will hold, not the server). Creating any actual table (Epic 0.2 Story 0.2.2 for <code>jo_*</code>, Epic 0.3 Story 0.3.1 for <code>mrd_*</code>, Epic 0.4 for <code>ctam_auth_*</code>, Epic 0.5 Story 0.5.1 for tier-(b)). The <code>ctam_configuration_values</code> shared infrastructure table baseline <strong>and the per-service DB roles</strong> — both <code>ctam-architecture</code>-owned and delivered in <strong><a href="epic-0.B-shared-db-baseline-and-service-roles.html">Epic 0.B</a>, Story 0.B.1</strong>, which precedes this epic (they were previously the undecomposed <code>arch-baseline</code> dispatch node). A separate, narrower concern to this epic's general-purpose conventions.</p>
+<hr />
+<h2 id="story-011-finalize-and-publish-the-canonical-relational-schema-design">Story 0.1.1: Finalize and publish the canonical relational schema design</h2>
+<p>As the <strong>CTAM Pathfinder platform</strong> (and every service that will create a table), I want the full relational schema design — every table's owning service, tier (a/b), PK/FK shape, and naming/typing conventions — finalized, reviewed, and published in <code>architecture/data-tables.md</code>, So that <strong>every subsequent Liquibase changeset is written against one agreed, reviewed design rather than being improvised per-service</strong>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> <code>architecture/conventions.md</code> already states the naming/typing rules (PK <code>id uuid</code> never bigint; FK <code>{entity_singular}_id</code>; <code>created_at</code>/<code>updated_at timestamptz NOT NULL</code> on every table; tier-prefix ownership <code>ctam_</code>/<code>jo_</code>/<code>mrd_</code>/<code>mock_</code>) and <code>architecture/data-tables.md</code> already inventories the 55-table shared schema<br/><strong>When</strong> the schema design is reviewed and signed off ahead of Epic 0.2<br/><strong>Then</strong> <code>architecture/data-tables.md</code> carries, for every table: owning service, tier (a/b), PK, every FK with its target table, and any unique/index constraint called out in the epics that create it<br/><strong>And</strong> every table name and column name in the inventory conforms to the naming/typing rules in <code>architecture/conventions.md</code> — any exception is called out explicitly with its rationale, not silently inconsistent<br/><strong>And</strong> the tier-(a) write-protection rule (only the owning service's DB role holds INSERT/UPDATE; every other role at most SELECT) is stated once, referenced by every table row rather than repeated per-table<br/><strong>And</strong> the design is reviewed against every FR/NFR that names a specific table or column (e.g. FR47 no bank details, FR54 no case-level data) to confirm no table violates a forbidden-data rule.</p>
+<p><strong>Given</strong> the schema design is published<br/><strong>When</strong> a new table is proposed by any later epic (e.g. Epic 0.4's <code>ctam_auth_*</code>, Epic 0.5's tier-(b) tables)<br/><strong>Then</strong> the epic's story references this design rather than redefining conventions inline — a new table is an addition to <code>architecture/data-tables.md</code>, not a fresh set of naming decisions.</p>
+<p><strong>References:</strong> <code>architecture/conventions.md</code> (Data &amp; persistence); <code>architecture/data-tables.md</code>.</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>The CI-enforced linter that checks changesets against this design — Story 0.1.2</li>
+<li>Writing any actual Liquibase changeset — Epic 0.2 onward</li>
+</ul>
+<hr />
+<h2 id="story-012-build-the-schema-convention-ci-fitness-function">Story 0.1.2: Build the schema-convention CI fitness function</h2>
+<p>As the <strong>CTAM Pathfinder platform</strong> (and every service's CI pipeline), I want a schema-convention fitness function — a SQLFluff ruleset plus a naming/shape linter — that runs against any service's Liquibase changelog, So that <strong>a changeset violating the agreed schema design (Story 0.1.1) fails CI before merge, rather than drifting into the shared database undetected</strong>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the schema design published in Story 0.1.1<br/><strong>When</strong> the fitness function is built and packaged in <strong><code>ctam-architecture</code></strong> (alongside the ArchUnit and Spectral rulesets the scaffold pulls in — Epic 0.A, Story 0.A.2)<br/><strong>Then</strong> it checks, for every table in a service's Liquibase changelog: a <code>uuid</code> primary key named <code>id</code> (never <code>bigint</code>/<code>serial</code>), FK columns named <code>{entity_singular}_id</code>, <code>created_at</code>/<code>updated_at timestamptz NOT NULL</code> present, and the table name prefixed per its tier/ownership (<code>ctam_</code> CTAM-owned, <code>jo_</code>/<code>mrd_</code> upstream tier-(a) — writable only by <code>ctam-reference-data</code>'s changelog, <code>mock_</code> dev-only)<br/><strong>And</strong> a changeset violating any rule fails the check with a specific, actionable message (which rule, which table/column) — not a generic lint failure<br/><strong>And</strong> the SQLFluff configuration is the same one referenced in <code>project-context.md</code>'s CI-gates list, not a second, divergent linter.</p>
+<p><strong>Given</strong> the fitness function exists<br/><strong>When</strong> it is wired into a service's CI pipeline (starting with <code>ctam-reference-data</code>, Epic 0.2 Story 0.2.1's scaffold)<br/><strong>Then</strong> the check runs on every PR touching <code>db/changelog/</code>, alongside the existing Spotless/Checkstyle/ArchUnit gates<br/><strong>And</strong> the scaffold conventions (<code>ctam-scaffold.sh</code>) reference where the ruleset lives so every later service repo picks it up the same way, without re-deriving it.</p>
+<p><strong>References:</strong> <code>architecture/conventions.md</code>; <code>project-context.md</code> (CI gates); depends on Story 0.1.1 (the design it enforces).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>The schema design itself — Story 0.1.1</li>
+<li>Enforcing runtime data-quality rules (that's the ingestion cleansing stage, Epic 0.2 Story 0.2.3 / Epic 0.3 Story 0.3.1) — this fitness function checks schema <em>shape</em>, not the data flowing through it</li>
+</ul>
+
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.1-postgres-schema-design.md</code></p>
+</main>
+
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.1-postgres-schema-design";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

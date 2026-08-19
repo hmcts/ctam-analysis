@@ -199,6 +199,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><code>ctam-mock-auth</code></td>
 <td>OIDC issuer for dev / CI / integration environments only — <strong>never deployed to production</strong></td>
 </tr>
+<tr>
+<td><code>ctam-joh-mock</code></td>
+<td>Stand-in for the <strong>JOH eLinks API</strong> (AR55) — serves all 15 <code>jo_*</code> entities as JSON in CTAM's expected contract shape, from version-tagged ET-flavoured fixtures, with fault-injection modes. Dev / CI / integration only — <strong>never deployed to production</strong>. Owns no shared-schema tables. Does <strong>not</strong> close gaps.md G8.1.</td>
+</tr>
+<tr>
+<td><code>ctam-mrd-mock</code></td>
+<td>Stand-in for the <strong>MRD weekly Excel feed</strong> (AR56) — publishes conformant and deliberately-malformed workbooks into a configurable blob container (Azurite in CI) on demand and on the weekly cadence. Dev / CI / integration only — <strong>never deployed to production</strong>. Owns no shared-schema tables. Does <strong>not</strong> close gaps.md G8.1.</td>
+</tr>
 </tbody>
 </table>
 </div></details><details class="section" id="technology-stack"><summary><span class="section-title">Technology stack</span></summary><div class="section-body">
@@ -304,6 +312,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Other non-user-initiated flows (more scheduled jobs, async messaging, event bus) — would use the same service-principal pattern.</li>
 <li>DA&amp;I post-MVP MI Feed integration — auth model TBD. See <a href="architecture/tobe/gaps.html"><code>./architecture/gaps.md</code> G7.2</a>.</li>
 <li>Production service-auth issuer — <code>ctam-mock-auth</code> covers Phase 0–8; deferred per G7.1.</li>
+<li><strong>Real upstream contracts (JOH eLinks + MRD) — unconfirmed, G8.1.</strong> <code>ctam-joh-mock</code> and <code>ctam-mrd-mock</code> cover dev/CI/integration and make the ingestion buildable and negative-testable pre-contract; they encode CTAM's written expectation, not evidence, so G8.1 closes only against real upstream data.</li>
 </ul>
 </div></details><details class="section" id="api-patterns"><summary><span class="section-title">API patterns</span></summary><div class="section-body">
 <table>

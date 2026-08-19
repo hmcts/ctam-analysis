@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-18b — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-18b">Sprint Change Proposal — 2026-08-18b</h1>
+<details class="section" id="two-new-phase-0-epics-and-two-new-repos-ctam-joh-mock-epic-09-and-ctam-mrd-mock-epic-010"><summary><span class="section-title">Two new Phase 0 epics and two new repos: <code>ctam-joh-mock</code> (Epic 0.9) and <code>ctam-mrd-mock</code> (Epic 0.10)</span></summary><div class="section-body">
+</div></details><details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a direct request to create two Phase 0 epics for a JOH mock and an MRD mock reference-data source, targeting two new repos — <code>ctam-joh-mock</code> and <code>ctam-mrd-mock</code>.</p>
+<p><strong>Problem statement.</strong> Phase 0's two ingestion epics are the programme's first external integrations and the foundation everything else stands on: <strong>Epic 0.2</strong> (nightly JOH eLinks sync → the 15 <code>jo_*</code> tables, including <code>jo_people</code>, without which no JOH can sign in) and <strong>Epic 0.3</strong> (weekly MRD Excel workbook → <code>mrd_*</code>). Both are blocked on external teams whose contracts are <strong>unconfirmed</strong>, recorded as gaps.md <strong>G8.1</strong> and promoted to a <strong>wave-1 blocker</strong> on 2026-08-07:</p>
+<blockquote>
+<p><em>"The ingestion design (nightly in-process sync; weekly blob drop) <strong>assumes</strong>: the eLinks API exposes all 15 <code>jo_*</code> entities with stable natural keys; the jurisdiction hierarchy's parent-child shape is available; the MRD team can deliver the weekly workbook to an Azure Blob container in an agreed shape."</em></p>
+</blockquote>
+<p>Until 2026-08-18 the artifacts handled this with two thin placeholders:</p>
+<ul>
+<li><strong>Story 0.2.3</strong> — <em>"dev/CI environments use seeded <code>jo_*</code> fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI)."</em></li>
+<li><strong>Story 0.3.1</strong> — <em>"<strong>When</strong> the weekly workbook lands in the container…"</em> — with no statement of who or what puts it there before the MRD team exists as a delivery channel.</li>
+</ul>
+<p>Both are insufficient for what these epics actually have to prove. An in-process WireMock stub cannot be deployed, cannot be reached over a real network hop, cannot be version-tagged independently, and — most importantly — is an assertion about <em>CTAM's own test code</em> rather than a written expectation of <em>someone else's contract</em>. Neither placeholder gives Story 0.2.3's four failure-path acceptance criteria (structurally malformed payload, per-record quarantine, unreachable mid-sync, contract-validation gate) or Story 0.3.1's three (whole-file rejection, per-row quarantine, idempotent re-drop) anything reproducible to execute against.</p>
+<p><strong>Evidence.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What it says</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>architecture/gaps.md</code> <strong>G8.1</strong></td>
+<td>Both upstream contracts unconfirmed; wave-1 blocker since 2026-08-07</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.2-*.md</code> Story 0.2.3</td>
+<td>The "WireMock/stub eLinks API in CI" clause, and four failure-path ACs with no mechanism to trigger them</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.3-*.md</code> Story 0.3.1</td>
+<td>Three variant-dependent ACs (reject / quarantine / idempotency) with no stated producer of those variants</td>
+</tr>
+<tr>
+<td><code>architecture.md</code> <em>Phasing of Authentication: Mock-First, Real IdP Later</em></td>
+<td>The established precedent: <code>ctam-mock-auth</code> reduced HMCTS IdP "from a Phase 0 blocker to a pre-Phase-9 prerequisite"</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td><code>ctam-mock-auth</code> is already a first-class repo, not a test fixture — the pattern to generalise</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Issue type:</strong> new requirement emerged from delivery reality — specifically, an <strong>external-dependency risk mitigation</strong>. Not a technical limitation, not a misunderstanding of requirements, not a strategic pivot.</p>
+<p><strong>Two decisions confirmed with the user during analysis:</strong></p>
+<ol type="1">
+<li><strong>Numbering — append as 0.9 / 0.10, do not insert at 0.2 / 0.3.</strong> Inserting would have been "truer" to execution order but renumbered all 23 existing Phase 0 stories, renamed 7 epic files and 7 ledger shards, and rewritten ~30 cross-references — the third Phase 0 renumbering in four days (after SCPs 2026-08-15b and 2026-08-15c). The user selected append. The cost is accepted and made explicit: <strong>an epic number is now an identifier, not a build position</strong>, and <code>delivery/dispatch-graph.yaml</code> is the sole authority on order.</li>
+<li><strong>Shape — full standalone deployables, not lightweight fixture repos.</strong> Both are scaffolded from the HMCTS Crime SpringBoot template like every other service, deployed onto the Epic 0.0 estate, and reached over a real HTTP / blob hop. The alternatives offered (fixture-only repos; hybrid deployable-JOH + fixture-MRD) were not selected.</li>
+</ol>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>New Epic 0.9</strong> — Upstream JOH reference data has a contract-shaped mock source</td>
+<td>2 stories (0.9.1 scaffold + safeguard; 0.9.2 entities, fixtures, fault injection). Repo <code>ctam-joh-mock</code>. <code>depends_on: [epic-0.0, arch-baseline, epic-0.1]</code></td>
+</tr>
+<tr>
+<td><strong>New Epic 0.10</strong> — Upstream MRD reference data has a contract-shaped mock source</td>
+<td>2 stories (0.10.1 scaffold + safeguard; 0.10.2 workbook generator, fixtures, variants). Repo <code>ctam-mrd-mock</code>. <code>depends_on: [epic-0.0, arch-baseline, epic-0.1]</code></td>
+</tr>
+<tr>
+<td><strong>Epic 0.2</strong> (JOH ingestion)</td>
+<td><code>depends_on</code> gains <code>epic-0.9</code>. New <em>Upstream stand-in</em> section. Story 0.2.3's WireMock/stub AC <strong>replaced</strong>; its two failure-path Givens and its G8.1 contract-validation AC retargeted at the mock's fault modes and published spec. No story added, removed, or renumbered.</td>
+</tr>
+<tr>
+<td><strong>Epic 0.3</strong> (MRD ingestion)</td>
+<td><code>depends_on</code> gains <code>epic-0.10</code>. New <em>Upstream stand-in</em> section. Story 0.3.1's workbook-arrival AC now names the mock as producer; the rejection, quarantine and idempotency Givens retargeted at its variants. No story added, removed, or renumbered.</td>
+</tr>
+<tr>
+<td><strong>Epics 0.0, 0.1, 0.4–0.8</strong></td>
+<td><strong>No change.</strong> Epic 0.4's mock-auth JOH roster and Epic 0.7's bootstrap fixtures are <em>referenced</em> by Story 0.9.2 (shared personnel numbers) but neither epic's own text or ACs change.</td>
+</tr>
+<tr>
+<td><strong>Phases 1–8, post-MVP</strong></td>
+<td><strong>No change.</strong> The <code>future:</code> nodes in the dispatch graph are untouched — the mocks sit entirely upstream of Epic 0.2/0.3 and add no downstream edges.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Phase 0 totals: 9 → 11 epics, 23 → 27 stories.</strong> No existing story ID changed.</p>
+<h3 id="dependency-graph-impact">Dependency-graph impact</h3>
+<p>Two new nodes, two edited <code>depends_on</code> lists. <strong>Verified acyclic</strong> — the mocks depend only on Epics 0.0/0.1/arch-baseline and never on the ingestion epics they feed. Topological order:</p>
+<pre><code>epic-0.0 → arch-baseline → epic-0.1 → epic-0.9 → epic-0.2 → epic-0.10 → epic-0.3
+         → epic-0.4 → epic-0.5 → epic-0.6 → epic-0.7 → epic-0.8</code></pre>
+<p>The mocks correctly sort immediately ahead of their consumers despite their high numbers.</p>
+<p><strong>One cycle was identified during analysis and designed out.</strong> The obvious design has <code>ctam-mrd-mock</code> publish into the MRD drop container — but that container is provisioned by <strong>Epic 0.3, Story 0.3.1</strong> (in <code>ctam-reference-data</code>'s own <code>terraform/</code>, per AR53's first-consumer rule). Epic 0.3 depending on Epic 0.10 while Epic 0.10 depends on Epic 0.3 is a cycle the epic-level dispatch graph cannot express. Resolution: <strong><code>ctam-mrd-mock</code> is container-target-agnostic</strong> — it writes to whichever container its configuration names, targets local <strong>Azurite</strong> in CI (via the <code>gradle-docker-compose</code> plugin the starter already carries), and <strong>does not provision</strong> the drop container. Container ownership stays with <code>ctam-reference-data</code>, which is correct on the merits too: the consumer should own the resource the real MRD team drops into.</p>
+<h3 id="artifact-impact-exhaustive">Artifact impact (exhaustive)</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.9-joh-reference-data-mocked.md</code></td>
+<td><strong>New</strong> — 2 stories</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.10-mrd-reference-data-mocked.md</code></td>
+<td><strong>New</strong> — 2 stories</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.2-joh-reference-data-ingested.md</code></td>
+<td>Stand-in section; Story 0.2.1/0.2.3 scope lists; Story 0.2.3 AC replacement + 3 AC retargets; references</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.3-mrd-reference-data-ingested.md</code></td>
+<td>Stand-in section; out-of-scope; Story 0.3.1 AC retargets ×4; references</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Sequencing narrative; epic-number-vs-build-order note; new scope-model bullet; epics table +2 rows, total 23→27; +2 epic summaries; demo table +2 rows; NFR line; <strong>new retirement-path paragraph</strong></td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 row 9→11 epics, 23→27 stories; epic-number-vs-order note</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>New Phase 0 Area row + full <strong>Upstream Source Stand-Ins</strong> Area section; "eight"→"eleven" epics; ingestion paragraph cross-ref</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>Heading <code>0.1–0.8</code> → <code>0.0–0.10</code> (also fixes a pre-existing off-by-one); new <strong>epics with no FR of their own</strong> note; FR6 tier-(a) row cross-refs the stand-ins</td>
+</tr>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td><strong>AR55</strong> (<code>ctam-joh-mock</code>) + <strong>AR56</strong> (<code>ctam-mrd-mock</code>)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td><strong>Decision #17</strong>; eLinks + MRD external-system bullets; <strong>new <em>Phasing of Upstream Integrations: Mock-First, Real Upstream Later</em> section</strong>; ingestion failure-handling + non-production-upstream bullets; implementation sequence step 3; validation bullet; structure-alignment sentence</td>
+</tr>
+<tr>
+<td><code>architecture-summary.md</code></td>
+<td>Non-production support table +2 rows; open-decisions list +1</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td>Frontmatter + strategy line; <strong>2 new repo rows</strong>; 16→18 total; <strong>new rationale paragraph</strong> (why a mock is a repo, not a test fixture)</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td><strong>G5.3 widened</strong> to all three mocks with three named guards each; <strong>G8.1 annotated</strong> de-risked-not-closed, with the diff-on-landing protocol</td>
+</tr>
+<tr>
+<td><code>architecture/data-tables.md</code></td>
+<td>New <strong>0-table</strong> section for both mocks + inventory line</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code></td>
+<td>Illustrative graph +2 repos and marked illustrative; "16 things"→"18 things"</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td><strong>v4.6</strong> entry</td>
+</tr>
+<tr>
+<td><code>delivery/dispatch-graph.yaml</code></td>
+<td>2 new nodes; <code>epic-0.2</code>/<code>epic-0.3</code> <code>depends_on</code>; <strong>NOTE ON EPIC NUMBERS</strong> header block</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.9.yaml</code>, <code>epic-0.10.yaml</code></td>
+<td><strong>New</strong> shards</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/epic-0.2.yaml</code>, <code>epic-0.3.yaml</code></td>
+<td><code>note:</code> on stories 0.2.3 / 0.3.1</td>
+</tr>
+<tr>
+<td><code>delivery/README.md</code></td>
+<td>Current state 9→11 epics, 23→27 stories; epic-number-vs-order note + topological order</td>
+</tr>
+<tr>
+<td><code>delivery/ledger/README.md</code></td>
+<td>Shard range <code>epic-0.5</code>→<code>epic-0.10</code>; "six shards"→"eleven shards" (both pre-existing staleness)</td>
+</tr>
+<tr>
+<td>root <code>CLAUDE.md</code></td>
+<td>16-repo → 18-repo polyrepo list</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>2 NAV entries; Phase 0 section label; this SCP's NAV entry</td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>Regenerated via <code>scripts/build-html.sh</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="artifacts-checked--no-impact">Artifacts checked — no impact</h3>
+<p><code>prd.md</code> (no FR/NFR changes — the mocks introduce no requirement and satisfy none; NFR24's <em>"JOH eLinks API + MRD are MVP integrations"</em> is unaffected, the integrations are unchanged, only what they point at in non-production), <code>business-case.md</code>, <code>architecture/conventions.md</code>, <code>architecture/repo-structure.md</code> (both mocks follow the standard per-service structure unmodified), <code>architecture/assumptions.md</code>, <code>architecture/user-types.md</code>, <code>architecture/starter-template.md</code>, <code>architecture/non-functional-requirements-coverage.md</code>, all <code>architecture/sequence-diagrams/*</code> (no runtime flow changes — non-production upstream substitution is a configuration concern, not a flow), <code>_bmad-output/project-context.md</code> (governs service code; the mocks follow the same rules with no exception needed), all dated readiness/validation reports and prior SCPs (<strong>immutable history — not rewritten</strong>).</p>
+<p><strong>No UX impact.</strong> Neither epic has a UI surface; NFR17–NFR19 do not apply.</p>
+<h3 id="technical-impact">Technical impact</h3>
+<p><strong>No FR or NFR changes. No schema changes</strong> — neither mock owns a table, so <code>data-tables.md</code>'s inventory is unchanged and the Epic 0.1 fitness function needs no exception. <strong>No change to any CTAM API contract.</strong> <strong>No code impact</strong> — implementation has not started; every Phase 0 epic is <code>not-started</code> in the ledger.</p>
+<p><strong>New infrastructure footprint:</strong> two additional AKS deployments in dev/CI/integration only, two ACR image streams, two APIM registrations. Nothing in production, by construction and by three enforced guards.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Selected: Option 1 — Direct Adjustment.</strong> Add two epics within the existing Phase 0 structure; adjust the two consuming epics' dependencies and the acceptance criteria that referenced the placeholder stubs.</p>
+<p><strong>Rationale.</strong> Rollback (Option 2) is not applicable — nothing is implemented. An MVP review (Option 3) is not applicable — no FR, NFR, or scope boundary moves; MVP is unchanged. What this change does is convert an already-identified, already-accepted risk (G8.1) from a <em>schedule dependency on two external teams</em> into a <em>deliverable CTAM controls</em>, which is precisely the trade the programme already made for identity with <code>ctam-mock-auth</code>.</p>
+<p><strong>The honest cost.</strong> Four extra stories and two repos to maintain, in exchange for: Epics 0.2 and 0.3 becoming buildable and demoable <strong>without external-team access</strong>; seven previously-unexecutable failure-path acceptance criteria becoming executable; and the first real contract arriving as a <strong>diff against a written, version-controlled expectation</strong> rather than an open discovery. Two things are deliberately <em>not</em> claimed:</p>
+<ul>
+<li><strong>G8.1 does not close.</strong> The mocks encode CTAM's assumptions about the upstreams, not evidence about them. Both epics' final ACs state this explicitly, and G8.1's own text now says closure requires real upstream data plus confirmed ET jurisdiction coverage.</li>
+<li><strong>The fixtures are not ET evidence.</strong> Per <strong>G8.5</strong>, the repository holds no ET as-is analysis pack. Every ET role name and vocabulary value in both fixture sets is marked <strong>provisional</strong>.</li>
+</ul>
+<p><strong>Effort:</strong> Medium (2 new repos, 4 stories; documentation sweep across 20 artifacts). <strong>Risk:</strong> Low-Medium. The genuine risk is <strong>mock-reality divergence</strong> — a mock that encodes a wrong assumption can make a broken integration look finished. Three mitigations are built into the ACs: every guessed field is pre-annotated in the published contract; the final AC of each epic requires a formal diff-and-architectural-PR when the real contract lands; and G8.1 is explicitly not closable by mock success. <strong>Timeline impact:</strong> adds two epics to the critical path ahead of Epic 0.2 — but they are parallelisable with Epic 0.8 and with each other, and they <em>remove</em> the external-team wait that currently gates Epics 0.2 and 0.3 entirely.</p>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-new-epic-09--ctam-joh-mock">4.1 New Epic 0.9 — <code>ctam-joh-mock</code></h3>
+<p><strong>File:</strong> <code>epics/phase-0/epic-0.9-joh-reference-data-mocked.md</code>. Slug follows the established <code>{source}-reference-data-{what}</code> pattern, completing the symmetry set:</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>JOH</th>
+<th>MRD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mock</td>
+<td><code>epic-0.9-joh-reference-data-mocked</code></td>
+<td><code>epic-0.10-mrd-reference-data-mocked</code></td>
+</tr>
+<tr>
+<td>Ingestion</td>
+<td><code>epic-0.2-joh-reference-data-ingested</code></td>
+<td><code>epic-0.3-mrd-reference-data-ingested</code></td>
+</tr>
+<tr>
+<td>Read API</td>
+<td><code>epic-0.5-joh-reference-data-read-only-api</code></td>
+<td><code>epic-0.6-mrd-reference-data-read-only-api</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Story 0.9.1 — Scaffold <code>ctam-joh-mock</code> with a production-refusal safeguard.</strong> HMCTS starter baseline per Story 0.2.1 (AR2–AR17), package <code>uk.gov.hmcts.ctam.johmock</code>, port <strong>8090</strong>, no Liquibase changelog. Three production guards: <code>production</code>-profile startup refusal with the message <em>"ctam-joh-mock must not be deployed to production"</em>, <code>deploy-production.yml</code> exclusion, CI lint against production Helm values naming it as an eLinks endpoint. Deployed to dev AKS with probes, structured logs into the shared App Insights workspace, TLS via APIM, and a <em>"Mock upstream source — synthetic judicial data, not for production"</em> banner on its OpenAPI landing page.</p>
+<p><strong>Story 0.9.2 — Serves all 15 <code>jo_*</code> entities on the expected eLinks contract, with fault injection.</strong> All 15 entities as JSON, field-complete against <code>data-tables.md</code>; every guessed field name/type/cardinality annotated in the published OpenAPI spec (<code>uk.gov.hmcts.ctam:api-ctam-joh-mock</code>), labelled <strong>provisional</strong>. ET-flavoured fixtures carrying the <strong>Employment Tribunals jurisdiction with its parent-child shape under Tribunals</strong> (G8.1's wave-1 condition) and stable personnel numbers <strong>shared with the Epic 0.4 mock-auth roster and Epic 0.7 bootstrap fixtures</strong>. Deterministic payloads per fixture version. Fault modes: malformed payload, per-record non-conformance, unreachable/5xx, slow response. Final AC: diff-against-real-contract protocol, with G8.1 explicitly not closed by mock success.</p>
+<h3 id="42-new-epic-010--ctam-mrd-mock">4.2 New Epic 0.10 — <code>ctam-mrd-mock</code></h3>
+<p><strong>File:</strong> <code>epics/phase-0/epic-0.10-mrd-reference-data-mocked.md</code>.</p>
+<p><strong>Story 0.10.1 — Scaffold with a production-refusal safeguard.</strong> As 0.9.1, package <code>uk.gov.hmcts.ctam.mrdmock</code>, port <strong>8091</strong>, plus: an Excel-writing library <strong>matching the reader Epic 0.3 uses</strong>, so producer and consumer cannot disagree about workbook encoding; Azurite as the local publish target; Key Vault for any non-local storage credential; startup failure with a clear diagnostic if the configured container is absent; a <em>"Mock MRD feed — synthetic judicial data"</em> marker in every generated workbook.</p>
+<p><strong>Story 0.10.2 — Publishes conformant and deliberately-malformed workbooks.</strong> Sheets/columns derived from <code>mrd_*</code> in <code>data-tables.md</code>; a published <strong>column dictionary</strong> (sheet, column, type, vocabulary, required/optional, natural key) as the provisional contract, guesses annotated. Specialisations reference the <strong>same personnel numbers as the Epic 0.9 fixtures</strong>, so Epic 0.3's referential checks resolve against JOH data that exists. On-demand trigger + weekly <code>@Scheduled</code> publish. Variants: conformant; per-row non-conformant; structurally invalid (missing sheet/column); cross-sheet lookup failure; byte-identical re-drop. Final AC: the same diff protocol and the same explicit non-closure of G8.1.</p>
+<h3 id="43-epic-02--story-023-acceptance-criteria-change">4.3 Epic 0.2 — Story 0.2.3 acceptance-criteria change</h3>
+<p><strong>OLD:</strong></p>
+<blockquote>
+<p><strong>And</strong> dev/CI environments use seeded <code>jo_*</code> fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).</p>
+</blockquote>
+<p><strong>NEW:</strong></p>
+<blockquote>
+<p><strong>And</strong> dev and CI run the sync against <strong><code>ctam-joh-mock</code></strong> (<strong>Epic 0.9</strong>) — a deployed, contract-shaped stand-in reached over a real HTTP hop, not an in-process stub — so the whole cleanse/transform/persist path is exercised end-to-end while real eLinks access does not exist<br/><strong>And</strong> the fixture version served by the mock is recorded against the run in <code>ctam_sync_status</code>, so a result can always be traced to the exact upstream payload set that produced it<br/><strong>And</strong> switching to real eLinks changes <strong>configuration only</strong> — the base URL and the Key Vault credential — with no change to the sync code or its test suite.</p>
+</blockquote>
+<p><strong>Rationale:</strong> an in-process stub cannot prove the integration; a deployed stand-in can, and makes the cutover configuration rather than code. Two further Givens (unreachable / malformed payload; per-record non-conformance) now name the mock's fault modes as the mechanism, and the G8.1 contract-validation AC now diffs against the mock's published spec — turning three aspirational criteria into executable ones.</p>
+<h3 id="44-epic-03--story-031-acceptance-criteria-change">4.4 Epic 0.3 — Story 0.3.1 acceptance-criteria change</h3>
+<p><strong>OLD:</strong></p>
+<blockquote>
+<p><strong>When</strong> the weekly workbook lands in the container<br/><strong>Then</strong> a <code>@Scheduled</code> task in <code>ctam-reference-data</code> detects it on its polling cycle (per AR47).</p>
+</blockquote>
+<p><strong>NEW:</strong></p>
+<blockquote>
+<p><strong>When</strong> the weekly workbook lands in the container — published in dev and CI by <strong><code>ctam-mrd-mock</code></strong> (<strong>Epic 0.10</strong>) on its weekly <code>@Scheduled</code> cadence or via its on-demand trigger, so the drop is a <strong>real blob hop</strong> rather than a hand-placed test file<br/><strong>Then</strong> a <code>@Scheduled</code> task in <code>ctam-reference-data</code> detects it on its polling cycle (per AR47)<br/><strong>And</strong> the mock's fixture version is recorded against the run in <code>ctam_sync_status</code>, so a result can always be traced to the exact workbook that produced it<br/><strong>And</strong> switching to the real MRD feed changes only <strong>who drops into the container</strong> — no change to the ingestion code or its test suite.</p>
+</blockquote>
+<p><strong>Rationale:</strong> the story previously had no stated producer of the workbook. Its rejection, quarantine and idempotency Givens now name the corresponding mock variants, making all three executable. The container stays provisioned here, in <code>ctam-reference-data</code>'s <code>terraform/</code> — unchanged.</p>
+<h3 id="45-new-ars">4.5 New ARs</h3>
+<p><strong>AR55</strong> — <code>ctam-joh-mock</code> is the dev/CI/integration stand-in for the JOH eLinks API: standalone deployable, all 15 <code>jo_*</code> entities, ET-flavoured fixtures, fault-injection modes, published OpenAPI spec as CTAM's provisional written expectation, three production guards, no shared-schema tables, cutover is configuration. Passing against it is <strong>not</strong> closure of G8.1.</p>
+<p><strong>AR56</strong> — <code>ctam-mrd-mock</code> is the dev/CI/integration stand-in for the MRD weekly Excel feed: standalone deployable, workbook generator with five variants, personnel numbers shared with AR55's fixtures, published column dictionary, <strong>container-target-agnostic</strong> (does not provision the drop container — that stays with <code>ctam-reference-data</code> per AR47/AR53), three production guards, no shared-schema tables. Passing against it is <strong>not</strong> closure of G8.1.</p>
+<h3 id="46-gap-amendments">4.6 Gap amendments</h3>
+<p><strong>G5.3 widened</strong> — was mock-auth-specific; now covers all three mocks, with the three guards named per mock (profile refusal, pipeline exclusion, CI lint).</p>
+<p><strong>G8.1 annotated</strong> — records that both upstream sources now have contract-shaped stand-ins that make the ingestion buildable and negative-testable pre-contract, and states in terms that <strong>this does not close the gap</strong>: the mocks are CTAM's assumptions, not evidence. Closure still requires both ingestion paths running against <strong>real</strong> upstream data with ET jurisdiction coverage confirmed. Adds the landing protocol: diff the real contract against the mock's published contract, raise the delta as an architectural PR.</p>
+<h3 id="47-numbering-decision-recorded-explicitly">4.7 Numbering decision, recorded explicitly</h3>
+<p>Appending at 0.9/0.10 means epic number no longer tracks build order. Rather than leave that as a trap, it is stated in five places: the dispatch graph's header (<strong>NOTE ON EPIC NUMBERS</strong>), the Phase 0 index blockquote, <code>epics/index.md</code>, <code>delivery/README.md</code> (with the full topological order), and decision #17. The site NAV's Phase 0 section label carries the same warning.</p>
+<h3 id="48-regenerate-docs">4.8 Regenerate <code>docs/</code></h3>
+<p>Run <code>scripts/build-html.sh</code> after the two NAV entries and the section-label change.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong> — two epics and four stories enter the backlog and two existing epics' dependencies change, so the delivery plan is reorganised; but no requirement, scope boundary, or architectural principle moves, so this is not a replan.</p>
+<ul>
+<li><strong>PO / DEV (backlog):</strong> two new ledger shards seeded <code>not-started</code>/unassigned; <code>depends_on</code> edits on Epics 0.2 and 0.3; Phase 0 totals updated to 11 epics / 27 stories in the phase index, epics index and <code>delivery/README.md</code>. Sprint planning must read the topological order from the dispatch graph, <strong>not</strong> from epic numbers — Epics 0.9 and 0.10 are dispatchable as soon as Epic 0.1 is <code>done</code>, and they gate Epics 0.2 and 0.3.</li>
+<li><strong>Architect:</strong> decision #17 and the new <em>Phasing of Upstream Integrations</em> section in <code>architecture.md</code>; AR55/AR56; the G5.3 widening and G8.1 annotation; the repository-strategy rationale for mock-as-repo.</li>
+<li><strong>Developer agent (control plane):</strong> the artifact sweep in §2 plus this SCP, the v4.6 changelog entry, and the <code>docs/</code> regeneration.</li>
+<li><strong>Commit:</strong> the user reviews and commits externally via VSCode (git writes are blocked inside Claude).</li>
+</ul>
+<p><strong>Success criteria:</strong></p>
+<ol type="1">
+<li><code>delivery/dispatch-graph.yaml</code> parses, is <strong>acyclic</strong>, and its topological sort places <code>epic-0.9</code> before <code>epic-0.2</code> and <code>epic-0.10</code> before <code>epic-0.3</code>.</li>
+<li><code>delivery/ledger/</code> holds 11 epic shards; <code>epic-0.9.yaml</code> and <code>epic-0.10.yaml</code> are <code>not-started</code>, <code>owner: null</code>; no existing story ID changed anywhere in the repo.</li>
+<li>A repo-wide sweep for <code>WireMock</code> in <code>epics/</code> returns nothing (the placeholder is gone).</li>
+<li>Every live reference to the 16-repo count is updated to 18: <code>repository-strategy.md</code>, <code>delivery-operating-model.md</code>, root <code>CLAUDE.md</code>.</li>
+<li>Phase 0 reads <strong>11 epics / 27 stories</strong> consistently in <code>epics/index.md</code>, <code>epics/phase-0/index.md</code> and <code>delivery/README.md</code>.</li>
+<li>G8.1 explicitly states the mocks do not close it; G5.3 names all three mocks.</li>
+<li><code>scripts/build-html.sh</code> completes and both new epic pages render, reachable from the site NAV.</li>
+<li><code>prd.md</code> is unmodified (<code>git diff</code> shows no change) — no FR or NFR moved.</li>
+</ol>
+</div></details><details class="section" id="6-pre-existing-findings--not-part-of-this-change"><summary><span class="section-title">6. Pre-existing Findings — Not Part of This Change</span></summary><div class="section-body">
+<ol type="1">
+<li><strong>Site NAV is still missing four Sprint Change Proposals</strong> — <code>2026-08-14</code>, <code>2026-08-15</code>, <code>2026-08-15b</code>, <code>2026-08-15c</code> — plus <code>implementation-readiness-report-2026-06-17</code>, <code>-2026-08-11</code>, and both <code>prd-validation-report-*</code> files. Flagged in SCP 2026-08-18 §6 and <strong>still open</strong>; this change adds only its own NAV entry. Notably <code>2026-08-15b</code>/<code>c</code> define the current Phase 0 numbering and remain unreachable from the published site.</li>
+<li><strong><code>architecture/delivery-operating-model.md</code>'s illustrative dispatch-graph snippet carries pre-2026-08-15 epic ids</strong> (e.g. <code>ctam-mock-auth: epics: [epic-0.2]</code>). Marked <strong>ILLUSTRATIVE SHAPE ONLY</strong> with a pointer to the live file rather than renumbered, since it is prose illustration, not the authority.</li>
+<li><strong><code>delivery/ledger/README.md</code> and <code>fr-coverage-map.md</code> carried stale ranges</strong> (<code>epic-0.0 … epic-0.5</code>; "six shards"; "concrete epics 0.1–0.8") that pre-date this change. Corrected in passing since they would otherwise have been made <em>more</em> wrong by it.</li>
+</ol>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-18b.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#two-new-phase-0-epics-and-two-new-repos-ctam-joh-mock-epic-09-and-ctam-mrd-mock-epic-010">Two new Phase 0 epics and two new repos: ctam-joh-mock (Epic 0.9) and ctam-mrd-mock (Epic 0.10)</a></li><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#dependency-graph-impact">Dependency-graph impact</a></li><li class="h3"><a href="#artifact-impact-exhaustive">Artifact impact (exhaustive)</a></li><li class="h3"><a href="#artifacts-checked--no-impact">Artifacts checked — no impact</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li class="h3"><a href="#41-new-epic-09--ctam-joh-mock">4.1 New Epic 0.9 — ctam-joh-mock</a></li><li class="h3"><a href="#42-new-epic-010--ctam-mrd-mock">4.2 New Epic 0.10 — ctam-mrd-mock</a></li><li class="h3"><a href="#43-epic-02--story-023-acceptance-criteria-change">4.3 Epic 0.2 — Story 0.2.3 acceptance-criteria change</a></li><li class="h3"><a href="#44-epic-03--story-031-acceptance-criteria-change">4.4 Epic 0.3 — Story 0.3.1 acceptance-criteria change</a></li><li class="h3"><a href="#45-new-ars">4.5 New ARs</a></li><li class="h3"><a href="#46-gap-amendments">4.6 Gap amendments</a></li><li class="h3"><a href="#47-numbering-decision-recorded-explicitly">4.7 Numbering decision, recorded explicitly</a></li><li class="h3"><a href="#48-regenerate-docs">4.8 Regenerate docs/</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li><a href="#6-pre-existing-findings--not-part-of-this-change">6. Pre-existing Findings — Not Part of This Change</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-18b";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
