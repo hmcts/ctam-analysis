@@ -1,24 +1,24 @@
 ---
 type: 'Epic'
 description: 'User outcome: The shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) is stood up via Terraform in its own ctam-shared-infrastructure repo per the HMCTS CNP standard, provisioned layer-by-layer with each layer independently verifiable…'
-resource: 'epics/phase-0/epic-0.0-platform-estate-provisioned.html'
-tags: [ctam-pathfinder, epics, phase-0, infrastructure]
+resource: 'epics/phase-1/epic-1.0-platform-estate-provisioned.html'
+tags: [ctam-pathfinder, epics, phase-1, infrastructure]
 timestamp: '2026-07-06'
-parent: 'epics/phase-0/index.md'
-epic: 0.0
+parent: 'epics/phase-1/index.md'
+epic: 1.0
 title: 'Platform estate is provisioned, verifiable, and CNP-compliant'
 storyCount: 5
 repo: ctam-shared-infrastructure
 depends_on: []                              # nothing precedes the estate
 ---
 
-# Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant
+# Epic 1.0: Platform estate is provisioned, verifiable, and CNP-compliant
 
 **User outcome:** The shared Azure estate — **AKS, a global PostgreSQL Flexible Server, Azure Container Registry, APIM, Application Insights / Log Analytics, and Key Vault** — is stood up via **Terraform** in its own dedicated repository, **`ctam-shared-infrastructure`**, following the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a `{product}-shared-infrastructure` repo (not colocated in a service repo). The estate is provisioned **layer-by-layer, and each layer is independently verifiable at deploy time** — so that every Phase 0 service (`ctam-reference-data` first, then `ctam-authorisation`, `ctam-notification`, `ctam-ui`) has a *tested* platform to deploy onto, and the team can prove the platform works before any domain service is scaffolded.
 
-**Hosting:** the shared estate lives in **`ctam-shared-infrastructure`** (CNP `{product}-shared-infrastructure` convention). This **supersedes AR53's colocated first-consumer rule** — the shared estate is no longer carried inside `ctam-reference-data/terraform/`. Each service repo's own `terraform/` continues to hold **only that service's own resources** (e.g. the MRD storage account in `ctam-reference-data`, Epic 0.3 Story 0.3.1).
+**Hosting:** the shared estate lives in **`ctam-shared-infrastructure`** (CNP `{product}-shared-infrastructure` convention). This **supersedes AR53's colocated first-consumer rule** — the shared estate is no longer carried inside `ctam-reference-data/terraform/`. Each service repo's own `terraform/` continues to hold **only that service's own resources** (e.g. the MRD storage account in `ctam-reference-data`, Epic 1.3 Story 1.3.1).
 
-**Why this is Epic 0.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.1.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ctam-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the **domain** deliverables (0.1 → 0.8) is unchanged.
+**Why this is Epic 1.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 1.1.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ctam-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the **domain** deliverables (0.1 → 0.8) is unchanged.
 
 **Vertical slice:**
 - **New dedicated repo `ctam-shared-infrastructure`** (CNP naming), scaffolded per the manual GitHub web-UI setup runbook (`ctam-architecture/runbooks/github-setup.md` — the `gh` CLI is not available)
@@ -32,11 +32,11 @@ depends_on: []                              # nothing precedes the estate
 
 **Architecture requirements:** **AR53 (revised — dedicated `ctam-shared-infrastructure` per CNP)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern).
 
-**Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — Epic 0.1, Story 0.1.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+); the `ctam_configuration_values` Liquibase baseline (owned by `ctam-architecture`, lands ahead of Epic 0.1).
+**Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — Epic 1.1, Story 1.1.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+); the `ctam_configuration_values` Liquibase baseline (owned by `ctam-architecture`, lands ahead of Epic 1.1).
 
 ---
 
-## Story 0.0.1: Scaffold `ctam-shared-infrastructure` and establish the Terraform foundation
+## Story 1.0.1: Scaffold `ctam-shared-infrastructure` and establish the Terraform foundation
 
 As a **platform engineer**,
 I want the dedicated **`ctam-shared-infrastructure`** repo scaffolded per the HMCTS CNP standard, with a working Terraform backend, per-environment stacks, and a plan/apply CI pipeline,
@@ -65,12 +65,12 @@ So that **the shared estate has a CNP-compliant home with safe, reviewable, stat
 **References:** AR53 (revised); gaps.md G9; D10 (`gh` CLI not available — manual GitHub web-UI setup).
 
 **Explicitly NOT in scope:**
-- Any actual Azure resources — Stories 0.0.2–0.0.5
-- Any service repo scaffolding — Epic 0.1
+- Any actual Azure resources — Stories 1.0.2–1.0.5
+- Any service repo scaffolding — Epic 1.1
 
 ---
 
-## Story 0.0.2: Provision networking and the AKS cluster (dev), verifiable via kubectl
+## Story 1.0.2: Provision networking and the AKS cluster (dev), verifiable via kubectl
 
 As a **platform engineer**,
 I want the resource group, virtual network, and AKS cluster provisioned in UK South via Terraform,
@@ -78,7 +78,7 @@ So that **there is a verified Kubernetes target — zone-spread and reachable �
 
 **Acceptance Criteria:**
 
-**Given** the Terraform foundation exists per Story 0.0.1,
+**Given** the Terraform foundation exists per Story 1.0.1,
 **When** the engineer adds the networking + AKS module and runs `terraform apply` for the dev stack,
 **Then** a resource group, VNet, and subnets are created in **UK South** (per NFR31),
 **And** an AKS cluster is provisioned with a **multi-AZ node pool** and zone-spread configuration (per NFR31, A34),
@@ -94,12 +94,12 @@ So that **there is a verified Kubernetes target — zone-spread and reachable �
 **References:** AR53 (revised); NFR31, NFR40; A34.
 
 **Explicitly NOT in scope:**
-- PostgreSQL, Key Vault, ACR, App Insights, APIM — Stories 0.0.3–0.0.5
-- Deploying any CTAM service — Epic 0.1
+- PostgreSQL, Key Vault, ACR, App Insights, APIM — Stories 1.0.3–1.0.5
+- Deploying any CTAM service — Epic 1.1
 
 ---
 
-## Story 0.0.3: Provision PostgreSQL and Key Vault (dev), verifiable over TLS from the cluster
+## Story 1.0.3: Provision PostgreSQL and Key Vault (dev), verifiable over TLS from the cluster
 
 As a **platform engineer**,
 I want a PostgreSQL Flexible Server and a Key Vault provisioned via Terraform, with AKS workload identity wired to the vault,
@@ -107,7 +107,7 @@ So that **services have an encrypted, TLS-only shared database and a secret stor
 
 **Acceptance Criteria:**
 
-**Given** the AKS cluster exists per Story 0.0.2,
+**Given** the AKS cluster exists per Story 1.0.2,
 **When** the engineer adds the PostgreSQL + Key Vault module and runs `terraform apply` for dev,
 **Then** an Azure Database for **PostgreSQL Flexible Server** is provisioned with **zone-redundant HA** (per A34), **storage encryption at rest** (per NFR11), and **TLS enforced / plaintext connections refused** (per NFR10),
 **And** an **Azure Key Vault** is provisioned with soft-delete + purge protection,
@@ -124,12 +124,12 @@ So that **services have an encrypted, TLS-only shared database and a secret stor
 **References:** AR53 (revised); NFR10, NFR11, NFR16; A34.
 
 **Explicitly NOT in scope:**
-- Per-service DB roles/grants and the `ctam_configuration_values` baseline (owned by `ctam-architecture`; consumed in Epic 0.1)
-- ACR, App Insights, APIM — Stories 0.0.4–0.0.5
+- Per-service DB roles/grants and the `ctam_configuration_values` baseline (owned by `ctam-architecture`; consumed in Epic 1.1)
+- ACR, App Insights, APIM — Stories 1.0.4–1.0.5
 
 ---
 
-## Story 0.0.4: Provision ACR and observability (dev), verifiable via image pull and a test trace
+## Story 1.0.4: Provision ACR and observability (dev), verifiable via image pull and a test trace
 
 As a **platform engineer**,
 I want an Azure Container Registry and an Application Insights / Log Analytics workspace provisioned via Terraform and wired to AKS,
@@ -137,7 +137,7 @@ So that **there is a proven image supply chain and a proven telemetry sink befor
 
 **Acceptance Criteria:**
 
-**Given** the AKS cluster exists per Story 0.0.2,
+**Given** the AKS cluster exists per Story 1.0.2,
 **When** the engineer adds the ACR + observability module and runs `terraform apply` for dev,
 **Then** an **Azure Container Registry** is provisioned (zone-redundant SKU per A34) with AKS granted pull access via managed identity (no registry passwords in cluster),
 **And** an **Application Insights** resource backed by a **Log Analytics workspace** is provisioned in UK South,
@@ -154,11 +154,11 @@ So that **there is a proven image supply chain and a proven telemetry sink befor
 
 **Explicitly NOT in scope:**
 - Per-service log dashboards / alerts (land with each service)
-- APIM — Story 0.0.5
+- APIM — Story 1.0.5
 
 ---
 
-## Story 0.0.5: Provision APIM (dev), verifiable end-to-end via a smoke API over TLS
+## Story 1.0.5: Provision APIM (dev), verifiable end-to-end via a smoke API over TLS
 
 As a **platform engineer**,
 I want APIM provisioned via Terraform with base policies and a smoke API,
@@ -166,7 +166,7 @@ So that **the shared public gateway is proven to terminate TLS and route to the 
 
 **Acceptance Criteria:**
 
-**Given** the AKS cluster exists per Story 0.0.2,
+**Given** the AKS cluster exists per Story 1.0.2,
 **When** the engineer adds the APIM module and runs `terraform apply` for dev,
 **Then** an **APIM instance** is provisioned (zone-redundant SKU per A34) with base policies (TLS termination at the latest platform-supported version — NFR10; correlation-ID pass-through; default rate limits),
 **And** a **smoke API** is registered pointing at an in-cluster echo service,
@@ -182,13 +182,13 @@ So that **the shared public gateway is proven to terminate TLS and route to the 
 **Given** all five layers are applied,
 **When** the engineer reviews the dev estate,
 **Then** the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM) exists in UK South, each layer independently verified,
-**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (Epic 0.1, Story 0.1.1).
+**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (Epic 1.1, Story 1.1.1).
 
 **References:** AR53 (revised); NFR10, NFR31; A34; gaps.md G9.
 
 **Explicitly NOT in scope:**
 - Per-service API registration in APIM (each service publishes its own OpenAPI-backed API)
-- Any domain service — Epic 0.1 onward
+- Any domain service — Epic 1.1 onward
 
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.

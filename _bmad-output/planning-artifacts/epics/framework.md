@@ -17,21 +17,21 @@ CTAM Pathfinder is built in **10 sequential phases (0–9+)** per the PRD's Phas
 - **Phases 1–8** each deliver one service end-to-end (backend + UI module).
 - **Phase 9+** is the jurisdiction-first wave rollout[^d8][^d13]: wave 1 = the **Employment Tribunals (ET) jurisdiction** (incumbent `[ET-INCUMBENT-TBD]`, gap G8.4); wave 2 = the **SSCS jurisdiction** (replacing ListAssist; GAPS case management retained); waves 3+ = Courts jurisdictions per-region (replacing APEX/JI).
 
-The first level of grouping below is **Phase** (delivery sequence); the second level is **Area** (the capability or cross-cutting concern that anchors the epic). Within each Area, concrete epics with stories and Gherkin acceptance criteria live in the per-phase folders (e.g. [phase-0/](phase-0/index.md)).
+The first level of grouping below is **Phase** (delivery sequence); the second level is **Area** (the capability or cross-cutting concern that anchors the epic). Within each Area, concrete epics with stories and Gherkin acceptance criteria live in the per-phase folders (e.g. [phase-1/](phase-1/index.md)).
 
 ## Epic Phase × Area Summary
 
 | Phase | Area | Component(s) | Primary FR/NFR coverage |
 |---|---|---|---|
-| **0** | Platform & DevEx | `ctam-architecture` (scaffolding), GitHub Actions, APIM, AKS, Application Insights, shared `ctam_configuration_values` | FR8, FR58, FR59, NFR25–NFR28, NFR40, NFR42 |
-| **0** | Identity & Authorisation | `ctam-mock-auth`, `ctam-authorisation` (two-population identity resolution; jurisdiction-aware) | FR1–FR4, FR57 *(flag surface)*, NFR12, NFR13 |
-| **0** | Upstream Reference-Data Ingestion | `ctam-reference-data` in-process eLinks sync + MRD blob ingestion (tier (a): `jo_*`, `mrd_*`, `ctam_sync_status`) | FR6 *(tier a)*, FR7, NFR24 |
-| **0** | Reference Data (tier (b) + read API) | `ctam-reference-data` (backend); maintenance UI post-MVP in `ctam-admin-ui`[^d10] | FR6, FR7 |
-| **0** | Notification | `ctam-notification` | FR9, NFR22 |
-| **0** | Identity Bootstrap & Verification | seed scripts + bootstrap-verification job + runbook (`ctam-architecture`) | FR1 *(data)*, FR4 *(data layer)*, FR57 *(initial flags)* |
-| **0** | Business UI Foundation | `ctam-ui` (shell, auth, design system) | FR55 *(shell)*, FR56 *(stack)*, NFR17 |
-| **0 → post-MVP** | Admin UI Foundation *(post-MVP[^d10])* | `ctam-admin-ui` (shell, auth, design system, tier-(b) Reference Data maintenance, User & Role admin) | FR4 *(UI surface)*, FR6 *(tier-(b) UI surface)*, FR56 *(stack)*, NFR17 |
-| **1** | JOH Records & Working Patterns | `ctam-joh` + UI module | FR10–FR18 |
+| **0** | JOH Records & Working Patterns | `ctam-joh` + UI module | FR10–FR18 |
+| **1** | Platform & DevEx | `ctam-architecture` (scaffolding), GitHub Actions, APIM, AKS, Application Insights, shared `ctam_configuration_values` | FR8, FR58, FR59, NFR25–NFR28, NFR40, NFR42 |
+| **1** | Identity & Authorisation | `ctam-mock-auth`, `ctam-authorisation` (two-population identity resolution; jurisdiction-aware) | FR1–FR4, FR57 *(flag surface)*, NFR12, NFR13 |
+| **1** | Upstream Reference-Data Ingestion | `ctam-reference-data` in-process eLinks sync + MRD blob ingestion (tier (a): `jo_*`, `mrd_*`, `ctam_sync_status`) | FR6 *(tier a)*, FR7, NFR24 |
+| **1** | Reference Data (tier (b) + read API) | `ctam-reference-data` (backend); maintenance UI post-MVP in `ctam-admin-ui`[^d10] | FR6, FR7 |
+| **1** | Notification | `ctam-notification` | FR9, NFR22 |
+| **1** | Identity Bootstrap & Verification | seed scripts + bootstrap-verification job + runbook (`ctam-architecture`) | FR1 *(data)*, FR4 *(data layer)*, FR57 *(initial flags)* |
+| **1** | Business UI Foundation | `ctam-ui` (shell, auth, design system) | FR55 *(shell)*, FR56 *(stack)*, NFR17 |
+| **1 → post-MVP** | Admin UI Foundation *(post-MVP[^d10])* | `ctam-admin-ui` (shell, auth, design system, tier-(b) Reference Data maintenance, User & Role admin) | FR4 *(UI surface)*, FR6 *(tier-(b) UI surface)*, FR56 *(stack)*, NFR17 |
 | **2** | Absence Workflow | `ctam-absence` + UI module | FR19–FR22 |
 | **3** | Vacancy & Cover | `ctam-vacancy` + UI module | FR23–FR28 |
 | **4** | Booking Management | `ctam-booking` + UI module | FR29–FR34 |
@@ -42,25 +42,25 @@ The first level of grouping below is **Phase** (delivery sequence); the second l
 | **8** | MI Feed & Reporting | `ctam-mi-feed` *(no own tables)* + Reports UI module | FR53, FR54, NFR23 |
 | **9+** | Wave Rollout (jurisdiction-first) | per-(jurisdiction, region) activation, incumbent-experienced manual UAT, rollback playbook, **ET-cohort readiness gate** | FR57 *(activation)*, FR60, NFR36, NFR38, NFR41 |
 
-Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30–NFR33, accessibility NFR17–NFR19, maintainability NFR39) are inherited by every phase; their architectural support lives in Phase 0 (Platform & DevEx) and is exercised in every domain phase.
+Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30–NFR33, accessibility NFR17–NFR19, maintainability NFR39) are inherited by every phase; their architectural support lives in Phase 1 (Platform & DevEx) and is exercised in every domain phase.
 
-## Phase 0 — Foundations
+## Phase 1 — Foundations
 
-> Phase 0 is the platform smoke-test (per PRD Key Characteristic 4). All API-as-Product standards (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), `Deprecation`/`Sunset`) are exercised on Reference Data reads and Authorisation lookups before any domain service is built.
+> Phase 1 is the platform smoke-test (per PRD Key Characteristic 4). All API-as-Product standards (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), `Deprecation`/`Sunset`) are exercised on Reference Data reads and Authorisation lookups before any domain service is built.
 >
-> The Areas below are the **architectural map**. The **implementation plan** is the four concrete user-value epics in [phase-0/](phase-0/index.md).
+> The Areas below are the **architectural map**. The **implementation plan** is the ten concrete user-value epics in [phase-1/](phase-1/index.md).
 
-### Phase 0 · Area: Platform & DevEx
+### Phase 1 · Area: Platform & DevEx
 
-**Scope**: **Terraform provisioning of the Azure estate** (HMCTS standard, per AR53 revised — shared estate in the dedicated `ctam-shared-infrastructure` repo, provisioned in Epic 0.0; per-service resources in each service's `terraform/`). Service scaffolding (`ctam-scaffold.sh` over HMCTS Crime SpringBoot template, incl. the per-repo `terraform/` skeleton), per-service GitHub Actions pipeline (`ci.yml` + `deploy-{env}.yml` + per-region per-wave gated production deploy), OpenAPI/Spectral/ArchUnit/Spotless/Checkstyle tooling, structured Logback JSON logging conventions, OpenTelemetry → Application Insights wiring, shared `ctam_configuration_values` infrastructure table managed by `ctam-architecture` Liquibase baseline changelog, Azure API Management at the edge (rate limits, deprecation headers, `/actuator/*` restriction), AKS UK South multi-AZ HA, Helm chart conventions, Azure Key Vault integration.
+**Scope**: **Terraform provisioning of the Azure estate** (HMCTS standard, per AR53 revised — shared estate in the dedicated `ctam-shared-infrastructure` repo, provisioned in Epic 1.0; per-service resources in each service's `terraform/`). Service scaffolding (`ctam-scaffold.sh` over HMCTS Crime SpringBoot template, incl. the per-repo `terraform/` skeleton), per-service GitHub Actions pipeline (`ci.yml` + `deploy-{env}.yml` + per-region per-wave gated production deploy), OpenAPI/Spectral/ArchUnit/Spotless/Checkstyle tooling, structured Logback JSON logging conventions, OpenTelemetry → Application Insights wiring, shared `ctam_configuration_values` infrastructure table managed by `ctam-architecture` Liquibase baseline changelog, Azure API Management at the edge (rate limits, deprecation headers, `/actuator/*` restriction), AKS UK South multi-AZ HA, Helm chart conventions, Azure Key Vault integration.
 
 **Component(s)**: `ctam-architecture` (scaffolding script + ADRs), GitHub Actions workflows, shared Liquibase baseline changelog, APIM policies, Helm chart conventions.
 
-**Concrete epics in this area**: [Epic 0.0](phase-0/epic-0.0-platform-estate-provisioned.md) (the Azure estate) and [Epic 0.9](phase-0/epic-0.9-context-bus-and-shared-baseline.md) (the published context bus + the shared `ctam_configuration_values` baseline).
+**Concrete epics in this area**: [Epic 1.0](phase-1/epic-1.0-platform-estate-provisioned.md) (the Azure estate) and [Epic 1.9](phase-1/epic-1.9-context-bus-and-shared-baseline.md) (the published context bus + the shared `ctam_configuration_values` baseline).
 
 **Primary FR/NFR coverage**: FR8, FR58, FR59, NFR25–NFR28, NFR40, NFR42; underpins every AR1–AR52.
 
-### Phase 0 · Area: Identity & Authorisation
+### Phase 1 · Area: Identity & Authorisation
 
 **Scope**: `ctam-mock-auth` OIDC issuer for non-prod (human users via `authorization_code` across **both identity populations**; batch components via `client_credentials`; refuses production profile). `ctam-authorisation` service owning the **6 auth tables** (`ctam_auth_users`, `ctam_auth_staff_identities`, `ctam_auth_roles`, `ctam_auth_user_roles`, `ctam_auth_user_region_scopes`, `ctam_auth_user_activation_flags` keyed by (jurisdiction, region)). **Two-population identity resolution**[^d9]: IdP email → `jo_people` → `personnel_number` → CTAM JOH UUID in `ctam_joh_identities` (JOH users); IdP email → `ctam_auth_staff_identities` → CTAM-assigned UUID (admin staff). Custom `JWTFilter` pattern in every service that validates JWT against JWKS and calls `POST /authz/check` to populate request-scoped `AuthDetails` with canonical id + roles + **jurisdiction** + Region/Area scope + activation flag. Per-user activation flags (FR57) wired to enable jurisdiction-first phased cutover.
 
@@ -68,33 +68,33 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 **Primary FR/NFR coverage**: FR1, FR2, FR3, FR4, FR57 *(flags wired here; wave activation orchestrated in Phase 9+)*; NFR12, NFR13, NFR16, NFR20. *(FR5 is post-MVP; out of scope here.)*
 
-### Phase 0 · Area: Reference Data
+### Phase 1 · Area: Reference Data
 
 **Scope**: `ctam-reference-data` service owning **all 32 reference-data tables across two ownership tiers** (FR6/FR7): **tier (a) upstream-sourced** — 15 `jo_*` JOH eLinks entities + `mrd_*` MRD entities + `ctam_sync_status`, written only by the ingestion mechanisms, read-only in CTAM, corrections at source; **tier (b) CTAM-owned** — `ctam_regions`, `ctam_offices`, `ctam_calendar_periods` + 12 operational vocabularies, DBA-maintained per runbook in MVP[^d10]. **Read-only, jurisdiction-filtered** versioned REST API over both tiers[^d8]. Per-service DB SELECT grants for direct-SQL reads (per FR7 / Principle 2). API-as-Product standards exercised here first (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), deprecation signalling).
 
-**Ingestion (in Epics 0.2/0.3's vertical slice — sign-in depends on `jo_people`)**: nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`) + weekly MRD Excel via Azure Blob drop (validate / upsert / archive; idempotent per file; reader swaps for the MRD API post-MVP). Per AR46–AR49.
+**Ingestion (in Epics 1.2/1.3's vertical slice — sign-in depends on `jo_people`)**: nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`) + weekly MRD Excel via Azure Blob drop (validate / upsert / archive; idempotent per file; reader swaps for the MRD API post-MVP). Per AR46–AR49.
 
 **Component(s)**: `ctam-reference-data` (backend incl. ingestion tasks). The tier-(b) maintenance UI (FR6) is post-MVP `ctam-admin-ui`[^d10].
 
 **Primary FR/NFR coverage**: FR6, FR7, NFR24 *(JOH eLinks + MRD are MVP integrations)*; cross-references NFR39 (API-as-Product), AR18, AR20, AR22, AR46–AR49; gaps.md G8.
 
-### Phase 0 · Area: Notification
+### Phase 1 · Area: Notification
 
-**Scope**: `ctam-notification` service. Outbound transactional email dispatch to HMCTS email infrastructure (SMTP). Delivery log with retry on transient failure. Consumed in Phase 1+ for booking acks (FR32), absence acks (FR20), and the Phase 6 payment-schedule dispatch (FR43).
+**Scope**: `ctam-notification` service. Outbound transactional email dispatch to HMCTS email infrastructure (SMTP). Delivery log with retry on transient failure. Consumed in later domain phases for booking acks (FR32), absence acks (FR20), and the Phase 6 payment-schedule dispatch (FR43).
 
 **Component(s)**: `ctam-notification`.
 
 **Primary FR/NFR coverage**: FR9, NFR22.
 
-### Phase 0 · Area: Identity Bootstrap & Verification
+### Phase 1 · Area: Identity Bootstrap & Verification
 
-**Scope**: No legacy data migration of any kind exists[^d3]. Reference data arrives via the Upstream Reference-Data Ingestion area (Epic 0.1 schema + Epics 0.2/0.3 ETL processes). User/authorisation data is strictly CTAM-internal, bootstrapped by programme-management mechanisms outside the PRD's scope. CTAM owns: dev/CI **seed scripts** spanning both identity populations; the re-runnable **bootstrap-verification job** confirming every `ctam_auth_users` row (both populations) maps to a real IdP principal (the standing wave-cutover gate artefact, also used at the pre-Phase-9 IdP cutover per G1.3); and the **production bootstrap runbook** (`ctam-architecture/runbooks/identity-bootstrap.md`), which also carries the FR4 DBA-maintenance pattern.
+**Scope**: No legacy data migration of any kind exists[^d3]. Reference data arrives via the Upstream Reference-Data Ingestion area (Epic 1.1 schema + Epics 1.2/1.3 ETL processes). User/authorisation data is strictly CTAM-internal, bootstrapped by programme-management mechanisms outside the PRD's scope. CTAM owns: dev/CI **seed scripts** spanning both identity populations; the re-runnable **bootstrap-verification job** confirming every `ctam_auth_users` row (both populations) maps to a real IdP principal (the standing wave-cutover gate artefact, also used at the pre-Phase-9 IdP cutover per G1.3); and the **production bootstrap runbook** (`ctam-architecture/runbooks/identity-bootstrap.md`), which also carries the FR4 DBA-maintenance pattern.
 
 **Component(s)**: `ctam-architecture` (seed scripts, verification job, runbook). Not a runtime service.
 
 **Primary FR/NFR coverage**: FR1 *(lookup data)*, FR4 *(MVP data-layer criterion)*, FR57 *(initial all-FALSE flags keyed by (jurisdiction, region))*; AR52.
 
-### Phase 0 · Area: Business UI Foundation
+### Phase 1 · Area: Business UI Foundation
 
 **Scope**: `ctam-ui` repo scaffolded (React + TypeScript + Vite + Vitest + Playwright). GOV.UK Design System base + HMCTS/CTAM Pathfinder extensions. OIDC client wrapper (`HmctsIdpProvider`, `ProtectedRoute`, `useAuth`). HTTP client with auth header attachment and RFC 9457 error handling. Business-user Home shell with role-scoped navigation and Region/Area selector (FR55). axe-core CI for WCAG 2.2 AA gate. Per-phase E2E test suite scaffolding under `tests/e2e/`. **Excludes admin workflows** — tier-(b) Reference Data maintenance (FR6) and User & Role admin (FR4) live in `ctam-admin-ui` (itself post-MVP[^d10]), never here.
 
@@ -130,31 +130,31 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 **Primary FR/NFR coverage**: FR4 *(UI surface)*, FR6 *(tier-(b) UI surface)*, FR56 *(stack)*, NFR17, NFR18, NFR19. Also AR42–AR45b. All post-MVP[^d10].
 
-→ **Phase 0 concrete epics + stories:** [phase-0/](phase-0/index.md)
+→ **Phase 1 concrete epics + stories:** [phase-1/](phase-1/index.md)
 
 ## Phase dependency order
 
 *Added 2026-08-19 (SCP 2026-08-19d), folded in from the retired `delivery/dispatch-graph.yaml`.*
 
-Phase 0's dependencies are structured data, held in each epic's frontmatter (`repo:` and `depends_on:`) — that is what `scripts/dispatch-preflight.sh` reads. Phases 1–8 are **not yet decomposed into epics**, so their edges are recorded here as prose until `bmad-create-epics-and-stories` runs for each phase and gives them frontmatter of their own.
+Phase 1's dependencies are structured data, held in each epic's frontmatter (`repo:` and `depends_on:`) — that is what `scripts/dispatch-preflight.sh` reads. Phase 0 (JOH) has one concrete epic so far (0.0, with its own `depends_on:` frontmatter); its primary area (FR10–FR18) and Phases 2–8 are **not yet decomposed into epics**, so their edges are recorded here as prose until `bmad-create-epics-and-stories` runs for each and gives them frontmatter of their own.
 
 | Phase | Repo(s) | Depends on | Why |
 |---|---|---|---|
-| **1 — JOH** | `ctam-joh` | Phase 0 epics 0.4, 0.5 | needs auth + reference-data reads |
-| **2 — Absence** | `ctam-absence` | Phase 1, epic 0.8 | absence hangs off JOH records; acknowledgement emails need Notification |
+| **0 — JOH** | `ctam-joh` | `phase-1/` epics 1.4, 1.5 (auth, reference-data reads) | needs auth + reference-data reads |
+| **2 — Absence** | `ctam-absence` | Phase 0, `phase-1/` epic 1.8 (Notification) | absence hangs off JOH records; acknowledgement emails need Notification |
 | **3 — Vacancy** | `ctam-vacancy` | Phase 2 | vacancies are created from absences |
 | **4 — Booking** | `ctam-booking` | Phase 3 | bookings fill vacancies |
-| **5 — Sitting** | `ctam-sitting` | Phase 1 | sittings are generated from JOH working patterns — **parallelisable with 3 and 4** |
-| **6 — Payment** | `ctam-payment`, `ctam-payment-batch` | Phases 4 and 5, epic 0.8 | pays for bookings and sittings; the batch is the first `client_credentials` consumer |
-| **7 — Itineraries** | `ctam-itinerary` | Phases 1–5 | a federated read model over everything above; owns no tables |
+| **5 — Sitting** | `ctam-sitting` | Phase 0 | sittings are generated from JOH working patterns — **parallelisable with 3 and 4** |
+| **6 — Payment** | `ctam-payment`, `ctam-payment-batch` | Phases 4 and 5, `phase-1/` epic 1.8 (Notification) | pays for bookings and sittings; the batch is the first `client_credentials` consumer |
+| **7 — Itineraries** | `ctam-itinerary` | Phases 0, 2–5 | a federated read model over everything above; owns no tables |
 | **8 — MI Feed** | `ctam-mi-feed` | Phase 7 | reporting over the read model; owns no tables |
-| **post-MVP — Admin UI** | `ctam-admin-ui` | Phase 0 epics 0.4, 0.5 | needs auth + reference data[^d10] |
+| **post-MVP — Admin UI** | `ctam-admin-ui` | `phase-1/` epics 1.4, 1.5 (auth, reference data) | needs auth + reference data[^d10] |
 
-**Parallelism worth keeping in view:** epic 0.8 (Notification) needs only the estate, so it can run alongside 0.1/0.2/0.3/0.4; and Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in Phase 0 is close to a straight line.
+**Parallelism worth keeping in view:** `phase-1/` epic 1.8 (Notification) needs only the estate, so it can run alongside 1.1/1.2/1.3/1.4; and Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in the Foundations area (now in `phase-1/`, per the 2026-08-20 phase-directory swap — see epics/index.md) is close to a straight line.
 
-## Phase 1 — JOH
+## Phase 0 — JOH
 
-### Phase 1 · Area: JOH Records & Working Patterns
+### Phase 0 · Area: JOH Records & Working Patterns
 
 **Scope**: `ctam-joh` backend service + `joh/` UI module in `ctam-ui`. JOH profile **views** composing tier-(a) `jo_*` data with `ctam-joh`'s CTAM-owned overlays keyed by `joh_id` → `ctam_joh_identities` (FR10 search/filter; FR11 view — the upstream person record is `jo_people`, no profile CRUD in CTAM). Working Patterns (None / Daily / Weekly) with target sit %, jurisdictional split (100% sum constraint), per-day work-type pattern — CTAM-owned operational state. Forward-sitting generation up to next 31st March from working pattern, preserving prior absences. Ticket overlays layered over upstream `jo_tickets` (FR15). Full-time / part-time status **displayed from upstream** `jo_contract_types` — conversions happen upstream and arrive at the next sync (FR14). Same-Region base-location switching as CTAM-owned overlay (cross-Region is out-of-system). Off-circuit / cross-Region JOH linking for booking purposes (e.g. tribunal panels with members from other regions). Demo: Journey *(stakeholder per-module demo of JOH management)*.
 
@@ -252,7 +252,7 @@ Phase 0's dependencies are structured data, held in each epic's frontmatter (`re
 
 ### Phase 9+ · Area: Wave Rollout
 
-**Scope**: Jurisdiction-first phased activation — **wave 1 = the Employment Tribunals (ET) jurisdiction** (all in-jurisdiction applicable roles in one wave; scheduling incumbent `[ET-INCUMBENT-TBD]`, gap G8.4); **wave 2 = the SSCS jurisdiction** (replacing ListAssist; GAPS case management retained); **waves 3+ = Courts jurisdictions per-region** (replacing APEX/JI). Activation flips `ctam_auth_user_activation_flags` per (jurisdiction, region) tuple (FR57) via DBA SQL per the rollout runbook once that wave's feature-parity gate is passed. Manual UAT execution per role per wave (FR60): **jurisdiction-incumbent-experienced users** — `[ET-INCUMBENT-TBD]`-experienced (ET role set *provisional*, G8.5) for wave 1; ListAssist-experienced (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for wave 2; APEX-experienced (RSU, Court, Judge, Judges' Clerks, Finance/Payment Authoriser, MI) for waves 3+ — walk per-service UAT scripts (under `docs/uat/` in each domain service repo) side-by-side against the incumbent; sign-off per role per wave is the wave-cutover gate. **Wave-1 additional gates**[^d13]: the **ET-cohort** implementation-readiness assessment signed off; the **ET as-is analysis pack** complete (G8.5); G8.4 closed (incumbent named). *(The SSCS-cohort readiness assessment and SSCS as-is pack become wave-2 gates.)* Data-readiness gate per wave: reference data current per `ctam_sync_status` + the bootstrap-verification job passing for the wave's users (Epic 0.7). Per-wave rollback playbook (NFR36): documented path returning the wave to its incumbent within one operational cycle if the gate is breached post-cutover. Cross-region manual coordination during partial rollout (Risk #1 mitigation; operational, not application-level). Wave 1 is the Pilot; subsequent waves run until all jurisdictions are on CTAM Pathfinder and the incumbents are retired[^d8][^d11].
+**Scope**: Jurisdiction-first phased activation — **wave 1 = the Employment Tribunals (ET) jurisdiction** (all in-jurisdiction applicable roles in one wave; scheduling incumbent `[ET-INCUMBENT-TBD]`, gap G8.4); **wave 2 = the SSCS jurisdiction** (replacing ListAssist; GAPS case management retained); **waves 3+ = Courts jurisdictions per-region** (replacing APEX/JI). Activation flips `ctam_auth_user_activation_flags` per (jurisdiction, region) tuple (FR57) via DBA SQL per the rollout runbook once that wave's feature-parity gate is passed. Manual UAT execution per role per wave (FR60): **jurisdiction-incumbent-experienced users** — `[ET-INCUMBENT-TBD]`-experienced (ET role set *provisional*, G8.5) for wave 1; ListAssist-experienced (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for wave 2; APEX-experienced (RSU, Court, Judge, Judges' Clerks, Finance/Payment Authoriser, MI) for waves 3+ — walk per-service UAT scripts (under `docs/uat/` in each domain service repo) side-by-side against the incumbent; sign-off per role per wave is the wave-cutover gate. **Wave-1 additional gates**[^d13]: the **ET-cohort** implementation-readiness assessment signed off; the **ET as-is analysis pack** complete (G8.5); G8.4 closed (incumbent named). *(The SSCS-cohort readiness assessment and SSCS as-is pack become wave-2 gates.)* Data-readiness gate per wave: reference data current per `ctam_sync_status` + the bootstrap-verification job passing for the wave's users (Epic 1.7). Per-wave rollback playbook (NFR36): documented path returning the wave to its incumbent within one operational cycle if the gate is breached post-cutover. Cross-region manual coordination during partial rollout (Risk #1 mitigation; operational, not application-level). Wave 1 is the Pilot; subsequent waves run until all jurisdictions are on CTAM Pathfinder and the incumbents are retired[^d8][^d11].
 
 **Component(s)**: Programme-level (manual UAT scripts, runbooks, activation orchestration). Cross-region edge case (Journey 6) handled out-of-system per Risk #1 — no application capability built.
 

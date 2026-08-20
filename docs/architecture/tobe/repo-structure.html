@@ -155,7 +155,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 │   ├── service/
 │   ├── repository/                              (integration tests, Testcontainers)
 │   └── client/
-├── terraform/                                   (this repo&#39;s OWN Azure resources only, per-env stacks dev/staging/production — AR53 revised; the shared estate — AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault — lives in the dedicated ctam-shared-infrastructure repo, provisioned in Epic 0.0 per the HMCTS CNP {product}-shared-infrastructure standard)
+├── terraform/                                   (this repo&#39;s OWN Azure resources only, per-env stacks dev/staging/production — AR53 revised; the shared estate — AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault — lives in the dedicated ctam-shared-infrastructure repo, provisioned in Epic 1.0 per the HMCTS CNP {product}-shared-infrastructure standard)
 │   ├── dev/
 │   ├── staging/
 │   └── production/
@@ -391,7 +391,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 │   ├── dev/                           (stack: composes modules; remote state backend)
 │   ├── staging/
 │   └── production/                    (UK South; zone-redundant SKUs — A34)
-├── verification/                      (per-layer deploy-time smoke checks — Epic 0.0 ACs)
+├── verification/                      (per-layer deploy-time smoke checks — Epic 1.0 ACs)
 │   ├── aks-nodes.sh                   (kubectl get nodes + hello pod schedules)
 │   ├── postgres-tls.sh                (TLS-only connect; plaintext refused; scratch DB)
 │   ├── keyvault-roundtrip.sh          (secret round-trips from a pod via workload identity)
@@ -406,7 +406,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 └── docs/
     ├── README.md
     └── decisions/                     (estate-level ADRs)</code></pre>
-<p><strong>Why the shared estate lives here, not in a service repo:</strong> product-level shared infrastructure gets its own dedicated <code>{product}-shared-infrastructure</code> repo per the HMCTS Cloud Native Platform standard (AR53 revised) — it is not colocated inside the first service scaffolded. The <code>verification/</code> scripts are the deploy-time acceptance tests from Epic 0.0: each Terraform layer is proven as it lands (AKS reachable, PostgreSQL TLS-only, Key Vault round-trips, ACR pull works, telemetry ingests, APIM routes over TLS) before any service depends on it. This repo has <strong>no <code>src/</code>, no Helm chart, no deployable workload</strong> — Terraform provisions the estate; services (via Helm) deploy onto it.</p>
+<p><strong>Why the shared estate lives here, not in a service repo:</strong> product-level shared infrastructure gets its own dedicated <code>{product}-shared-infrastructure</code> repo per the HMCTS Cloud Native Platform standard (AR53 revised) — it is not colocated inside the first service scaffolded. The <code>verification/</code> scripts are the deploy-time acceptance tests from Epic 1.0: each Terraform layer is proven as it lands (AKS reachable, PostgreSQL TLS-only, Key Vault round-trips, ACR pull works, telemetry ingests, APIM routes over TLS) before any service depends on it. This repo has <strong>no <code>src/</code>, no Helm chart, no deployable workload</strong> — Terraform provisions the estate; services (via Helm) deploy onto it.</p>
 </div></details><details class="section" id="file-organisation-patterns"><summary><span class="section-title">File Organisation Patterns</span></summary><div class="section-body">
 <p><strong>Configuration files:</strong></p>
 <ul>

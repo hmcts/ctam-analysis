@@ -258,22 +258,22 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Phase × Area framework", "epics/framework", False),
         ("FR coverage map", "epics/fr-coverage-map", False),
     ]),
-    ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0.0 added 2026-07-06)", [
-        ("Phase 0 overview", "epics/phase-0/index", False),
-        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
-        ("Epic 0.1 — Postgres reference-data schema designed and scaffolded (2 stories)", "epics/phase-0/epic-0.1-postgres-db-schema-design", False),
-        ("Epic 0.2 — JOH reference data ETL process (1 story)", "epics/phase-0/epic-0.2-joh-reference-data-etl-process", False),
-        ("Epic 0.3 — MRD reference data ETL process (1 story)", "epics/phase-0/epic-0.3-mrd-reference-data-etl-process", False),
-        ("Epic 0.4 — User authenticates (5 stories)", "epics/phase-0/epic-0.4-user-authenticates", False),
-        ("Epic 0.5 — JOH + CTAM-owned reference data read-only API (2 stories)", "epics/phase-0/epic-0.5-joh-reference-data-read-api", False),
-        ("Epic 0.6 — MRD reference data read-only API (1 story)", "epics/phase-0/epic-0.6-mrd-reference-data-read-api", False),
-        ("Epic 0.7 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.7-user-populations-bootstrapped", False),
-        ("Epic 0.8 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.8-system-dispatches-emails", False),
-        ("Epic 0.9 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.9-context-bus-and-shared-baseline", False),
-    ]),
-    ("Implementation — Phase 1 (JOH; Epic 1.0 added 2026-08-20)", [
+    ("Implementation — Phase 1 (Foundations; platform-then-integrations-first)", [
         ("Phase 1 overview", "epics/phase-1/index", False),
-        ("Epic 1.0 — JOH eLinks API contract confirmed + CI mock (1 story)", "epics/phase-1/epic-1.0-joh-elinks-api-contract-mock", False),
+        ("Epic 1.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-1/epic-1.0-platform-estate-provisioned", False),
+        ("Epic 1.1 — Postgres reference-data schema designed and scaffolded (2 stories)", "epics/phase-1/epic-1.1-postgres-db-schema-design", False),
+        ("Epic 1.2 — JOH reference data ETL process (1 story)", "epics/phase-1/epic-1.2-joh-reference-data-etl-process", False),
+        ("Epic 1.3 — MRD reference data ETL process (1 story)", "epics/phase-1/epic-1.3-mrd-reference-data-etl-process", False),
+        ("Epic 1.4 — User authenticates (5 stories)", "epics/phase-1/epic-1.4-user-authenticates", False),
+        ("Epic 1.5 — JOH + CTAM-owned reference data read-only API (2 stories)", "epics/phase-1/epic-1.5-joh-reference-data-read-api", False),
+        ("Epic 1.6 — MRD reference data read-only API (1 story)", "epics/phase-1/epic-1.6-mrd-reference-data-read-api", False),
+        ("Epic 1.7 — User populations bootstrapped (1 story)", "epics/phase-1/epic-1.7-user-populations-bootstrapped", False),
+        ("Epic 1.8 — Notification scaffolded (2 stories)", "epics/phase-1/epic-1.8-system-dispatches-emails", False),
+        ("Epic 1.9 — Context bus published + shared config baseline (2 stories)", "epics/phase-1/epic-1.9-context-bus-and-shared-baseline", False),
+    ]),
+    ("Implementation — Phase 0 (JOH; Epic 0.0 added 2026-08-20)", [
+        ("Phase 0 overview", "epics/phase-0/index", False),
+        ("Epic 0.0 — JOH eLinks API contract confirmed + CI mock (1 story)", "epics/phase-0/epic-0.0-joh-elinks-api-contract-mock", False),
     ]),
 ]
 

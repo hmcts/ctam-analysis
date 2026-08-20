@@ -154,7 +154,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <blockquote>
 <p><strong>A service repo re-syncs to a newer <code>ctam-architecture</code> version only by an explicit, committed submodule bump. The bus never mutates a downstream repo silently.</strong></p>
 </blockquote>
-<p>Consequence: a convention change is <strong>one PR in <code>ctam-architecture</code></strong> (publish <code>arch-v(N+1)</code>) <strong>+ one deliberate bump PR per repo that adopts it</strong> — auditable, staged, reversible. This is precisely what prevents "central truth" from becoming "16 things silently drifting." Repos may sit on different bus versions intentionally (e.g. a phase-6 service on <code>arch-v1.9</code> while phase-1 services haven't yet needed the bump); each repo's pinned version is recorded in its own <code>CLAUDE.md</code> and in every story packet's <code>bus_version</code> — the pin lives with the repo that holds it, not in a central table that would drift.</p>
+<p>Consequence: a convention change is <strong>one PR in <code>ctam-architecture</code></strong> (publish <code>arch-v(N+1)</code>) <strong>+ one deliberate bump PR per repo that adopts it</strong> — auditable, staged, reversible. This is precisely what prevents "central truth" from becoming "16 things silently drifting." Repos may sit on different bus versions intentionally (e.g. a phase-6 service on <code>arch-v1.9</code> while phase-0 services haven't yet needed the bump); each repo's pinned version is recorded in its own <code>CLAUDE.md</code> and in every story packet's <code>bus_version</code> — the pin lives with the repo that holds it, not in a central table that would drift.</p>
 <h3 id="contract-placement-within-the-bus-producer-owned-source-read-only-mirror-only">Contract placement within the bus: producer-owned source, read-only mirror only</h3>
 <p>The context-bus row above lists "aggregated OpenAPI contracts." That aggregation is a <strong>read-only mirror — and nothing more.</strong> API contracts follow the same "single source of truth, referenced not copied" rule as the architecture prose, but with a different transport:</p>
 <ul>
@@ -173,11 +173,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details><details class="section" id="decision-2--sequencing-driver-the-epics-themselves"><summary><span class="section-title">Decision 2 — Sequencing driver: the epics themselves</span></summary><div class="section-body">
 <p><em>Rewritten 2026-08-19 (SCP 2026-08-19d). This decision previously introduced a bespoke <code>delivery/dispatch-graph.yaml</code>. That file has been retired: five of its nine fields duplicated the epic files (title, story list, phase, <code>decomposed</code>) or the bus tag (<code>bus_version</code>), no BMad skill ever read it, and the two fields that mattered belong on the epic itself.</em></p>
 <p>Build order is <strong>structured data on each epic</strong>, in its frontmatter:</p>
-<pre class="yaml"><code>epic: 0.1
+<pre class="yaml"><code>epic: 1.1
 title: &#39;Postgres reference-data schema is designed and scaffolded&#39;
 storyCount: 2
 repo: ctam-reference-data          # or a list: [ctam-authorisation, ctam-mock-auth, ctam-ui]
-depends_on: [epic-0.0, epic-0.9]   # epic ids, resolved against sprint-status.yaml</code></pre>
+depends_on: [epic-1.0, epic-1.9]   # epic ids, resolved against sprint-status.yaml</code></pre>
 <p>Two fields, on the artefact that is already authored, parsed and version-controlled — and the artefact <code>bmad-sprint-planning</code> already reads.</p>
 <p><strong>Why on the epic rather than in a graph file:</strong></p>
 <ul>
@@ -186,7 +186,7 @@ depends_on: [epic-0.0, epic-0.9]   # epic ids, resolved against sprint-status.ya
 <li><strong>No duplication.</strong> The story list, title, phase and decomposition state are already in the epic file and in <code>sprint-status.yaml</code>; a graph repeated all four.</li>
 <li><strong>No second <code>bus_version</code> claim.</strong> The graph asserted one; the real pin is each repo's submodule. Two claims is a drift risk, not a convenience.</li>
 </ul>
-<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every id in its <code>depends_on</code> is <code>done</code> in <code>sprint-status.yaml</code>. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong> — the core advantage of AI-led delivery. Epic 0.8 (Notification) needs only the estate, so it can run alongside 0.1/0.2/0.3/0.4.</p>
+<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every id in its <code>depends_on</code> is <code>done</code> in <code>sprint-status.yaml</code>. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong> — the core advantage of AI-led delivery. Epic 1.8 (Notification) needs only the estate, so it can run alongside 1.1/1.2/1.3/1.4.</p>
 <p>This is checked by <code>scripts/dispatch-preflight.sh &lt;story-id&gt;</code>, which is read-only and also confirms the story is still <code>backlog</code> and that no branch on the target remote already claims it (see <em>Multi-user coordination</em> below).</p>
 <p><strong>Phases 1–8</strong> are not yet decomposed into epics, so they have no frontmatter to carry. Their dependency edges are recorded as prose in <a href="../../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em>, and each phase gains structured frontmatter when <code>bmad-create-epics-and-stories</code> runs for it.</p>
 </div></details><details class="section" id="the-per-story-delivery-flow"><summary><span class="section-title">The per-story delivery flow</span></summary><div class="section-body">
@@ -256,7 +256,7 @@ depends_on: [epic-0.0, epic-0.9]   # epic ids, resolved against sprint-status.ya
 <pre><code>ctam-architecture/agent-rules/templates/story-packet.md</code></pre>
 <pre class="markdown"><code>---
 story_id: 0.3.1
-epic: epic-0.3-mrd-reference-data-etl-process
+epic: epic-1.3-mrd-reference-data-etl-process
 repo: ctam-reference-data
 bus_version: arch-v1.0            # the target repo&#39;s actual _arch pin, not an aspiration
 frs: [FR6, FR7]
@@ -264,7 +264,7 @@ nfrs: [NFR24]
 depends_on_stories: [0.0.3]       # optional intra-graph prerequisites
 sprint_status_key: 0-3-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
 ---
-# Story 0.3.1: &lt;title&gt;
+# Story 1.3.1: &lt;title&gt;
 Status: ready-for-dev
 ## Story                    (as a / I want / so that)
 ## Acceptance Criteria      (numbered; Gherkin inside an item — AC-3 must resolve to item 3)
@@ -292,11 +292,11 @@ Status: ready-for-dev
 <p><em>Replaced the bespoke per-epic ledger 2026-08-19 (SCP 2026-08-19d). The ledger carried <code>status</code>, <code>owner</code>, <code>pr</code>, <code>repo</code>, <code>frs</code> and <code>bus_version</code> per story; at the point it was retired every entry still read <code>not-started</code> / <code>owner: null</code> / <code>pr: null</code>, so no state was lost.</em></p>
 <p>One authoritative view of programme progress — the thing a fat orchestrator would give you, without the coupling — generated by <code>bmad-sprint-planning</code> from the epic files:</p>
 <pre class="yaml"><code>development_status:
-  epic-0.1: backlog
+  epic-1.1: backlog
   0-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter: backlog
   0-1-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection: backlog
   ...
-  epic-0.1-retrospective: optional</code></pre>
+  epic-1.1-retrospective: optional</code></pre>
 <p><strong>One status vocabulary</strong>, BMad's: stories <code>backlog → ready-for-dev → in-progress → review → done</code>; epics <code>backlog → in-progress → done</code>. The story packet's <code>Status:</code> line uses the same words. There is no second vocabulary anywhere — the previous two-vocabulary arrangement was the source of a documented contradiction.</p>
 <p><strong>What BMad does not model, and where it now lives instead:</strong></p>
 <table>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Epic 0.6: MRD reference data is served read-only via the Reference Data API — CTAM Pathfinder Documentation</title>
+<title>Epic 1.6: MRD reference data is served read-only via the Reference Data API — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,32 +88,32 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 
-<h1 id="epic-06-mrd-reference-data-is-served-read-only-via-the-reference-data-api">Epic 0.6: MRD reference data is served read-only via the Reference Data API</h1>
+<h1 id="epic-16-mrd-reference-data-is-served-read-only-via-the-reference-data-api">Epic 1.6: MRD reference data is served read-only via the Reference Data API</h1>
 <blockquote>
-<p><strong>Split from Epic 0.5 2026-08-20 (SCP 2026-08-20d):</strong> the original Reference Data read API epic covered tier-(b) CTAM-owned data and tier-(a) JOH data only — no MRD-sourced endpoint was ever specified. This epic adds that missing endpoint as new content, not an extraction. It <strong>extends</strong> Epic 0.5's already-published OpenAPI spec (<code>api-ctam-reference-data</code>) and Postman collection with one more resource, rather than creating a new service, API version, or artefact.</p>
+<p><strong>Split from Epic 1.5 2026-08-20 (SCP 2026-08-20d):</strong> the original Reference Data read API epic covered tier-(b) CTAM-owned data and tier-(a) JOH data only — no MRD-sourced endpoint was ever specified. This epic adds that missing endpoint as new content, not an extraction. It <strong>extends</strong> Epic 1.5's already-published OpenAPI spec (<code>api-ctam-reference-data</code>) and Postman collection with one more resource, rather than creating a new service, API version, or artefact.</p>
 </blockquote>
-<p><strong>User outcome:</strong> Supplementary MRD-sourced reference data — <strong>JOH Specialisations</strong>, held in <code>mrd_specialisms</code> (Epic 0.3) — is queryable read-only, <strong>jurisdiction-filtered</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, through the same versioned Reference Data API <code>ctam-ui</code> and downstream services already consume for tier-(b) and JOH tier-(a) data (Epic 0.5). Consumers see one coherent API surface; they don't need to know MRD is a separate upstream feed with its own ingestion cadence.</p>
-<p><strong>Hosting:</strong> same repo, same service, same OpenAPI artefact (<code>uk.gov.hmcts.ctam:api-ctam-reference-data</code>) as Epic 0.5 — this epic is additive, not a new deployable or a new API version.</p>
+<p><strong>User outcome:</strong> Supplementary MRD-sourced reference data — <strong>JOH Specialisations</strong>, held in <code>mrd_specialisms</code> (Epic 1.3) — is queryable read-only, <strong>jurisdiction-filtered</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, through the same versioned Reference Data API <code>ctam-ui</code> and downstream services already consume for tier-(b) and JOH tier-(a) data (Epic 1.5). Consumers see one coherent API surface; they don't need to know MRD is a separate upstream feed with its own ingestion cadence.</p>
+<p><strong>Hosting:</strong> same repo, same service, same OpenAPI artefact (<code>uk.gov.hmcts.ctam:api-ctam-reference-data</code>) as Epic 1.5 — this epic is additive, not a new deployable or a new API version.</p>
 <p><strong>Vertical slice:</strong></p>
 <ul>
-<li>One new read endpoint over <code>mrd_specialisms</code>, jurisdiction-filtered via the JOH personnel-number → jurisdiction chain (same <code>AuthDetails</code>-driven filtering pattern as Epic 0.5, Story 0.5.2)</li>
+<li>One new read endpoint over <code>mrd_specialisms</code>, jurisdiction-filtered via the JOH personnel-number → jurisdiction chain (same <code>AuthDetails</code>-driven filtering pattern as Epic 1.5, Story 1.5.2)</li>
 <li>Added to the existing OpenAPI spec (same artefact version bump, not a new spec) and the existing Postman collection</li>
 </ul>
 <p><strong>FRs covered:</strong> FR6 (read surface over tier (a) — MRD is tier (a), read-only in CTAM), FR7, FR58.</p>
 <p><strong>Key NFRs:</strong> NFR13 (authz enforcement incl. jurisdiction — reused, not reimplemented), NFR39 (API-as-Product consistency with the rest of the spec), NFR42 (Postman collection extended, not duplicated).</p>
-<p><strong>Out of scope (explicitly):</strong> MRD ingestion itself (Epic 0.3). Tier-(b) and JOH tier-(a) endpoints (Epic 0.5). Any write surface for MRD data (never, in any phase — tier (a), corrections at source per FR6). A separate API version or artefact for MRD (this epic extends Epic 0.5's existing one).</p>
+<p><strong>Out of scope (explicitly):</strong> MRD ingestion itself (Epic 1.3). Tier-(b) and JOH tier-(a) endpoints (Epic 1.5). Any write surface for MRD data (never, in any phase — tier (a), corrections at source per FR6). A separate API version or artefact for MRD (this epic extends Epic 1.5's existing one).</p>
 <hr />
-<h2 id="story-061-mrd-reference-data-joh-specialisations-is-exposed-via-the-reference-data-read-only-api">Story 0.6.1: MRD reference data (JOH Specialisations) is exposed via the Reference Data read-only API</h2>
+<h2 id="story-161-mrd-reference-data-joh-specialisations-is-exposed-via-the-reference-data-read-only-api">Story 1.6.1: MRD reference data (JOH Specialisations) is exposed via the Reference Data read-only API</h2>
 <p>As an <strong>API consumer</strong> (<code>ctam-ui</code>; downstream services in Phase 1+ that need JOH Specialisations — e.g. Itineraries in Phase 7), I want a versioned, <strong>read-only</strong>, jurisdiction-filtered endpoint over the MRD-sourced <code>mrd_specialisms</code> data, added to the existing Reference Data API, So that <strong>JOH Specialisations are queryable through the one API surface Phase 1+ services already integrate against</strong>, without a second API to discover or a second Postman collection to run.</p>
 <p><strong>Acceptance Criteria:</strong></p>
-<p><strong>Given</strong> <code>mrd_specialisms</code> exists and is populated per Epic 0.3, Story 0.3.1<br/><strong>And</strong> the Reference Data API's read infrastructure (JWTFilter protection, jurisdiction-filtering from <code>AuthDetails</code>, RFC 9457 error envelopes, <code>/v1/reference-data/...</code> versioning) already exists per Epic 0.5, Story 0.5.2<br/><strong>When</strong> the engineer adds <code>GET /v1/reference-data/johs/{johId}/specialisms</code><br/><strong>Then</strong> the endpoint returns <code>200 OK</code> with the JOH's specialisms, resolved via <code>ctam_joh_identities</code> → <code>personnel_number</code> → <code>mrd_specialisms</code><br/><strong>And</strong> the response is <strong>jurisdiction-filtered</strong> consistently with every other endpoint on this API — a requester outside the JOH's jurisdiction gets <code>403 Forbidden</code> with an RFC 9457 problem-details body, not a filtered-empty result<br/><strong>And</strong> a JOH with no specialisms on record returns <code>200 OK</code> with an empty list, not <code>404</code><br/><strong>And</strong> <strong>no write endpoints</strong> are implemented — attempting <code>POST</code>/<code>PUT</code>/<code>PATCH</code>/<code>DELETE</code> returns <code>405 Method Not Allowed</code> with an RFC 9457 body explaining corrections happen at source (MRD team) and arrive via the next sync (FR6).</p>
+<p><strong>Given</strong> <code>mrd_specialisms</code> exists and is populated per Epic 1.3, Story 1.3.1<br/><strong>And</strong> the Reference Data API's read infrastructure (JWTFilter protection, jurisdiction-filtering from <code>AuthDetails</code>, RFC 9457 error envelopes, <code>/v1/reference-data/...</code> versioning) already exists per Epic 1.5, Story 1.5.2<br/><strong>When</strong> the engineer adds <code>GET /v1/reference-data/johs/{johId}/specialisms</code><br/><strong>Then</strong> the endpoint returns <code>200 OK</code> with the JOH's specialisms, resolved via <code>ctam_joh_identities</code> → <code>personnel_number</code> → <code>mrd_specialisms</code><br/><strong>And</strong> the response is <strong>jurisdiction-filtered</strong> consistently with every other endpoint on this API — a requester outside the JOH's jurisdiction gets <code>403 Forbidden</code> with an RFC 9457 problem-details body, not a filtered-empty result<br/><strong>And</strong> a JOH with no specialisms on record returns <code>200 OK</code> with an empty list, not <code>404</code><br/><strong>And</strong> <strong>no write endpoints</strong> are implemented — attempting <code>POST</code>/<code>PUT</code>/<code>PATCH</code>/<code>DELETE</code> returns <code>405 Method Not Allowed</code> with an RFC 9457 body explaining corrections happen at source (MRD team) and arrive via the next sync (FR6).</p>
 <p><strong>Given</strong> the OpenAPI spec is regenerated<br/><strong>When</strong> the engineer publishes the updated artefact<br/><strong>Then</strong> <code>uk.gov.hmcts.ctam:api-ctam-reference-data</code> bumps to the next version (not a new artefact coordinate) with the new endpoint documented alongside the existing ones<br/><strong>And</strong> Spectral lint passes on the updated spec (per AR17).</p>
-<p><strong>Given</strong> the Phase 0 Postman collection<br/><strong>When</strong> <code>postman/ctam-reference-data-phase0.postman_collection.json</code> runs in CI<br/><strong>Then</strong> it gains a case for the new endpoint (happy path + jurisdiction-filtered 403 + empty-list 200 + 405 write attempt), alongside the existing tier-(b)/JOH cases from Epic 0.5 (per NFR42).</p>
+<p><strong>Given</strong> the Phase 0 Postman collection<br/><strong>When</strong> <code>postman/ctam-reference-data-phase0.postman_collection.json</code> runs in CI<br/><strong>Then</strong> it gains a case for the new endpoint (happy path + jurisdiction-filtered 403 + empty-list 200 + 405 write attempt), alongside the existing tier-(b)/JOH cases from Epic 1.5 (per NFR42).</p>
 <p><strong>References:</strong> FR6 (MRD read surface, tier (a)), FR7, FR58; NFR13, NFR39, NFR42; AR8, AR17, AR34, AR37; D8.</p>
 <p><strong>Explicitly NOT in scope:</strong></p>
 <ul>
-<li>MRD ingestion — Epic 0.3, Story 0.3.1</li>
-<li>Tier-(b) and JOH tier-(a) endpoints — Epic 0.5, Story 0.5.2</li>
+<li>MRD ingestion — Epic 1.3, Story 1.3.1</li>
+<li>Tier-(b) and JOH tier-(a) endpoints — Epic 1.5, Story 1.5.2</li>
 <li>Any write surface for MRD data (never, in any phase — tier (a) per FR6)</li>
 </ul>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
@@ -123,10 +123,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ol>
 </section>
 
-<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.6-mrd-reference-data-read-api.md</code></p>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-1/epic-1.6-mrd-reference-data-read-api.md</code></p>
 </main>
 
-<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.6-mrd-reference-data-read-api";</script>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-1/epic-1.6-mrd-reference-data-read-api";</script>
 <script src="../../nav.js"></script>
 <script>
 (function(){

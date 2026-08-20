@@ -1,20 +1,20 @@
 ---
 type: 'Epic'
 description: 'User outcome: a weekly ETL process ingests the MRD teams Excel workbook from an Azure Blob drop into the mrd_* tables (schema designed within this epic), making supplementary judicial reference data (notably JOH Specialisations) available in CTAM without waiting for MRDs public APIs.'
-resource: 'epics/phase-0/epic-0.3-mrd-reference-data-etl-process.html'
-tags: [ctam-pathfinder, epics, phase-0]
+resource: 'epics/phase-1/epic-1.3-mrd-reference-data-etl-process.html'
+tags: [ctam-pathfinder, epics, phase-1]
 timestamp: '2026-08-20'
-parent: 'epics/phase-0/index.md'
-epic: 0.3
+parent: 'epics/phase-1/index.md'
+epic: 1.3
 title: 'MRD reference data flows into CTAM via the weekly Excel ETL process'
 storyCount: 1
 repo: ctam-reference-data
-depends_on: [epic-0.1]                      # needs ctam-reference-data scaffolded + the tier-(a) baseline first
+depends_on: [epic-1.1]                      # needs ctam-reference-data scaffolded + the tier-(a) baseline first
 ---
 
-# Epic 0.3: MRD reference data flows into CTAM via the weekly Excel ETL process
+# Epic 1.3: MRD reference data flows into CTAM via the weekly Excel ETL process
 
-> **Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):** this epic carries the story previously numbered 0.1.4, renumbered 0.8.1. No AC content changed. `ctam-reference-data` itself is scaffolded in **[Epic 0.1](epic-0.1-postgres-db-schema-design.md)**.
+> **Split from Epic 1.1 2026-08-20 (SCP 2026-08-20b):** this epic carries the story previously numbered 0.1.4, renumbered 0.8.1. No AC content changed. `ctam-reference-data` itself is scaffolded in **[Epic 1.1](epic-1.1-postgres-db-schema-design.md)**.
 
 **User outcome:** Judicial-holder reference data flows into CTAM Pathfinder from its supplementary upstream source of truth — the **MRD** weekly Excel dataset — so that data not present in JOH eLinks (notably JOH Specialisations) is available in CTAM **without any legacy migration** (revised D3, NFR24), and without waiting for MRD's public APIs.
 
@@ -29,11 +29,11 @@ depends_on: [epic-0.1]                      # needs ctam-reference-data scaffold
 
 **Key NFRs first exercised here:** NFR16 (Key Vault), NFR24 (MRD MVP integration), NFR25–NFR28 (structured logs + Application Insights + probes, inherited from the scaffold).
 
-**Out of scope (explicitly):** The JOH eLinks sync (Epic 0.2). MRD API integration (post-MVP — when MRD ships public APIs). Hand-editing of `mrd_*` data in CTAM (never, in any phase — corrections at source per FR6).
+**Out of scope (explicitly):** The JOH eLinks sync (Epic 1.2). MRD API integration (post-MVP — when MRD ships public APIs). Hand-editing of `mrd_*` data in CTAM (never, in any phase — corrections at source per FR6).
 
 ---
 
-## Story 0.3.1: MRD supplementary reference data is ingested from the weekly Excel feed
+## Story 1.3.1: MRD supplementary reference data is ingested from the weekly Excel feed
 
 As a **CTAM Pathfinder platform** (and downstream consumers of JOH Specialisations),
 I want the MRD team's weekly Excel workbook ingested from an Azure Blob drop into the `mrd_*` tables,

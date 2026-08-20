@@ -1,25 +1,25 @@
 ---
 type: 'Epic'
 description: 'User outcome: A CTAM Pathfinder user from either identity population — a JOH (Judge, Tribunal Judge, Tribunal Member) or HMCTS admin staff (RSU, Court user, Tribunal Caseworker, Finance/Payment…'
-resource: 'epics/phase-0/epic-0.4-user-authenticates.html'
-tags: [ctam-pathfinder, epics, phase-0]
+resource: 'epics/phase-1/epic-1.4-user-authenticates.html'
+tags: [ctam-pathfinder, epics, phase-1]
 timestamp: '2026-06-17'
-parent: 'epics/phase-0/index.md'
-epic: 0.4
+parent: 'epics/phase-1/index.md'
+epic: 1.4
 title: 'User authenticates and lands on a role-scoped Home page'
 storyCount: 5
 repo: [ctam-authorisation, ctam-mock-auth, ctam-ui]
-depends_on: [epic-0.0, epic-0.1, epic-0.2]  # needs the estate + the schema (0.1) + jo_people populated by the eLinks sync (0.2.1)
+depends_on: [epic-1.0, epic-1.1, epic-1.2]  # needs the estate + the schema (1.1) + jo_people populated by the eLinks sync (1.2.1)
 ---
 
-# Epic 0.4: User authenticates and lands on a role-scoped Home page
+# Epic 1.4: User authenticates and lands on a role-scoped Home page
 
 **User outcome:** A CTAM Pathfinder user from **either identity population** — a JOH (Judge, Tribunal Judge, Tribunal Member) or HMCTS admin staff (RSU, Court user, Tribunal Caseworker, Finance/Payment Authoriser, MI/Reporting) — opens CTAM Pathfinder, signs in via SSO, has their canonical identity resolved (CTAM JOH UUID via `jo_people` → `personnel_number` → `ctam_joh_identities` for JOHs; CTAM staff UUID via `ctam_auth_staff_identities` for admin staff,[^d9]), has their roles + **jurisdiction** + Region/Area scope resolved, and lands on a Home page showing the navigation and tiles they're authorised to see.
 
-**Depends on Epics 0.1 and 0.2:** `jo_people` (the JOH identity-lookup target) is populated by the eLinks sync (Epic 0.2, Story 0.2.1); the shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights) is provisioned by `ctam-reference-data` (Epic 0.1, Story 0.1.1) and consumed here.
+**Depends on Epics 1.1 and 0.2:** `jo_people` (the JOH identity-lookup target) is populated by the eLinks sync (Epic 1.2, Story 1.2.1); the shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights) is provisioned by `ctam-reference-data` (Epic 1.1, Story 1.1.1) and consumed here.
 
 **Vertical slice:**
-- `ctam-authorisation` scaffolded from the HMCTS Crime SpringBoot template via `ctam-scaffold.sh`, following the pattern established by the first-scaffolded service (Epic 0.1, Story 0.1.1); **consumes** the shared Azure estate
+- `ctam-authorisation` scaffolded from the HMCTS Crime SpringBoot template via `ctam-scaffold.sh`, following the pattern established by the first-scaffolded service (Epic 1.1, Story 1.1.1); **consumes** the shared Azure estate
 - `ctam-mock-auth` OIDC issuer for non-prod, with a test-user roster spanning **both identity populations** (per AR35)
 - 6-table `ctam-authorisation` schema (`ctam_auth_users`, `ctam_auth_staff_identities`, `ctam_auth_roles`, `ctam_auth_user_roles`, `ctam_auth_user_region_scopes`, `ctam_auth_user_activation_flags` with the (jurisdiction, region) tuple) via service-owned Liquibase changelog (per AR18–AR20)
 - Custom `JWTFilter` validating tokens against IdP JWKS + `POST /authz/check` performing **two-population identity resolution** and populating request-scoped `AuthDetails` (per AR34)
@@ -32,19 +32,19 @@ depends_on: [epic-0.0, epic-0.1, epic-0.2]  # needs the estate + the schema (0.1
 
 **Key NFRs first exercised here:** NFR12 (JWT propagation), NFR13 (authz enforcement incl. jurisdiction), NFR15 (GovS 7), NFR16 (Key Vault), NFR17–NFR19 (WCAG 2.2 AA + assistive tech + Accessibility Regs 2018), NFR20 (HMCTS IdP integration via mock), NFR40 (per-service deployable on Kubernetes).
 
-**Out of scope (explicitly):** The JOH eLinks ingestion (Epic 0.2) + `ctam-reference-data` scaffold + shared-estate provisioning + tier-(a) schema (Epic 0.1). Tier-(b) CTAM-owned reference data + the read API (Epic 0.5). FR5 machine-to-machine consumer auth (post-MVP per PRD v2.5). Real HMCTS IdP integration (mock-only at Phase 0; cuts over pre-Phase-9 per AR34). Production identity bootstrap + verification job (Epic 0.7).
+**Out of scope (explicitly):** The JOH eLinks ingestion (Epic 1.2) + `ctam-reference-data` scaffold + shared-estate provisioning + tier-(a) schema (Epic 1.1). Tier-(b) CTAM-owned reference data + the read API (Epic 1.5). FR5 machine-to-machine consumer auth (post-MVP per PRD v2.5). Real HMCTS IdP integration (mock-only at Phase 0; cuts over pre-Phase-9 per AR34). Production identity bootstrap + verification job (Epic 1.7).
 
 ---
 
-## Story 0.4.1: Scaffold `ctam-authorisation` service from the HMCTS Crime SpringBoot template
+## Story 1.4.1: Scaffold `ctam-authorisation` service from the HMCTS Crime SpringBoot template
 
 As a **platform engineer**,
-I want to scaffold `ctam-authorisation` from the HMCTS Crime SpringBoot template using `ctam-scaffold.sh`, consuming the shared Azure estate already provisioned in Epic 0.1,
+I want to scaffold `ctam-authorisation` from the HMCTS Crime SpringBoot template using `ctam-scaffold.sh`, consuming the shared Azure estate already provisioned in Epic 1.1,
 So that **the authorisation service follows the same consistent, version-pinned, supply-chain-secured baseline** as the first-scaffolded service, and the team can demonstrate the deployment pipeline end-to-end before any domain logic is written.
 
 **Acceptance Criteria:**
 
-**Given** the engineer has performed the GitHub manual-setup checklist (`ctam-architecture/runbooks/github-setup.md`) **before** running the scaffold (the canonical manual-setup pattern is established in Epic 0.1, Story 0.1.1):
+**Given** the engineer has performed the GitHub manual-setup checklist (`ctam-architecture/runbooks/github-setup.md`) **before** running the scaffold (the canonical manual-setup pattern is established in Epic 1.1, Story 1.1.1):
   - Created an empty private GitHub repo `ctam-authorisation` under the HMCTS org **via the GitHub web UI**
   - Enabled branch protection on `main` via Settings → Branches (require PR review, require status checks, require linear history)
   - Note: the `gh` CLI is **NOT** available — all GitHub admin config happens manually via the web UI per the runbook,
@@ -74,18 +74,18 @@ So that **the authorisation service follows the same consistent, version-pinned,
 **And** structured JSON logs via Logstash Logback Encoder 9.0 appear on stdout (per AR30, NFR25),
 **And** logs include a `correlationId` populated by `CorrelationIdFilter` for each request (per AR32).
 
-**Given** the shared Azure estate (AKS, encrypted-at-rest PostgreSQL Flexible Server, ACR, APIM, Application Insights / Log Analytics, Key Vault) was provisioned and independently verified in `ctam-shared-infrastructure` in **Epic 0.0** (AR53 revised),
+**Given** the shared Azure estate (AKS, encrypted-at-rest PostgreSQL Flexible Server, ACR, APIM, Application Insights / Log Analytics, Key Vault) was provisioned and independently verified in `ctam-shared-infrastructure` in **Epic 1.0** (AR53 revised),
 **When** `ctam-authorisation` deploys,
 **Then** it **consumes** the shared cluster, database, registry, gateway, and observability workspace without re-provisioning them,
 **And** `ctam-authorisation`'s `terraform/` contains only its own resources (Key Vault namespace, APIM per-API policy),
 **And** its `values-dev.yaml` connection string references the shared encrypted PostgreSQL instance (per NFR11).
 
-**Given** the `ctam-architecture` Liquibase baseline changelog already created the shared `ctam_configuration_values` table ahead of `ctam-reference-data` (Epic 0.1, Story 0.1.1),
+**Given** the `ctam-architecture` Liquibase baseline changelog already created the shared `ctam_configuration_values` table ahead of `ctam-reference-data` (Epic 1.1, Story 1.1.1),
 **When** `ctam-authorisation` is granted access,
 **Then** `ctam-authorisation`'s DB role has `SELECT` on `ctam_configuration_values` (per FR8, AR19, AR22),
-**And** `ctam-authorisation`'s own service-owned Liquibase changelog directory (`src/main/resources/db/changelog/`, master `db.changelog-master.yaml`) exists but is empty (auth tables created in Story 0.4.3).
+**And** `ctam-authorisation`'s own service-owned Liquibase changelog directory (`src/main/resources/db/changelog/`, master `db.changelog-master.yaml`) exists but is empty (auth tables created in Story 1.4.3).
 
-**Given** the deployed service is publicly reachable through the shared APIM (provisioned in Epic 0.1),
+**Given** the deployed service is publicly reachable through the shared APIM (provisioned in Epic 1.1),
 **When** an HTTP request reaches APIM,
 **Then** the APIM endpoint terminates TLS using the latest TLS version supported by the platform (per NFR10),
 **And** HTTP-only requests are rejected with a redirect to HTTPS,
@@ -109,7 +109,7 @@ So that **the authorisation service follows the same consistent, version-pinned,
 
 ---
 
-## Story 0.4.2: User can authenticate against `ctam-mock-auth` and receive a JWT
+## Story 1.4.2: User can authenticate against `ctam-mock-auth` and receive a JWT
 
 As a **CTAM Pathfinder user from either identity population** (a JOH, or HMCTS admin staff — RSU, Court user, Tribunal Caseworker, Finance, MI/Reporting),
 I want to authenticate against `ctam-mock-auth` in non-prod environments using my email,
@@ -117,10 +117,10 @@ So that **CTAM Pathfinder development and CI/UAT can proceed end-to-end without 
 
 **Acceptance Criteria:**
 
-**Given** the engineer has manually pre-created the private GitHub repo `ctam-mock-auth` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`; the `gh` CLI is **not** available — see Story 0.1.1 for the canonical manual-setup pattern),
-**And** runs `ctam-scaffold.sh ctam-mock-auth` (following the Story 0.1.1 pattern),
+**Given** the engineer has manually pre-created the private GitHub repo `ctam-mock-auth` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`; the `gh` CLI is **not** available — see Story 1.1.1 for the canonical manual-setup pattern),
+**And** runs `ctam-scaffold.sh ctam-mock-auth` (following the Story 1.1.1 pattern),
 **When** the scaffold completes,
-**Then** the service has the same baseline as Story 0.1.1 (Spring Boot 4.0.x, Helm chart, GitHub Actions, Actuator),
+**Then** the service has the same baseline as Story 1.1.1 (Spring Boot 4.0.x, Helm chart, GitHub Actions, Actuator),
 **And** the service implements OIDC `authorization_code` flow for human users,
 **And** the service implements `client_credentials` flow for batch / scheduled components (used by Phase 6 — flow established here),
 **And** a JWKS endpoint serves rotating signing keys at `/.well-known/jwks.json`,
@@ -155,7 +155,7 @@ So that **CTAM Pathfinder development and CI/UAT can proceed end-to-end without 
 
 ---
 
-## Story 0.4.3: `ctam-authorisation` validates JWTs and resolves identity, roles, jurisdiction + Region/Area scope (read-only API)
+## Story 1.4.3: `ctam-authorisation` validates JWTs and resolves identity, roles, jurisdiction + Region/Area scope (read-only API)
 
 As a **calling service or UI**,
 I want every CTAM Pathfinder HTTP request to flow through `JWTFilter` and resolve the principal's canonical identity, roles, **jurisdiction**, and Region/Area scope via `ctam-authorisation`'s **read-only** API,
@@ -163,13 +163,13 @@ So that **every domain operation is authorised against bootstrapped user data ac
 
 **Acceptance Criteria:**
 
-**Given** `ctam-authorisation` is scaffolded per Story 0.4.1,
+**Given** `ctam-authorisation` is scaffolded per Story 1.4.1,
 **When** the engineer adds the authorisation tables via the service-owned Liquibase changeset `db/changelog/001-init-auth-schema.sql`,
 **Then** the **6 tables** `ctam_auth_users`, `ctam_auth_staff_identities`, `ctam_auth_roles`, `ctam_auth_user_roles`, `ctam_auth_user_region_scopes`, `ctam_auth_user_activation_flags` exist with the schema specified in `architecture/data-tables.md` (per AR18, AR20),
 **And** `ctam_auth_users` carries `principal_kind` (JOH / staff / service) and links to `ctam_joh_identities.id` via `joh_id` (JOH users — `ctam_joh_identities` carries `personnel_number` → `jo_people`) or `ctam_auth_staff_identities.id` (admin-staff users — CTAM-assigned UUID[^d9]),
 **And** `ctam_auth_users` carries the user's jurisdiction (FK → `jo_jurisdictions`,[^d8]),
 **And** `ctam_auth_user_activation_flags` carries the **(jurisdiction, region) tuple** per FR57,
-**And** the `ctam_authorisation` DB role owns the tables (per AR19) and holds SELECT on `jo_people` (identity lookup — `jo_people` is owned by `ctam-reference-data` and populated by the Epic 0.2 eLinks sync),
+**And** the `ctam_authorisation` DB role owns the tables (per AR19) and holds SELECT on `jo_people` (identity lookup — `jo_people` is owned by `ctam-reference-data` and populated by the Epic 1.2 eLinks sync),
 **And** ArchUnit fitness functions in CI verify that no other service writes to these tables.
 
 **Given** the engineer implements `JWTFilter` per architecture pattern (AR34),
@@ -218,11 +218,11 @@ So that **every domain operation is authorised against bootstrapped user data ac
 
 **Explicitly NOT in scope (deferred post-MVP):**
 - Admin write endpoints on `ctam-authorisation` for updating user roles, jurisdiction, Region/Area scope, or activation flags
-- The auth tables are created here; they're populated by Epic 0.7's seed scripts (dev/CI) and the production bootstrap mechanism outside the PRD's scope[^d9], not by API writes
+- The auth tables are created here; they're populated by Epic 1.7's seed scripts (dev/CI) and the production bootstrap mechanism outside the PRD's scope[^d9], not by API writes
 
 ---
 
-## Story 0.4.4: Scaffold `ctam-ui` repo with React + TypeScript + Vite + GOV.UK base + auth wrapper
+## Story 1.4.4: Scaffold `ctam-ui` repo with React + TypeScript + Vite + GOV.UK base + auth wrapper
 
 As a **front-end engineer**,
 I want to scaffold the `ctam-ui` business-facing SPA repo with all CTAM Pathfinder conventions (auth, design system, HTTP client, accessibility CI, Playwright),
@@ -261,7 +261,7 @@ So that **per-domain UI modules built in Phases 1–8 land on a stable, audited,
 **And** screen-reader-relevant ARIA labels are present on tabbed and dynamic content.
 
 **Given** the engineer publishes the first Playwright E2E suite,
-**When** `tests/e2e/phase-0-foundation.spec.ts` runs in CI,
+**When** `tests/e2e/phase-1-foundation.spec.ts` runs in CI,
 **Then** the suite verifies app starts, redirects unauthenticated users to mock-auth, and renders a placeholder landing route after authentication (per AR45 pattern).
 
 **Given** the engineer configures deployment,
@@ -271,11 +271,11 @@ So that **per-domain UI modules built in Phases 1–8 land on a stable, audited,
 **And** the deployment is independent of any future `ctam-admin-ui` deployment (per AR45b — `ctam-admin-ui` itself is post-MVP[^d10]),
 **And** the dev hostname (configurable in production to `ctam.hmcts.gov.uk`) resolves to the new deployment.
 
-**References:** FR55 (foundation only — Home content populated in Story 0.4.5), FR56; NFR17, NFR18, NFR19, NFR31, NFR40; AR42–AR45b, AR53.
+**References:** FR55 (foundation only — Home content populated in Story 1.4.5), FR56; NFR17, NFR18, NFR19, NFR31, NFR40; AR42–AR45b, AR53.
 
 ---
 
-## Story 0.4.5: User signs into CTAM Pathfinder via SSO and lands on a role-scoped Home page
+## Story 1.4.5: User signs into CTAM Pathfinder via SSO and lands on a role-scoped Home page
 
 As a **CTAM Pathfinder user from either identity population** (JOH or admin staff),
 I want to sign into CTAM Pathfinder via SSO, have my canonical identity, roles, jurisdiction, and Region/Area scope resolved, and see a Home page with navigation and tiles scoped to what I'm authorised to do,
@@ -315,13 +315,13 @@ So that **I can begin using CTAM Pathfinder's workflows** — and at end of Phas
 **And** focus indicators are visible.
 
 **Given** Playwright E2E tests for Phase 0 run,
-**When** `tests/e2e/phase-0-foundation.spec.ts` executes,
+**When** `tests/e2e/phase-1-foundation.spec.ts` executes,
 **Then** it covers: unauthenticated redirect → mock-auth sign-in (one JOH user + one admin-staff user) → Home renders with role-scoped nav → activation banner for a non-activated wave → sign-out flow,
 **And** all assertions pass against the dev deployment.
 
 **Given** the Phase 0 demo gate,
 **When** the engineering lead runs the Phase 0 walkthrough,
-**Then** they can show a stakeholder: the platform scaffold + shared estate (Epic 0.1, Story 0.1.1), JOH reference data flowing in from eLinks (Epic 0.2, Story 0.2.1) and MRD (Epic 0.3, Story 0.3.1), the auth service scaffold (Story 0.4.1), SSO via mock-auth (Story 0.4.2), two-population authorisation enforcement (Story 0.4.3), UI foundation (Story 0.4.4), and the end-to-end sign-in flow (this story),
+**Then** they can show a stakeholder: the platform scaffold + shared estate (Epic 1.1, Story 1.1.1), JOH reference data flowing in from eLinks (Epic 1.2, Story 1.2.1) and MRD (Epic 1.3, Story 1.3.1), the auth service scaffold (Story 1.4.1), SSO via mock-auth (Story 1.4.2), two-population authorisation enforcement (Story 1.4.3), UI foundation (Story 1.4.4), and the end-to-end sign-in flow (this story),
 **And** Postman collection `ctam-authorisation-phase0.postman_collection.json` exercises `POST /v1/authz/check` (both populations + unresolvable principal) and `GET /v1/users/{id}/effective-permissions` against the dev deployment.
 
 **References:** FR1, FR2, FR3, FR55, FR56, FR57 (activation surface); NFR12, NFR13, NFR17, NFR18, NFR19, NFR20, NFR42.

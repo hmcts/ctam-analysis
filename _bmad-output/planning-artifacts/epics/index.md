@@ -17,9 +17,9 @@ inputDocuments:
 uxDocument: 'not-present-accepted-gap'
 stepsCompleted:
   - 'step-01-validate-prerequisites'
-  - 'step-02-design-epics-phase-0'
-  - 'step-03-create-stories-phase-0'
-  - 'step-04-final-validation-phase-0'
+  - 'step-02-design-epics-phase-1'
+  - 'step-03-create-stories-phase-1'
+  - 'step-04-final-validation-phase-1'
 ---
 
 # ctam-analysis (CTAM Pathfinder) — Epic Breakdown
@@ -46,8 +46,8 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 
 | Phase | Folder | Status |
 |---|---|---|
-| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 10 epics, 22 stories |
-| **1** — JOH | [phase-1/](phase-1/index.md) | 🟡 Planned — 1 epic, 1 story (primary area FR10–FR18 still framework only) |
+| **1** — Foundations | [phase-1/](phase-1/index.md) | 🟡 Planned — 10 epics, 22 stories |
+| **0** — JOH | [phase-0/](phase-0/index.md) | 🟡 Planned — 1 epic, 1 story (primary area FR10–FR18 still framework only) |
 | **2** — Absence | _to be storied_ | ⚪ Framework only |
 | **3** — Vacancy | _to be storied_ | ⚪ Framework only |
 | **4** — Booking | _to be storied_ | ⚪ Framework only |
@@ -66,12 +66,12 @@ Each phase advances through four steps of the `bmad-create-epics-and-stories` wo
 3. **Create stories** — produce Gherkin-AC user stories sized for a single dev-agent session
 4. **Final validation** — verify FR/NFR coverage, dependency soundness, architecture compliance
 
-Phase 0 has completed all four steps. Phase 1 has one epic through all four steps (Epic 1.0, added 2026-08-20 ahead of its primary area — see [phase-1/index.md](phase-1/index.md)); its primary area (JOH Records & Working Patterns, FR10–FR18) is still framework-only. Phases 2–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
+Phase 1 has completed all four steps. Phase 0 has one epic through all four steps (Epic 0.0, added 2026-08-20 ahead of its primary area — see [phase-0/index.md](phase-0/index.md)); its primary area (JOH Records & Working Patterns, FR10–FR18) is still framework-only. Phases 2–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
 
 ## How to find your way
 
-- **Looking for what to build next?** Start at the phase index (e.g. [phase-0/index.md](phase-0/index.md)) and pick an epic.
-- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 0.1.5). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`.
+- **Looking for what to build next?** Start at the phase index (e.g. [phase-1/index.md](phase-1/index.md)) and pick an epic.
+- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 1.1.5). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`.
 - **Looking for an FR?** Use [fr-coverage-map.md](fr-coverage-map.md).
 - **Looking for an architecture rule?** Use [requirements-inventory.md](requirements-inventory.md) — ARs are in the Additional Requirements section.
 - **Verifying readiness?** Run `bmad-check-implementation-readiness` from the repo root; it understands this sharded shape.

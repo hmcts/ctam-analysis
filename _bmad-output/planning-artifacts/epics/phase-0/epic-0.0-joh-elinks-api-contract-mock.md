@@ -1,22 +1,24 @@
 ---
 type: 'Epic'
 description: 'User outcome: the real JOH eLinks People API (v5) contract is confirmed and reproduced as a contract-accurate CI-only mock, seeded from real production reference-data extracts, so Epic 0.2s eLinks sync integration-tests against a faithful target instead of an ad-hoc stub. Resolves the structural half of gap G8.1 and surfaces a new gap (G8.7): the real APIs natural-key field does not match CTAMs personnel_number assumption.'
-resource: 'epics/phase-1/epic-1.0-joh-elinks-api-contract-mock.html'
-tags: [ctam-pathfinder, epics, phase-1]
+resource: 'epics/phase-0/epic-0.0-joh-elinks-api-contract-mock.html'
+tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-08-20'
-parent: 'epics/phase-1/index.md'
-epic: 1.0
+parent: 'epics/phase-0/index.md'
+epic: 0.0
 title: 'The JOH eLinks API contract is confirmed and mocked for CI-only integration testing'
 storyCount: 1
 repo: ctam-reference-data
-depends_on: [epic-0.1]                      # cross-phase: needs Phase 0's tier-(a) schema to exist so the mock's field mapping can be cross-checked against it
+depends_on: [epic-1.1]                      # cross-phase: needs Phase 1's tier-(a) schema to exist so the mock's field mapping can be cross-checked against it
 ---
 
-# Epic 1.0: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing
+# Epic 0.0: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing
 
-> **New 2026-08-20, informed by an external reference codebase** (`ctam-jomockapi`, a local Node.js mock of the real JOH eLinks People API v5, built from the real Swagger export and complete example payloads, seeded from real production reference-data extracts). Not a split of an existing epic — new work triggered by that reference material becoming available. **Moved from Phase 0 to Phase 1** (SCP 2026-08-20g), renumbered `0.10` → **`1.0`**: it was originally appended to Phase 0 (whose ten single-digit slots, 0.0–0.9, were exhausted, forcing a quoted `epic: "0.10"` to avoid a YAML-float collision with `0.1`). As the **first epic of Phase 1**, it gets a clean, unquoted `epic: 1.0` — a normal, distinct float with no collision risk. This also fits its content better: it's upstream-contract confirmation for JOH data, which Phase 1 (JOH Records & Working Patterns) is the natural home for, rather than Phase 0 platform/foundations work. Depends cross-phase on Epic 0.1 (Phase 0's tier-(a) schema) — cross-phase dependencies are normal; Phase 1 as a whole already depends on Phase 0.
+> **New 2026-08-20, informed by an external reference codebase** (`ctam-jomockapi`, a local Node.js mock of the real JOH eLinks People API v5, built from the real Swagger export and complete example payloads, seeded from real production reference-data extracts). Not a split of an existing epic — new work triggered by that reference material becoming available.
+>
+> **Numbering history:** originally appended to what was then called "Phase 0" (Foundations) as Epic 0.10 (quoted `"0.10"`, since that phase's ten single-digit slots were exhausted). Moved to a newly-created "Phase 1" (JOH) as Epic 1.0 (SCP 2026-08-20g) — a clean, unquoted float, no collision risk, and a better conceptual fit (upstream-contract confirmation for JOH data belongs in the JOH phase, not platform/foundations). **Today (SCP 2026-08-20h), Phase 0 and Phase 1 were swapped wholesale**: Foundations content moved to the folder now called `phase-1/`, and this epic (JOH) moved to the folder now called `phase-0/`, becoming **Epic 0.0**. Depends cross-phase on Epic 1.1 (Phase 1's tier-(a) schema, now that Foundations is Phase 1) — cross-phase dependencies are normal; Phase 0 (JOH) as a whole already depends on Phase 1 (Foundations).
 
-**User outcome:** The real JOH eLinks People API (v5) — endpoints, auth behaviour, pagination envelope, change-feed semantics, and response shapes — is confirmed (resolving the structural half of gaps.md **G8.1**, previously "unconfirmed") and reproduced as a **contract-accurate, CI-only mock**, seeded from real production reference-data extracts. Epic 0.2's eLinks sync (Story 0.2.1, which currently only promises testing "against a WireMock/stub eLinks API in CI" per AR52) gets a faithful target to integration-test against, rather than an ad-hoc hand-rolled stub. Building this mock surfaced a new, separately-tracked gap (**G8.7**): the real API's natural-key field does not match what CTAM's architecture assumed.
+**User outcome:** The real JOH eLinks People API (v5) — endpoints, auth behaviour, pagination envelope, change-feed semantics, and response shapes — is confirmed (resolving the structural half of gaps.md **G8.1**, previously "unconfirmed") and reproduced as a **contract-accurate, CI-only mock**, seeded from real production reference-data extracts. Epic 1.2's eLinks sync (Story 1.2.1, which currently only promises testing "against a WireMock/stub eLinks API in CI" per AR52) gets a faithful target to integration-test against, rather than an ad-hoc hand-rolled stub. Building this mock surfaced a new, separately-tracked gap (**G8.7**): the real API's natural-key field does not match what CTAM's architecture assumed.
 
 **Hosting:** lives inside `ctam-reference-data`'s own test infrastructure — a CI-only fixture/stub layer (WireMock mappings or an equivalent in-process fake), not a new deployable and not a new repo. This follows the same "no new surface for test-only infrastructure" principle already applied to the eLinks sync and MRD ingestion (both run in-process, no `ctam-integrations` repo) — the mock is a **build artefact of the test suite**, not a service anyone deploys.
 
@@ -29,23 +31,23 @@ depends_on: [epic-0.1]                      # cross-phase: needs Phase 0's tier-
 - CI-only fixture data cross-checked against real production reference-data volumes (`locations`: 2000, `base_locations`: 1462, `appointment_titles`: 194, `judiciary_roles`: 164, `tickets`: 159, `ticket_categories`: 54; small fixed vocabularies — `genders`, `contract_types`, `location_types`, `ticket_category_types`, `jurisdictions` — kept at their real (small) size)
 - **Gap G8.7 recorded, not resolved here:** the real person record has no `personnel_number` field — it returns `per_id` (numeric) and `personal_code` (10-digit string) instead. This epic documents the discovery; reconciling CTAM's schema is a separate architectural decision (see gaps.md G8.7).
 
-**FRs covered:** none directly — this is contract-confirmation and CI test-infrastructure work. **Supports** FR1 (identity-lookup target) and NFR24 (JOH eLinks MVP integration) by de-risking Epic 0.2's eLinks sync before it's built against real upstream data. Also the natural first step into Phase 1's own FR10–FR18 (JOH Records & Working Patterns) — those FRs all build on `jo_people` data whose upstream contract this epic confirms.
+**FRs covered:** none directly — this is contract-confirmation and CI test-infrastructure work. **Supports** FR1 (identity-lookup target) and NFR24 (JOH eLinks MVP integration) by de-risking Epic 1.2's eLinks sync before it's built against real upstream data. Also the natural first step into this phase's own FR10–FR18 (JOH Records & Working Patterns) — those FRs all build on `jo_people` data whose upstream contract this epic confirms.
 
-**Key NFRs:** NFR25–NFR28 (the mock's fixtures feed the same structured-logging/observability assertions Epic 0.2's CI already exercises) — otherwise this epic's NFR footprint is test-infrastructure, not runtime.
+**Key NFRs:** NFR25–NFR28 (the mock's fixtures feed the same structured-logging/observability assertions Epic 1.2's CI already exercises) — otherwise this epic's NFR footprint is test-infrastructure, not runtime.
 
-**Out of scope (explicitly):** Deciding the `personnel_number` → `per_id`/`personal_code` mapping (gaps.md G8.7 — a separate architectural decision, not made by this epic). Any change to `data-tables.md`, decision D9, or the schema in Phase 0's Epics 0.1/0.2/0.4/0.6/0.7. Standing up the mock as a deployed service or a new repo (it's CI-only, in-process test infrastructure). The MRD feed side of G8.1 (unrelated — MRD is a weekly Excel blob drop, not an API). Any of Phase 1's own JOH Records & Working Patterns functionality (FR10–FR18) — those remain framework-only, not yet decomposed into epics.
+**Out of scope (explicitly):** Deciding the `personnel_number` → `per_id`/`personal_code` mapping (gaps.md G8.7 — a separate architectural decision, not made by this epic). Any change to `data-tables.md`, decision D9, or the schema in Phase 1's Epics 1.1/1.2/1.4/1.6/1.7. Standing up the mock as a deployed service or a new repo (it's CI-only, in-process test infrastructure). The MRD feed side of G8.1 (unrelated — MRD is a weekly Excel blob drop, not an API). Any of this phase's own JOH Records & Working Patterns functionality (FR10–FR18) — those remain framework-only, not yet decomposed into epics.
 
 ---
 
-## Story 1.0.1: The eLinks sync integration-tests against a contract-accurate CI mock of the real JOH eLinks People API
+## Story 0.0.1: The eLinks sync integration-tests against a contract-accurate CI mock of the real JOH eLinks People API
 
-As the **engineer building Epic 0.2's eLinks sync** (and every future maintainer of that integration),
+As the **engineer building Epic 1.2's eLinks sync** (and every future maintainer of that integration),
 I want `ctam-reference-data`'s CI suite to run against a mock that reproduces the real JOH eLinks People API (v5)'s endpoints, auth, pagination, and response shapes — not a hand-rolled stub that only covers the happy path the original developer thought of,
 So that **the sync's field mapping, pagination handling, and error handling are proven against the real contract before the first live connection**, and any future contract drift (a new field, a changed error shape) is caught by a fixture update, not a production incident.
 
 **Acceptance Criteria:**
 
-**Given** the tier-(a) `jo_*` schema exists per Epic 0.1, Story 0.1.2,
+**Given** the tier-(a) `jo_*` schema exists per Epic 1.1, Story 1.1.2,
 **When** the engineer builds the CI-only mock/fixture layer for the eLinks API,
 **Then** it exposes the confirmed endpoint set — `GET /api/v5/reference_data/:attribute_name` (+ `/:reference_id`), `GET /api/v5/people/:id`, `GET /api/v5/people`, `GET /api/v5/leavers`, `GET /api/v5/deleted`, plus public `GET /` and `GET /api/v5/healthcheck` — mounted at both the bare path and under `/elinks`, matching the real Swagger doc's server field,
 **And** every People/Reference Data route enforces bearer-token auth, returning `401 {"message": "Unauthorized. Invalid or missing token."}` on a missing or malformed `Authorization` header.

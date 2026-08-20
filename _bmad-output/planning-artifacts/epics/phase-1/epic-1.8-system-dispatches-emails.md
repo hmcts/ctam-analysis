@@ -1,18 +1,18 @@
 ---
 type: 'Epic'
 description: 'User outcome: The ctam-notification service is deployed with its API contract published, delivery-log table created, SMTP integration to HMCTS email infrastructure configured, and POST…'
-resource: 'epics/phase-0/epic-0.8-system-dispatches-emails.html'
-tags: [ctam-pathfinder, epics, phase-0]
+resource: 'epics/phase-1/epic-1.8-system-dispatches-emails.html'
+tags: [ctam-pathfinder, epics, phase-1]
 timestamp: '2026-06-17'
-parent: 'epics/phase-0/index.md'
-epic: 0.8
+parent: 'epics/phase-1/index.md'
+epic: 1.8
 title: 'Notification service is scaffolded and contractually ready'
 storyCount: 2
 repo: ctam-notification
-depends_on: [epic-0.0]                      # only needs the estate — parallelisable with 0.1/0.2/0.3/0.4
+depends_on: [epic-1.0]                      # only needs the estate — parallelisable with 1.1/1.2/1.3/1.4
 ---
 
-# Epic 0.8: Notification service is scaffolded and contractually ready
+# Epic 1.8: Notification service is scaffolded and contractually ready
 
 **User outcome:** The `ctam-notification` service is deployed with its API contract published, delivery-log table created, SMTP integration to HMCTS email infrastructure configured, and `POST /v1/notifications/send` endpoint operational. The contract is consumable from Phase 2+ (Absence acknowledgement, Booking acknowledgement) via JWT propagation — the user-initiated flow. Service-token (`client_credentials`) auth for non-user-initiated callers is **deferred to Phase 6** when `ctam-payment-batch` arrives as the first consumer. **No admin UI in MVP** — the test-send / verification flow happens via Postman during Phase 0 integration testing, not via a deployed UI.
 
@@ -38,7 +38,7 @@ depends_on: [epic-0.0]                      # only needs the estate — parallel
 
 ---
 
-## Story 0.8.1: Scaffold `ctam-notification` service + delivery log table + SMTP integration
+## Story 1.8.1: Scaffold `ctam-notification` service + delivery log table + SMTP integration
 
 As a **platform engineer**,
 I want to scaffold `ctam-notification` following the established pattern, create the delivery log table via Liquibase, and configure SMTP integration with HMCTS email infrastructure,
@@ -46,10 +46,10 @@ So that **downstream phases** (Phase 2 absence ack, Phase 4 booking ack, Phase 6
 
 **Acceptance Criteria:**
 
-**Given** the engineer has manually pre-created the private GitHub repo `ctam-notification` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`; the `gh` CLI is **not** available — see Story 0.1.1 for the canonical manual-setup pattern),
+**Given** the engineer has manually pre-created the private GitHub repo `ctam-notification` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`; the `gh` CLI is **not** available — see Story 1.1.1 for the canonical manual-setup pattern),
 **And** runs `ctam-scaffold.sh ctam-notification`,
 **When** the scaffold completes,
-**Then** the new repo has the same baseline as Stories 0.1.1 / 0.4.1 (Spring Boot 4, Helm chart, GitHub Actions, Actuator, structured logs, OpenAPI tooling, Spectral, ArchUnit, Spotless, Checkstyle, Pact, Postman),
+**Then** the new repo has the same baseline as Stories 1.1.1 /1.4.1 (Spring Boot 4, Helm chart, GitHub Actions, Actuator, structured logs, OpenAPI tooling, Spectral, ArchUnit, Spotless, Checkstyle, Pact, Postman),
 **And** Group ID is `uk.gov.hmcts.ctam`, artefact is `ctam-notification`, package is `uk.gov.hmcts.ctam.notification`, default port is 8082,
 **And** initial commit is *"Scaffold CTAM Pathfinder notification from HMCTS starter"* (per AR4).
 
@@ -74,7 +74,7 @@ So that **downstream phases** (Phase 2 absence ack, Phase 4 booking ack, Phase 6
 
 ---
 
-## Story 0.8.2: `POST /v1/notifications/send` endpoint with JWT propagation, retry semantics, delivery logging, RFC 9457 errors
+## Story 1.8.2: `POST /v1/notifications/send` endpoint with JWT propagation, retry semantics, delivery logging, RFC 9457 errors
 
 As a **calling service** (Phase 2 Absence flow, Phase 4 Booking flow — both user-initiated),
 I want a `POST /v1/notifications/send` endpoint that accepts a template + recipient + payload, validates the caller's user JWT, persists a delivery log entry, dispatches via SMTP with retry on transient failure, and returns RFC 9457 errors on validation failure,
@@ -82,7 +82,7 @@ So that **transactional email dispatch is a single, observable, retry-safe contr
 
 **Acceptance Criteria:**
 
-**Given** `ctam-notification` is deployed per Story 0.8.1,
+**Given** `ctam-notification` is deployed per Story 1.8.1,
 **When** the engineer implements the send endpoint,
 **Then** `POST /v1/notifications/send` accepts a body with `{templateId, recipient, payload}` where `payload` is a JSON object,
 **And** the endpoint is protected by `JWTFilter` and accepts user JWTs from the SSO/IdP (per NFR12 — JWT propagation for user-initiated calls; the caller is a downstream CTAM Pathfinder service that has propagated the user's token),

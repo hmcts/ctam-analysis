@@ -1,20 +1,20 @@
 ---
 type: 'Epic'
 description: 'User outcome: CTAM Pathfinder''s two user populations — JOH users (resolved via jo_people → personnel_number → CTAM JOH UUID in ctam_joh_identities) and HMCTS admin staff (resolved via ctam_auth_staff_identities → CTAM-assigned UUID) — have…'
-resource: 'epics/phase-0/epic-0.7-user-populations-bootstrapped.html'
-tags: [ctam-pathfinder, epics, phase-0, employment-tribunals]
+resource: 'epics/phase-1/epic-1.7-user-populations-bootstrapped.html'
+tags: [ctam-pathfinder, epics, phase-1, employment-tribunals]
 timestamp: '2026-06-17'
-parent: 'epics/phase-0/index.md'
-epic: 0.7
+parent: 'epics/phase-1/index.md'
+epic: 1.7
 title: 'Both user populations are bootstrapped and verifiable against the IdP'
 storyCount: 1
 repo: ctam-architecture
-depends_on: [epic-0.1, epic-0.4]            # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster
+depends_on: [epic-1.1, epic-1.4]            # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster
 ---
 
-# Epic 0.7: Both user populations are bootstrapped and verifiable against the IdP
+# Epic 1.7: Both user populations are bootstrapped and verifiable against the IdP
 
-**User outcome:** CTAM Pathfinder's two user populations[^d9] — **JOH users** (resolved via `jo_people` → `personnel_number` → CTAM JOH UUID in `ctam_joh_identities`) and **HMCTS admin staff** (resolved via `ctam_auth_staff_identities` → CTAM-assigned UUID) — have authorisation records (roles, jurisdiction, Region/Area scope, all-FALSE activation flags) in place: seeded by scripts in dev/CI, bootstrapped by programme-management mechanisms in production (outside the PRD's scope), and **verifiable** by a bootstrap-verification job that confirms every user maps to a real IdP principal before any wave cutover. Epic 0.4's sign-in works against this data.
+**User outcome:** CTAM Pathfinder's two user populations[^d9] — **JOH users** (resolved via `jo_people` → `personnel_number` → CTAM JOH UUID in `ctam_joh_identities`) and **HMCTS admin staff** (resolved via `ctam_auth_staff_identities` → CTAM-assigned UUID) — have authorisation records (roles, jurisdiction, Region/Area scope, all-FALSE activation flags) in place: seeded by scripts in dev/CI, bootstrapped by programme-management mechanisms in production (outside the PRD's scope), and **verifiable** by a bootstrap-verification job that confirms every user maps to a real IdP principal before any wave cutover. Epic 1.4's sign-in works against this data.
 
 **No legacy user migration of any kind**[^d3]: no APEX user dump, no IdP reconciliation ETL, no unmatched-record CSV workflow — none of these exist or will exist. **No admin UI in MVP**[^d10] — operational user/role/scope maintenance happens via direct SQL by DBAs; an admin UI surface is on the post-MVP roadmap.
 
@@ -38,11 +38,11 @@ depends_on: [epic-0.1, epic-0.4]            # needs ctam_auth_* tables + jo_* fi
 
 ---
 
-## Story 0.7.1: Identity seed scripts (both populations), bootstrap-verification job, and the production bootstrap runbook
+## Story 1.7.1: Identity seed scripts (both populations), bootstrap-verification job, and the production bootstrap runbook
 
 As an **identity / HMCTS IT lead** (and the engineers who need working sign-in in every environment),
 I want dev/CI seed scripts covering both identity populations, a re-runnable bootstrap-verification job proving every user maps to an IdP principal, and a production bootstrap runbook,
-So that **Epic 0.4's two-population sign-in works end-to-end in every environment, and no wave cutover can proceed with unverifiable users** (restructured D9, AR52, G1.3).
+So that **Epic 1.4's two-population sign-in works end-to-end in every environment, and no wave cutover can proceed with unverifiable users** (restructured D9, AR52, G1.3).
 
 **Acceptance Criteria:**
 
@@ -52,7 +52,7 @@ So that **Epic 0.4's two-population sign-in works end-to-end in every environmen
 **And** `ctam_auth_staff_identities` rows (CTAM-assigned UUIDs) whose emails match the mock-auth admin-staff test users,
 **And** `ctam_auth_users` rows for both populations with `principal_kind`, the link to `ctam_joh_identities.id` (JOH) or `ctam_auth_staff_identities.id` (staff), and a jurisdiction (FK → `jo_jurisdictions`),
 **And** role assignments (`ctam_auth_user_roles`) and Region/Area scopes (`ctam_auth_user_region_scopes`) covering every documented role across both populations,
-**And** `ctam_auth_user_activation_flags` rows keyed by (jurisdiction, region), **all FALSE** except designated test users flagged TRUE so the Epic 0.4 demo can show both the activated and non-activated paths (FR57),
+**And** `ctam_auth_user_activation_flags` rows keyed by (jurisdiction, region), **all FALSE** except designated test users flagged TRUE so the Epic 1.4 demo can show both the activated and non-activated paths (FR57),
 **And** the scripts are idempotent (safe re-run on an already-seeded database).
 
 **Given** the bootstrap-verification job is implemented (a re-runnable script/k8s Job owned by `ctam-architecture`),
@@ -72,8 +72,8 @@ So that **Epic 0.4's two-population sign-in works end-to-end in every environmen
 **And** the runbook states explicitly what is out of scope: no legacy-system user import exists or will exist[^d3]; the bootstrap data source is programme-management-owned.
 
 **Given** the seeds have run in dev,
-**When** the Epic 0.4 Playwright suite executes,
-**Then** the JOH test user signs in and resolves to a CTAM JOH UUID, the admin-staff test user signs in and resolves to a staff UUID (Story 0.4.5),
+**When** the Epic 1.4 Playwright suite executes,
+**Then** the JOH test user signs in and resolves to a CTAM JOH UUID, the admin-staff test user signs in and resolves to a staff UUID (Story 1.4.5),
 **And** the bootstrap-verification job passes cleanly against the seeded environment in CI.
 
 **References:** FR1, FR4 (MVP data-layer criterion), FR57 (initial flag state); NFR13, NFR15 (change trail per runbook), NFR16; AR18–AR20, AR34, AR35, AR52; restructured D9; gaps.md G1.3.

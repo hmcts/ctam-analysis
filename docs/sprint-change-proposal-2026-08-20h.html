@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-20 (h) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-20-h">Sprint Change Proposal — 2026-08-20 (h)</h1>
+<p><strong>Swap <code>epics/phase-0/</code> and <code>epics/phase-1/</code></strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"swap phase-0 and phase-1"</em>. Phase 0 (Foundations — 10 epics, 22 stories) and Phase 1 (JOH — 1 epic, 1 story, added same day by SCP 2026-08-20g) traded places: Foundations becomes Phase 1, JOH becomes Phase 0.</p>
+<p><strong>Scope, clarified with the user before starting:</strong> the literal request could mean anything from a folder rename to a full rewrite of the PRD's and architecture's phase narrative. Asked to choose; the user selected the narrowest of the offered options: <em>"Just swap the two epics/ directories and their epic-ID numbers"</em> — <code>epics/phase-0/</code> ↔︎ <code>epics/phase-1/</code>, <code>epic: 0.X</code> → <code>1.X</code> and <code>1.0</code> → <code>0.0</code>, <code>depends_on</code> updated to match. <strong><code>prd.md</code> and <code>architecture.md</code>'s narrative ("Phase 0 = Foundations") are explicitly NOT touched</strong> — only the planning-epics numbering flips, which now reads backwards against them. This is the same tradeoff already accepted, and is consistent with how <code>architecture/repository-strategy.md</code>'s per-repo "Phase" column and the conceptual "Phase 0 (Foundations)" mentions in <code>architecture/gaps.md</code> and <code>epics/requirements-inventory.md</code> were left alone — they are architecture narrative, siblings/derivatives of <code>architecture.md</code>, not the <code>epics/</code> directory structure this SCP's scope covers.</p>
+<p><strong>One judgment call made while implementing, not separately confirmed with the user:</strong> the phase-index files (<code>epics/phase-0/index.md</code>, <code>epics/phase-1/index.md</code>) and <code>epics/framework.md</code> have their own <code>phase:</code> frontmatter field and self-titling ("Phase 0 — Foundations", "### Phase 0 · Area: ..."). Since the mechanical part of the swap already flips their <code>phase:</code> frontmatter value, leaving their own headings unflipped would create direct self-contradiction <em>within the same file</em> (a file whose frontmatter says <code>phase: 1</code> titled "Phase 0 — Foundations"). Judged that a <strong>full, self-consistent swap of "Phase N" everywhere under <code>epics/</code></strong> — including these files' own titles, framework.md's Phase × Area table and section headers, and <code>epics/index.md</code>'s phase-status table — is the more defensible reading than leaving those specific headings stale, while still holding the line at <code>epics/</code>: <code>prd.md</code>, <code>architecture.md</code>, and <code>architecture.md</code>'s own sibling shards (<code>repository-strategy.md</code>, <code>gaps.md</code>'s and <code>requirements-inventory.md</code>'s conceptual "Phase 0" mentions) are untouched, exactly as the user specified. Flagging this here since it extends "epic-ID numbers" to "epics/-internal phase concept" by inference, not by direct instruction.</p>
+<p><strong>Status check:</strong> all 11 affected stories remain <code>backlog</code> except Story 1.9.1 (<code>done</code>, carried over unchanged) and Epic 1.9 (<code>in-progress</code>, carried over unchanged). No code exists in any of the 16 execution-unit repos for either phase. Low implementation risk; high documentation-consistency risk given the file count, which is why the full verification battery below was run.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-structural-impact">2.1 Structural impact</h3>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directory swap</td>
+<td><code>epics/phase-0/</code> (old Foundations, 10 epics) ↔︎ <code>epics/phase-1/</code> (old JOH, 1 epic) — staged through a temporary directory name (<code>phase-temp</code>) to break the 2-way cycle safely</td>
+</tr>
+<tr>
+<td>Foundations epics renumbered</td>
+<td><code>epic-0.0</code> … <code>epic-0.9</code> → <code>epic-1.0</code> … <code>epic-1.9</code> (10 files, <code>git mv</code>, permutation-safe via temp names)</td>
+</tr>
+<tr>
+<td>JOH epic renumbered</td>
+<td><code>epic-1.0-joh-elinks-api-contract-mock.md</code> → <code>epic-0.0-joh-elinks-api-contract-mock.md</code></td>
+</tr>
+<tr>
+<td><code>depends_on</code></td>
+<td>Every Foundations epic's internal <code>depends_on</code> re-pointed to the new <code>1.X</code> ids; the JOH epic's cross-phase <code>depends_on: [epic-1.1]</code> (was <code>[epic-1.1]</code> pointing at the schema epic under its <em>old</em> 1.1 id — re-verified still correct, since the schema epic kept the same relative position, now at <code>epic-1.1</code> under the new numbering)</td>
+</tr>
+<tr>
+<td>Phase-index files rewritten</td>
+<td><code>epics/phase-1/index.md</code> (new home of Foundations) self-titles "Phase 1 — Foundations"; <code>epics/phase-0/index.md</code> (new home of JOH) self-titles "Phase 0 — JOH" — both frontmatter and body fully rewritten for internal self-consistency, not just path-updated</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Phase × Area summary table's JOH row moved to phase <strong>0</strong> (now first row) and Foundations rows moved to phase <strong>1</strong>; all eight <code>### Phase 0 · Area: ...</code> Foundations subheaders → <code>### Phase 1 · Area: ...</code>; the JOH section header/subheader → <code>## Phase 0 — JOH</code> / <code>### Phase 0 · Area: JOH Records &amp; Working Patterns</code>; "Phase dependency order" table's JOH row → <strong>0 — JOH</strong>, Absence/Sitting rows' "depends on Phase 1" → "Phase 0", Itineraries' now-discontiguous "Phases 1–5" range corrected to "Phases 0, 2–5"</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase-status table rows and the "Phase 0 has completed... Phase 1 has one epic..." sentence swapped to match</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>Section header "Phase 0 (concrete epics)" → notes it now lives in <code>phase-1/</code> as 1.0–1.9; pending-table header and the FR10–FR18/JOH row's Phase column corrected <code>1</code> → <code>0</code>; two bare "Phase 0" mentions describing Foundations-era behaviour (user-JWT propagation, <code>ctam-ui</code> delivery phase) corrected to <code>Phase 1</code></td>
+</tr>
+<tr>
+<td>Two stale depends_on <strong>comments</strong> found and fixed (not caught by any prior sweep, since they're inside YAML comments)</td>
+<td><code>epic-1.4-user-authenticates.md</code>: "the schema (0.1)" → "(1.1)"; <code>epic-1.8-system-dispatches-emails.md</code>: "alongside 0.1/0.2/0.3/0.4" → "alongside 1.1/1.2/1.3/1.4"</td>
+</tr>
+<tr>
+<td>One genuinely wrong cross-reference found and fixed</td>
+<td><code>architecture/repo-structure.md</code> had three mentions of "Epic 0.0" meaning the platform-estate epic — since <code>epic-0.0</code> is now a <em>different</em> epic (JOH contract-mock), these were silently pointing at the wrong deliverable, not just reading backwards; corrected to "Epic 1.0"</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code> G8.7</td>
+<td>"Epic 0.0 (Phase 1, ...)" corrected to "Epic 0.0 (Phase 0, ...)" (epic-0.0 now lives in phase-0/, not phase-1/); "the Phase 0 epic/story text that names it" corrected to "Phase 1" (personnel_number is named in the JOH ETL epic, which is in Foundations, now Phase 1)</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code> + <code>delivery/README.md</code></td>
+<td>"Epic 1.8 (Notification) ... alongside 0.1/0.2/0.3/0.4" → "alongside 1.1/1.2/1.3/1.4" (both files carried this stale mention already, predating this swap)</td>
+</tr>
+<tr>
+<td><code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></td>
+<td>Fully re-keyed: <code>epic-0.0</code>…<code>epic-0.9</code> (+ their <code>0-N-M-slug</code> story keys) → <code>epic-1.0</code>…<code>epic-1.9</code> (+ <code>1-N-M-slug</code>); <code>epic-1.0</code> (+ <code>1-0-1-…</code>) → <code>epic-0.0</code> (+ <code>0-0-1-…</code>); statuses carried over unchanged (Epic 1.9 <code>in-progress</code>, Story 1.9.1 <code>done</code>)</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code> NAV</td>
+<td>The two <code>Implementation — Phase N</code> sections swapped in both order and content (epic list, paths, titles) to match the new directory contents</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-what-was-deliberately-left-alone-architecture-narrative-not-epics-structure">2.2 What was deliberately left alone (architecture narrative, not epics/ structure)</h3>
+<p><code>architecture/repository-strategy.md</code>'s per-repo "Phase" column (0 for Foundations components, 1 for <code>ctam-joh</code>) and the general "Phase 0 deliverable" mentions in <code>architecture/gaps.md</code> and <code>epics/requirements-inventory.md</code> all describe the <strong>conceptual</strong> programme phase — the same concept <code>architecture.md</code>'s own narrative uses — and are left unchanged per the user's explicit scope. These now read backwards against the <code>epics/</code> folder names (folder <code>phase-1/</code> holds what <code>repository-strategy.md</code> still calls "Phase 0"), which is the accepted tradeoff, not a bug. Only genuine epic-file <strong>cross-references</strong> in these same files (e.g. <code>repo-structure.md</code>'s "Epic 0.0") were corrected, since those point at a specific file, not a concept.</p>
+<h3 id="23-technical-impact">2.3 Technical impact</h3>
+<p>None — no code exists for any affected repo.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment</strong> — swap the two directories, renumber every epic/story id and <code>depends_on</code> inside them, make each phase-index and <code>framework.md</code>/<code>epics/index.md</code> internally self-consistent with its new phase number, and fix the handful of genuine (not conceptual) cross-reference bugs uncovered along the way. No PRD, architecture-narrative, or FR/NFR change, per explicit scope. Effort: moderate-to-high (two 10+1-file renumbering passes plus five connective-tissue files); risk: low on implementation (nothing built yet), moderate on documentation consistency (mitigated by the verification battery below).</p>
+<hr />
+</div></details><details class="section" id="section-4--verification-performed"><summary><span class="section-title">Section 4 — Verification performed</span></summary><div class="section-body">
+<p>Extended the standard checklist across both swapped phase directories:</p>
+<ul>
+<li><strong>Link resolution:</strong> every markdown link in <code>epics/phase-0/*.md</code>, <code>epics/phase-1/*.md</code>, <code>epics/framework.md</code>, <code>epics/index.md</code>, and <code>epics/fr-coverage-map.md</code> resolves to an existing file — checked programmatically, zero broken links.</li>
+<li><strong><code>storyCount</code> vs. actual headings:</strong> every epic file's <code>storyCount:</code> frontmatter matches its actual count of <code>## Story</code> headings — checked programmatically across all 11 epic files, zero mismatches.</li>
+<li><strong>Story-heading vs. epic-number:</strong> every <code>## Story N.M.x</code> heading's <code>N.M</code> prefix matches its file's own <code>epic:</code> frontmatter value and filename — checked programmatically, zero mismatches.</li>
+<li><strong><code>depends_on</code> correctness:</strong> every epic's <code>depends_on</code> list was read back and confirmed to reference an existing epic id under the new numbering; this pass is what surfaced the two stale YAML-comment bugs (epic-1.4, epic-1.8) fixed in 2.1.</li>
+<li><strong>Repo-wide grep sweep</strong> for stale old-numbered references across <code>architecture/</code>, <code>epics/</code>, and <code>delivery/</code>, filtered to exclude dated SCPs/reports/changelog entries (immutable history, correctly left untouched) — surfaced and fixed the <code>repo-structure.md</code> "Epic 0.0" bug and the <code>gaps.md</code> G8.7 phase-tag bug.</li>
+<li><strong>Site rebuild:</strong> <code>scripts/build-html.sh</code> runs clean, no warnings; <code>docs/epics/phase-0/</code> and <code>docs/epics/phase-1/</code> regenerated with the swapped content and no broken links.</li>
+</ul>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong> — directory + epic-ID renumbering across two phases plus connective-tissue fixes, no PRD/architecture-narrative/FR change, no code exists yet.</p>
+<p><strong>Route:</strong> Developer agent (this session) implements directly. No PO/PM/Architect escalation needed for the swap itself. <strong>Flag for the product owner:</strong> the judgment call in Section 1 (full self-consistent "Phase N" swap within <code>epics/</code>, versus the narrower reading of touching only specific epic-ID/path references) was not separately confirmed — worth a quick look at <code>epics/framework.md</code> and the two phase indexes to confirm this reads as intended.</p>
+<p><strong>Success criteria:</strong> the verification checks in Section 4 pass (all do); <code>git status</code> shows the directory swap, ten-plus-one file renumbering, and the connective-tissue edits listed in Section 2.1 with no unrelated changes; the published <code>docs/</code> site's Phase 0/Phase 1 sections reflect the swap with no broken links.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-20h.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-structural-impact">2.1 Structural impact</a></li><li class="h3"><a href="#22-what-was-deliberately-left-alone-architecture-narrative-not-epics-structure">2.2 What was deliberately left alone (architecture narrative, not epics/ structure)</a></li><li class="h3"><a href="#23-technical-impact">2.3 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--verification-performed">Section 4 — Verification performed</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-20h";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -292,11 +292,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 <h3 id="infrastructure--deployment">Infrastructure / deployment</h3>
 <ul>
-<li>AR23 — Kubernetes on Azure AKS, production in UK South, multi-AZ HA. Container images → Azure Container Registry. Each of the 11 services is a containerised Spring Boot app. The AKS/ACR estate is Terraform-provisioned per AR53 (revised — provisioned in <code>ctam-shared-infrastructure</code>, Epic 0.0).</li>
+<li>AR23 — Kubernetes on Azure AKS, production in UK South, multi-AZ HA. Container images → Azure Container Registry. Each of the 11 services is a containerised Spring Boot app. The AKS/ACR estate is Terraform-provisioned per AR53 (revised — provisioned in <code>ctam-shared-infrastructure</code>, Epic 1.0).</li>
 <li>AR24 — Helm chart per service with <code>values-{env}.yaml</code> overlay per environment (<code>dev</code>, <code>staging</code>, <code>production</code>). Production values include <code>topologySpreadConstraints</code> for AZ spread, min replicas, multi-AZ node pool selection. Helm chart is <strong>not</strong> in HMCTS template baseline — added by <code>ctam-scaffold.sh</code> per G1.4a.</li>
 <li>AR25 — Secrets in Azure Key Vault (via Spring Cloud Azure); no secrets in source control or env-baked images. Each service's Key Vault namespace is Terraform-provisioned in that service's repo (AR53).</li>
 <li>AR26 — Per-environment configuration via Spring profiles + <code>application-{env}.yml</code>; cross-service runtime policy values in the shared <code>ctam_configuration_values</code> table (read-only via direct SQL).</li>
-<li>AR27 — Azure API Management (APIM) at the edge for rate limits, header injection, deprecation/<code>Sunset</code> policies, and ops-restricting <code>/actuator/*</code> namespace. APIM instance + base policies Terraform-provisioned in <code>ctam-shared-infrastructure</code> (Epic 0.0); per-API policy additions in each service's <code>terraform/</code> (AR53 revised).</li>
+<li>AR27 — Azure API Management (APIM) at the edge for rate limits, header injection, deprecation/<code>Sunset</code> policies, and ops-restricting <code>/actuator/*</code> namespace. APIM instance + base policies Terraform-provisioned in <code>ctam-shared-infrastructure</code> (Epic 1.0); per-API policy additions in each service's <code>terraform/</code> (AR53 revised).</li>
 </ul>
 <h3 id="ci--cd-pipeline-per-service">CI / CD pipeline (per service)</h3>
 <ul>
@@ -351,12 +351,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ul>
 <li>AR53 — <strong>(revised 2026-07-06)</strong> <strong>All Azure infrastructure is provisioned via Terraform</strong> (HMCTS standard) — no Bicep, no portal click-ops. <strong>Product-level <em>shared</em> infrastructure lives in its own dedicated repository, <code>ctam-shared-infrastructure</code></strong>, per the HMCTS Cloud Native Platform <code>{product}-shared-infrastructure</code> standard. This <strong>supersedes the prior "colocated first-consumer" rule</strong> (SCP 2026-06-17): the shared estate is no longer carried inside <code>ctam-reference-data</code>. Allocation under the revised rule:
 <ul>
-<li><strong><code>ctam-shared-infrastructure</code></strong> carries the <strong>shared estate</strong>: AKS cluster + node pools, PostgreSQL Flexible Server, Azure Container Registry, APIM instance + base policies, Application Insights / Log Analytics workspace (incl. retention settings), Key Vault — provisioned and <strong>independently verified in Epic 0.0</strong>, ahead of any service.</li>
+<li><strong><code>ctam-shared-infrastructure</code></strong> carries the <strong>shared estate</strong>: AKS cluster + node pools, PostgreSQL Flexible Server, Azure Container Registry, APIM instance + base policies, Application Insights / Log Analytics workspace (incl. retention settings), Key Vault — provisioned and <strong>independently verified in Epic 1.0</strong>, ahead of any service.</li>
 <li><strong>Each service repo</strong> carries Terraform for its <strong>own resources only</strong>: its Key Vault namespace/secrets, service-specific storage, APIM per-API policy additions.</li>
-<li><strong><code>ctam-reference-data</code></strong> carries the MRD feed storage account + blob container (Epic 0.3 Story 0.3.1 — its own resource).</li>
+<li><strong><code>ctam-reference-data</code></strong> carries the MRD feed storage account + blob container (Epic 1.3 Story 1.3.1 — its own resource).</li>
 <li><strong><code>ctam-ui</code></strong> carries its Azure Static Web App.</li>
 <li>Terraform lives under <code>terraform/</code> with per-environment stacks (<code>dev</code> / <code>staging</code> / <code>production</code>) in <strong><code>ctam-shared-infrastructure</code></strong> (shared estate) and in each service repo (own resources); <code>ctam-scaffold.sh</code> adds the per-service <code>terraform/</code> skeleton alongside the Helm chart (same pattern as G1.4a).</li>
-<li><strong>Helm remains the application-deployment mechanism</strong> onto the shared AKS cluster provisioned in Epic 0.0 — Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema. The three do not overlap.</li>
+<li><strong>Helm remains the application-deployment mechanism</strong> onto the shared AKS cluster provisioned in Epic 1.0 — Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema. The three do not overlap.</li>
 <li>Terraform state backend and plan/apply pipeline arrangement are HMCTS-side details to confirm — gaps.md G9.</li>
 </ul></li>
 </ul>
