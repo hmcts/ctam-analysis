@@ -27,17 +27,20 @@ REQUIRED_SECTIONS=(
 # CTAM frontmatter — the polyrepo facts BMad does not model. sprint_status_key links the packet
 # to its entry in sprint-status.yaml, which is the programme-level rollup.
 REQUIRED_KEYS=(story_id epic repo bus_version frs nfrs depends_on_stories sprint_status_key)
-# CTAM content promoted to a top-level heading instead of nesting under Dev Notes.
-FORBIDDEN_SECTIONS=(
-  '^## Context'
-  '^## Out of scope'
-  '^## Definition of done'
-  '^## Recorded deviations'
-  '^## Read before you start'
-  '^## Open questions'
-  '^## Expected shape'
-  '^## Rules that apply'
+# The ONLY top-level sections the contract permits. Anything else at '## ' level is either CTAM
+# content promoted out of Dev Notes, or one of bmad-create-story step 5's eleven named outputs
+# (architecture_compliance, testing_requirements, latest_tech_information, git_intelligence_summary,
+# ...) written literally instead of routed into an existing home. This was a blacklist of eight
+# known headings, which only ever caught a name someone had predicted; step 5's outputs are named
+# nothing like them and sailed through. An allowlist rejects the whole class by construction.
+ALLOWED_SECTIONS=(
+  'Story'
+  'Acceptance Criteria'
+  'Tasks / Subtasks'
+  'Dev Notes'
+  'Dev Agent Record'
 )
+ALLOWED_DISPLAY=$(printf "'%s', " "${ALLOWED_SECTIONS[@]}"); ALLOWED_DISPLAY="${ALLOWED_DISPLAY%, }"
 STATUS_VOCAB='ready-for-dev|in-progress|review|done'
 
 rc=0
@@ -57,13 +60,20 @@ for packet in "$@"; do
     }
   done
 
-  for section in "${FORBIDDEN_SECTIONS[@]}"; do
-    if grep -qE "$section" "$packet"; then
-      echo "   ERROR: CTAM content at top level: ${section//[\^$]/}"
-      echo "          Nest it as a '###' subsection of '## Dev Notes' instead."
+  while IFS= read -r heading; do
+    name="${heading#\#\# }"
+    name="${name%"${name##*[![:space:]]}"}"        # rstrip
+    permitted=0
+    for allowed in "${ALLOWED_SECTIONS[@]}"; do
+      [ "$name" = "$allowed" ] && { permitted=1; break; }
+    done
+    if [ "$permitted" -eq 0 ]; then
+      echo "   ERROR: top-level section not in the contract: '## $name'"
+      echo "          permitted at '##': ${ALLOWED_DISPLAY}"
+      echo "          Everything else nests as a '###' subsection of '## Dev Notes'."
       errors=$((errors + 1))
     fi
-  done
+  done < <(grep -E '^## ' "$packet")
 
   status_line=$(grep -m1 -E '^Status:' "$packet" || true)
   if [ -z "$status_line" ]; then
@@ -93,6 +103,54 @@ for packet in "$@"; do
       echo "          the exact defect this validator exists to prevent."
       errors=$((errors + 1))
     fi
+
+    # story_id must be CTAM's three-part <phase>.<epic>.<story>, and must agree with the filename,
+    # sprint_status_key and H1. Presence alone was not enough: BMad's default key parse yields a
+    # TWO-part id (epic 0.1 story 4 -> "0.1"), which is present, plausible, and puts every story in
+    # an epic at one path and on one branch. Present-but-wrong needs a shape check.
+    fm_value() {
+      printf '%s\n' "$frontmatter" |
+        awk -v k="^$1:" '$0 ~ k { sub(/^[^:]*:[[:space:]]*/, ""); sub(/[[:space:]]*#.*$/, ""); gsub(/[[:space:]]*$/, ""); print; exit }'
+    }
+    sid=$(fm_value story_id)
+    if [ -n "$sid" ]; then
+      if ! printf '%s' "$sid" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+        echo "   ERROR: story_id '$sid' is not <phase>.<epic>.<story> (e.g. 0.1.4)"
+        echo "          A two-part id means BMad's default key parse was taken unchanged."
+        errors=$((errors + 1))
+      fi
+      base=$(basename "$packet" .md)
+      if [ "$base" != "$sid" ]; then
+        echo "   ERROR: filename '$base.md' does not match story_id '$sid'"
+        echo "          a packet lives at docs/stories/<story_id>.md"
+        errors=$((errors + 1))
+      fi
+      ssk=$(fm_value sprint_status_key)
+      dashed="${sid//./-}"
+      if [ -n "$ssk" ] && [ "${ssk#"$dashed"-}" = "$ssk" ]; then
+        echo "   ERROR: sprint_status_key '$ssk' does not start with '$dashed-'"
+        echo "          it is this story's key in sprint-status.yaml, so it carries the same id"
+        errors=$((errors + 1))
+      fi
+      if ! grep -qE "^# Story ${sid//./\\.}: .+" "$packet"; then
+        echo "   ERROR: no '# Story $sid: <title>' heading"
+        echo "          the H1 carries the full three-part id, not the owning epic's"
+        errors=$((errors + 1))
+      fi
+    fi
+
+    # depends_on_stories carries three-part ids too. It is derived, not recorded anywhere upstream,
+    # so a two-part id here means an epic reference was written where a story reference belongs.
+    deps=$(fm_value depends_on_stories)
+    deps="${deps//[\[\]]/}"
+    for d in $(printf '%s' "$deps" | tr ',' ' '); do
+      d="${d//[[:space:]]/}"
+      [ -z "$d" ] && continue
+      printf '%s' "$d" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$' || {
+        echo "   ERROR: depends_on_stories entry '$d' is not a three-part story id (e.g. 0.1.1)"
+        errors=$((errors + 1))
+      }
+    done
   fi
 
   grep -qE '^[0-9]+\. ' "$packet" || {

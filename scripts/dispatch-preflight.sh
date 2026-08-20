@@ -8,12 +8,15 @@
 # WHY THIS EXISTS
 # Coordination in the control plane is by convention: ONE DISPATCHER AT A TIME. sprint-status.yaml
 # is a single file, so two people dispatching at once would conflict on it. This script is the
-# backstop for when the convention slips. It answers three questions a human would otherwise have
+# backstop for when the convention slips. It answers four questions a human would otherwise have
 # to remember to ask, and it is entirely read-only.
 #
 #   1. Is this story already claimed?    its status in sprint-status.yaml must be `backlog`
 #   2. Is someone already building it?   no branch naming this story on the target remote
 #   3. Is it even buildable yet?         its epic's `depends_on` must all be `done`
+#   4. Is it its turn?                   no EARLIER story in the same epic is still `backlog`
+#                                        (stories in an epic are ordered; no field records that,
+#                                        so the order in sprint-status.yaml is the dependency)
 #
 # It replaces the `owner` field of the retired per-epic ledger: a remote branch IS the claim, so
 # there is no shared state to contend over.
@@ -130,6 +133,48 @@ else
       fi
     fi
   done
+fi
+
+# ---------------------------------------------------------------- 4. is it its turn?
+# Stories inside a CTAM epic are ordered by construction — scaffold the repo, then the schema, then
+# the ingestion that needs both — and NO field records that ordering. The epic's `depends_on` covers
+# epic-to-epic only, so nothing stopped 0.1.4 being dispatched while 0.1.1 had not been built. The
+# order in sprint-status.yaml IS the story-level dependency: an earlier sibling still `backlog`
+# means the ground this story stands on does not exist yet.
+if printf '%s' "$story" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+  story_leaf="${story##*.}"
+  epic_dashed="${epic_num//./-}"
+  siblings=0
+  behind=""
+  inflight=""
+  while IFS= read -r sline; do
+    skey="${sline%%:*}"; skey="${skey//[[:space:]]/}"
+    sstatus="${sline##*:}"; sstatus="${sstatus//[[:space:]]/}"
+    leaf=$(printf '%s' "$skey" | awk -F- '{print $3}')
+    case "$leaf" in ''|*[!0-9]*) continue ;; esac
+    [ "$leaf" -lt "$story_leaf" ] || continue
+    siblings=$((siblings + 1))
+    case "$sstatus" in
+      done)    ;;
+      backlog) behind="$behind $skey" ;;
+      *)       inflight="$inflight $skey" ;;
+    esac
+  done < <(grep -E "^[[:space:]]*${epic_dashed}-[0-9]+-[^:]*:" "$STATUS_FILE")
+
+  if [ "$siblings" -eq 0 ]; then
+    ok "no earlier stories in $epic — this is the first"
+  elif [ -n "${behind// /}" ]; then
+    bad "earlier stories in $epic are still 'backlog' — this story's ground is not built yet:"
+    for b in $behind; do printf '          %s\n' "$b"; done
+    printf '          %s\n' "(stories in a CTAM epic are ordered; dispatch in order, or say why not)"
+  elif [ -n "${inflight// /}" ]; then
+    warn "earlier stories in $epic are in flight, not done:$inflight"
+    warn "parallel dispatch inside one epic is a judgement call — check the packets cannot collide"
+  else
+    ok "every earlier story in $epic is done"
+  fi
+else
+  warn "story id '$story' is not <phase>.<epic>.<story> — skipping the intra-epic ordering check"
 fi
 
 printf '\n'

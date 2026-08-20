@@ -197,11 +197,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><code>bmad-create-story</code> refuses to run without <code>sprint-status.yaml</code>, so <strong>sprint planning comes first</strong>, once per phase. Team overrides that adapt the BMad skills to this polyrepo live in <code>_bmad/custom/</code> (committed).</p>
 </div></details><details class="section" id="multi-user-coordination"><summary><span class="section-title">Multi-user coordination</span></summary><div class="section-body">
 <p><strong>One dispatcher at a time, by convention.</strong> <code>sprint-status.yaml</code> is a single file, so two people dispatching concurrently would conflict on it. Coordinate before you dispatch.</p>
-<p>The backstop is <a href="../../../scripts/dispatch-preflight.sh"><code>../../../scripts/dispatch-preflight.sh</code></a>, which is read-only and answers three questions:</p>
+<p>The backstop is <a href="../../../scripts/dispatch-preflight.sh"><code>../../../scripts/dispatch-preflight.sh</code></a>, which is read-only and answers four questions:</p>
 <ol type="1">
 <li>Is the story still <code>backlog</code> in <code>sprint-status.yaml</code>?</li>
 <li>Does a branch on the target remote already name it? — <strong>a branch is the claim</strong>; there is no <code>owner</code> field to contend over</li>
 <li>Are the epic's <code>depends_on</code> all <code>done</code>?</li>
+<li>Is it this story's turn? — no <strong>earlier story in the same epic</strong> is still <code>backlog</code>. Stories inside an epic are ordered by construction (scaffold the repo, then the schema, then the ingestion that needs both) and no field records that, so the order in <code>sprint-status.yaml</code> is the story-level dependency. An earlier sibling in flight rather than <code>done</code> is a warning, not a blocker — parallel dispatch inside one epic is a judgement call.</li>
 </ol>
 <p><strong>Dispatch creates that branch.</strong> <code>story/{story-id}</code> is cut in the target repo at dispatch, the packet is committed on it and pushed, and the implementing session continues on the <strong>same</strong> branch — one branch per story, from dispatch to PR (<code>conventions.md</code> → <em>Git conventions</em>, amended 2026-08-20). Pushing matters: the pre-flight check reads the remote, so an unpushed branch claims nothing.</p>
 <p>Execution parallelises freely: work happens in different service repos, where branches and PRs already show who is doing what.</p>
