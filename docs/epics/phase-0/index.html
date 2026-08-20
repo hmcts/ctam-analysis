@@ -90,7 +90,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="phase-0--foundations">Phase 0 — Foundations</h1>
 <blockquote>
-<p>Phase 0 is sequenced <strong>platform-then-integrations-first</strong>: Epic 0.0 platform estate → Epic 0.1 schema/scaffold → Epics 0.2/0.3 ingestion → Epic 0.4 auth + UI → Epic 0.5 read API → Epic 0.6 bootstrap → Epic 0.7 notification. The shared Azure estate stands up and is independently verified first (Epic 0.0, <code>ctam-shared-infrastructure</code>); the ingestion then runs in-process inside <code>ctam-reference-data</code> — there is no <code>ctam-integrations</code> repo.</p>
+<p>Phase 0 is sequenced <strong>platform-then-integrations-first</strong>: Epic 0.0 platform estate → Epic 0.1 schema/scaffold → Epics 0.2/0.3 ingestion → Epic 0.4 auth + UI → Epic 0.5 read API → Epic 0.6 MRD read API → Epic 0.7 bootstrap → Epic 0.8 notification. The shared Azure estate stands up and is independently verified first (Epic 0.0, <code>ctam-shared-infrastructure</code>); the ingestion then runs in-process inside <code>ctam-reference-data</code> — there is no <code>ctam-integrations</code> repo.</p>
 </blockquote>
 <blockquote>
 <p>Phase 0 is the platform smoke-test (per PRD Key Characteristic 4). All API-as-Product standards (versioning, OpenAPI, <a href="https://datatracker.ietf.org/doc/html/rfc9457">RFC 9457</a>, <code>Deprecation</code>/<code>Sunset</code>) are exercised on Authorisation lookups and Reference Data <strong>reads</strong> before any domain service is built.</p>
@@ -153,28 +153,28 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>🟡 Planned</td>
 </tr>
 <tr>
-<td><a href="epic-0.6-user-populations-bootstrapped.html">0.6</a></td>
+<td><a href="epic-0.6-mrd-reference-data-read-api.html">0.6</a></td>
+<td>MRD reference data is served read-only via the Reference Data API</td>
+<td>1</td>
+<td>🟡 Planned</td>
+</tr>
+<tr>
+<td><a href="epic-0.7-user-populations-bootstrapped.html">0.7</a></td>
 <td>Both user populations are bootstrapped and verifiable against the IdP</td>
 <td>1</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
-<td><a href="epic-0.7-system-dispatches-emails.html">0.7</a></td>
+<td><a href="epic-0.8-system-dispatches-emails.html">0.8</a></td>
 <td>Notification service is scaffolded and contractually ready</td>
 <td>2</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
-<td><a href="epic-0.8-context-bus-and-shared-baseline.html">0.8</a></td>
+<td><a href="epic-0.9-context-bus-and-shared-baseline.html">0.9</a></td>
 <td>Context bus is published and the shared configuration baseline exists</td>
 <td>2</td>
 <td>🟢 In progress</td>
-</tr>
-<tr>
-<td><a href="epic-0.9-mrd-reference-data-read-api.html">0.9</a></td>
-<td>MRD reference data is served read-only via the Reference Data API</td>
-<td>1</td>
-<td>🟡 Planned</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
@@ -206,26 +206,26 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>FRs covered:</strong> FR1, FR2, FR3, FR55, FR56 (business stack); FR57 (activation surface), FR58 (Authorisation read API)</p>
 <p>→ <a href="epic-0.4-user-authenticates.html">Full epic with stories</a></p>
 <h3 id="epic-05-joh-and-ctam-owned-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api-2-stories">Epic 0.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)</h3>
-<p><strong>User outcome:</strong> Tier-(b) CTAM-owned reference data (regions, offices, calendar, operational vocabularies) is created, seeded, and DBA-maintained per runbook<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> (Story 0.5.1); together with the tier-(a) JOH data (Epic 0.2), it is served by the versioned <strong>read-only</strong>, <strong>jurisdiction-filtered</strong> REST API (Story 0.5.2). Sequenced after Epic 0.4 (depends on <code>JWTFilter</code> + <code>authz/check</code>). MRD-sourced data is served by <strong>Epic 0.9</strong>, which extends this API rather than duplicating it.</p>
+<p><strong>User outcome:</strong> Tier-(b) CTAM-owned reference data (regions, offices, calendar, operational vocabularies) is created, seeded, and DBA-maintained per runbook<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> (Story 0.5.1); together with the tier-(a) JOH data (Epic 0.2), it is served by the versioned <strong>read-only</strong>, <strong>jurisdiction-filtered</strong> REST API (Story 0.5.2). Sequenced after Epic 0.4 (depends on <code>JWTFilter</code> + <code>authz/check</code>). MRD-sourced data is served by <strong>Epic 0.6</strong>, which extends this API rather than duplicating it.</p>
 <p><strong>FRs covered (Phase 0 surface):</strong> FR6 (tier-(b) maintenance + read API over tier-(b) + JOH tier-(a)), FR7, FR58</p>
 <p>→ <a href="epic-0.5-joh-reference-data-read-api.html">Full epic with stories</a></p>
-<h3 id="epic-06-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp-1-story">Epic 0.6: Both user populations are bootstrapped and verifiable against the IdP (1 story)</h3>
+<h3 id="epic-06-mrd-reference-data-is-served-read-only-via-the-reference-data-api-1-story">Epic 0.6: MRD reference data is served read-only via the Reference Data API (1 story)</h3>
+<p><strong>User outcome:</strong> JOH Specialisations (MRD-sourced, <code>mrd_specialisms</code>) become queryable read-only, jurisdiction-filtered, through the <strong>same</strong> Reference Data API <code>ctam-ui</code> and downstream services already consume for tier-(b) and JOH tier-(a) data (Epic 0.5) — one new endpoint added to the existing OpenAPI spec and Postman collection, not a new service or API version. Split out of the former Epic 0.5 2026-08-20 (new content — no MRD read endpoint existed before this epic).</p>
+<p><strong>FRs covered:</strong> FR6 (MRD read surface, tier (a)), FR7, FR58</p>
+<p>→ <a href="epic-0.6-mrd-reference-data-read-api.html">Full epic with stories</a></p>
+<h3 id="epic-07-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp-1-story">Epic 0.7: Both user populations are bootstrapped and verifiable against the IdP (1 story)</h3>
 <p><strong>User outcome:</strong> Authorisation records for both populations exist (seeded in dev/CI; programme-bootstrapped in production per the runbook) with all-FALSE (jurisdiction, region) activation flags, and a re-runnable <strong>bootstrap-verification job</strong> proves every user maps to an IdP principal — a standing wave-cutover gate artefact (also used at the pre-Phase-9 IdP cutover per G1.3).</p>
 <p><strong>FRs covered (Phase 0 surface):</strong> FR1 (lookup data), FR4 (MVP data-layer criterion), FR57 (initial flag state)</p>
-<p>→ <a href="epic-0.6-user-populations-bootstrapped.html">Full epic with stories</a></p>
-<h3 id="epic-07-notification-service-is-scaffolded-and-contractually-ready-2-stories">Epic 0.7: Notification service is scaffolded and contractually ready (2 stories)</h3>
+<p>→ <a href="epic-0.7-user-populations-bootstrapped.html">Full epic with stories</a></p>
+<h3 id="epic-08-notification-service-is-scaffolded-and-contractually-ready-2-stories">Epic 0.8: Notification service is scaffolded and contractually ready (2 stories)</h3>
 <p><strong>User outcome:</strong> <code>ctam-notification</code> is deployed with its API contract published, the <code>ctam_notification_dispatches</code> delivery-log table created, SMTP integration configured, and <code>POST /v1/notifications/send</code> working. The contract is consumable from Phase 2+ via <strong>user-JWT propagation</strong>. Integration testing in MVP happens via Postman — <strong>no admin UI</strong>.</p>
 <p><strong>FRs covered:</strong> FR9</p>
-<p>→ <a href="epic-0.7-system-dispatches-emails.html">Full epic with stories</a></p>
-<h3 id="epic-08-context-bus-is-published-and-the-shared-configuration-baseline-exists-2-stories">Epic 0.8: Context bus is published and the shared configuration baseline exists (2 stories)</h3>
+<p>→ <a href="epic-0.8-system-dispatches-emails.html">Full epic with stories</a></p>
+<h3 id="epic-09-context-bus-is-published-and-the-shared-configuration-baseline-exists-2-stories">Epic 0.9: Context bus is published and the shared configuration baseline exists (2 stories)</h3>
 <p><strong>User outcome:</strong> every service repo can pin one published, versioned copy of the architecture (<code>arch-vN</code>, consumed as the <code>_arch/</code> submodule), and every service can read cross-service policy values from the shared <code>ctam_configuration_values</code> table it does not own. Both exist before the first domain service is scaffolded.</p>
 <p><strong>Runs between 0.0 and 0.1</strong> — the number is not the order; see <code>depends_on</code> in its frontmatter. Promoted from the <code>arch-baseline</code> dispatch-graph node (SCP 2026-08-19d) so BMad tracks it.</p>
 <p><strong>FRs covered:</strong> FR8</p>
-<p>→ <a href="epic-0.8-context-bus-and-shared-baseline.html">Full epic with stories</a></p>
-<h3 id="epic-09-mrd-reference-data-is-served-read-only-via-the-reference-data-api-1-story">Epic 0.9: MRD reference data is served read-only via the Reference Data API (1 story)</h3>
-<p><strong>User outcome:</strong> JOH Specialisations (MRD-sourced, <code>mrd_specialisms</code>) become queryable read-only, jurisdiction-filtered, through the <strong>same</strong> Reference Data API <code>ctam-ui</code> and downstream services already consume for tier-(b) and JOH tier-(a) data (Epic 0.5) — one new endpoint added to the existing OpenAPI spec and Postman collection, not a new service or API version. Split out of the former Epic 0.5 2026-08-20 (new content — no MRD read endpoint existed before this epic).</p>
-<p><strong>FRs covered:</strong> FR6 (MRD read surface, tier (a)), FR7, FR58</p>
-<p>→ <a href="epic-0.9-mrd-reference-data-read-api.html">Full epic with stories</a></p>
+<p>→ <a href="epic-0.9-context-bus-and-shared-baseline.html">Full epic with stories</a></p>
 </div></details><details class="section" id="phase-0-epic-stories-summary"><summary><span class="section-title">Phase 0 Epic Stories Summary</span></summary><div class="section-body">
 <table>
 <thead>
@@ -276,26 +276,26 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>0.6</td>
 <td>1 story (0.6.1)</td>
+<td>FR6 (MRD read surface), FR7, FR58</td>
+<td>The existing Reference Data API gains a jurisdiction-filtered JOH Specialisations endpoint</td>
+</tr>
+<tr>
+<td>0.7</td>
+<td>1 story (0.7.1)</td>
 <td>FR1 (lookup data), FR4 (data layer), FR57 (flag bootstrap)</td>
 <td>Seeded users across both populations verified against the IdP; Epic 0.4 sign-in works against them</td>
 </tr>
 <tr>
-<td>0.7</td>
-<td>2 stories (0.7.1–0.7.2)</td>
+<td>0.8</td>
+<td>2 stories (0.8.1–0.8.2)</td>
 <td>FR9</td>
 <td><code>POST /v1/notifications/send</code> works end-to-end via Postman against Mailpit</td>
 </tr>
 <tr>
-<td>0.8</td>
-<td>2 stories (0.8.1–0.8.2)</td>
+<td>0.9</td>
+<td>2 stories (0.9.1–0.9.2)</td>
 <td>FR8; NFR16, NFR40</td>
 <td>A service repo pins <code>arch-v1.0</code> and resolves <code>_arch/</code>; a service role SELECTs from <code>ctam_configuration_values</code> and is refused a write</td>
-</tr>
-<tr>
-<td>0.9</td>
-<td>1 story (0.9.1)</td>
-<td>FR6 (MRD read surface), FR7, FR58</td>
-<td>The existing Reference Data API gains a jurisdiction-filtered JOH Specialisations endpoint</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
@@ -340,7 +340,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/index.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-scope-model">Phase 0 scope model</a></li><li><a href="#epics">Epics</a></li><li><a href="#epic-summaries">Epic summaries</a></li><li class="h3"><a href="#epic-00-platform-estate-is-provisioned-verifiable-and-cnp-compliant-5-stories">Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant (5 stories)</a></li><li class="h3"><a href="#epic-01-postgres-reference-data-schema-is-designed-and-scaffolded-2-stories">Epic 0.1: Postgres reference-data schema is designed and scaffolded (2 stories)</a></li><li class="h3"><a href="#epic-02-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process-1-story">Epic 0.2: JOH reference data flows into CTAM via the nightly eLinks ETL process (1 story)</a></li><li class="h3"><a href="#epic-03-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process-1-story">Epic 0.3: MRD reference data flows into CTAM via the weekly Excel ETL process (1 story)</a></li><li class="h3"><a href="#epic-04-user-authenticates-and-lands-on-a-role-scoped-home-page-5-stories">Epic 0.4: User authenticates and lands on a role-scoped Home page (5 stories)</a></li><li class="h3"><a href="#epic-05-joh-and-ctam-owned-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api-2-stories">Epic 0.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)</a></li><li class="h3"><a href="#epic-06-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp-1-story">Epic 0.6: Both user populations are bootstrapped and verifiable against the IdP (1 story)</a></li><li class="h3"><a href="#epic-07-notification-service-is-scaffolded-and-contractually-ready-2-stories">Epic 0.7: Notification service is scaffolded and contractually ready (2 stories)</a></li><li class="h3"><a href="#epic-08-context-bus-is-published-and-the-shared-configuration-baseline-exists-2-stories">Epic 0.8: Context bus is published and the shared configuration baseline exists (2 stories)</a></li><li class="h3"><a href="#epic-09-mrd-reference-data-is-served-read-only-via-the-reference-data-api-1-story">Epic 0.9: MRD reference data is served read-only via the Reference Data API (1 story)</a></li><li><a href="#phase-0-epic-stories-summary">Phase 0 Epic Stories Summary</a></li><li><a href="#post-mvp-roadmap-items">Post-MVP roadmap items</a></li><li><a href="#validation">Validation</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-scope-model">Phase 0 scope model</a></li><li><a href="#epics">Epics</a></li><li><a href="#epic-summaries">Epic summaries</a></li><li class="h3"><a href="#epic-00-platform-estate-is-provisioned-verifiable-and-cnp-compliant-5-stories">Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant (5 stories)</a></li><li class="h3"><a href="#epic-01-postgres-reference-data-schema-is-designed-and-scaffolded-2-stories">Epic 0.1: Postgres reference-data schema is designed and scaffolded (2 stories)</a></li><li class="h3"><a href="#epic-02-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process-1-story">Epic 0.2: JOH reference data flows into CTAM via the nightly eLinks ETL process (1 story)</a></li><li class="h3"><a href="#epic-03-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process-1-story">Epic 0.3: MRD reference data flows into CTAM via the weekly Excel ETL process (1 story)</a></li><li class="h3"><a href="#epic-04-user-authenticates-and-lands-on-a-role-scoped-home-page-5-stories">Epic 0.4: User authenticates and lands on a role-scoped Home page (5 stories)</a></li><li class="h3"><a href="#epic-05-joh-and-ctam-owned-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api-2-stories">Epic 0.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)</a></li><li class="h3"><a href="#epic-06-mrd-reference-data-is-served-read-only-via-the-reference-data-api-1-story">Epic 0.6: MRD reference data is served read-only via the Reference Data API (1 story)</a></li><li class="h3"><a href="#epic-07-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp-1-story">Epic 0.7: Both user populations are bootstrapped and verifiable against the IdP (1 story)</a></li><li class="h3"><a href="#epic-08-notification-service-is-scaffolded-and-contractually-ready-2-stories">Epic 0.8: Notification service is scaffolded and contractually ready (2 stories)</a></li><li class="h3"><a href="#epic-09-context-bus-is-published-and-the-shared-configuration-baseline-exists-2-stories">Epic 0.9: Context bus is published and the shared configuration baseline exists (2 stories)</a></li><li><a href="#phase-0-epic-stories-summary">Phase 0 Epic Stories Summary</a></li><li><a href="#post-mvp-roadmap-items">Post-MVP roadmap items</a></li><li><a href="#validation">Validation</a></li></ul></aside>
 <script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/index";</script>
 <script src="../../nav.js"></script>
 <script>

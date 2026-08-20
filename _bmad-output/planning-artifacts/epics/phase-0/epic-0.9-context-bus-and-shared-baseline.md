@@ -1,20 +1,20 @@
 ---
 type: 'Epic'
 description: 'User outcome: the published context bus exists and is version-pinned (arch-vN), and the shared ctam_configuration_values infrastructure table exists with SELECT granted to every service role — both in place before the first domain service is built. Promoted from a dispatch-graph node to a first-class epic 2026-08-19 (SCP 2026-08-19d) so BMad tracks it.'
-resource: 'epics/phase-0/epic-0.8-context-bus-and-shared-baseline.html'
+resource: 'epics/phase-0/epic-0.9-context-bus-and-shared-baseline.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-08-19'
 parent: 'epics/phase-0/index.md'
-epic: 0.8
+epic: 0.9
 title: 'Context bus is published and the shared configuration baseline exists'
 storyCount: 2
 repo: ctam-architecture
 depends_on: [epic-0.0]
 ---
 
-# Epic 0.8: Context bus is published and the shared configuration baseline exists
+# Epic 0.9: Context bus is published and the shared configuration baseline exists
 
-> **Runs between Epic 0.0 and Epic 0.1 — the number is not the order.** Sequence comes from `depends_on`, not from the epic number: this epic depends on Epic 0.0 and Epic 0.1 depends on it. Note the dependency is **story-specific in practice** — Story 0.8.1 (publish and tag the bus) needs nothing and is already done; only Story 0.8.2 (the Liquibase baseline) needs Epic 0.0's shared PostgreSQL. `depends_on` is epic-level, so it records the stricter of the two; expect `dispatch-preflight.sh` to flag Epic 0.0 as a blocker for 0.8.1 even though that story is complete. **Numbering history:** first added as Epic 0.6 (SCP 2026-08-19d) — deliberately out of build order, since renumbering the then-authored epics 0.1–0.5 for no benefit was rejected. Moved to **Epic 0.8** (SCP 2026-08-20c) when Epic 0.1 was split and the JOH/MRD ETL epics were inserted at 0.2/0.3, cascading every later epic number up by two — the "number is not the order" principle is why that cascade was acceptable rather than disruptive.
+> **Runs between Epic 0.0 and Epic 0.1 — the number is not the order.** Sequence comes from `depends_on`, not from the epic number: this epic depends on Epic 0.0 and Epic 0.1 depends on it. Note the dependency is **story-specific in practice** — Story 0.9.1 (publish and tag the bus) needs nothing and is already done; only Story 0.9.2 (the Liquibase baseline) needs Epic 0.0's shared PostgreSQL. `depends_on` is epic-level, so it records the stricter of the two; expect `dispatch-preflight.sh` to flag Epic 0.0 as a blocker for 0.9.1 even though that story is complete. **Numbering history:** first added as Epic 0.6 (SCP 2026-08-19d) — deliberately out of build order, since renumbering the then-authored epics 0.1–0.5 for no benefit was rejected. Moved to Epic 0.8 (SCP 2026-08-20c) when Epic 0.1 was split and the JOH/MRD ETL epics were inserted at 0.2/0.3, cascading every later epic number up by two. Moved again to **Epic 0.9** (SCP 2026-08-20e) to make room for the MRD read-API epic sliding in at 0.6, directly after Epic 0.5 — the "number is not the order" principle is why both cascades were acceptable rather than disruptive.
 >
 > **History:** this was `arch-baseline` in `delivery/dispatch-graph.yaml`, a node marked `decomposed: false`. That made it invisible to every BMad skill — it appeared in no sprint status, had no stories, and could not be dispatched. Promoted to a real epic when the dispatch graph was retired (SCP 2026-08-19d).
 
@@ -38,7 +38,7 @@ depends_on: [epic-0.0]
 
 ---
 
-## Story 0.8.1: Publish `ctam-architecture` as the context bus and tag `arch-v1.0`
+## Story 0.9.1: Publish `ctam-architecture` as the context bus and tag `arch-v1.0`
 
 As a **platform engineer**,
 I want the architecture set and the agent-rules pack published in `ctam-architecture` and tagged,
@@ -71,7 +71,7 @@ So that **every service repo can pin exactly one version of shared truth** as a 
 
 ---
 
-## Story 0.8.2: Shared `ctam_configuration_values` Liquibase baseline with per-service SELECT grants
+## Story 0.9.2: Shared `ctam_configuration_values` Liquibase baseline with per-service SELECT grants
 
 As a **service developer**,
 I want one shared, typed table of cross-service runtime policy values that my service can read but not write,

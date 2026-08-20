@@ -111,7 +111,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>Which <strong>repo</strong> an epic lands in</td>
 <td>the epic's frontmatter (<code>repo:</code>)</td>
-<td>May be a list — Epic 0.2 spans three repos</td>
+<td>May be a list — Epic 0.4 spans three repos</td>
 </tr>
 <tr>
 <td>Build <strong>order</strong></td>
@@ -135,7 +135,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 </tbody>
 </table>
-<p>Not here, deliberately: the <strong>context bus</strong> (<code>ctam-architecture</code> publish + <code>arch-vN</code> tag) and <strong>per-repo scaffolding</strong> — those are <a href="../epics/phase-0/epic-0.6-context-bus-and-shared-baseline.html">Epic 0.6</a> and downstream work. The control plane only ever <em>references</em> a <code>bus_version</code> as a string.</p>
+<p>Not here, deliberately: the <strong>context bus</strong> (<code>ctam-architecture</code> publish + <code>arch-vN</code> tag) and <strong>per-repo scaffolding</strong> — those are <a href="../epics/phase-0/epic-0.9-context-bus-and-shared-baseline.html">Epic 0.9</a> and downstream work. The control plane only ever <em>references</em> a <code>bus_version</code> as a string.</p>
 </div></details><details class="section" id="the-delivery-loop"><summary><span class="section-title">The delivery loop</span></summary><div class="section-body">
 <pre><code>[ctam-analysis: control plane]                    [ctam-{service}: execution unit]
   1. SELECT next  ── sprint-status.yaml (what is backlog) + the epic&#39;s depends_on
@@ -156,7 +156,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
         │                                                 │  (human reviews + merges)
   4. SIGNAL ◄──────────────────────────────────────────────┘
         └ sprint-status.yaml: → done   (bmad-sprint-status)</code></pre>
-<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every epic in its <code>depends_on</code> is <code>done</code> in <code>sprint-status.yaml</code>. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong> — Epic 0.5 needs only the estate, so it can run alongside 0.1/0.2.</p>
+<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every epic in its <code>depends_on</code> is <code>done</code> in <code>sprint-status.yaml</code>. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong> — Epic 0.8 (Notification) needs only the estate, so it can run alongside 0.1/0.2/0.3/0.4.</p>
 </div></details><details class="section" id="bmad-skill-mapping"><summary><span class="section-title">BMad skill mapping</span></summary><div class="section-body">
 <table>
 <thead>
@@ -214,7 +214,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 </div></details><details class="section" id="current-state-2026-08-19"><summary><span class="section-title">Current state (2026-08-19)</span></summary><div class="section-body">
 <ul>
-<li><strong>Phase 0:</strong> 7 epics, 21 stories in <code>sprint-status.yaml</code>. Epic 0.6 is <code>in-progress</code> (story 0.6.1 — the bus published and tagged <code>arch-v1.0</code> — is <code>done</code>); everything else is <code>backlog</code>.</li>
+<li><strong>Phase 0:</strong> 10 epics, 22 stories in <code>sprint-status.yaml</code>. Epic 0.9 is <code>in-progress</code> (story 0.9.1 — the bus published and tagged <code>arch-v1.0</code> — is <code>done</code>); everything else is <code>backlog</code>.</li>
 <li><strong>Phases 1–8 + post-MVP:</strong> not decomposed. Their dependency edges are recorded in <a href="../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em>; each phase gains structured frontmatter when <code>bmad-create-epics-and-stories</code> runs for it, after which re-running <code>bmad-sprint-planning</code> picks the new epics up automatically.</li>
 </ul>
 </div></details>

@@ -9,7 +9,7 @@ epic: 0.1
 title: 'Postgres reference-data schema is designed and scaffolded'
 storyCount: 2
 repo: ctam-reference-data
-depends_on: [epic-0.0, epic-0.8]            # needs the estate + the shared config baseline (was arch-baseline)
+depends_on: [epic-0.0, epic-0.9]            # needs the estate + the shared config baseline (was arch-baseline)
 ---
 
 # Epic 0.1: Postgres reference-data schema is designed and scaffolded

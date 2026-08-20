@@ -1,6 +1,6 @@
 ---
 type: 'Epic'
-description: 'User outcome: Tier-(b) CTAM-owned reference data (Regions, Offices, calendar / financial-year boundaries, operational vocabularies) exists, is seeded, and is maintainable by DBAs via direct SQL per runbook; together with the tier-(a) JOH data (jo_*), it is queryable read-only via ctam-reference-datas versioned, jurisdiction-filtered REST API. MRD-sourced data is a separate epic (0.9).'
+description: 'User outcome: Tier-(b) CTAM-owned reference data (Regions, Offices, calendar / financial-year boundaries, operational vocabularies) exists, is seeded, and is maintainable by DBAs via direct SQL per runbook; together with the tier-(a) JOH data (jo_*), it is queryable read-only via ctam-reference-datas versioned, jurisdiction-filtered REST API. MRD-sourced data is a separate epic (0.6).'
 resource: 'epics/phase-0/epic-0.5-joh-reference-data-read-api.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-06-17'
@@ -14,7 +14,7 @@ depends_on: [epic-0.1, epic-0.2, epic-0.4]  # read API is downstream of auth (D8
 
 # Epic 0.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API
 
-> **Split 2026-08-20 (SCP 2026-08-20d):** this epic was narrowed from "Reference data is served read-only via a versioned, jurisdiction-filtered API" to just the tier-(b) CTAM-owned data and the tier-(a) JOH data (eLinks-sourced). The MRD-sourced read surface (JOH Specialisations) is now its own epic — **[Epic 0.9](epic-0.9-mrd-reference-data-read-api.md)**, which depends on this epic's already-published API and adds one endpoint to it. `depends_on` drops `epic-0.3` (MRD ETL) accordingly — this epic no longer needs MRD data to exist. Story numbers 0.5.1 and 0.5.2 are unchanged.
+> **Split 2026-08-20 (SCP 2026-08-20d):** this epic was narrowed from "Reference data is served read-only via a versioned, jurisdiction-filtered API" to just the tier-(b) CTAM-owned data and the tier-(a) JOH data (eLinks-sourced). The MRD-sourced read surface (JOH Specialisations) is now its own epic — **[Epic 0.6](epic-0.6-mrd-reference-data-read-api.md)**, which depends on this epic's already-published API and adds one endpoint to it. `depends_on` drops `epic-0.3` (MRD ETL) accordingly — this epic no longer needs MRD data to exist. Story numbers 0.5.1 and 0.5.2 are unchanged.
 
 **User outcome:** Tier-(b) CTAM-owned reference data (Regions, Offices, calendar / financial-year boundaries, operational vocabularies) exists, is seeded, and is maintainable by DBAs via direct SQL per operational runbook[^d10]. Together with the tier-(a) JOH data ingested by the eLinks ETL (Epic 0.2), it is queryable read-only via `ctam-reference-data`'s versioned REST API, **jurisdiction-filtered**[^d8]. **No admin UI is in scope for MVP**; tier-(a) data is never hand-edited in CTAM in any phase (corrections at source per FR6).
 
@@ -35,7 +35,7 @@ depends_on: [epic-0.1, epic-0.2, epic-0.4]  # read API is downstream of auth (D8
 **Key NFRs:** NFR14 (no forbidden data — vocabularies contain no case/bank data by construction), NFR40 (service independently deployable), NFR42 (Postman collection). **NFR17–NFR19 (accessibility) do not apply in Phase 0** because no UI surface for this domain is delivered; they re-engage when the maintenance UI ships post-MVP.
 
 **Out of scope for Phase 0 (deferred post-MVP or to another epic):**
-- The MRD-sourced read endpoint (JOH Specialisations) — **Epic 0.9**, which extends this epic's already-published OpenAPI spec and Postman collection rather than standing up its own
+- The MRD-sourced read endpoint (JOH Specialisations) — **Epic 0.6**, which extends this epic's already-published OpenAPI spec and Postman collection rather than standing up its own
 - Admin-gated `POST/PUT/DELETE` endpoints on Reference Data API (tier (b) only — tier (a) never gets a CTAM write surface)
 - `ctam-admin-ui` Reference Data maintenance module
 - *(There is no legacy-data ETL and no git-based sign-off workflow — revised D3. Upstream JOH data arrives via Epic 0.2's ingestion mechanism.)*
@@ -121,7 +121,7 @@ So that **Phase 1+ services can query controlled lists and JOH reference data at
 **References:** FR6 (read surface over tier (b) + JOH tier (a)), FR7, FR58, FR59; NFR12, NFR13, NFR14, NFR39, NFR42; AR8, AR17, AR27, AR33, AR34, AR37, AR38, AR39, AR41; D8, D12.
 
 **Explicitly NOT in scope (deferred post-MVP or to another epic):**
-- The MRD-sourced read endpoint — Epic 0.9, Story 0.9.1
+- The MRD-sourced read endpoint — Epic 0.6, Story 0.6.1
 - Admin write endpoints (`POST/PUT/PATCH/DELETE`) for tier (b)
 - Any write surface for tier (a) (never, in any phase)
 

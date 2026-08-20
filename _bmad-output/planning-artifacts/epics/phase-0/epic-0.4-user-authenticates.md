@@ -32,7 +32,7 @@ depends_on: [epic-0.0, epic-0.1, epic-0.2]  # needs the estate + the schema (0.1
 
 **Key NFRs first exercised here:** NFR12 (JWT propagation), NFR13 (authz enforcement incl. jurisdiction), NFR15 (GovS 7), NFR16 (Key Vault), NFR17–NFR19 (WCAG 2.2 AA + assistive tech + Accessibility Regs 2018), NFR20 (HMCTS IdP integration via mock), NFR40 (per-service deployable on Kubernetes).
 
-**Out of scope (explicitly):** The JOH eLinks ingestion (Epic 0.2) + `ctam-reference-data` scaffold + shared-estate provisioning + tier-(a) schema (Epic 0.1). Tier-(b) CTAM-owned reference data + the read API (Epic 0.5). FR5 machine-to-machine consumer auth (post-MVP per PRD v2.5). Real HMCTS IdP integration (mock-only at Phase 0; cuts over pre-Phase-9 per AR34). Production identity bootstrap + verification job (Epic 0.6).
+**Out of scope (explicitly):** The JOH eLinks ingestion (Epic 0.2) + `ctam-reference-data` scaffold + shared-estate provisioning + tier-(a) schema (Epic 0.1). Tier-(b) CTAM-owned reference data + the read API (Epic 0.5). FR5 machine-to-machine consumer auth (post-MVP per PRD v2.5). Real HMCTS IdP integration (mock-only at Phase 0; cuts over pre-Phase-9 per AR34). Production identity bootstrap + verification job (Epic 0.7).
 
 ---
 
@@ -218,7 +218,7 @@ So that **every domain operation is authorised against bootstrapped user data ac
 
 **Explicitly NOT in scope (deferred post-MVP):**
 - Admin write endpoints on `ctam-authorisation` for updating user roles, jurisdiction, Region/Area scope, or activation flags
-- The auth tables are created here; they're populated by Epic 0.6's seed scripts (dev/CI) and the production bootstrap mechanism outside the PRD's scope[^d9], not by API writes
+- The auth tables are created here; they're populated by Epic 0.7's seed scripts (dev/CI) and the production bootstrap mechanism outside the PRD's scope[^d9], not by API writes
 
 ---
 

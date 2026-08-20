@@ -1,18 +1,18 @@
 ---
 type: 'Epic'
 description: 'User outcome: CTAM Pathfinder''s two user populations — JOH users (resolved via jo_people → personnel_number → CTAM JOH UUID in ctam_joh_identities) and HMCTS admin staff (resolved via ctam_auth_staff_identities → CTAM-assigned UUID) — have…'
-resource: 'epics/phase-0/epic-0.6-user-populations-bootstrapped.html'
+resource: 'epics/phase-0/epic-0.7-user-populations-bootstrapped.html'
 tags: [ctam-pathfinder, epics, phase-0, employment-tribunals]
 timestamp: '2026-06-17'
 parent: 'epics/phase-0/index.md'
-epic: 0.6
+epic: 0.7
 title: 'Both user populations are bootstrapped and verifiable against the IdP'
 storyCount: 1
 repo: ctam-architecture
 depends_on: [epic-0.1, epic-0.4]            # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster
 ---
 
-# Epic 0.6: Both user populations are bootstrapped and verifiable against the IdP
+# Epic 0.7: Both user populations are bootstrapped and verifiable against the IdP
 
 **User outcome:** CTAM Pathfinder's two user populations[^d9] — **JOH users** (resolved via `jo_people` → `personnel_number` → CTAM JOH UUID in `ctam_joh_identities`) and **HMCTS admin staff** (resolved via `ctam_auth_staff_identities` → CTAM-assigned UUID) — have authorisation records (roles, jurisdiction, Region/Area scope, all-FALSE activation flags) in place: seeded by scripts in dev/CI, bootstrapped by programme-management mechanisms in production (outside the PRD's scope), and **verifiable** by a bootstrap-verification job that confirms every user maps to a real IdP principal before any wave cutover. Epic 0.4's sign-in works against this data.
 
@@ -38,7 +38,7 @@ depends_on: [epic-0.1, epic-0.4]            # needs ctam_auth_* tables + jo_* fi
 
 ---
 
-## Story 0.6.1: Identity seed scripts (both populations), bootstrap-verification job, and the production bootstrap runbook
+## Story 0.7.1: Identity seed scripts (both populations), bootstrap-verification job, and the production bootstrap runbook
 
 As an **identity / HMCTS IT lead** (and the engineers who need working sign-in in every environment),
 I want dev/CI seed scripts covering both identity populations, a re-runnable bootstrap-verification job proving every user maps to an IdP principal, and a production bootstrap runbook,

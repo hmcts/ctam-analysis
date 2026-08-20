@@ -266,10 +266,10 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Epic 0.3 — MRD reference data ETL process (1 story)", "epics/phase-0/epic-0.3-mrd-reference-data-etl-process", False),
         ("Epic 0.4 — User authenticates (5 stories)", "epics/phase-0/epic-0.4-user-authenticates", False),
         ("Epic 0.5 — JOH + CTAM-owned reference data read-only API (2 stories)", "epics/phase-0/epic-0.5-joh-reference-data-read-api", False),
-        ("Epic 0.6 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.6-user-populations-bootstrapped", False),
-        ("Epic 0.7 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.7-system-dispatches-emails", False),
-        ("Epic 0.8 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.8-context-bus-and-shared-baseline", False),
-        ("Epic 0.9 — MRD reference data read-only API (1 story)", "epics/phase-0/epic-0.9-mrd-reference-data-read-api", False),
+        ("Epic 0.6 — MRD reference data read-only API (1 story)", "epics/phase-0/epic-0.6-mrd-reference-data-read-api", False),
+        ("Epic 0.7 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.7-user-populations-bootstrapped", False),
+        ("Epic 0.8 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.8-system-dispatches-emails", False),
+        ("Epic 0.9 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.9-context-bus-and-shared-baseline", False),
     ]),
 ]
 

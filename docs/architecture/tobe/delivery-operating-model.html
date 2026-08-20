@@ -177,7 +177,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 title: &#39;Postgres reference-data schema is designed and scaffolded&#39;
 storyCount: 2
 repo: ctam-reference-data          # or a list: [ctam-authorisation, ctam-mock-auth, ctam-ui]
-depends_on: [epic-0.0, epic-0.8]   # epic ids, resolved against sprint-status.yaml</code></pre>
+depends_on: [epic-0.0, epic-0.9]   # epic ids, resolved against sprint-status.yaml</code></pre>
 <p>Two fields, on the artefact that is already authored, parsed and version-controlled — and the artefact <code>bmad-sprint-planning</code> already reads.</p>
 <p><strong>Why on the epic rather than in a graph file:</strong></p>
 <ul>
@@ -186,7 +186,7 @@ depends_on: [epic-0.0, epic-0.8]   # epic ids, resolved against sprint-status.ya
 <li><strong>No duplication.</strong> The story list, title, phase and decomposition state are already in the epic file and in <code>sprint-status.yaml</code>; a graph repeated all four.</li>
 <li><strong>No second <code>bus_version</code> claim.</strong> The graph asserted one; the real pin is each repo's submodule. Two claims is a drift risk, not a convenience.</li>
 </ul>
-<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every id in its <code>depends_on</code> is <code>done</code> in <code>sprint-status.yaml</code>. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong> — the core advantage of AI-led delivery. Epic 0.7 (Notification) needs only the estate, so it can run alongside 0.1/0.2/0.3/0.4.</p>
+<p><strong>Buildable-now rule:</strong> an epic is dispatchable iff every id in its <code>depends_on</code> is <code>done</code> in <code>sprint-status.yaml</code>. Epics with disjoint dependency sets and no shared state may run <strong>in parallel</strong> — the core advantage of AI-led delivery. Epic 0.8 (Notification) needs only the estate, so it can run alongside 0.1/0.2/0.3/0.4.</p>
 <p>This is checked by <code>scripts/dispatch-preflight.sh &lt;story-id&gt;</code>, which is read-only and also confirms the story is still <code>backlog</code> and that no branch on the target remote already claims it (see <em>Multi-user coordination</em> below).</p>
 <p><strong>Phases 1–8</strong> are not yet decomposed into epics, so they have no frontmatter to carry. Their dependency edges are recorded as prose in <a href="../../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em>, and each phase gains structured frontmatter when <code>bmad-create-epics-and-stories</code> runs for it.</p>
 </div></details><details class="section" id="the-per-story-delivery-flow"><summary><span class="section-title">The per-story delivery flow</span></summary><div class="section-body">

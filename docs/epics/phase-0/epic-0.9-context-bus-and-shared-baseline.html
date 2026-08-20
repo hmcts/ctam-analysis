@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Epic 0.8: Context bus is published and the shared configuration baseline exists — CTAM Pathfinder Documentation</title>
+<title>Epic 0.9: Context bus is published and the shared configuration baseline exists — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,9 +88,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 
-<h1 id="epic-08-context-bus-is-published-and-the-shared-configuration-baseline-exists">Epic 0.8: Context bus is published and the shared configuration baseline exists</h1>
+<h1 id="epic-09-context-bus-is-published-and-the-shared-configuration-baseline-exists">Epic 0.9: Context bus is published and the shared configuration baseline exists</h1>
 <blockquote>
-<p><strong>Runs between Epic 0.0 and Epic 0.1 — the number is not the order.</strong> Sequence comes from <code>depends_on</code>, not from the epic number: this epic depends on Epic 0.0 and Epic 0.1 depends on it. Note the dependency is <strong>story-specific in practice</strong> — Story 0.8.1 (publish and tag the bus) needs nothing and is already done; only Story 0.8.2 (the Liquibase baseline) needs Epic 0.0's shared PostgreSQL. <code>depends_on</code> is epic-level, so it records the stricter of the two; expect <code>dispatch-preflight.sh</code> to flag Epic 0.0 as a blocker for 0.8.1 even though that story is complete. <strong>Numbering history:</strong> first added as Epic 0.6 (SCP 2026-08-19d) — deliberately out of build order, since renumbering the then-authored epics 0.1–0.5 for no benefit was rejected. Moved to <strong>Epic 0.8</strong> (SCP 2026-08-20c) when Epic 0.1 was split and the JOH/MRD ETL epics were inserted at 0.2/0.3, cascading every later epic number up by two — the "number is not the order" principle is why that cascade was acceptable rather than disruptive.</p>
+<p><strong>Runs between Epic 0.0 and Epic 0.1 — the number is not the order.</strong> Sequence comes from <code>depends_on</code>, not from the epic number: this epic depends on Epic 0.0 and Epic 0.1 depends on it. Note the dependency is <strong>story-specific in practice</strong> — Story 0.9.1 (publish and tag the bus) needs nothing and is already done; only Story 0.9.2 (the Liquibase baseline) needs Epic 0.0's shared PostgreSQL. <code>depends_on</code> is epic-level, so it records the stricter of the two; expect <code>dispatch-preflight.sh</code> to flag Epic 0.0 as a blocker for 0.9.1 even though that story is complete. <strong>Numbering history:</strong> first added as Epic 0.6 (SCP 2026-08-19d) — deliberately out of build order, since renumbering the then-authored epics 0.1–0.5 for no benefit was rejected. Moved to Epic 0.8 (SCP 2026-08-20c) when Epic 0.1 was split and the JOH/MRD ETL epics were inserted at 0.2/0.3, cascading every later epic number up by two. Moved again to <strong>Epic 0.9</strong> (SCP 2026-08-20e) to make room for the MRD read-API epic sliding in at 0.6, directly after Epic 0.5 — the "number is not the order" principle is why both cascades were acceptable rather than disruptive.</p>
 <p><strong>History:</strong> this was <code>arch-baseline</code> in <code>delivery/dispatch-graph.yaml</code>, a node marked <code>decomposed: false</code>. That made it invisible to every BMad skill — it appeared in no sprint status, had no stories, and could not be dispatched. Promoted to a real epic when the dispatch graph was retired (SCP 2026-08-19d).</p>
 </blockquote>
 <p><strong>User outcome:</strong> Every service repo can pin one published, versioned copy of the architecture (the <strong>context bus</strong>), and every service can read cross-service runtime policy values from one shared table it does not own. Both exist before the first domain service is scaffolded, so no service has to invent a local copy of shared truth or a local config table.</p>
@@ -111,7 +111,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>The <code>api-specs/</code> read-only contract mirror — arrives with the first published service spec (Epic 0.5)</li>
 </ul>
 <hr />
-<h2 id="story-081-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v10">Story 0.8.1: Publish <code>ctam-architecture</code> as the context bus and tag <code>arch-v1.0</code></h2>
+<h2 id="story-091-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v10">Story 0.9.1: Publish <code>ctam-architecture</code> as the context bus and tag <code>arch-v1.0</code></h2>
 <p>As a <strong>platform engineer</strong>, I want the architecture set and the agent-rules pack published in <code>ctam-architecture</code> and tagged, So that <strong>every service repo can pin exactly one version of shared truth</strong> as a submodule, and adopt a newer one only by a deliberate, auditable bump.</p>
 <p><strong>Acceptance Criteria:</strong></p>
 <p><strong>Given</strong> the canonical architecture lives in <code>ctam-analysis/_bmad-output/planning-artifacts/</code><br/><strong>When</strong> <code>ctam-analysis/scripts/publish-arch.sh</code> is run<br/><strong>Then</strong> <code>architecture.md</code>, <code>architecture-summary.md</code>, <code>prd.md</code> and every <code>architecture/*.md</code> shard are copied into <code>ctam-architecture</code><br/><strong>And</strong> <code>architecture/PUBLISHED.md</code> states that those files are a mirror and must never be hand-edited<br/><strong>And</strong> the script performs no version-control operations of its own.</p>
@@ -120,7 +120,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Given</strong> a convention later changes<br/><strong>When</strong> the change is published<br/><strong>Then</strong> it is a new tag (<code>arch-v(N+1)</code>) plus a deliberate submodule bump in each adopting repo — the bus never mutates a downstream repo silently.</p>
 <p><strong>References:</strong> FR8; NFR40; AR2; <code>architecture/delivery-operating-model.md</code> (Decision 1, the bus-pinning rule); <code>architecture/repo-structure.md</code> (the <code>ctam-architecture</code> tree).</p>
 <hr />
-<h2 id="story-082-shared-ctam_configuration_values-liquibase-baseline-with-per-service-select-grants">Story 0.8.2: Shared <code>ctam_configuration_values</code> Liquibase baseline with per-service SELECT grants</h2>
+<h2 id="story-092-shared-ctam_configuration_values-liquibase-baseline-with-per-service-select-grants">Story 0.9.2: Shared <code>ctam_configuration_values</code> Liquibase baseline with per-service SELECT grants</h2>
 <p>As a <strong>service developer</strong>, I want one shared, typed table of cross-service runtime policy values that my service can read but not write, So that policy visible to several services (session-timeout warnings, batch schedules, feature flags) lives in exactly one place, instead of being duplicated per service or hard-coded.</p>
 <p><strong>Acceptance Criteria:</strong></p>
 <p><strong>Given</strong> the shared PostgreSQL instance from Epic 0.0 exists<br/><strong>And</strong> the engineer adds <code>ctam-architecture</code>'s Liquibase <strong>baseline</strong> changelog<br/><strong>When</strong> Liquibase applies it<br/><strong>Then</strong> <code>ctam_configuration_values</code> exists in the shared schema<br/><strong>And</strong> it holds <strong>typed</strong> policy values — a key, a value, and the value's type — with <code>id uuid</code> primary key and <code>created_at</code> / <code>updated_at timestamptz NOT NULL</code>, per <code>conventions.md</code> → <em>Naming Patterns</em><br/><strong>And</strong> no column beyond that minimal shape is added without a cited need (agent-rules R6)<br/><strong>And</strong> the table is documented as <strong>shared infrastructure with no owning service</strong> in <code>architecture/data-tables.md</code>.</p>
@@ -141,10 +141,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ol>
 </section>
 
-<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.8-context-bus-and-shared-baseline.md</code></p>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.9-context-bus-and-shared-baseline.md</code></p>
 </main>
 
-<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.8-context-bus-and-shared-baseline";</script>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.9-context-bus-and-shared-baseline";</script>
 <script src="../../nav.js"></script>
 <script>
 (function(){

@@ -104,7 +104,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 <p><strong>FRs covered:</strong> FR1, FR2, FR3, FR55, FR56 (business stack portion).</p>
 <p><strong>Key NFRs first exercised here:</strong> NFR12 (JWT propagation), NFR13 (authz enforcement incl. jurisdiction), NFR15 (GovS 7), NFR16 (Key Vault), NFR17–NFR19 (WCAG 2.2 AA + assistive tech + Accessibility Regs 2018), NFR20 (HMCTS IdP integration via mock), NFR40 (per-service deployable on Kubernetes).</p>
-<p><strong>Out of scope (explicitly):</strong> The JOH eLinks ingestion (Epic 0.2) + <code>ctam-reference-data</code> scaffold + shared-estate provisioning + tier-(a) schema (Epic 0.1). Tier-(b) CTAM-owned reference data + the read API (Epic 0.5). FR5 machine-to-machine consumer auth (post-MVP per PRD v2.5). Real HMCTS IdP integration (mock-only at Phase 0; cuts over pre-Phase-9 per AR34). Production identity bootstrap + verification job (Epic 0.6).</p>
+<p><strong>Out of scope (explicitly):</strong> The JOH eLinks ingestion (Epic 0.2) + <code>ctam-reference-data</code> scaffold + shared-estate provisioning + tier-(a) schema (Epic 0.1). Tier-(b) CTAM-owned reference data + the read API (Epic 0.5). FR5 machine-to-machine consumer auth (post-MVP per PRD v2.5). Real HMCTS IdP integration (mock-only at Phase 0; cuts over pre-Phase-9 per AR34). Production identity bootstrap + verification job (Epic 0.7).</p>
 <hr />
 <details class="section" id="story-041-scaffold-ctam-authorisation-service-from-the-hmcts-crime-springboot-template"><summary><span class="section-title">Story 0.4.1: Scaffold <code>ctam-authorisation</code> service from the HMCTS Crime SpringBoot template</span></summary><div class="section-body">
 <p>As a <strong>platform engineer</strong>, I want to scaffold <code>ctam-authorisation</code> from the HMCTS Crime SpringBoot template using <code>ctam-scaffold.sh</code>, consuming the shared Azure estate already provisioned in Epic 0.1, So that <strong>the authorisation service follows the same consistent, version-pinned, supply-chain-secured baseline</strong> as the first-scaffolded service, and the team can demonstrate the deployment pipeline end-to-end before any domain logic is written.</p>
@@ -152,7 +152,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Explicitly NOT in scope (deferred post-MVP):</strong></p>
 <ul>
 <li>Admin write endpoints on <code>ctam-authorisation</code> for updating user roles, jurisdiction, Region/Area scope, or activation flags</li>
-<li>The auth tables are created here; they're populated by Epic 0.6's seed scripts (dev/CI) and the production bootstrap mechanism outside the PRD's scope<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, not by API writes</li>
+<li>The auth tables are created here; they're populated by Epic 0.7's seed scripts (dev/CI) and the production bootstrap mechanism outside the PRD's scope<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>, not by API writes</li>
 </ul>
 <hr />
 </div></details><details class="section" id="story-044-scaffold-ctam-ui-repo-with-react--typescript--vite--govuk-base--auth-wrapper"><summary><span class="section-title">Story 0.4.4: Scaffold <code>ctam-ui</code> repo with React + TypeScript + Vite + GOV.UK base + auth wrapper</span></summary><div class="section-body">

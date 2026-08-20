@@ -1,18 +1,18 @@
 ---
 type: 'Epic'
 description: 'User outcome: MRD-sourced supplementary reference data (JOH Specialisations, from mrd_specialisms) is exposed read-only, jurisdiction-filtered, through the already-published Reference Data API — extending its existing OpenAPI spec and Postman collection with one new endpoint rather than standing up a separate service surface.'
-resource: 'epics/phase-0/epic-0.9-mrd-reference-data-read-api.html'
+resource: 'epics/phase-0/epic-0.6-mrd-reference-data-read-api.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-08-20'
 parent: 'epics/phase-0/index.md'
-epic: 0.9
+epic: 0.6
 title: 'MRD reference data is served read-only via the Reference Data API'
 storyCount: 1
 repo: ctam-reference-data
 depends_on: [epic-0.3, epic-0.5]  # needs MRD data to exist (eLinks-independent ETL) and the already-published read API + JWTFilter/jurisdiction-filtering infra
 ---
 
-# Epic 0.9: MRD reference data is served read-only via the Reference Data API
+# Epic 0.6: MRD reference data is served read-only via the Reference Data API
 
 > **Split from Epic 0.5 2026-08-20 (SCP 2026-08-20d):** the original Reference Data read API epic covered tier-(b) CTAM-owned data and tier-(a) JOH data only — no MRD-sourced endpoint was ever specified. This epic adds that missing endpoint as new content, not an extraction. It **extends** Epic 0.5's already-published OpenAPI spec (`api-ctam-reference-data`) and Postman collection with one more resource, rather than creating a new service, API version, or artefact.
 
@@ -32,7 +32,7 @@ depends_on: [epic-0.3, epic-0.5]  # needs MRD data to exist (eLinks-independent 
 
 ---
 
-## Story 0.9.1: MRD reference data (JOH Specialisations) is exposed via the Reference Data read-only API
+## Story 0.6.1: MRD reference data (JOH Specialisations) is exposed via the Reference Data read-only API
 
 As an **API consumer** (`ctam-ui`; downstream services in Phase 1+ that need JOH Specialisations — e.g. Itineraries in Phase 7),
 I want a versioned, **read-only**, jurisdiction-filtered endpoint over the MRD-sourced `mrd_specialisms` data, added to the existing Reference Data API,
