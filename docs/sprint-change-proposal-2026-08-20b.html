@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-20 (b) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-20-b">Sprint Change Proposal — 2026-08-20 (b)</h1>
+<p><strong>Split Epic 0.1 into <code>ctam-postgres-db-schema-design</code>, <code>joh-reference-data-etl-process</code>, <code>mrd-reference-data-etl-process</code></strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a direct request to split <strong>Epic 0.1 (Upstream JOH/MRD reference data is ingested)</strong> into three separately-dispatchable epics named:</p>
+<ol type="1">
+<li><code>ctam-postgres-db-schema-design</code></li>
+<li><code>joh-reference-data-etl-process</code></li>
+<li><code>mrd-reference-data-etl-process</code></li>
+</ol>
+<p><strong>Why this is a clean split.</strong> Epic 0.1 already has four stories that decompose exactly onto these three names, with no AC rewriting needed:</p>
+<table>
+<thead>
+<tr>
+<th>Existing story</th>
+<th>Content</th>
+<th>Target epic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1.1 — Scaffold <code>ctam-reference-data</code></td>
+<td>Service scaffold onto the Epic 0.0 estate</td>
+<td><code>ctam-postgres-db-schema-design</code></td>
+</tr>
+<tr>
+<td>0.1.2 — Tier-(a) <code>jo_*</code> tables, <code>ctam_sync_status</code>, write protection</td>
+<td>The Postgres schema design + single-writer enforcement</td>
+<td><code>ctam-postgres-db-schema-design</code></td>
+</tr>
+<tr>
+<td>0.1.3 — JOH eLinks nightly sync</td>
+<td>The ETL process that populates <code>jo_*</code> from the eLinks API</td>
+<td><code>joh-reference-data-etl-process</code></td>
+</tr>
+<tr>
+<td>0.1.4 — MRD weekly Excel ingestion</td>
+<td>The ETL process that populates <code>mrd_*</code> from the weekly blob drop</td>
+<td><code>mrd-reference-data-etl-process</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status check (why this is low-risk):</strong> every one of these four stories is still <code>backlog</code> in <code>sprint-status.yaml</code> — nothing has been dispatched or implemented. No branch, no packet, no code exists yet for any of them. This is a pure planning-artifact reorganisation before any work starts.</p>
+<p><strong>Numbering decision:</strong> Epic 0.1 <strong>keeps its number</strong> and is narrowed to just the scaffold + schema stories (0.1.1/0.1.2 keep their story numbers unchanged). The two ETL stories move out to <strong>new epics 0.7 and 0.8</strong> (appended after the highest existing epic, 0.6), each carrying one renumbered story (0.1.3 → 0.7.1, 0.1.4 → 0.8.1). Precedent: Epic 0.6 already establishes that "epic numbers are not the order — sequence comes from <code>depends_on</code>" (see its own file, which is deliberately numbered out of build order to avoid exactly this kind of cascading renumber). Renumbering Epic 0.1 itself, or renumbering 0.1.1/0.1.2, would force edits to every cross-reference in <code>fr-coverage-map.md</code>, <code>changelog.md</code>, <code>assumptions.md</code>, <code>repository-strategy.md</code>, and multiple sibling epics that cite "Story 0.1.1" / "Story 0.1.2" for reasons unrelated to this split (e.g. FR8's first landing point, NFR59's first exercise, the <code>gh</code>-CLI manual-setup pattern). Keeping 0.1/0.1.1/0.1.2 stable means only the references to <strong>0.1.3 and 0.1.4</strong> need to move.</p>
+<p><strong>Naming note:</strong> the requested name <code>ctam-postgress-db-schema-design</code> is used below as <code>ctam-postgres-db-schema-design</code> (single "s") — treating the double "s" as a typo; flag if the double-"s" spelling was intentional.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-epic-impact">2.1 Epic impact</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Epic 0.1</strong></td>
+<td>Renamed file + title + description; scope narrowed to scaffold + schema design (Stories 0.1.1/0.1.2 unchanged verbatim); "Out of scope" gains an explicit line for the two ETL processes; FR1/NFR24 (population, not schema) move out to Epic 0.7; <code>depends_on</code> unchanged (<code>[epic-0.0, epic-0.6]</code>)</td>
+</tr>
+<tr>
+<td><strong>Epic 0.7 (new)</strong></td>
+<td><code>joh-reference-data-etl-process</code> — carries Story 0.1.3 renumbered to 0.7.1, verbatim AC content; <code>depends_on: [epic-0.1]</code></td>
+</tr>
+<tr>
+<td><strong>Epic 0.8 (new)</strong></td>
+<td><code>mrd-reference-data-etl-process</code> — carries Story 0.1.4 renumbered to 0.8.1, verbatim AC content; <code>depends_on: [epic-0.1]</code></td>
+</tr>
+<tr>
+<td><strong>Epic 0.2</strong></td>
+<td><code>depends_on</code> gains <code>epic-0.7</code> (it needs <code>jo_people</code> populated, which is now Epic 0.7's job, not Epic 0.1's); "Depends on Epic 0.1" prose updated to cite Epic 0.7 Story 0.7.1 for the eLinks sync; "Out of scope" line updated</td>
+</tr>
+<tr>
+<td><strong>Epic 0.3</strong></td>
+<td><code>depends_on</code> gains <code>epic-0.7</code> and <code>epic-0.8</code> (Story 0.3.2 needs both ETL processes to have real tier-(a) data); Story 0.3.1's AC corrects a pre-existing mislabel — "carries the tier-(a) tables per Story 0.1.3" should read <strong>Story 0.1.2</strong> (0.1.2 creates the tables; 0.1.3 was the sync) — this reference breaks once 0.1.3 moves out, surfacing the fix</td>
+</tr>
+<tr>
+<td><strong>Epic 0.4</strong></td>
+<td><strong>No change.</strong> Its <code>jo_*</code> fixtures come from dev/CI seed scripts (Story 0.4.1), independent of the live eLinks/MRD ETL — it only ever needed the schema (Epic 0.1), which hasn't moved</td>
+</tr>
+<tr>
+<td><strong>Epic 0.0, 0.5, 0.6</strong></td>
+<td>No change (their Story-0.1.1-only references are untouched since 0.1.1 stays put)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-story-impact">2.2 Story impact</h3>
+<p>No story Acceptance Criteria change. Story 0.1.3 and 0.1.4's full bodies move verbatim into Epic 0.7/0.8, renumbered 0.7.1/0.8.1 (including their own footnote references, which move with them). <code>sprint-status.yaml</code> keys <code>0-1-3-...</code> and <code>0-1-4-...</code> are replaced by <code>0-7-1-...</code> / <code>0-8-1-...</code> under new <code>epic-0.7</code> / <code>epic-0.8</code> blocks; both remain <code>backlog</code>.</p>
+<h3 id="23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</h3>
+<p>Repo-wide sweep for <code>epic-0.1</code>, <code>0.1.1</code>–<code>0.1.4</code>, <code>Epic 0.1</code> found these <strong>living, canonical</strong> files needing edits (dated reports and existing changelog rows are left as immutable history per project convention, even where they cite the pre-split filename):</p>
+<ul>
+<li><code>epics/phase-0/index.md</code> — Epic 0.1 row/summary narrowed; two new rows/summaries added; both epic-story-count tables updated (epic count 7→9, story total unchanged at 21 across more rows)</li>
+<li><code>epics/fr-coverage-map.md</code> — FR1, FR6, and the <code>NFR24</code> row split across Epic 0.1 (schema) and Epics 0.7/0.8 (population)</li>
+<li><code>epics/framework.md</code> — two prose mentions of "Epic 0.1's vertical slice" / "Epic 0.1" for the ingestion mechanisms now say "Epics 0.7/0.8"</li>
+<li><code>epics/requirements-inventory.md</code> — one Terraform/MRD-storage reference moves from "Epic 0.1 Story 0.1.4" to "Epic 0.8 Story 0.8.1"</li>
+<li><code>epics/phase-0/epic-0.2-user-authenticates.md</code> — <code>depends_on</code> + two prose references (dependency comment, "Depends on Epic 0.1", "Out of scope")</li>
+<li><code>epics/phase-0/epic-0.3-reference-data-read-only-api.md</code> — <code>depends_on</code> + four prose references + the Story 0.1.3→0.1.2 mislabel fix</li>
+<li><code>architecture/repository-strategy.md</code> — one Terraform/MRD-storage reference (Story 0.1.4 → 0.8.1)</li>
+<li><code>architecture/delivery-operating-model.md</code> — the canonical story-packet <strong>example</strong> currently illustrates itself with the real Story 0.1.4/Epic 0.1 identifiers; updated to the new Story 0.8.1/Epic 0.8 identifiers so the worked example stays valid (the separate <code>sprint-status.yaml</code> excerpt already only shows 0.1.1/0.1.2 and needs no change)</li>
+<li><code>scripts/python/build_html.py</code> — <code>NAV</code> list: Epic 0.1's title/story-count updated, two new entries added for Epic 0.7/0.8</li>
+<li><code>_bmad-output/implementation-artifacts/sprint-status.yaml</code> — story keys moved/renamed as above, two new <code>epic-0.7</code>/<code>epic-0.8</code> blocks added</li>
+</ul>
+<p><strong>Not touched (historical, left as-is per "leave dated reports/changelog immutable"):</strong> <code>architecture.md</code> decision-log row #13, <code>architecture/changelog.md</code> existing v3.1/v3.5/v3.8/v3.9/v4.6 rows, <code>architecture/gaps.md</code> G1.4a, <code>architecture/assumptions.md</code> A34, every <code>sprint-change-proposal-*.md</code> file, both <code>implementation-readiness-report-*.md</code> files. These all cite Story 0.1.1 (which is unaffected) or narrate what was true at the time; their links to the old epic-0.1 filename are left standing as historical record, same tension already accepted for every prior rename in this repo.</p>
+<p><strong>A new <code>architecture/changelog.md</code> entry</strong> (v4.7) documents the split going forward rather than editing history.</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — no code exists for any of these repos/stories yet. Purely planning-artifact and <code>docs/</code> (regenerated) changes.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment</strong> — reorganise the backlog artifacts as described. No PRD, architecture, or FR/NFR change; no rollback or MVP-scope review needed. Effort: mechanical, ~30 min; risk: low (nothing dispatched, git-reversible); no timeline impact (Phase 0 story/epic count unchanged, only regrouped).</p>
+<hr />
+</div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-epicsphase-0epic-01-upstream-reference-data-ingestedmd--renamed-epicsphase-0epic-01-ctam-postgres-db-schema-designmd">4.1 <code>epics/phase-0/epic-0.1-upstream-reference-data-ingested.md</code> → renamed <code>epics/phase-0/epic-0.1-ctam-postgres-db-schema-design.md</code></h3>
+<p><strong>Frontmatter:</strong></p>
+<pre class="diff"><code>- description: &#39;User outcome: Judicial-holder reference data flows into CTAM Pathfinder from its upstream sources of truth — the JOH eLinks API (15 jo_ entities, nightly) and the MRD weekly dataset (supplementary…&#39;
+- resource: &#39;epics/phase-0/epic-0.1-upstream-reference-data-ingested.html&#39;
+- storyCount: 4
++ description: &#39;User outcome: ctam-reference-data is scaffolded as the first CTAM Pathfinder domain service, and the tier-(a) upstream JOH/MRD Postgres schema (15 jo_* tables + ctam_sync_status) is designed with enforced single-writer ownership — ready for the JOH eLinks (Epic 0.7) and MRD (Epic 0.8) ETL processes to populate it.&#39;
++ resource: &#39;epics/phase-0/epic-0.1-ctam-postgres-db-schema-design.html&#39;
++ storyCount: 2
+- title: &#39;Upstream JOH/MRD reference data is ingested&#39;
++ title: &#39;CTAM Postgres reference-data schema is designed and scaffolded&#39;
+  depends_on: [epic-0.0, epic-0.6]            # unchanged</code></pre>
+<p><strong>Body:</strong> Stories 0.1.1 and 0.1.2 carried over <strong>verbatim, unchanged</strong>. The epic-level intro/vertical-slice/FRs/NFRs/out-of-scope prose is rewritten to describe only scaffold + schema design (dropping the eLinks-sync and MRD-ingestion bullets, dropping FR1/NFR24 from "covered" since those describe <em>population</em>, not schema — both move to Epic 0.7/0.8's coverage). "Out of scope" gains: <em>"The JOH eLinks nightly sync (Epic 0.7) and MRD weekly ingestion (Epic 0.8) — this epic creates the schema and write-protection only."</em> Footnotes <code>[^d3][^d8][^d9][^d10]</code> retained (all four are cited in the surviving stories/intro).</p>
+<p><strong>Rationale:</strong> isolates the schema-design deliverable so it can be dispatched/reviewed independently of either ETL process.</p>
+<h3 id="42-new-epicsphase-0epic-07-joh-reference-data-etl-processmd">4.2 New <code>epics/phase-0/epic-0.7-joh-reference-data-etl-process.md</code></h3>
+<p>Carries former Story 0.1.3 verbatim, renumbered <strong>0.7.1</strong>. New epic-level wrapper:</p>
+<ul>
+<li><code>epic: 0.7</code>, <code>title: 'JOH reference data flows into CTAM via the nightly eLinks ETL process'</code>, <code>storyCount: 1</code>, <code>repo: ctam-reference-data</code>, <code>depends_on: [epic-0.1]</code></li>
+<li>User outcome / FRs covered (FR1, FR6 tier-a, FR7) / Key NFRs (NFR16, NFR24, NFR25–28) carried over from the parts of the old epic-0.1 intro that described the sync specifically</li>
+<li>Out of scope: MRD ingestion (Epic 0.8); the read-only API (Epic 0.3)</li>
+<li>Footnotes <code>[^d3][^d8][^d9]</code> (no <code>[^d10]</code> — not cited in this story)</li>
+</ul>
+<h3 id="43-new-epicsphase-0epic-08-mrd-reference-data-etl-processmd">4.3 New <code>epics/phase-0/epic-0.8-mrd-reference-data-etl-process.md</code></h3>
+<p>Carries former Story 0.1.4 verbatim, renumbered <strong>0.8.1</strong>. New epic-level wrapper:</p>
+<ul>
+<li><code>epic: 0.8</code>, <code>title: 'MRD reference data flows into CTAM via the weekly Excel ETL process'</code>, <code>storyCount: 1</code>, <code>repo: ctam-reference-data</code>, <code>depends_on: [epic-0.1]</code></li>
+<li>User outcome / FRs covered (FR6 tier-a, FR7) / Key NFRs (NFR16, NFR24, NFR25–28) carried over</li>
+<li>Out of scope: MRD API integration (post-MVP); hand-editing <code>mrd_*</code> (never)</li>
+<li>Footnote <code>[^d3]</code> only</li>
+</ul>
+<h3 id="44-epicsphase-0indexmd">4.4 <code>epics/phase-0/index.md</code></h3>
+<ul>
+<li>Epic table row 0.1: title → "Postgres reference-data schema is designed and scaffolded", stories 4→2</li>
+<li>Two new rows added after 0.6: Epic 0.7 (1 story), Epic 0.8 (1 story)</li>
+<li>"Epic summaries" section: Epic 0.1 summary narrowed; two new summaries added for 0.7/0.8</li>
+<li>"Phase 0 Epic Stories Summary" table: split the 0.1 row into three rows (0.1: 2 stories/schema; 0.7: 1 story/eLinks; 0.8: 1 story/MRD), demo description split accordingly</li>
+<li>Epic count 7 → 9; total story count unchanged (21, per the top table's existing count — the bottom table's pre-existing 19-vs-21 discrepancy is untouched, out of scope for this split)</li>
+</ul>
+<h3 id="45-epicsfr-coverage-mapmd">4.5 <code>epics/fr-coverage-map.md</code></h3>
+<pre class="diff"><code>- | FR1 | [Epic 0.2](...) (...) + [Epic 0.1](phase-0/epic-0.1-upstream-reference-data-ingested.html) (`jo_people` ingested — the JOH lookup target) + [Epic 0.4](...) | ...
++ | FR1 | [Epic 0.2](...) (...) + [Epic 0.1](phase-0/epic-0.1-ctam-postgres-db-schema-design.html) (`jo_people` schema) + [Epic 0.7](phase-0/epic-0.7-joh-reference-data-etl-process.html) (`jo_people` populated via the eLinks sync) + [Epic 0.4](...) | ...
+
+- | **FR6** | **Tier (a)**: [Epic 0.1](...) Story 0.1.2 (tables) + Stories 0.1.3/0.1.4 (eLinks sync + MRD ingestion — read-only in CTAM, corrections at source). **Tier (b)**: ... |
++ | **FR6** | **Tier (a)**: [Epic 0.1](...) Story 0.1.2 (tables) + [Epic 0.7](...) Story 0.7.1 (eLinks sync) + [Epic 0.8](...) Story 0.8.1 (MRD ingestion) — read-only in CTAM, corrections at source. **Tier (b)**: ... |
+
+- | *(NFR24)* | [Epic 0.1](...) Stories 0.1.3/0.1.4 | MRD reader swaps... |
++ | *(NFR24)* | [Epic 0.7](...) Story 0.7.1 + [Epic 0.8](...) Story 0.8.1 | MRD reader swaps... |
+
+- &gt; Reference data arrives via upstream ingestion (Epic 0.1); ...
++ &gt; Reference data arrives via upstream ingestion (Epic 0.1 schema + Epics 0.7/0.8 ETL processes); ...</code></pre>
+<p>(FR7, FR8, FR59 rows are unaffected — all cite Story 0.1.1/0.1.2, which stay in Epic 0.1.)</p>
+<h3 id="46-epicsframeworkmd">4.6 <code>epics/framework.md</code></h3>
+<pre class="diff"><code>- **Ingestion (in Epic 0.1&#39;s vertical slice — sign-in depends on `jo_people`)**: nightly in-process `@Scheduled` eLinks sync ...
++ **Ingestion (in Epics 0.7/0.8&#39;s vertical slice — sign-in depends on `jo_people`)**: nightly in-process `@Scheduled` eLinks sync ...
+
+- Reference data arrives via the Upstream Reference-Data Ingestion area (Epic 0.1).
++ Reference data arrives via the Upstream Reference-Data Ingestion area (Epic 0.1 schema + Epics 0.7/0.8 ETL processes).</code></pre>
+<h3 id="47-epicsrequirements-inventorymd">4.7 <code>epics/requirements-inventory.md</code></h3>
+<pre class="diff"><code>- **`ctam-reference-data`** carries the MRD feed storage account + blob container (Epic 0.1 Story 0.1.4 — its own resource).
++ **`ctam-reference-data`** carries the MRD feed storage account + blob container (Epic 0.8 Story 0.8.1 — its own resource).</code></pre>
+<h3 id="48-epicsphase-0epic-02-user-authenticatesmd">4.8 <code>epics/phase-0/epic-0.2-user-authenticates.md</code></h3>
+<pre class="diff"><code>- depends_on: [epic-0.0, epic-0.1]            # needs jo_people (0.1.3) + the estate
++ depends_on: [epic-0.0, epic-0.1, epic-0.7]  # needs the estate + the schema (0.1) + jo_people populated by the eLinks sync (0.7.1)
+
+- **Depends on Epic 0.1:** `jo_people` (the JOH identity-lookup target) is populated by the eLinks sync (Story 0.1.3); the shared Azure estate ... is provisioned by `ctam-reference-data` (Story 0.1.1) and consumed here.
++ **Depends on Epics 0.1 and 0.7:** `jo_people` (the JOH identity-lookup target) is populated by the eLinks sync (Epic 0.7, Story 0.7.1); the shared Azure estate ... is provisioned by `ctam-reference-data` (Epic 0.1, Story 0.1.1) and consumed here.
+
+- **Out of scope (explicitly):** All upstream ingestion + `ctam-reference-data` scaffold + shared-estate provisioning + tier-(a) tables (Epic 0.1). ...
++ **Out of scope (explicitly):** The JOH eLinks ingestion (Epic 0.7) + `ctam-reference-data` scaffold + shared-estate provisioning + tier-(a) schema (Epic 0.1). ...</code></pre>
+<h3 id="49-epicsphase-0epic-03-reference-data-read-only-apimd">4.9 <code>epics/phase-0/epic-0.3-reference-data-read-only-api.md</code></h3>
+<pre class="diff"><code>- depends_on: [epic-0.1, epic-0.2]            # read API is downstream of auth (JWTFilter + authz/check, D8)
++ depends_on: [epic-0.1, epic-0.7, epic-0.8, epic-0.2]  # read API is downstream of auth (D8) and needs both ETL processes for real tier-(a) data
+
+- ... the upstream-sourced tier-(a) tables ingested in Epic 0.1 and the tier-(b) tables created here ...
++ ... the upstream-sourced tier-(a) tables (schema in Epic 0.1, ingested by Epics 0.7/0.8) and the tier-(b) tables created here ...
+
+- ... tier (a) is written only by the Epic 0.1 ingestion mechanisms ...
++ ... tier (a) is written only by the Epic 0.7/0.8 ingestion mechanisms ...
+
+- *(There is no legacy-data ETL ... Upstream data arrives via Epic 0.1&#39;s ingestion mechanisms.)*
++ *(There is no legacy-data ETL ... Upstream data arrives via Epic 0.7/0.8&#39;s ingestion mechanisms.)*
+
+  Story 0.3.1 AC:
+- **Given** `ctam-reference-data` is scaffolded and carries the tier-(a) tables per Story 0.1.3,
++ **Given** `ctam-reference-data` is scaffolded and carries the tier-(a) tables per Story 0.1.2,
+  (pre-existing mislabel — 0.1.2 creates the tables; 0.1.3 was the sync, now moved out and no longer a valid reference)
+
+  Story 0.3.2 AC:
+- **Given** `ctam-reference-data` carries both tiers (tier (a) per Stories 0.1.3/0.1.4; tier (b) per Story 0.3.1),
++ **Given** `ctam-reference-data` carries both tiers (tier (a) per Epic 0.7 Story 0.7.1 / Epic 0.8 Story 0.8.1; tier (b) per Story 0.3.1),</code></pre>
+<h3 id="410-architecturerepository-strategymd">4.10 <code>architecture/repository-strategy.md</code></h3>
+<pre class="diff"><code>- ... carries only its own per-repo Terraform (MRD storage, Story 0.1.4). ...
++ ... carries only its own per-repo Terraform (MRD storage, Epic 0.8 Story 0.8.1). ...</code></pre>
+<h3 id="411-architecturedelivery-operating-modelmd">4.11 <code>architecture/delivery-operating-model.md</code></h3>
+<p>The canonical story-packet worked example currently uses the real MRD story as its illustration; update it to the new identifiers so it stays a valid, checkable example:</p>
+<pre class="diff"><code>  story_id: 0.1.4
+  epic: epic-0.1-upstream-reference-data-ingested
++ story_id: 0.8.1
++ epic: epic-0.8-mrd-reference-data-etl-process
+  ...
+  sprint_status_key: 0-1-4-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
++ sprint_status_key: 0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
+  # Story 0.1.4: &lt;title&gt;
++ # Story 0.8.1: &lt;title&gt;</code></pre>
+<p>(The separate <code>sprint-status.yaml</code> excerpt shown a few lines below already truncates after <code>0-1-2-...</code> with <code>...</code>, so it needs no edit — it remains accurate for Epic 0.1 post-split.)</p>
+<h3 id="412-scriptspythonbuild_htmlpy--nav-list">4.12 <code>scripts/python/build_html.py</code> — <code>NAV</code> list</h3>
+<pre class="diff"><code>- (&quot;Epic 0.1 — Upstream JOH/MRD reference data is ingested (4 stories)&quot;, &quot;epics/phase-0/epic-0.1-upstream-reference-data-ingested&quot;, False),
++ (&quot;Epic 0.1 — Postgres reference-data schema designed and scaffolded (2 stories)&quot;, &quot;epics/phase-0/epic-0.1-ctam-postgres-db-schema-design&quot;, False),
+  (&quot;Epic 0.2 — User authenticates (5 stories)&quot;, ...),
+  (&quot;Epic 0.3 — Reference data read-only API (2 stories)&quot;, ...),
+  (&quot;Epic 0.4 — User populations bootstrapped (1 story)&quot;, ...),
+  (&quot;Epic 0.5 — Notification scaffolded (2 stories)&quot;, ...),
+  (&quot;Epic 0.6 — Context bus published + shared config baseline (2 stories)&quot;, ...),
++ (&quot;Epic 0.7 — JOH reference data ETL process (1 story)&quot;, &quot;epics/phase-0/epic-0.7-joh-reference-data-etl-process&quot;, False),
++ (&quot;Epic 0.8 — MRD reference data ETL process (1 story)&quot;, &quot;epics/phase-0/epic-0.8-mrd-reference-data-etl-process&quot;, False),</code></pre>
+<h3 id="413-_bmad-outputimplementation-artifactssprint-statusyaml">4.13 <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></h3>
+<pre class="diff"><code>  epic-0.1: backlog
+  0-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter-onto-the-epic-0-0-estate: backlog
+  0-1-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection: backlog
+- 0-1-3-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api: backlog
+- 0-1-4-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed: backlog
+  epic-0.1-retrospective: optional
+  ...
+  epic-0.6-context-bus...: (unchanged block)
++
++ epic-0.7: backlog
++ 0-7-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api: backlog
++ epic-0.7-retrospective: optional
++
++ epic-0.8: backlog
++ 0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed: backlog
++ epic-0.8-retrospective: optional</code></pre>
+<h3 id="414-architecturechangelogmd--new-entry-v47">4.14 <code>architecture/changelog.md</code> — new entry (v4.7)</h3>
+<p>A new row is <strong>added</strong> (existing rows untouched) documenting: Epic 0.1 split into schema-design (kept as 0.1) + two new ETL-process epics (0.7 JOH, 0.8 MRD); nothing dispatched yet so no code/branch impact; cross-reference sweep list as in §2.3; link to this SCP.</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong> — backlog reorganisation across planning artifacts, no PRD/architecture/FR change, no code exists yet for the affected stories.</p>
+<p><strong>Route:</strong> Developer agent (this session) implements directly — file renames, edits, <code>sprint-status.yaml</code> update, changelog entry, then <code>scripts/build-html.sh</code> to regenerate <code>docs/</code>. No PO/PM/Architect escalation needed; there's no scope or requirements change, only a regrouping of already-approved stories.</p>
+<p><strong>Success criteria:</strong></p>
+<ul>
+<li><code>epics/phase-0/epic-0.1-ctam-postgres-db-schema-design.md</code>, <code>epic-0.7-joh-reference-data-etl-process.md</code>, <code>epic-0.8-mrd-reference-data-etl-process.md</code> all exist with correct frontmatter, <code>depends_on</code>, and verbatim story ACs</li>
+<li>No dangling reference to the old filename or to Stories 0.1.3/0.1.4 remains in any living planning artifact</li>
+<li><code>sprint-status.yaml</code> reflects 9 epics / same 4 stories under the new grouping, all <code>backlog</code></li>
+<li><code>scripts/build-html.sh</code> runs clean and <code>docs/</code> reflects the new structure</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-20b.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-epic-impact">2.1 Epic impact</a></li><li class="h3"><a href="#22-story-impact">2.2 Story impact</a></li><li class="h3"><a href="#23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--detailed-change-proposals">Section 4 — Detailed Change Proposals</a></li><li class="h3"><a href="#41-epicsphase-0epic-01-upstream-reference-data-ingestedmd--renamed-epicsphase-0epic-01-ctam-postgres-db-schema-designmd">4.1 epics/phase-0/epic-0.1-upstream-reference-data-ingested.md → renamed epics/phase-0/epic-0.1-ctam-postgres-db-schema-design.md</a></li><li class="h3"><a href="#42-new-epicsphase-0epic-07-joh-reference-data-etl-processmd">4.2 New epics/phase-0/epic-0.7-joh-reference-data-etl-process.md</a></li><li class="h3"><a href="#43-new-epicsphase-0epic-08-mrd-reference-data-etl-processmd">4.3 New epics/phase-0/epic-0.8-mrd-reference-data-etl-process.md</a></li><li class="h3"><a href="#44-epicsphase-0indexmd">4.4 epics/phase-0/index.md</a></li><li class="h3"><a href="#45-epicsfr-coverage-mapmd">4.5 epics/fr-coverage-map.md</a></li><li class="h3"><a href="#46-epicsframeworkmd">4.6 epics/framework.md</a></li><li class="h3"><a href="#47-epicsrequirements-inventorymd">4.7 epics/requirements-inventory.md</a></li><li class="h3"><a href="#48-epicsphase-0epic-02-user-authenticatesmd">4.8 epics/phase-0/epic-0.2-user-authenticates.md</a></li><li class="h3"><a href="#49-epicsphase-0epic-03-reference-data-read-only-apimd">4.9 epics/phase-0/epic-0.3-reference-data-read-only-api.md</a></li><li class="h3"><a href="#410-architecturerepository-strategymd">4.10 architecture/repository-strategy.md</a></li><li class="h3"><a href="#411-architecturedelivery-operating-modelmd">4.11 architecture/delivery-operating-model.md</a></li><li class="h3"><a href="#412-scriptspythonbuild_htmlpy--nav-list">4.12 scripts/python/build_html.py — NAV list</a></li><li class="h3"><a href="#413-_bmad-outputimplementation-artifactssprint-statusyaml">4.13 _bmad-output/implementation-artifacts/sprint-status.yaml</a></li><li class="h3"><a href="#414-architecturechangelogmd--new-entry-v47">4.14 architecture/changelog.md — new entry (v4.7)</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-20b";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

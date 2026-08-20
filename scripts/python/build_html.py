@@ -261,12 +261,14 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
     ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0.0 added 2026-07-06)", [
         ("Phase 0 overview", "epics/phase-0/index", False),
         ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
-        ("Epic 0.1 — Upstream JOH/MRD reference data is ingested (4 stories)", "epics/phase-0/epic-0.1-upstream-reference-data-ingested", False),
+        ("Epic 0.1 — Postgres reference-data schema designed and scaffolded (2 stories)", "epics/phase-0/epic-0.1-ctam-postgres-db-schema-design", False),
         ("Epic 0.2 — User authenticates (5 stories)", "epics/phase-0/epic-0.2-user-authenticates", False),
         ("Epic 0.3 — Reference data read-only API (2 stories)", "epics/phase-0/epic-0.3-reference-data-read-only-api", False),
         ("Epic 0.4 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.4-user-populations-bootstrapped", False),
         ("Epic 0.5 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.5-system-dispatches-emails", False),
         ("Epic 0.6 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.6-context-bus-and-shared-baseline", False),
+        ("Epic 0.7 — JOH reference data ETL process (1 story)", "epics/phase-0/epic-0.7-joh-reference-data-etl-process", False),
+        ("Epic 0.8 — MRD reference data ETL process (1 story)", "epics/phase-0/epic-0.8-mrd-reference-data-etl-process", False),
     ]),
 ]
 

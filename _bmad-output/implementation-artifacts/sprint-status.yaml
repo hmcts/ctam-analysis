@@ -1,5 +1,5 @@
 # generated: 2026-08-19
-# last_updated: 2026-08-19
+# last_updated: 2026-08-20
 # project: ctam-analysis
 # project_key: NOKEY
 # tracking_system: file-system
@@ -37,7 +37,7 @@
 #    scripts/dispatch-preflight.sh as the backstop against double-pickup.
 
 generated: 2026-08-19
-last_updated: 2026-08-19
+last_updated: 2026-08-20
 project: ctam-analysis
 project_key: NOKEY
 tracking_system: file-system
@@ -55,8 +55,6 @@ development_status:
   epic-0.1: backlog
   0-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter-onto-the-epic-0-0-estate: backlog
   0-1-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection: backlog
-  0-1-3-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api: backlog
-  0-1-4-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed: backlog
   epic-0.1-retrospective: optional
 
   epic-0.2: backlog
@@ -85,3 +83,11 @@ development_status:
   0-6-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0: done
   0-6-2-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants: backlog
   epic-0.6-retrospective: optional
+
+  epic-0.7: backlog
+  0-7-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api: backlog
+  epic-0.7-retrospective: optional
+
+  epic-0.8: backlog
+  0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed: backlog
+  epic-0.8-retrospective: optional

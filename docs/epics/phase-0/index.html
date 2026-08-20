@@ -90,7 +90,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="phase-0--foundations">Phase 0 — Foundations</h1>
 <blockquote>
-<p>Phase 0 is sequenced <strong>platform-then-integrations-first</strong>: Epic 0.0 platform estate → Epic 0.1 ingestion → Epic 0.2 auth + UI → Epic 0.3 read API → Epic 0.4 bootstrap → Epic 0.5 notification. The shared Azure estate stands up and is independently verified first (Epic 0.0, <code>ctam-shared-infrastructure</code>); the ingestion then runs in-process inside <code>ctam-reference-data</code> — there is no <code>ctam-integrations</code> repo.</p>
+<p>Phase 0 is sequenced <strong>platform-then-integrations-first</strong>: Epic 0.0 platform estate → Epic 0.1 schema/scaffold → Epics 0.7/0.8 ingestion → Epic 0.2 auth + UI → Epic 0.3 read API → Epic 0.4 bootstrap → Epic 0.5 notification. The shared Azure estate stands up and is independently verified first (Epic 0.0, <code>ctam-shared-infrastructure</code>); the ingestion then runs in-process inside <code>ctam-reference-data</code> — there is no <code>ctam-integrations</code> repo.</p>
 </blockquote>
 <blockquote>
 <p>Phase 0 is the platform smoke-test (per PRD Key Characteristic 4). All API-as-Product standards (versioning, OpenAPI, <a href="https://datatracker.ietf.org/doc/html/rfc9457">RFC 9457</a>, <code>Deprecation</code>/<code>Sunset</code>) are exercised on Authorisation lookups and Reference Data <strong>reads</strong> before any domain service is built.</p>
@@ -100,7 +100,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ul>
 <li><strong>No legacy data migration</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> — no data migrates from any incumbent (<code>[ET-INCUMBENT-TBD]</code>, ListAssist, APEX), ever. Judicial-holder reference data is <strong>ingested from upstream sources of truth</strong>: the JOH eLinks API (nightly in-process sync) and MRD (weekly Excel via blob drop). Historical data stays in each jurisdiction's incumbent system.</li>
 <li><strong>Platform estate is Epic 0.0 — the first deliverable</strong>: the shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) is provisioned via Terraform in the dedicated <code>ctam-shared-infrastructure</code> repo and independently verified layer-by-layer (AR53 revised, HMCTS CNP <code>{product}-shared-infrastructure</code> standard).</li>
-<li><strong>Upstream ingestion is Epic 0.1 — the first domain deliverable</strong>: eLinks sync (Story 0.1.3) + MRD ingestion (Story 0.1.4). <code>ctam-reference-data</code> is the first domain service scaffolded and deploys onto the Epic 0.0 estate. In-process — <strong>no <code>ctam-integrations</code> repo</strong>.</li>
+<li><strong>Upstream schema design is Epic 0.1, ingestion is Epics 0.7/0.8 — the first domain deliverables</strong>: <code>ctam-reference-data</code> is the first domain service scaffolded and deploys onto the Epic 0.0 estate; the tier-(a) schema is designed in Epic 0.1, then the eLinks sync (Epic 0.7, Story 0.7.1) and MRD ingestion (Epic 0.8, Story 0.8.1) populate it. In-process — <strong>no <code>ctam-integrations</code> repo</strong>.</li>
 <li><strong>Two user populations</strong><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>: JOH users resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → CTAM JOH UUID (<code>ctam_joh_identities</code>); HMCTS admin staff resolve via <code>ctam_auth_staff_identities</code> → CTAM-assigned UUID. Both share one authorisation model and both key on a CTAM-assigned UUID.</li>
 <li><strong>Jurisdiction is first-class</strong><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>: authz responses carry roles + jurisdiction + Region/Area scope; reference-data API responses are jurisdiction-filtered; activation flags key on the (jurisdiction, region) tuple (FR57).</li>
 <li><strong>Admin UI is post-MVP</strong><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>: tier-(b) reference data and user/role/scope maintenance are DBA-via-SQL per runbook.</li>
@@ -123,9 +123,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>🟡 Planned</td>
 </tr>
 <tr>
-<td><a href="epic-0.1-upstream-reference-data-ingested.html">0.1</a></td>
-<td>Upstream JOH/MRD reference data is ingested</td>
-<td>4</td>
+<td><a href="epic-0.1-ctam-postgres-db-schema-design.html">0.1</a></td>
+<td>CTAM Postgres reference-data schema is designed and scaffolded</td>
+<td>2</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
@@ -159,6 +159,18 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>🟢 In progress</td>
 </tr>
 <tr>
+<td><a href="epic-0.7-joh-reference-data-etl-process.html">0.7</a></td>
+<td>JOH reference data flows into CTAM via the nightly eLinks ETL process</td>
+<td>1</td>
+<td>🟡 Planned</td>
+</tr>
+<tr>
+<td><a href="epic-0.8-mrd-reference-data-etl-process.html">0.8</a></td>
+<td>MRD reference data flows into CTAM via the weekly Excel ETL process</td>
+<td>1</td>
+<td>🟡 Planned</td>
+</tr>
+<tr>
 <td><strong>Total</strong></td>
 <td></td>
 <td><strong>21 stories</strong></td>
@@ -171,10 +183,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>User outcome:</strong> The shared Azure estate — AKS, PostgreSQL Flexible Server, ACR, APIM, Application Insights, Key Vault — is stood up via <strong>Terraform</strong> in its own dedicated repo, <strong><code>ctam-shared-infrastructure</code></strong> (HMCTS CNP <code>{product}-shared-infrastructure</code> standard, AR53 revised), provisioned <strong>layer-by-layer with each layer independently verified at deploy time</strong>, so every Phase 0 service has a tested platform to deploy onto. Precedes Epic 0.1. Stories: 0.0.1 repo + Terraform foundation (state backend, plan/apply CI); 0.0.2 network + AKS (verified via <code>kubectl get nodes</code> + hello pod); 0.0.3 PostgreSQL + Key Vault (TLS-only connect, plaintext refused, secret round-trip); 0.0.4 ACR + observability (image pull, test trace lands); 0.0.5 APIM + smoke API (gateway → echo 200 over TLS).</p>
 <p><strong>FRs covered:</strong> none (foundational platform infrastructure). <strong>NFRs:</strong> NFR10, NFR11, NFR16, NFR25–NFR28, NFR31. <strong>ARs:</strong> AR53 (revised), A34, G9.</p>
 <p>→ <a href="epic-0.0-platform-estate-provisioned.html">Full epic with stories</a></p>
-<h3 id="epic-01-upstream-johmrd-reference-data-is-ingested-4-stories">Epic 0.1: Upstream JOH/MRD reference data is ingested (4 stories)</h3>
-<p><strong>User outcome:</strong> Judicial-holder reference data flows into CTAM from its upstream sources of truth — the <strong>JOH eLinks API</strong> (15 <code>jo_*</code> entities, nightly in-process sync, Story 0.1.3) and the <strong>MRD</strong> weekly Excel feed (<code>mrd_*</code>, Story 0.1.4) — so <code>jo_people</code> exists and is current. This is the platform's foundational data layer. <code>ctam-reference-data</code> is the first domain service scaffolded (Story 0.1.1) and deploys onto the shared estate provisioned in <strong>Epic 0.0</strong>; tier-(a) tables + write protection are Story 0.1.2.</p>
-<p><strong>FRs covered:</strong> FR1 (the <code>jo_people</code> lookup target), FR6 tier-(a), FR7 tier-(a) grants, FR8 (shared config baseline first lands); NFR24, FR59 (structured logs first exercised)</p>
-<p>→ <a href="epic-0.1-upstream-reference-data-ingested.html">Full epic with stories</a></p>
+<h3 id="epic-01-ctam-postgres-reference-data-schema-is-designed-and-scaffolded-2-stories">Epic 0.1: CTAM Postgres reference-data schema is designed and scaffolded (2 stories)</h3>
+<p><strong>User outcome:</strong> <code>ctam-reference-data</code> is the first domain service scaffolded (Story 0.1.1) and deploys onto the shared estate provisioned in <strong>Epic 0.0</strong>; the tier-(a) upstream-sourced Postgres schema — 15 <code>jo_*</code> tables + <code>ctam_sync_status</code> — is designed with enforced single-writer ownership (Story 0.1.2). This is the platform's foundational data layer; the JOH eLinks (<strong>Epic 0.7</strong>) and MRD (<strong>Epic 0.8</strong>) ETL processes populate it once it exists.</p>
+<p><strong>FRs covered:</strong> FR6 tier-(a), FR7 tier-(a) grants, FR8 (shared config baseline first lands); FR59 (structured logs first exercised)</p>
+<p>→ <a href="epic-0.1-ctam-postgres-db-schema-design.html">Full epic with stories</a></p>
 <h3 id="epic-02-user-authenticates-and-lands-on-a-role-scoped-home-page-5-stories">Epic 0.2: User authenticates and lands on a role-scoped Home page (5 stories)</h3>
 <p><strong>User outcome:</strong> A user from <strong>either identity population</strong> — JOH (Judge, Tribunal Judge, Tribunal Member) or HMCTS admin staff (RSU, Court user, Tribunal Caseworker, Finance, MI) — signs in via SSO, has their canonical identity resolved (CTAM JOH UUID via the eLinks-synced <code>jo_people</code> → <code>personnel_number</code> → <code>ctam_joh_identities</code>; staff UUID via <code>ctam_auth_staff_identities</code>), and lands on a role-scoped Home page. Depends on Epic 0.1 (<code>jo_people</code> populated) and consumes the shared estate provisioned in Epic 0.0.</p>
 <p><strong>FRs covered:</strong> FR1, FR2, FR3, FR55, FR56 (business stack); FR57 (activation surface), FR58 (Authorisation read API)</p>
@@ -196,6 +208,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Runs between 0.0 and 0.1</strong> — the number is not the order; see <code>depends_on</code> in its frontmatter. Promoted from the <code>arch-baseline</code> dispatch-graph node (SCP 2026-08-19d) so BMad tracks it.</p>
 <p><strong>FRs covered:</strong> FR8</p>
 <p>→ <a href="epic-0.6-context-bus-and-shared-baseline.html">Full epic with stories</a></p>
+<h3 id="epic-07-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process-1-story">Epic 0.7: JOH reference data flows into CTAM via the nightly eLinks ETL process (1 story)</h3>
+<p><strong>User outcome:</strong> An in-process nightly <code>@Scheduled</code> sync (Story 0.7.1) pulls the <strong>JOH eLinks API</strong> (15 <code>jo_*</code> entities) and full-refresh-upserts them into the tier-(a) schema designed in <strong>Epic 0.1</strong>, so <code>jo_people</code> exists and is current — the precondition for JOH sign-in (Epic 0.2). Split out of the former Epic 0.1 (was Story 0.1.3) 2026-08-20.</p>
+<p><strong>FRs covered:</strong> FR1 (the <code>jo_people</code> lookup target), FR6 tier-(a), FR7; NFR24</p>
+<p>→ <a href="epic-0.7-joh-reference-data-etl-process.html">Full epic with stories</a></p>
+<h3 id="epic-08-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process-1-story">Epic 0.8: MRD reference data flows into CTAM via the weekly Excel ETL process (1 story)</h3>
+<p><strong>User outcome:</strong> A weekly Azure Blob drop + scheduled pick-up (Story 0.8.1) ingests the MRD team's Excel workbook into its own small <code>mrd_*</code> schema, making supplementary judicial reference data (notably JOH Specialisations) available without waiting for MRD's public APIs. Split out of the former Epic 0.1 (was Story 0.1.4) 2026-08-20.</p>
+<p><strong>FRs covered:</strong> FR6 tier-(a), FR7; NFR24</p>
+<p>→ <a href="epic-0.8-mrd-reference-data-etl-process.html">Full epic with stories</a></p>
 </div></details><details class="section" id="phase-0-epic-stories-summary"><summary><span class="section-title">Phase 0 Epic Stories Summary</span></summary><div class="section-body">
 <table>
 <thead>
@@ -215,9 +235,21 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>0.1</td>
-<td>4 stories (0.1.1–0.1.4)</td>
-<td>FR1 (<code>jo_people</code> target), FR6 tier (a), FR7 tier (a), FR8, FR59; NFR24</td>
-<td>JOH/MRD reference data flows in from eLinks + MRD → <code>jo_people</code> current (verified via <code>ctam_sync_status</code> + CI WireMock stub)</td>
+<td>2 stories (0.1.1–0.1.2)</td>
+<td>FR6 tier (a), FR7 tier (a), FR8, FR59</td>
+<td><code>ctam-reference-data</code> scaffolded onto the Epic 0.0 estate; tier-(a) <code>jo_*</code> schema + <code>ctam_sync_status</code> exist with write protection (verified via ArchUnit grants fitness function)</td>
+</tr>
+<tr>
+<td>0.7</td>
+<td>1 story (0.7.1)</td>
+<td>FR1 (<code>jo_people</code> target), FR6 tier (a), FR7; NFR24</td>
+<td>JOH reference data flows in nightly from eLinks → <code>jo_people</code> current (verified via <code>ctam_sync_status</code> + CI WireMock stub)</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>1 story (0.8.1)</td>
+<td>FR6 tier (a), FR7; NFR24</td>
+<td>MRD weekly Excel workbook flows in via blob drop → <code>mrd_*</code> current (verified via <code>ctam_sync_status</code>)</td>
 </tr>
 <tr>
 <td>0.2</td>
@@ -251,9 +283,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>Total</strong></td>
-<td><strong>19 stories</strong></td>
+<td><strong>16 stories</strong></td>
 <td></td>
-<td>The six demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate</td>
+<td>The eight demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate (Epic 0.0's 5 stories are the platform smoke-test that precedes this table, not counted here)</td>
 </tr>
 </tbody>
 </table>
@@ -292,7 +324,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/index.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-scope-model">Phase 0 scope model</a></li><li><a href="#epics">Epics</a></li><li><a href="#epic-summaries">Epic summaries</a></li><li class="h3"><a href="#epic-00-platform-estate-is-provisioned-verifiable-and-cnp-compliant-5-stories">Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant (5 stories)</a></li><li class="h3"><a href="#epic-01-upstream-johmrd-reference-data-is-ingested-4-stories">Epic 0.1: Upstream JOH/MRD reference data is ingested (4 stories)</a></li><li class="h3"><a href="#epic-02-user-authenticates-and-lands-on-a-role-scoped-home-page-5-stories">Epic 0.2: User authenticates and lands on a role-scoped Home page (5 stories)</a></li><li class="h3"><a href="#epic-03-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api-2-stories">Epic 0.3: Reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)</a></li><li class="h3"><a href="#epic-04-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp-1-story">Epic 0.4: Both user populations are bootstrapped and verifiable against the IdP (1 story)</a></li><li class="h3"><a href="#epic-05-notification-service-is-scaffolded-and-contractually-ready-2-stories">Epic 0.5: Notification service is scaffolded and contractually ready (2 stories)</a></li><li class="h3"><a href="#epic-06-context-bus-is-published-and-the-shared-configuration-baseline-exists-2-stories">Epic 0.6: Context bus is published and the shared configuration baseline exists (2 stories)</a></li><li><a href="#phase-0-epic-stories-summary">Phase 0 Epic Stories Summary</a></li><li><a href="#post-mvp-roadmap-items">Post-MVP roadmap items</a></li><li><a href="#validation">Validation</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-scope-model">Phase 0 scope model</a></li><li><a href="#epics">Epics</a></li><li><a href="#epic-summaries">Epic summaries</a></li><li class="h3"><a href="#epic-00-platform-estate-is-provisioned-verifiable-and-cnp-compliant-5-stories">Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant (5 stories)</a></li><li class="h3"><a href="#epic-01-ctam-postgres-reference-data-schema-is-designed-and-scaffolded-2-stories">Epic 0.1: CTAM Postgres reference-data schema is designed and scaffolded (2 stories)</a></li><li class="h3"><a href="#epic-02-user-authenticates-and-lands-on-a-role-scoped-home-page-5-stories">Epic 0.2: User authenticates and lands on a role-scoped Home page (5 stories)</a></li><li class="h3"><a href="#epic-03-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api-2-stories">Epic 0.3: Reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)</a></li><li class="h3"><a href="#epic-04-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp-1-story">Epic 0.4: Both user populations are bootstrapped and verifiable against the IdP (1 story)</a></li><li class="h3"><a href="#epic-05-notification-service-is-scaffolded-and-contractually-ready-2-stories">Epic 0.5: Notification service is scaffolded and contractually ready (2 stories)</a></li><li class="h3"><a href="#epic-06-context-bus-is-published-and-the-shared-configuration-baseline-exists-2-stories">Epic 0.6: Context bus is published and the shared configuration baseline exists (2 stories)</a></li><li class="h3"><a href="#epic-07-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process-1-story">Epic 0.7: JOH reference data flows into CTAM via the nightly eLinks ETL process (1 story)</a></li><li class="h3"><a href="#epic-08-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process-1-story">Epic 0.8: MRD reference data flows into CTAM via the weekly Excel ETL process (1 story)</a></li><li><a href="#phase-0-epic-stories-summary">Phase 0 Epic Stories Summary</a></li><li><a href="#post-mvp-roadmap-items">Post-MVP roadmap items</a></li><li><a href="#validation">Validation</a></li></ul></aside>
 <script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/index";</script>
 <script src="../../nav.js"></script>
 <script>

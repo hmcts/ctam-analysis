@@ -9,14 +9,14 @@ epic: 0.2
 title: 'User authenticates and lands on a role-scoped Home page'
 storyCount: 5
 repo: [ctam-authorisation, ctam-mock-auth, ctam-ui]
-depends_on: [epic-0.0, epic-0.1]            # needs jo_people (0.1.3) + the estate
+depends_on: [epic-0.0, epic-0.1, epic-0.7]  # needs the estate + the schema (0.1) + jo_people populated by the eLinks sync (0.7.1)
 ---
 
 # Epic 0.2: User authenticates and lands on a role-scoped Home page
 
 **User outcome:** A CTAM Pathfinder user from **either identity population** — a JOH (Judge, Tribunal Judge, Tribunal Member) or HMCTS admin staff (RSU, Court user, Tribunal Caseworker, Finance/Payment Authoriser, MI/Reporting) — opens CTAM Pathfinder, signs in via SSO, has their canonical identity resolved (CTAM JOH UUID via `jo_people` → `personnel_number` → `ctam_joh_identities` for JOHs; CTAM staff UUID via `ctam_auth_staff_identities` for admin staff,[^d9]), has their roles + **jurisdiction** + Region/Area scope resolved, and lands on a Home page showing the navigation and tiles they're authorised to see.
 
-**Depends on Epic 0.1:** `jo_people` (the JOH identity-lookup target) is populated by the eLinks sync (Story 0.1.3); the shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights) is provisioned by `ctam-reference-data` (Story 0.1.1) and consumed here.
+**Depends on Epics 0.1 and 0.7:** `jo_people` (the JOH identity-lookup target) is populated by the eLinks sync (Epic 0.7, Story 0.7.1); the shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights) is provisioned by `ctam-reference-data` (Epic 0.1, Story 0.1.1) and consumed here.
 
 **Vertical slice:**
 - `ctam-authorisation` scaffolded from the HMCTS Crime SpringBoot template via `ctam-scaffold.sh`, following the pattern established by the first-scaffolded service (Epic 0.1, Story 0.1.1); **consumes** the shared Azure estate
@@ -32,7 +32,7 @@ depends_on: [epic-0.0, epic-0.1]            # needs jo_people (0.1.3) + the esta
 
 **Key NFRs first exercised here:** NFR12 (JWT propagation), NFR13 (authz enforcement incl. jurisdiction), NFR15 (GovS 7), NFR16 (Key Vault), NFR17–NFR19 (WCAG 2.2 AA + assistive tech + Accessibility Regs 2018), NFR20 (HMCTS IdP integration via mock), NFR40 (per-service deployable on Kubernetes).
 
-**Out of scope (explicitly):** All upstream ingestion + `ctam-reference-data` scaffold + shared-estate provisioning + tier-(a) tables (Epic 0.1). Tier-(b) CTAM-owned reference data + the read API (Epic 0.3). FR5 machine-to-machine consumer auth (post-MVP per PRD v2.5). Real HMCTS IdP integration (mock-only at Phase 0; cuts over pre-Phase-9 per AR34). Production identity bootstrap + verification job (Epic 0.4).
+**Out of scope (explicitly):** The JOH eLinks ingestion (Epic 0.7) + `ctam-reference-data` scaffold + shared-estate provisioning + tier-(a) schema (Epic 0.1). Tier-(b) CTAM-owned reference data + the read API (Epic 0.3). FR5 machine-to-machine consumer auth (post-MVP per PRD v2.5). Real HMCTS IdP integration (mock-only at Phase 0; cuts over pre-Phase-9 per AR34). Production identity bootstrap + verification job (Epic 0.4).
 
 ---
 
@@ -321,7 +321,7 @@ So that **I can begin using CTAM Pathfinder's workflows** — and at end of Phas
 
 **Given** the Phase 0 demo gate,
 **When** the engineering lead runs the Phase 0 walkthrough,
-**Then** they can show a stakeholder: the platform scaffold + shared estate (Epic 0.1, Story 0.1.1), JOH reference data flowing in from eLinks (Story 0.1.3) and MRD (Story 0.1.4), the auth service scaffold (Story 0.2.1), SSO via mock-auth (Story 0.2.2), two-population authorisation enforcement (Story 0.2.3), UI foundation (Story 0.2.4), and the end-to-end sign-in flow (this story),
+**Then** they can show a stakeholder: the platform scaffold + shared estate (Epic 0.1, Story 0.1.1), JOH reference data flowing in from eLinks (Epic 0.7, Story 0.7.1) and MRD (Epic 0.8, Story 0.8.1), the auth service scaffold (Story 0.2.1), SSO via mock-auth (Story 0.2.2), two-population authorisation enforcement (Story 0.2.3), UI foundation (Story 0.2.4), and the end-to-end sign-in flow (this story),
 **And** Postman collection `ctam-authorisation-phase0.postman_collection.json` exercises `POST /v1/authz/check` (both populations + unresolvable principal) and `GET /v1/users/{id}/effective-permissions` against the dev deployment.
 
 **References:** FR1, FR2, FR3, FR55, FR56, FR57 (activation surface); NFR12, NFR13, NFR17, NFR18, NFR19, NFR20, NFR42.

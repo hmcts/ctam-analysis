@@ -155,16 +155,16 @@ Canonical template, versioned with the bus so every repo gets the same one:
 
 ```markdown
 ---
-story_id: 0.1.4
-epic: epic-0.1-upstream-reference-data-ingested
+story_id: 0.8.1
+epic: epic-0.8-mrd-reference-data-etl-process
 repo: ctam-reference-data
 bus_version: arch-v1.0            # the target repo's actual _arch pin, not an aspiration
 frs: [FR6, FR7]
 nfrs: [NFR24]
 depends_on_stories: [0.0.3]       # optional intra-graph prerequisites
-sprint_status_key: 0-1-4-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
+sprint_status_key: 0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
 ---
-# Story 0.1.4: <title>
+# Story 0.8.1: <title>
 Status: ready-for-dev
 ## Story                    (as a / I want / so that)
 ## Acceptance Criteria      (numbered; Gherkin inside an item — AC-3 must resolve to item 3)

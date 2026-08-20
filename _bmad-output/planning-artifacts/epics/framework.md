@@ -72,7 +72,7 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 **Scope**: `ctam-reference-data` service owning **all 32 reference-data tables across two ownership tiers** (FR6/FR7): **tier (a) upstream-sourced** — 15 `jo_*` JOH eLinks entities + `mrd_*` MRD entities + `ctam_sync_status`, written only by the ingestion mechanisms, read-only in CTAM, corrections at source; **tier (b) CTAM-owned** — `ctam_regions`, `ctam_offices`, `ctam_calendar_periods` + 12 operational vocabularies, DBA-maintained per runbook in MVP[^d10]. **Read-only, jurisdiction-filtered** versioned REST API over both tiers[^d8]. Per-service DB SELECT grants for direct-SQL reads (per FR7 / Principle 2). API-as-Product standards exercised here first (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), deprecation signalling).
 
-**Ingestion (in Epic 0.1's vertical slice — sign-in depends on `jo_people`)**: nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`) + weekly MRD Excel via Azure Blob drop (validate / upsert / archive; idempotent per file; reader swaps for the MRD API post-MVP). Per AR46–AR49.
+**Ingestion (in Epics 0.7/0.8's vertical slice — sign-in depends on `jo_people`)**: nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`) + weekly MRD Excel via Azure Blob drop (validate / upsert / archive; idempotent per file; reader swaps for the MRD API post-MVP). Per AR46–AR49.
 
 **Component(s)**: `ctam-reference-data` (backend incl. ingestion tasks). The tier-(b) maintenance UI (FR6) is post-MVP `ctam-admin-ui`[^d10].
 
@@ -88,7 +88,7 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 ### Phase 0 · Area: Identity Bootstrap & Verification
 
-**Scope**: No legacy data migration of any kind exists[^d3]. Reference data arrives via the Upstream Reference-Data Ingestion area (Epic 0.1). User/authorisation data is strictly CTAM-internal, bootstrapped by programme-management mechanisms outside the PRD's scope. CTAM owns: dev/CI **seed scripts** spanning both identity populations; the re-runnable **bootstrap-verification job** confirming every `ctam_auth_users` row (both populations) maps to a real IdP principal (the standing wave-cutover gate artefact, also used at the pre-Phase-9 IdP cutover per G1.3); and the **production bootstrap runbook** (`ctam-architecture/runbooks/identity-bootstrap.md`), which also carries the FR4 DBA-maintenance pattern.
+**Scope**: No legacy data migration of any kind exists[^d3]. Reference data arrives via the Upstream Reference-Data Ingestion area (Epic 0.1 schema + Epics 0.7/0.8 ETL processes). User/authorisation data is strictly CTAM-internal, bootstrapped by programme-management mechanisms outside the PRD's scope. CTAM owns: dev/CI **seed scripts** spanning both identity populations; the re-runnable **bootstrap-verification job** confirming every `ctam_auth_users` row (both populations) maps to a real IdP principal (the standing wave-cutover gate artefact, also used at the pre-Phase-9 IdP cutover per G1.3); and the **production bootstrap runbook** (`ctam-architecture/runbooks/identity-bootstrap.md`), which also carries the FR4 DBA-maintenance pattern.
 
 **Component(s)**: `ctam-architecture` (seed scripts, verification job, runbook). Not a runtime service.
 

@@ -353,7 +353,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ul>
 <li><strong><code>ctam-shared-infrastructure</code></strong> carries the <strong>shared estate</strong>: AKS cluster + node pools, PostgreSQL Flexible Server, Azure Container Registry, APIM instance + base policies, Application Insights / Log Analytics workspace (incl. retention settings), Key Vault — provisioned and <strong>independently verified in Epic 0.0</strong>, ahead of any service.</li>
 <li><strong>Each service repo</strong> carries Terraform for its <strong>own resources only</strong>: its Key Vault namespace/secrets, service-specific storage, APIM per-API policy additions.</li>
-<li><strong><code>ctam-reference-data</code></strong> carries the MRD feed storage account + blob container (Epic 0.1 Story 0.1.4 — its own resource).</li>
+<li><strong><code>ctam-reference-data</code></strong> carries the MRD feed storage account + blob container (Epic 0.8 Story 0.8.1 — its own resource).</li>
 <li><strong><code>ctam-ui</code></strong> carries its Azure Static Web App.</li>
 <li>Terraform lives under <code>terraform/</code> with per-environment stacks (<code>dev</code> / <code>staging</code> / <code>production</code>) in <strong><code>ctam-shared-infrastructure</code></strong> (shared estate) and in each service repo (own resources); <code>ctam-scaffold.sh</code> adds the per-service <code>terraform/</code> skeleton alongside the Helm chart (same pattern as G1.4a).</li>
 <li><strong>Helm remains the application-deployment mechanism</strong> onto the shared AKS cluster provisioned in Epic 0.0 — Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema. The three do not overlap.</li>
