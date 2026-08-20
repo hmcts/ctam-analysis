@@ -59,11 +59,12 @@ Not here, deliberately: the **context bus** (`ctam-architecture` publish + `arch
 
 **One dispatcher at a time, by convention.** `sprint-status.yaml` is a single file, so two people dispatching concurrently would conflict on it. Coordinate before you dispatch.
 
-The backstop is [`../../../scripts/dispatch-preflight.sh`](../../../scripts/dispatch-preflight.sh), which is read-only and answers three questions:
+The backstop is [`../../../scripts/dispatch-preflight.sh`](../../../scripts/dispatch-preflight.sh), which is read-only and answers four questions:
 
 1. Is the story still `backlog` in `sprint-status.yaml`?
 2. Does a branch on the target remote already name it? — **a branch is the claim**; there is no `owner` field to contend over
 3. Are the epic's `depends_on` all `done`?
+4. Is it this story's turn? — no **earlier story in the same epic** is still `backlog`. Stories inside an epic are ordered by construction (scaffold the repo, then the schema, then the ingestion that needs both) and no field records that, so the order in `sprint-status.yaml` is the story-level dependency. An earlier sibling in flight rather than `done` is a warning, not a blocker — parallel dispatch inside one epic is a judgement call.
 
 **Dispatch creates that branch.** `story/{story-id}` is cut in the target repo at dispatch, the packet is committed on it and pushed, and the implementing session continues on the **same** branch — one branch per story, from dispatch to PR (`conventions.md` → *Git conventions*, amended 2026-08-20). Pushing matters: the pre-flight check reads the remote, so an unpushed branch claims nothing.
 
