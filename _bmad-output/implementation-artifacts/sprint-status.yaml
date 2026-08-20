@@ -1,5 +1,5 @@
 # generated: 2026-08-19
-# last_updated: 2026-08-19
+# last_updated: 2026-08-20
 # project: ctam-analysis
 # project_key: NOKEY
 # tracking_system: file-system
@@ -37,14 +37,15 @@
 #    scripts/dispatch-preflight.sh as the backstop against double-pickup.
 
 generated: 2026-08-19
-last_updated: 2026-08-19
+last_updated: 2026-08-20
 project: ctam-analysis
 project_key: NOKEY
 tracking_system: file-system
 story_location: _bmad-output/implementation-artifacts
 
 development_status:
-  epic-0.0: backlog
+  epic-0.0: in-progress
+  0-0-0-author-the-github-manual-setup-runbook: ready-for-dev
   0-0-1-scaffold-ctam-shared-infrastructure-and-establish-the-terraform-foundation: backlog
   0-0-2-provision-networking-and-the-aks-cluster-dev-verifiable-via-kubectl: backlog
   0-0-3-provision-postgresql-and-key-vault-dev-verifiable-over-tls-from-the-cluster: backlog
