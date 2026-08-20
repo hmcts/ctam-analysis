@@ -46,8 +46,8 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 
 | Phase | Folder | Status |
 |---|---|---|
-| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 6 epics, 19 stories |
-| **1** — JOH | _to be storied_ | ⚪ Framework only |
+| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 10 epics, 22 stories |
+| **1** — JOH | [phase-1/](phase-1/index.md) | 🟡 Planned — 1 epic, 1 story (primary area FR10–FR18 still framework only) |
 | **2** — Absence | _to be storied_ | ⚪ Framework only |
 | **3** — Vacancy | _to be storied_ | ⚪ Framework only |
 | **4** — Booking | _to be storied_ | ⚪ Framework only |
@@ -66,7 +66,7 @@ Each phase advances through four steps of the `bmad-create-epics-and-stories` wo
 3. **Create stories** — produce Gherkin-AC user stories sized for a single dev-agent session
 4. **Final validation** — verify FR/NFR coverage, dependency soundness, architecture compliance
 
-Phase 0 has completed all four steps. Phases 1–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
+Phase 0 has completed all four steps. Phase 1 has one epic through all four steps (Epic 1.0, added 2026-08-20 ahead of its primary area — see [phase-1/index.md](phase-1/index.md)); its primary area (JOH Records & Working Patterns, FR10–FR18) is still framework-only. Phases 2–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
 
 ## How to find your way
 

@@ -31,7 +31,7 @@ This is the canonical FR-to-Epic mapping. It is updated each time a phase advanc
 | **FR57** | [Epic 0.7](phase-0/epic-0.7-user-populations-bootstrapped.md) (initial all-FALSE flag state keyed by (jurisdiction, region)) — cutover orchestration in Phase 9+ (per-wave flip via direct SQL by DBA) | **Partial — activation toggle UI** is post-MVP | Cutover: `UPDATE ctam_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'` per rollout runbook |
 | **FR58** | [Epic 0.4](phase-0/epic-0.4-user-authenticates.md) Story 0.4.3 (Authorisation read API — first exercise) + [Epic 0.5](phase-0/epic-0.5-joh-reference-data-read-api.md) Story 0.5.2 (Reference Data read API) + [Epic 0.6](phase-0/epic-0.6-mrd-reference-data-read-api.md) Story 0.6.1 (extends the same spec) + every service story | — | API-as-Product read-side standards |
 | **FR59** | [Epic 0.1](phase-0/epic-0.1-postgres-db-schema-design.md) Story 0.1.1 (first exercise — first scaffolded service) + every service story | — | Structured logs + correlation IDs |
-| *(NFR24)* | [Epic 0.2](phase-0/epic-0.2-joh-reference-data-etl-process.md) Story 0.2.1 + [Epic 0.3](phase-0/epic-0.3-mrd-reference-data-etl-process.md) Story 0.3.1 — CI-tested against a contract-accurate mock per [Epic 0.10](phase-0/epic-0.10-joh-elinks-api-contract-mock.md) | MRD reader swaps to API post-MVP (when MRD APIs ship) | JOH eLinks + MRD are MVP integrations[^d11] — the programme's first deliverable |
+| *(NFR24)* | [Epic 0.2](phase-0/epic-0.2-joh-reference-data-etl-process.md) Story 0.2.1 + [Epic 0.3](phase-0/epic-0.3-mrd-reference-data-etl-process.md) Story 0.3.1 — CI-tested against a contract-accurate mock per [Epic 1.0](phase-1/epic-1.0-joh-elinks-api-contract-mock.md) | MRD reader swaps to API post-MVP (when MRD APIs ship) | JOH eLinks + MRD are MVP integrations[^d11] — the programme's first deliverable |
 
 > There is no data-migration FR[^d3]. Reference data arrives via upstream ingestion (Epic 0.1 schema + Epics 0.2/0.3 ETL processes); user records are bootstrapped outside the PRD's scope[^d9]; tier-(a) corrections happen at source and tier-(b) changes follow the DBA runbook change-trail.
 
@@ -41,7 +41,7 @@ To be populated by subsequent runs of `bmad-create-epics-and-stories` step 2 aga
 
 | FR | Phase | Area | Status |
 |---|---|---|---|
-| FR10–FR18 | 1 | JOH Records & Working Patterns (profiles are *views* over tier (a) + `ctam-joh` overlays; FR14 is display-only — conversions happen upstream) | ⚪ |
+| FR10–FR18 | 1 | JOH Records & Working Patterns (profiles are *views* over tier (a) + `ctam-joh` overlays; FR14 is display-only — conversions happen upstream). **Note:** Phase 1's first epic, [1.0](phase-1/epic-1.0-joh-elinks-api-contract-mock.md), is already storied (contract confirmation + CI mock, ahead of this area) — see [phase-1/index.md](phase-1/index.md) | ⚪ |
 | FR19–FR22 | 2 | Absence Workflow (first user-initiated Notification consumer via FR20 ack email) | ⚪ |
 | FR23–FR28 | 3 | Vacancy & Cover | ⚪ |
 | FR29–FR34 | 4 | Booking Management (second user-initiated Notification consumer via FR32 ack email; bookings reference JOHs by `joh_id` → `ctam_joh_identities`) | ⚪ |

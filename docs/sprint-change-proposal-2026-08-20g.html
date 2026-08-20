@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-20 (g) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-20-g">Sprint Change Proposal — 2026-08-20 (g)</h1>
+<p><strong>Move Epic 0.10 to a new Phase 1, renumbered as Epic 1.0</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"move epic-0.10 to new phase-1"</em>. Epic 0.10 (JOH eLinks API contract confirmed + CI mock, added by SCP 2026-08-20f) was appended to Phase 0 because Phase 0 already existed and had a schema-design epic (0.1) it naturally depends on. On reflection, its content — confirming an upstream JOH data contract — fits better as the opening epic of <strong>Phase 1 (JOH)</strong>, whose primary area (JOH Records &amp; Working Patterns, FR10–FR18) is exactly what depends on that same upstream data. Phase 1 has never been decomposed before; this is this programme's first Phase-1 epic.</p>
+<p><strong>Numbering:</strong> the move retires the need for the quoted <code>epic: "0.10"</code> workaround (Phase 0's ten single-digit slots, 0.0–0.9, were exhausted). As the first epic of a brand-new phase, it becomes <strong>Epic 1.0</strong> — a normal, unquoted float, no collision risk.</p>
+<p><strong>Scope of this move:</strong> only Epic 0.10/1.0 relocates. Phase 1's primary area (FR10–FR18, <code>ctam-joh</code>/<code>ctam-ui</code> JOH module) remains framework-only — this SCP does not decompose it; that is separate future work via <code>bmad-create-epics-and-stories</code>.</p>
+<p><strong>Status check:</strong> the epic's one story remains <code>backlog</code>. Nothing dispatched, no code exists. Low-risk.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-structural-impact">2.1 Structural impact</h3>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New directory</td>
+<td><code>epics/phase-1/</code> — this programme's first Phase-1 decomposition</td>
+</tr>
+<tr>
+<td>File moved</td>
+<td><code>epics/phase-0/epic-0.10-joh-elinks-api-contract-mock.md</code> → <code>epics/phase-1/epic-1.0-joh-elinks-api-contract-mock.md</code></td>
+</tr>
+<tr>
+<td>Epic renumbered</td>
+<td><code>0.10</code> (quoted string) → <code>1.0</code> (unquoted float)</td>
+</tr>
+<tr>
+<td>Story renumbered</td>
+<td><code>0.10.1</code> → <code>1.0.1</code>; AC content unchanged</td>
+</tr>
+<tr>
+<td><code>depends_on</code></td>
+<td>Unchanged: <code>[epic-0.1]</code> — a normal cross-phase dependency (Phase 1 already depends on Phase 0 as a whole)</td>
+</tr>
+<tr>
+<td>New file</td>
+<td><code>epics/phase-1/index.md</code> — mirrors <code>phase-0/index.md</code>'s structure, scaled to one epic; documents that FR10–FR18 remains framework-only</td>
+</tr>
+<tr>
+<td>Phase 0</td>
+<td>Epic 0.10's table row, epic-summary block, and stories-table row removed; totals revert to <strong>10 epics, 22 stories</strong></td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 row corrected from a stale "6 epics, 19 stories" to the current 10/22; Phase 1 row now links <code>phase-1/index.md</code> ("1 epic, 1 story")</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-two-more-staleness-bugs-found-and-fixed-during-the-mandatory-full-re-read-both-predating-this-move">2.2 Two more staleness bugs found and fixed during the mandatory full re-read (both predating this move)</h3>
+<ol type="1">
+<li><strong><code>epics/framework.md</code>'s "Phase dependency order" table used bare lowercase <code>epic N.M</code> references</strong> — no hyphen (<code>epic-0.5</code>), no capital "Epic" (<code>Epic 0.5</code>) — a pattern none of the prior three renumbering sweeps' greps matched (they searched for <code>Epic 0\.[0-9]</code> and <code>epic-0\.[0-9]</code>, not bare lowercase <code>epic 0.5</code>). Found: "Phase 0 epics 0.2, 0.3" (meant auth + JOH-read-API; those have been 0.4/0.5 since SCP 2026-08-20c) in two rows, and "epic 0.5" (meant Notification; that's been 0.8 since the same SCP) in one row and the parallelism note below the table. All four corrected; the parallelism note also extended to <code>0.1/0.2/0.3/0.4</code> to match the equivalent already-fixed sentences in <code>delivery/README.md</code> and <code>delivery-operating-model.md</code>.</li>
+<li><strong><code>epics/index.md</code>'s phase-status table</strong> carried a stale "6 epics, 19 stories" for Phase 0 (accurate only up to the very first split, SCP 2026-08-20b) — corrected to the current 10 epics / 22 stories in the same edit that added Phase 1's row.</li>
+</ol>
+<p>Each of the last three renumbering SCPs (2026-08-20c/d/e) found at least one file that earlier sweeps missed due to a different reference format (bracket link labels, bare table cells, lowercase-no-hyphen prose). This SCP's find — bare lowercase epic mentions in prose tables — extends that list. A repo-wide grep for <code>epic 0\.[0-9]</code> (lowercase, no hyphen) turned up nothing further outside historical SCPs, <code>delivery-operating-model.md</code>'s already-correct "epic 0.0" mention (unaffected — 0.0 never moves), and one historical SCP (2026-07-09) correctly left untouched.</p>
+<h3 id="23-artifact-conflicts">2.3 Artifact conflicts</h3>
+<p>The two new/moved epic files · <code>epics/phase-0/index.md</code> · <code>epics/index.md</code> · <code>epics/fr-coverage-map.md</code> (NFR24 row repointed; Phase 1 pending-table row gains a note) · <code>epics/framework.md</code> (two staleness fixes) · <code>architecture/gaps.md</code> (G8.7's epic reference) · <code>scripts/python/build_html.py</code> NAV (Phase 0 entry removed, new Phase 1 NAV section added) · <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code> (<code>epic-0.10</code>/<code>0-10-1-…</code> → <code>epic-1.0</code>/<code>1-0-1-…</code>) · a new <code>architecture/changelog.md</code> entry (v4.12) · <code>docs/</code> regenerated (including a new <code>docs/epics/phase-1/</code> directory).</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — no code exists for any affected repo.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment</strong> — relocate the epic, stand up the minimal Phase 1 structure, fix the staleness found in passing (both directly relevant: <code>framework.md</code>'s Phase-dependency table is exactly what a reader moving an epic between phases needs accurate). No PRD, architecture, or FR/NFR change. Effort: moderate (new directory + index authored, not just a rename); risk: low.</p>
+<hr />
+</div></details><details class="section" id="section-4--verification-performed"><summary><span class="section-title">Section 4 — Verification performed</span></summary><div class="section-body">
+<p>Extended the standard checklist to cover both phase directories: every markdown link in <code>epics/phase-0/*.md</code> and <code>epics/phase-1/*.md</code> resolves to an existing file in the correct phase directory; <code>storyCount:</code> matches actual headings in both phases; the story heading (<code>## Story 1.0.1</code>) matches the file's own <code>epic: 1.0</code>; <code>depends_on: [epic-0.1]</code> is a real, existing epic (cross-phase, expected); a repo-wide grep for stale <code>0.10</code>/<code>epic-0.10</code> references turned up only the intentional historical mentions (this epic's own "moved from 0.10" note, and the v4.11 changelog entry); <code>scripts/build-html.sh</code> runs clean and produces a new <code>docs/epics/phase-1/</code> directory with no broken links.</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong> — epic relocation across phases plus a new (minimal) phase index, no PRD/architecture/FR change, no code exists yet.</p>
+<p><strong>Route:</strong> Developer agent (this session) implements directly. No PO/PM/Architect escalation needed for the relocation itself. <strong>Separate from this change:</strong> decomposing Phase 1's primary area (FR10–FR18, JOH Records &amp; Working Patterns) is real future work, not started here — flagged in <code>phase-1/index.md</code>'s "Not yet storied" section for whoever runs <code>bmad-create-epics-and-stories</code> against it next.</p>
+<p><strong>Success criteria:</strong> the verification checks in Section 4 pass; <code>git status</code> shows the epic file moved (not duplicated), a new <code>phase-1/index.md</code>, and the small set of connective-file edits with no unrelated changes; the published <code>docs/</code> site's new Phase 1 section has no broken links.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-20g.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-structural-impact">2.1 Structural impact</a></li><li class="h3"><a href="#22-two-more-staleness-bugs-found-and-fixed-during-the-mandatory-full-re-read-both-predating-this-move">2.2 Two more staleness bugs found and fixed during the mandatory full re-read (both predating this move)</a></li><li class="h3"><a href="#23-artifact-conflicts">2.3 Artifact conflicts</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--verification-performed">Section 4 — Verification performed</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-20g";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

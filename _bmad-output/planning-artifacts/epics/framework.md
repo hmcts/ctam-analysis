@@ -140,17 +140,17 @@ Phase 0's dependencies are structured data, held in each epic's frontmatter (`re
 
 | Phase | Repo(s) | Depends on | Why |
 |---|---|---|---|
-| **1 — JOH** | `ctam-joh` | Phase 0 epics 0.2, 0.3 | needs auth + reference-data reads |
-| **2 — Absence** | `ctam-absence` | Phase 1, epic 0.5 | absence hangs off JOH records; acknowledgement emails need Notification |
+| **1 — JOH** | `ctam-joh` | Phase 0 epics 0.4, 0.5 | needs auth + reference-data reads |
+| **2 — Absence** | `ctam-absence` | Phase 1, epic 0.8 | absence hangs off JOH records; acknowledgement emails need Notification |
 | **3 — Vacancy** | `ctam-vacancy` | Phase 2 | vacancies are created from absences |
 | **4 — Booking** | `ctam-booking` | Phase 3 | bookings fill vacancies |
 | **5 — Sitting** | `ctam-sitting` | Phase 1 | sittings are generated from JOH working patterns — **parallelisable with 3 and 4** |
-| **6 — Payment** | `ctam-payment`, `ctam-payment-batch` | Phases 4 and 5, epic 0.5 | pays for bookings and sittings; the batch is the first `client_credentials` consumer |
+| **6 — Payment** | `ctam-payment`, `ctam-payment-batch` | Phases 4 and 5, epic 0.8 | pays for bookings and sittings; the batch is the first `client_credentials` consumer |
 | **7 — Itineraries** | `ctam-itinerary` | Phases 1–5 | a federated read model over everything above; owns no tables |
 | **8 — MI Feed** | `ctam-mi-feed` | Phase 7 | reporting over the read model; owns no tables |
-| **post-MVP — Admin UI** | `ctam-admin-ui` | Phase 0 epics 0.2, 0.3 | needs auth + reference data[^d10] |
+| **post-MVP — Admin UI** | `ctam-admin-ui` | Phase 0 epics 0.4, 0.5 | needs auth + reference data[^d10] |
 
-**Parallelism worth keeping in view:** epic 0.5 (Notification) needs only the estate, so it can run alongside 0.1/0.2; and Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in Phase 0 is close to a straight line.
+**Parallelism worth keeping in view:** epic 0.8 (Notification) needs only the estate, so it can run alongside 0.1/0.2/0.3/0.4; and Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in Phase 0 is close to a straight line.
 
 ## Phase 1 — JOH
 

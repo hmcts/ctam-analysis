@@ -289,13 +289,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>1 — JOH</strong></td>
 <td><code>ctam-joh</code></td>
-<td>Phase 0 epics 0.2, 0.3</td>
+<td>Phase 0 epics 0.4, 0.5</td>
 <td>needs auth + reference-data reads</td>
 </tr>
 <tr>
 <td><strong>2 — Absence</strong></td>
 <td><code>ctam-absence</code></td>
-<td>Phase 1, epic 0.5</td>
+<td>Phase 1, epic 0.8</td>
 <td>absence hangs off JOH records; acknowledgement emails need Notification</td>
 </tr>
 <tr>
@@ -319,7 +319,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>6 — Payment</strong></td>
 <td><code>ctam-payment</code>, <code>ctam-payment-batch</code></td>
-<td>Phases 4 and 5, epic 0.5</td>
+<td>Phases 4 and 5, epic 0.8</td>
 <td>pays for bookings and sittings; the batch is the first <code>client_credentials</code> consumer</td>
 </tr>
 <tr>
@@ -337,12 +337,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>post-MVP — Admin UI</strong></td>
 <td><code>ctam-admin-ui</code></td>
-<td>Phase 0 epics 0.2, 0.3</td>
+<td>Phase 0 epics 0.4, 0.5</td>
 <td>needs auth + reference data<a href="#fn15" class="footnote-ref" id="fnref15" role="doc-noteref"><sup>15</sup></a></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Parallelism worth keeping in view:</strong> epic 0.5 (Notification) needs only the estate, so it can run alongside 0.1/0.2; and Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in Phase 0 is close to a straight line.</p>
+<p><strong>Parallelism worth keeping in view:</strong> epic 0.8 (Notification) needs only the estate, so it can run alongside 0.1/0.2/0.3/0.4; and Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in Phase 0 is close to a straight line.</p>
 </div></details><details class="section" id="phase-1--joh"><summary><span class="section-title">Phase 1 — JOH</span></summary><div class="section-body">
 <h3 id="phase-1--area-joh-records--working-patterns">Phase 1 · Area: JOH Records &amp; Working Patterns</h3>
 <p><strong>Scope</strong>: <code>ctam-joh</code> backend service + <code>joh/</code> UI module in <code>ctam-ui</code>. JOH profile <strong>views</strong> composing tier-(a) <code>jo_*</code> data with <code>ctam-joh</code>'s CTAM-owned overlays keyed by <code>joh_id</code> → <code>ctam_joh_identities</code> (FR10 search/filter; FR11 view — the upstream person record is <code>jo_people</code>, no profile CRUD in CTAM). Working Patterns (None / Daily / Weekly) with target sit %, jurisdictional split (100% sum constraint), per-day work-type pattern — CTAM-owned operational state. Forward-sitting generation up to next 31st March from working pattern, preserving prior absences. Ticket overlays layered over upstream <code>jo_tickets</code> (FR15). Full-time / part-time status <strong>displayed from upstream</strong> <code>jo_contract_types</code> — conversions happen upstream and arrive at the next sync (FR14). Same-Region base-location switching as CTAM-owned overlay (cross-Region is out-of-system). Off-circuit / cross-Region JOH linking for booking purposes (e.g. tribunal panels with members from other regions). Demo: Journey <em>(stakeholder per-module demo of JOH management)</em>.</p>
