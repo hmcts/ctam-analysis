@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Epic 0.8: MRD reference data flows into CTAM via the weekly Excel ETL process — CTAM Pathfinder Documentation</title>
+<title>Epic 0.3: MRD reference data flows into CTAM via the weekly Excel ETL process — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,7 +88,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 
-<h1 id="epic-08-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process">Epic 0.8: MRD reference data flows into CTAM via the weekly Excel ETL process</h1>
+<h1 id="epic-03-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process">Epic 0.3: MRD reference data flows into CTAM via the weekly Excel ETL process</h1>
 <blockquote>
 <p><strong>Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):</strong> this epic carries the story previously numbered 0.1.4, renumbered 0.8.1. No AC content changed. <code>ctam-reference-data</code> itself is scaffolded in <strong><a href="epic-0.1-postgres-db-schema-design.html">Epic 0.1</a></strong>.</p>
 </blockquote>
@@ -102,9 +102,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 <p><strong>FRs covered:</strong> FR6 tier-(a) (writes follow the tier), FR7.</p>
 <p><strong>Key NFRs first exercised here:</strong> NFR16 (Key Vault), NFR24 (MRD MVP integration), NFR25–NFR28 (structured logs + Application Insights + probes, inherited from the scaffold).</p>
-<p><strong>Out of scope (explicitly):</strong> The JOH eLinks sync (Epic 0.7). MRD API integration (post-MVP — when MRD ships public APIs). Hand-editing of <code>mrd_*</code> data in CTAM (never, in any phase — corrections at source per FR6).</p>
+<p><strong>Out of scope (explicitly):</strong> The JOH eLinks sync (Epic 0.2). MRD API integration (post-MVP — when MRD ships public APIs). Hand-editing of <code>mrd_*</code> data in CTAM (never, in any phase — corrections at source per FR6).</p>
 <hr />
-<h2 id="story-081-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed">Story 0.8.1: MRD supplementary reference data is ingested from the weekly Excel feed</h2>
+<h2 id="story-031-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed">Story 0.3.1: MRD supplementary reference data is ingested from the weekly Excel feed</h2>
 <p>As a <strong>CTAM Pathfinder platform</strong> (and downstream consumers of JOH Specialisations), I want the MRD team's weekly Excel workbook ingested from an Azure Blob drop into the <code>mrd_*</code> tables, So that <strong>supplementary judicial reference data not present in JOH eLinks (notably JOH Specialisations) is available in CTAM</strong> (revised D3, NFR24) without waiting for MRD's public APIs.</p>
 <p><strong>Acceptance Criteria:</strong></p>
 <p><strong>Given</strong> a dedicated Azure storage account + Blob container exists for the MRD feed — provisioned via <strong>Terraform in this repo's <code>terraform/</code> directory</strong> (per AR53: <code>ctam-reference-data</code> is the first repo to need this resource; access for the MRD team or ops to drop the weekly workbook)<br/><strong>And</strong> the Liquibase changeset <code>db/changelog/002-init-mrd-tables.sql</code> creates <code>mrd_specialisms</code> (further <code>mrd_*</code> tables added as MRD entities enter scope) owned by <code>ctam_reference_data</code> with the same tier-(a) write protection as the <code>jo_*</code> tables (per AR49)<br/><strong>When</strong> the weekly workbook lands in the container<br/><strong>Then</strong> a <code>@Scheduled</code> task in <code>ctam-reference-data</code> detects it on its polling cycle (per AR47).</p>
@@ -119,10 +119,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Hand-editing of <code>mrd_*</code> data in CTAM (never, in any phase — tier (a) per FR6)</li>
 </ul>
 
-<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.8-mrd-reference-data-etl-process.md</code></p>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.3-mrd-reference-data-etl-process.md</code></p>
 </main>
 
-<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.8-mrd-reference-data-etl-process";</script>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.3-mrd-reference-data-etl-process";</script>
 <script src="../../nav.js"></script>
 <script>
 (function(){

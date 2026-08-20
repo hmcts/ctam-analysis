@@ -58,36 +58,36 @@ development_status:
   epic-0.1-retrospective: optional
 
   epic-0.2: backlog
-  0-2-1-scaffold-ctam-authorisation-service-from-the-hmcts-crime-springboot-template: backlog
-  0-2-2-user-can-authenticate-against-ctam-mock-auth-and-receive-a-jwt: backlog
-  0-2-3-ctam-authorisation-validates-jwts-and-resolves-identity-roles-jurisdiction-region-area-scope-read-only-api: backlog
-  0-2-4-scaffold-ctam-ui-repo-with-react-typescript-vite-gov-uk-base-auth-wrapper: backlog
-  0-2-5-user-signs-into-ctam-pathfinder-via-sso-and-lands-on-a-role-scoped-home-page: backlog
+  0-2-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api: backlog
   epic-0.2-retrospective: optional
 
   epic-0.3: backlog
-  0-3-1-tier-b-ctam-owned-reference-tables-seed-data-and-the-dba-maintenance-runbook: backlog
-  0-3-2-reference-data-read-only-rest-api-with-jurisdiction-filtering-versioning-openapi-rfc-9457-errors: backlog
+  0-3-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed: backlog
   epic-0.3-retrospective: optional
 
   epic-0.4: backlog
-  0-4-1-identity-seed-scripts-both-populations-bootstrap-verification-job-and-the-production-bootstrap-runbook: backlog
+  0-4-1-scaffold-ctam-authorisation-service-from-the-hmcts-crime-springboot-template: backlog
+  0-4-2-user-can-authenticate-against-ctam-mock-auth-and-receive-a-jwt: backlog
+  0-4-3-ctam-authorisation-validates-jwts-and-resolves-identity-roles-jurisdiction-region-area-scope-read-only-api: backlog
+  0-4-4-scaffold-ctam-ui-repo-with-react-typescript-vite-gov-uk-base-auth-wrapper: backlog
+  0-4-5-user-signs-into-ctam-pathfinder-via-sso-and-lands-on-a-role-scoped-home-page: backlog
   epic-0.4-retrospective: optional
 
   epic-0.5: backlog
-  0-5-1-scaffold-ctam-notification-service-delivery-log-table-smtp-integration: backlog
-  0-5-2-post-v1-notifications-send-endpoint-with-jwt-propagation-retry-semantics-delivery-logging-rfc-9457-errors: backlog
+  0-5-1-tier-b-ctam-owned-reference-tables-seed-data-and-the-dba-maintenance-runbook: backlog
+  0-5-2-reference-data-read-only-rest-api-with-jurisdiction-filtering-versioning-openapi-rfc-9457-errors: backlog
   epic-0.5-retrospective: optional
 
-  epic-0.6: in-progress
-  0-6-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0: done
-  0-6-2-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants: backlog
+  epic-0.6: backlog
+  0-6-1-identity-seed-scripts-both-populations-bootstrap-verification-job-and-the-production-bootstrap-runbook: backlog
   epic-0.6-retrospective: optional
 
   epic-0.7: backlog
-  0-7-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api: backlog
+  0-7-1-scaffold-ctam-notification-service-delivery-log-table-smtp-integration: backlog
+  0-7-2-post-v1-notifications-send-endpoint-with-jwt-propagation-retry-semantics-delivery-logging-rfc-9457-errors: backlog
   epic-0.7-retrospective: optional
 
-  epic-0.8: backlog
-  0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed: backlog
+  epic-0.8: in-progress
+  0-8-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0: done
+  0-8-2-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants: backlog
   epic-0.8-retrospective: optional

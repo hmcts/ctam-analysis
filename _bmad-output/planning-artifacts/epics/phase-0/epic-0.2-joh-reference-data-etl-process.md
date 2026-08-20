@@ -1,22 +1,22 @@
 ---
 type: 'Epic'
 description: 'User outcome: an in-process nightly ETL process pulls the JOH eLinks API and full-refresh-upserts the tier-(a) jo_* tables designed in Epic 0.1, so jo_people exists and is current — making JOH sign-in resolvable (FR1) and jurisdiction available without any legacy migration.'
-resource: 'epics/phase-0/epic-0.7-joh-reference-data-etl-process.html'
+resource: 'epics/phase-0/epic-0.2-joh-reference-data-etl-process.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-08-20'
 parent: 'epics/phase-0/index.md'
-epic: 0.7
+epic: 0.2
 title: 'JOH reference data flows into CTAM via the nightly eLinks ETL process'
 storyCount: 1
 repo: ctam-reference-data
 depends_on: [epic-0.1]                      # needs the tier-(a) schema + write protection to exist first
 ---
 
-# Epic 0.7: JOH reference data flows into CTAM via the nightly eLinks ETL process
+# Epic 0.2: JOH reference data flows into CTAM via the nightly eLinks ETL process
 
 > **Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):** this epic carries the story previously numbered 0.1.3, renumbered 0.7.1. No AC content changed. The schema this ETL process writes into is designed in **[Epic 0.1](epic-0.1-postgres-db-schema-design.md)**.
 
-**User outcome:** Judicial-holder reference data flows into CTAM Pathfinder from its upstream source of truth — the **JOH eLinks API** (15 `jo_*` entities, nightly) — so that `jo_people` exists and is current, `jo_jurisdictions` is available as the first-class jurisdiction dimension (D8), and judicial-holder reference data is authoritative in CTAM **without any legacy migration** (revised D3, NFR24). JOH sign-in (Epic 0.2) is impossible until `jo_people` — the identity-lookup target — is populated by this ETL process.
+**User outcome:** Judicial-holder reference data flows into CTAM Pathfinder from its upstream source of truth — the **JOH eLinks API** (15 `jo_*` entities, nightly) — so that `jo_people` exists and is current, `jo_jurisdictions` is available as the first-class jurisdiction dimension (D8), and judicial-holder reference data is authoritative in CTAM **without any legacy migration** (revised D3, NFR24). JOH sign-in (Epic 0.4) is impossible until `jo_people` — the identity-lookup target — is populated by this ETL process.
 
 **Hosting:** the ETL runs in-process inside `ctam-reference-data` — no separate `ctam-integrations` repo, no new deployable, no service principal (AR46).
 
@@ -29,11 +29,11 @@ depends_on: [epic-0.1]                      # needs the tier-(a) schema + write 
 
 **Key NFRs first exercised here:** NFR16 (Key Vault — the eLinks API credential), NFR24 (JOH eLinks MVP integration), NFR25–NFR28 (structured logs + Application Insights + probes, inherited from the scaffold).
 
-**Out of scope (explicitly):** The MRD ingestion (Epic 0.8). The tier-(a) schema and write-protection grants themselves (Epic 0.1, Story 0.1.2 — this epic only populates them). The read-only Reference Data API (Epic 0.3, Story 0.3.2). All authentication / authorisation / UI (Epic 0.2).
+**Out of scope (explicitly):** The MRD ingestion (Epic 0.3). The tier-(a) schema and write-protection grants themselves (Epic 0.1, Story 0.1.2 — this epic only populates them). The read-only Reference Data API (Epic 0.5, Story 0.5.2). All authentication / authorisation / UI (Epic 0.4).
 
 ---
 
-## Story 0.7.1: JOH reference data flows into CTAM nightly from the JOH eLinks API
+## Story 0.2.1: JOH reference data flows into CTAM nightly from the JOH eLinks API
 
 As a **CTAM Pathfinder platform** (and every downstream consumer of JOH identity and reference data),
 I want an in-process scheduled sync that pulls the JOH eLinks API nightly and refreshes the tier-(a) `jo_*` tables,
@@ -56,7 +56,7 @@ So that **`jo_people` exists and is current — making JOH sign-in resolvable (F
 **And** reference data is at most one sync cycle stale.
 
 **Given** the sync has run successfully at least once in dev,
-**When** `ctam-authorisation` (Epic 0.2, Story 0.2.3) looks up a seeded JOH email,
+**When** `ctam-authorisation` (Epic 0.4, Story 0.4.3) looks up a seeded JOH email,
 **Then** the lookup resolves against `jo_people` to a `personnel_number`, and via `ctam_joh_identities` to the CTAM JOH UUID,
 **And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).
 
@@ -68,9 +68,9 @@ So that **`jo_people` exists and is current — making JOH sign-in resolvable (F
 **References:** FR1 (identity lookup target), FR6 tier (a), FR7 (writes follow the tier); NFR16, NFR24, NFR25–NFR28; AR46, AR48, AR49; gaps.md G8.1; D3 (revised), D8, D9 (restructured).
 
 **Explicitly NOT in scope:**
-- MRD ingestion — Epic 0.8, Story 0.8.1
+- MRD ingestion — Epic 0.3, Story 0.3.1
 - The tier-(a) schema and write-protection grants — Epic 0.1, Story 0.1.2
-- The read-only REST API — Epic 0.3, Story 0.3.2
+- The read-only REST API — Epic 0.5, Story 0.5.2
 
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.

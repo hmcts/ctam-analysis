@@ -85,10 +85,10 @@ Build order is **structured data on each epic**, in its frontmatter:
 
 ```yaml
 epic: 0.1
-title: 'Upstream JOH/MRD reference data is ingested'
-storyCount: 4
+title: 'Postgres reference-data schema is designed and scaffolded'
+storyCount: 2
 repo: ctam-reference-data          # or a list: [ctam-authorisation, ctam-mock-auth, ctam-ui]
-depends_on: [epic-0.0, epic-0.6]   # epic ids, resolved against sprint-status.yaml
+depends_on: [epic-0.0, epic-0.8]   # epic ids, resolved against sprint-status.yaml
 ```
 
 Two fields, on the artefact that is already authored, parsed and version-controlled — and the artefact `bmad-sprint-planning` already reads.
@@ -100,7 +100,7 @@ Two fields, on the artefact that is already authored, parsed and version-control
 - **No duplication.** The story list, title, phase and decomposition state are already in the epic file and in `sprint-status.yaml`; a graph repeated all four.
 - **No second `bus_version` claim.** The graph asserted one; the real pin is each repo's submodule. Two claims is a drift risk, not a convenience.
 
-**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.5 (Notification) needs only the estate, so it can run alongside 0.1/0.2.
+**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.7 (Notification) needs only the estate, so it can run alongside 0.1/0.2/0.3/0.4.
 
 This is checked by `scripts/dispatch-preflight.sh <story-id>`, which is read-only and also confirms the story is still `backlog` and that no branch on the target remote already claims it (see *Multi-user coordination* below).
 
@@ -155,16 +155,16 @@ Canonical template, versioned with the bus so every repo gets the same one:
 
 ```markdown
 ---
-story_id: 0.8.1
-epic: epic-0.8-mrd-reference-data-etl-process
+story_id: 0.3.1
+epic: epic-0.3-mrd-reference-data-etl-process
 repo: ctam-reference-data
 bus_version: arch-v1.0            # the target repo's actual _arch pin, not an aspiration
 frs: [FR6, FR7]
 nfrs: [NFR24]
 depends_on_stories: [0.0.3]       # optional intra-graph prerequisites
-sprint_status_key: 0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
+sprint_status_key: 0-3-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
 ---
-# Story 0.8.1: <title>
+# Story 0.3.1: <title>
 Status: ready-for-dev
 ## Story                    (as a / I want / so that)
 ## Acceptance Criteria      (numbered; Gherkin inside an item — AC-3 must resolve to item 3)
