@@ -41,7 +41,8 @@ phaseName: 'Foundations'
 | [0.7](epic-0.7-user-populations-bootstrapped.md) | Both user populations are bootstrapped and verifiable against the IdP | 1 | 🟡 Planned |
 | [0.8](epic-0.8-system-dispatches-emails.md) | Notification service is scaffolded and contractually ready | 2 | 🟡 Planned |
 | [0.9](epic-0.9-context-bus-and-shared-baseline.md) | Context bus is published and the shared configuration baseline exists | 2 | 🟢 In progress |
-| **Total** | | **22 stories** | |
+| [0.10](epic-0.10-joh-elinks-api-contract-mock.md) | The JOH eLinks API contract is confirmed and mocked for CI-only integration testing | 1 | 🟡 Planned |
+| **Total** | | **23 stories** | |
 
 ## Epic summaries
 
@@ -127,6 +128,14 @@ phaseName: 'Foundations'
 
 → [Full epic with stories](epic-0.9-context-bus-and-shared-baseline.md)
 
+### Epic 0.10: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing (1 story)
+
+**User outcome:** The real JOH eLinks People API (v5) is confirmed — endpoints, auth, pagination, response shapes — via a reference mock, resolving the structural half of gaps.md G8.1, and reproduced as a contract-accurate CI-only fixture layer inside `ctam-reference-data` so Epic 0.2's eLinks sync integration-tests against a faithful target. Surfaced a new gap (G8.7): the real API has no `personnel_number` field (it returns `per_id`/`personal_code` instead) — recorded, not resolved, by this epic. New 2026-08-20, triggered by an external reference codebase becoming available, not a split of an existing epic. **Numbering note:** quoted as `"0.10"` in frontmatter — Phase 0's ten single-digit slots (0.0–0.9) are exhausted, and a bare `0.10` would parse as the YAML float `0.1`.
+
+**FRs covered:** none directly (contract-confirmation + CI test-infrastructure); supports FR1, NFR24
+
+→ [Full epic with stories](epic-0.10-joh-elinks-api-contract-mock.md)
+
 ## Phase 0 Epic Stories Summary
 
 | Epic | Stories | FRs covered | Phase 0 demo |
@@ -141,7 +150,8 @@ phaseName: 'Foundations'
 | 0.7 | 1 story (0.7.1) | FR1 (lookup data), FR4 (data layer), FR57 (flag bootstrap) | Seeded users across both populations verified against the IdP; Epic 0.4 sign-in works against them |
 | 0.8 | 2 stories (0.8.1–0.8.2) | FR9 | `POST /v1/notifications/send` works end-to-end via Postman against Mailpit |
 | 0.9 | 2 stories (0.9.1–0.9.2) | FR8; NFR16, NFR40 | A service repo pins `arch-v1.0` and resolves `_arch/`; a service role SELECTs from `ctam_configuration_values` and is refused a write |
-| **Total** | **17 stories** | | The nine demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate (Epic 0.0's 5 stories are the platform smoke-test that precedes this table, not counted here) |
+| 0.10 | 1 story (0.10.1) | supports FR1, NFR24 (no FR of its own) | CI proves the eLinks sync against a contract-accurate mock of the real JOH eLinks API — pagination, auth, error shapes, and change-feed semantics all covered |
+| **Total** | **18 stories** | | The ten demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate (Epic 0.0's 5 stories are the platform smoke-test that precedes this table, not counted here) |
 
 **Cross-cutting NFRs verified across Phase 0 stories:** NFR10 (TLS), NFR11 (data-at-rest), NFR12 (JWT propagation), NFR13 (authz enforcement incl. jurisdiction), NFR14 (no forbidden data), NFR15 (change trails per runbooks + delivery log), NFR16 (Key Vault incl. eLinks credential), NFR17–NFR19 (business UI WCAG — admin UI deferred), NFR20 (HMCTS IdP integration via mock), NFR22 (HMCTS email), NFR24 (JOH eLinks + MRD MVP integrations), NFR25–NFR28 (observability), NFR31 (Azure UK South), NFR39 (API-as-Product), NFR40 (per-service deployable), NFR42 (Postman collections).
 

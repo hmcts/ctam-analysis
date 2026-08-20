@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-20 (f) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-20-f">Sprint Change Proposal — 2026-08-20 (f)</h1>
+<p><strong>New Epic 0.10: the JOH eLinks API contract is confirmed and mocked for CI-only integration testing</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"create a epic for joh api. Use the following codebase as reference /Users/shivakumar/MOJ/ctam-jomockapi"</em>.</p>
+<p><strong>What the reference codebase is:</strong> <code>ctam-jomockapi</code> is a local Node.js mock of the <strong>real</strong> JOH eLinks People API (v5) — built from the real Swagger export (<code>Swagger UI.pdf</code>) and complete example payloads (<code>apiresponses.docx</code>), with reference-data fixtures loaded from <strong>real production reference-data extracts</strong> (<code>ReferenceData/*.csv|json</code>, dated 2026-06-01). This is direct evidence for something the architecture has flagged as unconfirmed since gap <strong>G8.1</strong> was first recorded: the JOH eLinks API contract.</p>
+<p><strong>What it confirms:</strong> the endpoint set (<code>/api/v5/people</code>, <code>/people/:id</code>, <code>/leavers</code>, <code>/deleted</code>, <code>/reference_data/:attribute_name[/:id]</code>, plus public <code>/</code> and <code>/healthcheck</code>), bearer-token auth (<code>401</code> on missing/malformed token), the pagination envelope (<code>current_page</code>/<code>more_pages</code>/<code>results_per_page</code>/<code>pages</code>/<code>results</code>), change-feed semantics (<code>updated_since</code>/<code>left_since</code>/<code>deleted_since</code>, required), and validation/404 error shapes — all of this was previously assumption, now confirmed.</p>
+<p><strong>What it refutes:</strong> the person record has <strong>no <code>personnel_number</code> field</strong>. The real API returns <code>per_id</code> (numeric) and <code>personal_code</code> (10-digit string). CTAM's architecture — <code>data-tables.md</code>, decision D9, <code>ctam_joh_identities</code>, <code>ctam_auth_users</code>, and the identity chain FR1 depends on — is built entirely around <code>personnel_number</code> as the natural key. This is a genuine, load-bearing discrepancy.</p>
+<p><strong>Clarified directly with the user before drafting:</strong></p>
+<ol type="1">
+<li><strong>Numbering</strong> — Phase 0 has used all ten single-digit epic slots (0.0–0.9). An eleventh epic as bare <code>0.10</code> would parse as the YAML float <code>0.1</code>, silently colliding with the schema-design epic. Confirmed: number it <strong>0.10</strong>, quoted as a string in frontmatter (<code>epic: "0.10"</code>) — verified safe against <code>dispatch-preflight.sh</code>, which matches epic ids purely as strings (<code>epic-${epic_num}</code>, glob-matched against filenames), never as parsed numbers.</li>
+<li><strong>The identity-field discrepancy</strong> — confirmed: <strong>flag it as a new tracked gap only; do not touch the schema.</strong> The natural-key reconciliation (which of <code>per_id</code>/<code>personal_code</code> CTAM should adopt, and the resulting rename sweep across <code>data-tables.md</code>/D9/three tables/five epics) is a separate, larger architectural decision, not made as part of this change.</li>
+</ol>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-epic-impact">2.1 Epic impact</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Epic 0.10 (new)</strong></td>
+<td><code>joh-elinks-api-contract-mock</code> — 1 story; <code>depends_on: [epic-0.1]</code> (needs the tier-(a) schema to exist for the mock's field mapping to be cross-checked against); lives inside <code>ctam-reference-data</code>'s test infrastructure, not a new repo or deployable</td>
+</tr>
+<tr>
+<td><strong>Epics 0.0–0.9</strong></td>
+<td><strong>Unaffected in substance.</strong> No existing epic's <code>depends_on</code>, stories, or ACs change. Epic 0.2 (JOH ETL) is not modified — this epic <em>supports</em> Epic 0.2's existing Story 0.2.1 promise of CI testing "against a WireMock/stub eLinks API," it doesn't restructure it</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22-story-impact">2.2 Story impact</h3>
+<p>One new story, <strong>0.10.1</strong>: builds the CI-only mock/fixture layer reproducing the confirmed contract (endpoints, auth, pagination, error shapes, change-feed semantics), cross-checks fixture volumes against the real production reference-data extracts this discovery is built from, and records the <code>personnel_number</code> mismatch as gap G8.7 with a grep-able <code>// TODO: gaps.md G8.7</code> marker in the sync's field-mapping code — without changing the schema.</p>
+<h3 id="23-artifact-conflicts">2.3 Artifact conflicts</h3>
+<p>New <code>epics/phase-0/epic-0.10-joh-elinks-api-contract-mock.md</code> · <code>architecture/gaps.md</code> (new <strong>G8.7</strong>; one-line cross-reference added to G8.1's existing body — its resolution-path text is otherwise untouched, per "leave gap history as record, add don't rewrite") · <code>epics/phase-0/index.md</code> (epic table, epic-summary block, stories-summary table, totals 10→11 epics / 22→23 stories) · <code>epics/fr-coverage-map.md</code> (NFR24 row gains a reference to Epic 0.10) · <code>scripts/python/build_html.py</code> <code>NAV</code> list · <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code> (new <code>epic-0.10</code> block) · a new <code>architecture/changelog.md</code> entry (v4.11) · <code>docs/</code> regenerated.</p>
+<p><strong>Not touched:</strong> <code>data-tables.md</code>, decision D9, <code>ctam_joh_identities</code>/<code>ctam_auth_users</code> schema, and every existing epic's story text that names <code>personnel_number</code> — per the explicit "don't touch the schema" direction. G8.7's resolution path names exactly what a future change would need to touch, so that work is scoped but not started.</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — no code exists for <code>ctam-reference-data</code> yet, and this epic's own deliverable is CI-only test infrastructure, never deployed.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment</strong> — add the new epic and the new gap as described. No PRD, architecture, or FR/NFR change (the epic supports existing FR1/NFR24 rather than adding new ones); no schema change (per explicit direction, deferred to a future decision tracked as G8.7). Effort: new-content authorship grounded in a concrete reference codebase, not a mechanical split; risk: low — additive only, nothing existing is restructured.</p>
+<hr />
+</div></details><details class="section" id="section-4--verification-performed"><summary><span class="section-title">Section 4 — Verification performed</span></summary><div class="section-body">
+<p>Same checklist as the prior renumbering SCPs, adapted for an addition rather than a renumber: every markdown link in <code>epics/phase-0/*.md</code> resolves to an existing file (including the new <code>epic-0.10-...</code> filename); <code>storyCount:</code> matches the actual <code>## Story</code> heading count; the story heading (<code>## Story 0.10.1</code>) matches the file's own <code>epic: "0.10"</code>; <code>depends_on: [epic-0.1]</code> is a real, existing epic; <code>scripts/build-html.sh</code> runs clean, and <code>epic-0.10</code>'s quoted frontmatter does not break either <code>build_html.py</code> (which never parses the <code>epic:</code> field — NAV entries are hardcoded) or <code>build_graph.py</code> (which sorts epic ids as strings, never as parsed floats).</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong> — a new epic plus a new tracked gap, no PRD/architecture/FR change, no schema change, no code exists yet.</p>
+<p><strong>Route:</strong> Developer agent (this session) implements directly. <strong>Escalation flagged, not routed:</strong> gap <strong>G8.7</strong> (the <code>personnel_number</code> → <code>per_id</code>/<code>personal_code</code> reconciliation) is a genuine architectural decision that needs Judicial Office input and a coordinated rename across <code>data-tables.md</code>, D9, and several epics — that follow-up work is <strong>not</strong> part of this change and should be picked up separately (PM/Architect involvement) once the real natural key is confirmed with the upstream team.</p>
+<p><strong>Success criteria:</strong> the verification checks in Section 4 pass; <code>git status</code> shows the new epic file, gap additions, and the small set of connective-file edits, with no unrelated changes; the published <code>docs/</code> site includes Epic 0.10 with no broken links.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-20f.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-epic-impact">2.1 Epic impact</a></li><li class="h3"><a href="#22-story-impact">2.2 Story impact</a></li><li class="h3"><a href="#23-artifact-conflicts">2.3 Artifact conflicts</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--verification-performed">Section 4 — Verification performed</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-20f";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

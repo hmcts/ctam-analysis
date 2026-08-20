@@ -95,3 +95,7 @@ development_status:
   0-9-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0: done
   0-9-2-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants: backlog
   epic-0.9-retrospective: optional
+
+  epic-0.10: backlog
+  0-10-1-the-elinks-sync-integration-tests-against-a-contract-accurate-ci-mock-of-the-real-joh-elinks-people-api: backlog
+  epic-0.10-retrospective: optional

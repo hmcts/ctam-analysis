@@ -270,6 +270,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Epic 0.7 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.7-user-populations-bootstrapped", False),
         ("Epic 0.8 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.8-system-dispatches-emails", False),
         ("Epic 0.9 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.9-context-bus-and-shared-baseline", False),
+        ("Epic 0.10 — JOH eLinks API contract confirmed + CI mock (1 story)", "epics/phase-0/epic-0.10-joh-elinks-api-contract-mock", False),
     ]),
 ]
 

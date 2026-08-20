@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.10: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+
+<h1 id="epic-010-the-joh-elinks-api-contract-is-confirmed-and-mocked-for-ci-only-integration-testing">Epic 0.10: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing</h1>
+<blockquote>
+<p><strong>New 2026-08-20, informed by an external reference codebase</strong> (<code>ctam-jomockapi</code>, a local Node.js mock of the real JOH eLinks People API v5, built from the real Swagger export and complete example payloads, seeded from real production reference-data extracts). This is not a split of an existing epic — it is new work triggered by that reference material becoming available. <strong>Numbering note:</strong> Phase 0 had used all ten single-digit slots (0.0–0.9); an eleventh epic as bare <code>0.10</code> would parse as the YAML float <code>0.1</code>, colliding with the schema-design epic. <code>epic: "0.10"</code> is quoted as a string in this file's frontmatter to avoid that — verified safe against <code>dispatch-preflight.sh</code>, which matches epic ids as strings (<code>epic-${epic_num}</code>, glob-matched against filenames), never as parsed numbers.</p>
+</blockquote>
+<p><strong>User outcome:</strong> The real JOH eLinks People API (v5) — endpoints, auth behaviour, pagination envelope, change-feed semantics, and response shapes — is confirmed (resolving the structural half of gaps.md <strong>G8.1</strong>, previously "unconfirmed") and reproduced as a <strong>contract-accurate, CI-only mock</strong>, seeded from real production reference-data extracts. Epic 0.2's eLinks sync (Story 0.2.1, which currently only promises testing "against a WireMock/stub eLinks API in CI" per AR52) gets a faithful target to integration-test against, rather than an ad-hoc hand-rolled stub. Building this mock surfaced a new, separately-tracked gap (<strong>G8.7</strong>): the real API's natural-key field does not match what CTAM's architecture assumed.</p>
+<p><strong>Hosting:</strong> lives inside <code>ctam-reference-data</code>'s own test infrastructure — a CI-only fixture/stub layer (WireMock mappings or an equivalent in-process fake), not a new deployable and not a new repo. This follows the same "no new surface for test-only infrastructure" principle already applied to the eLinks sync and MRD ingestion (both run in-process, no <code>ctam-integrations</code> repo) — the mock is a <strong>build artefact of the test suite</strong>, not a service anyone deploys.</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li>The real contract, confirmed: base path <code>/api/v5/...</code> (also mounted under <code>/elinks</code>, per the real Swagger doc's server field); bearer-token auth on every People/Reference Data endpoint (<code>401</code> on missing/malformed token); public <code>GET /</code> and <code>GET /api/v5/healthcheck</code></li>
+<li>Reference-data endpoints: <code>GET /api/v5/reference_data/:attribute_name</code> (list, <code>{results: [...]}</code>) and <code>GET /api/v5/reference_data/:attribute_name/:reference_id</code> (single, <code>{results: [item]}</code>) — covering all 11 <code>jo_*</code>-mapped attribute names (<code>appointment_titles</code>, <code>base_locations</code>, <code>contract_types</code>, <code>genders</code>, <code>judiciary_roles</code>, <code>jurisdictions</code>, <code>location_types</code>, <code>locations</code>, <code>ticket_categories</code>, <code>ticket_category_types</code>, <code>tickets</code>), including deprecated singular aliases</li>
+<li>People endpoints: <code>GET /api/v5/people/:id</code> (full profile, <code>?include_previous_appointments=true</code>) and <code>GET /api/v5/people</code> (change-feed, <strong>required</strong> <code>?updated_since=YYYY-MM-DD</code>, <code>per_page</code>/<code>page</code>) — active people return full profiles, <code>leaver</code>/<code>deleted</code> people return compact stub shapes mixed into the same <code>results</code> array</li>
+<li><code>GET /api/v5/leavers</code> (<strong>required</strong> <code>?left_since=</code>) and <code>GET /api/v5/deleted</code> (<strong>required</strong> <code>?deleted_since=</code>), same pagination shape</li>
+<li>Standard error envelopes confirmed: <code>400</code> <code>{"message": "Please correct the following validation errors and try again.", "errors": [...]}</code> for missing/invalid required params; <code>404</code> <code>{"message": "No person found for id &lt;id&gt;."}</code> / <code>{"message": "No reference data found for id &lt;id&gt;."}</code>; pagination envelope <code>{current_page, more_pages, results_per_page, pages, results}</code></li>
+<li>CI-only fixture data cross-checked against real production reference-data volumes (<code>locations</code>: 2000, <code>base_locations</code>: 1462, <code>appointment_titles</code>: 194, <code>judiciary_roles</code>: 164, <code>tickets</code>: 159, <code>ticket_categories</code>: 54; small fixed vocabularies — <code>genders</code>, <code>contract_types</code>, <code>location_types</code>, <code>ticket_category_types</code>, <code>jurisdictions</code> — kept at their real (small) size)</li>
+<li><strong>Gap G8.7 recorded, not resolved here:</strong> the real person record has no <code>personnel_number</code> field — it returns <code>per_id</code> (numeric) and <code>personal_code</code> (10-digit string) instead. This epic documents the discovery; reconciling CTAM's schema is a separate architectural decision (see gaps.md G8.7).</li>
+</ul>
+<p><strong>FRs covered:</strong> none directly — this is contract-confirmation and CI test-infrastructure work. <strong>Supports</strong> FR1 (identity-lookup target) and NFR24 (JOH eLinks MVP integration) by de-risking Epic 0.2's eLinks sync before it's built against real upstream data.</p>
+<p><strong>Key NFRs:</strong> NFR25–NFR28 (the mock's fixtures feed the same structured-logging/observability assertions Epic 0.2's CI already exercises) — otherwise this epic's NFR footprint is test-infrastructure, not runtime.</p>
+<p><strong>Out of scope (explicitly):</strong> Deciding the <code>personnel_number</code> → <code>per_id</code>/<code>personal_code</code> mapping (gaps.md G8.7 — a separate architectural decision, not made by this epic). Any change to <code>data-tables.md</code>, decision D9, or the schema in Epic 0.1/0.2/0.4/0.6/0.7. Standing up the mock as a deployed service or a new repo (it's CI-only, in-process test infrastructure). The MRD feed side of G8.1 (unrelated — MRD is a weekly Excel blob drop, not an API).</p>
+<hr />
+<h2 id="story-0101-the-elinks-sync-integration-tests-against-a-contract-accurate-ci-mock-of-the-real-joh-elinks-people-api">Story 0.10.1: The eLinks sync integration-tests against a contract-accurate CI mock of the real JOH eLinks People API</h2>
+<p>As the <strong>engineer building Epic 0.2's eLinks sync</strong> (and every future maintainer of that integration), I want <code>ctam-reference-data</code>'s CI suite to run against a mock that reproduces the real JOH eLinks People API (v5)'s endpoints, auth, pagination, and response shapes — not a hand-rolled stub that only covers the happy path the original developer thought of, So that <strong>the sync's field mapping, pagination handling, and error handling are proven against the real contract before the first live connection</strong>, and any future contract drift (a new field, a changed error shape) is caught by a fixture update, not a production incident.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the tier-(a) <code>jo_*</code> schema exists per Epic 0.1, Story 0.1.2<br/><strong>When</strong> the engineer builds the CI-only mock/fixture layer for the eLinks API<br/><strong>Then</strong> it exposes the confirmed endpoint set — <code>GET /api/v5/reference_data/:attribute_name</code> (+ <code>/:reference_id</code>), <code>GET /api/v5/people/:id</code>, <code>GET /api/v5/people</code>, <code>GET /api/v5/leavers</code>, <code>GET /api/v5/deleted</code>, plus public <code>GET /</code> and <code>GET /api/v5/healthcheck</code> — mounted at both the bare path and under <code>/elinks</code>, matching the real Swagger doc's server field<br/><strong>And</strong> every People/Reference Data route enforces bearer-token auth, returning <code>401 {"message": "Unauthorized. Invalid or missing token."}</code> on a missing or malformed <code>Authorization</code> header.</p>
+<p><strong>Given</strong> the mock is queried without required parameters<br/><strong>When</strong> <code>GET /api/v5/people</code>, <code>/leavers</code>, or <code>/deleted</code> is called without its required date parameter (<code>updated_since</code>, <code>left_since</code>, <code>deleted_since</code> respectively)<br/><strong>Then</strong> the response is <code>400</code> with the confirmed validation-error envelope: <code>{"message": "Please correct the following validation errors and try again.", "errors": [...]}</code><br/><strong>And</strong> the same envelope is returned for an invalid <code>reference_id</code> (non-numeric) or an unknown <code>attribute_name</code>.</p>
+<p><strong>Given</strong> the mock's change-feed and list endpoints are queried with valid parameters<br/><strong>When</strong> the eLinks sync's client code calls <code>GET /api/v5/people?updated_since=...&amp;per_page=...&amp;page=...</code><br/><strong>Then</strong> the response matches the confirmed pagination envelope <code>{results: [...], pagination: {current_page, more_pages, results_per_page, pages, results}}</code><br/><strong>And</strong> <code>results</code> mixes full-profile entries (active people) with compact <code>leaver</code>/<code>deleted</code> stub shapes, per the real change-feed semantics<br/><strong>And</strong> <code>GET /api/v5/people/:id</code> always returns a full profile (<code>include_previous_appointments=true</code> includes ended appointments in the same <code>appointments</code> array; there is no separate field for it)<br/><strong>And</strong> a deleted person's <code>GET /api/v5/people/:id</code> returns <code>404 {"message": "No person found for id &lt;id&gt;."}</code>.</p>
+<p><strong>Given</strong> the mock's fixture data<br/><strong>When</strong> CI seeds it<br/><strong>Then</strong> reference-data fixtures are cross-checked against the real production volumes this epic confirmed (<code>locations</code>: 2000, <code>base_locations</code>: 1462, <code>appointment_titles</code>: 194, <code>judiciary_roles</code>: 164, <code>tickets</code>: 159, <code>ticket_categories</code>: 54; small fixed vocabularies kept at real size)<br/><strong>And</strong> generated people fixtures are internally consistent (appointments/judiciary-roles/authorisations join against the same reference-data fixtures, not independently randomised).</p>
+<p><strong>Given</strong> the mock's person-record shape is now confirmed<br/><strong>When</strong> the engineer compares it against <code>data-tables.md</code>'s <code>jo_people.personnel_number</code> assumption<br/><strong>Then</strong> the mismatch is recorded as gaps.md <strong>G8.7</strong> (no schema change made here — that is a separate architectural decision)<br/><strong>And</strong> the eLinks sync's field-mapping code is written against the confirmed real fields (<code>per_id</code>, <code>personal_code</code>) with an explicit <code>// TODO: gaps.md G8.7</code> marker wherever <code>personnel_number</code> is currently assumed to be the natural key, so the eventual reconciliation is a grep-able, bounded change.</p>
+<p><strong>References:</strong> FR1 (supports, does not deliver), NFR24, NFR25–NFR28; gaps.md G8.1 (structural confirmation), G8.7 (natural-key mismatch, new); D9<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> (the identity model this epic's finding bears on, unchanged here).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Resolving G8.7 (the <code>personnel_number</code> mapping decision) — architectural decision, not made by this story</li>
+<li>The MRD feed side of G8.1</li>
+<li>Deploying the mock as a real service (CI-only, in-process)</li>
+</ul>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration. <strong>Note (2026-08-20, gaps.md G8.7):</strong> the real eLinks API has no <code>personnel_number</code> field — this decision's natural-key name needs reconciling against the confirmed real fields (<code>per_id</code>, <code>personal_code</code>); not yet done.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.10-joh-elinks-api-contract-mock.md</code></p>
+</main>
+
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.10-joh-elinks-api-contract-mock";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
