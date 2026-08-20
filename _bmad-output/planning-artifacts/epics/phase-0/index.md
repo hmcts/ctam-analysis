@@ -37,7 +37,8 @@ phaseName: 'Foundations'
 | [0.3](epic-0.3-reference-data-read-only-api.md) | Reference data is served read-only via a versioned, jurisdiction-filtered API | 2 | 🟡 Planned |
 | [0.4](epic-0.4-user-populations-bootstrapped.md) | Both user populations are bootstrapped and verifiable against the IdP | 1 | 🟡 Planned |
 | [0.5](epic-0.5-system-dispatches-emails.md) | Notification service is scaffolded and contractually ready | 2 | 🟡 Planned |
-| **Total** | | **19 stories** | |
+| [0.6](epic-0.6-context-bus-and-shared-baseline.md) | Context bus is published and the shared configuration baseline exists | 2 | 🟢 In progress |
+| **Total** | | **21 stories** | |
 
 ## Epic summaries
 
@@ -89,6 +90,16 @@ phaseName: 'Foundations'
 
 → [Full epic with stories](epic-0.5-system-dispatches-emails.md)
 
+### Epic 0.6: Context bus is published and the shared configuration baseline exists (2 stories)
+
+**User outcome:** every service repo can pin one published, versioned copy of the architecture (`arch-vN`, consumed as the `_arch/` submodule), and every service can read cross-service policy values from the shared `ctam_configuration_values` table it does not own. Both exist before the first domain service is scaffolded.
+
+**Runs between 0.0 and 0.1** — the number is not the order; see `depends_on` in its frontmatter. Promoted from the `arch-baseline` dispatch-graph node (SCP 2026-08-19d) so BMad tracks it.
+
+**FRs covered:** FR8
+
+→ [Full epic with stories](epic-0.6-context-bus-and-shared-baseline.md)
+
 ## Phase 0 Epic Stories Summary
 
 | Epic | Stories | FRs covered | Phase 0 demo |
@@ -98,6 +109,7 @@ phaseName: 'Foundations'
 | 0.2 | 5 stories (0.2.1–0.2.5) | FR1, FR2, FR3, FR55, FR56, FR57 (activation surface), FR58 | User (either population) signs in via mock-auth → `ctam-authorisation` resolves identity/roles/jurisdiction → role-scoped Home renders |
 | 0.3 | 2 stories (0.3.1–0.3.2) | FR6 (tier b + read API), FR7, FR58 | Jurisdiction-filtered Reference Data API serves both tiers read-only |
 | 0.4 | 1 story (0.4.1) | FR1 (lookup data), FR4 (data layer), FR57 (flag bootstrap) | Seeded users across both populations verified against the IdP; Epic 0.2 sign-in works against them |
+| 0.6 | 2 stories (0.6.1–0.6.2) | FR8; NFR16, NFR40 | A service repo pins `arch-v1.0` and resolves `_arch/`; a service role SELECTs from `ctam_configuration_values` and is refused a write |
 | 0.5 | 2 stories (0.5.1–0.5.2) | FR9 | `POST /v1/notifications/send` works end-to-end via Postman against Mailpit |
 | **Total** | **19 stories** | | The six demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate |
 

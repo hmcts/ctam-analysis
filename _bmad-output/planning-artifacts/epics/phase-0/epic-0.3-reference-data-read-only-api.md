@@ -8,6 +8,8 @@ parent: 'epics/phase-0/index.md'
 epic: 0.3
 title: 'Reference data is served read-only via a versioned, jurisdiction-filtered API'
 storyCount: 2
+repo: ctam-reference-data
+depends_on: [epic-0.1, epic-0.2]            # read API is downstream of auth (JWTFilter + authz/check, D8)
 ---
 
 # Epic 0.3: Reference data is served read-only via a versioned, jurisdiction-filtered API

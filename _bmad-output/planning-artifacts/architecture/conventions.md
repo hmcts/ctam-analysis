@@ -271,7 +271,8 @@ The MVP-relevant case is the **payment-processing batch** (`ctam-payment-batch`)
 - Contract tests (Pact or equivalent): per-consumer / per-provider, run on every commit.
 - E2E tests (UI): Playwright, one suite per phase, run as a phase gate.
 - **Manual UAT — incumbent-vs-CTAM Pathfinder behavioural parity (FR60 / NFR41, reframed 2026-06-10[^d11][^d5]; wave sequence retargeted 2026-08-07[^d13]):** scripted walkthroughs maintained under `docs/uat/` per service. Performed by jurisdiction-incumbent-experienced users — `[ET-INCUMBENT-TBD]`-experienced (ET roles *provisional* pending the ET as-is pack, G8.5) for **ET wave 1**; ListAssist-experienced (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for **SSCS wave 2**; APEX-experienced (RSU, Court, Judge, Judges' Clerks, Finance/Payment Authoriser, MI) for **Courts waves 3+** — opening the incumbent side-by-side with CTAM Pathfinder, comparing behaviour for the workflows + edge cases the script enumerates, and signing off per role per wave. Sign-off is the wave-cutover gate; there is no automated incumbent-comparison harness in CI. *(The wave-1 UAT panel cannot be constituted until G8.4 names ET's scheduling incumbent.)*
-- **Coverage target:** behaviour coverage, not line coverage. PRs include behaviour-test rationale, not coverage stats.
+- **Coverage target:** behaviour coverage, not line coverage — PRs include behaviour-test rationale, not coverage stats. **Amended 2026-08-19 (SCP 2026-08-19):** behaviour coverage remains the goal, and it is now backed by deterministic floors on `service` + `domain` packages — **JaCoCo ≥ 85% line / ≥ 75% branch** and a **PIT mutation score ≥ 70%** (`config`, `dto`, `*Application`, generated sources and changelogs excluded). The mutation score is the load-bearing number: line coverage can be manufactured by executing code without asserting on it, whereas a surviving mutant names a statement the tests do not actually check. Both are floors, not targets — a threshold met by a test that asserts nothing is a rule breach, not a pass.
+- **Delivery discipline (new 2026-08-19):** implementation follows the **agent delivery rules** published on the context bus at `ctam-architecture/agent-rules/` — evidence-based red-green-refactor (no production edit without a test seen failing on an assertion), hard modularity limits, a cite-or-ask uncertainty protocol, and a single pre-handoff quality gate. Binding on AI agents and human developers alike; see SCP 2026-08-19.
 
 **Logging conventions (per HMCTS Crime template):**
 
@@ -286,7 +287,7 @@ The MVP-relevant case is the **payment-processing batch** (`ctam-payment-batch`)
 
 **Git conventions:**
 
-- Branch naming: `feature/{ticket-id}-{short-description}`, `bugfix/{ticket-id}-{short-description}`, `chore/{short-description}`.
+- Branch naming: **`story/{story-id}`** for dispatched story work — e.g. `story/0.1.4` *(amended 2026-08-20, SCP 2026-08-20)*. **One branch per story, created at dispatch and carried through to the PR** — the dispatcher creates it and lands the story packet on it, and the implementing session continues on the same branch rather than opening a second one. The branch is therefore also the **claim** on that story (`scripts/dispatch-preflight.sh` checks the target remote for it), which is why there is no `owner` field anywhere. For work that is not a dispatched story: `bugfix/{ticket-id}-{short-description}`, `chore/{short-description}`, `feature/{ticket-id}-{short-description}`.
 - Commit messages: imperative present tense, ≤ 72 chars subject. Conventional Commits prefix (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`) per HMCTS conventions.
 - PR target: `main`. Trunk-based development; release branches per region/wave only if needed.
 
@@ -307,6 +308,7 @@ The MVP-relevant case is the **payment-processing batch** (`ctam-payment-batch`)
 - Emit JaCoCo coverage reports and CycloneDX SBOM as part of CI artefacts.
 - Provide a Helm chart for AKS deployment.
 - Provide a Postman collection per phase that exercises the service's endpoints.
+- Install the **agent-rules enforcement pack** from the context bus (`ctam-architecture/agent-rules/enforcement/`) at scaffold time: ArchUnit fitness functions, the CTAM Checkstyle config, the Gradle quality gate (Spotless + Checkstyle + JaCoCo floor + PIT), the Spectral ruleset, `scripts/verify.sh`, and the target-repo `CLAUDE.md` + hooks. See `agent-rules/enforcement/README.md` for the rule → enforcer map.
 - Include unit tests, integration tests (Testcontainers PostgreSQL), and contract tests. *(Domain services additionally maintain a manual UAT script under `docs/uat/` per FR60 / NFR41 revised; this is documentation owned by the service, not a CI gate.)*
 
 **Pattern enforcement mechanisms:**
@@ -319,6 +321,9 @@ The MVP-relevant case is the **payment-processing batch** (`ctam-payment-batch`)
 | **Consumer-driven contract tests (Pact)** | Verify API conventions are honoured between consumers and providers. |
 | **OpenAPI lint (Spectral)** | OpenAPI specs validated against an CTAM Pathfinder-specific ruleset (consistent error envelope, versioning prefix, RFC 9457 references). |
 | **JaCoCo + CycloneDX** | Code coverage reports + SBOM generation per HMCTS Crime template. Build emits artefacts for security/audit review. |
+| **JaCoCo coverage floor** *(2026-08-19)* | Build fails below 85% line / 75% branch on `service` + `domain` packages. |
+| **PIT mutation threshold** *(2026-08-19)* | Build fails below a 70% mutation score on `service` + `domain`. The check that a test would actually catch a regression. |
+| **Agent delivery rules** *(2026-08-19)* | `ctam-architecture/agent-rules/` — TDD evidence, modularity limits, uncertainty protocol, definition of done. Enforced by the pack above plus review; rule → enforcer map in `agent-rules/enforcement/README.md`. |
 
 **When patterns evolve:**
 

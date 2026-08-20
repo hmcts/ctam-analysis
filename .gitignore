@@ -1,9 +1,16 @@
 .claude/skills/bmad-*
 build/
+# The installer owns _bmad/ and regenerates it, so it stays out of the repo — EXCEPT
+# _bmad/custom/, which BMad designates as the team-owned, committed layer (see the header of
+# _bmad/config.toml). That is where this project's BMad skill overrides live, so it must be
+# shared. Note both negations are required: re-including only the directory is not enough,
+# because `_bmad/*` would still exclude its contents.
 _bmad/*
+!_bmad/custom/
+!_bmad/custom/**
 .venv/
 .tmp/
 
 .DS_Store
 */.DS_Store
-scripts/python/__pycache__/
+__pycache__/

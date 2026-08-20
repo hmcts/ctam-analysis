@@ -8,6 +8,8 @@ parent: 'epics/phase-0/index.md'
 epic: 0.0
 title: 'Platform estate is provisioned, verifiable, and CNP-compliant'
 storyCount: 5
+repo: ctam-shared-infrastructure
+depends_on: []                              # nothing precedes the estate
 ---
 
 # Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant

@@ -400,7 +400,8 @@ return &lt;ActualContent data={data} /&gt;;</code></pre></li>
 <li>Contract tests (Pact or equivalent): per-consumer / per-provider, run on every commit.</li>
 <li>E2E tests (UI): Playwright, one suite per phase, run as a phase gate.</li>
 <li><strong>Manual UAT — incumbent-vs-CTAM Pathfinder behavioural parity (FR60 / NFR41, reframed 2026-06-10<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>; wave sequence retargeted 2026-08-07<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>):</strong> scripted walkthroughs maintained under <code>docs/uat/</code> per service. Performed by jurisdiction-incumbent-experienced users — <code>[ET-INCUMBENT-TBD]</code>-experienced (ET roles <em>provisional</em> pending the ET as-is pack, G8.5) for <strong>ET wave 1</strong>; ListAssist-experienced (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for <strong>SSCS wave 2</strong>; APEX-experienced (RSU, Court, Judge, Judges' Clerks, Finance/Payment Authoriser, MI) for <strong>Courts waves 3+</strong> — opening the incumbent side-by-side with CTAM Pathfinder, comparing behaviour for the workflows + edge cases the script enumerates, and signing off per role per wave. Sign-off is the wave-cutover gate; there is no automated incumbent-comparison harness in CI. <em>(The wave-1 UAT panel cannot be constituted until G8.4 names ET's scheduling incumbent.)</em></li>
-<li><strong>Coverage target:</strong> behaviour coverage, not line coverage. PRs include behaviour-test rationale, not coverage stats.</li>
+<li><strong>Coverage target:</strong> behaviour coverage, not line coverage — PRs include behaviour-test rationale, not coverage stats. <strong>Amended 2026-08-19 (SCP 2026-08-19):</strong> behaviour coverage remains the goal, and it is now backed by deterministic floors on <code>service</code> + <code>domain</code> packages — <strong>JaCoCo ≥ 85% line / ≥ 75% branch</strong> and a <strong>PIT mutation score ≥ 70%</strong> (<code>config</code>, <code>dto</code>, <code>*Application</code>, generated sources and changelogs excluded). The mutation score is the load-bearing number: line coverage can be manufactured by executing code without asserting on it, whereas a surviving mutant names a statement the tests do not actually check. Both are floors, not targets — a threshold met by a test that asserts nothing is a rule breach, not a pass.</li>
+<li><strong>Delivery discipline (new 2026-08-19):</strong> implementation follows the <strong>agent delivery rules</strong> published on the context bus at <code>ctam-architecture/agent-rules/</code> — evidence-based red-green-refactor (no production edit without a test seen failing on an assertion), hard modularity limits, a cite-or-ask uncertainty protocol, and a single pre-handoff quality gate. Binding on AI agents and human developers alike; see SCP 2026-08-19.</li>
 </ul>
 <p><strong>Logging conventions (per HMCTS Crime template):</strong></p>
 <ul>
@@ -417,7 +418,7 @@ return &lt;ActualContent data={data} /&gt;;</code></pre></li>
 </ul>
 <p><strong>Git conventions:</strong></p>
 <ul>
-<li>Branch naming: <code>feature/{ticket-id}-{short-description}</code>, <code>bugfix/{ticket-id}-{short-description}</code>, <code>chore/{short-description}</code>.</li>
+<li>Branch naming: <strong><code>story/{story-id}</code></strong> for dispatched story work — e.g. <code>story/0.1.4</code> <em>(amended 2026-08-20, SCP 2026-08-20)</em>. <strong>One branch per story, created at dispatch and carried through to the PR</strong> — the dispatcher creates it and lands the story packet on it, and the implementing session continues on the same branch rather than opening a second one. The branch is therefore also the <strong>claim</strong> on that story (<code>scripts/dispatch-preflight.sh</code> checks the target remote for it), which is why there is no <code>owner</code> field anywhere. For work that is not a dispatched story: <code>bugfix/{ticket-id}-{short-description}</code>, <code>chore/{short-description}</code>, <code>feature/{ticket-id}-{short-description}</code>.</li>
 <li>Commit messages: imperative present tense, ≤ 72 chars subject. Conventional Commits prefix (<code>feat:</code>, <code>fix:</code>, <code>docs:</code>, <code>refactor:</code>, <code>test:</code>, <code>chore:</code>) per HMCTS conventions.</li>
 <li>PR target: <code>main</code>. Trunk-based development; release branches per region/wave only if needed.</li>
 </ul>
@@ -437,6 +438,7 @@ return &lt;ActualContent data={data} /&gt;;</code></pre></li>
 <li>Emit JaCoCo coverage reports and CycloneDX SBOM as part of CI artefacts.</li>
 <li>Provide a Helm chart for AKS deployment.</li>
 <li>Provide a Postman collection per phase that exercises the service's endpoints.</li>
+<li>Install the <strong>agent-rules enforcement pack</strong> from the context bus (<code>ctam-architecture/agent-rules/enforcement/</code>) at scaffold time: ArchUnit fitness functions, the CTAM Checkstyle config, the Gradle quality gate (Spotless + Checkstyle + JaCoCo floor + PIT), the Spectral ruleset, <code>scripts/verify.sh</code>, and the target-repo <code>CLAUDE.md</code> + hooks. See <code>agent-rules/enforcement/README.md</code> for the rule → enforcer map.</li>
 <li>Include unit tests, integration tests (Testcontainers PostgreSQL), and contract tests. <em>(Domain services additionally maintain a manual UAT script under <code>docs/uat/</code> per FR60 / NFR41 revised; this is documentation owned by the service, not a CI gate.)</em></li>
 </ul>
 <p><strong>Pattern enforcement mechanisms:</strong></p>
@@ -471,6 +473,18 @@ return &lt;ActualContent data={data} /&gt;;</code></pre></li>
 <tr>
 <td><strong>JaCoCo + CycloneDX</strong></td>
 <td>Code coverage reports + SBOM generation per HMCTS Crime template. Build emits artefacts for security/audit review.</td>
+</tr>
+<tr>
+<td><strong>JaCoCo coverage floor</strong> <em>(2026-08-19)</em></td>
+<td>Build fails below 85% line / 75% branch on <code>service</code> + <code>domain</code> packages.</td>
+</tr>
+<tr>
+<td><strong>PIT mutation threshold</strong> <em>(2026-08-19)</em></td>
+<td>Build fails below a 70% mutation score on <code>service</code> + <code>domain</code>. The check that a test would actually catch a regression.</td>
+</tr>
+<tr>
+<td><strong>Agent delivery rules</strong> <em>(2026-08-19)</em></td>
+<td><code>ctam-architecture/agent-rules/</code> — TDD evidence, modularity limits, uncertainty protocol, definition of done. Enforced by the pack above plus review; rule → enforcer map in <code>agent-rules/enforcement/README.md</code>.</td>
 </tr>
 </tbody>
 </table>

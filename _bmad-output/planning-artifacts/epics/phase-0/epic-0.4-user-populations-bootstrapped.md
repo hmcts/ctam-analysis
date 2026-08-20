@@ -8,6 +8,8 @@ parent: 'epics/phase-0/index.md'
 epic: 0.4
 title: 'Both user populations are bootstrapped and verifiable against the IdP'
 storyCount: 1
+repo: ctam-architecture
+depends_on: [epic-0.1, epic-0.2]            # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster
 ---
 
 # Epic 0.4: Both user populations are bootstrapped and verifiable against the IdP

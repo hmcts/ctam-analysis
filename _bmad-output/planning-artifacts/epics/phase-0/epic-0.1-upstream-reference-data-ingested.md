@@ -8,6 +8,8 @@ parent: 'epics/phase-0/index.md'
 epic: 0.1
 title: 'Upstream JOH/MRD reference data is ingested'
 storyCount: 4
+repo: ctam-reference-data
+depends_on: [epic-0.0, epic-0.6]            # needs the estate + the shared config baseline (was arch-baseline)
 ---
 
 # Epic 0.1: Upstream JOH/MRD reference data is ingested

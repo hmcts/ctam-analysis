@@ -99,6 +99,8 @@ date: '2026-06-11'
 | [`./architecture/assumptions.md`](./architecture/assumptions.md) | Assumptions register — A1–A37 with type and verification path |
 | [`./architecture/changelog.md`](./architecture/changelog.md) | Version history v1.0 → v2.6 with pre-v1.8 anchor → current location redirect table |
 
+**Published to the context bus (not a sibling shard):** the **agent delivery rules** live at `ctam-architecture/agent-rules/` — the *how we work* contract for the twelve Java execution units (evidence-based TDD, hard modularity limits, cite-or-ask uncertainty protocol, definition of done) plus a runnable enforcement pack (ArchUnit, Checkstyle, Gradle quality gate, Spectral, `verify.sh`, target-repo `CLAUDE.md` and hooks). Authored on the bus rather than here so there is **one** authored copy that every service repo consumes by pinned submodule, per [`./architecture/delivery-operating-model.md`](./architecture/delivery-operating-model.md). See [`./sprint-change-proposal-2026-08-19.md`](./sprint-change-proposal-2026-08-19.md).
+
 Refactor history: the single-file `architecture.md` was split into the index + sibling structure above in v1.8 (Strategy B).
 
 ## Project Context Analysis
