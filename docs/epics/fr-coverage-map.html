@@ -90,7 +90,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="fr-coverage-map">FR Coverage Map</h1>
 <p>This is the canonical FR-to-Epic mapping. It is updated each time a phase advances from framework to concrete epics + stories. The Phase × Area framework in <a href="framework.html">framework.md</a> is the architectural spine; this map is the implementation index.</p>
-<details class="section" id="phase-0-concrete-epics-0008"><summary><span class="section-title">Phase 0 (concrete epics 0.0–0.8)</span></summary><div class="section-body">
+<details class="section" id="phase-0-concrete-epics-0009"><summary><span class="section-title">Phase 0 (concrete epics 0.0–0.9)</span></summary><div class="section-body">
 <table>
 <thead>
 <tr>
@@ -133,13 +133,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR6</strong></td>
-<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.2 (tables) + <a href="phase-0/epic-0.2-joh-reference-data-etl-process.html">Epic 0.2</a> Story 0.2.1 (eLinks sync) + <a href="phase-0/epic-0.3-mrd-reference-data-etl-process.html">Epic 0.3</a> Story 0.3.1 (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-0/epic-0.5-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.1 (tables + seed + DBA runbook). Read API over both tiers: Story 0.5.2.</td>
+<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.2 (tables) + <a href="phase-0/epic-0.2-joh-reference-data-etl-process.html">Epic 0.2</a> Story 0.2.1 (eLinks sync) + <a href="phase-0/epic-0.3-mrd-reference-data-etl-process.html">Epic 0.3</a> Story 0.3.1 (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-0/epic-0.5-joh-reference-data-read-api.html">Epic 0.5</a> Story 0.5.1 (tables + seed + DBA runbook). Read API: tier (b) + JOH tier (a), Story 0.5.2; MRD tier (a) via <a href="phase-0/epic-0.9-mrd-reference-data-read-api.html">Epic 0.9</a> Story 0.9.1.</td>
 <td><strong>YES — tier-(b) RSU maintenance UI</strong> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Tier (a) never gets a CTAM write surface in any phase.</td>
 <td>Two ownership tiers in separate tables preserve lineage</td>
 </tr>
 <tr>
 <td>FR7</td>
-<td><a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.2 (tier-(a) grants) + <a href="phase-0/epic-0.5-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.1 (tier-(b) grants + pattern complete)</td>
+<td><a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.2 (tier-(a) grants) + <a href="phase-0/epic-0.5-joh-reference-data-read-api.html">Epic 0.5</a> Story 0.5.1 (tier-(b) grants + pattern complete) + <a href="phase-0/epic-0.9-mrd-reference-data-read-api.html">Epic 0.9</a> Story 0.9.1 (MRD read surface)</td>
 <td>—</td>
 <td>Direct SQL via SELECT grants; <strong>writes follow the tier</strong> (ingestion for tier (a); DBA SQL for tier (b))</td>
 </tr>
@@ -175,7 +175,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR58</strong></td>
-<td><a href="phase-0/epic-0.4-user-authenticates.html">Epic 0.4</a> Story 0.4.3 (Authorisation read API — first exercise) + <a href="phase-0/epic-0.5-reference-data-read-only-api.html">Epic 0.5</a> Story 0.5.2 (Reference Data read API) + every service story</td>
+<td><a href="phase-0/epic-0.4-user-authenticates.html">Epic 0.4</a> Story 0.4.3 (Authorisation read API — first exercise) + <a href="phase-0/epic-0.5-joh-reference-data-read-api.html">Epic 0.5</a> Story 0.5.2 (Reference Data read API) + <a href="phase-0/epic-0.9-mrd-reference-data-read-api.html">Epic 0.9</a> Story 0.9.1 (extends the same spec) + every service story</td>
 <td>—</td>
 <td>API-as-Product read-side standards</td>
 </tr>
@@ -343,7 +343,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/fr-coverage-map.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-concrete-epics-0008">Phase 0 (concrete epics 0.0–0.8)</a></li><li><a href="#phases-19-fr10fr54-fr60--pending">Phases 1–9+ (FR10–FR54, FR60) — pending</a></li><li><a href="#post-mvp-roadmap-consolidated">Post-MVP roadmap (consolidated)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-concrete-epics-0009">Phase 0 (concrete epics 0.0–0.9)</a></li><li><a href="#phases-19-fr10fr54-fr60--pending">Phases 1–9+ (FR10–FR54, FR60) — pending</a></li><li><a href="#post-mvp-roadmap-consolidated">Post-MVP roadmap (consolidated)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../";window.__PAGE__="epics/fr-coverage-map";</script>
 <script src="../nav.js"></script>
 <script>

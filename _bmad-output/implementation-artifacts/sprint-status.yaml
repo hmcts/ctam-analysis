@@ -91,3 +91,7 @@ development_status:
   0-8-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0: done
   0-8-2-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants: backlog
   epic-0.8-retrospective: optional
+
+  epic-0.9: backlog
+  0-9-1-mrd-reference-data-joh-specialisms-is-exposed-via-the-reference-data-read-only-api: backlog
+  epic-0.9-retrospective: optional

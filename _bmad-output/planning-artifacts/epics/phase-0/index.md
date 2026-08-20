@@ -36,11 +36,12 @@ phaseName: 'Foundations'
 | [0.2](epic-0.2-joh-reference-data-etl-process.md) | JOH reference data flows into CTAM via the nightly eLinks ETL process | 1 | 🟡 Planned |
 | [0.3](epic-0.3-mrd-reference-data-etl-process.md) | MRD reference data flows into CTAM via the weekly Excel ETL process | 1 | 🟡 Planned |
 | [0.4](epic-0.4-user-authenticates.md) | User authenticates and lands on a role-scoped Home page | 5 | 🟡 Planned |
-| [0.5](epic-0.5-reference-data-read-only-api.md) | Reference data is served read-only via a versioned, jurisdiction-filtered API | 2 | 🟡 Planned |
+| [0.5](epic-0.5-joh-reference-data-read-api.md) | JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API | 2 | 🟡 Planned |
 | [0.6](epic-0.6-user-populations-bootstrapped.md) | Both user populations are bootstrapped and verifiable against the IdP | 1 | 🟡 Planned |
 | [0.7](epic-0.7-system-dispatches-emails.md) | Notification service is scaffolded and contractually ready | 2 | 🟡 Planned |
 | [0.8](epic-0.8-context-bus-and-shared-baseline.md) | Context bus is published and the shared configuration baseline exists | 2 | 🟢 In progress |
-| **Total** | | **21 stories** | |
+| [0.9](epic-0.9-mrd-reference-data-read-api.md) | MRD reference data is served read-only via the Reference Data API | 1 | 🟡 Planned |
+| **Total** | | **22 stories** | |
 
 ## Epic summaries
 
@@ -84,13 +85,13 @@ phaseName: 'Foundations'
 
 → [Full epic with stories](epic-0.4-user-authenticates.md)
 
-### Epic 0.5: Reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)
+### Epic 0.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)
 
-**User outcome:** Tier-(b) CTAM-owned reference data (regions, offices, calendar, operational vocabularies) is created, seeded, and DBA-maintained per runbook[^d10] (Story 0.5.1); all reference data — both tiers — is served by the versioned **read-only**, **jurisdiction-filtered** REST API (Story 0.5.2). Sequenced after Epic 0.4 (depends on `JWTFilter` + `authz/check`).
+**User outcome:** Tier-(b) CTAM-owned reference data (regions, offices, calendar, operational vocabularies) is created, seeded, and DBA-maintained per runbook[^d10] (Story 0.5.1); together with the tier-(a) JOH data (Epic 0.2), it is served by the versioned **read-only**, **jurisdiction-filtered** REST API (Story 0.5.2). Sequenced after Epic 0.4 (depends on `JWTFilter` + `authz/check`). MRD-sourced data is served by **Epic 0.9**, which extends this API rather than duplicating it.
 
-**FRs covered (Phase 0 surface):** FR6 (tier-(b) maintenance + read API over both tiers), FR7, FR58
+**FRs covered (Phase 0 surface):** FR6 (tier-(b) maintenance + read API over tier-(b) + JOH tier-(a)), FR7, FR58
 
-→ [Full epic with stories](epic-0.5-reference-data-read-only-api.md)
+→ [Full epic with stories](epic-0.5-joh-reference-data-read-api.md)
 
 ### Epic 0.6: Both user populations are bootstrapped and verifiable against the IdP (1 story)
 
@@ -118,6 +119,14 @@ phaseName: 'Foundations'
 
 → [Full epic with stories](epic-0.8-context-bus-and-shared-baseline.md)
 
+### Epic 0.9: MRD reference data is served read-only via the Reference Data API (1 story)
+
+**User outcome:** JOH Specialisations (MRD-sourced, `mrd_specialisms`) become queryable read-only, jurisdiction-filtered, through the **same** Reference Data API `ctam-ui` and downstream services already consume for tier-(b) and JOH tier-(a) data (Epic 0.5) — one new endpoint added to the existing OpenAPI spec and Postman collection, not a new service or API version. Split out of the former Epic 0.5 2026-08-20 (new content — no MRD read endpoint existed before this epic).
+
+**FRs covered:** FR6 (MRD read surface, tier (a)), FR7, FR58
+
+→ [Full epic with stories](epic-0.9-mrd-reference-data-read-api.md)
+
 ## Phase 0 Epic Stories Summary
 
 | Epic | Stories | FRs covered | Phase 0 demo |
@@ -127,11 +136,12 @@ phaseName: 'Foundations'
 | 0.2 | 1 story (0.2.1) | FR1 (`jo_people` target), FR6 tier (a), FR7; NFR24 | JOH reference data flows in nightly from eLinks → `jo_people` current (verified via `ctam_sync_status` + CI WireMock stub) |
 | 0.3 | 1 story (0.3.1) | FR6 tier (a), FR7; NFR24 | MRD weekly Excel workbook flows in via blob drop → `mrd_*` current (verified via `ctam_sync_status`) |
 | 0.4 | 5 stories (0.4.1–0.4.5) | FR1, FR2, FR3, FR55, FR56, FR57 (activation surface), FR58 | User (either population) signs in via mock-auth → `ctam-authorisation` resolves identity/roles/jurisdiction → role-scoped Home renders |
-| 0.5 | 2 stories (0.5.1–0.5.2) | FR6 (tier b + read API), FR7, FR58 | Jurisdiction-filtered Reference Data API serves both tiers read-only |
+| 0.5 | 2 stories (0.5.1–0.5.2) | FR6 (tier b + JOH tier-a read API), FR7, FR58 | Jurisdiction-filtered Reference Data API serves tier-(b) + JOH tier-(a) read-only |
 | 0.6 | 1 story (0.6.1) | FR1 (lookup data), FR4 (data layer), FR57 (flag bootstrap) | Seeded users across both populations verified against the IdP; Epic 0.4 sign-in works against them |
 | 0.7 | 2 stories (0.7.1–0.7.2) | FR9 | `POST /v1/notifications/send` works end-to-end via Postman against Mailpit |
 | 0.8 | 2 stories (0.8.1–0.8.2) | FR8; NFR16, NFR40 | A service repo pins `arch-v1.0` and resolves `_arch/`; a service role SELECTs from `ctam_configuration_values` and is refused a write |
-| **Total** | **16 stories** | | The eight demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate (Epic 0.0's 5 stories are the platform smoke-test that precedes this table, not counted here) |
+| 0.9 | 1 story (0.9.1) | FR6 (MRD read surface), FR7, FR58 | The existing Reference Data API gains a jurisdiction-filtered JOH Specialisations endpoint |
+| **Total** | **17 stories** | | The nine demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate (Epic 0.0's 5 stories are the platform smoke-test that precedes this table, not counted here) |
 
 **Cross-cutting NFRs verified across Phase 0 stories:** NFR10 (TLS), NFR11 (data-at-rest), NFR12 (JWT propagation), NFR13 (authz enforcement incl. jurisdiction), NFR14 (no forbidden data), NFR15 (change trails per runbooks + delivery log), NFR16 (Key Vault incl. eLinks credential), NFR17–NFR19 (business UI WCAG — admin UI deferred), NFR20 (HMCTS IdP integration via mock), NFR22 (HMCTS email), NFR24 (JOH eLinks + MRD MVP integrations), NFR25–NFR28 (observability), NFR31 (Azure UK South), NFR39 (API-as-Product), NFR40 (per-service deployable), NFR42 (Postman collections).
 
