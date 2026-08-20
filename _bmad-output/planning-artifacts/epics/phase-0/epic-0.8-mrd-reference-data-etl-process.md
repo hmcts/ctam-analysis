@@ -14,7 +14,7 @@ depends_on: [epic-0.1]                      # needs ctam-reference-data scaffold
 
 # Epic 0.8: MRD reference data flows into CTAM via the weekly Excel ETL process
 
-> **Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):** this epic carries the story previously numbered 0.1.4, renumbered 0.8.1. No AC content changed. `ctam-reference-data` itself is scaffolded in **[Epic 0.1](epic-0.1-ctam-postgres-db-schema-design.md)**.
+> **Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):** this epic carries the story previously numbered 0.1.4, renumbered 0.8.1. No AC content changed. `ctam-reference-data` itself is scaffolded in **[Epic 0.1](epic-0.1-postgres-db-schema-design.md)**.
 
 **User outcome:** Judicial-holder reference data flows into CTAM Pathfinder from its supplementary upstream source of truth — the **MRD** weekly Excel dataset — so that data not present in JOH eLinks (notably JOH Specialisations) is available in CTAM **without any legacy migration** (revised D3, NFR24), and without waiting for MRD's public APIs.
 

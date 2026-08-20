@@ -103,7 +103,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td>FR1</td>
-<td><a href="phase-0/epic-0.2-user-authenticates.html">Epic 0.2</a> (sign-in + two-population identity resolution, Stories 0.2.3/0.2.5) + <a href="phase-0/epic-0.1-ctam-postgres-db-schema-design.html">Epic 0.1</a> (<code>jo_people</code> schema) + <a href="phase-0/epic-0.7-joh-reference-data-etl-process.html">Epic 0.7</a> (<code>jo_people</code> populated via the eLinks sync — the JOH lookup target) + <a href="phase-0/epic-0.4-user-populations-bootstrapped.html">Epic 0.4</a> (the auth records resolved against)</td>
+<td><a href="phase-0/epic-0.2-user-authenticates.html">Epic 0.2</a> (sign-in + two-population identity resolution, Stories 0.2.3/0.2.5) + <a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> (<code>jo_people</code> schema) + <a href="phase-0/epic-0.7-joh-reference-data-etl-process.html">Epic 0.7</a> (<code>jo_people</code> populated via the eLinks sync — the JOH lookup target) + <a href="phase-0/epic-0.4-user-populations-bootstrapped.html">Epic 0.4</a> (the auth records resolved against)</td>
 <td>—</td>
 <td>IdP email → <code>jo_people</code> → <code>personnel_number</code> → <code>ctam_joh_identities</code> UUID (JOH) or <code>ctam_auth_staff_identities</code> UUID (staff),<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
 </tr>
@@ -133,19 +133,19 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR6</strong></td>
-<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.1-ctam-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.2 (tables) + <a href="phase-0/epic-0.7-joh-reference-data-etl-process.html">Epic 0.7</a> Story 0.7.1 (eLinks sync) + <a href="phase-0/epic-0.8-mrd-reference-data-etl-process.html">Epic 0.8</a> Story 0.8.1 (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-0/epic-0.3-reference-data-read-only-api.html">Epic 0.3</a> Story 0.3.1 (tables + seed + DBA runbook). Read API over both tiers: Story 0.3.2.</td>
+<td><strong>Tier (a)</strong>: <a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.2 (tables) + <a href="phase-0/epic-0.7-joh-reference-data-etl-process.html">Epic 0.7</a> Story 0.7.1 (eLinks sync) + <a href="phase-0/epic-0.8-mrd-reference-data-etl-process.html">Epic 0.8</a> Story 0.8.1 (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-0/epic-0.3-reference-data-read-only-api.html">Epic 0.3</a> Story 0.3.1 (tables + seed + DBA runbook). Read API over both tiers: Story 0.3.2.</td>
 <td><strong>YES — tier-(b) RSU maintenance UI</strong> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Tier (a) never gets a CTAM write surface in any phase.</td>
 <td>Two ownership tiers in separate tables preserve lineage</td>
 </tr>
 <tr>
 <td>FR7</td>
-<td><a href="phase-0/epic-0.1-ctam-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.2 (tier-(a) grants) + <a href="phase-0/epic-0.3-reference-data-read-only-api.html">Epic 0.3</a> Story 0.3.1 (tier-(b) grants + pattern complete)</td>
+<td><a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.2 (tier-(a) grants) + <a href="phase-0/epic-0.3-reference-data-read-only-api.html">Epic 0.3</a> Story 0.3.1 (tier-(b) grants + pattern complete)</td>
 <td>—</td>
 <td>Direct SQL via SELECT grants; <strong>writes follow the tier</strong> (ingestion for tier (a); DBA SQL for tier (b))</td>
 </tr>
 <tr>
 <td>FR8</td>
-<td>distributed (lands in <a href="phase-0/epic-0.1-ctam-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.1 first)</td>
+<td>distributed (lands in <a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.1 first)</td>
 <td>—</td>
 <td>Shared <code>ctam_configuration_values</code> Liquibase baseline changelog</td>
 </tr>
@@ -181,7 +181,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR59</strong></td>
-<td><a href="phase-0/epic-0.1-ctam-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.1 (first exercise — first scaffolded service) + every service story</td>
+<td><a href="phase-0/epic-0.1-postgres-db-schema-design.html">Epic 0.1</a> Story 0.1.1 (first exercise — first scaffolded service) + every service story</td>
 <td>—</td>
 <td>Structured logs + correlation IDs</td>
 </tr>

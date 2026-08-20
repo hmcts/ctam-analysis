@@ -14,7 +14,7 @@ depends_on: [epic-0.1]                      # needs the tier-(a) schema + write 
 
 # Epic 0.7: JOH reference data flows into CTAM via the nightly eLinks ETL process
 
-> **Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):** this epic carries the story previously numbered 0.1.3, renumbered 0.7.1. No AC content changed. The schema this ETL process writes into is designed in **[Epic 0.1](epic-0.1-ctam-postgres-db-schema-design.md)**.
+> **Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):** this epic carries the story previously numbered 0.1.3, renumbered 0.7.1. No AC content changed. The schema this ETL process writes into is designed in **[Epic 0.1](epic-0.1-postgres-db-schema-design.md)**.
 
 **User outcome:** Judicial-holder reference data flows into CTAM Pathfinder from its upstream source of truth — the **JOH eLinks API** (15 `jo_*` entities, nightly) — so that `jo_people` exists and is current, `jo_jurisdictions` is available as the first-class jurisdiction dimension (D8), and judicial-holder reference data is authoritative in CTAM **without any legacy migration** (revised D3, NFR24). JOH sign-in (Epic 0.2) is impossible until `jo_people` — the identity-lookup target — is populated by this ETL process.
 

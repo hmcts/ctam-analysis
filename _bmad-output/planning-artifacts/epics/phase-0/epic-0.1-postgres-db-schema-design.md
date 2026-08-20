@@ -1,20 +1,20 @@
 ---
 type: 'Epic'
 description: 'User outcome: ctam-reference-data is scaffolded as the first CTAM Pathfinder domain service, and the tier-(a) upstream JOH/MRD Postgres schema (15 jo_* tables + ctam_sync_status) is designed with enforced single-writer ownership — ready for the JOH eLinks (Epic 0.7) and MRD (Epic 0.8) ETL processes to populate it.'
-resource: 'epics/phase-0/epic-0.1-ctam-postgres-db-schema-design.html'
+resource: 'epics/phase-0/epic-0.1-postgres-db-schema-design.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-06-17'
 parent: 'epics/phase-0/index.md'
 epic: 0.1
-title: 'CTAM Postgres reference-data schema is designed and scaffolded'
+title: 'Postgres reference-data schema is designed and scaffolded'
 storyCount: 2
 repo: ctam-reference-data
 depends_on: [epic-0.0, epic-0.6]            # needs the estate + the shared config baseline (was arch-baseline)
 ---
 
-# Epic 0.1: CTAM Postgres reference-data schema is designed and scaffolded
+# Epic 0.1: Postgres reference-data schema is designed and scaffolded
 
-> **Split 2026-08-20 (SCP 2026-08-20b):** this epic was narrowed from "Upstream JOH/MRD reference data is ingested" (4 stories) to just the scaffold + schema-design stories. The two ETL stories that used to live here (the JOH eLinks nightly sync and the MRD weekly ingestion) are now their own epics — **[Epic 0.7](epic-0.7-joh-reference-data-etl-process.md)** and **[Epic 0.8](epic-0.8-mrd-reference-data-etl-process.md)** — each depending on this epic. Story numbers 0.1.1 and 0.1.2 are unchanged.
+> **Split 2026-08-20 (SCP 2026-08-20b):** this epic was narrowed from "Upstream JOH/MRD reference data is ingested" (4 stories) to just the scaffold + schema-design stories. The two ETL stories that used to live here (the JOH eLinks nightly sync and the MRD weekly ingestion) are now their own epics — **[Epic 0.7](epic-0.7-joh-reference-data-etl-process.md)** and **[Epic 0.8](epic-0.8-mrd-reference-data-etl-process.md)** — each depending on this epic. Story numbers 0.1.1 and 0.1.2 are unchanged. Renamed `ctam-postgres-db-schema-design` → **`postgres-db-schema-design`** shortly after the split.
 
 **User outcome:** `ctam-reference-data` is scaffolded as the **first** CTAM Pathfinder domain service, and the tier-(a) upstream-sourced Postgres schema — 15 `jo_*` tables plus `ctam_sync_status` (the CTAM-internal ingestion run log) — is designed with enforced single-writer ownership, so that the JOH eLinks (Epic 0.7) and MRD (Epic 0.8) ETL processes have a schema to populate. This is the platform's foundational data layer: every downstream consumer of JOH identity and reference data depends on this schema existing correctly before any data can flow into it.
 

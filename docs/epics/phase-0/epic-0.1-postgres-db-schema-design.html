@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Epic 0.1: CTAM Postgres reference-data schema is designed and scaffolded — CTAM Pathfinder Documentation</title>
+<title>Epic 0.1: Postgres reference-data schema is designed and scaffolded — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,9 +88,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 
-<h1 id="epic-01-ctam-postgres-reference-data-schema-is-designed-and-scaffolded">Epic 0.1: CTAM Postgres reference-data schema is designed and scaffolded</h1>
+<h1 id="epic-01-postgres-reference-data-schema-is-designed-and-scaffolded">Epic 0.1: Postgres reference-data schema is designed and scaffolded</h1>
 <blockquote>
-<p><strong>Split 2026-08-20 (SCP 2026-08-20b):</strong> this epic was narrowed from "Upstream JOH/MRD reference data is ingested" (4 stories) to just the scaffold + schema-design stories. The two ETL stories that used to live here (the JOH eLinks nightly sync and the MRD weekly ingestion) are now their own epics — <strong><a href="epic-0.7-joh-reference-data-etl-process.html">Epic 0.7</a></strong> and <strong><a href="epic-0.8-mrd-reference-data-etl-process.html">Epic 0.8</a></strong> — each depending on this epic. Story numbers 0.1.1 and 0.1.2 are unchanged.</p>
+<p><strong>Split 2026-08-20 (SCP 2026-08-20b):</strong> this epic was narrowed from "Upstream JOH/MRD reference data is ingested" (4 stories) to just the scaffold + schema-design stories. The two ETL stories that used to live here (the JOH eLinks nightly sync and the MRD weekly ingestion) are now their own epics — <strong><a href="epic-0.7-joh-reference-data-etl-process.html">Epic 0.7</a></strong> and <strong><a href="epic-0.8-mrd-reference-data-etl-process.html">Epic 0.8</a></strong> — each depending on this epic. Story numbers 0.1.1 and 0.1.2 are unchanged. Renamed <code>ctam-postgres-db-schema-design</code> → <strong><code>postgres-db-schema-design</code></strong> shortly after the split.</p>
 </blockquote>
 <p><strong>User outcome:</strong> <code>ctam-reference-data</code> is scaffolded as the <strong>first</strong> CTAM Pathfinder domain service, and the tier-(a) upstream-sourced Postgres schema — 15 <code>jo_*</code> tables plus <code>ctam_sync_status</code> (the CTAM-internal ingestion run log) — is designed with enforced single-writer ownership, so that the JOH eLinks (Epic 0.7) and MRD (Epic 0.8) ETL processes have a schema to populate. This is the platform's foundational data layer: every downstream consumer of JOH identity and reference data depends on this schema existing correctly before any data can flow into it.</p>
 <p><strong>Hosting:</strong> the schema and its future ingestion both live in-process inside <code>ctam-reference-data</code> — no separate <code>ctam-integrations</code> repo. <code>ctam-reference-data</code> is the first <strong>domain</strong> service scaffolded; it deploys onto the shared Azure estate provisioned in <strong>Epic 0.0</strong> (<code>ctam-shared-infrastructure</code>) and carries only its <strong>own</strong> per-repo Terraform (Key Vault namespace; MRD storage — Epic 0.8, Story 0.8.1).</p>
@@ -154,10 +154,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ol>
 </section>
 
-<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.1-ctam-postgres-db-schema-design.md</code></p>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.1-postgres-db-schema-design.md</code></p>
 </main>
 
-<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.1-ctam-postgres-db-schema-design";</script>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.1-postgres-db-schema-design";</script>
 <script src="../../nav.js"></script>
 <script>
 (function(){

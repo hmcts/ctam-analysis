@@ -90,7 +90,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <h1 id="epic-08-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process">Epic 0.8: MRD reference data flows into CTAM via the weekly Excel ETL process</h1>
 <blockquote>
-<p><strong>Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):</strong> this epic carries the story previously numbered 0.1.4, renumbered 0.8.1. No AC content changed. <code>ctam-reference-data</code> itself is scaffolded in <strong><a href="epic-0.1-ctam-postgres-db-schema-design.html">Epic 0.1</a></strong>.</p>
+<p><strong>Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):</strong> this epic carries the story previously numbered 0.1.4, renumbered 0.8.1. No AC content changed. <code>ctam-reference-data</code> itself is scaffolded in <strong><a href="epic-0.1-postgres-db-schema-design.html">Epic 0.1</a></strong>.</p>
 </blockquote>
 <p><strong>User outcome:</strong> Judicial-holder reference data flows into CTAM Pathfinder from its supplementary upstream source of truth — the <strong>MRD</strong> weekly Excel dataset — so that data not present in JOH eLinks (notably JOH Specialisations) is available in CTAM <strong>without any legacy migration</strong> (revised D3, NFR24), and without waiting for MRD's public APIs.</p>
 <p><strong>Hosting:</strong> the ETL runs in-process inside <code>ctam-reference-data</code> — no separate <code>ctam-integrations</code> repo. This epic owns its own <code>mrd_*</code> schema (a small, self-contained Liquibase changeset) as well as the blob-drop ingestion mechanism, since both are scoped tightly to this one supplementary feed.</p>

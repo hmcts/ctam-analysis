@@ -32,7 +32,7 @@ phaseName: 'Foundations'
 | Epic | Title | Stories | Status |
 |---|---|---|---|
 | [0.0](epic-0.0-platform-estate-provisioned.md) | Platform estate is provisioned, verifiable, and CNP-compliant | 5 | 🟡 Planned |
-| [0.1](epic-0.1-ctam-postgres-db-schema-design.md) | CTAM Postgres reference-data schema is designed and scaffolded | 2 | 🟡 Planned |
+| [0.1](epic-0.1-postgres-db-schema-design.md) | Postgres reference-data schema is designed and scaffolded | 2 | 🟡 Planned |
 | [0.2](epic-0.2-user-authenticates.md) | User authenticates and lands on a role-scoped Home page | 5 | 🟡 Planned |
 | [0.3](epic-0.3-reference-data-read-only-api.md) | Reference data is served read-only via a versioned, jurisdiction-filtered API | 2 | 🟡 Planned |
 | [0.4](epic-0.4-user-populations-bootstrapped.md) | Both user populations are bootstrapped and verifiable against the IdP | 1 | 🟡 Planned |
@@ -52,13 +52,13 @@ phaseName: 'Foundations'
 
 → [Full epic with stories](epic-0.0-platform-estate-provisioned.md)
 
-### Epic 0.1: CTAM Postgres reference-data schema is designed and scaffolded (2 stories)
+### Epic 0.1: Postgres reference-data schema is designed and scaffolded (2 stories)
 
 **User outcome:** `ctam-reference-data` is the first domain service scaffolded (Story 0.1.1) and deploys onto the shared estate provisioned in **Epic 0.0**; the tier-(a) upstream-sourced Postgres schema — 15 `jo_*` tables + `ctam_sync_status` — is designed with enforced single-writer ownership (Story 0.1.2). This is the platform's foundational data layer; the JOH eLinks (**Epic 0.7**) and MRD (**Epic 0.8**) ETL processes populate it once it exists.
 
 **FRs covered:** FR6 tier-(a), FR7 tier-(a) grants, FR8 (shared config baseline first lands); FR59 (structured logs first exercised)
 
-→ [Full epic with stories](epic-0.1-ctam-postgres-db-schema-design.md)
+→ [Full epic with stories](epic-0.1-postgres-db-schema-design.md)
 
 ### Epic 0.2: User authenticates and lands on a role-scoped Home page (5 stories)
 

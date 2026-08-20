@@ -90,7 +90,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <h1 id="epic-07-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process">Epic 0.7: JOH reference data flows into CTAM via the nightly eLinks ETL process</h1>
 <blockquote>
-<p><strong>Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):</strong> this epic carries the story previously numbered 0.1.3, renumbered 0.7.1. No AC content changed. The schema this ETL process writes into is designed in <strong><a href="epic-0.1-ctam-postgres-db-schema-design.html">Epic 0.1</a></strong>.</p>
+<p><strong>Split from Epic 0.1 2026-08-20 (SCP 2026-08-20b):</strong> this epic carries the story previously numbered 0.1.3, renumbered 0.7.1. No AC content changed. The schema this ETL process writes into is designed in <strong><a href="epic-0.1-postgres-db-schema-design.html">Epic 0.1</a></strong>.</p>
 </blockquote>
 <p><strong>User outcome:</strong> Judicial-holder reference data flows into CTAM Pathfinder from its upstream source of truth — the <strong>JOH eLinks API</strong> (15 <code>jo_*</code> entities, nightly) — so that <code>jo_people</code> exists and is current, <code>jo_jurisdictions</code> is available as the first-class jurisdiction dimension (D8), and judicial-holder reference data is authoritative in CTAM <strong>without any legacy migration</strong> (revised D3, NFR24). JOH sign-in (Epic 0.2) is impossible until <code>jo_people</code> — the identity-lookup target — is populated by this ETL process.</p>
 <p><strong>Hosting:</strong> the ETL runs in-process inside <code>ctam-reference-data</code> — no separate <code>ctam-integrations</code> repo, no new deployable, no service principal (AR46).</p>
