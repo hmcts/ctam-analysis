@@ -153,6 +153,34 @@ for packet in "$@"; do
     done
   fi
 
+  # Unfilled template placeholders. Story 0.0.0 (the GitHub setup runbook) made this reachable:
+  # the template ships `story_id: 0.0.0` and `sprint_status_key: 0-0-0-<kebab-title>` as its
+  # EXAMPLES, and for that one story those satisfy the id, filename, H1 and prefix checks above --
+  # so a packet where nobody filled the frontmatter in would have passed. Catch the placeholders
+  # themselves instead of special-casing one id. {{agent_model_name_version}} is exempt: dev-story
+  # fills it, not the dispatcher.
+  # Angle-bracket placeholders are FRONTMATTER VALUES only. Scanning the whole file for them was
+  # wrong: `ctam-<service>` is the documented CNP naming convention and appears legitimately in
+  # acceptance criteria copied verbatim from an epic, which W8 forbids editing. A guard that forces
+  # a packet to paraphrase its own ACs is worse than the gap it closes.
+  for ph in '<service>' '<slug>' '<kebab-title>'; do
+    if printf '%s\n' "$frontmatter" | grep -qF -- "$ph"; then
+      echo "   ERROR: unfilled frontmatter placeholder: $ph"
+      echo "          the packet still carries story-packet.md's example values"
+      errors=$((errors + 1))
+    fi
+  done
+  # Body placeholders are unambiguous wherever they appear. {{agent_model_name_version}} is exempt:
+  # bmad-dev-story fills it, not the dispatcher.
+  for ph in '{{role}}' '{{action}}' '{{benefit}}' '{{epic_num}}' '{{story_num}}' \
+            '{{story_title}}' '[from the epic'; do
+    if grep -qF -- "$ph" "$packet"; then
+      echo "   ERROR: unfilled template placeholder: $ph"
+      echo "          the packet still carries story-packet.md's example text"
+      errors=$((errors + 1))
+    fi
+  done
+
   grep -qE '^[0-9]+\. ' "$packet" || {
     echo "   ERROR: no numbered acceptance criteria — AC ids must resolve to a list item (T6)"
     errors=$((errors + 1))

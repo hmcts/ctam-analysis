@@ -7,8 +7,8 @@ timestamp: '2026-07-06'
 parent: 'epics/phase-0/index.md'
 epic: 0.0
 title: 'Platform estate is provisioned, verifiable, and CNP-compliant'
-storyCount: 5
-repo: ctam-shared-infrastructure
+storyCount: 6
+repo: [ctam-shared-infrastructure, ctam-architecture]   # 0.0.0 authors a runbook in the bus; 0.0.1-0.0.5 are the estate
 depends_on: []                              # nothing precedes the estate
 ---
 
@@ -21,7 +21,8 @@ depends_on: []                              # nothing precedes the estate
 **Why this is Epic 0.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.1.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ctam-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the **domain** deliverables (0.1 → 0.5) is unchanged.
 
 **Vertical slice:**
-- **New dedicated repo `ctam-shared-infrastructure`** (CNP naming), scaffolded per the manual GitHub web-UI setup runbook (`ctam-architecture/runbooks/github-setup.md` — the `gh` CLI is not available)
+- **The manual GitHub web-UI setup runbook itself** (`ctam-architecture/runbooks/github-setup.md`, Story 0.0.0) — the named precondition of every scaffold story in Phase 0, previously referenced by five stories and authored by none
+- **New dedicated repo `ctam-shared-infrastructure`** (CNP naming), scaffolded per that runbook (the `gh` CLI is not available)
 - **Terraform-only** provisioning (no Bicep, no portal click-ops), remote state backend, per-environment stacks (`dev` / `staging` / `production`)
 - Shared estate: **AKS** (UK South, multi-AZ) → **PostgreSQL Flexible Server** (zone-redundant HA) + **Key Vault** → **ACR** + **App Insights / Log Analytics** → **APIM**
 - Each layer carries its own **deploy-time acceptance test** so infrastructure is verified as it lands, not assumed
@@ -33,6 +34,52 @@ depends_on: []                              # nothing precedes the estate
 **Architecture requirements:** **AR53 (revised — dedicated `ctam-shared-infrastructure` per CNP)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern).
 
 **Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — Epic 0.1, Story 0.1.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+); the `ctam_configuration_values` Liquibase baseline (owned by `ctam-architecture`, lands ahead of Epic 0.1).
+
+---
+
+## Story 0.0.0: Author the GitHub manual-setup runbook (`ctam-architecture/runbooks/github-setup.md`)
+
+As a **platform engineer**,
+I want a single manual GitHub web-UI setup runbook covering repo creation, branch protection, team access and the per-repo agent-enforcement wiring,
+So that **every one of the 16 repos is created identically and safely without the `gh` CLI, and no scaffold story has to reverse-engineer its own preconditions**.
+
+**Target repo:** `ctam-architecture` — the context bus owns `runbooks/`, per Stories 0.3.1 and 0.4.1, which author `runbooks/reference-data-maintenance.md` and `runbooks/identity-bootstrap.md` from epics that own other repos.
+
+**Acceptance Criteria:**
+
+**Given** the `gh` CLI is unavailable to engineers and denied to agent sessions (**D10**; enforced by `_arch/agent-rules/enforcement/claude/hooks/block-git-writes.sh`, which denies all `gh`/`hub` subcommands),
+**And** the runbook is written at `ctam-architecture/runbooks/github-setup.md`,
+**When** an engineer follows it to create a new CTAM repository,
+**Then** it documents creation **via the GitHub web UI** under the HMCTS org — **private**, named per the CNP convention (`ctam-<service>`; `{product}-shared-infrastructure` for the shared estate),
+**And** it states explicitly that the HMCTS template's `setup-new-repo.sh` **must not** be used, because it makes the repository **PUBLIC**,
+**And** it documents branch protection on `main` via *Settings → Branches*: require PR review, require status checks, require linear history,
+**And** it documents `CODEOWNERS` and team access scoped to the owning team (per AR29),
+**And** no step anywhere in the runbook invokes `gh`.
+
+**Given** the repository exists and is empty,
+**When** the engineer moves on to scaffolding,
+**Then** the runbook states the boundary explicitly — `ctam-scaffold.sh` performs **local** scaffolding and pushes to the **pre-created** remote over plain `git`; it never creates or configures a repository,
+**And** the runbook names itself the precondition of Stories 0.0.1, 0.1.1, 0.2.1, 0.2.4 and 0.5.1, so the dependency is documented in one place rather than restated in five.
+
+**Given** a newly created repository must be able to host a cold agent session,
+**When** the engineer completes the per-repo wiring section,
+**Then** the runbook documents pinning the context bus — `git submodule add` of `ctam-architecture` at `_arch`, checked out at an exact `arch-vN` tag — and that the pin moves only by an explicit, recorded bump,
+**And** it documents generating `CLAUDE.md` from `_arch/agent-rules/enforcement/claude/CLAUDE.md.template`, substituting `{{SERVICE_NAME}}` and `{{ARCH_VERSION}}` and changing nothing else,
+**And** it documents copying `.claude/settings.json` from `settings.json.template` together with the `hooks/` directory, and making the hooks executable,
+**And** it records how to verify the wiring actually took: a session in the new repo is **denied** a commit while HEAD is on `main`.
+
+**Given** the runbook is complete,
+**When** it is published to the bus,
+**Then** it is linked from `_arch/agent-rules/index.md` and from `architecture/starter-template.md`, so a session finds it without knowing the path,
+**And** it carries the `arch-vN` tag it was published under, since downstream repos pin the bus by tag.
+
+**References:** **D10** (`gh` CLI not available — manual GitHub web-UI setup); AR29 (`CODEOWNERS` + PR template); AR53 (revised — dedicated `ctam-shared-infrastructure`); gaps.md G9. **Precondition of** Stories 0.0.1, 0.1.1, 0.2.1, 0.2.4, 0.5.1.
+
+**Explicitly NOT in scope:**
+- Creating any repository — this story writes the procedure, it does not execute it
+- `ctam-scaffold.sh` itself (Story 0.1.1; inventory in `architecture/starter-template.md` §B)
+- Any Azure resource (Stories 0.0.1–0.0.5)
+- GitHub org-level policy, SSO or team provisioning (HMCTS platform team, outside CTAM)
 
 ---
 
