@@ -33,6 +33,8 @@
 [workflow]
 
 activation_steps_append = [
+  "CTAM PRE-DISPATCH CHECK — before writing the packet, run `{project-root}/scripts/dispatch-preflight.sh <story-id>` and stop if it reports a blocker. It confirms the story is still `backlog` in sprint-status.yaml, that no branch on the target remote already claims it, and that the epic's `depends_on` are `done`. Coordination in the control plane is by convention — ONE DISPATCHER AT A TIME — and this is the backstop.",
+
   "CTAM PACKET CONTRACT — read the canonical template at `{project-root}/../ctam-architecture/agent-rules/templates/story-packet.md` and use it in place of this skill's `template.md`. It IS BMad's template, with CTAM's frontmatter added and CTAM detail nested under `## Dev Notes`. Keep every BMad top-level section at BMad's heading level with BMad's spelling — `## Story`, `## Acceptance Criteria`, `## Tasks / Subtasks`, `## Dev Notes`, `## Dev Agent Record`, `### File List` — because bmad-dev-story reads and writes them by exact heading.",
 
   "CTAM OUTPUT LOCATION — write the packet to the TARGET SERVICE REPO at `docs/stories/{{story_id}}.md`, NOT to `{implementation_artifacts}`. Resolve the target repo from the **owning epic's frontmatter** (`repo:` in `{project-root}/_bmad-output/planning-artifacts/epics/phase-*/epic-<num>-*.md`); the repo checkout is a sibling directory of `{project-root}`. `{implementation_artifacts}` holds programme-level state such as `sprint-status.yaml` — never the packet. Rationale: a service repo must be independently readable by a fresh session or a human with none of the control plane's context (delivery-operating-model.md → Execution units).",
@@ -41,10 +43,11 @@ activation_steps_append = [
 
   "CTAM CONTEXT DEPTH — under `## Dev Notes`, distil what THIS story needs from the pinned bus and cite file + heading for every technical claim (agent-rules R4). Name the specific rule ids that will bite on this story. Include `### Out of scope / boundaries`, and `### Recorded deviations` whenever the story departs from its epic or from a rule, with the id, the rule affected and who approved it.",
 
-  "CTAM PRE-DISPATCH CHECK — before writing the packet, run `{project-root}/scripts/dispatch-preflight.sh <story-id>` and stop if it reports a blocker. It confirms the story is still `backlog` in sprint-status.yaml, that no branch on the target remote already claims it, and that the epic's `depends_on` are `done`. Coordination in the control plane is by convention — ONE DISPATCHER AT A TIME — and this is the backstop.",
+  "CTAM VALIDATION GATE — after writing the packet, run `{project-root}/scripts/validate-story-packet.sh <path-to-packet>` and fix every error it reports before reporting the story ready. Do not report a packet the validator rejects.",
 
-  "CTAM VALIDATION GATE — after writing the packet, run `{project-root}/scripts/validate-story-packet.sh <path-to-packet>` and fix every error it reports before reporting the story ready. Do not report a packet the validator rejects."
+  "CTAM DISPATCH BRANCH — the packet is landed ON A BRANCH in the target repo, and that branch is the claim on the story. In the target repo: (a) make sure `main` is current (`git switch main && git pull`); (b) `git switch -c story/{{story_id}}` — e.g. `story/0.1.4`, per conventions.md Git conventions; (c) `git add docs/stories/{{story_id}}.md` and commit it as `docs: land story packet {{story_id}}`; (d) `git push -u origin story/{{story_id}}`. Push it — `scripts/dispatch-preflight.sh` reads the REMOTE, so an unpushed branch claims nothing. ONE BRANCH PER STORY: the implementing session continues on this same branch and must NOT create a second one. Do NOT open the pull request (the GitHub CLI is unavailable to sessions, and opening, approving and merging the PR is the human gate). Report the branch name and the compare URL in the dispatch summary."
 ]
+
 
 persistent_facts = [
   "file:{project-root}/_bmad-output/planning-artifacts/architecture/delivery-operating-model.md",

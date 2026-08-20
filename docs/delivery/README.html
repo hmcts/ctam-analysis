@@ -142,14 +142,17 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
         │           ./scripts/dispatch-preflight.sh &lt;story-id&gt;
         │
   2. DISPATCH ──── bmad-create-story → story packet (story + Gherkin ACs +
-        │          distilled context + pinned bus_version) landed as
-        │          docs/stories/&lt;id&gt;.md in the target repo
+        │          distilled context + pinned bus_version)
+        │          in the target repo: git switch -c story/&lt;id&gt;
+        │                              land docs/stories/&lt;id&gt;.md, commit, push
         │          sprint-status.yaml: backlog → ready-for-dev
+        │          ── the pushed branch IS the claim on this story ──
         │                                                 ▼
         │                                    3. EXECUTE bmad-dev-story in the repo
+        │                                       ON THE SAME branch story/&lt;id&gt;
         │                                       (reads CLAUDE.md → _arch/ bus)
         │                                       packet Status: in-progress → review
-        │                                       branch → commits → push → PR
+        │                                       commits → push → human opens the PR
         │                                                 │  (human reviews + merges)
   4. SIGNAL ◄──────────────────────────────────────────────┘
         └ sprint-status.yaml: → done   (bmad-sprint-status)</code></pre>
@@ -200,12 +203,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Does a branch on the target remote already name it? — <strong>a branch is the claim</strong>; there is no <code>owner</code> field to contend over</li>
 <li>Are the epic's <code>depends_on</code> all <code>done</code>?</li>
 </ol>
+<p><strong>Dispatch creates that branch.</strong> <code>story/{story-id}</code> is cut in the target repo at dispatch, the packet is committed on it and pushed, and the implementing session continues on the <strong>same</strong> branch — one branch per story, from dispatch to PR (<code>conventions.md</code> → <em>Git conventions</em>, amended 2026-08-20). Pushing matters: the pre-flight check reads the remote, so an unpushed branch claims nothing.</p>
 <p>Execution parallelises freely: work happens in different service repos, where branches and PRs already show who is doing what.</p>
 </div></details><details class="section" id="conventions"><summary><span class="section-title">Conventions</span></summary><div class="section-body">
 <ul>
 <li><strong>One status vocabulary</strong>, BMad's: <code>backlog → ready-for-dev → in-progress → review → done</code> (epics: <code>backlog → in-progress → done</code>). A story packet carries the same vocabulary in its <code>Status:</code> line and nowhere else.</li>
 <li><strong>FR granularity:</strong> epic-level unless a story narrows it. Every FR/NFR should trace to at least one story once all phases are decomposed. The reverse lookup ("which stories cover FR6?") is a <strong>generated</strong> report over packet frontmatter, not a maintained table.</li>
-<li><strong><code>main</code> is protected; the PR is the human gate.</strong> An agent branches, commits and pushes; a human reviews and merges (per repo CODEOWNERS and branch protection).</li>
+<li><strong>One branch per story</strong>, <code>story/{story-id}</code>, created at dispatch and carried through to the PR. <strong><code>main</code> is protected; the PR is the human gate</strong> — an agent branches, commits and pushes; a human opens, reviews and merges.</li>
 <li><strong>Bus pinning:</strong> a story records the <code>bus_version</code> it was built against; repos re-sync only via an explicit submodule bump.</li>
 </ul>
 </div></details><details class="section" id="current-state-2026-08-19"><summary><span class="section-title">Current state (2026-08-19)</span></summary><div class="section-body">

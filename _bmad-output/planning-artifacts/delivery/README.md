@@ -25,14 +25,17 @@ Not here, deliberately: the **context bus** (`ctam-architecture` publish + `arch
         │           ./scripts/dispatch-preflight.sh <story-id>
         │
   2. DISPATCH ──── bmad-create-story → story packet (story + Gherkin ACs +
-        │          distilled context + pinned bus_version) landed as
-        │          docs/stories/<id>.md in the target repo
+        │          distilled context + pinned bus_version)
+        │          in the target repo: git switch -c story/<id>
+        │                              land docs/stories/<id>.md, commit, push
         │          sprint-status.yaml: backlog → ready-for-dev
+        │          ── the pushed branch IS the claim on this story ──
         │                                                 ▼
         │                                    3. EXECUTE bmad-dev-story in the repo
+        │                                       ON THE SAME branch story/<id>
         │                                       (reads CLAUDE.md → _arch/ bus)
         │                                       packet Status: in-progress → review
-        │                                       branch → commits → push → PR
+        │                                       commits → push → human opens the PR
         │                                                 │  (human reviews + merges)
   4. SIGNAL ◄──────────────────────────────────────────────┘
         └ sprint-status.yaml: → done   (bmad-sprint-status)
@@ -62,13 +65,15 @@ The backstop is [`../../../scripts/dispatch-preflight.sh`](../../../scripts/disp
 2. Does a branch on the target remote already name it? — **a branch is the claim**; there is no `owner` field to contend over
 3. Are the epic's `depends_on` all `done`?
 
+**Dispatch creates that branch.** `story/{story-id}` is cut in the target repo at dispatch, the packet is committed on it and pushed, and the implementing session continues on the **same** branch — one branch per story, from dispatch to PR (`conventions.md` → *Git conventions*, amended 2026-08-20). Pushing matters: the pre-flight check reads the remote, so an unpushed branch claims nothing.
+
 Execution parallelises freely: work happens in different service repos, where branches and PRs already show who is doing what.
 
 ## Conventions
 
 - **One status vocabulary**, BMad's: `backlog → ready-for-dev → in-progress → review → done` (epics: `backlog → in-progress → done`). A story packet carries the same vocabulary in its `Status:` line and nowhere else.
 - **FR granularity:** epic-level unless a story narrows it. Every FR/NFR should trace to at least one story once all phases are decomposed. The reverse lookup ("which stories cover FR6?") is a **generated** report over packet frontmatter, not a maintained table.
-- **`main` is protected; the PR is the human gate.** An agent branches, commits and pushes; a human reviews and merges (per repo CODEOWNERS and branch protection).
+- **One branch per story**, `story/{story-id}`, created at dispatch and carried through to the PR. **`main` is protected; the PR is the human gate** — an agent branches, commits and pushes; a human opens, reviews and merges.
 - **Bus pinning:** a story records the `bus_version` it was built against; repos re-sync only via an explicit submodule bump.
 
 ## Current state (2026-08-19)

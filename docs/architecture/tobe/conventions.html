@@ -418,7 +418,7 @@ return &lt;ActualContent data={data} /&gt;;</code></pre></li>
 </ul>
 <p><strong>Git conventions:</strong></p>
 <ul>
-<li>Branch naming: <code>feature/{ticket-id}-{short-description}</code>, <code>bugfix/{ticket-id}-{short-description}</code>, <code>chore/{short-description}</code>.</li>
+<li>Branch naming: <strong><code>story/{story-id}</code></strong> for dispatched story work — e.g. <code>story/0.1.4</code> <em>(amended 2026-08-20, SCP 2026-08-20)</em>. <strong>One branch per story, created at dispatch and carried through to the PR</strong> — the dispatcher creates it and lands the story packet on it, and the implementing session continues on the same branch rather than opening a second one. The branch is therefore also the <strong>claim</strong> on that story (<code>scripts/dispatch-preflight.sh</code> checks the target remote for it), which is why there is no <code>owner</code> field anywhere. For work that is not a dispatched story: <code>bugfix/{ticket-id}-{short-description}</code>, <code>chore/{short-description}</code>, <code>feature/{ticket-id}-{short-description}</code>.</li>
 <li>Commit messages: imperative present tense, ≤ 72 chars subject. Conventional Commits prefix (<code>feat:</code>, <code>fix:</code>, <code>docs:</code>, <code>refactor:</code>, <code>test:</code>, <code>chore:</code>) per HMCTS conventions.</li>
 <li>PR target: <code>main</code>. Trunk-based development; release branches per region/wave only if needed.</li>
 </ul>

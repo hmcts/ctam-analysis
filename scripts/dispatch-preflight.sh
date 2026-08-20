@@ -137,5 +137,10 @@ if [ "$problems" -gt 0 ]; then
   printf '\033[31m%d blocker(s) — do not dispatch.\033[0m\n' "$problems"
   exit 1
 fi
-printf '\033[32mClear to dispatch.\033[0m One dispatcher at a time, and set this story to\n'
-printf 'ready-for-dev in sprint-status.yaml in the same change as the packet.\n'
+printf '\033[32mClear to dispatch.\033[0m One dispatcher at a time. Next:\n'
+printf '  1. in the target repo:  git switch main && git pull\n'
+printf '  2.                      git switch -c story/%s\n' "$story"
+printf '  3. land the packet at   docs/stories/%s.md, commit, then push -u\n' "$story"
+printf '     (the pushed branch is the claim — this check reads the remote)\n'
+printf '  4. set %s to ready-for-dev in sprint-status.yaml\n' "$story"
+printf '  Do not open the PR: that is the human gate.\n'
