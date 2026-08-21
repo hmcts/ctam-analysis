@@ -92,7 +92,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <blockquote>
 <p>Phase 1 is sequenced <strong>platform-then-integrations-first</strong>: Epic 1.0 platform estate → Epic 1.1 schema/scaffold → Epics 1.2/1.3 ingestion → Epic 1.4 sign-in + UI → Epic 1.5 read API → Epic 1.6 MRD read API → Epic 1.7 bootstrap → Epic 1.8 notification. The shared Azure estate stands up and is independently verified first (Epic 1.0), then the data-ingestion work runs inside the reference-data service itself — there is no separate integrations service.</p>
 <p>Phase 1 is the platform's proving ground: every standard the programme will hold every later service to — versioned APIs, consistent error handling, structured logging — is exercised here first, on sign-in and reference-data reads, before any judge-facing feature is built.</p>
-<p>The Phase 1 areas in <a href="../framework.html">../framework.md</a> are an <strong>architectural map</strong>. The ten concrete epics below are the <strong>implementation plan</strong> — each delivers a demoable outcome and carries its own supporting technical work as stories.</p>
+<p>The Phase 1 areas in <a href="../framework.html">../framework.md</a> are an <strong>architectural map</strong>. The ten concrete epics below are the <strong>implementation plan</strong> — each delivers a demoable outcome. Stories are not yet written for this phase (reverted 2026-08-21, SCP 2026-08-21e) except Epic 1.9's Story 1.9.1, a completion record for genuinely finished work.</p>
 </blockquote>
 <details class="section" id="phase-1-scope-model"><summary><span class="section-title">Phase 1 scope model</span></summary><div class="section-body">
 <ul>
@@ -104,6 +104,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>No admin screens yet</strong>: maintaining CTAM-owned reference data and user/role assignments is done directly by the database team for now; a proper admin interface is planned for later.</li>
 </ul>
 </div></details><details class="section" id="epics"><summary><span class="section-title">Epics</span></summary><div class="section-body">
+<blockquote>
+<p>Reverted to epic-level-only 2026-08-21 (SCP 2026-08-21e, direct user request) — stories were written and later business-language-rewritten, then stripped back out, leaving these epics in the state <code>bmad-create-epics-and-stories</code> step 2 produces (epics designed, not yet decomposed into stories). One exception: Epic 1.9's Story 1.9.1 is kept, since it documents real, already-published work (see its epic file).</p>
+</blockquote>
 <table>
 <thead>
 <tr>
@@ -117,171 +120,105 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><a href="epic-1.0-platform-estate-provisioned.html">1.0</a></td>
 <td>Platform estate is provisioned, verifiable, and CNP-compliant</td>
-<td>5</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.1-postgres-db-schema-design.html">1.1</a></td>
 <td>Postgres reference-data schema is designed and scaffolded</td>
-<td>2</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.2-joh-reference-data-etl-process.html">1.2</a></td>
 <td>JOH reference data flows into CTAM via the nightly eLinks ETL process</td>
-<td>1</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.3-mrd-reference-data-etl-process.html">1.3</a></td>
 <td>MRD reference data flows into CTAM via the weekly Excel ETL process</td>
-<td>1</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.4-user-authenticates.html">1.4</a></td>
 <td>User authenticates and lands on a role-scoped Home page</td>
-<td>5</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.5-joh-reference-data-read-api.html">1.5</a></td>
 <td>JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API</td>
-<td>2</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.6-mrd-reference-data-read-api.html">1.6</a></td>
 <td>MRD reference data is served read-only via the Reference Data API</td>
-<td>1</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.7-user-populations-bootstrapped.html">1.7</a></td>
 <td>Both user populations are bootstrapped and verifiable against the IdP</td>
-<td>1</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.8-system-dispatches-emails.html">1.8</a></td>
 <td>Notification service is scaffolded and contractually ready</td>
-<td>2</td>
+<td>0</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
 <td><a href="epic-1.9-context-bus-and-shared-baseline.html">1.9</a></td>
 <td>Context bus is published and the shared configuration baseline exists</td>
-<td>2</td>
+<td>1</td>
 <td>🟢 In progress</td>
 </tr>
 <tr>
 <td><strong>Total</strong></td>
 <td></td>
-<td><strong>22 stories</strong></td>
+<td><strong>1 story</strong></td>
 <td></td>
 </tr>
 </tbody>
 </table>
 </div></details><details class="section" id="epic-summaries"><summary><span class="section-title">Epic summaries</span></summary><div class="section-body">
-<h3 id="epic-10-platform-estate-is-provisioned-verifiable-and-cnp-compliant-5-stories">Epic 1.0: Platform estate is provisioned, verifiable, and CNP-compliant (5 stories)</h3>
-<p><strong>Outcome:</strong> The shared Azure environment — the Kubernetes cluster, database, container registry, API gateway, monitoring, and secrets vault — is stood up in its own dedicated setup, provisioned one layer at a time with each layer proven working before the next is built, so every Phase 1 service has a tested platform to deploy onto. Comes before Epic 1.1. Its five stories build, in order: the repository and provisioning foundation; the network and cluster; the database and secrets vault; the container registry and monitoring; and the API gateway with an end-to-end smoke test.</p>
-<p>→ <a href="epic-1.0-platform-estate-provisioned.html">Full epic with stories</a></p>
-<h3 id="epic-11-postgres-reference-data-schema-is-designed-and-scaffolded-2-stories">Epic 1.1: Postgres reference-data schema is designed and scaffolded (2 stories)</h3>
-<p><strong>Outcome:</strong> The reference-data service is the first service scaffolded (Story 1.1.1) and deploys onto the shared platform from Epic 1.0; the database design for the data coming in from outside sources — the JOH tables and a sync-tracking table — is put in place with clear rules about who's allowed to write to it (Story 1.1.2). This is the platform's foundational data layer; the JOH and MRD data-import work that follows (Epics 1.2 and 1.3) populates it once it exists.</p>
-<p>→ <a href="epic-1.1-postgres-db-schema-design.html">Full epic with stories</a></p>
-<h3 id="epic-12-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process-1-story">Epic 1.2: JOH reference data flows into CTAM via the nightly eLinks ETL process (1 story)</h3>
-<p><strong>Outcome:</strong> A nightly automated job (Story 1.2.1) pulls judge and tribunal-member data from the real JOH data source and keeps CTAM's copy of it current, using the database design from Epic 1.1 — the precondition for judges and tribunal members being able to sign in (Epic 1.4). This work was originally part of Epic 1.1 and was later split out into its own epic.</p>
-<p>→ <a href="epic-1.2-joh-reference-data-etl-process.html">Full epic with stories</a></p>
-<h3 id="epic-13-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process-1-story">Epic 1.3: MRD reference data flows into CTAM via the weekly Excel ETL process (1 story)</h3>
-<p><strong>Outcome:</strong> A weekly file drop and scheduled pick-up (Story 1.3.1) imports the MRD team's Excel workbook into its own small table, making supplementary judicial data (notably JOH Specialisms) available without waiting for MRD to build a proper API. This work was also originally part of Epic 1.1 and was later split out into its own epic.</p>
-<p>→ <a href="epic-1.3-mrd-reference-data-etl-process.html">Full epic with stories</a></p>
-<h3 id="epic-14-user-authenticates-and-lands-on-a-role-scoped-home-page-5-stories">Epic 1.4: User authenticates and lands on a role-scoped Home page (5 stories)</h3>
+<h3 id="epic-10-platform-estate-is-provisioned-verifiable-and-cnp-compliant">Epic 1.0: Platform estate is provisioned, verifiable, and CNP-compliant</h3>
+<p><strong>Outcome:</strong> The shared Azure environment — the Kubernetes cluster, database, container registry, API gateway, monitoring, and secrets vault — is stood up in its own dedicated setup, provisioned one layer at a time with each layer proven working before the next is built, so every Phase 1 service has a tested platform to deploy onto. Comes before Epic 1.1. Planned as five stages, in order: the repository and provisioning foundation; the network and cluster; the database and secrets vault; the container registry and monitoring; and the API gateway with an end-to-end smoke test — not yet decomposed into stories.</p>
+<p>→ <a href="epic-1.0-platform-estate-provisioned.html">Full epic</a></p>
+<h3 id="epic-11-postgres-reference-data-schema-is-designed-and-scaffolded">Epic 1.1: Postgres reference-data schema is designed and scaffolded</h3>
+<p><strong>Outcome:</strong> The reference-data service is the first service scaffolded and deploys onto the shared platform from Epic 1.0; the database design for the data coming in from outside sources — the JOH tables and a sync-tracking table — is put in place with clear rules about who's allowed to write to it. This is the platform's foundational data layer; the JOH and MRD data-import work that follows (Epics 1.2 and 1.3) populates it once it exists.</p>
+<p>→ <a href="epic-1.1-postgres-db-schema-design.html">Full epic</a></p>
+<h3 id="epic-12-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process">Epic 1.2: JOH reference data flows into CTAM via the nightly eLinks ETL process</h3>
+<p><strong>Outcome:</strong> A nightly automated job pulls judge and tribunal-member data from the real JOH data source and keeps CTAM's copy of it current, using the database design from Epic 1.1 — the precondition for judges and tribunal members being able to sign in (Epic 1.4). This work was originally part of Epic 1.1 and was later split out into its own epic.</p>
+<p>→ <a href="epic-1.2-joh-reference-data-etl-process.html">Full epic</a></p>
+<h3 id="epic-13-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process">Epic 1.3: MRD reference data flows into CTAM via the weekly Excel ETL process</h3>
+<p><strong>Outcome:</strong> A weekly file drop and scheduled pick-up imports the MRD team's Excel workbook into its own small table, making supplementary judicial data (notably JOH Specialisms) available without waiting for MRD to build a proper API. This work was also originally part of Epic 1.1 and was later split out into its own epic.</p>
+<p>→ <a href="epic-1.3-mrd-reference-data-etl-process.html">Full epic</a></p>
+<h3 id="epic-14-user-authenticates-and-lands-on-a-role-scoped-home-page">Epic 1.4: User authenticates and lands on a role-scoped Home page</h3>
 <p><strong>Outcome:</strong> A user from either population — a judge or tribunal member, or HMCTS admin staff — signs in through single sign-on, has their identity worked out automatically, and lands on a Home page showing only what they're allowed to see. Depends on Epics 1.1 and 1.2 (the JOH data needs to already be flowing in) and deploys onto the shared platform from Epic 1.0.</p>
-<p>→ <a href="epic-1.4-user-authenticates.html">Full epic with stories</a></p>
-<h3 id="epic-15-joh-and-ctam-owned-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api-2-stories">Epic 1.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)</h3>
-<p><strong>Outcome:</strong> CTAM's own reference data (regions, offices, calendar, operational vocabularies) is created, seeded, and maintained directly by the database team for now (Story 1.5.1); together with the JOH data from Epic 1.2, it's made available through a versioned, read-only, jurisdiction-aware API (Story 1.5.2). Comes after Epic 1.4, since it needs sign-in and permission-checking to already exist. The MRD side of this same API is a separate epic (1.6), which extends this work rather than duplicating it.</p>
-<p>→ <a href="epic-1.5-joh-reference-data-read-api.html">Full epic with stories</a></p>
-<h3 id="epic-16-mrd-reference-data-is-served-read-only-via-the-reference-data-api-1-story">Epic 1.6: MRD reference data is served read-only via the Reference Data API (1 story)</h3>
+<p>→ <a href="epic-1.4-user-authenticates.html">Full epic</a></p>
+<h3 id="epic-15-joh-and-ctam-owned-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api">Epic 1.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API</h3>
+<p><strong>Outcome:</strong> CTAM's own reference data (regions, offices, calendar, operational vocabularies) is created, seeded, and maintained directly by the database team for now; together with the JOH data from Epic 1.2, it's made available through a versioned, read-only, jurisdiction-aware API. Comes after Epic 1.4, since it needs sign-in and permission-checking to already exist. The MRD side of this same API is a separate epic (1.6), which extends this work rather than duplicating it.</p>
+<p>→ <a href="epic-1.5-joh-reference-data-read-api.html">Full epic</a></p>
+<h3 id="epic-16-mrd-reference-data-is-served-read-only-via-the-reference-data-api">Epic 1.6: MRD reference data is served read-only via the Reference Data API</h3>
 <p><strong>Outcome:</strong> JOH Specialisms (the MRD-sourced data) become queryable through the exact same API everything else already uses for reference data (Epic 1.5) — one new endpoint added to an existing, already-published API, not a new service or a new version. This work was split out of Epic 1.5 as genuinely new content — no MRD read endpoint existed before this epic.</p>
-<p>→ <a href="epic-1.6-mrd-reference-data-read-api.html">Full epic with stories</a></p>
-<h3 id="epic-17-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp-1-story">Epic 1.7: Both user populations are bootstrapped and verifiable against the IdP (1 story)</h3>
+<p>→ <a href="epic-1.6-mrd-reference-data-read-api.html">Full epic</a></p>
+<h3 id="epic-17-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp">Epic 1.7: Both user populations are bootstrapped and verifiable against the IdP</h3>
 <p><strong>Outcome:</strong> Accounts for both populations exist (seeded for development and testing; set up through a proper process in production) with everyone starting deactivated by (jurisdiction, region) until their go-live date, and a re-runnable check proves every account genuinely maps back to a real sign-in identity — a standing gate the programme reuses at every future rollout wave.</p>
-<p>→ <a href="epic-1.7-user-populations-bootstrapped.html">Full epic with stories</a></p>
-<h3 id="epic-18-notification-service-is-scaffolded-and-contractually-ready-2-stories">Epic 1.8: Notification service is scaffolded and contractually ready (2 stories)</h3>
+<p>→ <a href="epic-1.7-user-populations-bootstrapped.html">Full epic</a></p>
+<h3 id="epic-18-notification-service-is-scaffolded-and-contractually-ready">Epic 1.8: Notification service is scaffolded and contractually ready</h3>
 <p><strong>Outcome:</strong> The notification service is deployed with its way of being called published, its delivery-history table created, its connection to the real HMCTS email system configured, and its "send an email" endpoint working end to end. Later features (starting in the next phase) will call it directly using the identity of whoever is signed in. Proven by hand during this phase's testing — no admin screen yet.</p>
-<p>→ <a href="epic-1.8-system-dispatches-emails.html">Full epic with stories</a></p>
-<h3 id="epic-19-context-bus-is-published-and-the-shared-configuration-baseline-exists-2-stories">Epic 1.9: Context bus is published and the shared configuration baseline exists (2 stories)</h3>
-<p><strong>Outcome:</strong> Every service repository can pin one published, versioned copy of the shared architecture, and every service can read cross-service policy values from one shared table it doesn't own. Both exist before the first domain service is scaffolded.</p>
+<p>→ <a href="epic-1.8-system-dispatches-emails.html">Full epic</a></p>
+<h3 id="epic-19-context-bus-is-published-and-the-shared-configuration-baseline-exists-1-story">Epic 1.9: Context bus is published and the shared configuration baseline exists (1 story)</h3>
+<p><strong>Outcome:</strong> Every service repository can pin one published, versioned copy of the shared architecture, and every service can read cross-service policy values from one shared table it doesn't own. Both exist before the first domain service is scaffolded. <strong>Story 1.9.1 (publishing the architecture package) is done — genuinely completed and kept in this epic's file as a completion record.</strong> The second piece of work (creating the shared configuration table) is not yet decomposed into a story.</p>
 <p>This epic's number doesn't reflect when it actually runs — it sits between Epic 1.0 and Epic 1.1 in practice. It was promoted from an informal placeholder to a proper tracked epic once the programme's delivery tooling could represent it as one.</p>
-<p>→ <a href="epic-1.9-context-bus-and-shared-baseline.html">Full epic with stories</a></p>
-</div></details><details class="section" id="phase-1-epic-stories-summary"><summary><span class="section-title">Phase 1 Epic Stories Summary</span></summary><div class="section-body">
-<table>
-<thead>
-<tr>
-<th>Epic</th>
-<th>Stories</th>
-<th>Phase 1 demo</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.0</td>
-<td>5 stories (1.0.1–1.0.5)</td>
-<td>Each infrastructure layer stands up and is proven working as it's deployed — the cluster is reachable and healthy, the database only accepts secure connections, the secrets vault round-trips a secret, the container registry can be pulled from, and the API gateway routes a test call all the way through</td>
-</tr>
-<tr>
-<td>1.1</td>
-<td>2 stories (1.1.1–1.1.2)</td>
-<td>The reference-data service is scaffolded onto the Epic 1.0 platform; the JOH database tables and sync-tracking table exist with write protection proven by an automated check</td>
-</tr>
-<tr>
-<td>1.2</td>
-<td>1 story (1.2.1)</td>
-<td>Judge and tribunal-member data flows in every night from the real data source, kept current and provable via the sync-tracking table</td>
-</tr>
-<tr>
-<td>1.3</td>
-<td>1 story (1.3.1)</td>
-<td>The MRD team's weekly Excel workbook flows in via the file drop, kept current and provable via the sync-tracking table</td>
-</tr>
-<tr>
-<td>1.4</td>
-<td>5 stories (1.4.1–1.4.5)</td>
-<td>A user from either population signs in, has their identity and permissions worked out automatically, and lands on a role-scoped Home page</td>
-</tr>
-<tr>
-<td>1.5</td>
-<td>2 stories (1.5.1–1.5.2)</td>
-<td>The jurisdiction-aware Reference Data API serves both CTAM's own data and the JOH data, read-only</td>
-</tr>
-<tr>
-<td>1.6</td>
-<td>1 story (1.6.1)</td>
-<td>The same Reference Data API gains a jurisdiction-aware JOH Specialisms endpoint</td>
-</tr>
-<tr>
-<td>1.7</td>
-<td>1 story (1.7.1)</td>
-<td>Seeded accounts across both populations are proven against the sign-in system; Epic 1.4's sign-in works against them</td>
-</tr>
-<tr>
-<td>1.8</td>
-<td>2 stories (1.8.1–1.8.2)</td>
-<td>The "send an email" endpoint works end-to-end, proven by hand with a testing tool</td>
-</tr>
-<tr>
-<td>1.9</td>
-<td>2 stories (1.9.1–1.9.2)</td>
-<td>A service repository pins the published architecture and resolves it; a service can read the shared configuration table but not write to it</td>
-</tr>
-<tr>
-<td><strong>Total</strong></td>
-<td><strong>17 stories</strong></td>
-<td>The nine demos chain together for the Phase 1 stakeholder walkthrough — starting with the verified platform estate (Epic 1.0's 5 stories are the platform smoke-test that precedes this table, not counted here)</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Quality standards proven across Phase 1:</strong> secure connections everywhere (TLS), data encrypted at rest, sign-in tokens checked on every request, permissions enforced everywhere including by jurisdiction, no data that shouldn't be there, a documented trail for every change, secrets kept in the secure vault (including the credential used to reach the JOH data source), the public-facing application meeting government accessibility standards (the admin application is deferred), sign-in working against the temporary stand-in for the real HMCTS system, the real HMCTS email system reachable, both data feeds meeting their delivery targets, every service observable and independently deployable, hosted in the UK, following the programme's API-versioning and change-signalling conventions, and every service shipping a ready-made set of test requests other teams can reuse.</p>
+<p>→ <a href="epic-1.9-context-bus-and-shared-baseline.html">Full epic</a></p>
+</div></details><details class="section" id="quality-standards-proven-across-phase-1"><summary><span class="section-title">Quality standards proven across Phase 1</span></summary><div class="section-body">
+<p>Secure connections everywhere (TLS), data encrypted at rest, sign-in tokens checked on every request, permissions enforced everywhere including by jurisdiction, no data that shouldn't be there, a documented trail for every change, secrets kept in the secure vault (including the credential used to reach the JOH data source), the public-facing application meeting government accessibility standards (the admin application is deferred), sign-in working against the temporary stand-in for the real HMCTS system, the real HMCTS email system reachable, both data feeds meeting their delivery targets, every service observable and independently deployable, hosted in the UK, following the programme's API-versioning and change-signalling conventions, and every service shipping a ready-made set of test requests other teams can reuse.</p>
 </div></details><details class="section" id="post-mvp-roadmap-items"><summary><span class="section-title">Post-MVP roadmap items</span></summary><div class="section-body">
 <ol type="1">
 <li><strong>Admin-facing web application</strong> — scaffolding + sign-in wrapper + the government design system's admin theme</li>
@@ -302,7 +239,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-1/index.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-1-scope-model">Phase 1 scope model</a></li><li><a href="#epics">Epics</a></li><li><a href="#epic-summaries">Epic summaries</a></li><li class="h3"><a href="#epic-10-platform-estate-is-provisioned-verifiable-and-cnp-compliant-5-stories">Epic 1.0: Platform estate is provisioned, verifiable, and CNP-compliant (5 stories)</a></li><li class="h3"><a href="#epic-11-postgres-reference-data-schema-is-designed-and-scaffolded-2-stories">Epic 1.1: Postgres reference-data schema is designed and scaffolded (2 stories)</a></li><li class="h3"><a href="#epic-12-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process-1-story">Epic 1.2: JOH reference data flows into CTAM via the nightly eLinks ETL process (1 story)</a></li><li class="h3"><a href="#epic-13-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process-1-story">Epic 1.3: MRD reference data flows into CTAM via the weekly Excel ETL process (1 story)</a></li><li class="h3"><a href="#epic-14-user-authenticates-and-lands-on-a-role-scoped-home-page-5-stories">Epic 1.4: User authenticates and lands on a role-scoped Home page (5 stories)</a></li><li class="h3"><a href="#epic-15-joh-and-ctam-owned-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api-2-stories">Epic 1.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API (2 stories)</a></li><li class="h3"><a href="#epic-16-mrd-reference-data-is-served-read-only-via-the-reference-data-api-1-story">Epic 1.6: MRD reference data is served read-only via the Reference Data API (1 story)</a></li><li class="h3"><a href="#epic-17-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp-1-story">Epic 1.7: Both user populations are bootstrapped and verifiable against the IdP (1 story)</a></li><li class="h3"><a href="#epic-18-notification-service-is-scaffolded-and-contractually-ready-2-stories">Epic 1.8: Notification service is scaffolded and contractually ready (2 stories)</a></li><li class="h3"><a href="#epic-19-context-bus-is-published-and-the-shared-configuration-baseline-exists-2-stories">Epic 1.9: Context bus is published and the shared configuration baseline exists (2 stories)</a></li><li><a href="#phase-1-epic-stories-summary">Phase 1 Epic Stories Summary</a></li><li><a href="#post-mvp-roadmap-items">Post-MVP roadmap items</a></li><li><a href="#validation">Validation</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-1-scope-model">Phase 1 scope model</a></li><li><a href="#epics">Epics</a></li><li><a href="#epic-summaries">Epic summaries</a></li><li class="h3"><a href="#epic-10-platform-estate-is-provisioned-verifiable-and-cnp-compliant">Epic 1.0: Platform estate is provisioned, verifiable, and CNP-compliant</a></li><li class="h3"><a href="#epic-11-postgres-reference-data-schema-is-designed-and-scaffolded">Epic 1.1: Postgres reference-data schema is designed and scaffolded</a></li><li class="h3"><a href="#epic-12-joh-reference-data-flows-into-ctam-via-the-nightly-elinks-etl-process">Epic 1.2: JOH reference data flows into CTAM via the nightly eLinks ETL process</a></li><li class="h3"><a href="#epic-13-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process">Epic 1.3: MRD reference data flows into CTAM via the weekly Excel ETL process</a></li><li class="h3"><a href="#epic-14-user-authenticates-and-lands-on-a-role-scoped-home-page">Epic 1.4: User authenticates and lands on a role-scoped Home page</a></li><li class="h3"><a href="#epic-15-joh-and-ctam-owned-reference-data-is-served-read-only-via-a-versioned-jurisdiction-filtered-api">Epic 1.5: JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API</a></li><li class="h3"><a href="#epic-16-mrd-reference-data-is-served-read-only-via-the-reference-data-api">Epic 1.6: MRD reference data is served read-only via the Reference Data API</a></li><li class="h3"><a href="#epic-17-both-user-populations-are-bootstrapped-and-verifiable-against-the-idp">Epic 1.7: Both user populations are bootstrapped and verifiable against the IdP</a></li><li class="h3"><a href="#epic-18-notification-service-is-scaffolded-and-contractually-ready">Epic 1.8: Notification service is scaffolded and contractually ready</a></li><li class="h3"><a href="#epic-19-context-bus-is-published-and-the-shared-configuration-baseline-exists-1-story">Epic 1.9: Context bus is published and the shared configuration baseline exists (1 story)</a></li><li><a href="#quality-standards-proven-across-phase-1">Quality standards proven across Phase 1</a></li><li><a href="#post-mvp-roadmap-items">Post-MVP roadmap items</a></li><li><a href="#validation">Validation</a></li></ul></aside>
 <script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-1/index";</script>
 <script src="../../nav.js"></script>
 <script>

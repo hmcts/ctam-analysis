@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-21 (e) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-21-e">Sprint Change Proposal — 2026-08-21 (e)</h1>
+<p><strong>Strip stories from all Phase 1 epics</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"remove all phase-1 related stories"</em> — a direct <code>bmad-correct-course</code> request. Clarified with the user before starting, given how large and ambiguous the literal request was: of four offered readings (strip stories from epic files only / delete the epics entirely / clear only <code>sprint-status.yaml</code> entries / something else), the user chose <strong>"strip stories from the epic files only"</strong> — the <code>## Story N.N.N</code> sections come out of all ten Phase 1 epic files; the epics themselves (business goal, outcome, scope, <code>repo:</code>/<code>depends_on:</code> frontmatter) stay.</p>
+<p><strong>What this reverts:</strong> <code>bmad-create-epics-and-stories</code> is a four-step workflow (validate prerequisites → design epics → create stories → final validation). Phase 1 had completed all four steps (22 stories, Gherkin ACs, later rewritten business-readable by <code>b6f61c4</code>). This change rolls Phase 1 back to <strong>after step 2, before step 3</strong> — epics designed, stories not yet created — which is exactly the state Phase 0's primary area (JOH Records, FR10–FR18) and Phases 2–9+ are already in. <strong>Epic 0.0 and 0.1 (Phase 0) are untouched</strong> — the request was scoped to Phase 1 only.</p>
+<p><strong>One consequence found during impact analysis, flagged for explicit approval before proceeding — not assumed:</strong> Story <strong>1.9.1</strong> ("Publish <code>ctam-architecture</code> as the official, version-tagged architecture package") is not a hypothetical future story. It documents real, already-completed work: <code>ctam-architecture</code> genuinely exists on GitHub, tagged <code>arch-v1.0</code> and <code>arch-v1.1</code> (verified via <code>git ls-remote --tags</code>), and <code>sprint-status.yaml</code> already records it as <code>done</code>. Deleting its story text along with the other 21 backlog stories would erase the only written record of what was actually verified and shipped, and would leave <code>epic-1.9</code>'s <code>in-progress</code> status in <code>sprint-status.yaml</code> with nothing underneath it. <strong>Decision confirmed by the user before implementation: keep Story 1.9.1 as a completion record inside Epic 1.9's file; strip the other 21 stories (all still <code>backlog</code>) as requested.</strong></p>
+<p><strong>A second consequence found only after implementing, verified rather than assumed:</strong> with <code>epic-1.1</code> and <code>epic-1.3</code> no longer tracked in <code>sprint-status.yaml</code> (nothing left to track — they have no stories), <code>scripts/dispatch-preflight.sh</code>'s prerequisite check for Epic 0.0/0.1's own stories can no longer confirm those prerequisites are unmet — it downgrades from a hard <code>STOP</code> to a <code>WARN</code>. Confirmed by running <code>./scripts/dispatch-preflight.sh 0.0.1</code> before and after this change: before, it correctly reported <code>STOP prerequisite epic-1.1 is 'backlog', not 'done'</code>; after, it reports <code>WARN prerequisite 'epic-1.1' is not in sprint-status.yaml</code> and the story becomes "Clear to dispatch." This is a real, if narrow, weakening of that safety check — worth knowing, not hidden in the changelog.</p>
+<p><strong>Status check:</strong> every affected story is <code>backlog</code> except 1.9.1 (<code>done</code>, and per the above, proposed to be kept). No code exists in any of the 16 execution-unit repos. This is a planning-document rollback, not a scope or architecture change — no FR/NFR is dropped, since the epics (and the FRs they exist to satisfy) remain; only their story-level decomposition is undone.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-epic-impact">2.1 Epic impact</h3>
+<p>All 10 Phase 1 epics (1.0–1.9) lose their story content but keep their epic-level definition (Business Goal, What this covers, Outcome, Component(s)-equivalent narrative, Explicitly out of scope). <code>storyCount</code> frontmatter drops to <code>0</code> (or is removed — see 4.1). No epic's <code>repo:</code> or <code>depends_on:</code> frontmatter changes. No epic is deleted, renumbered, or moved.</p>
+<h3 id="22-story-impact">2.2 Story impact</h3>
+<p>All 22 Phase 1 stories are removed from their epic files (1.0.1–1.0.5, 1.1.1–1.1.2, 1.2.1, 1.3.1, 1.4.1–1.4.5, 1.5.1–1.5.2, 1.6.1, 1.7.1, 1.8.1–1.8.2, 1.9.1–1.9.2) — <strong>except Story 1.9.1, pending the decision above.</strong> Phase 0's 6 stories (Epic 0.0/0.1) are untouched.</p>
+<h3 id="23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>What needs to change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-1/epic-1.0-…md</code> … <code>epic-1.9-…md</code> (10 files)</td>
+<td>Remove everything from the <code>---</code> separator before the first <code>## Story</code> heading to end of file; <code>storyCount: 0</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-1/index.md</code></td>
+<td>Rewrite the Epics table (drop the Stories/count column values, "22 stories" total), drop the entire "Phase 1 Epic Stories Summary" table (story-level demo descriptions), rewrite epic summaries to drop "(N stories)" and story-number references</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Document Map row: "🟡 Planned — 10 epics, 22 stories" → "10 epics (not yet storied)"; "How this document is produced" narrative: "Phase 1 has completed all four steps" → "Phase 1 has completed steps 1–2 (epics designed); stories not yet created"; frontmatter <code>stepsCompleted</code> drops <code>step-03-create-stories-phase-1</code> and <code>step-04-final-validation-phase-1</code></td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>Every "Epic 1.X Story 1.X.Y" citation (FR1, FR2, FR3, FR6, FR7, FR8, FR55, FR58, FR59, NFR24) loses its Story-level suffix, becoming a plain Epic 1.X citation — the FR is still associated with the epic that will eventually deliver it, just not yet at story granularity</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>"→ Phase 1 concrete epics + stories: phase-1/" → "→ Phase 1 concrete epics (not yet storied): phase-1/"</td>
+</tr>
+<tr>
+<td><code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></td>
+<td>Remove all 22 Phase 1 story keys and, since there's nothing left to track at story level, the 10 <code>epic-1.X</code>/<code>epic-1.X-retrospective</code> keys too — <strong>except epic-1.9 and its one surviving story key, pending the Section 1 decision</strong></td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code> NAV</td>
+<td>Drop the "(N stories)" story counts from all 10 Phase 1 NAV entry labels</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New v4.18 entry</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — no code exists in any of the 16 execution-unit repos; nothing has been dispatched.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment</strong>, with one decision needed before implementation: <strong>keep Story 1.9.1 as a completion record</strong> (it documents real, verified, already-shipped work — deleting the only written record of it serves no purpose and actively loses information), while removing the other 21 backlog stories as requested. This is presented as a recommendation, not a fait accompli — the user may instead want 1.9.1 removed too for full consistency with "all Phase 1 stories," in which case <code>epic-1.9</code>'s <code>in-progress</code> status and its lone <code>done</code> story marker in <code>sprint-status.yaml</code> would need to be reconciled (e.g. dropped to <code>backlog</code> with the completion evidence surviving only in <code>architecture/changelog.md</code>'s existing v4.x entries, which already record the publication independently).</p>
+<p><strong>Effort:</strong> Moderate — 10 epic-file edits + 6 connective-doc edits, all mechanical once the boundary decision is made. <strong>Risk:</strong> Low — no FR/NFR/architecture change, no code exists, fully reversible via git history if this needs undoing later.</p>
+<hr />
+</div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-each-of-the-10-phase-1-epic-files">4.1 Each of the 10 Phase 1 epic files</h3>
+<pre class="diff"><code> ---
+ ...
+-storyCount: 5
++storyCount: 0
+ repo: ctam-shared-infrastructure
+ depends_on: []
+ ---
+
+ # Epic 1.0: ...
+
+ **Business Goal:** ...
+ **What this covers:** ...
+ **Outcome:** ...
+ ...
+ **Explicitly out of scope:** ...
+
+--
+-
+-## Story 1.0.1: ...
+-[... full story content ...]
+-
+--
+-
+-## Story 1.0.5: ...
+-[... full story content ...]</code></pre>
+<p>(Epic 1.9 is the one exception — see Section 1/3: its file keeps Story 1.9.1 verbatim, marked <code>done</code>, and loses only Story 1.9.2.)</p>
+<h3 id="42-epicsphase-1indexmd">4.2 <code>epics/phase-1/index.md</code></h3>
+<p>Full rewrite: Epics table's Stories column becomes a flat "0 (not yet decomposed)" or is dropped entirely; the "Phase 1 Epic Stories Summary" table (demo-level, story-count detail) is removed; each epic summary's "(N stories)" suffix and any story-number reference is dropped, keeping the plain-language outcome text.</p>
+<h3 id="43-epicsindexmd">4.3 <code>epics/index.md</code></h3>
+<pre class="diff"><code> | **1** — Foundations | [phase-1/](phase-1/index.html) | 🟡 Planned — 10 epics, 22 stories |
++| **1** — Foundations | [phase-1/](phase-1/index.html) | 🟡 Planned — 10 epics (not yet storied) |</code></pre>
+<pre class="diff"><code>-Phase 1 has completed all four steps. Phase 0 has two epics through all four steps ...
++Phase 1 has completed steps 1-2 (epics designed); stories not yet created — reverted 2026-08-21, SCP (e). Phase 0 has two epics through all four steps ...</code></pre>
+<p>Frontmatter <code>stepsCompleted</code> drops <code>step-03-create-stories-phase-1</code> and <code>step-04-final-validation-phase-1</code>.</p>
+<h3 id="44-epicsfr-coverage-mapmd">4.4 <code>epics/fr-coverage-map.md</code></h3>
+<p>Every citation like <code>[Epic 1.4](phase-1/epic-1.4-user-authenticates.html) Story 1.4.3</code> becomes <code>[Epic 1.4](phase-1/epic-1.4-user-authenticates.html)</code> — the epic-level pointer survives, the story-level precision is dropped since it no longer exists. Applies to the FR1, FR2, FR3, FR6, FR7, FR8, FR55, FR58, FR59, NFR24 rows.</p>
+<h3 id="45-epicsframeworkmd">4.5 <code>epics/framework.md</code></h3>
+<pre class="diff"><code>-→ **Phase 1 concrete epics + stories:** [phase-1/](phase-1/index.html)
++→ **Phase 1 concrete epics (not yet storied):** [phase-1/](phase-1/index.html)</code></pre>
+<h3 id="46-_bmad-outputimplementation-artifactssprint-statusyaml">4.6 <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></h3>
+<p>Remove all Phase 1 epic and story keys (<code>epic-1.0</code>…<code>epic-1.8</code> + their stories + retrospectives). For <code>epic-1.9</code>: pending the Section 1 decision, either (a) keep <code>epic-1.9: in-progress</code> with only its <code>1-9-1-…: done</code> key (Story 1.9.2's key removed), or (b) remove the whole block per full literal consistency. Phase 0's block (<code>epic-0.0</code>, <code>epic-0.1</code>) is untouched.</p>
+<h3 id="47-scriptspythonbuild_htmlpy-nav">4.7 <code>scripts/python/build_html.py</code> NAV</h3>
+<pre class="diff"><code>-(&quot;Epic 1.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)&quot;, &quot;epics/phase-1/epic-1.0-platform-estate-provisioned&quot;, False),
++(&quot;Epic 1.0 — Platform estate provisioned, verifiable, CNP-compliant&quot;, &quot;epics/phase-1/epic-1.0-platform-estate-provisioned&quot;, False),</code></pre>
+<p>Applied to all 10 Phase 1 entries.</p>
+<h3 id="48-architecturechangelogmd--new-entry-v418">4.8 <code>architecture/changelog.md</code> — new entry (v4.18)</h3>
+<p>Records the reversion, the rationale, and the 1.9.1 decision as actually made.</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Moderate</strong> — backlog reorganisation across 10 epic files and 6 connective documents, but no PRD/architecture/FR change and directly implementable in this session (consistent with every other epics-restructuring SCP this repo has recorded).</p>
+<p><strong>Success criteria:</strong></p>
+<ul>
+<li>All 10 Phase 1 epic files carry no <code>## Story</code> sections except as decided for 1.9.1.</li>
+<li><code>phase-1/index.md</code>, <code>epics/index.md</code>, <code>fr-coverage-map.md</code>, <code>framework.md</code> all describe Phase 1 as epic-level-only, consistent with each other.</li>
+<li><code>sprint-status.yaml</code> carries no Phase 1 story keys except as decided for 1.9.1; Phase 0 untouched.</li>
+<li><code>build_html.py</code> NAV and <code>docs/</code> regenerated and consistent with the above.</li>
+<li><code>architecture/changelog.md</code> carries a v4.18 entry.</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-21e.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-epic-impact">2.1 Epic impact</a></li><li class="h3"><a href="#22-story-impact">2.2 Story impact</a></li><li class="h3"><a href="#23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--detailed-change-proposals">Section 4 — Detailed Change Proposals</a></li><li class="h3"><a href="#41-each-of-the-10-phase-1-epic-files">4.1 Each of the 10 Phase 1 epic files</a></li><li class="h3"><a href="#42-epicsphase-1indexmd">4.2 epics/phase-1/index.md</a></li><li class="h3"><a href="#43-epicsindexmd">4.3 epics/index.md</a></li><li class="h3"><a href="#44-epicsfr-coverage-mapmd">4.4 epics/fr-coverage-map.md</a></li><li class="h3"><a href="#45-epicsframeworkmd">4.5 epics/framework.md</a></li><li class="h3"><a href="#46-_bmad-outputimplementation-artifactssprint-statusyaml">4.6 _bmad-output/implementation-artifacts/sprint-status.yaml</a></li><li class="h3"><a href="#47-scriptspythonbuild_htmlpy-nav">4.7 scripts/python/build_html.py NAV</a></li><li class="h3"><a href="#48-architecturechangelogmd--new-entry-v418">4.8 architecture/changelog.md — new entry (v4.18)</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-21e";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

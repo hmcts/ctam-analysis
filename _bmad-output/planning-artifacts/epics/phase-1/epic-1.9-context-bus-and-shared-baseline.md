@@ -7,7 +7,7 @@ timestamp: '2026-08-19'
 parent: 'epics/phase-1/index.md'
 epic: 1.9
 title: 'Context bus is published and the shared configuration baseline exists'
-storyCount: 2
+storyCount: 1
 repo: ctam-architecture
 depends_on: [epic-1.0]
 ---
@@ -20,7 +20,7 @@ depends_on: [epic-1.0]
 
 **What this covers:** This is two related pieces of foundational groundwork. The first is publishing the architecture itself — turning the working planning documents into one official, version-tagged package that every service repository can pin a copy of and only update on purpose. The second is creating one small, shared database table that holds programme-wide configuration values, which every service can read but none can change directly. Neither piece is tied to a single feature; both exist so later work has solid, shared ground to build on.
 
-A practical note on sequencing: although this epic sits between two others in the numbering, the actual build order comes from what each piece of work genuinely needs, not from the numbers. In practice, the two stories in this epic have different real dependencies — publishing the architecture package needs nothing else and is already complete; only the second story, which creates the shared configuration table, needs the shared database to exist first. Because dependencies are tracked at the whole-epic level, automated readiness checks may still flag the earlier database epic as a blocker for the whole of this epic, even though the first story doesn't actually need it.
+A practical note on sequencing: although this epic sits between two others in the numbering, the actual build order comes from what each piece of work genuinely needs, not from the numbers. In practice, this epic's two pieces of work have different real dependencies — publishing the architecture package needed nothing else and is already complete (Story 1.9.1); the second piece, creating the shared configuration table, needs the shared database to exist first and is not yet decomposed into a story. Because dependencies are tracked at the whole-epic level, automated readiness checks may still flag the earlier database epic as a blocker for the whole of this epic, even though the first piece didn't actually need it.
 
 **Outcome:** Every service team can pin one official, version-tagged copy of the architecture (referred to as the "context bus"), and every service can read shared, programme-wide settings from one table it doesn't own. Both are ready before the first service is scaffolded, so nobody has to invent a local copy of shared truth or a local settings table.
 
@@ -69,39 +69,3 @@ So that **every service team can pin exactly one version of the shared architect
 **When** that change is published,
 **Then** it comes out as a new, higher-numbered release tag together with a deliberate update in each service repository that adopts it — the shared package never silently changes what a service is already using.
 
----
-
-## Story 1.9.2: Shared configuration table exists, with read-only access for every service
-
-As a **service developer**,
-I want one shared table of typed, programme-wide settings that my service can read but not change,
-So that settings used by several services — things like session-timeout warnings, batch schedules, and feature flags — live in exactly one place, instead of being copied into every service or hard-coded.
-
-**Acceptance Criteria:**
-
-**Given** the shared database instance already exists,
-**And** the engineer adds the `ctam-architecture` repository's baseline database migration script,
-**When** that migration script is applied,
-**Then** the `ctam_configuration_values` table exists in the shared database schema,
-**And** it holds typed settings — a key, a value, and the value's type — with a `uuid` primary key column named `id`, and `created_at` and `updated_at` timestamp columns that can never be left blank, following the shared naming conventions used across the programme,
-**And** no extra column is added beyond that simple shape without a clear, justified reason,
-**And** the table is written down as shared infrastructure with no single owning service in the programme's record of shared database tables.
-
-**Given** the table exists,
-**When** database access is granted,
-**Then** every service's database role can read from it,
-**And** no service's database role can insert, update, or delete rows in it — for now, changes are made only by a database administrator,
-**And** those access grants are written into the `ctam-architecture` repository's migration scripts rather than applied by hand, so they can't quietly drift or be forgotten.
-
-**Given** a service needs to read a setting,
-**When** it does so,
-**Then** it reads the value straight from the shared database using its normal data-access layer — there is no separate configuration service or client to call,
-**And** the value is always treated as a policy setting, never as a secret — actual secrets stay in the programme's secure secrets vault.
-
-**Given** an automated integration test runs,
-**When** the baseline migration script is applied to a freshly created, empty test database,
-**Then** the table and its access grants are created from nothing and checked automatically, proving the migration script itself works correctly rather than relying on a developer's own already-set-up database.
-
-**Explicitly not in scope:**
-- Any way to write to these values through a screen or API — that's planned for later
-- Configuration that's specific to just one service — that continues to live in that service's own settings files and in the secure secrets vault, not in this shared table

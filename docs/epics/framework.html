@@ -272,7 +272,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ol>
 <p><strong>Component(s)</strong>: <code>ctam-admin-ui</code> (post-MVP repo: shared + Reference Data tier-(b) module + User &amp; Role module).</p>
 <p><strong>Primary FR/NFR coverage</strong>: FR4 <em>(UI surface)</em>, FR6 <em>(tier-(b) UI surface)</em>, FR56 <em>(stack)</em>, NFR17, NFR18, NFR19. Also AR42–AR45b. All post-MVP<a href="#fn14" class="footnote-ref" id="fnref14" role="doc-noteref"><sup>14</sup></a>.</p>
-<p>→ <strong>Phase 1 concrete epics + stories:</strong> <a href="phase-1/index.html">phase-1/</a></p>
+<p>→ <strong>Phase 1 concrete epics (not yet storied, except Epic 1.9's Story 1.9.1 — a completion record):</strong> <a href="phase-1/index.html">phase-1/</a></p>
 </div></details><details class="section" id="phase-dependency-order"><summary><span class="section-title">Phase dependency order</span></summary><div class="section-body">
 <p><em>Added 2026-08-19 (SCP 2026-08-19d), folded in from the retired <code>delivery/dispatch-graph.yaml</code>.</em></p>
 <p>Phase 1's dependencies are structured data, held in each epic's frontmatter (<code>repo:</code> and <code>depends_on:</code>) — that is what <code>scripts/dispatch-preflight.sh</code> reads. Phase 0 (JOH) has one concrete epic so far (0.0, with its own <code>depends_on:</code> frontmatter); its primary area (FR10–FR18) and Phases 2–8 are <strong>not yet decomposed into epics</strong>, so their edges are recorded here as prose until <code>bmad-create-epics-and-stories</code> runs for each and gives them frontmatter of their own.</p>

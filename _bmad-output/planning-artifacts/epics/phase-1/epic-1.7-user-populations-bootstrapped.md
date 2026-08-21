@@ -7,7 +7,7 @@ timestamp: '2026-06-17'
 parent: 'epics/phase-1/index.md'
 epic: 1.7
 title: 'Both user populations are bootstrapped and verifiable against the IdP'
-storyCount: 1
+storyCount: 0
 repo: ctam-architecture
 depends_on: [epic-1.1, epic-1.4]            # needs ctam_auth_* tables + jo_* fixtures + mock-auth roster
 ---
@@ -39,47 +39,3 @@ There is no carrying over of user accounts from any legacy system, in any form �
 - Any on-screen tool for administrators to manage users, roles, or activation status — that's planned for a later release
 - Any process for importing or reconciling user accounts from a legacy system — no such process exists or is planned
 
----
-
-## Story 1.7.1: Both groups of users can be seeded, verified against the sign-in system, and set up for real via a runbook
-
-As the **person responsible for identity setup, and every engineer who needs working sign-in in every environment**,
-I want seed scripts covering both groups of users, a repeatable check that proves every user maps to a real sign-in identity, and a written runbook for setting this up for real,
-So that **sign-in works end-to-end everywhere it's needed, and nobody can go live for a group of users whose identities haven't been proven to actually work**.
-
-**Acceptance Criteria:**
-
-**Given** the engineer writes the development/test seed scripts (a one-off setup script, not something that runs as part of the live system, and not part of the ordinary database change process),
-**When** the scripts run against a freshly created development or test database,
-**Then** they create: realistic sample judicial-holder records — including personnel records whose email addresses match the judicial test users already used for sign-in testing, with stable personnel numbers, a freshly-generated CTAM reference for each one, and sample jurisdictions covering Employment Tribunals, the Social Security and Child Support tribunal, and example ordinary courts,
-**And** administrative-staff identity records whose email addresses match the administrative test users already used for sign-in testing,
-**And** combined user records for both groups — each tagged as judicial or administrative, linked to the correct underlying identity record, and recording which jurisdiction they belong to,
-**And** role assignments and Region/Area coverage records covering every documented role in both groups,
-**And** activation-status records for every jurisdiction/region combination — all switched **off** by default, except a handful of designated test users deliberately switched **on**, so the sign-in demo can show both the "activated" and "not yet activated" experience,
-**And** the scripts can be safely re-run against a database that's already been seeded, without creating duplicates or breaking anything.
-
-**Given** the verification check is built (a repeatable script or scheduled job, owned by the architecture team),
-**When** it runs against an environment,
-**Then** for every user record, in both groups, it confirms the person actually exists in the sign-in system — checked by email against a stand-in sign-in directory during earlier phases, and against the real HMCTS sign-in directory once the programme cuts over to it,
-**And** it checks that the underlying data is internally consistent for each group: every judicial user record links to a valid judicial-holder identity whose personnel number maps to an active personnel record; every administrative-staff user record links to a valid staff-identity record,
-**And** it produces a report showing, per group, the total number of users, how many were successfully verified, and the specific reason for any that weren't,
-**And** if even one user fails to verify, the check fails outright — and passing this check cleanly is a required step before any jurisdiction/region combination can go live,
-**And** running the check never changes any data — it only checks and reports.
-
-**Given** the written runbook for setting this up for real,
-**When** programme management prepares the users for a jurisdiction going live,
-**Then** the runbook spells out exactly what programme management must supply — the list of administrative staff identities with their email addresses, and the role/jurisdiction/area-coverage assignments for both groups (judicial-holder personal data itself arrives separately, through the ongoing sync with the judicial data source, not through this setup process),
-**And** it documents, table by table, how a database administrator loads that data — including the rule that everyone starts switched off by default,
-**And** it explains how to run the verification check, and states plainly that a clean pass is required before that jurisdiction/region combination can go live,
-**And** it explains how a database administrator makes an ongoing change to someone's role, jurisdiction, or coverage area, including how that change gets recorded for audit purposes,
-**And** it states plainly what this process does **not** do: there is no import of user accounts from any legacy system, and the underlying source of the real user list is programme management's responsibility, not something this process provides.
-
-**Given** the seed scripts have run in a development environment,
-**When** the automated sign-in test suite runs,
-**Then** the judicial test user can sign in and resolves correctly to their CTAM reference, and the administrative-staff test user can sign in and resolves correctly to their staff identity,
-**And** the verification check passes cleanly against that seeded environment as part of the automated build.
-
-**Explicitly not in scope:**
-- Any on-screen tool for administrators to manage users, roles, jurisdiction, scope, or activation status
-- Where programme management actually gets its real, live list of users from — that's outside this work
-- Any process for importing or reconciling user accounts from a legacy system — none exists or is planned

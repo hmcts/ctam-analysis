@@ -90,12 +90,15 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="fr-coverage-map">FR Coverage Map</h1>
 <p>This is the canonical FR-to-Epic mapping. It is updated each time a phase advances from framework to concrete epics + stories. The Phase × Area framework in <a href="framework.html">framework.md</a> is the architectural spine; this map is the implementation index.</p>
-<details class="section" id="phase-0-concrete-epics--now-living-in-phase-1-as-1019-per-the-2026-08-20-phase-directory-swap"><summary><span class="section-title">Phase 0 (concrete epics — now living in <code>phase-1/</code> as 1.0–1.9, per the 2026-08-20 phase-directory swap)</span></summary><div class="section-body">
+<details class="section" id="phase-1-concrete-epics-not-yet-decomposed-into-stories--reverted-2026-08-21-scp-2026-08-21e-one-exception-noted-below"><summary><span class="section-title">Phase 1 (concrete epics, not yet decomposed into stories — reverted 2026-08-21, SCP 2026-08-21e; one exception noted below)</span></summary><div class="section-body">
+<blockquote>
+<p>Phase 1's epics were fully storied, then reverted to epic-level-only at explicit user request. The citations below name the epic that will eventually deliver each FR; they no longer cite a specific story, since none exist except Epic 1.9's Story 1.9.1 (called out explicitly where relevant).</p>
+</blockquote>
 <table>
 <thead>
 <tr>
 <th>FR</th>
-<th>Phase 0 epic / coverage</th>
+<th>Phase 1 epic / coverage</th>
 <th>Post-MVP residual?</th>
 <th>Notes</th>
 </tr>
@@ -103,19 +106,19 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td>FR1</td>
-<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a> (sign-in + two-population identity resolution, Stories 1.4.3/1.4.5) + <a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> (<code>jo_people</code> schema) + <a href="phase-1/epic-1.2-joh-reference-data-etl-process.html">Epic 1.2</a> (<code>jo_people</code> populated via the eLinks sync — the JOH lookup target) + <a href="phase-1/epic-1.7-user-populations-bootstrapped.html">Epic 1.7</a> (the auth records resolved against)</td>
+<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a> (sign-in + two-population identity resolution) + <a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> (<code>jo_people</code> schema) + <a href="phase-1/epic-1.2-joh-reference-data-etl-process.html">Epic 1.2</a> (<code>jo_people</code> populated via the eLinks sync — the JOH lookup target) + <a href="phase-1/epic-1.7-user-populations-bootstrapped.html">Epic 1.7</a> (the auth records resolved against)</td>
 <td>—</td>
 <td>IdP email → <code>jo_people</code> → <code>personnel_number</code> → <code>ctam_joh_identities</code> UUID (JOH) or <code>ctam_auth_staff_identities</code> UUID (staff),<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></td>
 </tr>
 <tr>
 <td>FR2</td>
-<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a> Story 1.4.3</td>
+<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a></td>
 <td>—</td>
 <td>Authorisation principal → roles + <strong>jurisdiction</strong> + Region/Area scope (read-only API)</td>
 </tr>
 <tr>
 <td>FR3</td>
-<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a> Story 1.4.3</td>
+<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a></td>
 <td>—</td>
 <td><code>GET /v1/users/{id}/effective-permissions</code></td>
 </tr>
@@ -133,19 +136,19 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR6</strong></td>
-<td><strong>Tier (a)</strong>: <a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> Story 1.1.2 (tables) + <a href="phase-1/epic-1.2-joh-reference-data-etl-process.html">Epic 1.2</a> Story 1.2.1 (eLinks sync) + <a href="phase-1/epic-1.3-mrd-reference-data-etl-process.html">Epic 1.3</a> Story 1.3.1 (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-1/epic-1.5-joh-reference-data-read-api.html">Epic 1.5</a> Story 1.5.1 (tables + seed + DBA runbook). Read API: tier (b) + JOH tier (a), Story 1.5.2; MRD tier (a) via <a href="phase-1/epic-1.6-mrd-reference-data-read-api.html">Epic 1.6</a> Story 1.6.1.</td>
+<td><strong>Tier (a)</strong>: <a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> (tables) + <a href="phase-1/epic-1.2-joh-reference-data-etl-process.html">Epic 1.2</a> (eLinks sync) + <a href="phase-1/epic-1.3-mrd-reference-data-etl-process.html">Epic 1.3</a> (MRD ingestion) — read-only in CTAM, corrections at source. <strong>Tier (b)</strong>: <a href="phase-1/epic-1.5-joh-reference-data-read-api.html">Epic 1.5</a> (tables + seed + DBA runbook). Read API: tier (b) + JOH tier (a); MRD tier (a) via <a href="phase-1/epic-1.6-mrd-reference-data-read-api.html">Epic 1.6</a>.</td>
 <td><strong>YES — tier-(b) RSU maintenance UI</strong> is post-MVP<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Tier (a) never gets a CTAM write surface in any phase.</td>
 <td>Two ownership tiers in separate tables preserve lineage</td>
 </tr>
 <tr>
 <td>FR7</td>
-<td><a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> Story 1.1.2 (tier-(a) grants) + <a href="phase-1/epic-1.5-joh-reference-data-read-api.html">Epic 1.5</a> Story 1.5.1 (tier-(b) grants + pattern complete) + <a href="phase-1/epic-1.6-mrd-reference-data-read-api.html">Epic 1.6</a> Story 1.6.1 (MRD read surface)</td>
+<td><a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> (tier-(a) grants) + <a href="phase-1/epic-1.5-joh-reference-data-read-api.html">Epic 1.5</a> (tier-(b) grants + pattern complete) + <a href="phase-1/epic-1.6-mrd-reference-data-read-api.html">Epic 1.6</a> (MRD read surface)</td>
 <td>—</td>
 <td>Direct SQL via SELECT grants; <strong>writes follow the tier</strong> (ingestion for tier (a); DBA SQL for tier (b))</td>
 </tr>
 <tr>
 <td>FR8</td>
-<td>distributed (lands in <a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> Story 1.1.1 first)</td>
+<td>distributed (lands in <a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> first)</td>
 <td>—</td>
 <td>Shared <code>ctam_configuration_values</code> Liquibase baseline changelog</td>
 </tr>
@@ -157,7 +160,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>FR55</td>
-<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a> Story 1.4.5</td>
+<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a></td>
 <td>—</td>
 <td>Home shell with role-scoped navigation</td>
 </tr>
@@ -175,21 +178,27 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>FR58</strong></td>
-<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a> Story 1.4.3 (Authorisation read API — first exercise) + <a href="phase-1/epic-1.5-joh-reference-data-read-api.html">Epic 1.5</a> Story 1.5.2 (Reference Data read API) + <a href="phase-1/epic-1.6-mrd-reference-data-read-api.html">Epic 1.6</a> Story 1.6.1 (extends the same spec) + every service story</td>
+<td><a href="phase-1/epic-1.4-user-authenticates.html">Epic 1.4</a> (Authorisation read API — first exercise) + <a href="phase-1/epic-1.5-joh-reference-data-read-api.html">Epic 1.5</a> (Reference Data read API) + <a href="phase-1/epic-1.6-mrd-reference-data-read-api.html">Epic 1.6</a> (extends the same spec) + every service</td>
 <td>—</td>
 <td>API-as-Product read-side standards</td>
 </tr>
 <tr>
 <td><strong>FR59</strong></td>
-<td><a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> Story 1.1.1 (first exercise — first scaffolded service) + every service story</td>
+<td><a href="phase-1/epic-1.1-postgres-db-schema-design.html">Epic 1.1</a> (first exercise — first scaffolded service) + every service</td>
 <td>—</td>
 <td>Structured logs + correlation IDs</td>
 </tr>
 <tr>
 <td><em>(NFR24)</em></td>
-<td><a href="phase-1/epic-1.2-joh-reference-data-etl-process.html">Epic 1.2</a> Story 1.2.1 — CI-tested against a contract-accurate mock per <a href="phase-0/epic-0.0-joh-elinks-api-contract-mock.html">Epic 0.0</a> — + <a href="phase-1/epic-1.3-mrd-reference-data-etl-process.html">Epic 1.3</a> Story 1.3.1 — CI-tested against a provisional, explicitly-unconfirmed mock per <a href="phase-0/epic-0.1-mrd-reference-data-mock.html">Epic 0.1</a></td>
+<td><a href="phase-1/epic-1.2-joh-reference-data-etl-process.html">Epic 1.2</a> — CI-tested against a contract-accurate mock per <a href="phase-0/epic-0.0-joh-elinks-api-contract-mock.html">Epic 0.0</a> — + <a href="phase-1/epic-1.3-mrd-reference-data-etl-process.html">Epic 1.3</a> — CI-tested against a provisional, explicitly-unconfirmed mock per <a href="phase-0/epic-0.1-mrd-reference-data-mock.html">Epic 0.1</a></td>
 <td>MRD reader swaps to API post-MVP (when MRD APIs ship)</td>
 <td>JOH eLinks + MRD are MVP integrations<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> — the programme's first deliverable</td>
+</tr>
+<tr>
+<td><em>(FR8, publishing the bus)</em></td>
+<td><a href="phase-1/epic-1.9-context-bus-and-shared-baseline.html">Epic 1.9</a> <strong>Story 1.9.1 — done</strong>, the one Phase 1 story that still exists (kept as a completion record for genuinely finished, already-published work)</td>
+<td>—</td>
+<td>The shared <code>ctam-architecture</code> context bus itself, <code>arch-v1.0</code>/<code>arch-v1.1</code> tagged and published</td>
 </tr>
 </tbody>
 </table>
@@ -343,7 +352,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/fr-coverage-map.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-concrete-epics--now-living-in-phase-1-as-1019-per-the-2026-08-20-phase-directory-swap">Phase 0 (concrete epics — now living in phase-1/ as 1.0–1.9, per the 2026-08-20 phase-directory swap)</a></li><li><a href="#phase-0-and-phases-29-fr10fr54-fr60--pending">Phase 0 and Phases 2–9+ (FR10–FR54, FR60) — pending</a></li><li><a href="#post-mvp-roadmap-consolidated">Post-MVP roadmap (consolidated)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-1-concrete-epics-not-yet-decomposed-into-stories--reverted-2026-08-21-scp-2026-08-21e-one-exception-noted-below">Phase 1 (concrete epics, not yet decomposed into stories — reverted 2026-08-21, SCP 2026-08-21e; one exception noted below)</a></li><li><a href="#phase-0-and-phases-29-fr10fr54-fr60--pending">Phase 0 and Phases 2–9+ (FR10–FR54, FR60) — pending</a></li><li><a href="#post-mvp-roadmap-consolidated">Post-MVP roadmap (consolidated)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../";window.__PAGE__="epics/fr-coverage-map";</script>
 <script src="../nav.js"></script>
 <script>

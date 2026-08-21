@@ -130,7 +130,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>1</strong> — Foundations</td>
 <td><a href="phase-1/index.html">phase-1/</a></td>
-<td>🟡 Planned — 10 epics, 22 stories</td>
+<td>🟡 Planned — 10 epics, 1 story (reverted to epic-level-only 2026-08-21, SCP 2026-08-21e)</td>
 </tr>
 <tr>
 <td><strong>0</strong> — JOH</td>
@@ -187,11 +187,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Create stories</strong> — produce Gherkin-AC user stories sized for a single dev-agent session</li>
 <li><strong>Final validation</strong> — verify FR/NFR coverage, dependency soundness, architecture compliance</li>
 </ol>
-<p>Phase 1 has completed all four steps. Phase 0 has two epics through all four steps (Epic 0.0, added 2026-08-20, and Epic 0.1, added 2026-08-21 — both ahead of its primary area, see <a href="phase-0/index.html">phase-0/index.md</a>); its primary area (JOH Records &amp; Working Patterns, FR10–FR18) is still framework-only. Phases 2–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).</p>
+<p>Phase 1 has completed steps 1–2 (epics designed); stories were written and business-language-rewritten, then reverted back out at explicit user request (2026-08-21, SCP 2026-08-21e) — steps 3–4 are not currently run for Phase 1, except Epic 1.9's Story 1.9.1, kept as a completion record for genuinely finished work. Phase 0 has two epics through all four steps (Epic 0.0, added 2026-08-20, and Epic 0.1, added 2026-08-21 — both ahead of its primary area, see <a href="phase-0/index.html">phase-0/index.md</a>); its primary area (JOH Records &amp; Working Patterns, FR10–FR18) is still framework-only. Phases 2–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).</p>
 </div></details><details class="section" id="how-to-find-your-way"><summary><span class="section-title">How to find your way</span></summary><div class="section-body">
 <ul>
 <li><strong>Looking for what to build next?</strong> Start at the phase index (e.g. <a href="phase-1/index.html">phase-1/index.md</a>) and pick an epic.</li>
-<li><strong>Looking for a specific story?</strong> Stories are named <code>Story {phase}.{epic}.{n}</code> (e.g. Story 1.1.5). They live under <code>phase-{n}/epic-{n}.{m}-{slug}.md</code>.</li>
+<li><strong>Looking for a specific story?</strong> Stories are named <code>Story {phase}.{epic}.{n}</code> (e.g. Story 1.9.1). They live under <code>phase-{n}/epic-{n}.{m}-{slug}.md</code>.</li>
 <li><strong>Looking for an FR?</strong> Use <a href="fr-coverage-map.html">fr-coverage-map.md</a>.</li>
 <li><strong>Looking for an architecture rule?</strong> Use <a href="requirements-inventory.html">requirements-inventory.md</a> — ARs are in the Additional Requirements section.</li>
 <li><strong>Verifying readiness?</strong> Run <code>bmad-check-implementation-readiness</code> from the repo root; it understands this sharded shape.</li>

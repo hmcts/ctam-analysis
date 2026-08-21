@@ -130,7 +130,7 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 **Primary FR/NFR coverage**: FR4 *(UI surface)*, FR6 *(tier-(b) UI surface)*, FR56 *(stack)*, NFR17, NFR18, NFR19. Also AR42–AR45b. All post-MVP[^d10].
 
-→ **Phase 1 concrete epics + stories:** [phase-1/](phase-1/index.md)
+→ **Phase 1 concrete epics (not yet storied, except Epic 1.9's Story 1.9.1 — a completion record):** [phase-1/](phase-1/index.md)
 
 ## Phase dependency order
 

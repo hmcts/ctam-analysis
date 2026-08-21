@@ -18,8 +18,6 @@ uxDocument: 'not-present-accepted-gap'
 stepsCompleted:
   - 'step-01-validate-prerequisites'
   - 'step-02-design-epics-phase-1'
-  - 'step-03-create-stories-phase-1'
-  - 'step-04-final-validation-phase-1'
 ---
 
 # ctam-analysis (CTAM Pathfinder) — Epic Breakdown
@@ -46,7 +44,7 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 
 | Phase | Folder | Status |
 |---|---|---|
-| **1** — Foundations | [phase-1/](phase-1/index.md) | 🟡 Planned — 10 epics, 22 stories |
+| **1** — Foundations | [phase-1/](phase-1/index.md) | 🟡 Planned — 10 epics, 1 story (reverted to epic-level-only 2026-08-21, SCP 2026-08-21e) |
 | **0** — JOH | [phase-0/](phase-0/index.md) | 🟡 Planned — 2 epics, 6 stories (primary area FR10–FR18 still framework only) |
 | **2** — Absence | _to be storied_ | ⚪ Framework only |
 | **3** — Vacancy | _to be storied_ | ⚪ Framework only |
@@ -66,12 +64,12 @@ Each phase advances through four steps of the `bmad-create-epics-and-stories` wo
 3. **Create stories** — produce Gherkin-AC user stories sized for a single dev-agent session
 4. **Final validation** — verify FR/NFR coverage, dependency soundness, architecture compliance
 
-Phase 1 has completed all four steps. Phase 0 has two epics through all four steps (Epic 0.0, added 2026-08-20, and Epic 0.1, added 2026-08-21 — both ahead of its primary area, see [phase-0/index.md](phase-0/index.md)); its primary area (JOH Records & Working Patterns, FR10–FR18) is still framework-only. Phases 2–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
+Phase 1 has completed steps 1–2 (epics designed); stories were written and business-language-rewritten, then reverted back out at explicit user request (2026-08-21, SCP 2026-08-21e) — steps 3–4 are not currently run for Phase 1, except Epic 1.9's Story 1.9.1, kept as a completion record for genuinely finished work. Phase 0 has two epics through all four steps (Epic 0.0, added 2026-08-20, and Epic 0.1, added 2026-08-21 — both ahead of its primary area, see [phase-0/index.md](phase-0/index.md)); its primary area (JOH Records & Working Patterns, FR10–FR18) is still framework-only. Phases 2–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
 
 ## How to find your way
 
 - **Looking for what to build next?** Start at the phase index (e.g. [phase-1/index.md](phase-1/index.md)) and pick an epic.
-- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 1.1.5). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`.
+- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 1.9.1). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`.
 - **Looking for an FR?** Use [fr-coverage-map.md](fr-coverage-map.md).
 - **Looking for an architecture rule?** Use [requirements-inventory.md](requirements-inventory.md) — ARs are in the Additional Requirements section.
 - **Verifying readiness?** Run `bmad-check-implementation-readiness` from the repo root; it understands this sharded shape.

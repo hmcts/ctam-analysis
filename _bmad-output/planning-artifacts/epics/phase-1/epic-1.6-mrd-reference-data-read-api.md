@@ -7,7 +7,7 @@ timestamp: '2026-08-20'
 parent: 'epics/phase-1/index.md'
 epic: 1.6
 title: 'MRD reference data is served read-only via the Reference Data API'
-storyCount: 1
+storyCount: 0
 repo: ctam-reference-data
 depends_on: [epic-1.3, epic-1.5]  # needs MRD data to exist (eLinks-independent ETL) and the already-published read API + JWTFilter/jurisdiction-filtering infra
 ---
@@ -28,34 +28,3 @@ depends_on: [epic-1.3, epic-1.5]  # needs MRD data to exist (eLinks-independent 
 
 **Explicitly out of scope:** Bringing MRD data into CTAM in the first place — that's separate, earlier work. The endpoints already covering other kinds of reference data — also separate, earlier work. Any ability to create, edit, or delete MRD-sourced data through this API — that's never planned, for any phase; corrections happen back at the source system and arrive through the next scheduled data sync.
 
----
-
-## Story 1.6.1: JOH Specialisations are made available through the Reference Data read-only API
-
-As an **API consumer** — the CTAM front end, and other downstream services in later phases that need to know a judge's specialisms, such as Itinerary planning —
-I want a read-only, jurisdiction-filtered endpoint over the JOH Specialisations data, added onto the existing Reference Data API,
-So that **this information can be looked up through the one API surface these services already use**, without needing to discover and integrate with a second API or run a second set of automated checks.
-
-**Acceptance Criteria:**
-
-**Given** the JOH Specialisations data already exists and has been loaded,
-**And** the Reference Data API's existing read infrastructure — security-token checking, jurisdiction-based filtering, a standard error-response format, and versioned web addresses under `/v1/reference-data/...` — is already in place,
-**When** the engineer adds a new endpoint, `GET /v1/reference-data/johs/{johId}/specialisms`,
-**Then** the endpoint returns a successful response with that judge's list of specialisms, found by tracing from the judge's identity through to their personnel number and on to the specialisms data,
-**And** the response is filtered by jurisdiction in exactly the same way as every other endpoint on this API — someone asking about a judge outside their own jurisdiction gets a clear "not allowed" response, not an empty result that pretends the judge doesn't exist,
-**And** a judge who genuinely has no specialisms on record gets back a successful response with an empty list, not a "not found" error,
-**And** no ability to create, update, or delete specialisms is provided — any attempt to do so is clearly rejected with a "method not allowed" response explaining that corrections happen back at the source system and arrive via the next scheduled data sync.
-
-**Given** the API's technical definition is regenerated,
-**When** the engineer publishes the updated version,
-**Then** the published package moves to its next version (not a new, separate package) with the new endpoint documented alongside everything already there,
-**And** the automated linting check that keeps the API definition consistent with the rest of the programme's APIs still passes.
-
-**Given** the existing collection of automated API checks used in continuous integration,
-**When** it runs,
-**Then** it gains a new set of checks for the new endpoint — the successful case, the jurisdiction-filtered rejection, the empty-list case, and the rejected write attempt — sitting alongside the checks already in place for the other reference data this API covers.
-
-**Explicitly NOT in scope:**
-- Bringing MRD data into CTAM in the first place — separate, earlier work
-- The endpoints already covering other kinds of reference data — separate, earlier work
-- Any ability to edit MRD-sourced data through this API — never planned, for any phase

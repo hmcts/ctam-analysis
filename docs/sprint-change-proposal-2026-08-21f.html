@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Epic 1.6: MRD reference data is served read-only via the Reference Data API — CTAM Pathfinder Documentation</title>
+<title>Sprint Change Proposal — 2026-08-21 (f) — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -84,29 +84,62 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 }
 </style>
 </head>
-<body class="">
+<body class="has-toc has-sections">
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
-
-<h1 id="epic-16-mrd-reference-data-is-served-read-only-via-the-reference-data-api">Epic 1.6: MRD reference data is served read-only via the Reference Data API</h1>
-<blockquote>
-<p>This piece of work was split out from the epic that originally built the main Reference Data read API, once it became clear that a JOH Specialisations endpoint had never actually been specified there. It extends that existing API and its automated checks with one more endpoint, rather than building anything new from scratch.</p>
-</blockquote>
-<p><strong>Business Goal:</strong> Judicial Office Holders' specialisms — extra background information held in MRD, a separate reference-data feed with its own update schedule — are useful to later features such as Itinerary planning, but only if the rest of the programme can get at them without learning about, and integrating with, a second API. This epic makes sure that information shows up through the exact same reference-data lookup service that the CTAM front end and other downstream services already use for everything else, so there's one place to look, one API to test, and one collection of automated checks to run — not a growing maze of separate integrations to keep track of.</p>
-<p><strong>Outcome:</strong> A judge's specialisms can now be looked up read-only, filtered so a requester only ever sees information for judges within their own jurisdiction, through the very same reference-data lookup service already used for everything else on the API. Anyone consuming the API doesn't need to know or care that this particular piece of information comes from a different upstream feed on a different schedule — it simply shows up alongside everything else already available.</p>
-<p><strong>Hosting:</strong> This lives in exactly the same place as the rest of the Reference Data API — the same repository, the same running service, the same published API definition. Nothing new is being stood up; this is one more endpoint added onto something that already exists and is already in use.</p>
-<p><strong>What's included:</strong></p>
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-21-f">Sprint Change Proposal — 2026-08-21 (f)</h1>
+<p><strong>Restore epic-level tracking for all Phase 1 epics</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"Could you please track the other epics also"</em> — following <em>"list all the epics in sprint-status.yaml"</em>, which showed only <code>epic-0.0</code>, <code>epic-0.1</code>, and <code>epic-1.9</code> tracked. The other nine Phase 1 epics (<code>epic-1.0</code>–<code>epic-1.8</code>) were removed entirely by SCP 2026-08-21e, since they had no stories left to track after that change stripped Phase 1's story decomposition.</p>
+<p><strong>What changed:</strong> added <code>epic-1.0</code> through <code>epic-1.8</code> back to <code>sprint-status.yaml</code>'s <code>development_status</code>, each as an epic-level-only entry (<code>epic-1.X: backlog</code> + <code>epic-1.X-retrospective: optional</code>) — <strong>no story sub-keys</strong>, since none of these nine epics currently has any (unchanged from SCP 2026-08-21e; only Epic 1.9's Story 1.9.1 exists). Each carries the same title-comment convention established by SCP 2026-08-21d.</p>
+<p><strong>A direct, welcome consequence:</strong> SCP 2026-08-21e had flagged that removing <code>epic-1.1</code>/<code>epic-1.3</code> from this file weakened <code>scripts/dispatch-preflight.sh</code>'s prerequisite check for Epic 0.0/0.1's stories — from a hard <code>STOP</code> ("prerequisite epic-1.1 is 'backlog', not 'done'") down to a <code>WARN</code> ("prerequisite 'epic-1.1' is not in sprint-status.yaml"). Restoring these epic entries restores the hard <code>STOP</code> too — verified by re-running <code>./scripts/dispatch-preflight.sh 0.0.1</code>, which now correctly reports the blocker again.</p>
+<p><strong>Status check:</strong> all nine restored epics are <code>backlog</code>, matching <code>phase-1/index.md</code>'s 🟡 <em>Planned</em> status for each. <code>epic-1.9</code>, <code>epic-0.0</code>, <code>epic-0.1</code> and every existing story key are unchanged. <code>development_status</code> now carries 31 keys (12 epics + 12 retrospectives + 6 Phase 0 stories + 1 Phase 1 story).</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-epic-impact">2.1 Epic impact</h3>
+<p>None — no epic's scope, <code>depends_on</code>, or content changes; this only affects what <code>sprint-status.yaml</code> tracks.</p>
+<h3 id="22-story-impact">2.2 Story impact</h3>
+<p>None — no story exists to add for these nine epics.</p>
+<h3 id="23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</h3>
+<p>Only <code>sprint-status.yaml</code> needed a change. <code>phase-1/index.md</code>, <code>epics/index.md</code>, <code>fr-coverage-map.md</code>, and <code>framework.md</code> already describe these epics as epic-level-only (SCP 2026-08-21e), consistent with this restoration — no further edits needed there.</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — no code exists; nothing has been dispatched.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment.</strong> Add the nine epic entries back, verify YAML validity and the restored <code>dispatch-preflight.sh</code> behaviour.</p>
+<p><strong>Effort:</strong> Trivial. <strong>Risk:</strong> None — additive only, re-verified against the real consuming script.</p>
+<hr />
+</div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-_bmad-outputimplementation-artifactssprint-statusyaml">4.1 <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></h3>
+<pre class="diff"><code>+  # Platform estate is provisioned, verifiable, and CNP-compliant
++  epic-1.0: backlog
++  epic-1.0-retrospective: optional
++
++  ... (same shape for epic-1.1 through epic-1.8) ...
++
+   # Context bus is published and the shared configuration baseline exists
+   epic-1.9: in-progress
+   1-9-1-publish-ctam-architecture-as-the-official-version-tagged-architecture-package: done
+   epic-1.9-retrospective: optional</code></pre>
+<h3 id="42-architecturechangelogmd--new-entry-v419">4.2 <code>architecture/changelog.md</code> — new entry (v4.19)</h3>
+<p>Records the restoration and the dispatch-preflight.sh safety-check consequence.</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Minor.</strong> Direct implementation by the Developer agent (this session).</p>
+<p><strong>Success criteria:</strong></p>
 <ul>
-<li>One new endpoint for looking up a judge's specialisms, filtered so it only ever returns results for judges the requester is allowed to see, using the same permission-checking approach already used everywhere else on this API</li>
-<li>The new endpoint folded into the existing API definition (published as the next version of the same package, not a new package) and into the existing collection of automated API checks</li>
+<li>All 12 epics (<code>epic-0.0</code>, <code>epic-0.1</code>, <code>epic-1.0</code>–<code>epic-1.9</code>) are tracked in <code>sprint-status.yaml</code>.</li>
+<li><code>./scripts/dispatch-preflight.sh 0.0.1</code> reports a hard <code>STOP</code> on <code>epic-1.1</code>, not a <code>WARN</code>.</li>
+<li><code>architecture/changelog.md</code> carries a v4.19 entry.</li>
 </ul>
-<p><strong>Explicitly out of scope:</strong> Bringing MRD data into CTAM in the first place — that's separate, earlier work. The endpoints already covering other kinds of reference data — also separate, earlier work. Any ability to create, edit, or delete MRD-sourced data through this API — that's never planned, for any phase; corrections happen back at the source system and arrive through the next scheduled data sync.</p>
-
-<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-1/epic-1.6-mrd-reference-data-read-api.md</code></p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-21f.md</code></p>
 </main>
-
-<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-1/epic-1.6-mrd-reference-data-read-api";</script>
-<script src="../../nav.js"></script>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-epic-impact">2.1 Epic impact</a></li><li class="h3"><a href="#22-story-impact">2.2 Story impact</a></li><li class="h3"><a href="#23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--detailed-change-proposals">Section 4 — Detailed Change Proposals</a></li><li class="h3"><a href="#41-_bmad-outputimplementation-artifactssprint-statusyaml">4.1 _bmad-output/implementation-artifacts/sprint-status.yaml</a></li><li class="h3"><a href="#42-architecturechangelogmd--new-entry-v419">4.2 architecture/changelog.md — new entry (v4.19)</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-21f";</script>
+<script src="./nav.js"></script>
 <script>
 (function(){
   // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
