@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-21 (d) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-21-d">Sprint Change Proposal — 2026-08-21 (d)</h1>
+<p><strong>Annotate <code>sprint-status.yaml</code> epics with their exact titles</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"modify sprint-status.yaml to reflect the exact name of the epics"</em> — a direct <code>bmad-correct-course</code> request. <code>sprint-status.yaml</code>'s 12 <code>epic-N.M</code> keys carried only the bare id (e.g. <code>epic-1.4: backlog</code>) with no indication of what that epic actually is, unlike its story keys, which already embed a full descriptive slug.</p>
+<p><strong>Constraint discovered while implementing:</strong> the epic id itself cannot safely carry a slug the way story keys do. <code>scripts/dispatch-preflight.sh</code>'s "is it buildable yet" check greps a prerequisite epic's status line with <code>^epic-N.M:</code> — an exact match with nothing between the id and the colon. A slugged key (<code>epic-1.4-user-authenticates: backlog</code>) would silently stop matching, and every story depending on that epic would falsely report the prerequisite as "not in sprint-status.yaml."</p>
+<p><strong>A second, more subtle problem caught before this was committed:</strong> the first attempt appended each epic's title as a <em>trailing</em> comment on the same line as the status (<code>epic-1.4: backlog  # User authenticates and lands on a role-scoped Home page</code>). This parses fine under a YAML library, but <code>dispatch-preflight.sh</code> doesn't use one — it extracts the status with plain string manipulation (<code>dstatus="${dline##*:}"</code>, then whitespace-trim only, no <code>#</code>-stripping). Verified by hand: <code>${dline##*:}</code> on that line yields <code>backlog  # User authenticates and lands on a role-scoped Home page</code>, which after whitespace-stripping is <code>backlogUserauthenticates…</code> — never equal to the literal string <code>done</code>. Every dependent story would have permanently reported that prerequisite as blocked, even once the epic genuinely was <code>done</code>. Caught by running the script's own extraction logic against the edited file before shipping it, not by inspection alone.</p>
+<p><strong>Fix:</strong> each epic's exact title (from its own epic file's <code>title:</code> frontmatter) is now a comment on its <strong>own line, directly above</strong> the <code>epic-N.M:</code> key — never trailing after the status. Verified this leaves <code>dispatch-preflight.sh</code>'s extraction producing a clean status string for every one of the 12 epics, and ran the script end-to-end against a real story (<code>1.1.1</code>) to confirm it still correctly reports blocked/clear.</p>
+<p><strong>Status check:</strong> no epic or story status value changed. <code>epic-1.9</code> is still <code>in-progress</code>, story <code>1-9-1-…</code> is still <code>done</code>, everything else is still <code>backlog</code> — verified the same 52 <code>development_status</code> keys and values before and after.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-epic-impact">2.1 Epic impact</h3>
+<p>None — no epic's scope, stories, ACs, <code>depends_on</code>, or status changed.</p>
+<h3 id="22-story-impact">2.2 Story impact</h3>
+<p>None.</p>
+<h3 id="23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</h3>
+<p>Only <code>sprint-status.yaml</code> changed. Nothing else references its comment lines. <code>scripts/dispatch-preflight.sh</code> was re-verified against the edited file (see Section 1) rather than assumed compatible.</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — no code exists in any of the 16 execution-unit repos; nothing has been dispatched.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment</strong>, corrected once during implementation after the trailing-comment approach was caught breaking <code>dispatch-preflight.sh</code>'s status extraction. Final form: a comment line above each <code>epic-N.M:</code> key, key and status values otherwise untouched.</p>
+<p><strong>Effort:</strong> Trivial. <strong>Risk:</strong> None, post-fix — verified via the actual consuming script's extraction logic, not just YAML validity.</p>
+<hr />
+</div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-_bmad-outputimplementation-artifactssprint-statusyaml">4.1 <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></h3>
+<pre class="diff"><code> development_status:
++  # Platform estate is provisioned, verifiable, and CNP-compliant
+   epic-1.0: backlog
+   ...
++  # User authenticates and lands on a role-scoped Home page
+   epic-1.4: backlog
+   ...</code></pre>
+<p>Applied to all 12 epics (<code>epic-0.0</code>, <code>epic-0.1</code>, <code>epic-1.0</code>–<code>epic-1.9</code>), each title copied verbatim from that epic file's own <code>title:</code> frontmatter. A short header note explaining the convention — and explicitly why it's a comment-above, not a trailing comment or a slugged key — was added near the existing Epic/Story/Retrospective Status Definitions block.</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Minor.</strong> Direct implementation by the Developer agent (this session).</p>
+<p><strong>Success criteria:</strong></p>
+<ul>
+<li>Every <code>epic-N.M:</code> key in <code>sprint-status.yaml</code> is preceded by a comment line carrying that epic's exact title.</li>
+<li>No epic or story key, status value, or count changed.</li>
+<li><code>scripts/dispatch-preflight.sh</code>'s prerequisite-status extraction still yields a clean status string for every epic (verified) and a real end-to-end run against Story 1.1.1 still reports the correct blockers.</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-21d.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-epic-impact">2.1 Epic impact</a></li><li class="h3"><a href="#22-story-impact">2.2 Story impact</a></li><li class="h3"><a href="#23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--detailed-change-proposals">Section 4 — Detailed Change Proposals</a></li><li class="h3"><a href="#41-_bmad-outputimplementation-artifactssprint-statusyaml">4.1 _bmad-output/implementation-artifacts/sprint-status.yaml</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-21d";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

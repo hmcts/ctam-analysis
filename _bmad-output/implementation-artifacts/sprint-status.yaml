@@ -19,6 +19,17 @@
 #   - review: Ready for code review
 #   - done: Story completed
 #
+# Every epic-N.M key is preceded by a comment line carrying its exact title (from the epic file's
+# own `title:` frontmatter), e.g.:
+#   # Platform estate is provisioned, verifiable, and CNP-compliant
+#   epic-1.0: backlog
+# The comment sits on its OWN line, never trailing after the status, and the key itself stays a
+# bare `epic-N.M` — both on purpose. scripts/dispatch-preflight.sh's depends_on check extracts a
+# prerequisite epic's status with `${dline##*:}` and only trims whitespace, not a `#...` suffix; a
+# trailing same-line comment would corrupt that extraction (e.g. `backlog # Title` is never `done`,
+# permanently blocking every dependent story). A slugged key (as story keys carry) would break the
+# check even earlier, since it greps `^epic-N.M:` with nothing between the id and the colon.
+#
 # Retrospective Status:
 #   - optional: Can be completed but not required
 #   - done: Retrospective has been completed
@@ -44,18 +55,21 @@ tracking_system: file-system
 story_location: _bmad-output/implementation-artifacts
 
 development_status:
+  # The JOH eLinks API contract is confirmed and mocked for CI-only integration testing
   epic-0.0: backlog
   0-0-1-contract-endpoints-auth-and-pagination-are-confirmed-via-the-mock: backlog
   0-0-2-error-handling-and-fixture-data-match-real-production-shapes-and-volumes: backlog
   0-0-3-the-natural-key-mismatch-is-discovered-and-recorded-as-gap-g8-7: backlog
   epic-0.0-retrospective: optional
 
+  # A provisional MRD workbook shape is proposed and mocked for CI-only integration testing
   epic-0.1: backlog
   0-1-1-a-provisional-mrd-workbook-shape-is-proposed-and-documented: backlog
   0-1-2-a-realistic-sample-workbook-is-built-for-ci-at-a-believable-scale: backlog
   0-1-3-deliberately-broken-practice-data-proves-the-validation-and-rejection-logic-actually-works: backlog
   epic-0.1-retrospective: optional
 
+  # Platform estate is provisioned, verifiable, and CNP-compliant
   epic-1.0: backlog
   1-0-1-the-shared-repository-and-its-safe-change-management-process-are-set-up: backlog
   1-0-2-the-network-and-the-kubernetes-cluster-are-built-and-checked-development-environment: backlog
@@ -64,19 +78,23 @@ development_status:
   1-0-5-the-api-gateway-is-built-and-checked-end-to-end-development-environment: backlog
   epic-1.0-retrospective: optional
 
+  # Postgres reference-data schema is designed and scaffolded
   epic-1.1: backlog
   1-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter-template: backlog
   1-1-2-the-15-outside-sourced-tables-exist-with-write-access-locked-to-this-service-alone: backlog
   epic-1.1-retrospective: optional
 
+  # JOH reference data flows into CTAM via the nightly eLinks ETL process
   epic-1.2: backlog
   1-2-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-feed: backlog
   epic-1.2-retrospective: optional
 
+  # MRD reference data flows into CTAM via the weekly Excel ETL process
   epic-1.3: backlog
   1-3-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed: backlog
   epic-1.3-retrospective: optional
 
+  # User authenticates and lands on a role-scoped Home page
   epic-1.4: backlog
   1-4-1-scaffold-ctam-authorisation-service-from-the-hmcts-crime-springboot-template: backlog
   1-4-2-user-can-authenticate-against-ctam-mock-auth-and-receive-a-security-token: backlog
@@ -85,24 +103,29 @@ development_status:
   1-4-5-user-signs-into-ctam-pathfinder-via-single-sign-on-and-lands-on-a-role-scoped-home-page: backlog
   epic-1.4-retrospective: optional
 
+  # JOH and CTAM-owned reference data is served read-only via a versioned, jurisdiction-filtered API
   epic-1.5: backlog
   1-5-1-tier-b-ctam-owned-reference-tables-seed-data-and-the-dba-maintenance-runbook: backlog
   1-5-2-reference-data-read-only-rest-api-with-jurisdiction-filtering-versioning-openapi-rfc-9457-errors: backlog
   epic-1.5-retrospective: optional
 
+  # MRD reference data is served read-only via the Reference Data API
   epic-1.6: backlog
   1-6-1-joh-specialisations-are-made-available-through-the-reference-data-read-only-api: backlog
   epic-1.6-retrospective: optional
 
+  # Both user populations are bootstrapped and verifiable against the IdP
   epic-1.7: backlog
   1-7-1-both-groups-of-users-can-be-seeded-verified-against-the-sign-in-system-and-set-up-for-real-via-a-runbook: backlog
   epic-1.7-retrospective: optional
 
+  # Notification service is scaffolded and contractually ready
   epic-1.8: backlog
   1-8-1-the-notification-service-its-delivery-history-table-and-its-connection-to-email-are-set-up: backlog
   1-8-2-the-send-an-email-endpoint-delivers-retries-and-logs-every-request-with-a-way-to-review-what-was-sent: backlog
   epic-1.8-retrospective: optional
 
+  # Context bus is published and the shared configuration baseline exists
   epic-1.9: in-progress
   1-9-1-publish-ctam-architecture-as-the-official-version-tagged-architecture-package: done
   1-9-2-shared-configuration-table-exists-with-read-only-access-for-every-service: backlog
