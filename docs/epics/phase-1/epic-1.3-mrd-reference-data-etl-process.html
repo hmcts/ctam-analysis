@@ -90,33 +90,72 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <h1 id="epic-13-mrd-reference-data-flows-into-ctam-via-the-weekly-excel-etl-process">Epic 1.3: MRD reference data flows into CTAM via the weekly Excel ETL process</h1>
 <blockquote>
-<p><strong>Split from Epic 1.1 2026-08-20 (SCP 2026-08-20b):</strong> this epic carries the story previously numbered 0.1.4, renumbered 0.8.1. No AC content changed. <code>ctam-reference-data</code> itself is scaffolded in <strong><a href="epic-1.1-postgres-db-schema-design.html">Epic 1.1</a></strong>.</p>
+<p>This piece of work was split out from the database-schema epic, carrying over a story that was numbered differently at the time; nothing about what's being built changed in that split. The <code>ctam-reference-data</code> service itself is set up in that earlier schema epic.</p>
 </blockquote>
-<p><strong>User outcome:</strong> Judicial-holder reference data flows into CTAM Pathfinder from its supplementary upstream source of truth — the <strong>MRD</strong> weekly Excel dataset — so that data not present in JOH eLinks (notably JOH Specialisations) is available in CTAM <strong>without any legacy migration</strong> (revised D3, NFR24), and without waiting for MRD's public APIs.</p>
-<p><strong>Hosting:</strong> the ETL runs in-process inside <code>ctam-reference-data</code> — no separate <code>ctam-integrations</code> repo. This epic owns its own <code>mrd_*</code> schema (a small, self-contained Liquibase changeset) as well as the blob-drop ingestion mechanism, since both are scoped tightly to this one supplementary feed.</p>
-<p><strong>Vertical slice:</strong></p>
+<p><strong>Business Goal:</strong> CTAM needs a complete picture of every judge and tribunal member, but not all of that picture comes from the main judicial data source. Some supplementary information - most notably each judge's specialisations - only exists in a separate dataset maintained by the MRD team, and MRD hasn't yet built a modern way for other systems to connect to it directly. What MRD can offer today is the same weekly spreadsheet its own team already works from. Rather than wait for MRD to build a proper API - or resort to a one-off manual data migration, which the programme has ruled out entirely - this piece of work builds an automated, weekly import of that spreadsheet, so CTAM gets this data reliably and on a predictable schedule from day one.</p>
+<p><strong>What this covers:</strong> This is a small, self-contained piece of work with a few connected parts: setting up a secure drop-off point in the cloud where the MRD team can leave their weekly file; a small set of new database tables to hold the data once it arrives; and an automated job that picks up the file, checks it's sound, and loads it in safely - archiving what succeeded and quarantining what didn't, so nothing is ever silently lost or wrongly applied.</p>
+<p><strong>Hosting:</strong> This weekly import runs as part of the same service that already looks after CTAM's judicial reference data - there is no separate system built just for this. That service also owns the small set of new database tables created to hold the MRD data, and the mechanism that watches for the weekly file to arrive, since both are narrowly scoped to this one supplementary feed.</p>
+<p><strong>What's included:</strong></p>
 <ul>
-<li><strong>MRD weekly Excel blob ingestion</strong> via Azure Blob drop + scheduled pick-up (AR47)</li>
-<li>The <code>mrd_*</code> schema (<code>mrd_specialisms</code>, further tables as MRD entities enter scope), owned by <code>ctam_reference_data</code> with the same tier-(a) write protection as the <code>jo_*</code> tables (AR49)</li>
-<li>Validate → upsert → archive per file; idempotent per file; rejected files quarantined with a report</li>
+<li>A dedicated, secure cloud storage location where the MRD team (or the operations team on their behalf) drops the weekly workbook, set up using the project's standard infrastructure tooling - the first time this particular kind of cloud storage has been needed anywhere in the programme</li>
+<li>A small set of new database tables to hold the MRD data - starting with judge specialisations, with room to add more as MRD's own data grows - protected by the same strict write-control rules that already apply to the main judicial data tables, so this data can only ever be corrected at its source, never edited by hand inside CTAM</li>
+<li>A scheduled background job that checks the drop-off location on a regular cycle and picks up any new file it finds</li>
+<li>Before anything is loaded, the file is checked for soundness: does it have the sheets and columns expected, do its values match known reference lists, and do things like specialisation records point to real, recognised judges and jurisdictions</li>
+<li>Once checked, valid rows are safely loaded in (matched against existing records, not blindly duplicated), the processed file is filed away for audit purposes, and the outcome - including how many rows were affected - is logged</li>
+<li>Running the same file through twice, or the job restarting partway through, never causes duplicate or incorrect data</li>
+<li>A file that fails its checks is quarantined together with a report explaining what was wrong, nothing is loaded from it, and the operations team is alerted so they can follow up with the MRD team directly</li>
+<li>The design leaves an easy upgrade path: once MRD builds its own public API, only the part of the system that fetches the file needs to be swapped out for one that calls the API instead - everything downstream stays the same</li>
 </ul>
-<p><strong>FRs covered:</strong> FR6 tier-(a) (writes follow the tier), FR7.</p>
-<p><strong>Key NFRs first exercised here:</strong> NFR16 (Key Vault), NFR24 (MRD MVP integration), NFR25–NFR28 (structured logs + Application Insights + probes, inherited from the scaffold).</p>
-<p><strong>Out of scope (explicitly):</strong> The JOH eLinks sync (Epic 1.2). MRD API integration (post-MVP — when MRD ships public APIs). Hand-editing of <code>mrd_*</code> data in CTAM (never, in any phase — corrections at source per FR6).</p>
+<p><strong>Technical reference:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloud storage drop-off</td>
+<td>A dedicated Azure Storage account and Blob container, provisioned via Terraform in this repo's <code>terraform/</code> directory</td>
+</tr>
+<tr>
+<td>New database tables</td>
+<td>Liquibase changeset <code>db/changelog/002-init-mrd-tables.sql</code> creates <code>mrd_specialisms</code> (further <code>mrd_*</code> tables added as MRD entities enter scope), owned by <code>ctam_reference_data</code> with the same write protection as the existing <code>jo_*</code> tables</td>
+</tr>
+<tr>
+<td>Pick-up mechanism</td>
+<td>A <code>@Scheduled</code> polling task inside <code>ctam-reference-data</code></td>
+</tr>
+<tr>
+<td>Run logging</td>
+<td>Every run - success or failure - is recorded in the <code>ctam_sync_status</code> table, tagged with source <code>mrd-excel</code>, including row counts and outcome</td>
+</tr>
+<tr>
+<td>Filing after processing</td>
+<td>Successful files move to an <code>archive/</code> path in the container; failed files move to a <code>rejected/</code> path alongside a validation report</td>
+</tr>
+<tr>
+<td>Future upgrade seam</td>
+<td>Only the reader component changes (blob pick-up to an API client) when MRD's public API ships - the <code>mrd_*</code> tables and downstream consumers are untouched</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why this matters:</strong> Judge specialisation data has real value across the programme - for example, in matching the right judges to the right cases - and without this weekly import, that data simply wouldn't exist inside CTAM. Building it as an automated, checked, and auditable pipeline (rather than a manual copy-paste job) means the data can be trusted from the outset, and the deliberate hand-off point to a future MRD API means this isn't throwaway work.</p>
+<p><strong>Explicitly out of scope:</strong> The separate nightly import of judge and tribunal-member data from the main judicial data source - that is a different piece of work. Connecting to MRD's own API once it exists - that's future work, to happen once MRD actually ships one. Hand-editing MRD data directly inside CTAM - that is never allowed, in any phase; any correction has to happen at the source, with the MRD team.</p>
 <hr />
 <h2 id="story-131-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed">Story 1.3.1: MRD supplementary reference data is ingested from the weekly Excel feed</h2>
-<p>As a <strong>CTAM Pathfinder platform</strong> (and downstream consumers of JOH Specialisations), I want the MRD team's weekly Excel workbook ingested from an Azure Blob drop into the <code>mrd_*</code> tables, So that <strong>supplementary judicial reference data not present in JOH eLinks (notably JOH Specialisations) is available in CTAM</strong> (revised D3, NFR24) without waiting for MRD's public APIs.</p>
+<p>As the <strong>CTAM Pathfinder platform</strong> (and everyone downstream who relies on judge specialisation data), I want the MRD team's weekly Excel workbook automatically picked up from its cloud drop-off point and loaded into CTAM's own tables, So that <strong>supplementary judicial reference data that isn't available from the main judicial data source - most notably judge specialisations - is available inside CTAM without needing to wait for MRD to build its own API</strong>.</p>
 <p><strong>Acceptance Criteria:</strong></p>
-<p><strong>Given</strong> a dedicated Azure storage account + Blob container exists for the MRD feed — provisioned via <strong>Terraform in this repo's <code>terraform/</code> directory</strong> (per AR53: <code>ctam-reference-data</code> is the first repo to need this resource; access for the MRD team or ops to drop the weekly workbook)<br/><strong>And</strong> the Liquibase changeset <code>db/changelog/002-init-mrd-tables.sql</code> creates <code>mrd_specialisms</code> (further <code>mrd_*</code> tables added as MRD entities enter scope) owned by <code>ctam_reference_data</code> with the same tier-(a) write protection as the <code>jo_*</code> tables (per AR49)<br/><strong>When</strong> the weekly workbook lands in the container<br/><strong>Then</strong> a <code>@Scheduled</code> task in <code>ctam-reference-data</code> detects it on its polling cycle (per AR47).</p>
-<p><strong>Given</strong> the ingestion task picks up a workbook<br/><strong>When</strong> processing runs<br/><strong>Then</strong> the workbook is validated before any write — shape (expected sheets/columns), vocabulary (values resolvable against controlled lists), and referential checks (Specialisations reference resolvable JOH personnel numbers / jurisdiction codes)<br/><strong>And</strong> valid rows are upserted into the <code>mrd_*</code> tables keyed on the upstream natural key<br/><strong>And</strong> the processed file is <strong>archived</strong> (moved to an <code>archive/</code> path in the container, retained for lineage/audit per AR47)<br/><strong>And</strong> the run is recorded in <code>ctam_sync_status</code> (source = <code>mrd-excel</code>) with row counts and outcome (per AR48).</p>
-<p><strong>Given</strong> the same workbook is dropped twice (or the task restarts mid-cycle)<br/><strong>When</strong> ingestion re-runs<br/><strong>Then</strong> the result is idempotent per file — no duplicate rows, no spurious updates (per AR47).</p>
-<p><strong>Given</strong> a workbook fails validation<br/><strong>When</strong> the task rejects it<br/><strong>Then</strong> no <code>mrd_*</code> table is modified (previous good state intact, per AR48)<br/><strong>And</strong> the file is moved to a <code>rejected/</code> path with a validation report alongside it<br/><strong>And</strong> the failure is recorded in <code>ctam_sync_status</code> and surfaced via structured logs for ops to liaise with the MRD team (corrections happen at source per FR6 tier (a)).</p>
-<p><strong>Given</strong> MRD's public APIs become available post-MVP<br/><strong>When</strong> the integration is upgraded<br/><strong>Then</strong> only the reader component swaps (blob pick-up → API client); the <code>mrd_*</code> tables and downstream consumers are unchanged (per AR47 — the blob-drop seam is the explicit upgrade point).</p>
-<p><strong>References:</strong> FR6 tier (a), FR7; NFR16, NFR24, NFR25–NFR28; AR47, AR48, AR49, AR53; gaps.md G8.1; D3 (revised).</p>
+<p><strong>Given</strong> a dedicated Azure Storage account and Blob container for the MRD feed have been set up via Terraform in this repo's <code>terraform/</code> directory (the first repository in the programme to need this kind of resource), giving the MRD team or operations the ability to drop the weekly workbook<br/><strong>And</strong> the Liquibase changeset <code>db/changelog/002-init-mrd-tables.sql</code> has created the <code>mrd_specialisms</code> table (with further <code>mrd_*</code> tables to follow as more of MRD's data comes into scope), owned by <code>ctam_reference_data</code> with the same write protection as the existing <code>jo_*</code> tables<br/><strong>When</strong> the weekly workbook lands in that storage container<br/><strong>Then</strong> a <code>@Scheduled</code> polling task inside <code>ctam-reference-data</code> picks it up on its next check.</p>
+<p><strong>Given</strong> the polling task has picked up a workbook<br/><strong>When</strong> it processes the file<br/><strong>Then</strong> the file is validated before anything is written - checking it has the expected sheets and columns, that its values match known reference lists, and that records like specialisations point to real, resolvable JOH personnel numbers and jurisdiction codes<br/><strong>And</strong> valid rows are then upserted into the <code>mrd_*</code> tables, keyed on the upstream natural key rather than duplicated<br/><strong>And</strong> the processed file is moved to an <code>archive/</code> path in the container, kept there for audit and traceability<br/><strong>And</strong> the run is recorded in the <code>ctam_sync_status</code> table, tagged with source <code>mrd-excel</code>, together with row counts and outcome.</p>
+<p><strong>Given</strong> the same workbook is dropped a second time, or the task restarts partway through a run<br/><strong>When</strong> it processes the file again<br/><strong>Then</strong> the outcome is exactly the same as the first successful run - no duplicate rows are created, and nothing is updated unnecessarily.</p>
+<p><strong>Given</strong> a workbook fails its validation checks<br/><strong>When</strong> the task rejects it<br/><strong>Then</strong> none of the <code>mrd_*</code> tables are changed - the data already in CTAM stays exactly as it was<br/><strong>And</strong> the file is instead moved to a <code>rejected/</code> path together with a validation report explaining what was wrong<br/><strong>And</strong> the failure is recorded in <code>ctam_sync_status</code> and written to the platform's structured logs, so the operations team can see it and follow up directly with the MRD team - since corrections always happen at the source, never inside CTAM.</p>
+<p><strong>Given</strong> MRD eventually makes its own API available<br/><strong>When</strong> the integration is upgraded to use it<br/><strong>Then</strong> only the part of the system that fetches the data changes - swapping the file drop-off for a direct API call - while the MRD database tables and everything downstream that relies on them stay exactly as they are.</p>
 <p><strong>Explicitly NOT in scope:</strong></p>
 <ul>
-<li>MRD API integration (post-MVP — when MRD ships public APIs)</li>
-<li>Hand-editing of <code>mrd_*</code> data in CTAM (never, in any phase — tier (a) per FR6)</li>
+<li>Connecting to MRD's own API - that only happens once MRD makes one available, as later work</li>
+<li>Hand-editing MRD data inside CTAM - that is never allowed, in any phase</li>
 </ul>
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-1/epic-1.3-mrd-reference-data-etl-process.md</code></p>

@@ -1,6 +1,6 @@
 ---
 type: 'Epic'
-description: 'User outcome: MRD-sourced supplementary reference data (JOH Specialisations, from mrd_specialisms) is exposed read-only, jurisdiction-filtered, through the already-published Reference Data API — extending its existing OpenAPI spec and Postman collection with one new endpoint rather than standing up a separate service surface.'
+description: 'Extends the already-published Reference Data API with one new read-only endpoint so JOH Specialisations - reference data sourced from the separate MRD feed - can be looked up through the same API consumers already use, filtered by jurisdiction, rather than needing a second API or a second set of automated checks.'
 resource: 'epics/phase-1/epic-1.6-mrd-reference-data-read-api.html'
 tags: [ctam-pathfinder, epics, phase-1]
 timestamp: '2026-08-20'
@@ -14,54 +14,48 @@ depends_on: [epic-1.3, epic-1.5]  # needs MRD data to exist (eLinks-independent 
 
 # Epic 1.6: MRD reference data is served read-only via the Reference Data API
 
-> **Split from Epic 1.5 2026-08-20 (SCP 2026-08-20d):** the original Reference Data read API epic covered tier-(b) CTAM-owned data and tier-(a) JOH data only — no MRD-sourced endpoint was ever specified. This epic adds that missing endpoint as new content, not an extraction. It **extends** Epic 1.5's already-published OpenAPI spec (`api-ctam-reference-data`) and Postman collection with one more resource, rather than creating a new service, API version, or artefact.
+> This piece of work was split out from the epic that originally built the main Reference Data read API, once it became clear that a JOH Specialisations endpoint had never actually been specified there. It extends that existing API and its automated checks with one more endpoint, rather than building anything new from scratch.
 
-**User outcome:** Supplementary MRD-sourced reference data — **JOH Specialisations**, held in `mrd_specialisms` (Epic 1.3) — is queryable read-only, **jurisdiction-filtered**[^d8], through the same versioned Reference Data API `ctam-ui` and downstream services already consume for tier-(b) and JOH tier-(a) data (Epic 1.5). Consumers see one coherent API surface; they don't need to know MRD is a separate upstream feed with its own ingestion cadence.
+**Business Goal:** Judicial Office Holders' specialisms — extra background information held in MRD, a separate reference-data feed with its own update schedule — are useful to later features such as Itinerary planning, but only if the rest of the programme can get at them without learning about, and integrating with, a second API. This epic makes sure that information shows up through the exact same reference-data lookup service that the CTAM front end and other downstream services already use for everything else, so there's one place to look, one API to test, and one collection of automated checks to run — not a growing maze of separate integrations to keep track of.
 
-**Hosting:** same repo, same service, same OpenAPI artefact (`uk.gov.hmcts.ctam:api-ctam-reference-data`) as Epic 1.5 — this epic is additive, not a new deployable or a new API version.
+**Outcome:** A judge's specialisms can now be looked up read-only, filtered so a requester only ever sees information for judges within their own jurisdiction, through the very same reference-data lookup service already used for everything else on the API. Anyone consuming the API doesn't need to know or care that this particular piece of information comes from a different upstream feed on a different schedule — it simply shows up alongside everything else already available.
 
-**Vertical slice:**
-- One new read endpoint over `mrd_specialisms`, jurisdiction-filtered via the JOH personnel-number → jurisdiction chain (same `AuthDetails`-driven filtering pattern as Epic 1.5, Story 1.5.2)
-- Added to the existing OpenAPI spec (same artefact version bump, not a new spec) and the existing Postman collection
+**Hosting:** This lives in exactly the same place as the rest of the Reference Data API — the same repository, the same running service, the same published API definition. Nothing new is being stood up; this is one more endpoint added onto something that already exists and is already in use.
 
-**FRs covered:** FR6 (read surface over tier (a) — MRD is tier (a), read-only in CTAM), FR7, FR58.
+**What's included:**
+- One new endpoint for looking up a judge's specialisms, filtered so it only ever returns results for judges the requester is allowed to see, using the same permission-checking approach already used everywhere else on this API
+- The new endpoint folded into the existing API definition (published as the next version of the same package, not a new package) and into the existing collection of automated API checks
 
-**Key NFRs:** NFR13 (authz enforcement incl. jurisdiction — reused, not reimplemented), NFR39 (API-as-Product consistency with the rest of the spec), NFR42 (Postman collection extended, not duplicated).
-
-**Out of scope (explicitly):** MRD ingestion itself (Epic 1.3). Tier-(b) and JOH tier-(a) endpoints (Epic 1.5). Any write surface for MRD data (never, in any phase — tier (a), corrections at source per FR6). A separate API version or artefact for MRD (this epic extends Epic 1.5's existing one).
+**Explicitly out of scope:** Bringing MRD data into CTAM in the first place — that's separate, earlier work. The endpoints already covering other kinds of reference data — also separate, earlier work. Any ability to create, edit, or delete MRD-sourced data through this API — that's never planned, for any phase; corrections happen back at the source system and arrive through the next scheduled data sync.
 
 ---
 
-## Story 1.6.1: MRD reference data (JOH Specialisations) is exposed via the Reference Data read-only API
+## Story 1.6.1: JOH Specialisations are made available through the Reference Data read-only API
 
-As an **API consumer** (`ctam-ui`; downstream services in Phase 1+ that need JOH Specialisations — e.g. Itineraries in Phase 7),
-I want a versioned, **read-only**, jurisdiction-filtered endpoint over the MRD-sourced `mrd_specialisms` data, added to the existing Reference Data API,
-So that **JOH Specialisations are queryable through the one API surface Phase 1+ services already integrate against**, without a second API to discover or a second Postman collection to run.
+As an **API consumer** — the CTAM front end, and other downstream services in later phases that need to know a judge's specialisms, such as Itinerary planning —
+I want a read-only, jurisdiction-filtered endpoint over the JOH Specialisations data, added onto the existing Reference Data API,
+So that **this information can be looked up through the one API surface these services already use**, without needing to discover and integrate with a second API or run a second set of automated checks.
 
 **Acceptance Criteria:**
 
-**Given** `mrd_specialisms` exists and is populated per Epic 1.3, Story 1.3.1,
-**And** the Reference Data API's read infrastructure (JWTFilter protection, jurisdiction-filtering from `AuthDetails`, RFC 9457 error envelopes, `/v1/reference-data/...` versioning) already exists per Epic 1.5, Story 1.5.2,
-**When** the engineer adds `GET /v1/reference-data/johs/{johId}/specialisms`,
-**Then** the endpoint returns `200 OK` with the JOH's specialisms, resolved via `ctam_joh_identities` → `personnel_number` → `mrd_specialisms`,
-**And** the response is **jurisdiction-filtered** consistently with every other endpoint on this API — a requester outside the JOH's jurisdiction gets `403 Forbidden` with an RFC 9457 problem-details body, not a filtered-empty result,
-**And** a JOH with no specialisms on record returns `200 OK` with an empty list, not `404`,
-**And** **no write endpoints** are implemented — attempting `POST`/`PUT`/`PATCH`/`DELETE` returns `405 Method Not Allowed` with an RFC 9457 body explaining corrections happen at source (MRD team) and arrive via the next sync (FR6).
+**Given** the JOH Specialisations data already exists and has been loaded,
+**And** the Reference Data API's existing read infrastructure — security-token checking, jurisdiction-based filtering, a standard error-response format, and versioned web addresses under `/v1/reference-data/...` — is already in place,
+**When** the engineer adds a new endpoint, `GET /v1/reference-data/johs/{johId}/specialisms`,
+**Then** the endpoint returns a successful response with that judge's list of specialisms, found by tracing from the judge's identity through to their personnel number and on to the specialisms data,
+**And** the response is filtered by jurisdiction in exactly the same way as every other endpoint on this API — someone asking about a judge outside their own jurisdiction gets a clear "not allowed" response, not an empty result that pretends the judge doesn't exist,
+**And** a judge who genuinely has no specialisms on record gets back a successful response with an empty list, not a "not found" error,
+**And** no ability to create, update, or delete specialisms is provided — any attempt to do so is clearly rejected with a "method not allowed" response explaining that corrections happen back at the source system and arrive via the next scheduled data sync.
 
-**Given** the OpenAPI spec is regenerated,
-**When** the engineer publishes the updated artefact,
-**Then** `uk.gov.hmcts.ctam:api-ctam-reference-data` bumps to the next version (not a new artefact coordinate) with the new endpoint documented alongside the existing ones,
-**And** Spectral lint passes on the updated spec (per AR17).
+**Given** the API's technical definition is regenerated,
+**When** the engineer publishes the updated version,
+**Then** the published package moves to its next version (not a new, separate package) with the new endpoint documented alongside everything already there,
+**And** the automated linting check that keeps the API definition consistent with the rest of the programme's APIs still passes.
 
-**Given** the Phase 0 Postman collection,
-**When** `postman/ctam-reference-data-phase0.postman_collection.json` runs in CI,
-**Then** it gains a case for the new endpoint (happy path + jurisdiction-filtered 403 + empty-list 200 + 405 write attempt), alongside the existing tier-(b)/JOH cases from Epic 1.5 (per NFR42).
-
-**References:** FR6 (MRD read surface, tier (a)), FR7, FR58; NFR13, NFR39, NFR42; AR8, AR17, AR34, AR37; D8.
+**Given** the existing collection of automated API checks used in continuous integration,
+**When** it runs,
+**Then** it gains a new set of checks for the new endpoint — the successful case, the jurisdiction-filtered rejection, the empty-list case, and the rejected write attempt — sitting alongside the checks already in place for the other reference data this API covers.
 
 **Explicitly NOT in scope:**
-- MRD ingestion — Epic 1.3, Story 1.3.1
-- Tier-(b) and JOH tier-(a) endpoints — Epic 1.5, Story 1.5.2
-- Any write surface for MRD data (never, in any phase — tier (a) per FR6)
-
-[^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.
+- Bringing MRD data into CTAM in the first place — separate, earlier work
+- The endpoints already covering other kinds of reference data — separate, earlier work
+- Any ability to edit MRD-sourced data through this API — never planned, for any phase

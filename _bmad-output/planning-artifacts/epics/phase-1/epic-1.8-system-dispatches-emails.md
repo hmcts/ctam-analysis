@@ -1,6 +1,6 @@
 ---
 type: 'Epic'
-description: 'User outcome: The ctam-notification service is deployed with its API contract published, delivery-log table created, SMTP integration to HMCTS email infrastructure configured, and POST…'
+description: 'Sets up the CTAM Pathfinder notification service so other services can safely send emails through it from day one: its send endpoint is live, every email attempt is logged in a database table, and it is connected to the real HMCTS email system, all proven end to end through hands-on testing before anything else starts relying on it.'
 resource: 'epics/phase-1/epic-1.8-system-dispatches-emails.html'
 tags: [ctam-pathfinder, epics, phase-1]
 timestamp: '2026-06-17'
@@ -14,125 +14,120 @@ depends_on: [epic-1.0]                      # only needs the estate — parallel
 
 # Epic 1.8: Notification service is scaffolded and contractually ready
 
-**User outcome:** The `ctam-notification` service is deployed with its API contract published, delivery-log table created, SMTP integration to HMCTS email infrastructure configured, and `POST /v1/notifications/send` endpoint operational. The contract is consumable from Phase 2+ (Absence acknowledgement, Booking acknowledgement) via JWT propagation — the user-initiated flow. Service-token (`client_credentials`) auth for non-user-initiated callers is **deferred to Phase 6** when `ctam-payment-batch` arrives as the first consumer. **No admin UI in MVP** — the test-send / verification flow happens via Postman during Phase 0 integration testing, not via a deployed UI.
+**Business Goal:** Several parts of CTAM Pathfinder — starting with acknowledging an absence request and confirming a booking — need to send an email to a judge or tribunal member at the right moment. Rather than each of those features building its own way of sending email, the programme wants one shared, dependable notification service that every other team can call in the same way, with a full record of what was sent, to whom, and whether it actually went out. Building and proving that service early — well before the features that will actually use it are ready — means those later teams can start writing their own code against a stable, already-working contract instead of waiting, or worse, building their own one-off email logic.
 
-**Vertical slice:**
-- `ctam-notification` backend service scaffolded (per AR2–AR4)
-- `ctam_notification_dispatches` table with service-owned Liquibase changelog (per AR18)
-- SMTP integration with HMCTS email infrastructure (Mailpit in non-prod)
-- Retry-on-transient-failure pattern (DB row locking / optimistic locking per AR21 — no custom idempotency tables)
-- `POST /v1/notifications/send` endpoint accepting structured request (`{templateId, recipient, payload}`)
-- JWT propagation for user-initiated calls (per NFR12 — Phase 2+ Absence and Phase 4 Booking acknowledgement flows are user-initiated)
-- Delivery-log read endpoint (`GET /v1/notifications/delivery-log`, `system-admin` role required — accessed via Postman in MVP, no UI)
-- OpenAPI spec published (by Gradle `maven-publish`) as a Maven-format artefact + Postman collection
-- Phase 0 integration testing via Postman: send → queued → sent → verify in Mailpit
+**What this covers:** This work stands up the notification service itself: publishing its shared address so other services know how to call it, creating the database table that records every email attempt, connecting it to the real HMCTS email system (with a safe stand-in for that connection during testing), and building the actual "send an email" endpoint with automatic retries if something goes wrong along the way. It also includes a way for support staff to look back through what has been sent. For now, only services acting on behalf of a signed-in user (for example, an absence request being acknowledged) can use it; a separate way for fully automated, scheduled processes to call it — needed once automated payment runs arrive later in the programme — is intentionally left for a later phase, since nothing needs it yet. There is also no admin screen for sending test emails yet: proving the service works is done by hand, using a testing tool, during this phase's integration testing.
 
-**FRs covered:** FR9 (notification dispatch + delivery log)
+**Outcome:** By the end of this work, the notification service is deployed and the way it is called is fixed and published, so it can genuinely be depended on: it has been proven, end to end, that a request can be sent in, an email attempt is logged, and the actual email is delivered and can be inspected.
 
-**Key NFRs:** NFR12 (JWT propagation for user-initiated), NFR15 (delivery log = audit), NFR22 (HMCTS email infrastructure), NFR25–NFR28 (observability), NFR39 (API-as-Product), NFR42 (Postman)
+**What's included:**
+- The notification service, deployed and running with the platform's standard set-up (logging, health checks, an automated build pipeline, and code-quality checks)
+- A database table that records every email attempt: who it went to, what it said, whether it is queued, sending, sent, failed, or given up on, and how many attempts were made
+- A real connection to the HMCTS email system for sending, with a safe local stand-in used during testing so no real emails go out by accident
+- An automatic retry: if sending fails for a temporary reason, the service tries again several times before giving up and flagging it for someone to look at
+- The actual "send an email" endpoint, which only services acting on behalf of a signed-in user can call for now
+- A way for authorised staff to look back through what has been sent, filtered by recipient, status, or date
+- A published, versioned description of exactly how to call the service, plus a ready-made set of test requests other teams can reuse
+- A hands-on test during this phase that proves the whole journey works: send a request in, watch it move through the queue, and see the actual email arrive
 
-**Out of scope for Phase 0 (deferred to other phases):**
-- OAuth `client_credentials` flow for batch / scheduled callers — **deferred to Phase 6** (the flow is established alongside `ctam-payment-batch`, the first non-user-initiated consumer)
-- Admin "Send Test Email" UI utility — **deferred post-MVP** (no admin UI in MVP[^d10])
-- Delivery-log viewer UI — **deferred post-MVP** (Postman queries cover the gap during integration testing in MVP)
+**Why this matters:** Nothing in this work is customer-facing on its own — it is foundational plumbing. But because several later features (acknowledging an absence request, confirming a booking, and eventually payment notifications) all depend on being able to send an email reliably, getting this service right early — and proving it actually works rather than just assuming it will — means those later teams can build with confidence instead of discovering email-delivery problems deep into their own work.
+
+**Explicitly out of scope (left for later phases):**
+- A way for fully automated, scheduled processes (rather than a signed-in user's action) to call the service — this is left until the point in the programme when the first such automated process actually needs it
+- An admin screen for sending a test email by hand — not needed in this early phase, since the same check can be done with a testing tool instead; day-to-day admin tasks in this phase are instead handled directly by the database team, following the programme's standard operational procedures, rather than through a screen
+- A screen for browsing the sent-email history — the same testing tool covers this need for now
 
 ---
 
-## Story 1.8.1: Scaffold `ctam-notification` service + delivery log table + SMTP integration
+## Story 1.8.1: The notification service, its delivery-history table, and its connection to email are set up
 
 As a **platform engineer**,
-I want to scaffold `ctam-notification` following the established pattern, create the delivery log table via Liquibase, and configure SMTP integration with HMCTS email infrastructure,
-So that **downstream phases** (Phase 2 absence ack, Phase 4 booking ack, Phase 6 payment schedule) **can dispatch transactional emails** via a consistent contract from day one of consuming them.
+I want to set up the notification service following the programme's established pattern, create the table that will record every email attempt, and connect the service to the HMCTS email system,
+So that **the later features that need to send email** (acknowledging an absence request, confirming a booking, and eventually payment notifications) **can rely on a consistent, ready-made way of doing so from the very start**, rather than each one building its own.
 
 **Acceptance Criteria:**
 
-**Given** the engineer has manually pre-created the private GitHub repo `ctam-notification` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`; the `gh` CLI is **not** available — see Story 1.1.1 for the canonical manual-setup pattern),
-**And** runs `ctam-scaffold.sh ctam-notification`,
-**When** the scaffold completes,
-**Then** the new repo has the same baseline as Stories 1.1.1 /1.4.1 (Spring Boot 4, Helm chart, GitHub Actions, Actuator, structured logs, OpenAPI tooling, Spectral, ArchUnit, Spotless, Checkstyle, Pact, Postman),
-**And** Group ID is `uk.gov.hmcts.ctam`, artefact is `ctam-notification`, package is `uk.gov.hmcts.ctam.notification`, default port is 8082,
-**And** initial commit is *"Scaffold CTAM Pathfinder notification from HMCTS starter"* (per AR4).
+**Given** the engineer has manually created the notification service's own private code repository, with the standard protections on its main branch, following the same manual set-up process already used for the platform's very first services,
+**And** runs the standard scaffolding script for it,
+**When** the scaffolding completes,
+**Then** the new repository has the same baseline as every other service built so far — the standard application framework, deployment packaging, automated build pipeline, health checks, structured logging, API documentation tooling, and code-quality checks,
+**And** it is registered under the group `uk.gov.hmcts.ctam`, named `ctam-notification`, using the package `uk.gov.hmcts.ctam.notification`, and defaults to port 8082,
+**And** the very first commit is recorded as *"Scaffold CTAM Pathfinder notification from HMCTS starter"*.
 
-**Given** the engineer adds the Liquibase changeset `db/changelog/001-init-notification-schema.sql`,
-**When** Liquibase applies it,
-**Then** a `ctam_notification_dispatches` table exists with columns: `id` (UUID PK), `template_id`, `recipient`, `payload` (JSONB), `status` (queued / sending / sent / failed / dead-lettered), `attempt_count`, `last_attempt_at`, `last_error`, `created_at`, `sent_at`, `created_by_principal` (the IdP principal that initiated the send — for audit), `version` (for `@Version` optimistic locking per AR21),
-**And** `ctam_notification` DB role owns the table,
-**And** the schema is documented in `architecture/data-tables.md`.
+**Given** the engineer adds the database change that creates the delivery-history table,
+**When** that change is applied,
+**Then** a `ctam_notification_dispatches` table exists, recording for every email attempt: a unique id, which template was used, who it was sent to, what data it contained, its status (queued, sending, sent, failed, or given up on), how many attempts have been made, when the last attempt happened, what the last error was (if any), when the record was created, when it was actually sent, which signed-in user's action triggered it (for audit purposes), and a version marker used to prevent two processes updating the same record at once,
+**And** the table is owned by the notification service's own database role,
+**And** its structure is documented alongside the rest of the programme's database documentation.
 
-**Given** the engineer configures SMTP,
-**When** the service starts in dev profile,
-**Then** SMTP settings are loaded from Spring profiles + Azure Key Vault (per AR25, NFR16),
-**And** in non-prod environments a SMTP mock (Mailpit container in docker-compose) intercepts outbound mail,
-**And** in production the configuration points to HMCTS email infrastructure (per NFR22).
+**Given** the engineer configures the connection to the email system,
+**When** the service starts up in a development environment,
+**Then** its email settings are loaded from the environment's configuration and from the programme's secure secret storage,
+**And** in every non-production environment, a safe local stand-in for the real email system intercepts anything the service tries to send, so no real emails ever go out during testing,
+**And** in production, the same configuration points at the real HMCTS email system.
 
-**Given** the service is deployed to dev AKS,
-**When** `/actuator/health` is queried,
-**Then** the response is `200 OK` with SMTP health-check status,
-**And** the response includes a degraded status if SMTP is unreachable.
-
-**References:** FR9, FR8 (consumes `ctam_configuration_values` for rate-limit policy), FR58, FR59; NFR16, NFR22, NFR25–NFR28, NFR40; AR2–AR22.
+**Given** the service is deployed to the development environment,
+**When** its health-check address is queried,
+**Then** it responds successfully, including the current health of its connection to the email system,
+**And** it reports itself as degraded if that email connection cannot be reached.
 
 ---
 
-## Story 1.8.2: `POST /v1/notifications/send` endpoint with JWT propagation, retry semantics, delivery logging, RFC 9457 errors
+## Story 1.8.2: The "send an email" endpoint delivers, retries, and logs every request, with a way to review what was sent
 
-As a **calling service** (Phase 2 Absence flow, Phase 4 Booking flow — both user-initiated),
-I want a `POST /v1/notifications/send` endpoint that accepts a template + recipient + payload, validates the caller's user JWT, persists a delivery log entry, dispatches via SMTP with retry on transient failure, and returns RFC 9457 errors on validation failure,
-So that **transactional email dispatch is a single, observable, retry-safe contract** (per FR9, NFR22) that the user-initiated downstream phases consume consistently. The OAuth `client_credentials` flow for non-user-initiated callers (batch / scheduled) is **out of scope for Phase 0** — it will be added in Phase 6 when `ctam-payment-batch` arrives.
+As a **calling service** (for example, the later work that acknowledges an absence request or confirms a booking, both triggered by a signed-in user's own action),
+I want a single endpoint that accepts a template, a recipient, and the data to fill it with, checks that the caller is a genuine signed-in user, records the attempt, sends the email with automatic retries if something temporarily goes wrong, and gives a clear, standard error response if the request is invalid,
+So that **sending a transactional email is a single, dependable, observable action** that every later, user-triggered feature can use in exactly the same way. A way for fully automated, unattended processes to call this same endpoint is intentionally left for later in the programme, once the first such process (an automated payment run) actually needs it.
 
 **Acceptance Criteria:**
 
-**Given** `ctam-notification` is deployed per Story 1.8.1,
-**When** the engineer implements the send endpoint,
-**Then** `POST /v1/notifications/send` accepts a body with `{templateId, recipient, payload}` where `payload` is a JSON object,
-**And** the endpoint is protected by `JWTFilter` and accepts user JWTs from the SSO/IdP (per NFR12 — JWT propagation for user-initiated calls; the caller is a downstream CTAM Pathfinder service that has propagated the user's token),
-**And** the caller's role is checked against the template's permitted-callers list (e.g. only `RSU` and `system-admin` may send `absence-ack` template in MVP),
-**And** on a valid request, the endpoint inserts a row in `ctam_notification_dispatches` with status `queued` and the user's principal in `created_by_principal`, then returns `202 Accepted` with `{deliveryId, status}`.
+**Given** the notification service has been set up as described in the previous story,
+**When** the engineer builds the send endpoint,
+**Then** `POST /v1/notifications/send` accepts a request containing a template identifier, a recipient, and a data payload,
+**And** the endpoint only accepts requests carrying a genuine signed-in user's identity, passed through from the calling service,
+**And** the calling user's role is checked against who is allowed to trigger that particular template (for example, in this phase only the roles responsible for absence handling, plus system administrators, may trigger the absence-acknowledgement email),
+**And** on a valid request, a new row is recorded in the delivery-history table with status "queued" and the triggering user's identity attached, and the caller receives back an acknowledged-and-queued response along with a reference id for that delivery.
 
-**Given** a worker (in-process Spring `@Scheduled` task picking `queued` rows with `FOR UPDATE SKIP LOCKED` per AR21) processes queued rows,
-**When** the worker picks a row,
-**Then** it transitions to `sending`,
-**And** invokes SMTP send,
-**And** on success transitions to `sent` with `sent_at` populated,
-**And** on transient failure increments `attempt_count`, populates `last_error`, and resets status to `queued` (retry budget: 5 attempts at exponential backoff),
-**And** on exhausted retry budget transitions to `dead-lettered` with `last_error` retained for inspection.
+**Given** a background process regularly checks for queued rows, picking each one up safely so that two processes never work on the same row at once,
+**When** it picks up a row,
+**Then** it marks that row as "sending",
+**And** attempts to send the actual email,
+**And** on success, marks it "sent" and records when it was sent,
+**And** on a temporary failure, records the attempt and the error, and puts it back in the queue to try again — up to five attempts in total, waiting progressively longer between each,
+**And** once all five attempts are used up, marks it as given-up-on, keeping the last error visible for someone to investigate.
 
-**Given** an invalid request body reaches the send endpoint,
-**When** validation fails (missing template, invalid recipient, payload schema mismatch),
-**Then** the response is `400 Bad Request` with RFC 9457 problem-details including field-level errors (per AR37),
-**And** no delivery log row is created.
+**Given** an invalid request reaches the send endpoint,
+**When** something required is missing or malformed — the template, the recipient, or the data payload,
+**Then** the response is a clear, standard "bad request" error explaining exactly which field was wrong,
+**And** nothing is recorded in the delivery-history table.
 
-**Given** an unauthenticated request reaches the send endpoint,
-**When** the JWT is missing or invalid,
-**Then** the response is `401 Unauthorized` with RFC 9457 problem-details,
-**And** no delivery log row is created.
+**Given** a request reaches the send endpoint without a genuine signed-in user's identity attached,
+**When** that identity is missing or cannot be verified,
+**Then** the response is a clear, standard "not authenticated" error,
+**And** nothing is recorded in the delivery-history table.
 
-**Given** a request arrives with a service-principal JWT (from `client_credentials` flow),
-**When** the JWTFilter validates the token,
-**Then** the request is **rejected** at Phase 0 with `403 Forbidden` and an RFC 9457 body explaining "service-principal callers are not in scope until Phase 6 (`ctam-payment-batch` arrives). Use user JWT propagation for Phase 2+ user-initiated flows.",
-**And** the rejection is logged with the client identifier for visibility.
+**Given** a request arrives claiming to be from a fully automated, unattended process rather than a signed-in user,
+**When** the service checks its identity,
+**Then** the request is turned away with a clear, standard error explaining that automated callers are not supported yet, and that this capability will arrive later in the programme once the first such caller needs it,
+**And** that rejection is itself logged, so the attempt remains visible.
 
-**Given** a `GET /v1/notifications/delivery-log` endpoint is added,
-**When** the caller is authenticated with a `system-admin` role,
-**Then** the response returns paginated delivery log entries with filters (recipient, status, date range, principal),
-**And** non-admin callers get `403 Forbidden` with RFC 9457.
+**Given** a delivery-history lookup endpoint is added,
+**When** it is called by someone with a system-administrator role,
+**Then** it returns the delivery history, page by page, filterable by recipient, status, date range, or triggering user,
+**And** anyone without that role is turned away with a clear, standard "not allowed" error.
 
-**Given** the OpenAPI spec is regenerated,
-**When** `uk.gov.hmcts.ctam:api-ctam-notification:1.0.0` is published,
-**Then** Spectral lint passes,
-**And** the spec documents the send + delivery-log endpoints,
-**And** the spec explicitly annotates "service-principal auth deferred to v2 (Phase 6) — Phase 0 / 1 only accept user-JWT".
+**Given** the service's published description of how to call it is regenerated,
+**When** the new version is published,
+**Then** it passes the programme's standard documentation-quality check,
+**And** it documents both the send endpoint and the delivery-history lookup endpoint,
+**And** it clearly notes that support for fully automated callers is intentionally left for a later version, and that only signed-in-user calls are supported for now.
 
-**Given** a Postman collection is published,
-**When** `postman/ctam-notification-phase0.postman_collection.json` runs in CI,
-**Then** it covers happy path + 400 + 401 + 403 (admin-only) + 403 (service-principal rejected pre-Phase-6) + retry behaviour (via a fault-injection test endpoint, removable post-Phase-0),
-**And** Phase 0 manual integration test consists of: open Postman → authenticate as test user → POST send → poll delivery-log until `sent` → open Mailpit → verify rendered email. (No admin UI for this flow in MVP.)
+**Given** a ready-made set of test requests for this service is published,
+**When** it is run automatically as part of the build,
+**Then** it covers: the normal successful path; a bad request; a not-authenticated request; an admin-only check on the history lookup; an automated-caller request being correctly turned away; and the retry behaviour, using a removable test-only endpoint that deliberately triggers a failure,
+**And** the hands-on check for this phase is: open the testing tool, sign in as a test user, send a request, watch the delivery-history entry move to "sent", then open the email stand-in tool and confirm the email rendered correctly. (There is no admin screen for this check in this phase.)
 
-**References:** FR9, FR58, FR59; NFR12, NFR13, NFR15, NFR22, NFR25, NFR28, NFR39, NFR42; AR17, AR21, AR34, AR37, AR38, AR41.
-
-**Explicitly NOT in scope (deferred to other phases):**
-- OAuth `client_credentials` flow for batch / scheduled callers — **Phase 6**, alongside `ctam-payment-batch`
-- Admin "Send Test Email" UI — **deferred post-MVP**[^d10]
-- Delivery-log viewer UI — **deferred post-MVP** (Postman covers the gap)
-
-[^d10]: D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.
+**Explicitly not in scope (left for later phases):**
+- A way for fully automated, scheduled processes to call this endpoint — left until the point in the programme when the first such process actually needs it
+- An admin screen for sending a test email by hand — not needed in this early phase; in the meantime, any admin operations that would otherwise need a screen are handled directly by the database team through the programme's standard operational procedures
+- A screen for browsing the delivery history — the testing tool covers this need for now

@@ -1,6 +1,6 @@
 ---
 type: 'Epic'
-description: 'User outcome: CTAM Pathfinder''s two user populations — JOH users (resolved via jo_people → personnel_number → CTAM JOH UUID in ctam_joh_identities) and HMCTS admin staff (resolved via ctam_auth_staff_identities → CTAM-assigned UUID) — have…'
+description: 'CTAM Pathfinder has two distinct groups of people who need to sign in - judges and tribunal members on one side, and HMCTS administrative staff on the other. This work sets up each group''s access records (their roles, jurisdiction, and area coverage) and proves every one of them matches a real identity in the sign-in system, with everyone switched off by default until a go-live deliberately turns them on.'
 resource: 'epics/phase-1/epic-1.7-user-populations-bootstrapped.html'
 tags: [ctam-pathfinder, epics, phase-1, employment-tribunals]
 timestamp: '2026-06-17'
@@ -14,75 +14,72 @@ depends_on: [epic-1.1, epic-1.4]            # needs ctam_auth_* tables + jo_* fi
 
 # Epic 1.7: Both user populations are bootstrapped and verifiable against the IdP
 
-**User outcome:** CTAM Pathfinder's two user populations[^d9] — **JOH users** (resolved via `jo_people` → `personnel_number` → CTAM JOH UUID in `ctam_joh_identities`) and **HMCTS admin staff** (resolved via `ctam_auth_staff_identities` → CTAM-assigned UUID) — have authorisation records (roles, jurisdiction, Region/Area scope, all-FALSE activation flags) in place: seeded by scripts in dev/CI, bootstrapped by programme-management mechanisms in production (outside the PRD's scope), and **verifiable** by a bootstrap-verification job that confirms every user maps to a real IdP principal before any wave cutover. Epic 1.4's sign-in works against this data.
+**Business Goal:** Nobody can sign into CTAM Pathfinder unless their identity has been set up and verified in advance. That's true for every environment the programme uses, from a developer's laptop through to the day a real jurisdiction goes live. The business needs confidence that both groups of users — judges and tribunal members, and HMCTS's own administrative staff — are set up correctly and can prove they map to a real sign-in identity, before anyone relies on being able to log in. Getting this wrong at go-live would mean people simply couldn't access the system on day one.
 
-**No legacy user migration of any kind**[^d3]: no APEX user dump, no IdP reconciliation ETL, no unmatched-record CSV workflow — none of these exist or will exist. **No admin UI in MVP**[^d10] — operational user/role/scope maintenance happens via direct SQL by DBAs; an admin UI surface is on the post-MVP roadmap.
+**What this covers:** There are two separate groups of people who use CTAM, each resolved a different way. Judicial office holders (judges and tribunal members) are looked up by matching their sign-in email to a personnel record, and from there to a CTAM-assigned unique reference. HMCTS administrative staff are looked up through a separate, CTAM-internal identity list. Both groups end up keyed on a CTAM-assigned unique reference, not on any number carried over from another system. This piece of work covers three things: (1) scripts that seed both groups' data for development and automated testing; (2) a repeatable check that proves every seeded (and eventually every real) user actually matches a real sign-in identity; and (3) a written runbook explaining how programme management sets this up for real, live users. The sign-in feature built elsewhere in this phase depends on this data existing.
 
-**Vertical slice:**
-- Dev/CI seed scripts (one-off, per AR52) populating **both populations**: `jo_*` fixtures (where no live eLinks connection exists), `ctam_auth_staff_identities` rows, `ctam_auth_users` (with `principal_kind` + jurisdiction), `ctam_auth_user_roles`, `ctam_auth_user_region_scopes`, `ctam_auth_user_activation_flags` (all FALSE, keyed by (jurisdiction, region) per FR57) — mirroring `ctam-mock-auth`'s test-user roster (AR35)
-- **Bootstrap-verification job**: confirms every `ctam_auth_users` row (both populations) resolves to an IdP principal — by email against the IdP directory (mock in Phase 0–8; real HMCTS IdP at the pre-Phase-9 cutover per G1.3) — and produces a verification report; failures block the wave gate
-- **Production bootstrap runbook** at `ctam-architecture/runbooks/identity-bootstrap.md`: documents what programme management must supply (the staff identity list, role/jurisdiction/scope assignments), the SQL load pattern, the verification-job invocation, and the FR4 maintenance pattern (DBA-via-SQL[^d10])
+There is no carrying over of user accounts from any legacy system, in any form — no import of old user records, no reconciliation process, no manual review list of records that didn't match. None of that exists, and none of it is planned. There is also no administrative screen for managing this data in this first release — an authorised database administrator makes any changes directly, following the operational runbook; a proper on-screen admin tool is planned for later.
 
-**FRs covered (Phase 0 surface):**
-- **FR1** — the data both identity-lookup paths resolve against
-- **FR4** — MVP data-layer success criterion ("an authorised DBA can update role / jurisdiction / scope per the operational runbook")
-- **FR57** — initial all-FALSE flag state at bootstrap; cutover flips per (jurisdiction, region) in Phase 9+
+**What's included:**
+- Development and test-environment seed scripts (a one-off setup step, not something that runs automatically in production) that populate **both** groups: sample judicial office holder records (used wherever there's no live connection to the real judicial data source yet), the administrative-staff identity records, the combined user records (tagging each one as a judicial or administrative user, and recording their jurisdiction), their assigned roles, their Region/Area coverage, and their access-activation status — everyone starts switched **off** by default, organised by jurisdiction and region. This mirrors the same test users already used elsewhere for sign-in testing.
+- A **verification check** that confirms every seeded (and later, every real) user record actually matches a real identity in the sign-in system — checked against a stand-in sign-in directory during earlier phases, and against the real HMCTS sign-in system once the programme is ready to cut over to it — and produces a report. If anything fails to match, that failure blocks the go-live step for that group of users.
+- A **written runbook** for setting this up for real, describing exactly what programme management needs to provide (the list of staff identities, and each person's roles/jurisdiction/area coverage), how that data gets loaded into the database, how to run the verification check, and how a database administrator makes ongoing changes to someone's role, jurisdiction, or coverage area.
 
-**FRs deferred to post-MVP:**
-- **FR4 admin UI surface** (`ctam-admin-ui` Users & Roles module — D10)
+**Who resolves how:**
 
-**Out of scope for Phase 0:**
-- The production bootstrap mechanism itself (programme-management / operational, outside the PRD's scope[^d9] — CTAM provides the runbook and the verification job, not the source data)
-- `ctam-authorisation` admin write endpoints, admin UI modules, activation toggle UI (post-MVP[^d10])
-- *(There is no APEX Users/Roles ETL, IdP-reconciliation matching, or unmatched-record decisions CSV — revised D3 / restructured D9.)*
+| User group | How they're identified | Where their identity lives |
+|---|---|---|
+| Judicial office holders | Sign-in email matched to their personnel record, then to a CTAM-assigned reference | The judicial-holder identity table |
+| HMCTS administrative staff | Sign-in email matched directly | The CTAM-internal staff identity table |
+
+**Why this matters:** This isn't a customer-facing feature in itself, but it's the foundation the sign-in feature depends on to actually work in any environment — and it's the safeguard that stops a jurisdiction going live with users who can't actually get in.
+
+**Explicitly out of scope:**
+- Actually supplying the real, live list of users for a production go-live — that's programme management's job; this work only provides the runbook and the verification check, not the source data itself
+- Any on-screen tool for administrators to manage users, roles, or activation status — that's planned for a later release
+- Any process for importing or reconciling user accounts from a legacy system — no such process exists or is planned
 
 ---
 
-## Story 1.7.1: Identity seed scripts (both populations), bootstrap-verification job, and the production bootstrap runbook
+## Story 1.7.1: Both groups of users can be seeded, verified against the sign-in system, and set up for real via a runbook
 
-As an **identity / HMCTS IT lead** (and the engineers who need working sign-in in every environment),
-I want dev/CI seed scripts covering both identity populations, a re-runnable bootstrap-verification job proving every user maps to an IdP principal, and a production bootstrap runbook,
-So that **Epic 1.4's two-population sign-in works end-to-end in every environment, and no wave cutover can proceed with unverifiable users** (restructured D9, AR52, G1.3).
+As the **person responsible for identity setup, and every engineer who needs working sign-in in every environment**,
+I want seed scripts covering both groups of users, a repeatable check that proves every user maps to a real sign-in identity, and a written runbook for setting this up for real,
+So that **sign-in works end-to-end everywhere it's needed, and nobody can go live for a group of users whose identities haven't been proven to actually work**.
 
 **Acceptance Criteria:**
 
-**Given** the engineer creates the dev/CI seed scripts (one-off scripts per AR52; not a runtime API, not Liquibase changesets),
-**When** the scripts run against a fresh dev/CI database,
-**Then** they populate: representative `jo_*` fixtures (incl. `jo_people` rows whose emails match `ctam-mock-auth`'s JOH test users, with stable personnel numbers, a minted `ctam_joh_identities` UUID per JOH fixture, and `jo_jurisdictions` covering Tribunals/ET + Tribunals/SSCS + Courts examples) where no live eLinks connection exists,
-**And** `ctam_auth_staff_identities` rows (CTAM-assigned UUIDs) whose emails match the mock-auth admin-staff test users,
-**And** `ctam_auth_users` rows for both populations with `principal_kind`, the link to `ctam_joh_identities.id` (JOH) or `ctam_auth_staff_identities.id` (staff), and a jurisdiction (FK → `jo_jurisdictions`),
-**And** role assignments (`ctam_auth_user_roles`) and Region/Area scopes (`ctam_auth_user_region_scopes`) covering every documented role across both populations,
-**And** `ctam_auth_user_activation_flags` rows keyed by (jurisdiction, region), **all FALSE** except designated test users flagged TRUE so the Epic 1.4 demo can show both the activated and non-activated paths (FR57),
-**And** the scripts are idempotent (safe re-run on an already-seeded database).
+**Given** the engineer writes the development/test seed scripts (a one-off setup script, not something that runs as part of the live system, and not part of the ordinary database change process),
+**When** the scripts run against a freshly created development or test database,
+**Then** they create: realistic sample judicial-holder records — including personnel records whose email addresses match the judicial test users already used for sign-in testing, with stable personnel numbers, a freshly-generated CTAM reference for each one, and sample jurisdictions covering Employment Tribunals, the Social Security and Child Support tribunal, and example ordinary courts,
+**And** administrative-staff identity records whose email addresses match the administrative test users already used for sign-in testing,
+**And** combined user records for both groups — each tagged as judicial or administrative, linked to the correct underlying identity record, and recording which jurisdiction they belong to,
+**And** role assignments and Region/Area coverage records covering every documented role in both groups,
+**And** activation-status records for every jurisdiction/region combination — all switched **off** by default, except a handful of designated test users deliberately switched **on**, so the sign-in demo can show both the "activated" and "not yet activated" experience,
+**And** the scripts can be safely re-run against a database that's already been seeded, without creating duplicates or breaking anything.
 
-**Given** the bootstrap-verification job is implemented (a re-runnable script/k8s Job owned by `ctam-architecture`),
+**Given** the verification check is built (a repeatable script or scheduled job, owned by the architecture team),
 **When** it runs against an environment,
-**Then** for every `ctam_auth_users` row it verifies the principal resolves at the configured IdP — by email against the IdP directory (`ctam-mock-auth` roster in Phase 0–8; real HMCTS IdP principal export/query at the pre-Phase-9 cutover per gaps.md G1.3),
-**And** it verifies referential integrity per population: every JOH `ctam_auth_users` row links to an existing `ctam_joh_identities` row whose `personnel_number` maps to an active `jo_people` row; every staff row links to an existing `ctam_auth_staff_identities` UUID,
-**And** it produces a verification report (total users per population, verified count, failures with per-row reason),
-**And** a non-empty failure list exits non-zero — wiring the job into the wave-cutover gate (the Phase 9+ rollout runbook and the pre-Phase-9 cutover checklist both require a clean run; per architecture *Wave rollout flow* gate 3),
-**And** the job never modifies data — it is verification-only.
+**Then** for every user record, in both groups, it confirms the person actually exists in the sign-in system — checked by email against a stand-in sign-in directory during earlier phases, and against the real HMCTS sign-in directory once the programme cuts over to it,
+**And** it checks that the underlying data is internally consistent for each group: every judicial user record links to a valid judicial-holder identity whose personnel number maps to an active personnel record; every administrative-staff user record links to a valid staff-identity record,
+**And** it produces a report showing, per group, the total number of users, how many were successfully verified, and the specific reason for any that weren't,
+**And** if even one user fails to verify, the check fails outright — and passing this check cleanly is a required step before any jurisdiction/region combination can go live,
+**And** running the check never changes any data — it only checks and reports.
 
-**Given** the production bootstrap runbook is written at `ctam-architecture/runbooks/identity-bootstrap.md`,
-**When** programme management prepares a wave's users,
-**Then** the runbook documents: the inputs programme management must supply (staff identity list with emails; role / jurisdiction / Region-Area assignments for both populations — JOH person data itself arrives via the eLinks sync, not via bootstrap),
-**And** the SQL load pattern per table (DBA-operated,[^d10]), including the all-FALSE initial activation state (FR57),
-**And** the verification-job invocation and the rule that a clean verification run is a precondition for the wave gate,
-**And** the FR4 maintenance pattern: how a DBA updates a user's role / jurisdiction / scope per request, with the change-trail convention,
-**And** the runbook states explicitly what is out of scope: no legacy-system user import exists or will exist[^d3]; the bootstrap data source is programme-management-owned.
+**Given** the written runbook for setting this up for real,
+**When** programme management prepares the users for a jurisdiction going live,
+**Then** the runbook spells out exactly what programme management must supply — the list of administrative staff identities with their email addresses, and the role/jurisdiction/area-coverage assignments for both groups (judicial-holder personal data itself arrives separately, through the ongoing sync with the judicial data source, not through this setup process),
+**And** it documents, table by table, how a database administrator loads that data — including the rule that everyone starts switched off by default,
+**And** it explains how to run the verification check, and states plainly that a clean pass is required before that jurisdiction/region combination can go live,
+**And** it explains how a database administrator makes an ongoing change to someone's role, jurisdiction, or coverage area, including how that change gets recorded for audit purposes,
+**And** it states plainly what this process does **not** do: there is no import of user accounts from any legacy system, and the underlying source of the real user list is programme management's responsibility, not something this process provides.
 
-**Given** the seeds have run in dev,
-**When** the Epic 1.4 Playwright suite executes,
-**Then** the JOH test user signs in and resolves to a CTAM JOH UUID, the admin-staff test user signs in and resolves to a staff UUID (Story 1.4.5),
-**And** the bootstrap-verification job passes cleanly against the seeded environment in CI.
+**Given** the seed scripts have run in a development environment,
+**When** the automated sign-in test suite runs,
+**Then** the judicial test user can sign in and resolves correctly to their CTAM reference, and the administrative-staff test user can sign in and resolves correctly to their staff identity,
+**And** the verification check passes cleanly against that seeded environment as part of the automated build.
 
-**References:** FR1, FR4 (MVP data-layer criterion), FR57 (initial flag state); NFR13, NFR15 (change trail per runbook), NFR16; AR18–AR20, AR34, AR35, AR52; restructured D9; gaps.md G1.3.
-
-**Explicitly NOT in scope (deferred post-MVP or external):**
-- Admin API / admin UI for user, role, jurisdiction, scope, or activation management[^d10]
-- The production bootstrap mechanism's data sourcing (programme-management-owned, outside the PRD)
-- *(No APEX user ETL, IdP-reconciliation matching, or unmatched-decisions CSV workflow exists — revised D3)*
-
-[^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
-[^d9]: Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → `jo_people` → `personnel_number` → a **CTAM-assigned JOH UUID** (`ctam_joh_identities`); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; `personnel_number` is the upstream link only. No legacy user migration.
-[^d10]: D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.
+**Explicitly not in scope:**
+- Any on-screen tool for administrators to manage users, roles, jurisdiction, scope, or activation status
+- Where programme management actually gets its real, live list of users from — that's outside this work
+- Any process for importing or reconciling user accounts from a legacy system — none exists or is planned

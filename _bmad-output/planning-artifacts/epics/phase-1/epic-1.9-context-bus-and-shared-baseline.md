@@ -1,6 +1,6 @@
 ---
 type: 'Epic'
-description: 'User outcome: the published context bus exists and is version-pinned (arch-vN), and the shared ctam_configuration_values infrastructure table exists with SELECT granted to every service role — both in place before the first domain service is built. Promoted from a dispatch-graph node to a first-class epic 2026-08-19 (SCP 2026-08-19d) so BMad tracks it.'
+description: 'Publishes one official, version-tagged copy of the architecture that every service team can build against, and creates a single shared table of cross-service configuration values that every service can read but none can change. Both need to be in place before any service is built, so no team has to invent its own copy of shared truth or its own configuration table.'
 resource: 'epics/phase-1/epic-1.9-context-bus-and-shared-baseline.html'
 tags: [ctam-pathfinder, epics, phase-1]
 timestamp: '2026-08-19'
@@ -14,98 +14,94 @@ depends_on: [epic-1.0]
 
 # Epic 1.9: Context bus is published and the shared configuration baseline exists
 
-> **Runs between Epic 1.0 and Epic 1.1 — the number is not the order.** Sequence comes from `depends_on`, not from the epic number: this epic depends on Epic 1.0 and Epic 1.1 depends on it. Note the dependency is **story-specific in practice** — Story 1.9.1 (publish and tag the bus) needs nothing and is already done; only Story 1.9.2 (the Liquibase baseline) needs Epic 1.0's shared PostgreSQL. `depends_on` is epic-level, so it records the stricter of the two; expect `dispatch-preflight.sh` to flag Epic 1.0 as a blocker for 1.9.1 even though that story is complete. **Numbering history:** first added as Epic 0.6 (SCP 2026-08-19d) — deliberately out of build order, since renumbering the then-authored epics 0.1–0.5 for no benefit was rejected. Moved to Epic 0.8 (SCP 2026-08-20c) when Epic 0.1 was split and the JOH/MRD ETL epics were inserted at 0.2/0.3, cascading every later epic number up by two. Moved again to Epic 0.9 (SCP 2026-08-20e) to make room for the MRD read-API epic sliding in at 0.6, directly after Epic 0.5. Moved once more to **Epic 1.9** (SCP 2026-08-20h) when Phase 0 and Phase 1 were swapped wholesale — this epic's Foundations content now lives in the folder called `phase-1/` — the "number is not the order" principle is why every one of these moves was acceptable rather than disruptive.
->
-> **History:** this was `arch-baseline` in `delivery/dispatch-graph.yaml`, a node marked `decomposed: false`. That made it invisible to every BMad skill — it appeared in no sprint status, had no stories, and could not be dispatched. Promoted to a real epic when the dispatch graph was retired (SCP 2026-08-19d).
+> This piece of work has moved and been renumbered several times as the plan evolved; its current number reflects that history, not its priority. It also started life as an informal placeholder rather than a properly tracked piece of work, and has since been promoted so it is fully visible to the team and can be planned and delivered like any other epic.
 
-**User outcome:** Every service repo can pin one published, versioned copy of the architecture (the **context bus**), and every service can read cross-service runtime policy values from one shared table it does not own. Both exist before the first domain service is scaffolded, so no service has to invent a local copy of shared truth or a local config table.
+**Business Goal:** Every team building a CTAM Pathfinder service needs to work from the same shared understanding of the architecture, and every service needs somewhere to read a handful of programme-wide settings from — things like session-timeout warnings, batch schedules, and feature flags — without each team inventing its own copy or hard-coding the values. This epic puts both of those foundations in place before the first service is built, so no team has to guess at shared conventions or build a one-off configuration mechanism of its own.
 
-**Vertical slice:**
-- `ctam-architecture` published as the context bus: the architecture set (`architecture.md` + `architecture/` shards + `prd.md` mirror) plus the authored `agent-rules/` pack, tagged `arch-vN`
-- The publish mechanism is reproducible, not hand-copied (`ctam-analysis/scripts/publish-arch.sh`)
-- `ctam_configuration_values` created by a Liquibase **baseline changelog owned by `ctam-architecture`** — the one table with no owning service (per `data-tables.md`)
-- `SELECT` granted to every service DB role; no service granted write
-- Both verifiable: a service repo can add the submodule at the tag and read it; a service role can read the table and cannot write it
+**What this covers:** This is two related pieces of foundational groundwork. The first is publishing the architecture itself — turning the working planning documents into one official, version-tagged package that every service repository can pin a copy of and only update on purpose. The second is creating one small, shared database table that holds programme-wide configuration values, which every service can read but none can change directly. Neither piece is tied to a single feature; both exist so later work has solid, shared ground to build on.
 
-**FRs covered:** FR8 (shared cross-service policy values)
+A practical note on sequencing: although this epic sits between two others in the numbering, the actual build order comes from what each piece of work genuinely needs, not from the numbers. In practice, the two stories in this epic have different real dependencies — publishing the architecture package needs nothing else and is already complete; only the second story, which creates the shared configuration table, needs the shared database to exist first. Because dependencies are tracked at the whole-epic level, automated readiness checks may still flag the earlier database epic as a blocker for the whole of this epic, even though the first story doesn't actually need it.
 
-**Key NFRs:** NFR16 (secrets stay in Key Vault — this table is for policy, never secrets), NFR40 (auditable trail: bus versions are tags, schema changes are changelogs)
+**Outcome:** Every service team can pin one official, version-tagged copy of the architecture (referred to as the "context bus"), and every service can read shared, programme-wide settings from one table it doesn't own. Both are ready before the first service is scaffolded, so nobody has to invent a local copy of shared truth or a local settings table.
 
-**Out of scope for Phase 0 (deferred):**
-- A UI or API for editing configuration values — **post-MVP**; MVP maintenance is DBA-via-SQL per operational runbooks[^d10]
-- Publishing `diagrams/`, `sequence-diagrams/` or `architecture/analysis/` to the bus — added when a consumer needs them, not speculatively
-- The `api-specs/` read-only contract mirror — arrives with the first published service spec (Epic 1.5)
+**What's included:**
+- The `ctam-architecture` repository published as the official architecture package: the architecture documents and their supporting sections, the product requirements document, and an authored pack of agent working-rules, all tagged as a numbered release (for example, `arch-v1.0`)
+- A repeatable publishing script (`ctam-analysis/scripts/publish-arch.sh`) that produces this package, rather than someone copying files by hand
+- A new shared database table, `ctam_configuration_values`, created through a database migration script owned by the `ctam-architecture` repository — this is the one table in the whole programme that no single service owns
+- Read-only access to that table granted to every service; no service is allowed to write to it
+- Both pieces are checkable in practice: a service repository can pull in the published architecture at its tagged version and read it, and a service's database role can read the shared table but cannot write to it
+
+**Why this matters:** Secrets and passwords never belong in this shared table — those stay in the programme's secure secrets vault, and this table is strictly for everyday policy settings. Every version of the published architecture is a clearly tagged release, and every change to the shared table happens through a tracked migration script, so there's always a clear, auditable record of what changed and when.
+
+**Explicitly out of scope for now:**
+- A screen or API for editing these shared configuration values directly — that's planned for later; for now, changes are made directly in the database by a database administrator, following the team's standard operating procedures
+- Publishing supporting diagrams or deeper analysis documents into the architecture package — that will be added once a team actually needs them, rather than speculatively now
+- A read-only mirror of individual services' own API specifications — that arrives once the first service's own API specification is published, later in the programme
 
 ---
 
-## Story 1.9.1: Publish `ctam-architecture` as the context bus and tag `arch-v1.0`
+## Story 1.9.1: Publish `ctam-architecture` as the official, version-tagged architecture package
 
 As a **platform engineer**,
-I want the architecture set and the agent-rules pack published in `ctam-architecture` and tagged,
-So that **every service repo can pin exactly one version of shared truth** as a submodule, and adopt a newer one only by a deliberate, auditable bump.
+I want the architecture documents and the agent working-rules pack published together in the `ctam-architecture` repository and tagged as a release,
+So that **every service team can pin exactly one version of the shared architecture**, and only move to a newer version through a deliberate, visible update — never silently.
 
 **Acceptance Criteria:**
 
-**Given** the canonical architecture lives in `ctam-analysis/_bmad-output/planning-artifacts/`,
-**When** `ctam-analysis/scripts/publish-arch.sh` is run,
-**Then** `architecture.md`, `architecture-summary.md`, `prd.md` and every `architecture/*.md` shard are copied into `ctam-architecture`,
-**And** `architecture/PUBLISHED.md` states that those files are a mirror and must never be hand-edited,
-**And** the script performs no version-control operations of its own.
+**Given** the official architecture documents live in this planning repository,
+**When** the publishing script is run,
+**Then** the main architecture document, its summary, the product requirements document, and every supporting architecture section are copied into the `ctam-architecture` repository,
+**And** a note in that repository clearly states these files are a mirror and must never be hand-edited there,
+**And** the script itself makes no version-control changes (such as commits or tags) — it only copies files.
 
-**Given** the published payload plus the authored `agent-rules/` pack are on `main`,
+**Given** the published files plus the authored agent working-rules pack are ready on the main branch,
 **When** the release is tagged,
-**Then** an annotated tag `arch-v1.0` exists on `ctam-architecture`,
-**And** the tag is pushed and readable by `git ls-remote --tags`,
-**And** tagging was performed by a human — a Claude session cannot create tags (agent-rules R13).
+**Then** a proper, annotated release tag (`arch-v1.0`) exists on the `ctam-architecture` repository,
+**And** that tag is pushed and can be seen by anyone checking the repository's tags,
+**And** the tag is created by a person, not by an automated coding session — that's a deliberate human checkpoint.
 
-**Given** a service repo needs shared truth,
-**When** it adds `ctam-architecture` as a submodule at `_arch/` and checks out `arch-v1.0`,
-**Then** `_arch/agent-rules/00-core.md` and `_arch/architecture/conventions.md` both resolve,
-**And** the pinned version is recorded in the repo's `CLAUDE.md` and in each story packet's `bus_version`.
+**Given** a service repository needs the shared architecture,
+**When** it pulls in `ctam-architecture` as a linked sub-repository at the `arch-v1.0` tag,
+**Then** both the core agent working-rules file and the shared naming-and-conventions document are present and readable inside it,
+**And** the exact version being used is written down in that service's own project instructions and in each piece of work's own tracking record.
 
-**Given** a convention later changes,
-**When** the change is published,
-**Then** it is a new tag (`arch-v(N+1)`) plus a deliberate submodule bump in each adopting repo — the bus never mutates a downstream repo silently.
-
-**References:** FR8; NFR40; AR2; `architecture/delivery-operating-model.md` (Decision 1, the bus-pinning rule); `architecture/repo-structure.md` (the `ctam-architecture` tree).
+**Given** a shared convention changes later on,
+**When** that change is published,
+**Then** it comes out as a new, higher-numbered release tag together with a deliberate update in each service repository that adopts it — the shared package never silently changes what a service is already using.
 
 ---
 
-## Story 1.9.2: Shared `ctam_configuration_values` Liquibase baseline with per-service SELECT grants
+## Story 1.9.2: Shared configuration table exists, with read-only access for every service
 
 As a **service developer**,
-I want one shared, typed table of cross-service runtime policy values that my service can read but not write,
-So that policy visible to several services (session-timeout warnings, batch schedules, feature flags) lives in exactly one place, instead of being duplicated per service or hard-coded.
+I want one shared table of typed, programme-wide settings that my service can read but not change,
+So that settings used by several services — things like session-timeout warnings, batch schedules, and feature flags — live in exactly one place, instead of being copied into every service or hard-coded.
 
 **Acceptance Criteria:**
 
-**Given** the shared PostgreSQL instance from Epic 1.0 exists,
-**And** the engineer adds `ctam-architecture`'s Liquibase **baseline** changelog,
-**When** Liquibase applies it,
-**Then** `ctam_configuration_values` exists in the shared schema,
-**And** it holds **typed** policy values — a key, a value, and the value's type — with `id uuid` primary key and `created_at` / `updated_at timestamptz NOT NULL`, per `conventions.md` → *Naming Patterns*,
-**And** no column beyond that minimal shape is added without a cited need (agent-rules R6),
-**And** the table is documented as **shared infrastructure with no owning service** in `architecture/data-tables.md`.
+**Given** the shared database instance already exists,
+**And** the engineer adds the `ctam-architecture` repository's baseline database migration script,
+**When** that migration script is applied,
+**Then** the `ctam_configuration_values` table exists in the shared database schema,
+**And** it holds typed settings — a key, a value, and the value's type — with a `uuid` primary key column named `id`, and `created_at` and `updated_at` timestamp columns that can never be left blank, following the shared naming conventions used across the programme,
+**And** no extra column is added beyond that simple shape without a clear, justified reason,
+**And** the table is written down as shared infrastructure with no single owning service in the programme's record of shared database tables.
 
 **Given** the table exists,
-**When** DB roles are granted,
-**Then** every service role holds `SELECT` on it,
-**And** **no service role holds INSERT, UPDATE or DELETE** — writes are DBA-only in MVP,
-**And** the grants are codified in `ctam-architecture`'s changelog, not applied by hand (per `gaps.md` G6.4).
+**When** database access is granted,
+**Then** every service's database role can read from it,
+**And** no service's database role can insert, update, or delete rows in it — for now, changes are made only by a database administrator,
+**And** those access grants are written into the `ctam-architecture` repository's migration scripts rather than applied by hand, so they can't quietly drift or be forgotten.
 
-**Given** a service reads a policy value,
+**Given** a service needs to read a setting,
 **When** it does so,
-**Then** it reads via JPA against the shared schema — there is no configuration client or service to call,
-**And** the value is treated as policy, never as a secret: secrets remain in Azure Key Vault (NFR16).
+**Then** it reads the value straight from the shared database using its normal data-access layer — there is no separate configuration service or client to call,
+**And** the value is always treated as a policy setting, never as a secret — actual secrets stay in the programme's secure secrets vault.
 
-**Given** an integration test runs,
-**When** the baseline changelog is applied to an empty database via Testcontainers,
-**Then** the table and its grants are created from scratch and asserted — proving the changelog, not the developer's local database (agent-rules P6).
+**Given** an automated integration test runs,
+**When** the baseline migration script is applied to a freshly created, empty test database,
+**Then** the table and its access grants are created from nothing and checked automatically, proving the migration script itself works correctly rather than relying on a developer's own already-set-up database.
 
-**References:** FR8; NFR16; `architecture/data-tables.md` (shared-infrastructure row); `architecture/conventions.md` → *Naming Patterns*; `gaps.md` G6.4 (grant maintenance).
-
-**Explicitly NOT in scope:**
-- Any write path, UI or API for configuration values — post-MVP[^d10]
-- Per-service configuration, which stays in Spring profiles + `application.yml` + Key Vault (FR8 revised v2.2)
-
-[^d10]: D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.
+**Explicitly not in scope:**
+- Any way to write to these values through a screen or API — that's planned for later
+- Configuration that's specific to just one service — that continues to live in that service's own settings files and in the secure secrets vault, not in this shared table
