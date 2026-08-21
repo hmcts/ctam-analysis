@@ -27,7 +27,7 @@
 # ===========================================================
 # 1. Story packets do NOT live in story_location. CTAM is a 16-repo polyrepo, so a packet is
 #    landed in its TARGET SERVICE REPO at docs/stories/<story_id>.md (see delivery-operating-model.md
-#    and _bmad/custom/bmad-create-story.toml). Sprint planning's file-existence detection therefore
+#    and its Deviation register). Sprint planning's file-existence detection therefore
 #    cannot upgrade a status here — statuses in this file are set when a story is dispatched and
 #    when it is signalled, not auto-detected.
 # 2. The packet's own `Status:` line is authoritative for a story in flight. This file is the

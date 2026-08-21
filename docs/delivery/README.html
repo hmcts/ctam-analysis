@@ -194,7 +194,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 </tbody>
 </table>
-<p><code>bmad-create-story</code> refuses to run without <code>sprint-status.yaml</code>, so <strong>sprint planning comes first</strong>, once per phase. Team overrides that adapt the BMad skills to this polyrepo live in <code>_bmad/custom/</code> (committed).</p>
+<p><code>bmad-create-story</code> refuses to run without <code>sprint-status.yaml</code>, so <strong>sprint planning comes first</strong>, once per phase. The skill is <strong>stock</strong> — the team override that adapted it to this polyrepo was deleted 2026-08-21 (SCP 2026-08-21) ahead of BMad 7's native polyrepo support. Read <a href="../architecture/tobe/delivery-operating-model.html"><code>../architecture/delivery-operating-model.md</code></a> → <em>Deviation register</em> before dispatching: six of the nine deviations are live against stock BMad 6.</p>
 </div></details><details class="section" id="multi-user-coordination"><summary><span class="section-title">Multi-user coordination</span></summary><div class="section-body">
 <p><strong>One dispatcher at a time, by convention.</strong> <code>sprint-status.yaml</code> is a single file, so two people dispatching concurrently would conflict on it. Coordinate before you dispatch.</p>
 <p>The backstop is <a href="../../../scripts/dispatch-preflight.sh"><code>../../../scripts/dispatch-preflight.sh</code></a>, which is read-only and answers four questions:</p>
