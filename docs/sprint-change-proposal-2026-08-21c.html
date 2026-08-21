@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-21 (c) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-21-c">Sprint Change Proposal — 2026-08-21 (c)</h1>
+<p><strong>Reorder phase-0/phase-1 epics in <code>sprint-status.yaml</code></strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"reorder the epics of phase-0 and phase-1 in sprint-status.yaml"</em> — a direct <code>bmad-correct-course</code> request.</p>
+<p><strong>Before this change</strong>, <code>development_status</code> in <code>sprint-status.yaml</code> listed <code>epic-1.0</code> through <code>epic-1.9</code> first, then <code>epic-0.0</code> and <code>epic-0.1</code> last. This matched <code>epics/index.md</code>'s own "Document Map" table, which lists Phase 1 (Foundations) before Phase 0 (JOH) — a deliberate consequence of the 2026-08-20 phase-directory swap (SCP 2026-08-20h) plus the "the number is not the order" precedent this programme has used since Epic 0.6/1.9's original numbering. It read backwards, however, against the plain numeric reading of the epic ids themselves (<code>0.0</code>, <code>0.1</code> are lower than <code>1.0</code>–<code>1.9</code>), and against <code>epics/phase-0/</code> sorting alphabetically before <code>epics/phase-1/</code> on disk.</p>
+<p><strong>What changed:</strong> reordered <code>development_status</code>'s epic blocks to ascending epic id — <code>epic-0.0</code>, <code>epic-0.1</code>, then <code>epic-1.0</code> through <code>epic-1.9</code> — with every story sub-key, epic status, and retrospective key moved as a whole block, unchanged internally. <strong>No status value changed</strong>: <code>epic-1.9</code> is still <code>in-progress</code>, story <code>1-9-1-…</code> is still <code>done</code>, everything else is still <code>backlog</code>. Verified the file is still valid YAML with the same 52 top-level <code>development_status</code> keys before and after (12 epics + 12 retrospectives + 28 stories).</p>
+<p><strong>Known resulting inconsistency, not in scope for this SCP:</strong> <code>epics/index.md</code>'s Document Map table and <code>scripts/python/build_html.py</code>'s NAV list both still list "Phase 1" before "Phase 0" — the order this SCP just moved away from in <code>sprint-status.yaml</code>. This SCP was scoped by the user to <code>sprint-status.yaml</code> only; the two files above are left as-is. If the user wants those reordered too for consistency, that's a follow-up SCP, not assumed here.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-epic-impact">2.1 Epic impact</h3>
+<p>None — no epic's scope, stories, ACs, <code>depends_on</code>, or status changed.</p>
+<h3 id="22-story-impact">2.2 Story impact</h3>
+<p>None — no story's content or status changed; only the file position of each epic's block (and its nested stories) moved.</p>
+<h3 id="23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</h3>
+<p>Only <code>sprint-status.yaml</code> was touched. <code>dispatch-preflight.sh</code> and every other consumer read entries by key (<code>grep -E "^[[:space:]]*${key}:"</code>), not by position, so nothing else in the repo depends on this file's key order — confirmed by inspecting <code>scripts/dispatch-preflight.sh</code>'s lookup logic. This is a purely cosmetic, zero-functional-risk change.</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — no code exists in any of the 16 execution-unit repos; nothing has been dispatched.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment.</strong> Reorder the existing blocks in place; no other file needs a corresponding change for this file to remain internally valid.</p>
+<p><strong>Effort:</strong> Trivial. <strong>Risk:</strong> None — verified key set and status values identical before/after.</p>
+<hr />
+</div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-_bmad-outputimplementation-artifactssprint-statusyaml">4.1 <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></h3>
+<pre class="diff"><code> development_status:
+-  epic-1.0: backlog
+-  ...(epic-1.0 through epic-1.9 blocks, unchanged internally)...
+-  epic-1.9-retrospective: optional
+-
+-  epic-0.0: backlog
+-  ...(epic-0.0 block, unchanged internally)...
+-  epic-0.0-retrospective: optional
+-
+-  epic-0.1: backlog
+-  ...(epic-0.1 block, unchanged internally)...
+-  epic-0.1-retrospective: optional
++  epic-0.0: backlog
++  ...(epic-0.0 block, unchanged internally)...
++  epic-0.0-retrospective: optional
++
++  epic-0.1: backlog
++  ...(epic-0.1 block, unchanged internally)...
++  epic-0.1-retrospective: optional
++
++  epic-1.0: backlog
++  ...(epic-1.0 through epic-1.9 blocks, unchanged internally)...
++  epic-1.9-retrospective: optional</code></pre>
+<p>Every individual key and status value is byte-identical to before; only the three blocks' relative order changed.</p>
+<h3 id="42-architecturechangelogmd--new-entry-v416">4.2 <code>architecture/changelog.md</code> — new entry (v4.16)</h3>
+<p>Records this reordering for the same traceability reason every other tracking-file change this session has one.</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Minor.</strong> Direct implementation by the Developer agent (this session).</p>
+<p><strong>Success criteria:</strong></p>
+<ul>
+<li><code>sprint-status.yaml</code>'s <code>development_status</code> lists <code>epic-0.0</code>, <code>epic-0.1</code>, then <code>epic-1.0</code>–<code>epic-1.9</code>, in that order.</li>
+<li>Every status value (epic and story) is unchanged from before the reorder.</li>
+<li><code>architecture/changelog.md</code> carries a v4.16 entry.</li>
+<li><code>docs/</code> regenerated so the new SCP page is built and linked from the site navigation.</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-21c.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-epic-impact">2.1 Epic impact</a></li><li class="h3"><a href="#22-story-impact">2.2 Story impact</a></li><li class="h3"><a href="#23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--detailed-change-proposals">Section 4 — Detailed Change Proposals</a></li><li class="h3"><a href="#41-_bmad-outputimplementation-artifactssprint-statusyaml">4.1 _bmad-output/implementation-artifacts/sprint-status.yaml</a></li><li class="h3"><a href="#42-architecturechangelogmd--new-entry-v416">4.2 architecture/changelog.md — new entry (v4.16)</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-21c";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
