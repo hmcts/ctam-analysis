@@ -101,3 +101,9 @@ development_status:
   0-0-2-error-handling-and-fixture-data-match-real-production-shapes-and-volumes: backlog
   0-0-3-the-natural-key-mismatch-is-discovered-and-recorded-as-gap-g8-7: backlog
   epic-0.0-retrospective: optional
+
+  epic-0.1: backlog
+  0-1-1-a-provisional-mrd-workbook-shape-is-proposed-and-documented: backlog
+  0-1-2-a-realistic-sample-workbook-is-built-for-ci-at-a-believable-scale: backlog
+  0-1-3-deliberately-broken-practice-data-proves-the-validation-and-rejection-logic-actually-works: backlog
+  epic-0.1-retrospective: optional

@@ -1,6 +1,6 @@
 ---
 type: 'Epic'
-description: 'Business goal: de-risk the JOH eLinks integration - the wave-1 (Employment Tribunals) programmes single most safety-critical external data dependency - before production ingestion code is written. User outcome: the real JOH eLinks People API (v5) contract is confirmed and reproduced as a contract-accurate CI-only mock, seeded from real production reference-data extracts, so the Epic 1.2 eLinks sync integration-tests against a faithful target instead of an ad-hoc stub. Resolves the structural half of gap G8.1 and surfaces a new gap (G8.7): the real APIs natural-key field does not match CTAMs personnel_number assumption.'
+description: 'Confirms exactly what the real JOH data source looks like - its web addresses, security rules, and paging behaviour - by building a safe practice copy of it for testing, seeded with realistic data. This means the team building the nightly JOH data sync can prove their work against a faithful copy of the real system before ever connecting to it live. It also uncovers and records an important discovery: the real system does not use the field we had assumed would be its unique identifier for each person.'
 resource: 'epics/phase-0/epic-0.0-joh-elinks-api-contract-mock.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-08-20'
@@ -9,114 +9,130 @@ epic: 0.0
 title: 'The JOH eLinks API contract is confirmed and mocked for CI-only integration testing'
 storyCount: 3
 repo: ctam-reference-data
-depends_on: [epic-1.1]                      # cross-phase: needs Phase 1's tier-(a) schema to exist so the mock's field mapping can be cross-checked against it
+depends_on: [epic-1.1]                      # needs the JOH/MRD database schema work to exist first, so this epic's findings can be checked against it
 ---
 
 # Epic 0.0: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing
 
-> **New 2026-08-20, informed by an external reference codebase** (`ctam-jomockapi`, a local Node.js mock of the real JOH eLinks People API v5, built from the real Swagger export and complete example payloads, seeded from real production reference-data extracts). Not a split of an existing epic — new work triggered by that reference material becoming available.
->
-> **Numbering history:** originally appended to what was then called "Phase 0" (Foundations) as Epic 0.10 (quoted `"0.10"`, since that phase's ten single-digit slots were exhausted). Moved to a newly-created "Phase 1" (JOH) as Epic 1.0 (SCP 2026-08-20g) — a clean, unquoted float, no collision risk, and a better conceptual fit (upstream-contract confirmation for JOH data belongs in the JOH phase, not platform/foundations). **Today (SCP 2026-08-20h), Phase 0 and Phase 1 were swapped wholesale**: Foundations content moved to the folder now called `phase-1/`, and this epic (JOH) moved to the folder now called `phase-0/`, becoming **Epic 0.0**. Depends cross-phase on Epic 1.1 (Phase 1's tier-(a) schema, now that Foundations is Phase 1) — cross-phase dependencies are normal; Phase 0 (JOH) as a whole already depends on Phase 1 (Foundations).
+> This piece of work was added once a real reference example of the JOH data source became available, and moved between phase groupings as the programme's structure was reorganised. Its number reflects that history, not its priority.
 
-**Business Goal:** Employment Tribunals is CTAM Pathfinder's wave-1 rollout jurisdiction, and every JOH-facing feature in the programme — profile views, working patterns, sittings, bookings — ultimately reads `jo_people` data sourced from the JOH eLinks API. Before the programme commits engineering effort to that dependency, the business needs confidence that the integration is buildable against a *real, contract-accurate* target rather than assumptions drawn from a Swagger PDF export — so that a structural surprise (such as a missing `personnel_number` field) is caught while it is still a documentation-driven design decision, not a live-integration incident that risks stalling the wave-1 cutover.
+**Business Goal:** Employment Tribunals is the first jurisdiction going live on CTAM Pathfinder, and every judge-facing feature in the programme — profile views, working patterns, sittings, bookings — ultimately depends on judge and tribunal-member data pulled from the JOH data source. Before the team commits engineering effort to that dependency, the business needs confidence that it can be built against a *real, accurate* picture of that data source, rather than assumptions drawn from a PDF export of its documentation. Catching a structural surprise now — while it is still a design decision — is far cheaper than discovering it live, where it could delay the first jurisdiction's go-live.
 
-**Scope of this body of work:** Although delivered as a single story, this epic spans three distinct pieces of work: **(1)** reverse-engineering the real API contract from primary sources — the Swagger export, complete example payloads, and dated production reference-data extracts; **(2)** building a CI-only fixture/mock layer inside `ctam-reference-data` that reproduces that contract faithfully (endpoints, auth, pagination, error shapes, realistic data volumes) rather than a hand-rolled happy-path stub; and **(3)** surfacing and formally recording the one structural mismatch that reverse-engineering uncovered (gap G8.7), turning it into a tracked architectural decision rather than a surprise found mid-integration. It represents the full "contract confirmation" phase of the JOH eLinks integration — normally a multi-week discovery exercise — compressed into a single epic because a complete external reference codebase made it tractable in one pass.
+**What this covers:** Although delivered as a handful of stories, this is a full body of work with three parts: **(1)** working out exactly what the real data source looks like, using its official documentation and real example data; **(2)** building a safe, realistic practice copy of it purely for automated testing — not a rough stand-in that only covers the easy cases; and **(3)** writing down, clearly and formally, the one important mismatch this work uncovered, so it becomes a tracked decision for the team to make rather than a surprise found partway through building the real integration. It compresses what is normally a multi-week discovery exercise into a single, focused piece of work, made possible by having a complete real-world example to learn from.
 
-**User outcome:** The real JOH eLinks People API (v5) — endpoints, auth behaviour, pagination envelope, change-feed semantics, and response shapes — is confirmed (resolving the structural half of gaps.md **G8.1**, previously "unconfirmed") and reproduced as a **contract-accurate, CI-only mock**, seeded from real production reference-data extracts. Epic 1.2's eLinks sync (Story 1.2.1, which currently only promises testing "against a WireMock/stub eLinks API in CI" per AR52) gets a faithful target to integration-test against, rather than an ad-hoc hand-rolled stub. Building this mock surfaced a new, separately-tracked gap (**G8.7**): the real API's natural-key field does not match what CTAM's architecture assumed.
+**Outcome:** The real JOH data source's web addresses, login/security behaviour, page-by-page data retrieval, and response formats are all confirmed and reproduced as a realistic, safe practice copy — seeded with data at the same scale as the real thing. The team building the nightly JOH data sync gets a trustworthy target to test against, instead of a rough stand-in. Building this practice copy also revealed that the real data source doesn't use the identifier field the team had assumed it would.
 
-**Hosting:** lives inside `ctam-reference-data`'s own test infrastructure — a CI-only fixture/stub layer (WireMock mappings or an equivalent in-process fake), not a new deployable and not a new repo. This follows the same "no new surface for test-only infrastructure" principle already applied to the eLinks sync and MRD ingestion (both run in-process, no `ctam-integrations` repo) — the mock is a **build artefact of the test suite**, not a service anyone deploys.
+**Hosting:** This practice copy lives entirely inside the testing setup of the service that will do the real data sync — it is not a new system, not something anyone deploys, and nobody outside the automated test suite ever sees it running. It exists purely so that automated checks have something realistic to run against.
 
-**Vertical slice:**
-- The real contract, confirmed: base path `/api/v5/...` (also mounted under `/elinks`, per the real Swagger doc's server field); bearer-token auth on every People/Reference Data endpoint (`401` on missing/malformed token); public `GET /` and `GET /api/v5/healthcheck`
-- Reference-data endpoints: `GET /api/v5/reference_data/:attribute_name` (list, `{results: [...]}`) and `GET /api/v5/reference_data/:attribute_name/:reference_id` (single, `{results: [item]}`) — covering all 11 `jo_*`-mapped attribute names (`appointment_titles`, `base_locations`, `contract_types`, `genders`, `judiciary_roles`, `jurisdictions`, `location_types`, `locations`, `ticket_categories`, `ticket_category_types`, `tickets`), including deprecated singular aliases
-- People endpoints: `GET /api/v5/people/:id` (full profile, `?include_previous_appointments=true`) and `GET /api/v5/people` (change-feed, **required** `?updated_since=YYYY-MM-DD`, `per_page`/`page`) — active people return full profiles, `leaver`/`deleted` people return compact stub shapes mixed into the same `results` array
-- `GET /api/v5/leavers` (**required** `?left_since=`) and `GET /api/v5/deleted` (**required** `?deleted_since=`), same pagination shape
-- Standard error envelopes confirmed: `400` `{"message": "Please correct the following validation errors and try again.", "errors": [...]}` for missing/invalid required params; `404` `{"message": "No person found for id <id>."}` / `{"message": "No reference data found for id <id>."}`; pagination envelope `{current_page, more_pages, results_per_page, pages, results}`
-- CI-only fixture data cross-checked against real production reference-data volumes (`locations`: 2000, `base_locations`: 1462, `appointment_titles`: 194, `judiciary_roles`: 164, `tickets`: 159, `ticket_categories`: 54; small fixed vocabularies — `genders`, `contract_types`, `location_types`, `ticket_category_types`, `jurisdictions` — kept at their real (small) size)
-- **Gap G8.7 recorded, not resolved here:** the real person record has no `personnel_number` field — it returns `per_id` (numeric) and `personal_code` (10-digit string) instead. This epic documents the discovery; reconciling CTAM's schema is a separate architectural decision (see gaps.md G8.7).
+**What's included:**
+- The real data source's structure, confirmed: how it's addressed on the web; that every request needs a security token, with a clear rejection message if one is missing or wrong; and a couple of endpoints anyone can reach without a token, for basic health checks
+- Lookup data endpoints — for things like appointment titles, locations, contract types, genders, roles, jurisdictions, and ticket categories — covering every category CTAM needs, including some older, deprecated names that still need to be understood
+- Person-lookup endpoints — fetching a single judicial office holder's full profile, and a "what's changed recently" feed for keeping local data in sync, which returns compact stub records for people who have left or been removed rather than full profiles
+- Dedicated feeds for people who've left, and people who've been deleted, using the same paging approach as the main feed
+- The exact shape of error messages and "not found" responses, and the exact shape of the paging information returned with every list of results
+- Practice data seeded at realistic scale — matching real-world counts for locations, job titles, roles, tickets, and categories — not just a handful of made-up test records
+- **An important discovery, written down but not yet resolved:** the real data source does not have the identifier field the team had planned to use as each person's unique reference number — it uses two different fields instead. This work records that discovery clearly; deciding which field to actually use is a separate decision for the team to make.
 
-**FRs covered:** none directly — this is contract-confirmation and CI test-infrastructure work. **Supports** FR1 (identity-lookup target) and NFR24 (JOH eLinks MVP integration) by de-risking Epic 1.2's eLinks sync before it's built against real upstream data. Also the natural first step into this phase's own FR10–FR18 (JOH Records & Working Patterns) — those FRs all build on `jo_people` data whose upstream contract this epic confirms.
+**Endpoints being mocked:** every endpoint below is mounted at both its standard address and an alternative address the real system also supports.
 
-**Key NFRs:** NFR25–NFR28 (the mock's fixtures feed the same structured-logging/observability assertions Epic 1.2's CI already exercises) — otherwise this epic's NFR footprint is test-infrastructure, not runtime.
+*Public (no security token required):*
 
-**Out of scope (explicitly):** Deciding the `personnel_number` → `per_id`/`personal_code` mapping (gaps.md G8.7 — a separate architectural decision, not made by this epic). Any change to `data-tables.md`, decision D9, or the schema in Phase 1's Epics 1.1/1.2/1.4/1.6/1.7. Standing up the mock as a deployed service or a new repo (it's CI-only, in-process test infrastructure). The MRD feed side of G8.1 (unrelated — MRD is a weekly Excel blob drop, not an API). Any of this phase's own JOH Records & Working Patterns functionality (FR10–FR18) — those remain framework-only, not yet decomposed into epics.
+| Endpoint | Purpose |
+|---|---|
+| `GET /` | Root / landing |
+| `GET /api/v5/healthcheck` | Health check |
+
+*Lookup data (security token required):*
+
+| Endpoint | Purpose |
+|---|---|
+| `GET /api/v5/reference_data/:attribute_name` | List all values for a lookup category |
+| `GET /api/v5/reference_data/:attribute_name/:reference_id` | A single lookup value by id |
+
+Covering all 11 categories CTAM needs (including older, deprecated names): `appointment_titles`, `base_locations`, `contract_types`, `genders`, `judiciary_roles`, `jurisdictions`, `location_types`, `locations`, `ticket_categories`, `ticket_category_types`, `tickets`.
+
+*Person data (security token required):*
+
+| Endpoint | Purpose | Required inputs |
+|---|---|---|
+| `GET /api/v5/people/:id` | Full profile for one person | — (`?include_previous_appointments=true` optional) |
+| `GET /api/v5/people` | "What's changed" feed, paginated | a from-date is required; page size/number optional |
+| `GET /api/v5/leavers` | People who've left | a from-date is required |
+| `GET /api/v5/deleted` | People who've been deleted | a from-date is required |
+
+*Response behaviour also being confirmed (not separate endpoints, but expected of every route above):* a clear rejection when the security token is missing or wrong; a clear "please correct these errors" message when a required input is missing or invalid; a clear "not found" message for an unknown person or lookup value; and a consistent paging format on every list of results.
+
+**Why this matters:** This isn't tied to a single customer-facing feature — it's foundational, de-risking work that protects the nightly data sync everyone else's judge-facing features will depend on, and it's the natural first step before the team starts building the judge profile and working-pattern features planned for later in this phase.
+
+**Explicitly out of scope:** Deciding which field to use as each person's unique identifier — that's a separate decision for the team, not resolved by this work. Any changes to the actual database design used elsewhere in the programme. Turning this practice copy into a real, deployed service — it exists purely for automated testing. The equivalent discovery work for the separate MRD data feed (a weekly spreadsheet drop, not a live data source, so it's a different kind of problem). Any of the judge profile or working-pattern features themselves — those are planned for later and aren't started yet.
 
 ---
 
 ## Story 0.0.1: Contract endpoints, auth, and pagination are confirmed via the mock
 
-As the **engineer building Epic 1.2's eLinks sync** (and every future maintainer of that integration),
-I want `ctam-reference-data`'s CI suite to run against a mock that reproduces the real JOH eLinks People API (v5)'s endpoint set, bearer-token auth behaviour, and pagination/change-feed semantics — not a hand-rolled stub that only covers the happy path the original developer thought of,
-So that **the sync's routing, auth handling, and pagination logic are proven against the real contract before the first live connection**.
+As the **engineer building the nightly JOH data sync** (and everyone who maintains it afterwards),
+I want the automated test suite to run against a practice copy that behaves exactly like the real JOH data source — its web addresses, its security checks, and the way it pages through results — rather than a rough stand-in that only covers the easy cases,
+So that **the sync's routing, security handling, and paging logic are all proven correct before it ever talks to the real system**.
 
 **Acceptance Criteria:**
 
-**Given** the tier-(a) `jo_*` schema exists per Epic 1.1, Story 1.1.2,
-**When** the engineer builds the CI-only mock/fixture layer for the eLinks API,
-**Then** it exposes the confirmed endpoint set — `GET /api/v5/reference_data/:attribute_name` (+ `/:reference_id`), `GET /api/v5/people/:id`, `GET /api/v5/people`, `GET /api/v5/leavers`, `GET /api/v5/deleted`, plus public `GET /` and `GET /api/v5/healthcheck` — mounted at both the bare path and under `/elinks`, matching the real Swagger doc's server field,
-**And** every People/Reference Data route enforces bearer-token auth, returning `401 {"message": "Unauthorized. Invalid or missing token."}` on a missing or malformed `Authorization` header.
+**Given** the underlying database structure for JOH data already exists,
+**When** the engineer builds the practice copy of the JOH data source for automated testing,
+**Then** it offers the full, confirmed set of lookup, person, and health-check endpoints, reachable both at their standard address and at an alternative address the real system also supports,
+**And** every lookup and person endpoint requires a valid security token, clearly rejecting any request with a missing or malformed one.
 
-**Given** the mock's change-feed and list endpoints are queried with valid parameters,
-**When** the eLinks sync's client code calls `GET /api/v5/people?updated_since=...&per_page=...&page=...`,
-**Then** the response matches the confirmed pagination envelope `{results: [...], pagination: {current_page, more_pages, results_per_page, pages, results}}`,
-**And** `results` mixes full-profile entries (active people) with compact `leaver`/`deleted` stub shapes, per the real change-feed semantics,
-**And** `GET /api/v5/people/:id` always returns a full profile (`include_previous_appointments=true` includes ended appointments in the same `appointments` array; there is no separate field for it),
-**And** a deleted person's `GET /api/v5/people/:id` returns `404 {"message": "No person found for id <id>."}`.
+**Given** the practice copy's "what's changed" and list-style endpoints are queried with valid inputs,
+**When** the sync's code asks for everyone updated since a given date, with paging options,
+**Then** the response matches the confirmed paging format exactly,
+**And** the results mix full profiles for active people with compact stub records for people who've left or been removed, matching the real system's behaviour,
+**And** looking up a single person by their reference always returns their full profile, including past appointments where requested,
+**And** looking up someone who has been deleted returns a clear "not found" response.
 
-**References:** FR1 (supports, does not deliver), NFR24; gaps.md G8.1 (structural confirmation — endpoint set, auth, pagination/change-feed).
-
-**Explicitly NOT in scope:**
-- Error-envelope shapes for invalid requests and fixture-data realism (Story 0.0.2)
-- The natural-key mismatch, gap G8.7 (Story 0.0.3)
-- Deploying the mock as a real service (CI-only, in-process)
+**Explicitly not in scope:**
+- Error-message formats for invalid requests, and realistic test-data volumes (covered in the next story)
+- The identifier-field discovery (covered in the story after that)
+- Turning this practice copy into a real, deployed service
 
 ---
 
 ## Story 0.0.2: Error handling and fixture data match real production shapes and volumes
 
-As the **engineer building Epic 1.2's eLinks sync**,
-I want the mock to return the real API's error envelopes for invalid requests, and its fixture data cross-checked against real production reference-data volumes,
-So that **the sync's error handling is proven against real error shapes, and its behaviour is validated in CI against realistic data volume rather than a handful of hand-picked happy-path records**.
+As the **engineer building the nightly JOH data sync**,
+I want the practice copy to return error messages in exactly the same shape as the real system, and to be seeded with test data at a realistic scale,
+So that **the sync's error handling is proven against real error formats, and its behaviour is checked against realistic data volumes rather than a handful of hand-picked test records**.
 
 **Acceptance Criteria:**
 
-**Given** the mock is queried without required parameters,
-**When** `GET /api/v5/people`, `/leavers`, or `/deleted` is called without its required date parameter (`updated_since`, `left_since`, `deleted_since` respectively),
-**Then** the response is `400` with the confirmed validation-error envelope: `{"message": "Please correct the following validation errors and try again.", "errors": [...]}`,
-**And** the same envelope is returned for an invalid `reference_id` (non-numeric) or an unknown `attribute_name`.
+**Given** the practice copy is asked for something without a piece of information it needs,
+**When** a request is missing a required date, or gives an invalid or unrecognised lookup value,
+**Then** the response comes back with the confirmed error-message format, clearly explaining what went wrong.
 
-**Given** the mock's fixture data,
-**When** CI seeds it,
-**Then** reference-data fixtures are cross-checked against the real production volumes this epic confirmed (`locations`: 2000, `base_locations`: 1462, `appointment_titles`: 194, `judiciary_roles`: 164, `tickets`: 159, `ticket_categories`: 54; small fixed vocabularies kept at real size),
-**And** generated people fixtures are internally consistent (appointments/judiciary-roles/authorisations join against the same reference-data fixtures, not independently randomised).
+**Given** the practice copy's seeded test data,
+**When** the automated test suite starts up,
+**Then** the lookup data is seeded at the same scale as the real system (matching real-world counts for locations, job titles, roles, tickets, and categories),
+**And** the generated people records are internally consistent — their appointments, roles, and permissions all line up with the same seeded lookup data, rather than being randomly generated in isolation.
 
-**References:** FR1 (supports, does not deliver), NFR24, NFR25–NFR28; gaps.md G8.1 (structural confirmation — error handling, fixture realism).
-
-**Explicitly NOT in scope:**
-- The contract's endpoint set, auth, and pagination shapes (Story 0.0.1)
-- The natural-key mismatch, gap G8.7 (Story 0.0.3)
-- Deploying the mock as a real service (CI-only, in-process)
+**Explicitly not in scope:**
+- The data source's addresses, security checks, and paging shapes (covered in the previous story)
+- The identifier-field discovery (covered in the next story)
+- Turning this practice copy into a real, deployed service
 
 ---
 
 ## Story 0.0.3: The natural-key mismatch is discovered and recorded as gap G8.7
 
-As the **architect responsible for CTAM's identity model** (decision D9),
-I want the mock's confirmed person-record shape compared against `data-tables.md`'s `jo_people.personnel_number` assumption, with any mismatch formally recorded and the sync's field-mapping code marked accordingly,
-So that **a structural surprise in the real upstream contract becomes a tracked architectural decision (gaps.md G8.7) rather than a surprise discovered mid-integration**, and the eventual reconciliation is a grep-able, bounded change rather than an untracked one.
+As the **person responsible for how CTAM identifies judges and tribunal members**,
+I want the practice copy's confirmed person-record shape compared against what the programme had assumed the unique identifier field would be, with any mismatch clearly written down and flagged in the sync team's own code,
+So that **a structural surprise in the real data source becomes a tracked decision for the team to make, rather than something discovered midway through building the real integration** — and whoever eventually resolves it can find every affected spot easily, instead of hunting for it.
 
 **Acceptance Criteria:**
 
-**Given** the mock's person-record shape is now confirmed (Story 0.0.1),
-**When** the engineer compares it against `data-tables.md`'s `jo_people.personnel_number` assumption,
-**Then** the mismatch is recorded as gaps.md **G8.7** (no schema change made here — that is a separate architectural decision),
-**And** the eLinks sync's field-mapping code is written against the confirmed real fields (`per_id`, `personal_code`) with an explicit `// TODO: gaps.md G8.7` marker wherever `personnel_number` is currently assumed to be the natural key, so the eventual reconciliation is a grep-able, bounded change.
+**Given** the practice copy's person-record shape is now confirmed,
+**When** the engineer compares it against the identifier field the programme had assumed would be used,
+**Then** the mismatch is written down clearly as a tracked, open item (no changes to the actual database design are made here — that's a separate decision),
+**And** the sync's own code is written against the two fields the real system actually returns, with an obvious, searchable marker left wherever the old assumption still applies, so the eventual fix is a small, well-contained change rather than an open-ended hunt.
 
-**References:** FR1 (supports, does not deliver); gaps.md G8.1 (structural confirmation), G8.7 (natural-key mismatch, new); D9[^d9] (the identity model this finding bears on, unchanged here).
-
-**Explicitly NOT in scope:**
-- Resolving G8.7 (the `personnel_number` mapping decision) — architectural decision, not made by this story
-- The contract's endpoint/auth/pagination/error/fixture confirmation (Stories 0.0.1, 0.0.2)
-- The MRD feed side of G8.1
-
-[^d9]: Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → `jo_people` → `personnel_number` → a **CTAM-assigned JOH UUID** (`ctam_joh_identities`); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; `personnel_number` is the upstream link only. No legacy user migration. **Note (2026-08-20, gaps.md G8.7):** the real eLinks API has no `personnel_number` field — this decision's natural-key name needs reconciling against the confirmed real fields (`per_id`, `personal_code`); not yet done.
+**Explicitly not in scope:**
+- Deciding which field to actually use as the identifier — that's a separate decision for the team, not made by this work
+- The data source's addresses, security checks, error formats, or paging shapes (covered in the previous two stories)
+- The equivalent discovery work for the separate MRD data feed

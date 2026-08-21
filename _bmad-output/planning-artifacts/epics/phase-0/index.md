@@ -1,7 +1,7 @@
 ---
 type: 'Phase Index'
 title: 'Phase 0 — JOH'
-description: 'Phase 0 covers JOH Records & Working Patterns (FR10-FR18, framework-only so far). Its first concrete epic, 0.0, confirms the JOH eLinks API contract and builds a CI-only mock for it — foundational for everything else in this phase, which reads jo_* data ingested via that same eLinks contract.'
+description: 'Phase 0 covers JOH Records & Working Patterns (FR10-FR18, framework-only so far). Its two concrete epics de-risk the two upstream data feeds this phase (and the phase after it) depend on: Epic 0.0 confirms the real JOH data source and builds a practice copy of it; Epic 0.1 proposes a provisional shape for the MRD workbook, since no real example exists yet, and builds a practice copy of that.'
 resource: 'epics/phase-0/index.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-08-20'
@@ -12,26 +12,31 @@ phaseName: 'JOH'
 
 # Phase 0 — JOH
 
-> Phase 0's primary area — **JOH Records & Working Patterns** (FR10–FR18) — is framework-only so far (see [../framework.md](../framework.md) → *Phase 0 · Area: JOH Records & Working Patterns*); `bmad-create-epics-and-stories` has not yet been run for it. **Epic 0.0** is this phase's first concrete, storied epic — added 2026-08-20 as the JOH eLinks API contract-mock epic, because it's upstream-contract confirmation for JOH data, which this phase is the natural home for, not Phase 1 platform/foundations work.
+> Phase 0's primary area — **JOH Records & Working Patterns** (FR10–FR18) — is framework-only so far (see [../framework.md](../framework.md) → *Phase 0 · Area: JOH Records & Working Patterns*); `bmad-create-epics-and-stories` has not yet been run for it. **Epics 0.0 and 0.1** are this phase's first concrete, storied epics — both are practice copies of the two upstream data feeds this phase (and the one after it) depend on, built ahead of the primary area itself so the team building those feeds has something realistic to test against.
 >
-> **Numbering history:** this epic was first added to what was then called "Phase 0" (Foundations, before today) as Epic 0.10 (quoted `"0.10"`, since that phase's ten single-digit slots were exhausted). It moved to a newly-created "Phase 1" (JOH) as Epic 1.0 (SCP 2026-08-20g), retiring the quoting since it was now the first epic of a fresh phase. Today (SCP 2026-08-20h), Phase 0 and Phase 1 were swapped wholesale — Foundations content moved to the folder now called `phase-1/`, and this epic (JOH) moved to the folder now called `phase-0/`, becoming **Epic 0.0**.
+> **Numbering history:** Epic 0.0 was first added to what was then called "Phase 0" (Foundations, before 2026-08-20) as Epic 0.10, then moved to a newly-created "Phase 1" (JOH) as Epic 1.0, then to here as **Epic 0.0** when Phase 0 and Phase 1 were swapped wholesale (2026-08-20). Epic 0.1 is genuinely new work (2026-08-21), added as Epic 0.0's sibling for the MRD side of the same de-risking approach — it was never anywhere else.
 
 ## Epics
 
 | Epic | Title | Stories | Status |
 |---|---|---|---|
 | [0.0](epic-0.0-joh-elinks-api-contract-mock.md) | The JOH eLinks API contract is confirmed and mocked for CI-only integration testing | 3 | 🟡 Planned |
-| **Total** | | **3 stories** | |
+| [0.1](epic-0.1-mrd-reference-data-mock.md) | A provisional MRD workbook shape is proposed and mocked for CI-only integration testing | 3 | 🟡 Planned |
+| **Total** | | **6 stories** | |
 
 ## Epic summaries
 
 ### Epic 0.0: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing (3 stories)
 
-**User outcome:** The real JOH eLinks People API (v5) is confirmed — endpoints, auth, pagination, response shapes — via an external reference mock, resolving the structural half of gaps.md G8.1, and reproduced as a contract-accurate CI-only fixture layer inside `ctam-reference-data` so Phase 1's Epic 1.2 (eLinks sync) integration-tests against a faithful target. Surfaced a new gap (G8.7): the real API has no `personnel_number` field (it returns `per_id`/`personal_code` instead) — recorded, not resolved, by this epic. Cross-phase dependency: `depends_on: [epic-1.1]` (Phase 1's tier-(a) schema).
-
-**FRs covered:** none directly (contract-confirmation + CI test-infrastructure); supports FR1, NFR24, and — looking ahead — this phase's own FR10–FR18 (all of which read `jo_people` data via the contract this epic confirms).
+**Outcome:** The real JOH data source is confirmed — its addresses, security rules, paging behaviour, and response shapes — via a real reference example, and reproduced as a realistic practice copy inside `ctam-reference-data` so the team building the JOH data sync (Epic 1.2, in the Foundations phase) tests against a faithful target. This work also uncovered an important discovery: the real data source doesn't use the identifier field the team had assumed it would — written down, not yet resolved. Depends on the Foundations-phase database schema work (`depends_on: [epic-1.1]`).
 
 → [Full epic with stories](epic-0.0-joh-elinks-api-contract-mock.md)
+
+### Epic 0.1: A provisional MRD workbook shape is proposed and mocked for CI-only integration testing (3 stories)
+
+**Outcome:** Unlike Epic 0.0, no real reference example of the MRD workbook exists yet. This work proposes a reasoned, clearly-labelled working assumption for its shape, and builds a realistic practice copy against that proposal, so the team building the MRD data load (Epic 1.3, in the Foundations phase) has something concrete to test against now — while keeping the open question (what does the real workbook actually look like?) visibly tracked until the MRD team confirms or corrects it. Depends on the Foundations-phase MRD table work (`depends_on: [epic-1.3]`).
+
+→ [Full epic with stories](epic-0.1-mrd-reference-data-mock.md)
 
 ## Not yet storied
 
@@ -39,4 +44,4 @@ phaseName: 'JOH'
 
 ## Validation
 
-- Not yet run for this phase's primary area. Epic 0.0 itself needs no separate readiness gate beyond the standard dispatch-preflight check (`depends_on: [epic-1.1]`, `done` before dispatch).
+- Not yet run for this phase's primary area. Epics 0.0 and 0.1 themselves need no separate readiness gate beyond the standard dispatch-preflight check (`depends_on: [epic-1.1]` and `depends_on: [epic-1.3]` respectively, each `done` before dispatch).

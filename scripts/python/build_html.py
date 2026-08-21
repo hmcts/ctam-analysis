@@ -271,9 +271,10 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Epic 1.8 — Notification scaffolded (2 stories)", "epics/phase-1/epic-1.8-system-dispatches-emails", False),
         ("Epic 1.9 — Context bus published + shared config baseline (2 stories)", "epics/phase-1/epic-1.9-context-bus-and-shared-baseline", False),
     ]),
-    ("Implementation — Phase 0 (JOH; Epic 0.0 added 2026-08-20)", [
+    ("Implementation — Phase 0 (JOH; Epics 0.0/0.1 added 2026-08-20/21)", [
         ("Phase 0 overview", "epics/phase-0/index", False),
         ("Epic 0.0 — JOH eLinks API contract confirmed + CI mock (3 stories)", "epics/phase-0/epic-0.0-joh-elinks-api-contract-mock", False),
+        ("Epic 0.1 — Provisional MRD workbook shape proposed + CI mock (3 stories)", "epics/phase-0/epic-0.1-mrd-reference-data-mock", False),
     ]),
 ]
 

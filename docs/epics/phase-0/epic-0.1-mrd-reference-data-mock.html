@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.1: A provisional MRD workbook shape is proposed and mocked for CI-only integration testing — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="epic-01-a-provisional-mrd-workbook-shape-is-proposed-and-mocked-for-ci-only-integration-testing">Epic 0.1: A provisional MRD workbook shape is proposed and mocked for CI-only integration testing</h1>
+<blockquote>
+<p>This is the sibling of Epic 0.0, extending the same de-risking approach to MRD. It is materially weaker ground than Epic 0.0: there, a real reference example of the JOH data source existed to confirm against. Here, no such example exists yet — this work proposes a reasoned best guess, not a confirmed fact, and says so throughout.</p>
+</blockquote>
+<p><strong>Business Goal:</strong> The nightly-equivalent MRD data load is one of only two ways judicial reference data reaches CTAM Pathfinder, and it currently has no test target at all — the shape of the real weekly workbook has never been confirmed with the MRD team. Waiting until that confirmation arrives to write any validation, error-handling, or automated-test code would leave the MRD data-loading work untested and undemonstrated for an unknown length of time. This work breaks that stall: it proposes the most reasonable working assumption available today, builds a realistic practice workbook against it, and makes the assumption itself impossible to miss — so the real MRD team conversation happens sooner, not later, and nothing quietly ships on an unconfirmed guess.</p>
+<p><strong>What this covers:</strong> Three things: <strong>(1)</strong> proposing a specific, concrete shape for the MRD workbook — what it contains and how it's laid out — based only on what the programme already knows it needs from MRD, and writing that proposal down clearly as an assumption, not a fact; <strong>(2)</strong> building a realistic practice copy of a workbook in that shape, at a believable scale, for automated testing; and <strong>(3)</strong> deliberately including realistic mistakes in some of the practice data — a missing value, a reference to something that doesn't exist — so the checks the data-loading work needs to make can be proven to actually catch them.</p>
+<p><strong>Outcome:</strong> The team building the MRD data-loading work gets a realistic practice workbook to test against today, instead of waiting on a real example that doesn't yet exist. The practice workbook is clearly labelled as a working assumption, and the open question it's standing in for — what the real workbook actually looks like — stays visibly tracked until the MRD team confirms or corrects it.</p>
+<p><strong>Hosting:</strong> This practice workbook lives entirely inside the testing setup of the service that will do the real data load — it is not a new system, not something anyone deploys, and nobody outside the automated test suite ever sees it. It exists purely so that automated checks have something realistic to run against, exactly like its sibling epic's practice copy of the JOH data source.</p>
+<p><strong>What's included:</strong></p>
+<ul>
+<li>A proposed shape for the workbook: one sheet holding <strong>JOH Specialisms</strong> — supplementary judicial attributes not available from the JOH data source at all — with a row per specialism per judge, referencing the judge by their unique reference number, the jurisdiction it applies to, and a description of the specialism itself, plus a date it took effect</li>
+<li>A realistic practice workbook built to that shape, with enough rows to be a believable stand-in for the real thing rather than two or three hand-picked examples</li>
+<li>Deliberately broken practice rows, on top of the good ones: a row missing a required value; a row referencing a judge or jurisdiction that doesn't exist anywhere else in the practice data; a second copy of an already-processed file, to prove re-processing doesn't create duplicates</li>
+<li><strong>The proposal itself, written down as an open question, not a confirmed fact:</strong> this shape is the programme's best guess, built from what's already documented about what MRD needs to supply — it has not been checked against anything the MRD team has actually produced, and is tracked as an open item until they confirm or correct it</li>
+</ul>
+<p><strong>Why this matters:</strong> Like its sibling epic, this isn't tied to a single customer-facing feature — it unblocks and de-risks the MRD data-loading work everyone else's supplementary judicial data will depend on, without forcing that work to wait on an external confirmation that hasn't happened yet.</p>
+<p><strong>Proposed workbook shape (working assumption, not confirmed):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Judge reference number</td>
+<td>Identifies which judge the specialism belongs to</td>
+</tr>
+<tr>
+<td>Jurisdiction</td>
+<td>Which jurisdiction the specialism applies to</td>
+</tr>
+<tr>
+<td>Specialism code</td>
+<td>A short, controlled code identifying the specialism</td>
+</tr>
+<tr>
+<td>Specialism description</td>
+<td>The plain-language name of the specialism</td>
+</tr>
+<tr>
+<td>Effective from</td>
+<td>The date the specialism became applicable</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Explicitly out of scope:</strong> Confirming this shape with the MRD team — that conversation is a separate, real-world activity this work exists to prompt, not to complete. Any changes to the actual database design used elsewhere in the programme. Turning this practice copy into a real, deployed service — it exists purely for automated testing. The equivalent work already done for the JOH data source (that's the sibling epic). Building the real data-loading logic itself — that's separate work this epic exists to support, not replace.</p>
+<hr />
+<details class="section" id="story-011-a-provisional-mrd-workbook-shape-is-proposed-and-documented"><summary><span class="section-title">Story 0.1.1: A provisional MRD workbook shape is proposed and documented</span></summary><div class="section-body">
+<p>As the <strong>engineer building the MRD data-loading work</strong> (and everyone who maintains it afterwards), I want a specific, concrete proposal for what the MRD workbook contains and how it's laid out, clearly labelled as an assumption rather than a confirmed fact, So that <strong>there is something concrete to design and test against today, instead of an open-ended unknown that blocks progress indefinitely</strong>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the database table for JOH Specialisms already exists<br/><strong>When</strong> the engineer proposes a workbook shape for it<br/><strong>Then</strong> the proposal specifies a single sheet with one row per specialism per judge, and names every column needed to populate that table — a judge reference, a jurisdiction, a specialism code and description, and an effective date<br/><strong>And</strong> the proposal is written down alongside a clear statement that it is a working assumption, not a confirmed fact, and where the open question is being tracked.</p>
+<p><strong>Given</strong> the proposed shape<br/><strong>When</strong> it's reviewed against what the programme already knows it needs from MRD<br/><strong>Then</strong> every column in the proposal traces back to something the programme has already documented needing, rather than being invented from nothing.</p>
+<p><strong>Explicitly not in scope:</strong></p>
+<ul>
+<li>Building the practice workbook itself (covered in the next story)</li>
+<li>Confirming the proposal with the MRD team — a separate, real-world activity</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-012-a-realistic-sample-workbook-is-built-for-ci-at-a-believable-scale"><summary><span class="section-title">Story 0.1.2: A realistic sample workbook is built for CI at a believable scale</span></summary><div class="section-body">
+<p>As the <strong>engineer building the MRD data-loading work</strong>, I want a practice copy of a workbook in the proposed shape, populated at a believable scale rather than a handful of hand-picked rows, So that <strong>the data-loading work's behaviour can be checked against something that resembles the real thing, not an unrealistically small or convenient test case</strong>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the proposed workbook shape from the previous story<br/><strong>When</strong> the engineer builds the practice workbook for automated testing<br/><strong>Then</strong> it contains enough rows to be a believable stand-in for a real weekly drop — spanning multiple judges, multiple jurisdictions, and multiple specialism codes — not just two or three examples<br/><strong>And</strong> every reference in the practice data (a judge, a jurisdiction) resolves cleanly against the practice data used elsewhere in automated testing, so the good-case rows are internally consistent.</p>
+<p><strong>Given</strong> the practice workbook is used in automated testing<br/><strong>When</strong> it's read by the data-loading logic<br/><strong>Then</strong> it behaves as a normal, well-formed input file would.</p>
+<p><strong>Explicitly not in scope:</strong></p>
+<ul>
+<li>Deliberately broken or invalid rows (covered in the next story)</li>
+<li>The proposed shape itself (covered in the previous story)</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-013-deliberately-broken-practice-data-proves-the-validation-and-rejection-logic-actually-works"><summary><span class="section-title">Story 0.1.3: Deliberately broken practice data proves the validation and rejection logic actually works</span></summary><div class="section-body">
+<p>As the <strong>engineer building the MRD data-loading work</strong>, I want the practice workbook to also include realistic mistakes — a missing value, an unresolvable reference, a duplicate drop of the same file — alongside the good data, So that <strong>the checks the data-loading work needs to make are proven to actually catch problems, rather than only ever being exercised against data that's already correct</strong>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the good-case practice workbook from the previous story<br/><strong>When</strong> a second version is prepared for validation testing<br/><strong>Then</strong> it includes at least one row missing a value the data-loading work requires, and at least one row referencing a judge or jurisdiction that doesn't exist anywhere in the practice data<br/><strong>And</strong> each broken row is clearly documented as intentional, alongside the specific failure it's meant to trigger.</p>
+<p><strong>Given</strong> the same good-case workbook is provided a second time<br/><strong>When</strong> it's used to test re-processing behaviour<br/><strong>Then</strong> it proves whether processing the same file twice produces duplicate results or correctly recognises it as already handled.</p>
+<p><strong>Explicitly not in scope:</strong></p>
+<ul>
+<li>The good-case workbook itself (covered in the previous story)</li>
+<li>Fixing or changing the actual data-loading logic — this work only supplies the practice data it's tested against</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.1-mrd-reference-data-mock.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#story-011-a-provisional-mrd-workbook-shape-is-proposed-and-documented">Story 0.1.1: A provisional MRD workbook shape is proposed and documented</a></li><li><a href="#story-012-a-realistic-sample-workbook-is-built-for-ci-at-a-believable-scale">Story 0.1.2: A realistic sample workbook is built for CI at a believable scale</a></li><li><a href="#story-013-deliberately-broken-practice-data-proves-the-validation-and-rejection-logic-actually-works">Story 0.1.3: Deliberately broken practice data proves the validation and rejection logic actually works</a></li></ul></aside>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.1-mrd-reference-data-mock";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
