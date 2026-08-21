@@ -116,7 +116,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td>Build <strong>order</strong></td>
 <td>the epic's frontmatter (<code>depends_on:</code>)</td>
-<td>Phase 0 is structured; phases 1–8 are prose in <a href="../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em> until they are decomposed</td>
+<td>Phases 0 and 1 are structured; phases 2–8 are prose in <a href="../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em> until they are decomposed</td>
 </tr>
 <tr>
 <td>A story's <strong>requirements, target repo and bus version</strong></td>
@@ -212,15 +212,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>One branch per story</strong>, <code>story/{story-id}</code>, created at dispatch and carried through to the PR. <strong><code>main</code> is protected; the PR is the human gate</strong> — an agent branches, commits and pushes; a human opens, reviews and merges.</li>
 <li><strong>Bus pinning:</strong> a story records the <code>bus_version</code> it was built against; repos re-sync only via an explicit submodule bump.</li>
 </ul>
-</div></details><details class="section" id="current-state-2026-08-19"><summary><span class="section-title">Current state (2026-08-19)</span></summary><div class="section-body">
+</div></details><details class="section" id="current-state-2026-08-21"><summary><span class="section-title">Current state (2026-08-21)</span></summary><div class="section-body">
 <ul>
-<li><strong>Phase 0:</strong> 10 epics, 22 stories in <code>sprint-status.yaml</code>. Epic 1.9 is <code>in-progress</code> (story 0.9.1 — the bus published and tagged <code>arch-v1.0</code> — is <code>done</code>); everything else is <code>backlog</code>.</li>
-<li><strong>Phases 1–8 + post-MVP:</strong> not decomposed. Their dependency edges are recorded in <a href="../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em>; each phase gains structured frontmatter when <code>bmad-create-epics-and-stories</code> runs for it, after which re-running <code>bmad-sprint-planning</code> picks the new epics up automatically.</li>
+<li><strong>Phase 1 (Foundations):</strong> 10 epics, 22 stories in <code>sprint-status.yaml</code>. Epic 1.9 is <code>in-progress</code> (Story 1.9.1 — the bus published and tagged <code>arch-v1.0</code> — is <code>done</code>); everything else is <code>backlog</code>. <em>(Foundations moved from the <code>phase-0/</code> folder to <code>phase-1/</code>, and its epics renumbered <code>0.X → 1.X</code>, on 2026-08-20 — see <code>architecture/changelog.md</code> v4.13.)</em></li>
+<li><strong>Phase 0 (JOH):</strong> 2 epics, 6 stories, both <code>backlog</code>. Epic 0.0 confirms the real JOH data source and builds a CI-only practice copy of it; Epic 0.1 proposes a provisional MRD workbook shape (no real reference example exists yet) and builds a practice copy of that. Both are de-risking work added ahead of this phase's primary area (JOH Records &amp; Working Patterns, FR10–FR18), which remains framework-only.</li>
+<li><strong>Phases 2–8 + post-MVP:</strong> not decomposed. Their dependency edges are recorded in <a href="../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em>; each phase gains structured frontmatter when <code>bmad-create-epics-and-stories</code> runs for it, after which re-running <code>bmad-sprint-planning</code> picks the new epics up automatically.</li>
 </ul>
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/delivery/README.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#where-delivery-state-lives-now">Where delivery state lives now</a></li><li><a href="#the-delivery-loop">The delivery loop</a></li><li><a href="#bmad-skill-mapping">BMad skill mapping</a></li><li><a href="#multi-user-coordination">Multi-user coordination</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#current-state-2026-08-19">Current state (2026-08-19)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#where-delivery-state-lives-now">Where delivery state lives now</a></li><li><a href="#the-delivery-loop">The delivery loop</a></li><li><a href="#bmad-skill-mapping">BMad skill mapping</a></li><li><a href="#multi-user-coordination">Multi-user coordination</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#current-state-2026-08-21">Current state (2026-08-21)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../";window.__PAGE__="delivery/README";</script>
 <script src="../nav.js"></script>
 <script>
