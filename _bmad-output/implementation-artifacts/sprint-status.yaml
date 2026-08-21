@@ -1,5 +1,5 @@
 # generated: 2026-08-19
-# last_updated: 2026-08-20
+# last_updated: 2026-08-21
 # project: ctam-analysis
 # project_key: NOKEY
 # tracking_system: file-system
@@ -37,7 +37,7 @@
 #    scripts/dispatch-preflight.sh as the backstop against double-pickup.
 
 generated: 2026-08-19
-last_updated: 2026-08-20
+last_updated: 2026-08-21
 project: ctam-analysis
 project_key: NOKEY
 tracking_system: file-system
@@ -45,20 +45,20 @@ story_location: _bmad-output/implementation-artifacts
 
 development_status:
   epic-1.0: backlog
-  1-0-1-scaffold-ctam-shared-infrastructure-and-establish-the-terraform-foundation: backlog
-  1-0-2-provision-networking-and-the-aks-cluster-dev-verifiable-via-kubectl: backlog
-  1-0-3-provision-postgresql-and-key-vault-dev-verifiable-over-tls-from-the-cluster: backlog
-  1-0-4-provision-acr-and-observability-dev-verifiable-via-image-pull-and-a-test-trace: backlog
-  1-0-5-provision-apim-dev-verifiable-end-to-end-via-a-smoke-api-over-tls: backlog
+  1-0-1-the-shared-repository-and-its-safe-change-management-process-are-set-up: backlog
+  1-0-2-the-network-and-the-kubernetes-cluster-are-built-and-checked-development-environment: backlog
+  1-0-3-the-shared-database-and-secrets-vault-are-built-and-checked-development-environment: backlog
+  1-0-4-the-container-registry-and-monitoring-setup-are-built-and-checked-development-environment: backlog
+  1-0-5-the-api-gateway-is-built-and-checked-end-to-end-development-environment: backlog
   epic-1.0-retrospective: optional
 
   epic-1.1: backlog
-  1-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter-onto-the-epic-1-0-estate: backlog
-  1-1-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection: backlog
+  1-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter-template: backlog
+  1-1-2-the-15-outside-sourced-tables-exist-with-write-access-locked-to-this-service-alone: backlog
   epic-1.1-retrospective: optional
 
   epic-1.2: backlog
-  1-2-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api: backlog
+  1-2-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-feed: backlog
   epic-1.2-retrospective: optional
 
   epic-1.3: backlog
@@ -67,10 +67,10 @@ development_status:
 
   epic-1.4: backlog
   1-4-1-scaffold-ctam-authorisation-service-from-the-hmcts-crime-springboot-template: backlog
-  1-4-2-user-can-authenticate-against-ctam-mock-auth-and-receive-a-jwt: backlog
-  1-4-3-ctam-authorisation-validates-jwts-and-resolves-identity-roles-jurisdiction-region-area-scope-read-only-api: backlog
-  1-4-4-scaffold-ctam-ui-repo-with-react-typescript-vite-gov-uk-base-auth-wrapper: backlog
-  1-4-5-user-signs-into-ctam-pathfinder-via-sso-and-lands-on-a-role-scoped-home-page: backlog
+  1-4-2-user-can-authenticate-against-ctam-mock-auth-and-receive-a-security-token: backlog
+  1-4-3-ctam-authorisation-validates-security-tokens-and-resolves-identity-roles-jurisdiction-and-region-area-scope-read-only-api: backlog
+  1-4-4-scaffold-ctam-ui-repo-with-react-typescript-vite-a-gov-uk-based-design-system-and-an-auth-wrapper: backlog
+  1-4-5-user-signs-into-ctam-pathfinder-via-single-sign-on-and-lands-on-a-role-scoped-home-page: backlog
   epic-1.4-retrospective: optional
 
   epic-1.5: backlog
@@ -79,21 +79,21 @@ development_status:
   epic-1.5-retrospective: optional
 
   epic-1.6: backlog
-  1-6-1-mrd-reference-data-joh-specialisms-is-exposed-via-the-reference-data-read-only-api: backlog
+  1-6-1-joh-specialisations-are-made-available-through-the-reference-data-read-only-api: backlog
   epic-1.6-retrospective: optional
 
   epic-1.7: backlog
-  1-7-1-identity-seed-scripts-both-populations-bootstrap-verification-job-and-the-production-bootstrap-runbook: backlog
+  1-7-1-both-groups-of-users-can-be-seeded-verified-against-the-sign-in-system-and-set-up-for-real-via-a-runbook: backlog
   epic-1.7-retrospective: optional
 
   epic-1.8: backlog
-  1-8-1-scaffold-ctam-notification-service-delivery-log-table-smtp-integration: backlog
-  1-8-2-post-v1-notifications-send-endpoint-with-jwt-propagation-retry-semantics-delivery-logging-rfc-9457-errors: backlog
+  1-8-1-the-notification-service-its-delivery-history-table-and-its-connection-to-email-are-set-up: backlog
+  1-8-2-the-send-an-email-endpoint-delivers-retries-and-logs-every-request-with-a-way-to-review-what-was-sent: backlog
   epic-1.8-retrospective: optional
 
   epic-1.9: in-progress
-  1-9-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0: done
-  1-9-2-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants: backlog
+  1-9-1-publish-ctam-architecture-as-the-official-version-tagged-architecture-package: done
+  1-9-2-shared-configuration-table-exists-with-read-only-access-for-every-service: backlog
   epic-1.9-retrospective: optional
 
   epic-0.0: backlog

@@ -41,7 +41,7 @@ To be populated by subsequent runs of `bmad-create-epics-and-stories` step 2 aga
 
 | FR | Phase | Area | Status |
 |---|---|---|---|
-| FR10–FR18 | 0 | JOH Records & Working Patterns (profiles are *views* over tier (a) + `ctam-joh` overlays; FR14 is display-only — conversions happen upstream). **Note:** Phase 0's first epic, [0.0](phase-0/epic-0.0-joh-elinks-api-contract-mock.md), is already storied (contract confirmation + CI mock, ahead of this area) — see [phase-0/index.md](phase-0/index.md) | ⚪ |
+| FR10–FR18 | 0 | JOH Records & Working Patterns (profiles are *views* over tier (a) + `ctam-joh` overlays; FR14 is display-only — conversions happen upstream). **Note:** Phase 0's first two epics, [0.0](phase-0/epic-0.0-joh-elinks-api-contract-mock.md) and [0.1](phase-0/epic-0.1-mrd-reference-data-mock.md), are already storied (contract confirmation + CI mocks for the two upstream feeds, ahead of this area) — see [phase-0/index.md](phase-0/index.md) | ⚪ |
 | FR19–FR22 | 2 | Absence Workflow (first user-initiated Notification consumer via FR20 ack email) | ⚪ |
 | FR23–FR28 | 3 | Vacancy & Cover | ⚪ |
 | FR29–FR34 | 4 | Booking Management (second user-initiated Notification consumer via FR32 ack email; bookings reference JOHs by `joh_id` → `ctam_joh_identities`) | ⚪ |

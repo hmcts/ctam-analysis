@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-21 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-21">Sprint Change Proposal — 2026-08-21</h1>
+<p><strong>Close out the documentation trail for the Epic 0.0/0.1 work already on this branch</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"fix all the files based on the changes what we have done till now as part of latest pr"</em> — a <code>bmad-correct-course</code> sweep of <code>chore/split-epic-0.1-etl-processes</code> before it goes for review.</p>
+<p><strong>What happened:</strong> four commits landed on this branch after the 2026-08-20 phase-0/phase-1 swap (SCP 2026-08-20h, changelog v4.13):</p>
+<table>
+<thead>
+<tr>
+<th>Commit</th>
+<th>What it did</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>82b4a75</code></td>
+<td>Epic 0.0 gets a Business Goal + "what this covers" framing; its single dense Story 0.0.1 is split into three (0.0.1 contract/auth/pagination, 0.0.2 error handling + fixture realism, 0.0.3 the G8.7 natural-key discovery); fixed a stale "Epic 0.2" cross-reference left over from the phase swap (should have read Epic 1.2)</td>
+</tr>
+<tr>
+<td><code>f36ace6</code></td>
+<td>Epic 0.0 gains a concrete "Endpoints being mocked" reference table; new sibling <strong>Epic 0.1</strong> (<code>mrd-reference-data-mock</code>, 3 stories) added — the MRD-side equivalent, built on a <em>proposed</em>, explicitly-unconfirmed workbook shape rather than a real reference example; <code>fr-coverage-map.md</code>'s NFR24 row and <code>gaps.md</code> G8.1 updated to reflect it</td>
+</tr>
+<tr>
+<td><code>ff7d884</code></td>
+<td><code>delivery/README.md</code>'s "Current state" section corrected — it still said "Phase 0 is structured; phases 1-8 are prose" (pre-dating the 2026-08-20 swap) and cited a nonexistent "story 0.9.1"</td>
+</tr>
+<tr>
+<td><code>b6f61c4</code></td>
+<td>All ten Phase 1 (Foundations) epics + <code>phase-1/index.md</code> rewritten in the same business-readable style already applied to Epic 0.0/0.1 — citations (FR/NFR/AR/gap/decision-ID, <code>References:</code> footnotes) stripped from epic bodies, since <code>fr-coverage-map.md</code> is the actual single source of truth for that mapping; no structural or AC content changed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The problem:</strong> every one of these is individually sound (each commit's own message documents what it touched and why), but <strong>none of them added the changelog.md entry or Sprint Change Proposal that CLAUDE.md's own hard rule requires for a cross-cutting change</strong> ("record the change in a new Sprint Change Proposal + a <code>changelog.md</code> entry, then regenerate <code>docs/</code>") — so there is no traceable record of Epic 0.1's addition or the Phase 1 rewrite in <code>architecture/changelog.md</code>, unlike every other structural change to the epics pack this month. Re-running the repo-wide staleness sweep the last several SCPs have relied on (grepping for old epic numbers, checking every <code>depends_on</code>, checking every connective doc) turned up two further loose ends the four commits' own scopes didn't cover, because they sit outside <code>epics/</code>:</p>
+<ol type="1">
+<li><strong><code>epics/fr-coverage-map.md</code></strong> line 44's "Phase 0 pending" note still says <em>"Phase 0's first epic, [0.0]… is already storied"</em> — written before Epic 0.1 existed (added 2026-08-21, the day after that note), and never revisited when Epic 0.1 landed.</li>
+<li><strong>Root <code>README.md</code></strong> (three spots — the "Epics" bullet, the repo-layout tree comment, and nav step 5) and <strong><code>CLAUDE.md</code></strong> (its "Where things live" bullet for <code>epics/</code>) still describe the <em>pre-split, pre-swap</em> state: "only Phase 0 is decomposed so far — 6 epics, 19 stories." Neither file is under <code>epics/</code> or <code>architecture/</code>, so none of the last four renumbering/swap SCPs' scopes touched them — but they are exactly the files a new joiner or a fresh Claude Code session reads first, and both undercount the current reality (Phase 1 "Foundations": 10 epics/22 stories; Phase 0 "JOH": 2 epics/6 stories) and fail to mention <code>phase-1/</code> exists at all.</li>
+</ol>
+<p><strong>Status check:</strong> no epic/story content changes, no <code>depends_on</code> changes, no code impact — every story remains in the status it already had in <code>sprint-status.yaml</code> (Epic 1.9 <code>in-progress</code>, Story 1.9.1 <code>done</code>, everything else <code>backlog</code>). This is a documentation-completeness gap, not a scope or sequencing change.</p>
+<p><strong>One item found opportunistically, outside the epics-restructuring trigger, and fixed on explicit user request:</strong> root <code>README.md</code> line 15 still read "decisions D1–D12" — stale since decision D13 (the 2026-08-07 ET-first pivot, SCP 2026-08-07) was taken, predating this branch entirely. Corrected to D1–D13 as part of this SCP's implementation, at the user's request when the proposal was presented for approval.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-epic-impact">2.1 Epic impact</h3>
+<p>None. No epic gains, loses, or changes scope, stories, ACs, or <code>depends_on</code> as a result of this SCP. Epic 0.1's content (added by <code>f36ace6</code>) is not itself in question — it is already correct and already reflected in <code>sprint-status.yaml</code>, <code>build_html.py</code>'s NAV, and <code>docs/</code>.</p>
+<h3 id="22-story-impact">2.2 Story impact</h3>
+<p>None.</p>
+<h3 id="23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Issue</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>"Phase 0 pending" note names only Epic 0.0 as already-storied</td>
+<td>Extend the note to name both Epic 0.0 and Epic 0.1</td>
+</tr>
+<tr>
+<td><code>README.md</code> (root)</td>
+<td>"Epics" bullet says "only Phase 0 is decomposed so far — 6 epics, 19 stories"; repo-layout tree comment says "framework + phase-0 epics"; nav step 5 says "the Phase 0 breakdown"</td>
+<td>Update all three to name both <code>phase-1/</code> (Foundations, 10 epics/22 stories) and <code>phase-0/</code> (JOH, 2 epics/6 stories) as decomposed, phases 2–9+ as pending</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>"Where things live" bullet for <code>epics/</code> says "<code>phase-0/</code> epics… only Phase 0 is decomposed so far; run <code>bmad-create-epics-and-stories</code> per phase for 1–8"</td>
+<td>Same correction — both <code>phase-1/</code> and <code>phase-0/</code> decomposed; remaining phases 2–9+</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>No entry for the four 2026-08-21 commits</td>
+<td>New <strong>v4.14</strong> entry, recording all four commits plus this SCP's own fr-coverage-map/README/CLAUDE.md fixes</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code> NAV list</td>
+<td>The eight Sprint Change Proposals from the epic-renumbering cascade (2026-08-20b through 20h) were never added to the "Change Control &amp; Readiness" NAV group — their <code>docs/*.html</code> pages exist (the build script picks up every <code>sprint-change-proposal-*.md</code> on disk regardless of NAV) but none of them appear in the site's left-hand navigation, so they're only reachable by guessing the URL or via an in-body link from <code>changelog.html</code>. Found while adding this SCP's own NAV entry and checking the existing list for the pattern.</td>
+<td>Add all eight plus this SCP's own 2026-08-21 entry to the NAV list</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Verified clean (no action needed):</strong> a repo-wide grep for stale epic numbers (<code>epic-0.2</code> through <code>epic-0.9</code>, <code>epic-0.10</code>, bare <code>epic N.M</code>/<code>Epic N.M</code>/<code>Story N.M.K</code> patterns) outside the dated SCP/report/changelog historical record found nothing further; <code>sprint-status.yaml</code> and <code>build_html.py</code>'s NAV list already match the file tree exactly; every phase-0 and phase-1 epic's frontmatter (<code>epic:</code>, <code>depends_on:</code>, <code>repo:</code>) is internally consistent; the Phase 1 business-readable rewrite left no orphaned citation markers or footnote references in any of the ten epic files; <code>delivery/README.md</code> already correctly names both Epic 0.0 and 0.1 (fixed by <code>ff7d884</code>).</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — this is a planning-repo documentation fix. No code exists in any of the 16 execution-unit repos for either phase.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment.</strong> Fix the four stale spots in place; add the missing changelog entry recording the four commits (retroactively) plus this SCP's own fixes; regenerate <code>docs/</code>. No PRD, architecture, FR/NFR, epic, or story change — this closes a documentation-traceability gap, it does not reopen a planning decision.</p>
+<p><strong>Effort:</strong> Low — four small, mechanical text edits plus one changelog entry. <strong>Risk:</strong> Low — additive/corrective only, nothing existing is restructured, no <code>depends_on</code> or status changes.</p>
+<hr />
+</div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-epicsfr-coverage-mapmd">4.1 <code>epics/fr-coverage-map.md</code></h3>
+<pre class="diff"><code>- | FR10–FR18 | 0 | JOH Records &amp; Working Patterns (...). **Note:** Phase 0&#39;s first epic, [0.0](phase-0/epic-0.0-joh-elinks-api-contract-mock.html), is already storied (contract confirmation + CI mock, ahead of this area) — see [phase-0/index.md](phase-0/index.html) | ⚪ |
++ | FR10–FR18 | 0 | JOH Records &amp; Working Patterns (...). **Note:** Phase 0&#39;s first two epics, [0.0](phase-0/epic-0.0-joh-elinks-api-contract-mock.html) and [0.1](phase-0/epic-0.1-mrd-reference-data-mock.html), are already storied (contract confirmation + CI mocks for the two upstream feeds, ahead of this area) — see [phase-0/index.md](phase-0/index.html) | ⚪ |</code></pre>
+<h3 id="42-readmemd-root">4.2 <code>README.md</code> (root)</h3>
+<pre class="diff"><code>- - **Epics** — `epics/framework.md` + `epics/phase-0/` (stories embedded in each epic; only Phase 0 is decomposed so far — 6 epics, 19 stories).
++ - **Epics** — `epics/framework.md` + two decomposed phases so far: `epics/phase-1/` (Foundations, 10 epics/22 stories) and `epics/phase-0/` (JOH, 2 epics/6 stories — de-risking mocks for the two upstream data feeds, ahead of JOH&#39;s own primary area). Phases 2–9+ remain framework-only.</code></pre>
+<pre class="diff"><code>- │   │   ├── epics/              # framework + phase-0 epics (stories embedded)
++ │   │   ├── epics/              # framework + phase-1 (Foundations) and phase-0 (JOH) epics (stories embedded)</code></pre>
+<pre class="diff"><code>- 5. **[`epics/`](_bmad-output/planning-artifacts/epics)** — the Phase 0 breakdown and FR coverage map.
++ 5. **[`epics/`](_bmad-output/planning-artifacts/epics)** — the Phase 1 (Foundations) and Phase 0 (JOH) breakdowns, and the FR coverage map.</code></pre>
+<h3 id="43-claudemd">4.3 <code>CLAUDE.md</code></h3>
+<pre class="diff"><code>-   - `epics/` — `framework.md` + `phase-0/` epics with **stories embedded inside each epic** (only Phase 0 is decomposed so far; run `bmad-create-epics-and-stories` per phase for 1–8).
++   - `epics/` — `framework.md` + two decomposed phases with **stories embedded inside each epic**: `phase-1/` (Foundations, 10 epics/22 stories) and `phase-0/` (JOH, 2 epics/6 stories — de-risking mocks, ahead of JOH&#39;s own primary area). Run `bmad-create-epics-and-stories` per phase for 2–9+.</code></pre>
+<h3 id="44-readmemd-root--d1d13">4.4 <code>README.md</code> (root) — D1–D13</h3>
+<pre class="diff"><code>- Requirements baseline: **60 FRs, 42 NFRs, decisions D1–D12** (see `prd.md`).
++ Requirements baseline: **60 FRs, 42 NFRs, decisions D1–D13** (see `prd.md`).</code></pre>
+<p>Pre-existing staleness (decision D13 landed 2026-08-07, predating this branch), fixed opportunistically at the user's request rather than deferred to a separate SCP.</p>
+<h3 id="45-scriptspythonbuild_htmlpy--nav-list">4.5 <code>scripts/python/build_html.py</code> — NAV list</h3>
+<p>Added all eight missing 2026-08-20b–h Sprint Change Proposals, plus this SCP (2026-08-21), to the "Change Control &amp; Readiness" NAV group, most-recent-first, ahead of the existing "Sprint Change Proposal — 2026-08-20" entry — matching the title text already in each SCP's own frontmatter.</p>
+<h3 id="46-architecturechangelogmd--new-entry-v414">4.6 <code>architecture/changelog.md</code> — new entry (v4.14)</h3>
+<p>A new top-of-table row recording, retroactively: Epic 0.0's business-goal framing + 3-way story split + stale "Epic 0.2" fix (<code>82b4a75</code>); new Epic 0.1 + its endpoint-reference addition to Epic 0.0 + the <code>fr-coverage-map.md</code>/<code>gaps.md</code> updates that came with it (<code>f36ace6</code>); the <code>delivery/README.md</code> staleness fix (<code>ff7d884</code>); the Phase 1 business-readable rewrite across all ten epics (<code>b6f61c4</code>); the eight missing NAV entries; and this SCP's own fixes to <code>fr-coverage-map.md</code>, <code>README.md</code> (including the incidental D1–D13 correction), and <code>CLAUDE.md</code>.</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Minor.</strong> Direct implementation by the Developer agent (this session) — no PO/DEV backlog reorganisation, no PM/Architect involvement required.</p>
+<p><strong>Success criteria:</strong></p>
+<ul>
+<li><code>fr-coverage-map.md</code>, <code>README.md</code>, <code>CLAUDE.md</code> all name both decomposed phases with correct current epic/story counts.</li>
+<li><code>architecture/changelog.md</code> carries a v4.14 entry covering the four 2026-08-21 commits, the NAV-list fix, and this SCP.</li>
+<li><code>scripts/python/build_html.py</code>'s NAV list includes all nine outstanding Sprint Change Proposals (2026-08-20b through h, plus this one).</li>
+<li><code>docs/</code> regenerated via <code>scripts/build-html.sh</code> so the published site matches, and the previously-orphaned SCP pages are now reachable from the left-hand navigation.</li>
+<li><code>sprint-status.yaml</code> unchanged (no epic/story/status change is in scope).</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-21.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-epic-impact">2.1 Epic impact</a></li><li class="h3"><a href="#22-story-impact">2.2 Story impact</a></li><li class="h3"><a href="#23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--detailed-change-proposals">Section 4 — Detailed Change Proposals</a></li><li class="h3"><a href="#41-epicsfr-coverage-mapmd">4.1 epics/fr-coverage-map.md</a></li><li class="h3"><a href="#42-readmemd-root">4.2 README.md (root)</a></li><li class="h3"><a href="#43-claudemd">4.3 CLAUDE.md</a></li><li class="h3"><a href="#44-readmemd-root--d1d13">4.4 README.md (root) — D1–D13</a></li><li class="h3"><a href="#45-scriptspythonbuild_htmlpy--nav-list">4.5 scripts/python/build_html.py — NAV list</a></li><li class="h3"><a href="#46-architecturechangelogmd--new-entry-v414">4.6 architecture/changelog.md — new entry (v4.14)</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-21";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

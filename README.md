@@ -12,7 +12,7 @@ This repository is **not** the implementation and holds no runtime code. CTAM Pa
 - **No legacy data migration** (revised D3). Reference data is **ingested from upstream sources of truth** — the JOH eLinks API (nightly) and MRD (weekly) — not migrated from APEX.
 - **Parity verification: manual UAT by jurisdiction-incumbent-experienced users** (D5). No automated incumbent-comparison harness.
 
-Requirements baseline: **60 FRs, 42 NFRs, decisions D1–D12** (see `prd.md`).
+Requirements baseline: **60 FRs, 42 NFRs, decisions D1–D13** (see `prd.md`).
 
 ## Delivery: the 16-repo polyrepo
 
@@ -45,7 +45,7 @@ Per-service code lives in dedicated repositories (no monorepo; no shared runtime
 
 - **PRD & business case** — `prd.md`, `business-case.md`, plus dated validation/readiness reports and `sprint-change-proposal-*` (historical records).
 - **Architecture** — `architecture.md` + `architecture/` shards: `repository-strategy.md`, `repo-structure.md`, `conventions.md` (the consistency contract), `data-tables.md`, `delivery-operating-model.md`, `gaps.md`, `assumptions.md`, `changelog.md`, FR/NFR coverage, `diagrams/`, `sequence-diagrams/`.
-- **Epics** — `epics/framework.md` + `epics/phase-0/` (stories embedded in each epic; only Phase 0 is decomposed so far — 6 epics, 19 stories).
+- **Epics** — `epics/framework.md` + two decomposed phases so far: `epics/phase-1/` (Foundations, 10 epics/22 stories) and `epics/phase-0/` (JOH, 2 epics/6 stories — de-risking mocks for the two upstream data feeds, ahead of JOH's own primary area). Phases 2–9+ remain framework-only.
 - **Delivery control plane** — [`delivery/README.md`](_bmad-output/planning-artifacts/delivery/README.md): the dispatch -> execute -> signal loop. Build order is `depends_on:` in each epic's frontmatter; status is BMad's `implementation-artifacts/sprint-status.yaml`; `scripts/dispatch-preflight.sh` is the pre-dispatch check.
 - **`project-context.md`** — lean, LLM-optimised implementation rules for the service code.
 
@@ -67,7 +67,7 @@ ctam-analysis/
 ├── _bmad-output/
 │   ├── planning-artifacts/     # CANONICAL, tracked: PRD, architecture, epics, delivery control plane
 │   │   ├── architecture/       # architecture.md shards + diagrams + sequence-diagrams
-│   │   ├── epics/              # framework + phase-0 epics (stories embedded)
+│   │   ├── epics/              # framework + phase-1 (Foundations) and phase-0 (JOH) epics (stories embedded)
 │   │   └── delivery/          # README.md — the dispatch/signal loop
 │   ├── project-context.md      # lean implementation rules for service code
 │   └── brainstorming/          # local scratch (early discovery)
@@ -87,7 +87,7 @@ ctam-analysis/
 2. **[`prd.md`](_bmad-output/planning-artifacts/prd.md)** — scope, decisions (D1–D12), success criteria, user journeys, FR/NFR contracts.
 3. **[`architecture.md`](_bmad-output/planning-artifacts/architecture.md)** + its shards — decisions, gaps (`gaps.md`), assumptions, data-table inventory, conventions.
 4. **[`delivery-operating-model.md`](_bmad-output/planning-artifacts/architecture/delivery-operating-model.md)** + [`delivery/`](_bmad-output/planning-artifacts/delivery/) — how implementation is coordinated across the polyrepo.
-5. **[`epics/`](_bmad-output/planning-artifacts/epics/)** — the Phase 0 breakdown and FR coverage map.
+5. **[`epics/`](_bmad-output/planning-artifacts/epics/)** — the Phase 1 (Foundations) and Phase 0 (JOH) breakdowns, and the FR coverage map.
 6. **[`changelog.md`](_bmad-output/planning-artifacts/architecture/changelog.md)** + the latest `sprint-change-proposal-*` — most recent product-direction shifts.
 7. **AS-IS context** — the legacy JI pack under [`docs/architecture/asis/`](docs/architecture/asis/).
 

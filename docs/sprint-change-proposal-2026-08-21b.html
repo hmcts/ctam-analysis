@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-21 (b) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-21-b">Sprint Change Proposal — 2026-08-21 (b)</h1>
+<p><strong>Resync <code>sprint-status.yaml</code> story keys with the Phase 1 business-readable rewrite</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> <em>"update sprint-status.yaml based on the epics"</em> — a targeted <code>bmad-correct-course</code> check, run immediately after SCP 2026-08-21 closed out this branch's documentation trail.</p>
+<p><strong>What was found:</strong> commit <code>b6f61c4</code> ("rewrite phase-1 (Foundations) epics in business-readable format") reworded every one of the ten Phase 1 epics' story headings — plain-language titles replacing the original technical, citation-heavy ones — but its own commit message and file list never touched <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code>. <code>bmad-sprint-planning</code> derives each story's tracking key by slugifying its current heading, so every phase-1 story key in the tracking file was generated from a title that no longer exists in any epic file on this branch. For example, Story 1.9.1's heading is now <em>"Publish <code>ctam-architecture</code> as the official, version-tagged architecture package"</em> but the tracking file still carried the pre-rewrite key <code>1-9-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0</code>.</p>
+<p><strong>Scope of the drift:</strong> all 10 phase-1 epics (22 story keys total) plus their epic-level keys' story lists were affected in the sense that every story sub-key needed regenerating; epic-level keys themselves (<code>epic-1.0</code> … <code>epic-1.9</code>) were already correctly named and untouched. <strong>Phase 0 (<code>epic-0.0</code>, <code>epic-0.1</code>) was not affected</strong> — those two epics' story titles were finalised before their respective commits (<code>82b4a75</code>, <code>f36ace6</code>) updated <code>sprint-status.yaml</code> in the same commit, so they were already correct going into this check.</p>
+<p><strong>Status values carried forward unchanged</strong> — this was purely a key-naming resync, not a status change:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Status before and after</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epic-1.9</code></td>
+<td><code>in-progress</code></td>
+</tr>
+<tr>
+<td>Story 1.9.1 (renamed key)</td>
+<td><code>done</code></td>
+</tr>
+<tr>
+<td>Every other epic and story</td>
+<td><code>backlog</code></td>
+</tr>
+</tbody>
+</table>
+<p>Confirmed against the epics pack itself: <code>epics/phase-1/index.md</code>'s own status table shows Epic 1.9 as 🟢 <em>In progress</em> and every other Phase 1 epic as 🟡 <em>Planned</em> — consistent with what <code>sprint-status.yaml</code> already recorded, so no status was misattributed by this fix.</p>
+<p><strong>Verified no other file references the stale keys:</strong> a repo-wide grep for several of the old phase-1 slugs (e.g. <code>1-0-1-scaffold-ctam-shared-infrastructure…</code>, <code>1-9-1-publish-ctam-architecture-as-the-context-bus…</code>) found no hits outside <code>sprint-status.yaml</code> itself — no story packet exists yet in any of the 16 execution-unit repos (nothing has been dispatched), and no other planning doc hardcodes a story key. Low risk to fix in place.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-epic-impact">2.1 Epic impact</h3>
+<p>None. No epic's scope, stories, ACs, <code>depends_on</code>, or status changes.</p>
+<h3 id="22-story-impact">2.2 Story impact</h3>
+<p>All 22 Phase 1 story keys renamed to match their current headings (Section 4 below has the full before/after). No story's content, acceptance criteria, or status changes — this is a tracking-file key rename only.</p>
+<h3 id="23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</h3>
+<p>Only <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code> needed a change. Nothing else in the repo references these keys (verified by grep above), so there is no cascading fix required — unlike the epics/-numbering SCPs, this drift was fully contained to one generated file.</p>
+<h3 id="24-technical-impact">2.4 Technical impact</h3>
+<p>None — no code exists in any of the 16 execution-unit repos; nothing has been dispatched against any of the stale keys.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-approach"><summary><span class="section-title">Section 3 — Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct adjustment.</strong> Regenerate every phase-1 story key from the current epic headings using the same slugification convention already visible elsewhere in the file (lowercase; strip backticks/quotes/parens/commas; convert remaining punctuation, including periods and slashes, to hyphens; collapse to single hyphens), preserving every existing status value by key meaning rather than by literal key string. Bump <code>last_updated</code> to 2026-08-21.</p>
+<p><strong>Effort:</strong> Low — a mechanical, well-verified rename. <strong>Risk:</strong> Low — no status changes, no external references broken (verified above), nothing dispatched.</p>
+<hr />
+</div></details><details class="section" id="section-4--detailed-change-proposals"><summary><span class="section-title">Section 4 — Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-_bmad-outputimplementation-artifactssprint-statusyaml--all-22-phase-1-story-keys">4.1 <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code> — all 22 Phase 1 story keys</h3>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Old key (stale)</th>
+<th>New key (current heading)</th>
+<th>Status (unchanged)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td><code>1-0-1-scaffold-ctam-shared-infrastructure-and-establish-the-terraform-foundation</code></td>
+<td><code>1-0-1-the-shared-repository-and-its-safe-change-management-process-are-set-up</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td><code>1-0-2-provision-networking-and-the-aks-cluster-dev-verifiable-via-kubectl</code></td>
+<td><code>1-0-2-the-network-and-the-kubernetes-cluster-are-built-and-checked-development-environment</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td><code>1-0-3-provision-postgresql-and-key-vault-dev-verifiable-over-tls-from-the-cluster</code></td>
+<td><code>1-0-3-the-shared-database-and-secrets-vault-are-built-and-checked-development-environment</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td><code>1-0-4-provision-acr-and-observability-dev-verifiable-via-image-pull-and-a-test-trace</code></td>
+<td><code>1-0-4-the-container-registry-and-monitoring-setup-are-built-and-checked-development-environment</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td><code>1-0-5-provision-apim-dev-verifiable-end-to-end-via-a-smoke-api-over-tls</code></td>
+<td><code>1-0-5-the-api-gateway-is-built-and-checked-end-to-end-development-environment</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td><code>1-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter-onto-the-epic-1-0-estate</code></td>
+<td><code>1-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter-template</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.1</td>
+<td><code>1-1-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection</code></td>
+<td><code>1-1-2-the-15-outside-sourced-tables-exist-with-write-access-locked-to-this-service-alone</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td><code>1-2-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-api</code></td>
+<td><code>1-2-1-joh-reference-data-flows-into-ctam-nightly-from-the-joh-elinks-feed</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td><code>1-3-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed</code></td>
+<td><em>(unchanged — already matched)</em></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td><code>1-4-1-scaffold-ctam-authorisation-service-from-the-hmcts-crime-springboot-template</code></td>
+<td><em>(unchanged — already matched)</em></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td><code>1-4-2-user-can-authenticate-against-ctam-mock-auth-and-receive-a-jwt</code></td>
+<td><code>1-4-2-user-can-authenticate-against-ctam-mock-auth-and-receive-a-security-token</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td><code>1-4-3-ctam-authorisation-validates-jwts-and-resolves-identity-roles-jurisdiction-region-area-scope-read-only-api</code></td>
+<td><code>1-4-3-ctam-authorisation-validates-security-tokens-and-resolves-identity-roles-jurisdiction-and-region-area-scope-read-only-api</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td><code>1-4-4-scaffold-ctam-ui-repo-with-react-typescript-vite-gov-uk-base-auth-wrapper</code></td>
+<td><code>1-4-4-scaffold-ctam-ui-repo-with-react-typescript-vite-a-gov-uk-based-design-system-and-an-auth-wrapper</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td><code>1-4-5-user-signs-into-ctam-pathfinder-via-sso-and-lands-on-a-role-scoped-home-page</code></td>
+<td><code>1-4-5-user-signs-into-ctam-pathfinder-via-single-sign-on-and-lands-on-a-role-scoped-home-page</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td><code>1-5-1-tier-b-ctam-owned-reference-tables-seed-data-and-the-dba-maintenance-runbook</code></td>
+<td><em>(unchanged — already matched)</em></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td><code>1-5-2-reference-data-read-only-rest-api-with-jurisdiction-filtering-versioning-openapi-rfc-9457-errors</code></td>
+<td><em>(unchanged — already matched)</em></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.6</td>
+<td><code>1-6-1-mrd-reference-data-joh-specialisms-is-exposed-via-the-reference-data-read-only-api</code></td>
+<td><code>1-6-1-joh-specialisations-are-made-available-through-the-reference-data-read-only-api</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.7</td>
+<td><code>1-7-1-identity-seed-scripts-both-populations-bootstrap-verification-job-and-the-production-bootstrap-runbook</code></td>
+<td><code>1-7-1-both-groups-of-users-can-be-seeded-verified-against-the-sign-in-system-and-set-up-for-real-via-a-runbook</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.8</td>
+<td><code>1-8-1-scaffold-ctam-notification-service-delivery-log-table-smtp-integration</code></td>
+<td><code>1-8-1-the-notification-service-its-delivery-history-table-and-its-connection-to-email-are-set-up</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.8</td>
+<td><code>1-8-2-post-v1-notifications-send-endpoint-with-jwt-propagation-retry-semantics-delivery-logging-rfc-9457-errors</code></td>
+<td><code>1-8-2-the-send-an-email-endpoint-delivers-retries-and-logs-every-request-with-a-way-to-review-what-was-sent</code></td>
+<td>backlog</td>
+</tr>
+<tr>
+<td>1.9</td>
+<td><code>1-9-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0</code></td>
+<td><code>1-9-1-publish-ctam-architecture-as-the-official-version-tagged-architecture-package</code></td>
+<td><strong>done</strong></td>
+</tr>
+<tr>
+<td>1.9</td>
+<td><code>1-9-2-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants</code></td>
+<td><code>1-9-2-shared-configuration-table-exists-with-read-only-access-for-every-service</code></td>
+<td>backlog</td>
+</tr>
+</tbody>
+</table>
+<p>Epic-level keys (<code>epic-1.0</code> … <code>epic-1.9</code>) and retrospective keys are unchanged — only their nested story sub-keys moved. <code>last_updated</code> bumped 2026-08-20 → 2026-08-21.</p>
+<h3 id="42-architecturechangelogmd--new-entry-v415">4.2 <code>architecture/changelog.md</code> — new entry (v4.15)</h3>
+<p>Records this resync for the same reason every other tracking-consistency fix on this branch has one: traceability for a change to a canonical, git-tracked file.</p>
+<hr />
+</div></details><details class="section" id="section-5--implementation-handoff"><summary><span class="section-title">Section 5 — Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Minor.</strong> Direct implementation by the Developer agent (this session).</p>
+<p><strong>Success criteria:</strong></p>
+<ul>
+<li>Every phase-1 story key in <code>sprint-status.yaml</code> matches the slug of its epic's current heading.</li>
+<li><code>epic-1.9</code> remains <code>in-progress</code>, its renamed Story 1.9.1 key remains <code>done</code>, every other key remains <code>backlog</code> — no status silently changed.</li>
+<li><code>architecture/changelog.md</code> carries a v4.15 entry.</li>
+<li><code>docs/</code> regenerated so the new SCP page is built and linked from the site navigation.</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-21b.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-epic-impact">2.1 Epic impact</a></li><li class="h3"><a href="#22-story-impact">2.2 Story impact</a></li><li class="h3"><a href="#23-artifact-conflicts--cross-reference-sweep">2.3 Artifact conflicts / cross-reference sweep</a></li><li class="h3"><a href="#24-technical-impact">2.4 Technical impact</a></li><li><a href="#section-3--recommended-approach">Section 3 — Recommended Approach</a></li><li><a href="#section-4--detailed-change-proposals">Section 4 — Detailed Change Proposals</a></li><li class="h3"><a href="#41-_bmad-outputimplementation-artifactssprint-statusyaml--all-22-phase-1-story-keys">4.1 _bmad-output/implementation-artifacts/sprint-status.yaml — all 22 Phase 1 story keys</a></li><li class="h3"><a href="#42-architecturechangelogmd--new-entry-v415">4.2 architecture/changelog.md — new entry (v4.15)</a></li><li><a href="#section-5--implementation-handoff">Section 5 — Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-21b";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
