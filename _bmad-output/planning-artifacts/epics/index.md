@@ -47,7 +47,7 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 | Phase | Folder | Status |
 |---|---|---|
 | **1** — Foundations | [phase-1/](phase-1/index.md) | 🟡 Planned — 10 epics, 22 stories |
-| **0** — JOH | [phase-0/](phase-0/index.md) | 🟡 Planned — 1 epic, 1 story (primary area FR10–FR18 still framework only) |
+| **0** — JOH | [phase-0/](phase-0/index.md) | 🟡 Planned — 1 epic, 3 stories (primary area FR10–FR18 still framework only) |
 | **2** — Absence | _to be storied_ | ⚪ Framework only |
 | **3** — Vacancy | _to be storied_ | ⚪ Framework only |
 | **4** — Booking | _to be storied_ | ⚪ Framework only |

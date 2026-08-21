@@ -273,7 +273,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
     ]),
     ("Implementation — Phase 0 (JOH; Epic 0.0 added 2026-08-20)", [
         ("Phase 0 overview", "epics/phase-0/index", False),
-        ("Epic 0.0 — JOH eLinks API contract confirmed + CI mock (1 story)", "epics/phase-0/epic-0.0-joh-elinks-api-contract-mock", False),
+        ("Epic 0.0 — JOH eLinks API contract confirmed + CI mock (3 stories)", "epics/phase-0/epic-0.0-joh-elinks-api-contract-mock", False),
     ]),
 ]
 

@@ -20,12 +20,12 @@ phaseName: 'JOH'
 
 | Epic | Title | Stories | Status |
 |---|---|---|---|
-| [0.0](epic-0.0-joh-elinks-api-contract-mock.md) | The JOH eLinks API contract is confirmed and mocked for CI-only integration testing | 1 | 🟡 Planned |
-| **Total** | | **1 story** | |
+| [0.0](epic-0.0-joh-elinks-api-contract-mock.md) | The JOH eLinks API contract is confirmed and mocked for CI-only integration testing | 3 | 🟡 Planned |
+| **Total** | | **3 stories** | |
 
 ## Epic summaries
 
-### Epic 0.0: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing (1 story)
+### Epic 0.0: The JOH eLinks API contract is confirmed and mocked for CI-only integration testing (3 stories)
 
 **User outcome:** The real JOH eLinks People API (v5) is confirmed — endpoints, auth, pagination, response shapes — via an external reference mock, resolving the structural half of gaps.md G8.1, and reproduced as a contract-accurate CI-only fixture layer inside `ctam-reference-data` so Phase 1's Epic 1.2 (eLinks sync) integration-tests against a faithful target. Surfaced a new gap (G8.7): the real API has no `personnel_number` field (it returns `per_id`/`personal_code` instead) — recorded, not resolved, by this epic. Cross-phase dependency: `depends_on: [epic-1.1]` (Phase 1's tier-(a) schema).
 

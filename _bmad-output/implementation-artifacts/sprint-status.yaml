@@ -97,5 +97,7 @@ development_status:
   epic-1.9-retrospective: optional
 
   epic-0.0: backlog
-  0-0-1-the-elinks-sync-integration-tests-against-a-contract-accurate-ci-mock-of-the-real-joh-elinks-people-api: backlog
+  0-0-1-contract-endpoints-auth-and-pagination-are-confirmed-via-the-mock: backlog
+  0-0-2-error-handling-and-fixture-data-match-real-production-shapes-and-volumes: backlog
+  0-0-3-the-natural-key-mismatch-is-discovered-and-recorded-as-gap-g8-7: backlog
   epic-0.0-retrospective: optional
