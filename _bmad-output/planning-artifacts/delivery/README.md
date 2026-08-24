@@ -53,7 +53,7 @@ Not here, deliberately: the **context bus** (`ctam-architecture` publish + `arch
 | Execute | `bmad-dev-story` → `bmad-code-review` | target repo |
 | Signal | `bmad-sprint-status` | `ctam-analysis` |
 
-`bmad-create-story` refuses to run without `sprint-status.yaml`, so **sprint planning comes first**, once per phase. Team overrides that adapt the BMad skills to this polyrepo live in `_bmad/custom/` (committed).
+`bmad-create-story` refuses to run without `sprint-status.yaml`, so **sprint planning comes first**, once per phase. The skill is **stock** — the team override that adapted it to this polyrepo was deleted 2026-08-21 (SCP 2026-08-21) ahead of BMad 7's native polyrepo support. Read [`../architecture/delivery-operating-model.md`](../architecture/delivery-operating-model.md) → *Deviation register* before dispatching: six of the nine deviations are live against stock BMad 6.
 
 ## Multi-user coordination
 

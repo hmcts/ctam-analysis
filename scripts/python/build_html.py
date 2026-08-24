@@ -232,6 +232,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Changelog", "architecture/tobe/changelog", False),
     ]),
     ("Change Control & Readiness", [
+        ("Sprint Change Proposal — 2026-08-21 (bmad-create-story override retired; deviation register)", "sprint-change-proposal-2026-08-21", False),
         ("Sprint Change Proposal — 2026-08-20 (one branch per story, created at dispatch)", "sprint-change-proposal-2026-08-20", False),
         ("Sprint Change Proposal — 2026-08-19d (ledger + dispatch graph retired for BMad sprint status)", "sprint-change-proposal-2026-08-19d", False),
         ("Sprint Change Proposal — 2026-08-19c (human gate: commit → pull request)", "sprint-change-proposal-2026-08-19c", False),
