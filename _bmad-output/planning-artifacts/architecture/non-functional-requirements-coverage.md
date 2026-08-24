@@ -53,18 +53,18 @@ The 42 Non-Functional Requirements are organised into 8 categories. Each subsect
 
 ## Integration (NFR20–NFR24)
 
-- **NFR20 — HMCTS IdP integration:** Hard pre-Phase-9 dependency. CTAM Pathfinder integrates with whichever AuthN protocol the HMCTS IdP exposes (OIDC or SAML).
+- **NFR20 — HMCTS IdP integration:** Hard pre-Phase-10 dependency. CTAM Pathfinder integrates with whichever AuthN protocol the HMCTS IdP exposes (OIDC or SAML).
 - **NFR21 — JFEPS / Liberata integration unchanged:** Payment schedule format (JFEPS-compatible Excel), email-to-Authoriser delivery, and authoriser-forwards-to-Liberata workflow are preserved exactly as in APEX.
 - **NFR22 — HMCTS email infrastructure:** Outbound transactional emails (booking ack, absence ack, payment schedules) dispatch via HMCTS email; delivery is reliable but not low-latency-critical.
 - **NFR23 — DA&I MI Feed:** Aggregate-only REST API contract; no case-level data exposed under any consumer authorisation.
 - **NFR24 — JOH eLinks API + MRD integration (MVP scope)**[^d11]: JOH eLinks API is an MVP integration — the canonical source for judicial-holder reference data[^d3]. MRD data is ingested via a weekly Excel feed pending availability of MRD's public APIs. Manual data entry by RSU is no longer the operating model for these sources; corrections happen at source. Other HR systems beyond JOH eLinks / MRD remain out of MVP scope.
 
-**Architectural support:** OIDC integration via mock auth (Phase 0–8) + HMCTS IdP (pre-Phase-9 onward); JFEPS-Excel email via Notification unchanged (verified for SSCS[^d11] — now wave 2; **ET wave-1 applicability unverified, G8.6**[^d13]); HMCTS email via Notification; MI Feed REST contract; **JOH eLinks in-process scheduled sync + MRD blob-drop pick-up inside `ctam-reference-data`** (see [`../architecture.md`](../architecture.md) → *Upstream reference-data ingestion*).
+**Architectural support:** OIDC integration via mock auth (Phase 1–9) + HMCTS IdP (pre-Phase-10 onward); JFEPS-Excel email via Notification unchanged (verified for SSCS[^d11] — now wave 2; **ET wave-1 applicability unverified, G8.6**[^d13]); HMCTS email via Notification; MI Feed REST contract; **JOH eLinks in-process scheduled sync + MRD blob-drop pick-up inside `ctam-reference-data`** (see [`../architecture.md`](../architecture.md) → *Upstream reference-data ingestion*).
 
 ## Observability (NFR25–NFR29)
 
-- **NFR25 — Structured logging:** Every service emits structured logs with consistent fields, correlation IDs threaded through service-to-service calls, and a defined error-categorisation taxonomy. Logging schema is a Phase 0 deliverable.
-- **NFR26 — Log retention:** Logs retained sufficient for pilot incident triage; specific retention period set in Phase 0 within HMCTS data-retention policy.
+- **NFR25 — Structured logging:** Every service emits structured logs with consistent fields, correlation IDs threaded through service-to-service calls, and a defined error-categorisation taxonomy. Logging schema is a Phase 1 deliverable.
+- **NFR26 — Log retention:** Logs retained sufficient for pilot incident triage; specific retention period set in Phase 1 within HMCTS data-retention policy.
 - **NFR27 — Log ingestion:** Logs ingested into Azure-native logging (Application Insights / Log Analytics).
 - **NFR28 — Health and readiness probes:** Every service exposes Kubernetes-compatible liveness and readiness endpoints (Spring Actuator).
 - **NFR29 — Roadmap commitments (post-MVP, not in MVP):** Structured user-action auditing and full metrics/trace observability beyond logs are post-MVP[^d7].
@@ -92,7 +92,7 @@ The 42 Non-Functional Requirements are organised into 8 categories. Each subsect
 
 ## Maintainability (NFR39–NFR42)
 
-- **NFR39 — API-as-Product standards:** Every service exposes versioned contracts, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457) problem-details error envelopes, and a published OpenAPI specification (per FR58). Versioning and deprecation policy is a Phase 0 deliverable. Deprecation signalling uses [RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) `Deprecation` + [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594) `Sunset` headers.
+- **NFR39 — API-as-Product standards:** Every service exposes versioned contracts, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457) problem-details error envelopes, and a published OpenAPI specification (per FR58). Versioning and deprecation policy is a Phase 1 deliverable. Deprecation signalling uses [RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) `Deprecation` + [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594) `Sunset` headers.
 - **NFR40 — Per-service deployment unit:** Each of the 11 services is independently deployable on Kubernetes; rolling updates per service per region without coupling.
 - **NFR41 — Behavioural-parity UAT suite**[^d11][^d5][^d13]: Every domain service has a **manual UAT script** (per FR60) maintained alongside the service. Jurisdiction-incumbent-experienced users walk through the script comparing CTAM Pathfinder vs the incumbent before each wave's cutover (`[ET-INCUMBENT-TBD]` users for **ET wave 1** — blocked on G8.4; ListAssist users for **SSCS wave 2**; APEX users for **Courts waves 3+**); sign-off (per role per wave) is the wave gate. There is no automated parity test suite — automated CI tests are unit, integration (Testcontainers), and contract tests only.
 - **NFR42 — Postman collections:** Each phase produces a Postman collection that exercises the phase's endpoints; collections are versioned alongside the services.

@@ -16,7 +16,7 @@ amended_in: architecture.md v3.0 — Sprint Change Proposal 2026-06-10 cascade (
 
 The 60 Functional Requirements are organised into 9 capability areas. Each subsection below lists the FRs in that area (summarised from the PRD as amended 2026-06-10) and the architectural support that satisfies them.
 
-**All 60 FRs have explicit architectural support.** None unaddressed. *(The Phase 0 Data Migration ETL FR was retracted 2026-06-10[^d3]; FR58–FR61 were renumbered FR57–FR60.)*
+**All 60 FRs have explicit architectural support.** None unaddressed. *(The Phase 1 Data Migration ETL FR was retracted 2026-06-10[^d3]; FR58–FR61 were renumbered FR57–FR60.)*
 
 ## Identity & Authorisation (FR1–FR5)
 
@@ -26,7 +26,7 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR4**[^d10] — System administrators can update role, jurisdiction, and Region/Area assignments for any user. In MVP the data layer is editable by DBAs via direct SQL per runbook; the admin UI surface (`ctam-admin-ui` Users & Roles module) is post-MVP.
 - **FR5** *(reframed v2.5 as post-MVP)* — External machine-to-machine consumers require an authentication mechanism. At MVP, no machine-to-machine consumers are in scope. The mechanism for genuine service-principal authentication is a post-MVP open question (see [`./gaps.md` G7](./gaps.md)).
 
-**Architectural support:** Authorisation service (incl. `ctam_auth_staff_identities` + the two-population identity lookup) + per-service custom `JWTFilter` (HMCTS template pattern) + OIDC for human users (mock auth Phase 0–8; HMCTS IdP from pre-Phase-9) + JWT propagation interceptor (Pattern 1) + OAuth `client_credentials` for the payment-batch service principal (Pattern 2). **FR4** UI surface is post-MVP `ctam-admin-ui`[^d10]. FR5 (full programmatic service-account directory) remains post-MVP.
+**Architectural support:** Authorisation service (incl. `ctam_auth_staff_identities` + the two-population identity lookup) + per-service custom `JWTFilter` (HMCTS template pattern) + OIDC for human users (mock auth Phase 1–9; HMCTS IdP from pre-Phase-10) + JWT propagation interceptor (Pattern 1) + OAuth `client_credentials` for the payment-batch service principal (Pattern 2). **FR4** UI surface is post-MVP `ctam-admin-ui`[^d10]. FR5 (full programmatic service-account directory) remains post-MVP.
 
 ## Foundational Data Management (FR6–FR9)
 
@@ -49,7 +49,7 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR17** — RSU users can switch a JOH's base location to another office within the same Region; cross-Region changes require OPT Advice Point and are out-of-system. Location changes are CTAM-owned operational state (`ctam_joh_location`) — not propagated back to JOH eLinks.
 - **FR18** — Authorised users can link to JOHs managed by other offices (off-circuit / cross-Region) for booking purposes (e.g. composing tribunal panels with members from other regions).
 
-**Architectural support:** `ctam-joh` repo (Phase 1) — owns the CTAM-owned operational overlays keyed by `joh_id` → `ctam_joh_identities`; the upstream JOH person record is `jo_people` (owned by Reference Data, refreshed by the eLinks sync), and CTAM's canonical JOH identifier is the UUID in `ctam_joh_identities`. Profile views compose tier (a) + tier (b) via `ctam-reference-data`'s read API. Working-pattern engine owned by JOH.
+**Architectural support:** `ctam-joh` repo (Phase 2) — owns the CTAM-owned operational overlays keyed by `joh_id` → `ctam_joh_identities`; the upstream JOH person record is `jo_people` (owned by Reference Data, refreshed by the eLinks sync), and CTAM's canonical JOH identifier is the UUID in `ctam_joh_identities`. Profile views compose tier (a) + tier (b) via `ctam-reference-data`'s read API. Working-pattern engine owned by JOH.
 
 ## Absence Workflow (FR19–FR22)
 
@@ -58,7 +58,7 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR21** — Sickness absences can be extended without creating a new record; non-sickness extensions require a new absence record.
 - **FR22** — Authorised users can mark absences as *Not To Be Filled* (NTBF) or as *needs fee-paid cover*.
 
-**Architectural support:** `ctam-absence` repo (Phase 2); approval workflow with auto-vacancy creation per R4.
+**Architectural support:** `ctam-absence` repo (Phase 3); approval workflow with auto-vacancy creation per R4.
 
 ## Vacancy & Cover (FR23–FR28)
 
@@ -69,7 +69,7 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR27** — CTAM Pathfinder surfaces fee-paid JOHs matching a vacancy's filter as a hint for advertising; advertising itself is performed out-of-system by judicial teams. *(Allocation decisions are recorded in CTAM via the UI by admin staff — not pushed in from external systems,[^d12].)*
 - **FR28** — Authorised users can cancel or close vacancies (e.g. when a parent absence becomes NTBF).
 
-**Architectural support:** `ctam-vacancy` repo (Phase 3); Booking marks the linked vacancy as filled in the same transaction per Principle 1 (no `markFilled` API endpoint at MVP — Booking has the necessary DB-role grant; per-column detail in [`../architecture.md`](../architecture.md) → *Data Architecture*).
+**Architectural support:** `ctam-vacancy` repo (Phase 4); Booking marks the linked vacancy as filled in the same transaction per Principle 1 (no `markFilled` API endpoint at MVP — Booking has the necessary DB-role grant; per-column detail in [`../architecture.md`](../architecture.md) → *Data Architecture*).
 
 ## Booking Management (FR29–FR34)
 
@@ -80,7 +80,7 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR33** — CTAM Pathfinder requires a Y/N answer at booking time when a **JOH's** fee entitlement is *Ask when booking*.
 - **FR34** — CTAM Pathfinder prevents double-booking of fee-paid **JOHs** for overlapping sessions.
 
-**Architectural support:** `ctam-booking` repo (Phase 4); bookings reference the JOH by `joh_id` → `ctam_joh_identities`; retry safety via native DB primitives — natural-key uniqueness, optimistic locking, and pessimistic row locking on the target vacancy. No custom idempotency table. Detail in [`../architecture.md`](../architecture.md) → *Data Architecture* and [`./data-tables.md`](./data-tables.md).
+**Architectural support:** `ctam-booking` repo (Phase 5); bookings reference the JOH by `joh_id` → `ctam_joh_identities`; retry safety via native DB primitives — natural-key uniqueness, optimistic locking, and pessimistic row locking on the target vacancy. No custom idempotency table. Detail in [`../architecture.md`](../architecture.md) → *Data Architecture* and [`./data-tables.md`](./data-tables.md).
 
 ## Sitting Management (FR35–FR40)
 
@@ -91,7 +91,7 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR39** — Authorised users can create ad-hoc sittings for **salaried JOHs**, including DJ(MC)s and Legal Advisers in County Courts (Courts-cohort-specific examples).
 - **FR40** *(revised 2026-05-11)* — Verifiers can verify confirmed sittings; once verified, the data is read-only. Post-verification amendments require **re-opening** via a UI re-open action gated by a distinct authorised role (RSU Admin only at MVP — different from the original confirmer and from a standard Verifier). Mandatory justification captured; fully audited. No external Request-for-Change ticketing.
 
-**Architectural support:** `ctam-sitting` repo (Phase 5); generated from JOH working patterns; verification gates downstream edits.
+**Architectural support:** `ctam-sitting` repo (Phase 6); generated from JOH working patterns; verification gates downstream edits.
 
 ## Payment & Reconciliation (FR41–FR47)
 
@@ -103,7 +103,7 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR46** — Authorised users (Finance, RSU) can flag payments as reconciled, capturing notes for mismatches; once fully reconciled, a payment cannot be re-requested for the same booking.
 - **FR47** — CTAM Pathfinder does not store or expose bank details for any JOH — those remain in the finance system.
 
-**Architectural support:** `ctam-payment` repo (Phase 6) — scheduled batch (`ctam-payment-batch`) authenticates as a service principal, picks up confirmed-but-unpaid bookings/sittings, generates the JFEPS-shaped Excel, dispatches via Notification → HMCTS Email; reconciliation marked manually by RSU at MVP. See [`./sequence-diagrams/payment-batch-flow.md`](./sequence-diagrams/payment-batch-flow.md).
+**Architectural support:** `ctam-payment` repo (Phase 7) — scheduled batch (`ctam-payment-batch`) authenticates as a service principal, picks up confirmed-but-unpaid bookings/sittings, generates the JFEPS-shaped Excel, dispatches via Notification → HMCTS Email; reconciliation marked manually by RSU at MVP. See [`./sequence-diagrams/payment-batch-flow.md`](./sequence-diagrams/payment-batch-flow.md).
 
 ## Itineraries & Reporting (FR48–FR54)
 
@@ -115,11 +115,11 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR53** — CTAM Pathfinder provides a fixed catalogue of standard Reports (weekly sitting projections, weekly vacancies, absence analysis, vacancy by court, confirmed sittings/bookings by judge or judge type, judge utilisation, jurisdictional split, summary by court / work type) with parameter filters per report.
 - **FR54** — CTAM Pathfinder exposes aggregated MI Feed APIs for external consumers (DA&I, future programmes); MI Feed responses contain no case-level data and are aggregate-only by contract.
 
-**Architectural support:** `ctam-itinerary` and `ctam-mi-feed` repos (Phases 7–8); SQL-based read models via JOINs over the shared schema (incl. `jo_people` + `ctam-joh` overlays) in the global database — no parallel API fan-out, no Strategy A latency stacking. External case-management systems consume these APIs from Phase 9[^d12]; they never write into CTAM.
+**Architectural support:** `ctam-itinerary` and `ctam-mi-feed` repos (Phases 7–8); SQL-based read models via JOINs over the shared schema (incl. `jo_people` + `ctam-joh` overlays) in the global database — no parallel API fan-out, no Strategy A latency stacking. External case-management systems consume these APIs from Phase 10[^d12]; they never write into CTAM.
 
 ## Platform Operations (FR55–FR60)
 
-*(There is no data-migration FR — the Phase 0 ETL was retracted[^d3]; FR58–FR61 became FR57–FR60.)*
+*(There is no data-migration FR — the Phase 1 ETL was retracted[^d3]; FR58–FR61 became FR57–FR60.)*
 
 - **FR55** — Authenticated users land on a Home page showing role-scoped navigation, Region/Area selector, summary tiles for the selected scope, and contextual help.
 - **FR56**[^d10] — CTAM Pathfinder's **business-user UI** (`ctam-ui`) replicates the functional surface of the as-is APEX UI on a modern UI stack and meets WCAG 2.2 Level AA. MVP: `ctam-ui` only; `ctam-admin-ui` post-MVP.
@@ -128,7 +128,7 @@ The 60 Functional Requirements are organised into 9 capability areas. Each subse
 - **FR59** *(was FR60)* — Every CTAM Pathfinder service emits structured logs with correlation IDs and consistent error categorisation, retained for pilot incident triage.
 - **FR60** *(was FR61; reframed 2026-06-10[^d11][^d5]; wave sequence retargeted 2026-08-07[^d13])* — Every CTAM Pathfinder domain service has a **manual UAT script** verified by **jurisdiction-incumbent-experienced users** against that incumbent before the wave's rollout: `[ET-INCUMBENT-TBD]`-experienced users (ET role set *provisional* — G8.5) for **wave 1 (ET)**; ListAssist-experienced users (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for **wave 2 (SSCS)**; APEX-experienced users (RSU, Court, Judge, Judges' Clerks, Finance, MI) for **waves 3+ (Courts)**. Explicit per-role sign-off; no automated incumbent-comparison harness. *(Wave-1 panel blocked on G8.4.)*
 
-**Architectural support:** Per-service implementations bootstrapped from the HMCTS Crime SpringBoot template scaffolding; per-(jurisdiction, region) activation flags in `ctam-authorisation`; per-service `docs/uat/` for manual UAT scripts. *(The Phase 0 ETL at `ctam-architecture/migration/` is retracted — reference data arrives via the upstream ingestion mechanisms; user records are bootstrapped outside the PRD's scope.)*
+**Architectural support:** Per-service implementations bootstrapped from the HMCTS Crime SpringBoot template scaffolding; per-(jurisdiction, region) activation flags in `ctam-authorisation`; per-service `docs/uat/` for manual UAT scripts. *(The Phase 1 ETL at `ctam-architecture/migration/` is retracted — reference data arrives via the upstream ingestion mechanisms; user records are bootstrapped outside the PRD's scope.)*
 
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d5]: D5 — the jurisdiction's incumbent system is the behavioural reference, verified by manual UAT.

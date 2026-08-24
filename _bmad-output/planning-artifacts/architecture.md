@@ -65,7 +65,7 @@ date: '2026-06-11'
    7. [Integration Points — External](#integration-points--external)
    8. [Data Flow — Canonical Operational Cycle](#data-flow--canonical-operational-cycle-journey-2-from-prd--courts-wave-2)
    9. [File Organisation, Development Workflow, Deployment Pipeline](#file-organisation-development-workflow-deployment-pipeline)
-   10. [Wave rollout flow (Phase 9+)](#wave-rollout-flow-phase-9-jurisdiction-first)
+   10. [Wave rollout flow (Phase 10+)](#wave-rollout-flow-phase-10-jurisdiction-first)
 8. [Architecture Validation Results](#architecture-validation-results)
    1. [Coherence Validation](#coherence-validation-white_check_mark)
    2. [Requirements Coverage Validation](#requirements-coverage-validation-white_check_mark)
@@ -107,7 +107,7 @@ Refactor history: the single-file `architecture.md` was split into the index + s
 
 ### Requirements Overview
 
-**Functional Requirements (60, in 9 capability areas — renumbered 2026-06-10: the Phase 0 ETL FR was retracted and FR58–FR61 became FR57–FR60).** CTAM Pathfinder is 11 services (revised v2.2 — `ctam-configuration` dropped; per-service config in Spring profiles + Key Vault; a shared `ctam_configuration_values` table holds cross-service policy values), in three clusters:
+**Functional Requirements (60, in 9 capability areas — renumbered 2026-06-10: the Phase 1 ETL FR was retracted and FR58–FR61 became FR57–FR60).** CTAM Pathfinder is 11 services (revised v2.2 — `ctam-configuration` dropped; per-service config in Spring profiles + Key Vault; a shared `ctam_configuration_values` table holds cross-service policy values), in three clusters:
 
 - **Domain services** — JOH, Absence, Vacancy, Booking, Sitting, Payment. Operational chain: Manage JOHs → Absence → Vacancy → Booking → Sitting → Payment → Reconciliation. (*JOH — Judicial Office Holder — is the umbrella term[^d11]; the service is `ctam-joh`.*)
 - **Cross-cutting services** — Reference Data (facade over a two-tier datastore: upstream-sourced JOH eLinks + MRD tables, read-only in CTAM, plus CTAM-owned tables — revised D3/FR6), Authorisation (gates every call; carries roles + jurisdiction + Region/Area scope[^d8]/FR2), Notification (transactional email).
@@ -117,7 +117,7 @@ Architectural implications:
 
 - **One synchronous cross-service write**: `POST /bookings` marks the linked vacancy as filled in the same transaction (FR30, R5) per Principle 1. Retry safety uses native DB primitives — see *Data Architecture*.
 - **Read-model federation**: SQL JOINs over the shared schema. Indexed joins meet the Forward Look NFR (≤ 30 s p95, NFR8).
-- **Working-pattern sitting generation** (FR13, FR35): owned by JOH; produces records that Sitting manages from Phase 5 onwards.
+- **Working-pattern sitting generation** (FR13, FR35): owned by JOH; produces records that Sitting manages from Phase 6 onwards.
 - **Versioned content-type for Payment** (FR44 — `application/vnd.hmcts.jfeps+json` vs `+xlsx`). JFEPS shape is externally owned; verified for SSCS[^d11] (now wave 2). **ET wave-1 applicability unverified — G8.6**[^d13].
 - **Per-service authorisation** (FR2, NFR13): every API call resolves principal → roles + **jurisdiction** + Region/Area scope through Authorisation. Implemented as middleware.
 - **Upstream reference-data ingestion** (revised D3, NFR24): `ctam-reference-data` ingests the 15 `jo_*` entities from the JOH eLinks API (in-process scheduled sync) and MRD supplementary data from a weekly Excel feed (blob drop + scheduled pick-up). Tier-(a) tables are never hand-edited in CTAM; corrections happen at source.
@@ -127,7 +127,7 @@ Architectural implications:
 - **Performance** — page-level: ≤ 5 s dashboard, ≤ 30 s reports/Forward Look (APEX baseline). API: ≤ 500 ms p95 read, ≤ 1 s p95 write. Capacity ~50–100/region; ~200–500 national.
 - **Security** — TLS only; encryption at rest; AuthN via HMCTS IdP SSO; AuthZ owned by CTAM Pathfinder; no bank details, no case-level data; aligned with GFS-7.
 - **Accessibility** — WCAG 2.2 AA; tested per UI page per phase.
-- **Integration** — OIDC issuer (mock auth Phase 0–8; HMCTS IdP from pre-Phase-9); JFEPS/Liberata unchanged (verified for SSCS, now wave 2; **ET wave-1 applicability unverified, G8.6**[^d13]); HMCTS email; DA&I MI Feed; **JOH eLinks API + MRD weekly Excel feed are MVP integrations** (NFR24 reframed 2026-06-10[^d11] — was "no eLinks integration in MVP").
+- **Integration** — OIDC issuer (mock auth Phase 1–9; HMCTS IdP from pre-Phase-10); JFEPS/Liberata unchanged (verified for SSCS, now wave 2; **ET wave-1 applicability unverified, G8.6**[^d13]); HMCTS email; DA&I MI Feed; **JOH eLinks API + MRD weekly Excel feed are MVP integrations** (NFR24 reframed 2026-06-10[^d11] — was "no eLinks integration in MVP").
 - **Observability** — log-based MVP only[^d7]; structured logs + correlation IDs; OpenTelemetry → Application Insights.
 - **Data privacy & sovereignty** — Azure UK regions only; UK GDPR + DPA 2018; no case-level data.
 - **Reliability** — available during HMCTS hours; per-wave rollback; single Azure region (UK South) with multi-AZ HA; rollout isolation at the app tier via per-(jurisdiction, region) activation flags (FR57). DR is an **open gap** — see [`./architecture/gaps.md` G3.6](./architecture/gaps.md).
@@ -142,7 +142,7 @@ Architectural implications:
 - **Stack:** Java 25 (LTS) + Spring Boot 4 + Kubernetes + Microsoft Azure (UK regions only).
 - **Coordination:** REST-first synchronous; no event stream, no message bus, no webhook fabric.
 - **Read-model strategy:** SQL JOINs over the shared schema; no API federation, no cache fallback.
-- **Identity:** OIDC issuer (mock auth Phase 0–8; HMCTS IdP from pre-Phase-9 cutover); CTAM Pathfinder owns Authorisation; password/session/account lifecycle external. Two distinct user populations[^d9]: JOHs (IdP email → `jo_people` → `personnel_number` → CTAM JOH UUID in `ctam_joh_identities`) and HMCTS admin staff (CTAM-internal staff identity table). Both populations resolve to a CTAM-assigned UUID; `personnel_number` is the upstream link, not the CTAM identifier.
+- **Identity:** OIDC issuer (mock auth Phase 1–9; HMCTS IdP from pre-Phase-10 cutover); CTAM Pathfinder owns Authorisation; password/session/account lifecycle external. Two distinct user populations[^d9]: JOHs (IdP email → `jo_people` → `personnel_number` → CTAM JOH UUID in `ctam_joh_identities`) and HMCTS admin staff (CTAM-internal staff identity table). Both populations resolve to a CTAM-assigned UUID; `personnel_number` is the upstream link, not the CTAM identifier.
 - **Data residency:** Azure UK regions only (no personal data leaves the UK).
 - **No bank details, no case-level data** anywhere by contract.
 - **JOH eLinks API + MRD are MVP integrations** (NFR24 reframed[^d11]); other HR systems remain out of MVP scope.
@@ -150,16 +150,16 @@ Architectural implications:
 
 **External systems (not controlled by CTAM Pathfinder):**
 
-- **HMCTS IdP** — pre-Phase-9 hard dependency; mock auth covers Phase 0–8.
+- **HMCTS IdP** — pre-Phase-10 hard dependency; mock auth covers Phase 1–9.
 - **JOH eLinks API** — canonical upstream source for the 15 `jo_*` judicial-holder entities[^d3]. Pulled by `ctam-reference-data`'s scheduled sync; read-only in CTAM; corrections at source (Judicial Office). No data flows upstream from CTAM.
 - **MRD (Master Reference Data)** — supplementary judicial reference data (notably JOH Specialisations). Weekly Excel feed for MVP (public MRD APIs not yet available); transitions to API integration when MRD APIs ship.
 - **JFEPS-compatible Excel format** for Payment — externally owned; treated as a versioned content-type. Verified for SSCS[^d11] (now wave 2); **ET wave-1 applicability unverified — G8.6**[^d13].
 - **HMCTS email infrastructure** for transactional notifications.
 - **DA&I MI Feed consumers** (post-MVP) — they call CTAM Pathfinder APIs.
-- **External case-management systems** (ET case management — system TBC per G8.5; SSCS case management (GAPS); Courts Listing systems) — consume CTAM's APIs from Phase 9 onward[^d12]; never write into CTAM.
+- **External case-management systems** (ET case management — system TBC per G8.5; SSCS case management (GAPS); Courts Listing systems) — consume CTAM's APIs from Phase 10 onward[^d12]; never write into CTAM.
 - **Scheduling incumbents** — used by UAT users to compare behaviour per wave (`[ET-INCUMBENT-TBD]` for ET wave 1 — unidentified, G8.4; ListAssist for SSCS wave 2; APEX for Courts waves 3+)[^d13]. No programmatic linkage to CTAM Pathfinder's CI or runtime.
 
-**Data bootstrap (no legacy migration — revised D3 + D9):** CTAM Pathfinder migrates nothing from ListAssist or APEX. Judicial-holder reference data is ingested from JOH eLinks + MRD (source-of-truth integration, not migration); historical data stays in the cohort's incumbent system. User and authorisation records (`auth_*` tables) are bootstrapped by programme-management / operational mechanisms outside the PRD's scope; every bootstrapped user must resolve to an IdP principal before that user's wave cutover. The Phase 0 Data Migration ETL is **retracted**; `ctam-architecture/migration/` is no longer a deliverable.
+**Data bootstrap (no legacy migration — revised D3 + D9):** CTAM Pathfinder migrates nothing from ListAssist or APEX. Judicial-holder reference data is ingested from JOH eLinks + MRD (source-of-truth integration, not migration); historical data stays in the cohort's incumbent system. User and authorisation records (`auth_*` tables) are bootstrapped by programme-management / operational mechanisms outside the PRD's scope; every bootstrapped user must resolve to an IdP principal before that user's wave cutover. The Phase 1 Data Migration ETL is **retracted**; `ctam-architecture/migration/` is no longer a deliverable.
 
 ### Cross-Cutting Concerns Identified
 
@@ -192,12 +192,12 @@ The PRD lists 12 TBDs. 5 are programme-management decisions (capacity, ops hours
 
 | # | Decision deferred to architecture by the PRD | Resolution |
 |---|---|---|
-| 8 | `ctam-judge` → `ctam-joh` rename[^d11] | **Full rename** — service, repo, DB role (`ctam_joh`), and table names. Nothing is built yet, so the rename costs nothing now versus a guaranteed costlier rename after Phase 1. |
+| 8 | `ctam-judge` → `ctam-joh` rename[^d11] | **Full rename** — service, repo, DB role (`ctam_joh`), and table names. Nothing is built yet, so the rename costs nothing now versus a guaranteed costlier rename after Phase 2. |
 | 9 | JOH eLinks sync mechanism[^d3] | **In-process scheduled sync** — a `@Scheduled` task inside `ctam-reference-data` pulls the JOH eLinks API nightly and full-refresh-upserts the `jo_*` tables. No new service principal, no new deployable. Detail in *Data Architecture*. |
 | 10 | MRD Excel ingestion mechanism[^d3] | **Blob drop + scheduled pick-up** — the weekly Excel lands in an Azure Blob container; a `@Scheduled` task in `ctam-reference-data` polls, validates, and upserts the `mrd_*` tables. Detail in *Data Architecture*. |
 | 11 | Admin-staff canonical identifier[^d9] | **CTAM-assigned UUID** on `ctam_auth_staff_identities`, with IdP email as the lookup key — mirroring the JOH email → personnel-number pattern. Detail in *Authentication & Security*. |
-| 12 | Integrations-first Phase 0 sequencing + integration-component hosting *(SCP 2026-06-17)* | **`ctam-reference-data` is the first service scaffolded.** The JOH eLinks + MRD ingestion is carved out as the **first Phase 0 epic**, decoupled from the auth/UI slice it was previously bundled into. Ingestion stays **in-process** inside `ctam-reference-data` (reaffirms #9/#10); **a separate `ctam-integrations` repo is declined** — tier-(a) tables are owned solely by `ctam_reference_data` (AR49), so a new deployable would break the single-writer invariant and reopen the service-auth gap (G7) for no resilience gain. Per the **AR53 first-consumer rule**, the **shared Azure estate Terraform relocates from `ctam-authorisation` to `ctam-reference-data`**. *(The shared-estate relocation part of this decision is **superseded by #13**.)* The jurisdiction-filtered Reference Data **read API remains downstream of auth** (needs `JWTFilter` for token validation + `authz/check` for the jurisdiction it filters on, D8), so it lands immediately *after* the auth epic, not in the first phase. See [`../sprint-change-proposal-2026-06-17.md`](../sprint-change-proposal-2026-06-17.md). |
-| 13 | Shared infrastructure moves to a dedicated repo — CNP alignment *(SCP 2026-07-06)* | **Supersedes the AR53 "colocated first-consumer" rule from #12.** Per the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a `{product}-shared-infrastructure` repo, the **shared Azure estate** (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) moves **out of `ctam-reference-data`** into a new dedicated repo, **`ctam-shared-infrastructure`** (16 repos total). It is provisioned and **independently verified** in the new **Epic 0.0** — 5 stories, each a Terraform layer with a deploy-time acceptance test — ahead of any service. Service repos keep only their **own** per-repo Terraform. **AR53 revised.** Story 0.1.1 reduces to scaffold-and-deploy-onto-estate. Phase 0: 5 → 6 epics, 14 → 19 stories. **No code impact** (implementation not started). See [`../sprint-change-proposal-2026-07-06.md`](../sprint-change-proposal-2026-07-06.md). |
+| 12 | Integrations-first Phase 1 sequencing + integration-component hosting *(SCP 2026-06-17)* | **`ctam-reference-data` is the first service scaffolded.** The JOH eLinks + MRD ingestion is carved out as the **first Phase 1 epic**, decoupled from the auth/UI slice it was previously bundled into. Ingestion stays **in-process** inside `ctam-reference-data` (reaffirms #9/#10); **a separate `ctam-integrations` repo is declined** — tier-(a) tables are owned solely by `ctam_reference_data` (AR49), so a new deployable would break the single-writer invariant and reopen the service-auth gap (G7) for no resilience gain. Per the **AR53 first-consumer rule**, the **shared Azure estate Terraform relocates from `ctam-authorisation` to `ctam-reference-data`**. *(The shared-estate relocation part of this decision is **superseded by #13**.)* The jurisdiction-filtered Reference Data **read API remains downstream of auth** (needs `JWTFilter` for token validation + `authz/check` for the jurisdiction it filters on, D8), so it lands immediately *after* the auth epic, not in the first phase. See [`../sprint-change-proposal-2026-06-17.md`](../sprint-change-proposal-2026-06-17.md). |
+| 13 | Shared infrastructure moves to a dedicated repo — CNP alignment *(SCP 2026-07-06)* | **Supersedes the AR53 "colocated first-consumer" rule from #12.** Per the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a `{product}-shared-infrastructure` repo, the **shared Azure estate** (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) moves **out of `ctam-reference-data`** into a new dedicated repo, **`ctam-shared-infrastructure`** (16 repos total). It is provisioned and **independently verified** in the new **Epic 1.0** — 5 stories, each a Terraform layer with a deploy-time acceptance test — ahead of any service. Service repos keep only their **own** per-repo Terraform. **AR53 revised.** Story 1.1.1 reduces to scaffold-and-deploy-onto-estate. Phase 1: 5 → 6 epics, 14 → 19 stories. **No code impact** (implementation not started). See [`../sprint-change-proposal-2026-07-06.md`](../sprint-change-proposal-2026-07-06.md). |
 
 ## Starter Template Evaluation
 
@@ -327,7 +327,7 @@ See [`./architecture/starter-template.md`](./architecture/starter-template.md).
 
 `ctam-reference-data` is a **facade over the CTAM-owned datastore** populated by these ingestion paths: consumers use its versioned read API (or direct SQL per Principle 1) without needing to know which upstream source an entry originates from. Separate tables preserve lineage; the API exposes both tiers as appropriate but does not blend them.
 
-**Upstream reference-data ingestion (replaces the retracted Phase 0 ETL):**
+**Upstream reference-data ingestion (replaces the retracted Phase 1 ETL):**
 
 - **JOH eLinks sync** — an in-process `@Scheduled` task inside `ctam-reference-data` pulls the JOH eLinks API **nightly** and full-refresh-upserts the 15 `jo_*` tables. Upserts key on the upstream natural key (`personnel_number` for `jo_people`); **for every `jo_people` row the sync also mints, if absent, a `ctam_joh_identities` row — a stable CTAM JOH UUID keyed to `personnel_number` — so CTAM's canonical JOH identifier exists eagerly for every known JOH** (single-writer: `ctam_reference_data`). Rows absent upstream are **marked inactive, never hard-deleted** (protects FKs from domain tables); `ctam_joh_identities` rows are likewise never deleted. Sync runs, outcomes, and row counts are recorded in `ctam_sync_status` (CTAM-internal tracking entity[^d3]). No new service principal and no new deployable: the task writes the service's own tables in-process, sidestepping the G7 service-auth question entirely; the only credential is the outbound JOH eLinks API credential, held in Key Vault.
 - **MRD ingestion** — the MRD team's **weekly Excel feed** lands in a dedicated Azure Blob container; a `@Scheduled` task in `ctam-reference-data` polls the container, validates the workbook (shape, vocabulary, referential checks), upserts the `mrd_*` tables, and archives the file (retained for lineage/audit). Idempotent per file. The blob-drop seam swaps cleanly for direct MRD API integration when MRD's public APIs ship — only the reader changes, not the tables.
@@ -367,28 +367,28 @@ See [`./architecture/data-tables.md`](./architecture/data-tables.md). The fitnes
 
 #### Phasing of Authentication: Mock-First, Real IdP Later
 
-Phases 0–8 use `ctam-mock-auth`. Real HMCTS IdP integration is a pre-Phase-9 deliverable — a configuration cutover.
+Phases 0–8 use `ctam-mock-auth`. Real HMCTS IdP integration is a pre-Phase-10 deliverable — a configuration cutover.
 
-**`ctam-mock-auth` (Phase 0 deliverable):**
+**`ctam-mock-auth` (Phase 1 deliverable):**
 
 - OIDC `authorization_code` flow for human users (`/oauth2/authorize`, `/oauth2/token`, `/oauth2/jwks`, `/oauth2/userinfo`).
 - OAuth `client_credentials` grant for batch service principals (initially `ctam-payment-batch`).
 - JWTs for a fixed roster of test users covering all user roles × representative jurisdiction + Region/Area combinations, spanning **both identity populations** (JOH users resolvable against seeded `jo_people` rows; admin-staff users resolvable against seeded `ctam_auth_staff_identities` rows).
-- User roster mirrors what the Phase 0 dev/CI scripts seed into CTAM Pathfinder Authorisation.
-- Spring Authorization Server. Deployed to AKS dev/integration alongside other Phase 0 services.
+- User roster mirrors what the Phase 1 dev/CI scripts seed into CTAM Pathfinder Authorisation.
+- Spring Authorization Server. Deployed to AKS dev/integration alongside other Phase 1 services.
 - **Production safeguard:** refuses to start with the `production` Spring profile. CI lint blocks production manifests that reference the mock-auth issuer URL.
 
-**Environments:** local dev, CI, unit and integration tests use mock auth. Integration and staging run on mock until the pre-Phase-9 cutover. Production runs on real HMCTS IdP only.
+**Environments:** local dev, CI, unit and integration tests use mock auth. Integration and staging run on mock until the pre-Phase-10 cutover. Production runs on real HMCTS IdP only.
 
-**Why mock-first:** decouples CTAM Pathfinder build from the HMCTS IdP team's roadmap; lets developers work without IdP credentials. Reduces Risk #6 (IdP integration timing) from a Phase 0 blocker to a pre-Phase-9 prerequisite.
+**Why mock-first:** decouples CTAM Pathfinder build from the HMCTS IdP team's roadmap; lets developers work without IdP credentials. Reduces Risk #6 (IdP integration timing) from a Phase 1 blocker to a pre-Phase-10 prerequisite.
 
-**Real HMCTS IdP cutover (pre-Phase-9):**
+**Real HMCTS IdP cutover (pre-Phase-10):**
 
 - **Triggers:** G1.1 (HMCTS IdP supports OIDC for human authN), G1.2 (HMCTS IdP supports `client_credentials` for batch — or an alternative per G7.1), G1.3 (principal export/query API for bootstrap verification).
 - **Mechanism:** Spring profile flip. Every service's OIDC `issuer-url` switches from mock auth to HMCTS IdP. No code change.
 - **Identity portability:** identity resolution keys on the IdP **email** claim (looked up against `jo_people` for JOHs, `ctam_auth_staff_identities` for admin staff), which is issuer-agnostic — the mock-to-real cutover does not invalidate any identity mapping.
 - **Verification:** before staging cutover, a verification job confirms every bootstrapped user (both populations) maps to a real IdP principal.
-- **Test suite:** every automated suite (unit, Testcontainers integration, contract) and per-service manual UAT must pass against real IdP in staging before Phase 9 pilot.
+- **Test suite:** every automated suite (unit, Testcontainers integration, contract) and per-service manual UAT must pass against real IdP in staging before Phase 10 pilot.
 
 #### End-user Authentication
 
@@ -396,7 +396,7 @@ End-user authentication: OIDC. End-user authorisation: CTAM Pathfinder Authorisa
 
 Each service runs a custom `JWTFilter` (HMCTS Crime template pattern, `io.jsonwebtoken:jjwt`):
 
-1. Validate JWT signature and issuer against the issuer's JWKS (mock auth in Phase 0–8; HMCTS IdP from pre-Phase-9). Public keys cached per the issuer's cache headers.
+1. Validate JWT signature and issuer against the issuer's JWKS (mock auth in Phase 1–9; HMCTS IdP from pre-Phase-10). Public keys cached per the issuer's cache headers.
 2. Extract principal identity (sub, email) from JWT claims.
 3. Call `POST /authz/check` against CTAM Pathfinder Authorisation. Authorisation resolves the IdP email to the **canonical CTAM identifier**[^d9] — the **CTAM JOH UUID** via `jo_people` → `personnel_number` → `ctam_joh_identities` for JOH users, or the **CTAM-assigned staff UUID** via `ctam_auth_staff_identities` for HMCTS admin staff — then returns roles + **jurisdiction** + Region/Area scope + activation flag (FR57). Both populations share the same authorisation model; only the identity-lookup path differs. CTAM Pathfinder's authz state lives in Authorisation, not the IdP — this differs from the template's claims-only approach.
 4. Store the result in a request-scoped `AuthDetails` bean.
@@ -415,11 +415,11 @@ Two patterns at MVP:
 **Pattern 2 — Service-principal authentication** (batch / scheduled components without an upstream user):
 
 - The case at MVP is `ctam-payment-batch` — runs on a schedule, picks up bookings ready for payment, generates the JFEPS Excel, dispatches via Notification.
-- Authenticates via OAuth 2.0 `client_credentials` against the OIDC issuer. `ctam-mock-auth` in Phase 0–8; production issuer per [`./architecture/gaps.md` G7.1](./architecture/gaps.md) (default recommendation: Azure Workload Identity).
+- Authenticates via OAuth 2.0 `client_credentials` against the OIDC issuer. `ctam-mock-auth` in Phase 1–9; production issuer per [`./architecture/gaps.md` G7.1](./architecture/gaps.md) (default recommendation: Azure Workload Identity).
 - Service token attached as `Authorization: Bearer <service-token>` on outbound calls. The receiving service's `JWTFilter` validates via the same JWKS path as human JWTs.
 - Service-principal records live in `ctam_auth_users` (with a `principal_kind` flag); `ctam-authorisation` resolves their permissions the same way. Registrations live in `mock_oauth_clients` at MVP.
 
-**Other non-runtime auth:** Phase 0 dev/CI seeding via one-off scripts (no runtime API call). *(The operator-initiated production ETL and its G4.7 refinement flag are retired with the ETL itself — revised D3, 2026-06-10.)*
+**Other non-runtime auth:** Phase 1 dev/CI seeding via one-off scripts (no runtime API call). *(The operator-initiated production ETL and its G4.7 refinement flag are retired with the ETL itself — revised D3, 2026-06-10.)*
 
 **Resolves PRD TBD #3:** JWT propagation for user-initiated calls; service principals (mock-auth in non-prod) for the payment batch; production issuer per G7.1.
 
@@ -487,7 +487,7 @@ The split prevents admin workflows from leaking into business users' nav, gives 
 
 ### Infrastructure & Deployment
 
-**Infrastructure provisioning: Terraform** (HMCTS standard; decision 2026-06-11 — no Bicep, no portal click-ops). **Product-level *shared* infrastructure lives in its own dedicated repo, `ctam-shared-infrastructure`** (HMCTS Cloud Native Platform `{product}-shared-infrastructure` standard; decision #13, 2026-07-06 — supersedes the earlier "colocated first-consumer" rule). Under this rule: the shared estate (AKS, PostgreSQL Flexible Server, ACR, APIM instance + base policies, Application Insights / Log Analytics, Key Vault) is provisioned and independently verified in `ctam-shared-infrastructure` (Epic 0.0), ahead of any service; each service repo carries Terraform for its own Key Vault namespace and service-specific resources (e.g. the MRD blob storage in `ctam-reference-data`; the Static Web App in `ctam-ui`). Per-environment stacks (`dev` / `staging` / `production`); `ctam-scaffold.sh` adds the per-service `terraform/` skeleton. Division of labour: **Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema** — no overlap. State backend + plan/apply pipeline arrangement: [`./architecture/gaps.md` G9](./architecture/gaps.md).
+**Infrastructure provisioning: Terraform** (HMCTS standard; decision 2026-06-11 — no Bicep, no portal click-ops). **Product-level *shared* infrastructure lives in its own dedicated repo, `ctam-shared-infrastructure`** (HMCTS Cloud Native Platform `{product}-shared-infrastructure` standard; decision #13, 2026-07-06 — supersedes the earlier "colocated first-consumer" rule). Under this rule: the shared estate (AKS, PostgreSQL Flexible Server, ACR, APIM instance + base policies, Application Insights / Log Analytics, Key Vault) is provisioned and independently verified in `ctam-shared-infrastructure` (Epic 1.0), ahead of any service; each service repo carries Terraform for its own Key Vault namespace and service-specific resources (e.g. the MRD blob storage in `ctam-reference-data`; the Static Web App in `ctam-ui`). Per-environment stacks (`dev` / `staging` / `production`); `ctam-scaffold.sh` adds the per-service `terraform/` skeleton. Division of labour: **Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema** — no overlap. State backend + plan/apply pipeline arrangement: [`./architecture/gaps.md` G9](./architecture/gaps.md).
 
 **Hosting:** Azure Kubernetes Service (AKS), single cluster in UK South, multi-AZ node pools. Pod anti-affinity (`topology.kubernetes.io/zone`) distributes replicas across AZs. Min 2 replicas/service; HPA tunes upward. Rollout isolation (jurisdiction-first, then per-region) is enforced at the app tier via per-(jurisdiction, region) activation flags (FR57), not infrastructure. DR is an open gap — see [`./architecture/gaps.md` G3.6](./architecture/gaps.md).
 
@@ -557,15 +557,15 @@ Single-AZ failure within UK South is tolerated transparently: AKS reschedules po
 
 **Implementation Sequence:**
 
-1. **Phase 0 prerequisites** — Azure subscription + UK regions; the shared Azure estate **Terraform-provisioned in `ctam-shared-infrastructure`** (AKS, shared global PostgreSQL Flexible Server with single shared schema + per-service DB roles, ACR, APIM, App Insights, Key Vault — provisioned and independently verified in **Epic 0.0** per decision #13 / SCP 2026-07-06, ahead of any service; supersedes the earlier colocated first-consumer rule); HMCTS Crime SpringBoot template forked into CTAM Pathfinder scaffolding script (incl. per-repo `terraform/` skeleton). *(HMCTS IdP feature confirmation deferred to pre-Phase-9; see point 8.)*
-2. **Phase 0 mock authentication** — `ctam-mock-auth` deployed as Spring Authorization Server-based service. Issues OIDC tokens for human user roster; **issues service tokens via `client_credentials` for `ctam-payment-batch`**.
-3. **Phase 0 services** — built per HMCTS starter pattern, each with own DB role + table set, OpenAPI spec, Postman collection, Helm chart, in this order (integrations-first carve-out, decision #12 / SCP 2026-06-17): **(a) `ctam-reference-data` first** — scaffold + the two ingestion mechanisms: the in-process scheduled JOH eLinks sync (nightly, `jo_*` tables + `ctam_sync_status`) and the MRD blob-drop pick-up (weekly, `mrd_*` tables); this is the programme's first deliverable and first external integration. **(b) `ctam-authorisation`** — consumes the shared estate (no longer provisions it). **(c) the Reference Data read API** — depends on (b) for `JWTFilter` + jurisdiction resolution. **(d) `ctam-notification`**. *(A shared `ctam_configuration_values` table is created by the `ctam-architecture` Liquibase baseline changelog ahead of `ctam-reference-data`; SELECT-granted to every CTAM Pathfinder service role.)*
-4. **Dev/CI environments seeded by one-off scripts** — representative `jo_*`/`mrd_*` fixtures + tier-(b) reference data + a representative user roster spanning both identity populations. *(Production reference data arrives via the ingestion mechanisms; production user/authorisation records are bootstrapped by mechanisms outside the PRD's scope[^d9] — the Phase 0 Data Migration ETL is retracted.)*
-5. **Phase 0 API gateway** — Azure API Management with default rate-limit policies (TBD #1 resolution).
-6. **Phase 0 UI shell** — one Vite + React + GOV.UK Design System scaffold deployed to Azure Static Web Apps: `ctam-ui` (business), carrying the role-scoped Home shell. *(`ctam-admin-ui` is post-MVP[^d10]; MVP admin operations are DBA-via-SQL per runbook.)*
+1. **Phase 1 prerequisites** — Azure subscription + UK regions; the shared Azure estate **Terraform-provisioned in `ctam-shared-infrastructure`** (AKS, shared global PostgreSQL Flexible Server with single shared schema + per-service DB roles, ACR, APIM, App Insights, Key Vault — provisioned and independently verified in **Epic 1.0** per decision #13 / SCP 2026-07-06, ahead of any service; supersedes the earlier colocated first-consumer rule); HMCTS Crime SpringBoot template forked into CTAM Pathfinder scaffolding script (incl. per-repo `terraform/` skeleton). *(HMCTS IdP feature confirmation deferred to pre-Phase-10; see point 8.)*
+2. **Phase 1 mock authentication** — `ctam-mock-auth` deployed as Spring Authorization Server-based service. Issues OIDC tokens for human user roster; **issues service tokens via `client_credentials` for `ctam-payment-batch`**.
+3. **Phase 1 services** — built per HMCTS starter pattern, each with own DB role + table set, OpenAPI spec, Postman collection, Helm chart, in this order (integrations-first carve-out, decision #12 / SCP 2026-06-17): **(a) `ctam-reference-data` first** — scaffold + the two ingestion mechanisms: the in-process scheduled JOH eLinks sync (nightly, `jo_*` tables + `ctam_sync_status`) and the MRD blob-drop pick-up (weekly, `mrd_*` tables); this is the programme's first deliverable and first external integration. **(b) `ctam-authorisation`** — consumes the shared estate (no longer provisions it). **(c) the Reference Data read API** — depends on (b) for `JWTFilter` + jurisdiction resolution. **(d) `ctam-notification`**. *(A shared `ctam_configuration_values` table is created by the `ctam-architecture` Liquibase baseline changelog ahead of `ctam-reference-data`; SELECT-granted to every CTAM Pathfinder service role.)*
+4. **Dev/CI environments seeded by one-off scripts** — representative `jo_*`/`mrd_*` fixtures + tier-(b) reference data + a representative user roster spanning both identity populations. *(Production reference data arrives via the ingestion mechanisms; production user/authorisation records are bootstrapped by mechanisms outside the PRD's scope[^d9] — the Phase 1 Data Migration ETL is retracted.)*
+5. **Phase 1 API gateway** — Azure API Management with default rate-limit policies (TBD #1 resolution).
+6. **Phase 1 UI shell** — one Vite + React + GOV.UK Design System scaffold deployed to Azure Static Web Apps: `ctam-ui` (business), carrying the role-scoped Home shell. *(`ctam-admin-ui` is post-MVP[^d10]; MVP admin operations are DBA-via-SQL per runbook.)*
 7. **Phases 1–8** — domain services per the brainstorming sequence (JOH → Absence → Vacancy → Booking → Sitting → Payment → Itinerary → MI Feed); each adds its own tables, OpenAPI spec, Postman collection, and a `ctam-ui` module. **No legacy-data migration in any phase** — revised D3: reference data is ingested from JOH eLinks + MRD; historical data stays in the incumbents.
-8. **Pre-Phase-9 — Real HMCTS IdP integration cutover** — confirm G1.1, G1.2 (client_credentials for batch — re-opened v2.6), G1.3. Switch staging `issuer-url` from mock auth to HMCTS IdP via Spring profile. Run the bootstrap-verification pass (every user in both populations maps to a real IdP principal). Re-execute full automated test suite + per-service manual UAT scripts before opening wave 1. **The ET-cohort readiness assessment[^d13] must be signed off — and G8.4 (ET incumbent) closed — before the wave-1 cutover plan is finalised.**
-9. **Phase 9+** — jurisdiction-first rollout waves on production with real HMCTS IdP[^d13]: wave 1 = **Employment Tribunals** (incumbent `[ET-INCUMBENT-TBD]`, G8.4); wave 2 = SSCS (replacing ListAssist; GAPS case management retained); waves 3+ = Courts jurisdictions per-region (replacing APEX/JI). App Insights retention and the incumbent historical-access arrangement activated per wave.
+8. **Pre-Phase-10 — Real HMCTS IdP integration cutover** — confirm G1.1, G1.2 (client_credentials for batch — re-opened v2.6), G1.3. Switch staging `issuer-url` from mock auth to HMCTS IdP via Spring profile. Run the bootstrap-verification pass (every user in both populations maps to a real IdP principal). Re-execute full automated test suite + per-service manual UAT scripts before opening wave 1. **The ET-cohort readiness assessment[^d13] must be signed off — and G8.4 (ET incumbent) closed — before the wave-1 cutover plan is finalised.**
+9. **Phase 10+** — jurisdiction-first rollout waves on production with real HMCTS IdP[^d13]: wave 1 = **Employment Tribunals** (incumbent `[ET-INCUMBENT-TBD]`, G8.4); wave 2 = SSCS (replacing ListAssist; GAPS case management retained); waves 3+ = Courts jurisdictions per-region (replacing APEX/JI). App Insights retention and the incumbent historical-access arrangement activated per wave.
 
 **Cross-Component Dependencies:**
 
@@ -620,7 +620,7 @@ See [`./architecture/repo-structure.md`](./architecture/repo-structure.md).
 
 **UI Boundaries:** **two SPAs** (v2.10) — `ctam-ui` (business, **MVP**) and `ctam-admin-ui` (admin, **post-MVP[^d10]**). Each SPA contains multiple modules; each module imports its generated API client; cross-module communication via TanStack Query cache + React Context. No code-sharing between the two SPAs — same stack and conventions, but independent repos, pipelines, and deployments. Admin workflows (tier-(b) Reference Data maintenance per FR6, User & Role admin per FR4) live exclusively in `ctam-admin-ui` and never appear in `ctam-ui`'s nav; in MVP those operations are DBA-via-SQL per runbook.
 
-**External Systems:** HMCTS IdP (every authentication); JOH eLinks API (inbound reference-data pull, scheduled); MRD (inbound weekly Excel via blob drop); JFEPS/Liberata (outbound only via Notification → email — verified for SSCS, now wave 2; **ET wave-1 applicability unverified, G8.6**); HMCTS Email (outbound only); incumbents during build (manual UAT only — `[ET-INCUMBENT-TBD]` for wave 1, ListAssist for wave 2, APEX for waves 3+); APEX during Courts rollout (read-only for migrated users for 12 months, served separately); external case-management systems (outbound — they consume CTAM's APIs from Phase 9, never write in,[^d12]; ET: system TBC per G8.5; SSCS: **GAPS** — retained case management; Courts: Listing systems); DA&I (inbound only, post-MVP).
+**External Systems:** HMCTS IdP (every authentication); JOH eLinks API (inbound reference-data pull, scheduled); MRD (inbound weekly Excel via blob drop); JFEPS/Liberata (outbound only via Notification → email — verified for SSCS, now wave 2; **ET wave-1 applicability unverified, G8.6**); HMCTS Email (outbound only); incumbents during build (manual UAT only — `[ET-INCUMBENT-TBD]` for wave 1, ListAssist for wave 2, APEX for waves 3+); APEX during Courts rollout (read-only for migrated users for 12 months, served separately); external case-management systems (outbound — they consume CTAM's APIs from Phase 10, never write in,[^d12]; ET: system TBC per G8.5; SSCS: **GAPS** — retained case management; Courts: Listing systems); DA&I (inbound only, post-MVP).
 
 ### Requirements to Structure Mapping
 
@@ -699,7 +699,7 @@ See [`./architecture/repo-structure.md`](./architecture/repo-structure.md).
 
 | External system | Direction | CTAM Pathfinder service interacting | Pattern |
 |---|---|---|---|
-| HMCTS IdP | inbound (human authN) | Every service's `JWTFilter` validates user JWTs via JWKS; **Authorisation** maps to CTAM Pathfinder roles | OIDC `authorization_code` for human users; JWT signature validation via JWKS (`io.jsonwebtoken:jjwt`); cross-service calls forward the user's JWT (Pattern 1). **Pre-Phase-9 dependency only** — mock auth covers Phase 0–8; cutover is a Spring profile change. |
+| HMCTS IdP | inbound (human authN) | Every service's `JWTFilter` validates user JWTs via JWKS; **Authorisation** maps to CTAM Pathfinder roles | OIDC `authorization_code` for human users; JWT signature validation via JWKS (`io.jsonwebtoken:jjwt`); cross-service calls forward the user's JWT (Pattern 1). **Pre-Phase-10 dependency only** — mock auth covers Phase 1–9; cutover is a Spring profile change. |
 | HMCTS IdP / Azure Workload Identity (production issuer per G7.1) | inbound (service-principal authN for batch) | `JWTFilter` validates batch service tokens via the same JWKS path | OAuth 2.0 `client_credentials` for `ctam-payment-batch`; **non-prod via `ctam-mock-auth` (mock_oauth_clients)**. (Pattern 2.) |
 | JOH eLinks API | inbound (reference data — MVP per NFR24) | Reference Data (in-process scheduled sync) | Nightly REST pull; full-refresh upsert into the 15 `jo_*` tables; soft-deactivation, never hard-delete; sync state in `ctam_sync_status`. Outbound credential in Key Vault. **No data flows upstream from CTAM.** |
 | MRD (Master Reference Data) | inbound (reference data — MVP per NFR24) | Reference Data (scheduled blob pick-up) | Weekly Excel feed dropped into a dedicated Azure Blob container; validated, upserted into `mrd_*` tables, file archived for lineage. Transitional until MRD public APIs ship — then the reader swaps for an API client. |
@@ -709,7 +709,7 @@ See [`./architecture/repo-structure.md`](./architecture/repo-structure.md).
 | Azure Key Vault | inbound (secrets) | All services | Spring Cloud Azure Key Vault at startup |
 | Scheduling incumbents — `[ET-INCUMBENT-TBD]` / ListAssist / APEX (manual UAT only) | n/a | UAT users from domain services' user roles | Jurisdiction-incumbent-experienced users compare side-by-side per FR60 / NFR41 (`[ET-INCUMBENT-TBD]` for wave 1 — G8.4; ListAssist for wave 2; APEX for waves 3+)[^d13]. No HTTP scraping, DB read, or CI hook. |
 | APEX (during Courts rollout window) | inbound (read-only for migrated users) | None — APEX served separately | Out-of-band; not a CTAM Pathfinder integration |
-| External case-management systems (ET case management — TBC per G8.5; SSCS: GAPS; Courts Listing) | outbound (from Phase 9,[^d12]) | Domain services' / read models' public APIs | They consume CTAM's JOH availability + booking APIs; **no external system writes into CTAM**. Contract design lands with wave onboarding. |
+| External case-management systems (ET case management — TBC per G8.5; SSCS: GAPS; Courts Listing) | outbound (from Phase 10,[^d12]) | Domain services' / read models' public APIs | They consume CTAM's JOH availability + booking APIs; **no external system writes into CTAM**. Contract design lands with wave onboarding. |
 | DA&I | inbound (post-MVP) | MI Feed | REST API calls; service-token authenticated |
 
 ### Data Flow — Canonical Operational Cycle (Journey 2 from PRD — Courts, waves 3+)
@@ -741,7 +741,7 @@ The cycle has two halves — user-initiated (Court User and RSU) and batch/exter
 
 See [`./architecture/repo-structure.md`](./architecture/repo-structure.md).
 
-### Wave rollout flow (Phase 9+, jurisdiction-first)
+### Wave rollout flow (Phase 10+, jurisdiction-first)
 
 Per-wave production cutover[^d8][^d13] — wave 1 = the **Employment Tribunals** jurisdiction; wave 2 = the SSCS jurisdiction; waves 3+ = Courts jurisdictions per-region — is gated on:
 
@@ -800,7 +800,7 @@ See [`./architecture/assumptions.md`](./architecture/assumptions.md).
 
 *(Scope note: this assessment covers the build architecture (Phases 0–8). The **wave-1 cutover** additionally requires the **ET-cohort readiness assessment**[^d13] — covering JOH eLinks API integration readiness (including `jo_jurisdictions` coverage of ET, G8.1), MRD feed ingestion readiness, the two-population identity model, jurisdiction-aware authorisation, and `[ET-INCUMBENT-TBD]`-experienced UAT panel coverage (blocked on G8.4) — plus the **ET as-is analysis pack** (G8.5) under `docs/architecture/asis/`. The SSCS-cohort assessment and SSCS as-is pack become wave-2 gates. Prior readiness reports assessed the Courts cohort + the now-retracted ETL.)*
 
-All checklist items pass. No critical gaps block implementation. Mock-first authentication reclassifies G1.1, G1.2, G1.3 from Phase 0 blockers to pre-Phase-9 prerequisites. Phase 0 HMCTS dependencies reduce from 5 to 2 (G1.4 starter, G1.5 email); the JOH eLinks API contract and MRD feed arrangements are new Phase 0 external dependencies introduced by the revised D3 (tracked in [`./architecture/gaps.md` G8](./architecture/gaps.md)). Risk #6 (HMCTS IdP integration timing) is mitigated.
+All checklist items pass. No critical gaps block implementation. Mock-first authentication reclassifies G1.1, G1.2, G1.3 from Phase 1 blockers to pre-Phase-10 prerequisites. Phase 1 HMCTS dependencies reduce from 5 to 2 (G1.4 starter, G1.5 email); the JOH eLinks API contract and MRD feed arrangements are new Phase 1 external dependencies introduced by the revised D3 (tracked in [`./architecture/gaps.md` G8](./architecture/gaps.md)). Risk #6 (HMCTS IdP integration timing) is mitigated.
 
 **Why high confidence:**
 
@@ -808,7 +808,7 @@ All checklist items pass. No critical gaps block implementation. Mock-first auth
 - The two foundational principles and the no-shared-library rule are applied consistently through Steps 3–6.
 - Step 5 pattern definitions are concrete and CI-enforceable (Spotless, ArchUnit, Spectral, Pact, axe-core).
 - Polyrepo structure matches phased rollout[^d8] and per-service deployment independence (NFR40).
-- Mock-first authentication removes the HMCTS IdP roadmap from the Phase 0–8 critical path.
+- Mock-first authentication removes the HMCTS IdP roadmap from the Phase 1–9 critical path.
 
 **Strengths:**
 
@@ -830,19 +830,19 @@ All checklist items pass. No critical gaps block implementation. Mock-first auth
 - Use the patterns in [`./architecture/conventions.md`](./architecture/conventions.md) across all 11 services and the UI.
 - Apply the two foundational principles: (1) API for workflows; shared DB for simple data access; (2) no premature optimisation. No shared runtime library.
 - Per-service work happens in the service's own repo. Cross-service work happens via API contracts.
-- Phase 0–8 authentication is `ctam-mock-auth` only (`authorization_code` for humans; `client_credentials` for the payment batch). Real HMCTS IdP starts at the pre-Phase-9 cutover.
+- Phase 1–9 authentication is `ctam-mock-auth` only (`authorization_code` for humans; `client_credentials` for the payment batch). Real HMCTS IdP starts at the pre-Phase-10 cutover.
 - Raise gaps via PR against this document.
 
 **First implementation steps:**
 
-1. Confirm Phase 0 prerequisites: Azure subscription + UK regions; Terraform state backend + plan/apply pipeline arrangement (G9); HMCTS Java/Spring Boot starter; HMCTS Email transport.
+1. Confirm Phase 1 prerequisites: Azure subscription + UK regions; Terraform state backend + plan/apply pipeline arrangement (G9); HMCTS Java/Spring Boot starter; HMCTS Email transport.
 2. Build the CTAM Pathfinder scaffolding script at `ctam-architecture/scaffolding/ctam-scaffold.sh`, layered on the HMCTS starter, with CTAM Pathfinder conventions baked in.
 3. Ship `ctam-mock-auth` (Spring Authorization Server; refuses to start with `production` profile; supports `authorization_code` and `client_credentials`).
-4. Ship the three Phase 0 cross-cutting services: Reference Data (including the JOH eLinks scheduled sync, the MRD blob pick-up, and the two-tier `jo_*`/`mrd_*`/CTAM-owned table set), Authorisation (including `ctam_auth_staff_identities` and the two-population identity lookup), Notification. The shared `ctam_configuration_values` table is created by `ctam-architecture`'s Liquibase baseline changelog. Confirm the JOH eLinks API contract and the MRD blob-drop arrangement early — both are Phase 0 external dependencies (G8).
-5. Deploy Phase 0 to dev. Exercise API-as-Product standards (versioning, OpenAPI, RFC 9457 problem-details, deprecation signalling). Validate Postman collections. Run automated tests. Manual UAT starts in Phase 1.
-6. Resolve programme-management dependencies before Phase 9.
-7. Begin Phase 1 (JOH service — `ctam-joh`). Expand across Phases 2–8 in dependency order.
-8. Pre-Phase-9: real HMCTS IdP cutover — verify G1.1, G1.2, G1.3; switch staging `issuer-url` to HMCTS IdP (and resolve production service-principal issuer per G7.1); rehearse cutover; re-run automated tests + manual UAT against real IdP. Complete the ET-cohort readiness assessment[^d13] — and close G8.4 — before finalising the wave-1 cutover plan.
+4. Ship the three Phase 1 cross-cutting services: Reference Data (including the JOH eLinks scheduled sync, the MRD blob pick-up, and the two-tier `jo_*`/`mrd_*`/CTAM-owned table set), Authorisation (including `ctam_auth_staff_identities` and the two-population identity lookup), Notification. The shared `ctam_configuration_values` table is created by `ctam-architecture`'s Liquibase baseline changelog. Confirm the JOH eLinks API contract and the MRD blob-drop arrangement early — both are Phase 1 external dependencies (G8).
+5. Deploy Phase 1 to dev. Exercise API-as-Product standards (versioning, OpenAPI, RFC 9457 problem-details, deprecation signalling). Validate Postman collections. Run automated tests. Manual UAT starts in Phase 2.
+6. Resolve programme-management dependencies before Phase 10.
+7. Begin Phase 2 (JOH service — `ctam-joh`). Expand across Phases 2–8 in dependency order.
+8. Pre-Phase-10: real HMCTS IdP cutover — verify G1.1, G1.2, G1.3; switch staging `issuer-url` to HMCTS IdP (and resolve production service-principal issuer per G7.1); rehearse cutover; re-run automated tests + manual UAT against real IdP. Complete the ET-cohort readiness assessment[^d13] — and close G8.4 — before finalising the wave-1 cutover plan.
 
 ## External References
 

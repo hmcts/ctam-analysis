@@ -303,7 +303,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ul>
 <li>Other non-user-initiated flows (more scheduled jobs, async messaging, event bus) — would use the same service-principal pattern.</li>
 <li>DA&amp;I post-MVP MI Feed integration — auth model TBD. See <a href="architecture/tobe/gaps.html"><code>./architecture/gaps.md</code> G7.2</a>.</li>
-<li>Production service-auth issuer — <code>ctam-mock-auth</code> covers Phase 0–8; deferred per G7.1.</li>
+<li>Production service-auth issuer — <code>ctam-mock-auth</code> covers Phase 1–9; deferred per G7.1.</li>
 </ul>
 </div></details><details class="section" id="api-patterns"><summary><span class="section-title">API patterns</span></summary><div class="section-body">
 <table>
@@ -387,7 +387,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Reference Data writes</td>
-<td>Via <code>ctam-reference-data</code> API (admin / Phase 0 seeding)</td>
+<td>Via <code>ctam-reference-data</code> API (admin / Phase 1 seeding)</td>
 </tr>
 <tr>
 <td>Cross-service workflow</td>
@@ -413,7 +413,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </table>
 </div></details><details class="section" id="deployment-topology"><summary><span class="section-title">Deployment topology</span></summary><div class="section-body">
 <ul>
-<li><strong>Infrastructure provisioning</strong> — <strong>Terraform</strong> (HMCTS standard). Product-level shared estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) lives in the dedicated <strong><code>ctam-shared-infrastructure</code></strong> repo (HMCTS CNP standard; decision #13), provisioned + independently verified in Epic 0.0; per-service resources (Key Vault namespaces, MRD blob storage, Static Web App) in their own repos. Terraform provisions; Helm deploys; Liquibase owns schema.</li>
+<li><strong>Infrastructure provisioning</strong> — <strong>Terraform</strong> (HMCTS standard). Product-level shared estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) lives in the dedicated <strong><code>ctam-shared-infrastructure</code></strong> repo (HMCTS CNP standard; decision #13), provisioned + independently verified in Epic 1.0; per-service resources (Key Vault namespaces, MRD blob storage, Static Web App) in their own repos. Terraform provisions; Helm deploys; Liquibase owns schema.</li>
 <li><strong>Production region</strong> — Azure UK South.</li>
 <li><strong>HA</strong> — multi-AZ within UK South for every component:
 <ul>
@@ -431,10 +431,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Boundary</strong> — jurisdiction first, then per-region within jurisdiction. Wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (incumbent <code>[ET-INCUMBENT-TBD]</code>, G8.4), all in-jurisdiction applicable roles in one wave. Wave 2 = the <strong>SSCS</strong> jurisdiction (replacing ListAssist; GAPS case management retained). Waves 3+ = Courts jurisdictions (Civil, Crime, Family, Crown) per HMCTS judicial region (replacing APEX/JI).<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></li>
 <li><strong>Mechanism</strong> — per-user activation flag in <code>ctam_auth_user_activation_flags</code> carrying the (jurisdiction, region) tuple (FR57). Migrated-wave users authenticate; non-migrated users are rejected at the <code>JWTFilter</code> boundary. Cutover flip: <code>UPDATE ctam_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '…' AND region = '…'</code> per the rollout runbook; flip-off rolls back to the incumbent.</li>
 <li><strong>Wave gates</strong> — automated tests passing (unit, integration with Testcontainers PostgreSQL, contract); manual UAT signed off by jurisdiction-incumbent-experienced users (<code>[ET-INCUMBENT-TBD]</code> users for wave 1; ListAssist users for wave 2; APEX users for waves 3+); data readiness verified (reference data current per <code>ctam_sync_status</code>; bootstrapped users verified against IdP principals); for wave 1, the <strong>ET-cohort readiness assessment</strong> + the <strong>ET as-is analysis pack</strong> (G8.5) + G8.4 closed<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>; programme sign-off.</li>
-<li><strong>Build sequence</strong> — Phase 0 cross-cutting services (incl. upstream ingestion) + UI shell; Phases 1–6 domain services in dependency order (JOH → Absence → Vacancy → Booking → Sitting → Payment); Phases 7–8 read-models (Itinerary, MI Feed); Pre-Phase-9 real-IdP cutover; Phase 9+ jurisdiction-first rollout waves.</li>
+<li><strong>Build sequence</strong> — Phase 1 cross-cutting services (incl. upstream ingestion) + UI shell; Phases 1–6 domain services in dependency order (JOH → Absence → Vacancy → Booking → Sitting → Payment); Phases 7–8 read-models (Itinerary, MI Feed); Pre-Phase-10 real-IdP cutover; Phase 10+ jurisdiction-first rollout waves.</li>
 </ul>
 </div></details><details class="section" id="upstream-reference-data-ingestion-no-legacy-migration"><summary><span class="section-title">Upstream reference-data ingestion (no legacy migration)</span></summary><div class="section-body">
-<p>Per the revised D3 (2026-06-10), <strong>CTAM Pathfinder migrates nothing from ListAssist or APEX</strong> — the Phase 0 Data Migration ETL is retracted. Judicial-holder reference data is ingested from upstream sources of truth, in-process within <code>ctam-reference-data</code>:</p>
+<p>Per the revised D3 (2026-06-10), <strong>CTAM Pathfinder migrates nothing from ListAssist or APEX</strong> — the Phase 1 Data Migration ETL is retracted. Judicial-holder reference data is ingested from upstream sources of truth, in-process within <code>ctam-reference-data</code>:</p>
 <ul>
 <li><strong>JOH eLinks API</strong> → 15 <code>jo_*</code> tables. Nightly <code>@Scheduled</code> pull; full-refresh upsert on the upstream natural key; rows absent upstream are marked inactive, never hard-deleted. Sync state in <code>ctam_sync_status</code>.</li>
 <li><strong>MRD (Master Reference Data)</strong> → <code>mrd_*</code> tables. Weekly Excel feed dropped into an Azure Blob container; a <code>@Scheduled</code> task validates, upserts, and archives. Transitional until MRD's public APIs ship.</li>
@@ -479,7 +479,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>External case-management systems (ET: system TBC per G8.5; SSCS: <strong>GAPS</strong> — retained case management; Courts: Listing systems)</td>
-<td>outbound (from Phase 9,<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>)</td>
+<td>outbound (from Phase 10,<a href="#fn12" class="footnote-ref" id="fnref12" role="doc-noteref"><sup>12</sup></a>)</td>
 <td>Consume CTAM's JOH availability + booking APIs; never write into CTAM</td>
 </tr>
 <tr>

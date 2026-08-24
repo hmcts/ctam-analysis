@@ -106,7 +106,7 @@ for packet in "$@"; do
 
     # story_id must be CTAM's three-part <phase>.<epic>.<story>, and must agree with the filename,
     # sprint_status_key and H1. Presence alone was not enough: BMad's default key parse yields a
-    # TWO-part id (epic 0.1 story 4 -> "0.1"), which is present, plausible, and puts every story in
+    # TWO-part id (epic 1.1 story 4 -> "1.1"), which is present, plausible, and puts every story in
     # an epic at one path and on one branch. Present-but-wrong needs a shape check.
     fm_value() {
       printf '%s\n' "$frontmatter" |
@@ -115,7 +115,7 @@ for packet in "$@"; do
     sid=$(fm_value story_id)
     if [ -n "$sid" ]; then
       if ! printf '%s' "$sid" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
-        echo "   ERROR: story_id '$sid' is not <phase>.<epic>.<story> (e.g. 0.1.4)"
+        echo "   ERROR: story_id '$sid' is not <phase>.<epic>.<story> (e.g. 1.1.4)"
         echo "          A two-part id means BMad's default key parse was taken unchanged."
         errors=$((errors + 1))
       fi
@@ -147,7 +147,7 @@ for packet in "$@"; do
       d="${d//[[:space:]]/}"
       [ -z "$d" ] && continue
       printf '%s' "$d" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$' || {
-        echo "   ERROR: depends_on_stories entry '$d' is not a three-part story id (e.g. 0.1.1)"
+        echo "   ERROR: depends_on_stories entry '$d' is not a three-part story id (e.g. 1.1.1)"
         errors=$((errors + 1))
       }
     done

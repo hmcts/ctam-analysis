@@ -193,7 +193,7 @@ def main() -> int:
             children[pid].append(nid)
 
     def order_key(nid):
-        return nid  # natural id sort (epic-0.1 < epic-0.2; groups handled below)
+        return nid  # natural id sort (epic-1.1 < epic-1.2; groups handled below)
 
     for nid in children:
         if nid == ROOT:

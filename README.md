@@ -2,7 +2,7 @@
 
 Central **planning, analysis, and delivery-coordination hub** for **CTAM Pathfinder** — HMCTS's greenfield Judicial Office Holder (JOH) availability-and-scheduling platform.
 
-This repository is **not** the implementation and holds no runtime code. CTAM Pathfinder is built as a separate **16-repo polyrepo** (`ctam-*` repositories); this repo holds the PRD, architecture, epics/stories, the delivery operating model, the delivery control plane, and the AS-IS analysis of the legacy system. Delivery is **AI-led (Claude Code) using the BMAD method**.
+This repository is **not** the implementation and holds no runtime code. CTAM Pathfinder is built as a separate **17-repo polyrepo** (`ctam-*` repositories); this repo holds the PRD, architecture, epics/stories, the delivery operating model, the delivery control plane, and the AS-IS analysis of the legacy system. Delivery is **AI-led (Claude Code) using the BMAD method**.
 
 ## Programme summary
 
@@ -14,27 +14,28 @@ This repository is **not** the implementation and holds no runtime code. CTAM Pa
 
 Requirements baseline: **60 FRs, 42 NFRs, decisions D1–D12** (see `prd.md`).
 
-## Delivery: the 16-repo polyrepo
+## Delivery: the 17-repo polyrepo
 
 Per-service code lives in dedicated repositories (no monorepo; no shared runtime library). The canonical list and rationale are in [`architecture/repository-strategy.md`](_bmad-output/planning-artifacts/architecture/repository-strategy.md).
 
 | Cluster | Repo | Phase | Responsibility |
 |---|---|---|---|
-| Platform | `ctam-shared-infrastructure` | 0 | Shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) — Terraform only |
-| Platform | `ctam-architecture` | 0 | Architecture docs + ADRs + scaffolding script; the version-pinned **context bus** for service repos |
-| Cross-cutting | `ctam-mock-auth` | 0 | OIDC issuer for dev / CI / integration — never deployed to production |
-| Cross-cutting | `ctam-reference-data` | 0 | 33 reference-data tables (two-tier: upstream `jo_*`/`mrd_*` + CTAM-owned) + eLinks/MRD ingestion + `ctam_joh_identities` |
-| Cross-cutting | `ctam-authorisation` | 0 | Per-request authz; two-population identity; roles, jurisdiction, Region/Area scope, activation flags |
-| Cross-cutting | `ctam-notification` | 0 | Outbound transactional email + JFEPS-shaped payment-schedule emails |
-| Domain | `ctam-joh` | 1 | JOH operational state — working patterns, ticket/location overlays, jurisdictional split |
-| Domain | `ctam-absence` | 2 | Absence records + approval workflow; triggers vacancy creation |
-| Domain | `ctam-vacancy` | 3 | Cover-required vacancies; `filled` flag UPDATE-granted to Booking |
-| Domain | `ctam-booking` | 4 | Fee-paid bookings + verification |
-| Domain | `ctam-sitting` | 5 | Salaried-JOH sittings; verification; AM/PM split |
-| Domain | `ctam-payment` | 6 | Payments + reconciliation; JFEPS Excel via a scheduled batch (`ctam-payment-batch`) |
-| Read-model | `ctam-itinerary` | 7 | Court + Judge itinerary; Forward Look; SQL JOINs over the shared schema (no own tables) |
-| Read-model | `ctam-mi-feed` | 8 | Aggregate reports; DA&I consumer feed (post-MVP); aggregate-only, no case-level data |
-| Frontend | `ctam-ui` | 0–8 | Business-user SPA; per-domain modules; GOV.UK Design System; WCAG 2.2 AA |
+| Cross-cutting | `ctam-jomockapi` | 0 | Local mock of the upstream Judiciary E-links People API (v5) — dev/integration-only, never deployed to production |
+| Platform | `ctam-shared-infrastructure` | 1 | Shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) — Terraform only |
+| Platform | `ctam-architecture` | 1 | Architecture docs + ADRs + scaffolding script; the version-pinned **context bus** for service repos |
+| Cross-cutting | `ctam-mock-auth` | 1 | OIDC issuer for dev / CI / integration — never deployed to production |
+| Cross-cutting | `ctam-reference-data` | 1 | 33 reference-data tables (two-tier: upstream `jo_*`/`mrd_*` + CTAM-owned) + eLinks/MRD ingestion + `ctam_joh_identities` |
+| Cross-cutting | `ctam-authorisation` | 1 | Per-request authz; two-population identity; roles, jurisdiction, Region/Area scope, activation flags |
+| Cross-cutting | `ctam-notification` | 1 | Outbound transactional email + JFEPS-shaped payment-schedule emails |
+| Domain | `ctam-joh` | 2 | JOH operational state — working patterns, ticket/location overlays, jurisdictional split |
+| Domain | `ctam-absence` | 3 | Absence records + approval workflow; triggers vacancy creation |
+| Domain | `ctam-vacancy` | 4 | Cover-required vacancies; `filled` flag UPDATE-granted to Booking |
+| Domain | `ctam-booking` | 5 | Fee-paid bookings + verification |
+| Domain | `ctam-sitting` | 6 | Salaried-JOH sittings; verification; AM/PM split |
+| Domain | `ctam-payment` | 7 | Payments + reconciliation; JFEPS Excel via a scheduled batch (`ctam-payment-batch`) |
+| Read-model | `ctam-itinerary` | 8 | Court + Judge itinerary; Forward Look; SQL JOINs over the shared schema (no own tables) |
+| Read-model | `ctam-mi-feed` | 9 | Aggregate reports; DA&I consumer feed (post-MVP); aggregate-only, no case-level data |
+| Frontend | `ctam-ui` | 1–9 | Business-user SPA; per-domain modules; GOV.UK Design System; WCAG 2.2 AA |
 | Frontend | `ctam-admin-ui` | post-MVP | Admin SPA (Reference Data + User/Role admin), separated from business workflows |
 
 *JOH identity:* every JOH carries a CTAM-assigned UUID (`ctam_joh_identities`); `personnel_number` is the upstream link to `jo_people` only (per SCP 2026-07-09).
@@ -45,7 +46,7 @@ Per-service code lives in dedicated repositories (no monorepo; no shared runtime
 
 - **PRD & business case** — `prd.md`, `business-case.md`, plus dated validation/readiness reports and `sprint-change-proposal-*` (historical records).
 - **Architecture** — `architecture.md` + `architecture/` shards: `repository-strategy.md`, `repo-structure.md`, `conventions.md` (the consistency contract), `data-tables.md`, `delivery-operating-model.md`, `gaps.md`, `assumptions.md`, `changelog.md`, FR/NFR coverage, `diagrams/`, `sequence-diagrams/`.
-- **Epics** — `epics/framework.md` + `epics/phase-0/` (stories embedded in each epic; only Phase 0 is decomposed so far — 6 epics, 19 stories).
+- **Epics** — `epics/framework.md` + `epics/phase-1/` (stories embedded in each epic; only Phase 1 is decomposed so far — 7 epics, 21 stories) + `epics/phase-0/` (dev/integration prerequisites, 1 epic, 2 stories).
 - **Delivery control plane** — [`delivery/README.md`](_bmad-output/planning-artifacts/delivery/README.md): the dispatch -> execute -> signal loop. Build order is `depends_on:` in each epic's frontmatter; status is BMad's `implementation-artifacts/sprint-status.yaml`; `scripts/dispatch-preflight.sh` is the pre-dispatch check.
 - **`project-context.md`** — lean, LLM-optimised implementation rules for the service code.
 
@@ -57,7 +58,7 @@ See [`architecture/delivery-operating-model.md`](_bmad-output/planning-artifacts
 
 - **Control plane** (this repo) — canonical planning + dispatch + traceability; never edits service code.
 - **Context bus** (`ctam-architecture`) — version-pinned published architecture each service repo consumes as a submodule; API contracts stay producer-owned (this repo holds a read-only mirror only).
-- **Execution units** (the 15 service/UI/infra repos) — where code lands; each receives a self-contained story packet.
+- **Execution units** (the 16 service/UI/infra repos) — where code lands; each receives a self-contained story packet.
 - Build order is `depends_on:` in each epic's frontmatter; progress lives in BMad's `sprint-status.yaml`. BMAD skills map on: create-story = dispatch, dev-story + code-review = execute, sprint-status = signal.
 
 ## Repository layout
@@ -67,7 +68,7 @@ ctam-analysis/
 ├── _bmad-output/
 │   ├── planning-artifacts/     # CANONICAL, tracked: PRD, architecture, epics, delivery control plane
 │   │   ├── architecture/       # architecture.md shards + diagrams + sequence-diagrams
-│   │   ├── epics/              # framework + phase-0 epics (stories embedded)
+│   │   ├── epics/              # framework + phase-0/phase-1 epics (stories embedded)
 │   │   └── delivery/          # README.md — the dispatch/signal loop
 │   ├── project-context.md      # lean implementation rules for service code
 │   └── brainstorming/          # local scratch (early discovery)
@@ -87,7 +88,7 @@ ctam-analysis/
 2. **[`prd.md`](_bmad-output/planning-artifacts/prd.md)** — scope, decisions (D1–D12), success criteria, user journeys, FR/NFR contracts.
 3. **[`architecture.md`](_bmad-output/planning-artifacts/architecture.md)** + its shards — decisions, gaps (`gaps.md`), assumptions, data-table inventory, conventions.
 4. **[`delivery-operating-model.md`](_bmad-output/planning-artifacts/architecture/delivery-operating-model.md)** + [`delivery/`](_bmad-output/planning-artifacts/delivery/) — how implementation is coordinated across the polyrepo.
-5. **[`epics/`](_bmad-output/planning-artifacts/epics/)** — the Phase 0 breakdown and FR coverage map.
+5. **[`epics/`](_bmad-output/planning-artifacts/epics/)** — the Phase 0/Phase 1 breakdown and FR coverage map.
 6. **[`changelog.md`](_bmad-output/planning-artifacts/architecture/changelog.md)** + the latest `sprint-change-proposal-*` — most recent product-direction shifts.
 7. **AS-IS context** — the legacy JI pack under [`docs/architecture/asis/`](docs/architecture/asis/).
 

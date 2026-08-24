@@ -336,10 +336,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Modelling in CTAM Pathfinder:</strong></p>
 <ol type="1">
 <li>Stored as configuration, not as an authenticated principal.</li>
-<li>The list of valid Payment Authoriser recipients is administrable (Phase 0 design decision: most likely the shared <code>ctam_configuration_values</code> infrastructure table or an admin-maintained reference list — to be finalised in the Payment service's design).</li>
+<li>The list of valid Payment Authoriser recipients is administrable (Phase 1 design decision: most likely the shared <code>ctam_configuration_values</code> infrastructure table or an admin-maintained reference list — to be finalised in the Payment service's design).</li>
 <li>Finance users select a Payment Authoriser from this list when generating a payment schedule (FR43).</li>
 <li>The recipient does <strong>not</strong> log into CTAM Pathfinder. They receive the JFEPS Excel by email and forward it to Liberata out-of-system (D6, unchanged from APEX).</li>
-<li>The 2 individuals recorded against this entry in the as-is catalogue (Feb 2026) are tracked operationally but are not migrated as CTAM Pathfinder users in Phase 0<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
+<li>The 2 individuals recorded against this entry in the as-is catalogue (Feb 2026) are tracked operationally but are not migrated as CTAM Pathfinder users in Phase 1<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
 </ol>
 </div></details><details class="section" id="administrative--cross-cutting-roles"><summary><span class="section-title">Administrative / cross-cutting roles</span></summary><div class="section-body">
 <p>These are not user-facing access types in the as-is catalogue; they are CTAM Pathfinder-specific permissions overlaid on the taxonomy above.</p>
@@ -378,7 +378,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Authentication:</strong> HMCTS IdP via OIDC <code>authorization_code</code> (FR1). CTAM Pathfinder does not own password, session, or account lifecycle.</li>
 <li><strong>Authorisation state:</strong> <code>ctam-authorisation</code> owns <code>ctam_auth_users</code>, <code>ctam_auth_roles</code>, <code>ctam_auth_user_roles</code>, <code>ctam_auth_user_region_scopes</code>, <code>ctam_auth_user_activation_flags</code>. Authoritative table ownership is recorded in <a href="data-tables.html"><code>./data-tables.md</code></a>.</li>
 <li><strong>Enforcement:</strong> every API call resolves principal → role(s) + Region/Area scope through Authorisation; implemented as per-service middleware (FR2). Effective-permission lookup is <code>POST /authz/check</code> (FR3).</li>
-<li><strong>Phase 0 migration:</strong> active APEX users + role/Region-Area scope assignments are loaded into CTAM Pathfinder via the Authorisation API and mapped to IdP principals (D9, Risk #14). Unmatched records get an explicit decision — drop / hold / manual map. Zero ambiguous migrations.</li>
+<li><strong>Phase 1 migration:</strong> active APEX users + role/Region-Area scope assignments are loaded into CTAM Pathfinder via the Authorisation API and mapped to IdP principals (D9, Risk #14). Unmatched records get an explicit decision — drop / hold / manual map. Zero ambiguous migrations.</li>
 <li><strong>Per-user activation flag:</strong> rollout gating uses <code>ctam_auth_user_activation_flags</code> keyed by (jurisdiction, region) (FR57) — migrated users do not use the incumbent; non-migrated users do not use CTAM Pathfinder<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</li>
 <li><strong>Verifier separation of duties:</strong> confirmation and verification of sittings/bookings must be performed by different principals — enforced at the application tier on the sitting/booking row's <code>confirmed_by</code> field. Re-open enforces a similar constraint (FR40).</li>
 </ul>
@@ -393,7 +393,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td>Reference Data, Authorisation, Notification (Phase 0)</td>
+<td>Reference Data, Authorisation, Notification (Phase 1)</td>
 <td>Regional (Admin), System Administrator</td>
 </tr>
 <tr>
@@ -401,27 +401,27 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>Regional (Full Access, Admin), Judge, Judge's Clerk</td>
 </tr>
 <tr>
-<td>Vacancy (Phase 3)</td>
+<td>Vacancy (Phase 4)</td>
 <td>Regional (Full Access, Admin, No Fees), Court (Full Access)</td>
 </tr>
 <tr>
-<td>Booking (Phase 4)</td>
+<td>Booking (Phase 5)</td>
 <td>Regional (Full Access, Admin, No Fees), Court (Full Access, Enhanced CJ)</td>
 </tr>
 <tr>
-<td>Sitting (Phase 5)</td>
+<td>Sitting (Phase 6)</td>
 <td>Court (Full Access, Enhanced CJ, Limited, Verifier), Regional (Verifier)</td>
 </tr>
 <tr>
-<td>Payment (Phase 6)</td>
+<td>Payment (Phase 7)</td>
 <td>Finance, (Payment Authoriser as email recipient — out-of-band UAT)</td>
 </tr>
 <tr>
-<td>Itinerary (Phase 7)</td>
+<td>Itinerary (Phase 8)</td>
 <td>Judge, Judge's Clerk, Presiding Judge, Presiding Judge's Clerk <em>(if any user exists at time of UAT)</em>, Judge Itin View Only, Judicial College</td>
 </tr>
 <tr>
-<td>MI Feed (Phase 8)</td>
+<td>MI Feed (Phase 9)</td>
 <td>All access types verifying reports; primary owners: Regional and Finance</td>
 </tr>
 </tbody>

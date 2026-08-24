@@ -17,9 +17,9 @@ inputDocuments:
 uxDocument: 'not-present-accepted-gap'
 stepsCompleted:
   - 'step-01-validate-prerequisites'
-  - 'step-02-design-epics-phase-0'
-  - 'step-03-create-stories-phase-0'
-  - 'step-04-final-validation-phase-0'
+  - 'step-02-design-epics-phase-1'
+  - 'step-03-create-stories-phase-1'
+  - 'step-04-final-validation-phase-1'
 ---
 
 # ctam-analysis (CTAM Pathfinder) — Epic Breakdown
@@ -46,16 +46,17 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 
 | Phase | Folder | Status |
 |---|---|---|
-| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 6 epics, 19 stories |
-| **1** — JOH | _to be storied_ | ⚪ Framework only |
-| **2** — Absence | _to be storied_ | ⚪ Framework only |
-| **3** — Vacancy | _to be storied_ | ⚪ Framework only |
-| **4** — Booking | _to be storied_ | ⚪ Framework only |
-| **5** — Sitting | _to be storied_ | ⚪ Framework only |
-| **6** — Payment | _to be storied_ | ⚪ Framework only |
-| **7** — Itineraries | _to be storied_ | ⚪ Framework only |
-| **8** — MI Feed & Reporting | _to be storied_ | ⚪ Framework only |
-| **9+** — Wave Rollout (jurisdiction-first) | _to be storied_ | ⚪ Framework only |
+| **0** — Dev/Integration Prerequisites | [phase-0/](phase-0/index.md) | 🟡 Planned — 1 epic, 2 stories (not part of the product's own phase sequence — dev/integration-only, see `framework.md`) |
+| **1** — Foundations | [phase-1/](phase-1/index.md) | 🟡 Planned — 7 epics, 21 stories |
+| **2** — JOH | _to be storied_ | ⚪ Framework only |
+| **3** — Absence | _to be storied_ | ⚪ Framework only |
+| **4** — Vacancy | _to be storied_ | ⚪ Framework only |
+| **5** — Booking | _to be storied_ | ⚪ Framework only |
+| **6** — Sitting | _to be storied_ | ⚪ Framework only |
+| **7** — Payment | _to be storied_ | ⚪ Framework only |
+| **8** — Itineraries | _to be storied_ | ⚪ Framework only |
+| **9** — MI Feed & Reporting | _to be storied_ | ⚪ Framework only |
+| **10+** — Wave Rollout (jurisdiction-first) | _to be storied_ | ⚪ Framework only |
 
 ## How this document is produced
 
@@ -66,12 +67,12 @@ Each phase advances through four steps of the `bmad-create-epics-and-stories` wo
 3. **Create stories** — produce Gherkin-AC user stories sized for a single dev-agent session
 4. **Final validation** — verify FR/NFR coverage, dependency soundness, architecture compliance
 
-Phase 0 has completed all four steps. Phases 1–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
+Phase 1 has completed all four steps. Phases 2–10+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).
 
 ## How to find your way
 
-- **Looking for what to build next?** Start at the phase index (e.g. [phase-0/index.md](phase-0/index.md)) and pick an epic.
-- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 0.1.5). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`.
+- **Looking for what to build next?** Start at the phase index (e.g. [phase-1/index.md](phase-1/index.md)) and pick an epic.
+- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 1.1.5). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`.
 - **Looking for an FR?** Use [fr-coverage-map.md](fr-coverage-map.md).
 - **Looking for an architecture rule?** Use [requirements-inventory.md](requirements-inventory.md) — ARs are in the Additional Requirements section.
 - **Verifying readiness?** Run `bmad-check-implementation-readiness` from the repo root; it understands this sharded shape.

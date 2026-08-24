@@ -55,7 +55,7 @@ def okf_type(rel: str, name: str) -> str:
         return "FR Coverage Map"
     if rel == "epics/requirements-inventory":
         return "Requirements Inventory"
-    if rel.endswith("/index") and "phase-0" in rel:
+    if rel.endswith("/index") and re.search(r"phase-\d", rel):
         return "Phase Index"
     if "validation-report" in name or "prd-validation" in name:
         return "Validation Report"
@@ -78,8 +78,9 @@ def okf_tags(rel: str, type_: str, body: str) -> list:
         tags.append("epics")
     if type_ in ("Sprint Change Proposal", "Readiness Report", "Validation Report"):
         tags.append("change-control")
-    if "phase-0" in rel:
-        tags.append("phase-0")
+    m = re.search(r"phase-\d+", rel)
+    if m:
+        tags.append(m.group(0))
     if "sscs" in body.lower()[:4000]:
         tags.append("sscs")
     return tags

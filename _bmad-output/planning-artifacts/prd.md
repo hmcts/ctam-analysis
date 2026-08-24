@@ -28,6 +28,9 @@ editHistory:
   - date: '2026-08-13'
     workflow: 'bmad-correct-course'
     changes: 'D14 — programme renamed RAM to CTAM (Court and Tribunals Availability Management). Naming-only cascade applied uniformly across every surface: product codename (CTAM Pathfinder), 17 repository names (ctam-*), owned-table prefix (ctam_) and index names (uq_ctam_*), Java root package (uk.gov.hmcts.ctam), API-spec artefact coordinates (api-ctam-{service}), shared schema name (ctam), DNS hostnames, and adjectival prose (CTAM-owned / CTAM-assigned / CTAM-internal / CTAM-overlay). Upstream jo_ / mrd_ and dev-only mock_ prefixes untouched. No FR or NFR added, removed, renumbered or reworded in substance; no epic, story, decision, gap or assumption changed; no code impact (implementation not started). New glossary entry: CTAM. Dated reports, SCPs and prior changelog entries rewritten in place for uniform searchability; git history is the point-in-time record. See sprint-change-proposal-2026-08-13.md.'
+  - date: '2026-08-24'
+    workflow: 'bmad-correct-course'
+    changes: 'D15 — phase sequence renumbered +1 (Phase 0-9+ -> Phase 1-10+) at explicit stakeholder request; naming-only, no FR/NFR/epic/scope change. See sprint-change-proposal-2026-08-24.md.'
 productCodename: 'CTAM Pathfinder'
 releaseMode: 'phased'
 inputDocuments:
@@ -86,7 +89,7 @@ CTAM Pathfinder is HMCTS's greenfield platform for judicial scheduling across **
 Two incumbent arrangements are replaced:
 
 - **ListAssist** — the SSCS judicial-scheduling tool through which SSCS Tribunals schedule judicial sittings today. Replaced by CTAM Pathfinder in **wave 2**[^d13]. (GAPS, the SSCS case-management system, is **retained**, not decommissioned — analogous to the external case-management systems that consume CTAM's APIs per D12.)
-- **JI / Oracle APEX (OPT)** — HMCTS's Courts judicial scheduling application. Unsupported with a fixed end-of-life. Replaced in **waves 3+** (Phase 11+), one HMCTS judicial region per wave.[^d13]
+- **JI / Oracle APEX (OPT)** — HMCTS's Courts judicial scheduling application. Unsupported with a fixed end-of-life. Replaced in **waves 3+** (Phase 12+), one HMCTS judicial region per wave.[^d13]
 
 The same 11-service architecture serves both jurisdictions (Domain / Cross-cutting / Read-model). A modern UI replaces each legacy UI as the jurisdiction migrates. CTAM Pathfinder exposes versioned APIs that HMCTS programmes (DA&I, finance, Actuals, Scheduling & Listing) consume directly, replacing today's export-file-by-email integration.
 
@@ -138,7 +141,7 @@ The same 11-service architecture serves both jurisdictions (Domain / Cross-cutti
 
 3. **The jurisdiction's incumbent system is the behavioural reference, verified by manual UAT[^d5][^d11].** UAT is performed by users with hands-on experience of *that jurisdiction's* incumbent system — `[ET-INCUMBENT-TBD]`-experienced users (ET role set *provisional*, G8.5) for wave 1; ListAssist-experienced users (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for wave 2; APEX-experienced users (RSU, Court, Judge, Judges' Clerks, Finance, MI) for waves 3+. They compare CTAM Pathfinder behaviour against the incumbent side-by-side. No automated comparison harness; legacy systems are not co-managed[^d6].
 
-4. **Phase 0 as platform smoke-test.** Reference Data is sourced from JOH eLinks API + MRD[^d11][^d3] (no ETL, no legacy migration); user identity is split between JOH records (via `jo_people`) and a CTAM-internal admin-staff table[^d9]. API-as-Product standards (versioning, OpenAPI, deprecation via [RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) + [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594)) are exercised on **Reference Data read endpoints** and Authorisation lookups before any domain service is built. Admin-write API endpoints (and the admin UI that would consume them) are deferred post-MVP[^d10].
+4. **Phase 1 as platform smoke-test.** Reference Data is sourced from JOH eLinks API + MRD[^d11][^d3] (no ETL, no legacy migration); user identity is split between JOH records (via `jo_people`) and a CTAM-internal admin-staff table[^d9]. API-as-Product standards (versioning, OpenAPI, deprecation via [RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) + [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594)) are exercised on **Reference Data read endpoints** and Authorisation lookups before any domain service is built. Admin-write API endpoints (and the admin UI that would consume them) are deferred post-MVP[^d10].
 
 5. **Per-jurisdiction, per-region phased cutover[^d8][^d13].** Wave 1 is the Employment Tribunals jurisdiction. Wave 2 is the SSCS Tribunals jurisdiction. Waves 3+ are Courts regions, one HMCTS judicial region per wave, with all applicable in-region roles together. Migrated users do not use the legacy system; non-migrated users do not use CTAM Pathfinder. No contention or synchronisation.
 
@@ -187,17 +190,17 @@ Each role can complete its legacy workflow on CTAM Pathfinder without re-trainin
 - **Legacy retirement** — the ET scheduling incumbent replaced for ET in wave 1 (system not yet identified — G8.4, so the retirement benefit cannot yet be stated); ListAssist (SSCS judicial scheduling) replaced for SSCS in wave 2 (GAPS case management retained, not decommissioned); Oracle APEX (OPT) decommissioned as every Courts judicial region migrates in waves 3+.[^d13]
 - **Strategic integration platform** — Tribunals is served from wave 1 (ET) and wave 2 (SSCS)[^d13]; the post-MVP commitment is at least one further HMCTS programme (Actuals, Scheduling & Listing) integrating via API by `TBD post-MVP date`, replacing the export workflow.
 - **Continuity** — zero unpaid JOHs due to cutover. Payment exports to JFEPS/Liberata continue uninterrupted across every rollout wave (ET wave 1 — **subject to G8.6**; SSCS wave 2; Courts waves 3+).
-- **Delivery** — phase-by-phase cadence (Phase 0 → 8 build, then per-jurisdiction-then-per-region rollout[^d8] reframed). Specific dates are programme-management territory.
+- **Delivery** — phase-by-phase cadence (Phase 1 → 9 build, then per-jurisdiction-then-per-region rollout[^d8] reframed). Specific dates are programme-management territory.
 
 ### Technical Success
 
-- **All 11 services live** — Reference Data, Authorisation, Notification, **JOH** (`ctam-joh`[^d11] — was `ctam-judge`), Absence, Vacancy, Booking, Sitting, Payment, Itinerary, MI Feed (Phases 0 → 8). Per-service config: Spring profiles + Key Vault. Cross-service policy values: shared `ctam_configuration_values` table.
-- **Phase 0 ingestion correctness**[^d11][^d3] — JOH eLinks API integration live and serving the 15 `jo_*` entities; MRD weekly Excel feed ingested and exposed via `ctam-reference-data`'s read API; `ctam-authorisation` resolves IdP email → personal_number (JOH) or staff identifier (admin)[^d9]. *(The previous "100% of Reference Data lists ETL'd + 100% of active APEX users loaded" criterion is retracted along with the Phase 0 Data Migration ETL.)*
+- **All 11 services live** — Reference Data, Authorisation, Notification, **JOH** (`ctam-joh`[^d11] — was `ctam-judge`), Absence, Vacancy, Booking, Sitting, Payment, Itinerary, MI Feed (Phases 1 → 9). Per-service config: Spring profiles + Key Vault. Cross-service policy values: shared `ctam_configuration_values` table.
+- **Phase 1 ingestion correctness**[^d11][^d3] — JOH eLinks API integration live and serving the 15 `jo_*` entities; MRD weekly Excel feed ingested and exposed via `ctam-reference-data`'s read API; `ctam-authorisation` resolves IdP email → personal_number (JOH) or staff identifier (admin)[^d9]. *(The previous "100% of Reference Data lists ETL'd + 100% of active APEX users loaded" criterion is retracted along with the Phase 1 Data Migration ETL.)*
 - **Behavioural parity**[^d5] — manual UAT script per domain service, walked by **jurisdiction-incumbent-experienced users**: `[ET-INCUMBENT-TBD]`-experienced users (ET role set *provisional*, G8.5) for wave 1; ListAssist-experienced users (RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI) for wave 2; APEX-experienced users (RSU, Court, Judge, Judges' Clerks, Finance, MI) for waves 3+. Sign-off is the wave gate.
-- **API-as-Product** from Phase 0 — versioned contract, OpenAPI spec, deprecation policy ([RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) `Deprecation` + [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594) `Sunset`) per service.
+- **API-as-Product** from Phase 1 — versioned contract, OpenAPI spec, deprecation policy ([RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) `Deprecation` + [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594) `Sunset`) per service.
 - **Performance NFRs** met or exceeded (≤ 5 s dashboard refresh; ≤ 10 s list/filter; ≤ 15 s batch/annual; ≤ 30 s reports/Forward Look). Page-level NFRs are derived from the APEX baseline; each wave's cutover verifies these against that incumbent's equivalent operations as part of the cohort readiness assessment (**ET wave 1: blocked on G8.4**)[^d13].
 - **Strategy A federated read models** (Itinerary, MI Feed) meet their NFRs at MVP, or Strategy C cache fallback is in place by the wave that needs it (Risk #9).
-- **Log-based observability**[^d7] from Phase 1 — structured logs, correlation IDs, error categorisation, retention sufficient for pilot incident triage.
+- **Log-based observability**[^d7] from Phase 2 — structured logs, correlation IDs, error categorisation, retention sufficient for pilot incident triage.
 
 ### Measurable Outcomes
 
@@ -219,10 +222,10 @@ Each role can complete its legacy workflow on CTAM Pathfinder without re-trainin
 
 The MVP is the smallest deliverable that supports phased per-jurisdiction-then-per-region rollout[^d8]. It comprises:
 
-- **Phase 0 Foundations**[^d1][^d7][^d9][^d11]: Reference Data sourced from JOH eLinks API + MRD[^d3] (no ETL, no legacy migration); Authorisation with SSO and the two-population identity model[^d9]; Notification; API contracts (versioned + paper contracts for Itinerary / MI Feed); deployment platform (CI/CD); structured logging conventions[^d7]; stub Home / navigation shell. *(Per-service configuration via Spring profiles + Key Vault; shared `ctam_configuration_values` infrastructure table managed by `ctam-architecture` Liquibase baseline changelog.)*
-- **All 11 services built** (Phases 0–8): Reference Data, Authorisation, Notification (Phase 0); **JOH (`ctam-joh`)**, Absence, Vacancy, Booking, Sitting, Payment (incl. Reconciliation) (Phases 1–6); Itinerary, MI Feed (Phases 7–8). *(Per-service config is Spring profiles + Key Vault; cross-service policy values use the shared `ctam_configuration_values` infrastructure table — no separate configuration service per arch v2.2.)*
+- **Phase 1 Foundations**[^d1][^d7][^d9][^d11]: Reference Data sourced from JOH eLinks API + MRD[^d3] (no ETL, no legacy migration); Authorisation with SSO and the two-population identity model[^d9]; Notification; API contracts (versioned + paper contracts for Itinerary / MI Feed); deployment platform (CI/CD); structured logging conventions[^d7]; stub Home / navigation shell. *(Per-service configuration via Spring profiles + Key Vault; shared `ctam_configuration_values` infrastructure table managed by `ctam-architecture` Liquibase baseline changelog.)*
+- **All 11 services built** (Phases 1–9): Reference Data, Authorisation, Notification (Phase 1); **JOH (`ctam-joh`)**, Absence, Vacancy, Booking, Sitting, Payment (incl. Reconciliation) (Phases 2–7); Itinerary, MI Feed (Phases 8–9). *(Per-service config is Spring profiles + Key Vault; cross-service policy values use the shared `ctam_configuration_values` infrastructure table — no separate configuration service per arch v2.2.)*
 - **Modern business-user UI** for all in-jurisdiction roles replicating the cohort's incumbent UI layouts[^d4] — every domain phase delivers its corresponding domain module end-to-end through `ctam-ui`. **Admin UI (`ctam-admin-ui`) is NOT in MVP**[^d10] (2026-05-15 scope decision); admin tasks in MVP — user/role/jurisdiction/Region-scope updates, activation toggles — happen via direct SQL by DBAs / platform engineers per operational runbooks. *(Reference Data is sourced upstream from JOH eLinks + MRD[^d11] — corrections happen at source, not in CTAM. Migration-report review is obsolete under D11.)*
-- **Phase 9 — Pilot rollout (wave 1)**: the **Employment Tribunals jurisdiction** migrates[^d13], with all applicable in-jurisdiction roles, with feature-parity gating per Risk #3. (SSCS follows as wave 2; Courts regions as waves 3+.)
+- **Phase 10 — Pilot rollout (wave 1)**: the **Employment Tribunals jurisdiction** migrates[^d13], with all applicable in-jurisdiction roles, with feature-parity gating per Risk #3. (SSCS follows as wave 2; Courts regions as waves 3+.)
 - **Behavioural parity with the jurisdiction's incumbent** verified through **manual UAT performed by jurisdiction-incumbent-experienced users** (D5 reframed; FR60) — `[ET-INCUMBENT-TBD]`-experienced users for wave 1, ListAssist-experienced users for wave 2, APEX-experienced users for waves 3+. There is no automated incumbent-comparison test harness in the MVP.
 - **Log-based audit and observability**[^d7] — application logs only; no metrics platform, no traces, no structured user-action audit.
 
@@ -248,7 +251,7 @@ The MVP is the smallest deliverable that supports phased per-jurisdiction-then-p
   - Users & Roles admin: search, role edits, jurisdiction + Region/Area scope edits, activation toggle (UI surface of FR4 + FR57)
   - Notification utilities: "Send Test Email" + delivery-log viewer
 - **Admin-write API endpoints** ship alongside the admin UI: on `ctam-authorisation` — `PUT /v1/admin/users/{id}/{roles|jurisdictions|region-scopes|activation}`. *(`ctam-reference-data` admin-write endpoints retracted under D11 — the upstream-sourced tier is read-only; the CTAM-owned tier (b) may get write endpoints depending on the D11 follow-up decision.)*
-- **Wave-by-wave rollout — Courts cohort**: Phase 10..N — Courts jurisdictions (Civil, Crime, Family, Crown) migrate per-region, wave by wave, until all Courts judicial regions are on CTAM Pathfinder and APEX is retired.
+- **Wave-by-wave rollout — Courts cohort**: Phase 11..N — Courts jurisdictions (Civil, Crime, Family, Crown) migrate per-region, wave by wave, until all Courts judicial regions are on CTAM Pathfinder and APEX is retired.
 - **Structured user-action auditing** (D7 roadmap commitment) — who did what, when, with before/after values for write operations.
 - **Full observability** — metrics + traces + dashboards beyond the log-based MVP minimum.
 - **External API consumer onboarding** — DA&I migrates from export-based MI to API-based MI Feed; future programmes (Actuals, Scheduling & Listing) onboard onto CTAM Pathfinder's APIs. *(Tribunals is wave 1 itself[^d11], not a future programme to onboard.)*
@@ -392,7 +395,7 @@ The six journeys reveal these capability areas (mapped to the 11-service decompo
 | Modern UI with accessibility, responsiveness, performance | UX-override[^d4] |
 | Itinerary view scoped to own profile (Judges) | Itinerary (read model); Strategy A federation |
 | Aggregated, case-level-stripped MI Feed API for DA&I | MI Feed (read model); REP-BR-NFR-03 |
-| API-as-Product standards (versioning, OpenAPI spec, deprecation policy via `Deprecation` + `Sunset` headers) | All services per Phase 0[^d1] |
+| API-as-Product standards (versioning, OpenAPI spec, deprecation policy via `Deprecation` + `Sunset` headers) | All services per Phase 1[^d1] |
 | Per-wave cross-boundary manual coordination | Programme management (not application capability); Risk #1 |
 
 ## Domain-Specific Requirements
@@ -429,19 +432,19 @@ The six journeys reveal these capability areas (mapped to the 11-service decompo
   - Spring Actuator endpoints serve build/version metadata (`/actuator/info`, populated by `gradle-git-properties`) and Kubernetes liveness/readiness probes (`/actuator/health`, `/actuator/readiness`); the `/actuator/*` namespace is ops-restricted at the APIM layer. The OpenAPI spec (Swagger Core, published by Gradle via the `maven-publish` plugin as a Maven-format artefact) is the consumer-facing contract.
   - Kubernetes orchestration on Azure enables the per-region phased rollout[^d8] — region-scoped deployments, rolling updates, isolated rollbacks per wave.
   - Azure UK regions support UK GDPR and HMCTS data-sovereignty requirements (data residency in-country); avoids the need for Standard Contractual Clauses or transfer impact assessments that would apply if data left the UK.
-  - Azure-native logging (Application Insights / Log Analytics) is a natural fit for the log-based audit / observability minimum[^d7]; structured logging conventions defined in Phase 0 should target Azure-native ingestion.
+  - Azure-native logging (Application Insights / Log Analytics) is a natural fit for the log-based audit / observability minimum[^d7]; structured logging conventions defined in Phase 1 should target Azure-native ingestion.
 
 ### Integration Requirements
 
 | Integration | Direction | Phase | Mechanism | Notes |
 |---|---|---|---|---|
-| **HMCTS IdP (SSO)** | Inbound (AuthN) | Phase 0 | OIDC / SAML (per HMCTS standard) | Hard dependency; must be live in Phase 0 for any user-facing demo. Risk #6 in 1600 brainstorming. |
-| **JOH eLinks API** *(MVP scope[^d11])* | Inbound (reference data) | Phase 0 | REST API (sync mechanism TBD architecture) | Canonical source for judicial-holder data — 15 `jo_*` entities listed in the revised D3. NFR24 reframed for MVP inclusion. |
-| **MRD (Master Reference Data)** *(MVP scope[^d11])* | Inbound (reference data) | Phase 0 | Weekly Excel feed (transitional, until MRD APIs ship) | Supplementary attributes not in JOH eLinks — notably JOH Specialisations. See revised D3. |
-| **JFEPS / Liberata** | Outbound (payment) | Phase 6 | JFEPS-compatible Excel via HMCTS email, forwarded by Payment Authoriser | **Unchanged from APEX** — same format, same mechanism, same human-in-the-loop. Verified for SSCS[^d11] (wave 2); **ET wave-1 applicability unverified — G8.6**[^d13]. |
-| **HMCTS Email infrastructure** | Outbound (notifications) | Phase 0 / used Phase 1+ | SMTP via HMCTS email | Booking ack, absence ack, payment schedule. Required dependency. |
-| **DA&I (MI Feed)** | Outbound (data) | Phase 8 | MI Feed REST API (Strategy A pull-based federation) | Replaces export-by-email; aggregate-only contract per REP-BR-NFR-03. |
-| **External case-management systems** (ET case management — system TBC per G8.5; SSCS: GAPS; Courts Listing systems)[^d12] | Outbound (APIs) | From Phase 9 (wave 1 onward) | REST APIs from CTAM | CTAM exposes JOH availability + booking data for external case-management consumption. No reverse-write into CTAM (CTAM is the system of record for JOH scheduling). |
+| **HMCTS IdP (SSO)** | Inbound (AuthN) | Phase 1 | OIDC / SAML (per HMCTS standard) | Hard dependency; must be live in Phase 1 for any user-facing demo. Risk #6 in 1600 brainstorming. |
+| **JOH eLinks API** *(MVP scope[^d11])* | Inbound (reference data) | Phase 1 | REST API (sync mechanism TBD architecture) | Canonical source for judicial-holder data — 15 `jo_*` entities listed in the revised D3. NFR24 reframed for MVP inclusion. |
+| **MRD (Master Reference Data)** *(MVP scope[^d11])* | Inbound (reference data) | Phase 1 | Weekly Excel feed (transitional, until MRD APIs ship) | Supplementary attributes not in JOH eLinks — notably JOH Specialisations. See revised D3. |
+| **JFEPS / Liberata** | Outbound (payment) | Phase 7 | JFEPS-compatible Excel via HMCTS email, forwarded by Payment Authoriser | **Unchanged from APEX** — same format, same mechanism, same human-in-the-loop. Verified for SSCS[^d11] (wave 2); **ET wave-1 applicability unverified — G8.6**[^d13]. |
+| **HMCTS Email infrastructure** | Outbound (notifications) | Phase 1 / used Phase 2+ | SMTP via HMCTS email | Booking ack, absence ack, payment schedule. Required dependency. |
+| **DA&I (MI Feed)** | Outbound (data) | Phase 9 | MI Feed REST API (Strategy A pull-based federation) | Replaces export-by-email; aggregate-only contract per REP-BR-NFR-03. |
+| **External case-management systems** (ET case management — system TBC per G8.5; SSCS: GAPS; Courts Listing systems)[^d12] | Outbound (APIs) | From Phase 10 (wave 1 onward) | REST APIs from CTAM | CTAM exposes JOH availability + booking data for external case-management consumption. No reverse-write into CTAM (CTAM is the system of record for JOH scheduling). |
 | **Future programmes** (Actuals, Scheduling & Listing reforms) | Outbound (APIs) | Post-MVP | REST APIs from CTAM | Vision-level; specific contract design happens when programme demand crystallises. (Tribunals removed from "future programmes" — ET is wave 1 and SSCS wave 2[^d13].) |
 
 ### Risk Mitigations (domain-specific)
@@ -450,7 +453,7 @@ The six journeys reveal these capability areas (mapped to the 11-service decompo
 - **Data-protection regression.** APEX's constraints (no bank details, no case-level data) are binding for CTAM Pathfinder. **Mitigation:** these constraints are encoded as architectural rules — Payment service contract excludes bank fields; MI Feed and Reports schemas exclude case identifiers.
 - **FOI exposure broadening.** A new API surface (MI Feed) creates new FOI questions about what data is published. **Mitigation:** MI Feed contract is aggregate-only and version-controlled; FOI scope is pre-determined by the contract, not by ad-hoc query capability.
 - **Security clearance / vetting of implementation team.** Programme-management territory; not specified in this PRD. **Mitigation:** team members handling judicial / personal data work under HMCTS standard clearance levels.
-- **HMCTS IdP integration timing.** SSO must be live in Phase 0; if HMCTS IdP integration slips, the MVP rollout is blocked. **Mitigation:** mock-IdP fallback for internal demo during Phase 0, contingency to wire to a different HMCTS-approved IdP if needed (carried from Risk #6 in 1600 brainstorming).
+- **HMCTS IdP integration timing.** SSO must be live in Phase 1; if HMCTS IdP integration slips, the MVP rollout is blocked. **Mitigation:** mock-IdP fallback for internal demo during Phase 1, contingency to wire to a different HMCTS-approved IdP if needed (carried from Risk #6 in 1600 brainstorming).
 - **Reference Data + Users/Roles migration correctness** (D3 + D9 + Risk #13 + Risk #14) — already in the Risk register; restated here as a domain-specific concern because incorrect role assignments are a governance and access-control issue, not just a technical bug.
 
 ## API Backend Specific Requirements
@@ -474,9 +477,9 @@ Every service is API-first with a versioned contract. Services are callable by t
 
 ### Endpoint Specifications
 
-Endpoint shape is illustrative — definitive contracts are produced as Phase 0 paper artefacts[^d1] and in each domain phase as the service is built.
+Endpoint shape is illustrative — definitive contracts are produced as Phase 1 paper artefacts[^d1] and in each domain phase as the service is built.
 
-**Cross-cutting services (Phase 0):**
+**Cross-cutting services (Phase 1):**
 
 | Service | Representative endpoints |
 |---|---|
@@ -485,7 +488,7 @@ Endpoint shape is illustrative — definitive contracts are produced as Phase 0 
 | Configuration | Per-service: Spring profiles + `application.yml` + Azure Key Vault. Cross-service policy values: shared `ctam_configuration_values` table (read-only via direct SQL; no API). |
 | Notification | `POST /notifications/send` (transactional emails: booking ack, absence ack, payment schedule) |
 
-**Domain services (Phases 1–6):**
+**Domain services (Phases 2–7):**
 
 | Service | Representative endpoints |
 |---|---|
@@ -496,7 +499,7 @@ Endpoint shape is illustrative — definitive contracts are produced as Phase 0 
 | Sitting | `POST/GET /sittings`, `POST /sittings/{id}/confirm`, `POST /sittings/{id}/verify`, `POST /sittings/{id}/split` *(AM/PM)* |
 | Payment | `POST /payments/process` *(eligible bookings → schedule)*, `GET /payments/{id}/schedule` *(content-type negotiated)*, `POST /payments/{id}/reconcile` |
 
-**Read-model services (Phases 7–8):**
+**Read-model services (Phases 8–9):**
 
 | Service | Representative endpoints |
 |---|---|
@@ -513,7 +516,7 @@ Endpoint shape is illustrative — definitive contracts are produced as Phase 0 
 
 ### Data Schemas
 
-Canonical representation: **JSON** for all REST endpoints. Specific resource schemas (Judge, Absence, Vacancy, Booking, Sitting, Payment, Itinerary, Reporting feed) are produced as Phase 0 paper contracts[^d1] and refined per phase.
+Canonical representation: **JSON** for all REST endpoints. Specific resource schemas (Judge, Absence, Vacancy, Booking, Sitting, Payment, Itinerary, Reporting feed) are produced as Phase 1 paper contracts[^d1] and refined per phase.
 
 **Versioned content-types** for shape-sensitive resources:
 
@@ -537,9 +540,9 @@ Canonical representation: **JSON** for all REST endpoints. Specific resource sch
 
 ### API Versioning
 
-- **Versioning policy is a Phase 0 deliverable** as part of API-as-Product standards[^d1].
+- **Versioning policy is a Phase 1 deliverable** as part of API-as-Product standards[^d1].
 - Working assumption (architecture-phase confirmable): versioning via the URI path prefix (e.g. `/v1/judges`, `/v2/judges`) for major versions; backwards-compatible additions within a major version don't require a new path.
-- **Deprecation policy** is part of the same Phase 0 artefact: deprecated endpoints emit `Deprecation` ([RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745)) and `Sunset` ([RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594)) response headers, are documented, and are retired no sooner than N months after first deprecation notice (specific N TBD).
+- **Deprecation policy** is part of the same Phase 1 artefact: deprecated endpoints emit `Deprecation` ([RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745)) and `Sunset` ([RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594)) response headers, are documented, and are retired no sooner than N months after first deprecation notice (specific N TBD).
 - **Consumer contract surface** is the published OpenAPI spec (Maven-format artefact published by Gradle `maven-publish`; Swagger UI for browsing). Build/version metadata is exposed via Spring Actuator `/actuator/info` (ops-restricted).
 
 ### Client Tooling
@@ -559,7 +562,7 @@ Canonical representation: **JSON** for all REST endpoints. Specific resource sch
 
 - **Stack:** Java 25 + Spring Boot 4 + Kubernetes on Azure. Spring Web for REST endpoints, Spring Security for AuthZ, Spring Actuator for build/version metadata and liveness/readiness probes (`/actuator/info`, `/actuator/health`, `/actuator/readiness`; ops-restricted at APIM), springdoc-openapi for OpenAPI generation, Azure API Management for rate limits, header injection, and deprecation/`Sunset` policies.
 - **Per-service deployment unit:** each of the 11 services is a containerised Spring Boot app on Kubernetes. Per-region rollout[^d8] uses region-scoped namespaces or service-instance-level region targeting (architecture-phase choice).
-- **Phase 0 as standards validation:** Reference Data exercises every API-as-Product standard (versioning, content-type negotiation, OpenAPI spec, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457) errors, deprecation signalling) before any domain service is built.
+- **Phase 1 as standards validation:** Reference Data exercises every API-as-Product standard (versioning, content-type negotiation, OpenAPI spec, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457) errors, deprecation signalling) before any domain service is built.
 
 ## Project Scoping & Phased Development
 
@@ -571,25 +574,25 @@ The MVP is "enough for one region — every applicable role, every operational w
 
 **Resource requirements:** TBD (programme-management territory). Two viable structures:
 
-- **Variant α** (single squad, sequential): Phase 0 → Judge → Absence → Vacancy → Booking → Sitting → Payment → Itinerary → MI Feed → wave 1. Lower coordination overhead; longer calendar.
-- **Variant β** (multi-squad, Sitting parallel from Phase 2): same dependency order; Sitting is co-developed with Booking. Shorter calendar; needs 2+ squads.
+- **Variant α** (single squad, sequential): Phase 1 → Judge → Absence → Vacancy → Booking → Sitting → Payment → Itinerary → MI Feed → wave 1. Lower coordination overhead; longer calendar.
+- **Variant β** (multi-squad, Sitting parallel from Phase 3): same dependency order; Sitting is co-developed with Booking. Shorter calendar; needs 2+ squads.
 
 Default is α; β is a capacity-conditional upgrade.
 
 ### Phase-by-Phase Journey Mapping
 
-Mapping the **6 user journeys** (Step 4) to the **build phases** (from the brainstorming session migration table). A journey becomes *demoable* at the end of the phase that completes its last dependency. The wave-1 ET journey (Journey 1) and the waves-3+ Courts canonical journey (Journey 2) both demo at Phase 6 — they cover the same operational chain in different jurisdictions.[^d13]
+Mapping the **6 user journeys** (Step 4) to the **build phases** (from the brainstorming session migration table). A journey becomes *demoable* at the end of the phase that completes its last dependency. The wave-1 ET journey (Journey 1) and the waves-3+ Courts canonical journey (Journey 2) both demo at Phase 7 — they cover the same operational chain in different jurisdictions.[^d13]
 
 | Journey | Demoable at end of | Dependency |
 |---|---|---|
-| Journey 1 — ET cover coverage (wave 1; SSCS variant at wave 2) | Phase 6 (Payment) | Full operational chain JOH → Absence → Vacancy → Booking → Sitting → Payment must be live |
-| Journey 2 — RSU cover-creation through payment, Courts canonical cycle (waves 3+) | Phase 6 (Payment) | Full operational chain JOH → Absence → Vacancy → Booking → Sitting → Payment must be live |
-| Journey 3 — Court daily sitting confirmation (waves 3+) | Phase 5 (Sitting) | Sitting + Authorisation; Phase 5 ends with confirmation flow live |
-| Journey 4 — Judge views itinerary (waves 3+) | Phase 7 (Itinerary) | Federates over JOH + Absence + Vacancy + Booking + Sitting |
-| Journey 5 — DA&I MI Feed API consumer (cohort-neutral; post-MVP) | Phase 8 (MI Feed) | MI Feed federates over all domain services including Payment |
-| Journey 6 — Cross-region edge case during partial rollout, Courts (Risk #1) | Phase 9+ (rollout window only) | Only relevant once at least one Courts region has migrated; resolves once last Courts region migrates |
+| Journey 1 — ET cover coverage (wave 1; SSCS variant at wave 2) | Phase 7 (Payment) | Full operational chain JOH → Absence → Vacancy → Booking → Sitting → Payment must be live |
+| Journey 2 — RSU cover-creation through payment, Courts canonical cycle (waves 3+) | Phase 7 (Payment) | Full operational chain JOH → Absence → Vacancy → Booking → Sitting → Payment must be live |
+| Journey 3 — Court daily sitting confirmation (waves 3+) | Phase 6 (Sitting) | Sitting + Authorisation; Phase 6 ends with confirmation flow live |
+| Journey 4 — Judge views itinerary (waves 3+) | Phase 8 (Itinerary) | Federates over JOH + Absence + Vacancy + Booking + Sitting |
+| Journey 5 — DA&I MI Feed API consumer (cohort-neutral; post-MVP) | Phase 9 (MI Feed) | MI Feed federates over all domain services including Payment |
+| Journey 6 — Cross-region edge case during partial rollout, Courts (Risk #1) | Phase 10+ (rollout window only) | Only relevant once at least one Courts region has migrated; resolves once last Courts region migrates |
 
-**Stakeholder communication:** the canonical operational demos (Journey 1 ET / Journey 2 Courts) are available at Phase 6. Phases 1–5 produce per-module demos against partial chains (e.g. Phase 1 demos JOH management; Phase 4 demos vacancy → booking but not confirmation → payment).
+**Stakeholder communication:** the canonical operational demos (Journey 1 ET / Journey 2 Courts) are available at Phase 7. Phases 2–6 produce per-module demos against partial chains (e.g. Phase 2 demos JOH management; Phase 5 demos vacancy → booking but not confirmation → payment).
 
 ### Risk-Based Scoping
 
@@ -597,9 +600,9 @@ The 1600 brainstorming risk register applies. Scoping-level risks:
 
 **Technical:**
 
-- Strategy A read-model federation may miss ≤ 30 s Forward Look NFR (Risk #9). Strategy C cache fallback is designed and switched on if Phase 7 measurement shows the breach.
-- Reference Data + Users/Roles migration correctness (Risk #13). Phase 0 includes named-owner sign-off as a deliverable.
-- APEX ⇄ IdP identity mapping (Risk #14). Phase 0 produces a reconciliation report with explicit handling rules for unmatched records.
+- Strategy A read-model federation may miss ≤ 30 s Forward Look NFR (Risk #9). Strategy C cache fallback is designed and switched on if Phase 8 measurement shows the breach.
+- Reference Data + Users/Roles migration correctness (Risk #13). Phase 1 includes named-owner sign-off as a deliverable.
+- APEX ⇄ IdP identity mapping (Risk #14). Phase 1 produces a reconciliation report with explicit handling rules for unmatched records.
 
 **Programme:**
 
@@ -609,7 +612,7 @@ The 1600 brainstorming risk register applies. Scoping-level risks:
 **Resource:**
 
 - Variant β is capacity-conditional. If capacity is constrained, α delivers the same MVP content on a longer calendar.
-- HMCTS IdP integration timing (Risk #6). Mock-IdP for internal demos during Phase 0; contingency to wire to a different HMCTS-approved IdP if needed.
+- HMCTS IdP integration timing (Risk #6). Mock-IdP for internal demos during Phase 1; contingency to wire to a different HMCTS-approved IdP if needed.
 
 ### Scope Confirmation
 
@@ -704,7 +707,7 @@ This section is the binding capability contract for CTAM Pathfinder. UX, archite
 
 - **FR55**: Authenticated users land on a Home page showing role-scoped navigation, Region/Area selector, summary tiles for the selected scope (judges, absences, vacancies, pending payments, payments made, unreconciled), and contextual help.
 - **FR56**[^d10]: CTAM Pathfinder's **business-user UI** (`ctam-ui`) replicates the functional surface of the as-is APEX UI on a modern UI stack and meets WCAG 2.2 Level AA accessibility standards. **In MVP**: `ctam-ui` only — the business-user-facing SPA used by RSU, Court, Judges, Judges' Clerks, Finance/Payment Authoriser, MI/Reporting roles. **Post-MVP**: `ctam-admin-ui`, the admin-facing SPA carrying Reference Data maintenance, User/Role/Scope admin, Migration Reports, and Activation Flag toggle modules (see Growth Features).
-- **FR57**[^d10][^d11]: CTAM Pathfinder supports **per-jurisdiction, per-region phased activation** — a user's account is activated for CTAM Pathfinder use only when their (jurisdiction, region) tuple's feature-parity gate is passed; activation is a flag flip on `ctam_auth_user_activation_flags`, not a data migration. **In MVP**: initial flag state is FALSE for every user record at the point of bootstrap (mechanism outside PRD[^d9]); cutover flips happen per wave by a DBA running `UPDATE ctam_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '...' AND region = '...'` per the Phase 9+ rollout runbook (no UI). **Post-MVP**: activation toggle UI in `ctam-admin-ui` for system administrators (see Growth Features).
+- **FR57**[^d10][^d11]: CTAM Pathfinder supports **per-jurisdiction, per-region phased activation** — a user's account is activated for CTAM Pathfinder use only when their (jurisdiction, region) tuple's feature-parity gate is passed; activation is a flag flip on `ctam_auth_user_activation_flags`, not a data migration. **In MVP**: initial flag state is FALSE for every user record at the point of bootstrap (mechanism outside PRD[^d9]); cutover flips happen per wave by a DBA running `UPDATE ctam_auth_user_activation_flags SET activated = TRUE WHERE jurisdiction = '...' AND region = '...'` per the Phase 10+ rollout runbook (no UI). **Post-MVP**: activation toggle UI in `ctam-admin-ui` for system administrators (see Growth Features).
 - **FR58**: Every CTAM Pathfinder service exposes a versioned API contract, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457) problem-details for errors, and a published OpenAPI specification. Deprecation signalling uses the `Deprecation` header per [RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) and the `Sunset` header per [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594).
 - **FR59**: Every CTAM Pathfinder service emits structured logs with correlation IDs and consistent error categorisation, retained for pilot incident triage.
 - **FR60**[^d11][^d5]: Every CTAM Pathfinder domain service has a **manual user acceptance test (UAT) script** that captures the workflows and edge cases a **jurisdiction-incumbent-experienced user** is expected to verify against that incumbent system before that wave's rollout. For wave 1 (ET): `[ET-INCUMBENT-TBD]`-experienced users — role set *provisional* pending G8.5, panel blocked on G8.4. For wave 2 (SSCS): ListAssist-experienced users — RTJ, Tribunal Judges, Tribunal Members, Caseworkers, Finance, MI. For waves 3+ (Courts): APEX-experienced users — RSU, Court, Judge, Judges' Clerks, Finance, MI. The UAT is performed by in-wave applicable users and recorded with explicit per-role sign-off. There is no automated incumbent-comparison test harness; incumbent-comparison parity is a manual UAT activity, not a CI gate.
@@ -743,7 +746,7 @@ Page-level NFRs are carried from the APEX baseline (`functional-modules.md` cros
 
 ### Integration
 
-- **NFR20 — HMCTS IdP integration:** Hard Phase 0 dependency. CTAM Pathfinder integrates with whichever AuthN protocol the HMCTS IdP exposes (OIDC or SAML).
+- **NFR20 — HMCTS IdP integration:** Hard Phase 1 dependency. CTAM Pathfinder integrates with whichever AuthN protocol the HMCTS IdP exposes (OIDC or SAML).
 - **NFR21 — JFEPS / Liberata integration unchanged**[^d11]: Payment schedule format (JFEPS-compatible Excel), email-to-Authoriser delivery, and authoriser-forwards-to-Liberata workflow are preserved exactly as in APEX, and verified for SSCS (wave 2). **ET wave-1 applicability is unverified — gap G8.6**[^d13]. No format change for finance across the Courts and SSCS cohorts.
 - **NFR22 — HMCTS email infrastructure:** Outbound transactional emails (booking ack, absence ack, payment schedules) dispatch via HMCTS email; delivery is reliable but not low-latency-critical (overnight batch acceptable for booking acknowledgements).
 - **NFR23 — DA&I MI Feed:** Aggregate-only REST API contract; no case-level data exposed under any consumer authorisation.
@@ -751,8 +754,8 @@ Page-level NFRs are carried from the APEX baseline (`functional-modules.md` cros
 
 ### Observability (MVP minimum)
 
-- **NFR25 — Structured logging:** Every service emits structured logs with consistent fields, correlation IDs threaded through service-to-service calls, and a defined error-categorisation taxonomy. Logging schema is a Phase 0 deliverable.[^d7]
-- **NFR26 — Log retention:** Logs retained sufficient for pilot incident triage; specific retention period set in Phase 0 within HMCTS data-retention policy.
+- **NFR25 — Structured logging:** Every service emits structured logs with consistent fields, correlation IDs threaded through service-to-service calls, and a defined error-categorisation taxonomy. Logging schema is a Phase 1 deliverable.[^d7]
+- **NFR26 — Log retention:** Logs retained sufficient for pilot incident triage; specific retention period set in Phase 1 within HMCTS data-retention policy.
 - **NFR27 — Log ingestion:** Logs ingested into Azure-native logging (Application Insights / Log Analytics).
 - **NFR28 — Health and readiness probes:** Every service exposes Kubernetes-compatible liveness and readiness endpoints (Spring Actuator).
 - **NFR29 — Roadmap commitments (post-MVP, not in MVP):** Structured user-action auditing (who-did-what-when with before/after values for write operations) is a post-MVP roadmap commitment[^d7]. Metrics and trace observability beyond logs is post-MVP.
@@ -768,13 +771,13 @@ Page-level NFRs are carried from the APEX baseline (`functional-modules.md` cros
 
 - **NFR34 — Operational availability:** CTAM Pathfinder is available during HMCTS operational hours (typically 07:00–19:00 UK weekdays). Out-of-hours availability is best-effort, not contracted.
 - **NFR35 — Payment-cycle continuity:** Zero failed JFEPS payment cycles attributable to CTAM Pathfinder deployment, rollout, or runtime issues. Payment generation can fall back to manual handling within a payment cycle if CTAM Pathfinder is unavailable, but this is an operational contingency, not a normal-mode expectation.
-- **NFR36 — Per-wave rollback**[^d11]: Each rollout wave (Phase 9, 10, …) has a documented rollback path returning the affected wave's users to the jurisdiction's incumbent system within one operational cycle if the wave's gate is breached post-cutover — to `[ET-INCUMBENT-TBD]` for wave 1 (ET; **rollback target undefined until G8.4 closes**), to **ListAssist** for wave 2 (SSCS), to **APEX** for waves 3+ (Courts regions).[^d13]
+- **NFR36 — Per-wave rollback**[^d11]: Each rollout wave (Phase 10, 11, …) has a documented rollback path returning the affected wave's users to the jurisdiction's incumbent system within one operational cycle if the wave's gate is breached post-cutover — to `[ET-INCUMBENT-TBD]` for wave 1 (ET; **rollback target undefined until G8.4 closes**), to **ListAssist** for wave 2 (SSCS), to **APEX** for waves 3+ (Courts regions).[^d13]
 - **NFR37 — Strategy A degraded-mode contract:** If federated read latency breaches NFR8, CTAM Pathfinder degrades to Strategy C cached projection rather than failing; cache freshness window is published in the service's OpenAPI spec metadata and surfaced in response headers (e.g. `Cache-Control`, `Age`).
 - **NFR38 — HMCTS-judicial-region rollout isolation:** A wave activation or feature change targeting one wave-scope unit (the ET jurisdiction for wave 1; the SSCS jurisdiction for wave 2; an HMCTS Courts judicial region — e.g. Northern, Western — for waves 3+) does not affect users in other wave-scope units. *("Region" here means HMCTS judicial region[^d8] — not Azure region. Architectural enforcement is at the application tier via per-user `ctam_auth_user_activation_flags` (FR57), not at the infrastructure tier. Production runs in a single Azure region — UK South — with multi-AZ HA. Disaster-recovery scope and design are an open gap — see `architecture/gaps.md` G3.6. Wording clarified 2026-05-06 — earlier "Region-isolated deployments" framing was ambiguous between the two senses of "region" and is now disambiguated.)*
 
 ### Maintainability
 
-- **NFR39 — API-as-Product standards:** Every service exposes versioned contracts, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457) problem-details error envelopes, and a published OpenAPI specification (per FR58). Versioning and deprecation policy is a Phase 0 deliverable; deprecation signalling uses [RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) `Deprecation` + [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594) `Sunset` headers.
+- **NFR39 — API-as-Product standards:** Every service exposes versioned contracts, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457) problem-details error envelopes, and a published OpenAPI specification (per FR58). Versioning and deprecation policy is a Phase 1 deliverable; deprecation signalling uses [RFC 9745](https://datatracker.ietf.org/doc/html/rfc9745) `Deprecation` + [RFC 8594](https://datatracker.ietf.org/doc/html/rfc8594) `Sunset` headers.
 - **NFR40 — Per-service deployment unit:** Each of the 11 services is independently deployable on Kubernetes; rolling updates per service per region without coupling.
 - **NFR41 — Behavioural-parity UAT suite**[^d11][^d5]: Every domain service has a **manual UAT script** (per FR60) maintained alongside the service. **Jurisdiction-incumbent-experienced users** walk through the script comparing CTAM Pathfinder vs the cohort's incumbent — `[ET-INCUMBENT-TBD]`-experienced users for wave 1 (blocked on G8.4); ListAssist-experienced users for wave 2; APEX-experienced users for waves 3+ — before each rollout wave's cutover; sign-off (per role per wave) is the wave gate. There is no automated parity test suite — automated CI tests are unit, integration (Testcontainers), and contract tests only.
 - **NFR42 — Postman collections:** Each phase produces a Postman collection that exercises the phase's endpoints; collections are versioned alongside the services.
@@ -799,6 +802,7 @@ These are the 9 locked decisions taken during the 2026-05-05 brainstorming follo
 | **D12** *(new 2026-06-10)* | **CTAM Pathfinder's scope is JOH availability and scheduling — not case or hearing management.** CTAM is the **system of record** for JOH details, traits, working patterns, absences, vacancies, bookings and sittings. Allocation decisions (which JOH covers which vacancy) are made by admin staff via the off-system advertising/matching process (FR27) and **recorded in CTAM via the UI by those admin staff** — they are not pushed in from external systems. Case management, panel composition for specific cases, and hearing types live in **external systems** that **consume CTAM's APIs** for reporting and operational use; no external system writes into CTAM. | **Bounds the 11-service decomposition**: services record JOH commitments and traits, not cases or hearings. **No FRs added** for panel composition or hearing type — those are external-system concerns. **Amends D11 implication** to drop "tribunal panels / multi-member hearings, hearing types — oral / paper / CMA" from the SSCS extension list. **Amends Executive Summary char #6** correspondingly. |
 | **D13** *(new 2026-08-07; supersedes D11 for wave ordering)* | **ET-first pilot wave.** CTAM Pathfinder's MVP pilot rollout (Phase 9, wave 1) targets the **Employment Tribunals (ET)** jurisdiction. **Wave 2 = the SSCS Tribunals jurisdiction** (replacing ListAssist; GAPS, the SSCS case-management system, is retained per D11 as amended). **Waves 3+ = Courts jurisdictions** (Civil, Crime, Family, Crown) per HMCTS judicial region, replacing APEX/JI. The 16-repo architecture and the Phase 0–8 build sequence are **unchanged** — jurisdiction is a first-class upstream-sourced attribute per D8, so retargeting the pilot is a data-and-rollout change, not an architectural one.<p/>**ET's judicial-scheduling incumbent is not yet identified** (gap G8.4). Until it is, the wave-1 behavioural reference (D5), manual-UAT parity target (FR60/NFR41), rollback target (NFR36) and historical-data location (NFR32) are recorded as the placeholder `[ET-INCUMBENT-TBD]`.<p/>**ET JOH type taxonomy is provisional** pending the ET as-is analysis pack (gap G8.5): Employment Judges (salaried and fee-paid), Regional Employment Judges, and non-legal ("lay") members drawn from employer-side and employee-side panels. **Panel composition and hearing types remain out of CTAM scope per D12.** | **No FR or NFR is added, removed or renumbered**; ~12 are reworded where their prose names a jurisdiction or incumbent (FR6, FR7, FR44, FR57, FR60, NFR21, NFR24, NFR32, NFR36, NFR38, NFR41). **No epic is added, removed, re-scoped or resequenced** — Phase 0 stays at 6 epics / 19 stories; four acceptance-criteria lines change illustrative examples only. **No code impact** — implementation had not started. **New wave-1 deliverable:** the **ET as-is analysis pack** (parallel to the JI pack under `docs/architecture/asis/`); the SSCS as-is pack and SSCS-cohort readiness assessment defer to wave 2. **New gaps** G8.4 (ET incumbent), G8.5 (ET taxonomy / as-is pack), G8.6 (JFEPS applicability to ET); G8.1 promoted to a wave-1 blocker (eLinks must carry ET); G8.3 retargeted. **The business case is retargeted to ET as a settled decision**; two supporting-evidence items (the wave-1 replacement driver and ET's quantified risk profile, both originally assessed for SSCS) are flagged inline as outstanding and land with the ET as-is analysis pack. See [`./sprint-change-proposal-2026-08-07.md`](./sprint-change-proposal-2026-08-07.md). |
 | **D14** *(new 2026-08-13)* | **Programme renamed RAM → CTAM — *Court and Tribunals Availability Management*.** The former expansion (*Resource Availability/Allocation Management*) is retired. The rename is applied uniformly across every naming surface: product codename **RAM Pathfinder → CTAM Pathfinder**; the 17 repository names `ram-*` → `ctam-*` (including this control-plane repo, `ram-analysis` → `ctam-analysis`, already renamed on GitHub); the owned-table prefix `ram_` → `ctam_` (and index names `uq_ram_*` → `uq_ctam_*`); the Java root package `uk.gov.hmcts.ram` → `uk.gov.hmcts.ctam`; the API-spec artefact coordinates `api-ram-{service}` → `api-ctam-{service}`; the shared database schema `ram` → `ctam`; and the DNS hostnames `ram.hmcts.gov.uk` / `api.ram.{env}.hmcts.gov.uk` / `admin.ram.hmcts.gov.uk` → their `ctam` equivalents. Adjectival prose (`RAM-owned`, `RAM-assigned`, `RAM-internal`, `RAM-overlay`) follows. Upstream prefixes `jo_` / `mrd_` and the dev-only `mock_` prefix are **untouched** — they name source systems, not this programme. | **Naming only — nothing else changes.** No FR or NFR is added, removed, renumbered or reworded in substance; the 16-repo decomposition, the 55-table data model, the Phase 0–8 build sequence, all 6 Phase 0 epics / 19 stories, `dispatch-graph.yaml`, `delivery/ledger/`, and decisions D1–D13 all stand exactly as they were. **No code impact** — implementation has not started, so no migration, no deprecation window and no dual-naming period is required; this is the cheapest possible moment for the change. Dated reports, SCPs and prior changelog entries were rewritten in place (rather than preserved verbatim) so the artifact set is uniformly searchable under one name — the git history is the point-in-time record. **`docs/` regenerated.** See [`./sprint-change-proposal-2026-08-13.md`](./sprint-change-proposal-2026-08-13.md). |
+| **D15** *(new 2026-08-24)* | **Phase sequence renumbered +1, 0-indexed → 1-indexed.** At explicit stakeholder request (not a discovered issue): Phase 0 (Foundations) → Phase 1; Phase 1 (JOH) → Phase 2; Phase 2 (Absence) → Phase 3; Phase 3 (Vacancy) → Phase 4; Phase 4 (Booking) → Phase 5; Phase 5 (Sitting) → Phase 6; Phase 6 (Payment) → Phase 7; Phase 7 (Itineraries) → Phase 8; Phase 8 (MI Feed) → Phase 9; Phase 9+ (Wave Rollout) → Phase 10+. The already-decomposed epic pack renumbers with it: `epics/phase-0/` → `epics/phase-1/`, `epic-0.0`–`epic-0.6` → `epic-1.0`–`epic-1.6`, every `Story 0.X.Y` → `Story 1.X.Y`. | **Naming only — nothing else changes.** No FR or NFR is added, removed, renumbered or reworded in substance; no epic is added, removed, rescoped or resequenced — only the labels shift. Epic 0.6 (now 1.6) already had story 0.6.1 completed and tagged `arch-v1.0` in the live `ctam-architecture` repo before this rename — that git branch/tag name retains the old `0-6-1` numbering as a historical artifact and is not renamed retroactively. Dated reports, prior changelog entries, and this PRD's own D1–D14 rows and `editHistory` entries are left untouched as point-in-time records of what was true when written, per this repo's "add, don't rewrite" convention for historical artifacts. See [`./sprint-change-proposal-2026-08-24.md`](./sprint-change-proposal-2026-08-24.md). |
 
 ## Glossary
 
@@ -875,3 +879,4 @@ The 1600 brainstorming session itself supersedes lines 139–149 of the 2026-05-
 [^d13]: D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the **Employment Tribunals (ET)** jurisdiction (scheduling incumbent `[ET-INCUMBENT-TBD]` — unidentified, gap G8.4); wave 2 = **SSCS** (replaces **ListAssist**; **GAPS**, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).
 [^d12]: D12 (2026-06-10) — CTAM is the system of record for JOH availability and scheduling only; case and hearing management live in external systems.
 [^d14]: D14 (2026-08-13) — programme renamed **RAM → CTAM** (*Court and Tribunals Availability Management*). Naming-only; no scope, requirement, architecture or sequencing change.
+[^d15]: D15 (2026-08-24) — phase sequence renumbered +1, 0-indexed → 1-indexed (Phase 0-9+ → Phase 1-10+), at explicit stakeholder request. Naming-only; no scope, requirement, epic or architecture change. Epic 0.6/story 0.6.1's `arch-v1.0` git tag in `ctam-architecture` retains its old numbering as a historical artifact.

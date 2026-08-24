@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-24 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-24">Sprint Change Proposal — 2026-08-24</h1>
+<p><strong>Trigger:</strong> Direct request from Shivakumar via <code>/bmad-correct-course</code>: "modify the name of phase-0 to phase-1."</p>
+<details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p>This is not a defect or a discovered constraint — it is a deliberate renumbering request. Clarified with the requester across three checkpoints:</p>
+<ol type="1">
+<li><strong>Scope of the rename.</strong> "Phase 1" already exists and names a distinct, fully-defined phase (JOH Records &amp; Working Patterns, <code>ctam-joh</code>, FR10–FR18). Renaming only <code>phase-0</code> → <code>phase-1</code> in isolation would collide with it. Confirmed intent: <strong>renumber every phase +1</strong> — Phase 0 → 1, Phase 1 (JOH) → 2, Phase 2 (Absence) → 3, Phase 3 (Vacancy) → 4, Phase 4 (Booking) → 5, Phase 5 (Sitting) → 6, Phase 6 (Payment) → 7, Phase 7 (Itineraries) → 8, Phase 8 (MI Feed) → 9, Phase 9+ (Wave Rollout) → 10+.</li>
+<li><strong>In-flight epic 0.6.</strong> <code>sprint-status.yaml</code> shows epic 0.6 is <code>in-progress</code>, with story 0-6-1 (publish the context bus) already <code>done</code> — tagged <code>arch-v1.0</code> in the live <code>ctam-architecture</code> repo, a name baked into that repo's branch/tag history under the <em>old</em> numbering. Confirmed: renumber epic 0.6 too (→ epic 1.6), accepting that the already-created <code>arch-v1.0</code> git artifacts in <code>ctam-architecture</code> retain the old <code>0-6-1</code> numbering as a historical fact this control plane cannot (and must not) rewrite.</li>
+<li><strong>Existing precedent against this.</strong> <code>epic-0.6-context-bus-and-shared-baseline.md</code> itself states: <em>"It is numbered 0.6 because renumbering the authored epics 0.1–0.5 would break every FR mapping and cross-reference for no benefit."</em> That was written for a much smaller renumber (one epic) than what's being asked here (all 10 phases, every FR/AR cross-reference across ~21 living documents). Flagged explicitly; requester confirmed <strong>proceed anyway</strong> — the benefit is cosmetic (1-indexed vs 0-indexed) and accepted as a deliberate choice.</li>
+</ol>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<ul>
+<li>No epic is added, removed, rescoped, or reordered. <code>depends_on:</code> edges and story content are unchanged — only the phase/epic <em>numbers</em> and the <code>phase-0/</code> directory name shift.</li>
+<li>Every epic's frontmatter (<code>epic:</code>, <code>parent:</code>, <code>resource:</code>, <code>tags:</code>) and every story ID in <code>sprint-status.yaml</code> under the renumbered epics changes to match.</li>
+</ul>
+<h3 id="artifact-conflicts-repo-wide-sweep--datedhistorical-records-excluded-per-rule-below">Artifact conflicts (repo-wide sweep — dated/historical records excluded per rule below)</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Files</th>
+<th>Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Epic pack (rename + edit)</td>
+<td><code>epics/phase-0/</code> → <code>epics/phase-1/</code> (dir), its <code>index.md</code> + 6 epic files (<code>epic-0.0-*.md</code> → <code>epic-1.0-*.md</code>, … <code>epic-0.6-*.md</code> → <code>epic-1.6-*.md</code>)</td>
+<td>Rename files, update frontmatter (<code>epic:</code>, <code>parent:</code>, <code>resource:</code>, <code>tags:</code>), update the internal "Epic 0.X" headings and cross-references</td>
+</tr>
+<tr>
+<td>Epics connective docs</td>
+<td><code>epics/framework.md</code>, <code>epics/index.md</code>, <code>epics/fr-coverage-map.md</code>, <code>epics/requirements-inventory.md</code></td>
+<td>Renumber every phase/epic reference per the +1 map</td>
+</tr>
+<tr>
+<td>Architecture shards</td>
+<td><code>architecture.md</code>, <code>architecture-summary.md</code>, <code>architecture/assumptions.md</code>, <code>architecture/data-tables.md</code>, <code>architecture/functional-requirements-coverage.md</code>, <code>architecture/non-functional-requirements-coverage.md</code>, <code>architecture/gaps.md</code>, <code>architecture/repo-structure.md</code>, <code>architecture/sequence-diagrams/admin-maintenance-flows.md</code>, <code>architecture/user-types.md</code></td>
+<td>Renumber current/forward-looking phase references</td>
+</tr>
+<tr>
+<td>PRD</td>
+<td><code>prd.md</code></td>
+<td>Renumber <strong>current, living</strong> phase references (MVP scope, Journey↔︎Phase mapping table, glossary, FR/NFR bodies, Integration Requirements table, delivery variants). <strong>Leave the dated Key Decisions log rows (D1–D14) untouched</strong> — each is a point-in-time record of what was decided <em>and named</em> on its date, same convention as <code>changelog.md</code></td>
+</tr>
+<tr>
+<td>Business case, delivery docs</td>
+<td><code>business-case.md</code>, <code>delivery/README.md</code></td>
+<td>Renumber current references</td>
+</tr>
+<tr>
+<td>Control-plane docs</td>
+<td><code>CLAUDE.md</code>, <code>README.md</code></td>
+<td>Renumber current references (repo map, folder descriptions)</td>
+</tr>
+<tr>
+<td>Tracking</td>
+<td><code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></td>
+<td><code>epic-0.X</code> → <code>epic-1.X</code>, story IDs <code>0-X-Y-...</code> → <code>1-X-Y-...</code> for every entry (all current entries are Phase-0 epics)</td>
+</tr>
+<tr>
+<td>Build tooling</td>
+<td><code>scripts/python/build_html.py</code> (NAV list), <code>scripts/python/apply_okf_frontmatter.py</code> (<code>phase-0</code> path/tag matching)</td>
+<td>Update hardcoded <code>phase-0</code> path and tag references to <code>phase-1</code></td>
+</tr>
+<tr>
+<td>Changelog</td>
+<td><code>architecture/changelog.md</code></td>
+<td><strong>Add</strong> a new dated entry recording this renumbering and the epic-0.6/<code>arch-v1.0</code> numbering seam. Existing entries are not rewritten</td>
+</tr>
+<tr>
+<td>Generated site</td>
+<td><code>docs/**/*.html</code></td>
+<td>Never hand-edited — regenerated via <code>scripts/build-html.sh</code> after the above lands</td>
+</tr>
+<tr>
+<td><strong>Left untouched (immutable history)</strong></td>
+<td>All dated <code>sprint-change-proposal-*.md</code>, <code>implementation-readiness-report-*.md</code>, <code>prd-validation-report-*.md</code> files; PRD's own dated Key Decisions log rows; <code>.claude/memory/project_bmad_ctam_pathfinder_state.md</code></td>
+<td>These describe what was true <em>on the date they were written</em> — rewriting them would falsify the record. Per <code>CLAUDE.md</code>: "Leave dated reports and existing changelog entries as immutable history — add, don't rewrite."</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The rename map applied everywhere in scope:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Old</th>
+<th>New</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Phase 0</td>
+<td>Phase 1</td>
+</tr>
+<tr>
+<td>Phase 1 (JOH)</td>
+<td>Phase 2</td>
+</tr>
+<tr>
+<td>Phase 2 (Absence)</td>
+<td>Phase 3</td>
+</tr>
+<tr>
+<td>Phase 3 (Vacancy)</td>
+<td>Phase 4</td>
+</tr>
+<tr>
+<td>Phase 4 (Booking)</td>
+<td>Phase 5</td>
+</tr>
+<tr>
+<td>Phase 5 (Sitting)</td>
+<td>Phase 6</td>
+</tr>
+<tr>
+<td>Phase 6 (Payment)</td>
+<td>Phase 7</td>
+</tr>
+<tr>
+<td>Phase 7 (Itineraries)</td>
+<td>Phase 8</td>
+</tr>
+<tr>
+<td>Phase 8 (MI Feed)</td>
+<td>Phase 9</td>
+</tr>
+<tr>
+<td>Phase 9+ (Wave Rollout)</td>
+<td>Phase 10+</td>
+</tr>
+<tr>
+<td><code>epic-0.0</code> … <code>epic-0.6</code></td>
+<td><code>epic-1.0</code> … <code>epic-1.6</code></td>
+</tr>
+<tr>
+<td>story <code>0-X-Y-...</code></td>
+<td>story <code>1-X-Y-...</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/</code></td>
+<td><code>epics/phase-1/</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Correction to this SCP's own earlier analysis:</strong> an initial draft of this section wrongly treated <code>prd.md</code>'s "Phase 11+" (JI/APEX waves 3+) as stale drift against <code>framework.md</code>'s single "Phase 9+" umbrella and planned to "correct" it to "Phase 10+". That was wrong — <code>prd.md</code>'s NFR36 ("Each rollout wave (Phase 9, 10, …)") shows the PRD actually runs its own internally-consistent <strong>per-wave-incrementing</strong> scheme, distinct from <code>framework.md</code>'s umbrella label: wave 1 (ET) = Phase 9, wave 2 (SSCS) = Phase 10, Courts waves 3+ = Phase 11, 12, 13… (one number per judicial region). This SCP does <strong>not</strong> unify the two conventions — that is a semantic/architectural call outside a naming-only renumbering. Every number is shifted +1 mechanically, preserving whichever scheme was already in place at each location: "Phase 9 — Pilot rollout" → <strong>Phase 10</strong>; NFR36 "(Phase 9, 10, …)" → <strong>(Phase 10, 11, …)</strong>; "waves 3+ (Phase 11+)" → <strong>Phase 12+</strong>.</p>
+<p><strong>Pre-existing inconsistency flagged, not resolved:</strong> <code>prd.md</code>'s "Wave-by-wave rollout — Courts cohort" line already read "Phase 10..N" <em>before</em> this SCP, which does not match the JI/APEX line's "Phase 11+" for the same Courts-waves-3+ concept (both describe the same rollout but disagree on its starting phase number by one) — an authoring inconsistency between two lines that predates this SCP. The mechanical +1 preserves it as-is ("Phase 11..N" vs "Phase 12+") rather than guessing which one is correct; reconciling it is a separate, later decision for a human to make.</p>
+<h3 id="uiux">UI/UX</h3>
+<p>None. No UI/UX specification exists yet for phases beyond Phase 0's shell scope; nothing to update.</p>
+<h3 id="technical-impact">Technical impact</h3>
+<p>None to running code — this repo holds no runtime code. The only technical-adjacent artifact is <code>sprint-status.yaml</code> (dispatch tracking) and the two Python build scripts.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct Adjustment</strong> (checklist Option 1) — a systematic documentation sweep, no epic/story content changes, no PRD requirement changes, no rollback, no MVP scope change.</p>
+<ul>
+<li><strong>Effort:</strong> Medium (large file count, but each edit is a mechanical number substitution guided by the map above; no design decisions).</li>
+<li><strong>Risk:</strong> Low-to-medium. The main risk is the epic-0.6/<code>arch-v1.0</code> numbering seam (accepted, to be documented in the changelog) and the general risk of stray/incomplete substitution across ~21 files — mitigated by doing the sweep per-file against the map, then a verification grep for leftover <code>phase-0</code>/<code>epic-0.</code> references before regenerating <code>docs/</code>.</li>
+<li><strong>Rollback</strong> and <strong>PRD MVP review</strong> are not applicable — nothing here is being reverted or descoped.</li>
+</ul>
+</div></details><details class="section" id="4-prd-mvp-impact"><summary><span class="section-title">4. PRD MVP Impact</span></summary><div class="section-body">
+<p>None. No functional or non-functional requirement is added, removed, or changed in substance — only the phase-number label attached to it changes where the PRD names a phase.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Minor</strong> — a direct, mechanical relabeling with no scope/requirement change. Executed directly in this session (no separate PO/Architect step needed) once approved.</p>
+<p><strong>Plan:</strong></p>
+<ol type="1">
+<li>Rename <code>epics/phase-0/</code> → <code>epics/phase-1/</code>; rename and edit the 6 epic files + <code>index.md</code> inside it.</li>
+<li>Edit the epics connective docs, architecture shards, PRD (living sections only), business case, delivery README, <code>CLAUDE.md</code>, <code>README.md</code> per the map.</li>
+<li>Update <code>sprint-status.yaml</code> epic/story keys.</li>
+<li>Update the two Python build-tooling scripts' hardcoded <code>phase-0</code> references.</li>
+<li>Add a new dated entry to <code>architecture/changelog.md</code> documenting the renumbering and the <code>arch-v1.0</code> seam.</li>
+<li>Verification grep across the repo for any missed <code>phase-0</code> / <code>epic-0.</code> / stale "Phase N" reference in a living (non-historical) document.</li>
+<li>Regenerate <code>docs/</code> via <code>scripts/build-html.sh</code>.</li>
+<li>Present the full diff for review before anything is committed (per this repo's hard rule: commits happen only on request, and only to the current feature branch).</li>
+</ol>
+<p><strong>Success criteria:</strong> every living document uses the new phase numbers consistently; every dated/historical document is untouched; <code>sprint-status.yaml</code> keys match the renamed epics; <code>scripts/build-html.sh</code> runs clean and the regenerated site reflects the new numbering; a grep for <code>phase-0</code>/<code>epic-0.</code> outside the excluded historical files returns nothing.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-24.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#artifact-conflicts-repo-wide-sweep--datedhistorical-records-excluded-per-rule-below">Artifact conflicts (repo-wide sweep — dated/historical records excluded per rule below)</a></li><li class="h3"><a href="#uiux">UI/UX</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-prd-mvp-impact">4. PRD MVP Impact</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-24";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

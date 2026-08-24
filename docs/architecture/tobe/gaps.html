@@ -109,20 +109,20 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>G1.1</strong></td>
 <td>HMCTS IdP support for OIDC human-user authentication is assumed but not verified.</td>
-<td><strong>No longer Phase 0 blocking</strong> — mock auth covers Phase 0–8. Verification needed before pre-Phase-9 cutover. If SAML-only: swap protocol library at the integration boundary; pattern unchanged.</td>
-<td>Pre-Phase-9 prerequisite — IdP team confirmation</td>
+<td><strong>No longer Phase 1 blocking</strong> — mock auth covers Phase 1–9. Verification needed before pre-Phase-10 cutover. If SAML-only: swap protocol library at the integration boundary; pattern unchanged.</td>
+<td>Pre-Phase-10 prerequisite — IdP team confirmation</td>
 </tr>
 <tr>
 <td><strong>G1.2</strong> <em>(reopened v2.6, 2026-05-07)</em></td>
 <td>HMCTS IdP support for OAuth 2.0 <code>client_credentials</code> grant — needed in production for the payment-batch service principal (<code>ctam-payment-batch</code>). <code>ctam-mock-auth</code> covers dev/CI/integration. Production options in G7.1: CTAM Pathfinder-internal issuer, Azure Workload Identity, mTLS, or HMCTS IdP <code>client_credentials</code>.</td>
-<td>Pre-Phase-9 — IdP team confirmation, or adopt an alternative from G7.1</td>
+<td>Pre-Phase-10 — IdP team confirmation, or adopt an alternative from G7.1</td>
 <td></td>
 </tr>
 <tr>
 <td><strong>G1.3</strong> <em>(reworded 2026-06-11 — ETL retracted<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>)</em></td>
 <td>HMCTS IdP principal export or query API for <strong>bootstrap verification</strong> is assumed — confirming every bootstrapped user (JOH + admin-staff populations, restructured D9) maps to a real IdP principal before each wave's cutover.</td>
-<td><strong>No longer Phase 0 blocking</strong> — mock auth users mirror the seeded roster in Phase 0; real verification deferred to pre-Phase-9 cutover. If unsupported: fallback to manual verification report compiled by IdP team out of band.</td>
-<td>Pre-Phase-9 prerequisite — IdP team confirmation</td>
+<td><strong>No longer Phase 1 blocking</strong> — mock auth users mirror the seeded roster in Phase 1; real verification deferred to pre-Phase-10 cutover. If unsupported: fallback to manual verification report compiled by IdP team out of band.</td>
+<td>Pre-Phase-10 prerequisite — IdP team confirmation</td>
 </tr>
 <tr>
 <td><strong>G1.4</strong> <em>(reconciled 2026-06-17)</em></td>
@@ -133,32 +133,32 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>G1.4a</strong> <em>(expanded 2026-06-17)</em></td>
 <td>The base template is minimal; <code>ctam-scaffold.sh</code> must add — beyond the Helm chart + per-repo <code>terraform/</code> skeleton (2026-06-11 Terraform decision) — <strong>Liquibase, Testcontainers, MapStruct, custom <code>JWTFilter</code> + <code>jjwt</code>, OWASP encoder, the docker-compose plugin, OpenAPI tooling (springdoc/Swagger), and the CI quality gates (Spectral/ArchUnit/Spotless/Checkstyle)</strong>, most cherry-picked from <code>hmcts/service-hmcts-springboot-demo</code>. <strong>Liquibase is a CTAM convention</strong> — the demo repo's Database branch uses Flyway; CTAM standardises on Liquibase.</td>
-<td>Scope <code>ctam-scaffold.sh</code> accordingly; verify demo-repo branch versions at build time; consider splitting Story 0.1.1 (scaffold vs shared-estate vs template overlay) given the expanded scope.</td>
-<td>Phase 0 deliverable — CTAM Pathfinder architecture team</td>
+<td>Scope <code>ctam-scaffold.sh</code> accordingly; verify demo-repo branch versions at build time; consider splitting Story 1.1.1 (scaffold vs shared-estate vs template overlay) given the expanded scope.</td>
+<td>Phase 1 deliverable — CTAM Pathfinder architecture team</td>
 </tr>
 <tr>
 <td><strong>G1.4b</strong> <em>(new)</em></td>
 <td><strong>Spring Cloud Azure Key Vault integration is not in the template baseline.</strong></td>
-<td>Add per service via <code>com.azure.spring:spring-cloud-azure-starter-keyvault-secrets</code>. Phase 0 scaffolding includes this.</td>
-<td>Phase 0 deliverable — CTAM Pathfinder architecture team</td>
+<td>Add per service via <code>com.azure.spring:spring-cloud-azure-starter-keyvault-secrets</code>. Phase 1 scaffolding includes this.</td>
+<td>Phase 1 deliverable — CTAM Pathfinder architecture team</td>
 </tr>
 <tr>
 <td><strong>G1.4c</strong> <em>(new 2026-08-19)</em></td>
 <td><strong>Quality-gate tool versions are released but unproven on the target toolchain.</strong> The agent-rules enforcement pack (<code>ctam-architecture/agent-rules/enforcement/</code>) pins Checkstyle 14.0.0, Spotless 8.10.0, JaCoCo 0.8.14 (first release with official Java 25 support), ArchUnit 1.5.0 (<code>archunit-junit5</code>), gradle-pitest 1.19.0, pitest 1.25.9 and pitest-junit5 1.2.3 — all verified as released 2026-08-19, but <strong>none of the pack has been compiled or executed</strong>, because the control-plane workspace holds no Java build. The specific unknowns: PIT running <em>on</em> a Java 25 toolchain against Spring Boot 4; whether the scaffolded build is on the JUnit 5 or JUnit 6 platform (which decides <code>archunit-junit5</code> vs <code>archunit-junit6</code>); and ArchUnit/Spectral API drift.</td>
 <td>The first scaffolding story compiles and runs the pack, fixes the drift its per-file validation-status table anticipates, and reports every correction <strong>back to the bus</strong> rather than fixing it per-repo. If PIT cannot run on Java 25, the mutation gate is the part of the amended coverage stance at risk — surface it explicitly rather than dropping it silently.</td>
-<td>Phase 0 deliverable — CTAM Pathfinder architecture team</td>
+<td>Phase 1 deliverable — CTAM Pathfinder architecture team</td>
 </tr>
 <tr>
 <td><strong>G1.5</strong></td>
 <td>HMCTS Email infrastructure (SMTP / Microsoft Graph) availability and authentication mechanism for AKS-hosted services is assumed.</td>
 <td>If unavailable in expected form: alternate transport (Azure Communication Services Email) is a documented fallback; Notification service contract unchanged.</td>
-<td>Phase 0 prerequisite — HMCTS infrastructure team</td>
+<td>Phase 1 prerequisite — HMCTS infrastructure team</td>
 </tr>
 <tr>
 <td><strong>G1.6</strong></td>
-<td>Mock-to-real-IdP cutover plan must be operationally rehearsed before pre-Phase-9.</td>
+<td>Mock-to-real-IdP cutover plan must be operationally rehearsed before pre-Phase-10.</td>
 <td>Cutover is a Spring profile change (no code change); rehearse on staging environment with real IdP credentials before scheduling pilot wave 1.</td>
-<td>Pre-Phase-9 deliverable — CTAM Pathfinder team</td>
+<td>Pre-Phase-10 deliverable — CTAM Pathfinder team</td>
 </tr>
 </tbody>
 </table>
@@ -175,7 +175,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><strong>G2.1</strong></td>
-<td>Pilot region selection for Phase 9 wave 1</td>
+<td>Pilot region selection for Phase 10 wave 1</td>
 <td>Affects capacity sizing for first deployment; programme decision</td>
 </tr>
 <tr>
@@ -195,8 +195,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>G2.5</strong></td>
-<td>Phase 0 migration owners (Reference Data sign-off, Users/Roles sign-off)</td>
-<td>Programme to name owners; affects Phase 0 deliverable acceptance</td>
+<td>Phase 1 migration owners (Reference Data sign-off, Users/Roles sign-off)</td>
+<td>Programme to name owners; affects Phase 1 deliverable acceptance</td>
 </tr>
 <tr>
 <td><strong>G2.6</strong></td>
@@ -223,7 +223,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>G3.2</strong></td>
 <td>Azure Database for PostgreSQL Flexible Server — recommended; HMCTS may prefer Azure SQL</td>
-<td>Confirm with HMCTS data team; switch is reversible at Phase 0 cost</td>
+<td>Confirm with HMCTS data team; switch is reversible at Phase 1 cost</td>
 </tr>
 <tr>
 <td><strong>G3.3</strong></td>
@@ -269,22 +269,22 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>G4.3</strong></td>
-<td>Per-service OpenAPI snippets seeded as Phase 0 paper contracts<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for Itinerary and MI Feed at minimum, plus skeleton specs for the 6 domain services</td>
-<td>Phase 0 deliverable</td>
+<td>Per-service OpenAPI snippets seeded as Phase 1 paper contracts<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for Itinerary and MI Feed at minimum, plus skeleton specs for the 6 domain services</td>
+<td>Phase 1 deliverable</td>
 </tr>
 <tr>
 <td><strong>G4.4</strong></td>
 <td>ArchUnit fitness function ruleset codified for the per-service convention checks</td>
-<td>Phase 0 deliverable as part of scaffolding</td>
+<td>Phase 1 deliverable as part of scaffolding</td>
 </tr>
 <tr>
 <td><strong>G4.5</strong></td>
 <td>Spectral OpenAPI lint ruleset codified for the API-as-Product standards (consistent error envelope, <a href="https://datatracker.ietf.org/doc/html/rfc9457">RFC 9457</a> problem-details references, versioning prefix, deprecation headers per <a href="https://datatracker.ietf.org/doc/html/rfc9745">RFC 9745</a> + <a href="https://datatracker.ietf.org/doc/html/rfc8594">RFC 8594</a>)</td>
-<td>Phase 0 deliverable as part of scaffolding</td>
+<td>Phase 1 deliverable as part of scaffolding</td>
 </tr>
 <tr>
 <td><strong>G4.6</strong> <em>(RETIRED 2026-06-11)</em></td>
-<td><del>Phase 0 ETL — APEX-side input mapping validation.</del> <strong>Retired with the ETL itself</strong> (revised D3, 2026-06-10 — no legacy data migration of any kind). The successor concern — validating the ingestion mapping against the JOH eLinks API contract and the first MRD workbook — is <strong>G8.1</strong>.</td>
+<td><del>Phase 1 ETL — APEX-side input mapping validation.</del> <strong>Retired with the ETL itself</strong> (revised D3, 2026-06-10 — no legacy data migration of any kind). The successor concern — validating the ingestion mapping against the JOH eLinks API contract and the first MRD workbook — is <strong>G8.1</strong>.</td>
 <td>Closed 2026-06-11</td>
 </tr>
 <tr>
@@ -311,8 +311,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>G5.2</strong></td>
-<td>Mock auth user roster must remain in sync with migrated APEX user/role data so that Phase 0–8 testing exercises realistic flows.</td>
-<td>Mock auth seed-data generated from the same Phase 0 migration reconciliation report (or a sanitised subset). Refreshed when migration data changes.</td>
+<td>Mock auth user roster must remain in sync with migrated APEX user/role data so that Phase 1–9 testing exercises realistic flows.</td>
+<td>Mock auth seed-data generated from the same Phase 1 migration reconciliation report (or a sanitised subset). Refreshed when migration data changes.</td>
 </tr>
 <tr>
 <td><strong>G5.3</strong></td>
@@ -380,8 +380,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><strong>G7.1</strong> <em>(revised v2.6, 2026-05-07 — now MVP-relevant for the payment batch)</em></td>
-<td><strong>Service-identity mechanism for non-user-initiated flows.</strong> v2.6 introduces the <strong>payment-processing batch</strong> (<code>ctam-payment-batch</code>) as a scheduled service principal — the first MVP non-user-initiated runtime flow. <strong>At MVP</strong> the batch authenticates against <code>ctam-mock-auth</code> via OAuth <code>client_credentials</code> (mock issues both human and service-principal tokens). <strong>For production</strong>, the issuer choice is still deferred. Other future triggers that would also need a service identity: (a) DA&amp;I post-MVP integration; (b) async messaging / event-bus patterns; (c) other scheduled background jobs (MI Feed pre-aggregation, reconciliation feed); (d) <del>Phase 0 ETL evolving from operator-initiated to automated</del> <em>(retired 2026-06-11 — ETL retracted; the eLinks/MRD ingestion runs in-process inside <code>ctam-reference-data</code> and needs no service identity)</em>.</td>
-<td><strong>Pre-Phase-9 decision needed</strong> for production service-auth issuer. Options: <br/>(A) <strong>CTAM Pathfinder-internal service-auth issuer</strong> — production-harden the mock-auth Spring Authorization Server; runs as a real (non-mock) service. JWTFilter configured for multi-issuer (HMCTS IdP for humans + ctam-service-auth for services). <br/>(B) <strong>Azure Workload Identity / Managed Identity</strong> — cloud-native; no shared secrets; tokens issued by Entra ID and validated via its JWKS. <strong>Likely the default given CTAM Pathfinder is on AKS.</strong> <br/>(C) <strong>mTLS</strong> — per-service certs at TLS layer; operationally heavy. <br/>(D) <strong>HMCTS IdP <code>client_credentials</code></strong> — only if HMCTS IdP supports it (G1.2). <br/>Default recommendation: <strong>(B) Azure Workload Identity</strong> for the AKS pod that runs the batch — zero shared secrets, cloud-managed, fits the existing Azure stack.</td>
+<td><strong>Service-identity mechanism for non-user-initiated flows.</strong> v2.6 introduces the <strong>payment-processing batch</strong> (<code>ctam-payment-batch</code>) as a scheduled service principal — the first MVP non-user-initiated runtime flow. <strong>At MVP</strong> the batch authenticates against <code>ctam-mock-auth</code> via OAuth <code>client_credentials</code> (mock issues both human and service-principal tokens). <strong>For production</strong>, the issuer choice is still deferred. Other future triggers that would also need a service identity: (a) DA&amp;I post-MVP integration; (b) async messaging / event-bus patterns; (c) other scheduled background jobs (MI Feed pre-aggregation, reconciliation feed); (d) <del>Phase 1 ETL evolving from operator-initiated to automated</del> <em>(retired 2026-06-11 — ETL retracted; the eLinks/MRD ingestion runs in-process inside <code>ctam-reference-data</code> and needs no service identity)</em>.</td>
+<td><strong>Pre-Phase-10 decision needed</strong> for production service-auth issuer. Options: <br/>(A) <strong>CTAM Pathfinder-internal service-auth issuer</strong> — production-harden the mock-auth Spring Authorization Server; runs as a real (non-mock) service. JWTFilter configured for multi-issuer (HMCTS IdP for humans + ctam-service-auth for services). <br/>(B) <strong>Azure Workload Identity / Managed Identity</strong> — cloud-native; no shared secrets; tokens issued by Entra ID and validated via its JWKS. <strong>Likely the default given CTAM Pathfinder is on AKS.</strong> <br/>(C) <strong>mTLS</strong> — per-service certs at TLS layer; operationally heavy. <br/>(D) <strong>HMCTS IdP <code>client_credentials</code></strong> — only if HMCTS IdP supports it (G1.2). <br/>Default recommendation: <strong>(B) Azure Workload Identity</strong> for the AKS pod that runs the batch — zero shared secrets, cloud-managed, fits the existing Azure stack.</td>
 </tr>
 <tr>
 <td><strong>G7.2</strong> <em>(new v2.5, 2026-05-07)</em></td>
@@ -402,8 +402,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tbody>
 <tr>
 <td><strong>G8.1</strong></td>
-<td><strong>JOH eLinks API contract + MRD feed arrangements are unconfirmed.</strong> The ingestion design (nightly in-process sync; weekly blob drop) assumes: the eLinks API exposes all 15 <code>jo_*</code> entities with stable natural keys (<code>personnel_number</code> for <code>jo_people</code>); the jurisdiction hierarchy's parent-child shape is available (natively or derivable on ingest); the MRD team can deliver the weekly workbook to an Azure Blob container in an agreed shape. When the contract and first workbook land, validate the ingestion mapping: every upstream field CTAM needs has a slot, the natural-key scheme holds, and update cadence/SLA is workable. An unmapped upstream structure raises an architectural PR. <strong>Promoted to a wave-1 blocker 2026-08-07<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>:</strong> <code>jo_jurisdictions</code> must carry the <strong>Employment Tribunals</strong> jurisdiction, with its parent-child shape under Tribunals — previously a general Phase 0 concern, now gating the wave-1 cutover.</td>
-<td>Phase 0 deliverable — confirm with Judicial Office (eLinks) + the MRD team early; the <strong>ET as-is analysis pack</strong> (G8.5) should capture the data shapes. Closes when both ingestion paths run end-to-end against real upstream data <strong>and ET jurisdiction coverage is confirmed</strong>.</td>
+<td><strong>JOH eLinks API contract + MRD feed arrangements are unconfirmed.</strong> The ingestion design (nightly in-process sync; weekly blob drop) assumes: the eLinks API exposes all 15 <code>jo_*</code> entities with stable natural keys (<code>personnel_number</code> for <code>jo_people</code>); the jurisdiction hierarchy's parent-child shape is available (natively or derivable on ingest); the MRD team can deliver the weekly workbook to an Azure Blob container in an agreed shape. When the contract and first workbook land, validate the ingestion mapping: every upstream field CTAM needs has a slot, the natural-key scheme holds, and update cadence/SLA is workable. An unmapped upstream structure raises an architectural PR. <strong>Promoted to a wave-1 blocker 2026-08-07<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>:</strong> <code>jo_jurisdictions</code> must carry the <strong>Employment Tribunals</strong> jurisdiction, with its parent-child shape under Tribunals — previously a general Phase 1 concern, now gating the wave-1 cutover. <strong>Partially de-risked 2026-08-24:</strong> <code>ctam-jomockapi</code> (epics/phase-0/epic-0.0) gives Epic 1.1's ingestion sync a realistic mock built from the real swagger doc + example payloads to build and test against — it does not confirm the real contract, but removes "no eLinks endpoint to point at" as a reason ingestion work can't start.</td>
+<td>Phase 1 deliverable — confirm with Judicial Office (eLinks) + the MRD team early; the <strong>ET as-is analysis pack</strong> (G8.5) should capture the data shapes. Closes when both ingestion paths run end-to-end against real upstream data <strong>and ET jurisdiction coverage is confirmed</strong>.</td>
 </tr>
 <tr>
 <td><strong>G8.2</strong></td>
@@ -427,8 +427,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>G8.6</strong> <em>(new 2026-08-07<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>)</em></td>
-<td><strong>JFEPS / Liberata applicability to ET is unverified.</strong> NFR21 asserts the JFEPS-compatible Excel → Payment Authoriser email → Liberata path is preserved unchanged for wave 1. That was <strong>explicitly verified for SSCS</strong> (2026-06-11, recorded in <a href="sequence-diagrams/payment-batch-flow.html"><code>./sequence-diagrams/payment-batch-flow.md</code></a>): tribunal-member payments use the same path as Courts fee-paid bookings. <strong>No equivalent verification exists for ET.</strong> If ET fee-paid judiciary or non-legal members are paid through a different route, NFR21 weakens and Phase 6 acquires wave-1 delivery risk it does not currently carry.</td>
-<td>Re-run the payment-flow applicability verification for ET — same method as the 2026-06-11 SSCS check — <strong>before the Phase 6 gate</strong>. Record the outcome in <code>payment-batch-flow.md</code>.</td>
+<td><strong>JFEPS / Liberata applicability to ET is unverified.</strong> NFR21 asserts the JFEPS-compatible Excel → Payment Authoriser email → Liberata path is preserved unchanged for wave 1. That was <strong>explicitly verified for SSCS</strong> (2026-06-11, recorded in <a href="sequence-diagrams/payment-batch-flow.html"><code>./sequence-diagrams/payment-batch-flow.md</code></a>): tribunal-member payments use the same path as Courts fee-paid bookings. <strong>No equivalent verification exists for ET.</strong> If ET fee-paid judiciary or non-legal members are paid through a different route, NFR21 weakens and Phase 7 acquires wave-1 delivery risk it does not currently carry.</td>
+<td>Re-run the payment-flow applicability verification for ET — same method as the 2026-06-11 SSCS check — <strong>before the Phase 7 gate</strong>. Record the outcome in <code>payment-batch-flow.md</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -445,7 +445,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>G9.1</strong></td>
 <td><strong>Terraform state backend + plan/apply pipeline arrangement unconfirmed.</strong> The 2026-06-11 decision mandates Terraform for all Azure provisioning; per decision #13 (2026-07-06) the shared estate lives in the dedicated <code>ctam-shared-infrastructure</code> repo (per-service resources per repo). To confirm with HMCTS: the state backend (Azure Storage backend per HMCTS convention vs Terraform Cloud), state isolation per environment stack, who runs plan/apply (GitHub Actions workflow per repo vs platform team), and approval gating for production applies. Cross-repo references (e.g. a service's Key Vault referencing the shared estate's AKS identity) need remote-state or data-source conventions agreed.</td>
-<td>Phase 0 prerequisite — confirm HMCTS Terraform conventions before the Epic 0.0 estate apply; record the pattern in <code>ctam-architecture/runbooks/terraform.md</code>.</td>
+<td>Phase 1 prerequisite — confirm HMCTS Terraform conventions before the Epic 1.0 estate apply; record the pattern in <code>ctam-architecture/runbooks/terraform.md</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -453,7 +453,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <hr />
 <ol>
 <li id="fn1"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>D1 — Phase 0 Foundations scope: Reference Data, Authorisation (SSO), Notification, API contracts, deployment platform, structured logging.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>D1 — Phase 1 Foundations scope: Reference Data, Authorisation (SSO), Notification, API contracts, deployment platform, structured logging.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>D13 (2026-08-07, supersedes D11) — ET-first pilot: wave 1 = the <strong>Employment Tribunals (ET)</strong> jurisdiction (scheduling incumbent <code>[ET-INCUMBENT-TBD]</code> — unidentified, gap G8.4); wave 2 = <strong>SSCS</strong> (replaces <strong>ListAssist</strong>; <strong>GAPS</strong>, SSCS case management, is retained); waves 3+ = Courts jurisdictions per HMCTS judicial region (replacing JI/APEX).<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>

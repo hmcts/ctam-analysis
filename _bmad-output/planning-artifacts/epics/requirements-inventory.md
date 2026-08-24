@@ -140,7 +140,7 @@ sourceDocuments:
 
 ### Integration
 
-- NFR20 — HMCTS IdP integration: Hard Phase 0 dependency. CTAM Pathfinder integrates with whichever AuthN protocol the HMCTS IdP exposes (OIDC or SAML).
+- NFR20 — HMCTS IdP integration: Hard Phase 1 dependency. CTAM Pathfinder integrates with whichever AuthN protocol the HMCTS IdP exposes (OIDC or SAML).
 - NFR21[^d11] — JFEPS / Liberata unchanged: Payment schedule format (JFEPS-compatible Excel), email-to-Authoriser delivery, authoriser-forwards-to-Liberata preserved exactly as in APEX, **and verified for SSCS** (now wave 2)[^d11]. **ET wave-1 applicability is unverified — G8.6**[^d13]. No format change for finance across the Courts and SSCS cohorts.
 - NFR22 — HMCTS email infrastructure: Outbound transactional emails dispatch via HMCTS email; overnight batch acceptable for booking acks.
 - NFR23 — DA&I MI Feed: Aggregate-only REST API contract; no case-level data under any consumer authorisation.
@@ -149,7 +149,7 @@ sourceDocuments:
 ### Observability (MVP minimum)
 
 - NFR25 — Structured logging: Every service emits structured logs with consistent fields, correlation IDs threaded through service-to-service calls, defined error-categorisation taxonomy.[^d7]
-- NFR26 — Log retention: Logs retained sufficient for pilot incident triage; specific period set in Phase 0 within HMCTS data-retention policy.
+- NFR26 — Log retention: Logs retained sufficient for pilot incident triage; specific period set in Phase 1 within HMCTS data-retention policy.
 - NFR27 — Log ingestion: Logs ingested into Azure-native logging (Application Insights / Log Analytics).
 - NFR28 — Health and readiness probes: Every service exposes Kubernetes-compatible liveness/readiness endpoints (Spring Actuator).
 - NFR29 — Roadmap commitments (post-MVP, not MVP): Structured user-action auditing[^d7]. Metrics and trace observability beyond logs is post-MVP.
@@ -222,11 +222,11 @@ sourceDocuments:
 
 ### Infrastructure / deployment
 
-- AR23 — Kubernetes on Azure AKS, production in UK South, multi-AZ HA. Container images → Azure Container Registry. Each of the 11 services is a containerised Spring Boot app. The AKS/ACR estate is Terraform-provisioned per AR53 (revised — provisioned in `ctam-shared-infrastructure`, Epic 0.0).
+- AR23 — Kubernetes on Azure AKS, production in UK South, multi-AZ HA. Container images → Azure Container Registry. Each of the 11 services is a containerised Spring Boot app. The AKS/ACR estate is Terraform-provisioned per AR53 (revised — provisioned in `ctam-shared-infrastructure`, Epic 1.0).
 - AR24 — Helm chart per service with `values-{env}.yaml` overlay per environment (`dev`, `staging`, `production`). Production values include `topologySpreadConstraints` for AZ spread, min replicas, multi-AZ node pool selection. Helm chart is **not** in HMCTS template baseline — added by `ctam-scaffold.sh` per G1.4a.
 - AR25 — Secrets in Azure Key Vault (via Spring Cloud Azure); no secrets in source control or env-baked images. Each service's Key Vault namespace is Terraform-provisioned in that service's repo (AR53).
 - AR26 — Per-environment configuration via Spring profiles + `application-{env}.yml`; cross-service runtime policy values in the shared `ctam_configuration_values` table (read-only via direct SQL).
-- AR27 — Azure API Management (APIM) at the edge for rate limits, header injection, deprecation/`Sunset` policies, and ops-restricting `/actuator/*` namespace. APIM instance + base policies Terraform-provisioned in `ctam-shared-infrastructure` (Epic 0.0); per-API policy additions in each service's `terraform/` (AR53 revised).
+- AR27 — Azure API Management (APIM) at the edge for rate limits, header injection, deprecation/`Sunset` policies, and ops-restricting `/actuator/*` namespace. APIM instance + base policies Terraform-provisioned in `ctam-shared-infrastructure` (Epic 1.0); per-API policy additions in each service's `terraform/` (AR53 revised).
 
 ### CI / CD pipeline (per service)
 
@@ -242,14 +242,14 @@ sourceDocuments:
 
 ### Security implementation
 
-- AR34 — Custom `JWTFilter` in `config/JWTFilter.java` validates JWTs against the IdP's JWKS endpoint (mock-auth for Phase 0–8; HMCTS IdP from pre-Phase-9 cutover). On each request, calls `ctam-authorisation` `POST /authz/check`, which resolves the IdP email to the **canonical CTAM identifier**[^d9] — the CTAM JOH UUID via `jo_people` → `personnel_number` → `ctam_joh_identities` for JOH users, or the CTAM-assigned staff UUID via `ctam_auth_staff_identities` for HMCTS admin staff — then returns roles + **jurisdiction** + Region/Area scope + activation flag (FR57); populates request-scoped `AuthDetails` bean. Unresolvable principals are rejected with an RFC 9457 authorisation problem.
+- AR34 — Custom `JWTFilter` in `config/JWTFilter.java` validates JWTs against the IdP's JWKS endpoint (mock-auth for Phase 1–9; HMCTS IdP from pre-Phase-10 cutover). On each request, calls `ctam-authorisation` `POST /authz/check`, which resolves the IdP email to the **canonical CTAM identifier**[^d9] — the CTAM JOH UUID via `jo_people` → `personnel_number` → `ctam_joh_identities` for JOH users, or the CTAM-assigned staff UUID via `ctam_auth_staff_identities` for HMCTS admin staff — then returns roles + **jurisdiction** + Region/Area scope + activation flag (FR57); populates request-scoped `AuthDetails` bean. Unresolvable principals are rejected with an RFC 9457 authorisation problem.
 - AR35 — `ctam-mock-auth` is the OIDC issuer for dev/CI/integration: issues human-user JWTs via `authorization_code` and service tokens via `client_credentials` for batch components. Test-user roster spans **both identity populations** (JOH users resolvable against seeded `jo_people` rows; admin-staff users resolvable against seeded `ctam_auth_staff_identities` rows). Refuses to start with `production` profile (per gaps.md G5.3). **Never deployed to production.**
 - AR36 — Batch / scheduled component authentication: `ctam-payment-batch` authenticates via OAuth 2.0 `client_credentials` to obtain a service-principal token; uses that token to call `ctam-notification`. Production issuer for service tokens is a deferred decision per gaps.md G7.1 (default recommendation: Azure Workload Identity given AKS deployment).
 - AR37 — Boilerplate `@ControllerAdvice` (`GlobalExceptionHandler.java`) emitting RFC 9457 problem-details with `ProblemDetailFactory`. Domain exceptions: `{Resource}NotFoundException`, `BusinessRuleViolation`, `DependencyException`.
 
 ### API surface / standards
 
-- AR38 — Versioning via URI path prefix (e.g. `/v1/johs`, `/v2/johs`) for major versions; backwards-compatible additions don't require a new path. Versioning policy itself is a Phase 0 deliverable[^d1].
+- AR38 — Versioning via URI path prefix (e.g. `/v1/johs`, `/v2/johs`) for major versions; backwards-compatible additions don't require a new path. Versioning policy itself is a Phase 1 deliverable[^d1].
 - AR39 — Deprecation signalling: `Deprecation` (RFC 9745) and `Sunset` (RFC 8594) response headers; injected at APIM layer per AR27.
 - AR40 — Versioned content-type for Payment: `application/vnd.hmcts.jfeps+json` (canonical) or `application/vnd.hmcts.jfeps+xlsx` (Excel for Liberata workflow). JFEPS shape evolves independently of Payment internals.
 - AR41 — Postman collections per phase under `postman/` in each service repo, named `ctam-{service}-phase{N}.postman_collection.json`. Each phase produces a collection that exercises the phase's endpoints (per NFR42); also serves as executable API documentation pre-UI demo.
@@ -280,23 +280,23 @@ sourceDocuments:
 ### Infrastructure provisioning (HMCTS standard)
 
 - AR53 — **(revised 2026-07-06)** **All Azure infrastructure is provisioned via Terraform** (HMCTS standard) — no Bicep, no portal click-ops. **Product-level *shared* infrastructure lives in its own dedicated repository, `ctam-shared-infrastructure`**, per the HMCTS Cloud Native Platform `{product}-shared-infrastructure` standard. This **supersedes the prior "colocated first-consumer" rule** (SCP 2026-06-17): the shared estate is no longer carried inside `ctam-reference-data`. Allocation under the revised rule:
-  - **`ctam-shared-infrastructure`** carries the **shared estate**: AKS cluster + node pools, PostgreSQL Flexible Server, Azure Container Registry, APIM instance + base policies, Application Insights / Log Analytics workspace (incl. retention settings), Key Vault — provisioned and **independently verified in Epic 0.0**, ahead of any service.
+  - **`ctam-shared-infrastructure`** carries the **shared estate**: AKS cluster + node pools, PostgreSQL Flexible Server, Azure Container Registry, APIM instance + base policies, Application Insights / Log Analytics workspace (incl. retention settings), Key Vault — provisioned and **independently verified in Epic 1.0**, ahead of any service.
   - **Each service repo** carries Terraform for its **own resources only**: its Key Vault namespace/secrets, service-specific storage, APIM per-API policy additions.
-  - **`ctam-reference-data`** carries the MRD feed storage account + blob container (Epic 0.1 Story 0.1.4 — its own resource).
+  - **`ctam-reference-data`** carries the MRD feed storage account + blob container (Epic 1.1 Story 1.1.4 — its own resource).
   - **`ctam-ui`** carries its Azure Static Web App.
   - Terraform lives under `terraform/` with per-environment stacks (`dev` / `staging` / `production`) in **`ctam-shared-infrastructure`** (shared estate) and in each service repo (own resources); `ctam-scaffold.sh` adds the per-service `terraform/` skeleton alongside the Helm chart (same pattern as G1.4a).
-  - **Helm remains the application-deployment mechanism** onto the shared AKS cluster provisioned in Epic 0.0 — Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema. The three do not overlap.
+  - **Helm remains the application-deployment mechanism** onto the shared AKS cluster provisioned in Epic 1.0 — Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema. The three do not overlap.
   - Terraform state backend and plan/apply pipeline arrangement are HMCTS-side details to confirm — gaps.md G9.
 
 ### Identity bootstrap + verification
 
-- AR52 — User and authorisation records (`auth_*` tables incl. `ctam_auth_staff_identities`) are **strictly CTAM-internal**, populated by programme-management / operational mechanisms outside the PRD's scope — no external authority provides this data and no legacy system seeds it. CTAM provides: (a) dev/CI seed scripts spanning both identity populations; (b) a **bootstrap-verification job** that confirms every bootstrapped user (both populations) maps to a real IdP principal — run before each wave's cutover and at the pre-Phase-9 IdP cutover (G1.3); (c) the production bootstrap runbook.[^d9]
+- AR52 — User and authorisation records (`auth_*` tables incl. `ctam_auth_staff_identities`) are **strictly CTAM-internal**, populated by programme-management / operational mechanisms outside the PRD's scope — no external authority provides this data and no legacy system seeds it. CTAM provides: (a) dev/CI seed scripts spanning both identity populations; (b) a **bootstrap-verification job** that confirms every bootstrapped user (both populations) maps to a real IdP principal — run before each wave's cutover and at the pre-Phase-10 IdP cutover (G1.3); (c) the production bootstrap runbook.[^d9]
 
 ## UX Design Requirements
 
 **(Not applicable — no UX design document was produced. UI requirements inherit directly from PRD FR55, FR56 and architecture decisions AR42–AR45b. The 2026-05-06 readiness report documents this as an accepted gap.)**
 
-[^d1]: D1 — Phase 0 Foundations scope: Reference Data, Authorisation (SSO), Notification, API contracts, deployment platform, structured logging.
+[^d1]: D1 — Phase 1 Foundations scope: Reference Data, Authorisation (SSO), Notification, API contracts, deployment platform, structured logging.
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d5]: D5 — the jurisdiction's incumbent system is the behavioural reference, verified by manual UAT.
 [^d7]: D7 — MVP observability is log-based; user-action audit is post-MVP.

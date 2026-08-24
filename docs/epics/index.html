@@ -128,52 +128,57 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </thead>
 <tbody>
 <tr>
-<td><strong>0</strong> — Foundations</td>
+<td><strong>0</strong> — Dev/Integration Prerequisites</td>
 <td><a href="phase-0/index.html">phase-0/</a></td>
-<td>🟡 Planned — 6 epics, 19 stories</td>
+<td>🟡 Planned — 1 epic, 2 stories (not part of the product's own phase sequence — dev/integration-only, see <code>framework.md</code>)</td>
 </tr>
 <tr>
-<td><strong>1</strong> — JOH</td>
+<td><strong>1</strong> — Foundations</td>
+<td><a href="phase-1/index.html">phase-1/</a></td>
+<td>🟡 Planned — 7 epics, 21 stories</td>
+</tr>
+<tr>
+<td><strong>2</strong> — JOH</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
 <tr>
-<td><strong>2</strong> — Absence</td>
+<td><strong>3</strong> — Absence</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
 <tr>
-<td><strong>3</strong> — Vacancy</td>
+<td><strong>4</strong> — Vacancy</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
 <tr>
-<td><strong>4</strong> — Booking</td>
+<td><strong>5</strong> — Booking</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
 <tr>
-<td><strong>5</strong> — Sitting</td>
+<td><strong>6</strong> — Sitting</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
 <tr>
-<td><strong>6</strong> — Payment</td>
+<td><strong>7</strong> — Payment</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
 <tr>
-<td><strong>7</strong> — Itineraries</td>
+<td><strong>8</strong> — Itineraries</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
 <tr>
-<td><strong>8</strong> — MI Feed &amp; Reporting</td>
+<td><strong>9</strong> — MI Feed &amp; Reporting</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
 <tr>
-<td><strong>9+</strong> — Wave Rollout (jurisdiction-first)</td>
+<td><strong>10+</strong> — Wave Rollout (jurisdiction-first)</td>
 <td><em>to be storied</em></td>
 <td>⚪ Framework only</td>
 </tr>
@@ -187,11 +192,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>Create stories</strong> — produce Gherkin-AC user stories sized for a single dev-agent session</li>
 <li><strong>Final validation</strong> — verify FR/NFR coverage, dependency soundness, architecture compliance</li>
 </ol>
-<p>Phase 0 has completed all four steps. Phases 1–9+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).</p>
+<p>Phase 1 has completed all four steps. Phases 2–10+ are at the framework stage only (Step 1 inputs ready; Steps 2–4 not yet run).</p>
 </div></details><details class="section" id="how-to-find-your-way"><summary><span class="section-title">How to find your way</span></summary><div class="section-body">
 <ul>
-<li><strong>Looking for what to build next?</strong> Start at the phase index (e.g. <a href="phase-0/index.html">phase-0/index.md</a>) and pick an epic.</li>
-<li><strong>Looking for a specific story?</strong> Stories are named <code>Story {phase}.{epic}.{n}</code> (e.g. Story 0.1.5). They live under <code>phase-{n}/epic-{n}.{m}-{slug}.md</code>.</li>
+<li><strong>Looking for what to build next?</strong> Start at the phase index (e.g. <a href="phase-1/index.html">phase-1/index.md</a>) and pick an epic.</li>
+<li><strong>Looking for a specific story?</strong> Stories are named <code>Story {phase}.{epic}.{n}</code> (e.g. Story 1.1.5). They live under <code>phase-{n}/epic-{n}.{m}-{slug}.md</code>.</li>
 <li><strong>Looking for an FR?</strong> Use <a href="fr-coverage-map.html">fr-coverage-map.md</a>.</li>
 <li><strong>Looking for an architecture rule?</strong> Use <a href="requirements-inventory.html">requirements-inventory.md</a> — ARs are in the Additional Requirements section.</li>
 <li><strong>Verifying readiness?</strong> Run <code>bmad-check-implementation-readiness</code> from the repo root; it understands this sharded shape.</li>

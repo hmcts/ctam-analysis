@@ -1,22 +1,22 @@
 ---
 type: 'Epic'
 description: 'User outcome: the published context bus exists and is version-pinned (arch-vN), and the shared ctam_configuration_values infrastructure table exists with SELECT granted to every service role — both in place before the first domain service is built. Promoted from a dispatch-graph node to a first-class epic 2026-08-19 (SCP 2026-08-19d) so BMad tracks it.'
-resource: 'epics/phase-0/epic-0.6-context-bus-and-shared-baseline.html'
-tags: [ctam-pathfinder, epics, phase-0]
+resource: 'epics/phase-1/epic-1.6-context-bus-and-shared-baseline.html'
+tags: [ctam-pathfinder, epics, phase-1]
 timestamp: '2026-08-19'
-parent: 'epics/phase-0/index.md'
-epic: 0.6
+parent: 'epics/phase-1/index.md'
+epic: 1.6
 title: 'Context bus is published and the shared configuration baseline exists'
 storyCount: 2
 repo: ctam-architecture
-depends_on: [epic-0.0]
+depends_on: [epic-1.0]
 ---
 
-# Epic 0.6: Context bus is published and the shared configuration baseline exists
+# Epic 1.6: Context bus is published and the shared configuration baseline exists
 
-> **Runs between Epic 0.0 and Epic 0.1 — the number is not the order.** Sequence comes from `depends_on`, not from the epic number: this epic depends on Epic 0.0 and Epic 0.1 depends on it. Note the dependency is **story-specific in practice** — Story 0.6.1 (publish and tag the bus) needs nothing and is already done; only Story 0.6.2 (the Liquibase baseline) needs Epic 0.0's shared PostgreSQL. `depends_on` is epic-level, so it records the stricter of the two; expect `dispatch-preflight.sh` to flag Epic 0.0 as a blocker for 0.6.1 even though that story is complete. It is numbered 0.6 because renumbering the authored epics 0.1–0.5 would break every FR mapping and cross-reference for no benefit.
+> **Runs between Epic 1.0 and Epic 1.1 — the number is not the order.** Sequence comes from `depends_on`, not from the epic number: this epic depends on Epic 1.0 and Epic 1.1 depends on it. Note the dependency is **story-specific in practice** — Story 1.6.1 (publish and tag the bus) needs nothing and is already done; only Story 1.6.2 (the Liquibase baseline) needs Epic 1.0's shared PostgreSQL. `depends_on` is epic-level, so it records the stricter of the two; expect `dispatch-preflight.sh` to flag Epic 1.0 as a blocker for 1.6.1 even though that story is complete. It kept the trailing slot (`.6`, after `.0`–`.5`) rather than being renumbered into sequence when it was promoted from the dispatch graph (SCP 2026-08-19d), because renumbering the already-authored epics would have broken every FR mapping and cross-reference for no benefit — that reasoning no longer held once the whole programme was renumbered (SCP 2026-08-24, `phase-0` → `phase-1`), but the trailing slot was kept anyway to avoid a second unrelated churn of this epic's identifiers in the same pass.
 >
-> **History:** this was `arch-baseline` in `delivery/dispatch-graph.yaml`, a node marked `decomposed: false`. That made it invisible to every BMad skill — it appeared in no sprint status, had no stories, and could not be dispatched. Promoted to a real epic when the dispatch graph was retired (SCP 2026-08-19d).
+> **History:** this was `arch-baseline` in `delivery/dispatch-graph.yaml`, a node marked `decomposed: false`. That made it invisible to every BMad skill — it appeared in no sprint status, had no stories, and could not be dispatched. Promoted to a real epic when the dispatch graph was retired (SCP 2026-08-19d). Story 1.6.1 was completed and tagged `arch-v1.0` in `ctam-architecture` while this epic was still numbered `0.6`; that git branch/tag name is a historical artifact and is not renamed by SCP 2026-08-24 (see `architecture/changelog.md`).
 
 **User outcome:** Every service repo can pin one published, versioned copy of the architecture (the **context bus**), and every service can read cross-service runtime policy values from one shared table it does not own. Both exist before the first domain service is scaffolded, so no service has to invent a local copy of shared truth or a local config table.
 
@@ -31,14 +31,14 @@ depends_on: [epic-0.0]
 
 **Key NFRs:** NFR16 (secrets stay in Key Vault — this table is for policy, never secrets), NFR40 (auditable trail: bus versions are tags, schema changes are changelogs)
 
-**Out of scope for Phase 0 (deferred):**
+**Out of scope for Phase 1 (deferred):**
 - A UI or API for editing configuration values — **post-MVP**; MVP maintenance is DBA-via-SQL per operational runbooks[^d10]
 - Publishing `diagrams/`, `sequence-diagrams/` or `architecture/analysis/` to the bus — added when a consumer needs them, not speculatively
-- The `api-specs/` read-only contract mirror — arrives with the first published service spec (Epic 0.3)
+- The `api-specs/` read-only contract mirror — arrives with the first published service spec (Epic 1.3)
 
 ---
 
-## Story 0.6.1: Publish `ctam-architecture` as the context bus and tag `arch-v1.0`
+## Story 1.6.1: Publish `ctam-architecture` as the context bus and tag `arch-v1.0`
 
 As a **platform engineer**,
 I want the architecture set and the agent-rules pack published in `ctam-architecture` and tagged,
@@ -71,7 +71,7 @@ So that **every service repo can pin exactly one version of shared truth** as a 
 
 ---
 
-## Story 0.6.2: Shared `ctam_configuration_values` Liquibase baseline with per-service SELECT grants
+## Story 1.6.2: Shared `ctam_configuration_values` Liquibase baseline with per-service SELECT grants
 
 As a **service developer**,
 I want one shared, typed table of cross-service runtime policy values that my service can read but not write,
@@ -79,7 +79,7 @@ So that policy visible to several services (session-timeout warnings, batch sche
 
 **Acceptance Criteria:**
 
-**Given** the shared PostgreSQL instance from Epic 0.0 exists,
+**Given** the shared PostgreSQL instance from Epic 1.0 exists,
 **And** the engineer adds `ctam-architecture`'s Liquibase **baseline** changelog,
 **When** Liquibase applies it,
 **Then** `ctam_configuration_values` exists in the shared schema,

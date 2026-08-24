@@ -79,7 +79,7 @@ ctam-{service}/
 │   ├── service/
 │   ├── repository/                              (integration tests, Testcontainers)
 │   └── client/
-├── terraform/                                   (this repo's OWN Azure resources only, per-env stacks dev/staging/production — AR53 revised; the shared estate — AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault — lives in the dedicated ctam-shared-infrastructure repo, provisioned in Epic 0.0 per the HMCTS CNP {product}-shared-infrastructure standard)
+├── terraform/                                   (this repo's OWN Azure resources only, per-env stacks dev/staging/production — AR53 revised; the shared estate — AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault — lives in the dedicated ctam-shared-infrastructure repo, provisioned in Epic 1.0 per the HMCTS CNP {product}-shared-infrastructure standard)
 │   ├── dev/
 │   ├── staging/
 │   └── production/
@@ -177,8 +177,8 @@ ctam-ui/
 ├── tests/
 │   ├── unit/                                    (Vitest)
 │   └── e2e/                                     (Playwright; one suite per phase)
-│       ├── phase-1-judge.spec.ts
-│       ├── phase-2-absence.spec.ts
+│       ├── phase-2-judge.spec.ts
+│       ├── phase-3-absence.spec.ts
 │       └── ...
 ├── api-clients/                                 (generated; regenerated in CI from per-service OpenAPI)
 │   ├── judge-client/
@@ -258,7 +258,7 @@ ctam-admin-ui/
 **Future admin surfaces reserved** (not built at MVP — placeholders only):
 
 - `modules/activation/` — per-(jurisdiction, region) activation flag dashboard (FR57 admin side)
-- `modules/migration-reports/` — Phase 0 reconciliation report viewer (FR57)
+- `modules/migration-reports/` — Phase 1 reconciliation report viewer (FR57)
 - `modules/audit/` — post-MVP user-action audit viewer (D7 roadmap)
 
 **Deployment:** independent of `ctam-ui`. Same Azure Static Web Apps pattern, separate hostname (e.g. `admin.ctam.hmcts.gov.uk` vs `ctam.hmcts.gov.uk`), separate Helm release, separate per-environment rollout.
@@ -313,8 +313,8 @@ ctam-architecture/
 
 **Why `migration/` lives here, not as a separate service or as Liquibase changesets:**
 
-- The migration is a **one-shot programme deliverable** (Phase 0; re-run per wave for incremental user activation). It is not a runtime service, so it has no `controller/` / `service/` / `repository/` shape.
-- It is **owned by the architecture team** (and the named Phase 0 owners per Risk #13), not by any single domain service. Living under `ctam-architecture/` keeps that ownership visible.
+- The migration is a **one-shot programme deliverable** (Phase 1; re-run per wave for incremental user activation). It is not a runtime service, so it has no `controller/` / `service/` / `repository/` shape.
+- It is **owned by the architecture team** (and the named Phase 1 owners per Risk #13), not by any single domain service. Living under `ctam-architecture/` keeps that ownership visible.
 - It **calls CTAM Pathfinder APIs** (Reference Data API, Authorisation API) — it does not write directly to CTAM Pathfinder tables. Per the v1.6 decision, writes go via the API so validation, idempotency, and any audit-logging hooks fire.
 - It is **separate from Liquibase**. Liquibase in CTAM Pathfinder is for CTAM Pathfinder's DDL (creating tables, adding columns, granting permissions). The ETL is for moving APEX data into CTAM Pathfinder tables that Liquibase has already created.
 
@@ -335,7 +335,7 @@ ctam-shared-infrastructure/
 │   ├── dev/                           (stack: composes modules; remote state backend)
 │   ├── staging/
 │   └── production/                    (UK South; zone-redundant SKUs — A34)
-├── verification/                      (per-layer deploy-time smoke checks — Epic 0.0 ACs)
+├── verification/                      (per-layer deploy-time smoke checks — Epic 1.0 ACs)
 │   ├── aks-nodes.sh                   (kubectl get nodes + hello pod schedules)
 │   ├── postgres-tls.sh                (TLS-only connect; plaintext refused; scratch DB)
 │   ├── keyvault-roundtrip.sh          (secret round-trips from a pod via workload identity)
@@ -352,7 +352,7 @@ ctam-shared-infrastructure/
     └── decisions/                     (estate-level ADRs)
 ```
 
-**Why the shared estate lives here, not in a service repo:** product-level shared infrastructure gets its own dedicated `{product}-shared-infrastructure` repo per the HMCTS Cloud Native Platform standard (AR53 revised) — it is not colocated inside the first service scaffolded. The `verification/` scripts are the deploy-time acceptance tests from Epic 0.0: each Terraform layer is proven as it lands (AKS reachable, PostgreSQL TLS-only, Key Vault round-trips, ACR pull works, telemetry ingests, APIM routes over TLS) before any service depends on it. This repo has **no `src/`, no Helm chart, no deployable workload** — Terraform provisions the estate; services (via Helm) deploy onto it.
+**Why the shared estate lives here, not in a service repo:** product-level shared infrastructure gets its own dedicated `{product}-shared-infrastructure` repo per the HMCTS Cloud Native Platform standard (AR53 revised) — it is not colocated inside the first service scaffolded. The `verification/` scripts are the deploy-time acceptance tests from Epic 1.0: each Terraform layer is proven as it lands (AKS reachable, PostgreSQL TLS-only, Key Vault round-trips, ACR pull works, telemetry ingests, APIM routes over TLS) before any service depends on it. This repo has **no `src/`, no Helm chart, no deployable workload** — Terraform provisions the estate; services (via Helm) deploy onto it.
 
 ## File Organisation Patterns
 
@@ -449,5 +449,5 @@ Manual approval (per region/wave)
    └─ Manual UAT sign-off by jurisdiction-incumbent-experienced users runs as gate (FR60 / NFR41 revised)
 ```
 
-> The architectural rules for the per-region production gate (manual UAT, automated tests, migration sign-off, programme sign-off) and the rollback path live in [`../architecture.md`](../architecture.md) under *Region rollout flow (Phase 9+)*.
+> The architectural rules for the per-region production gate (manual UAT, automated tests, migration sign-off, programme sign-off) and the rollback path live in [`../architecture.md`](../architecture.md) under *Region rollout flow (Phase 10+)*.
 

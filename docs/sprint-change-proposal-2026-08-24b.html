@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-24 (b) — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-24-b">Sprint Change Proposal — 2026-08-24 (b)</h1>
+<p><strong>Trigger:</strong> Direct request: "update the epic-0.0 to joh-mock-apis use the docs in the folder to create this epic /Users/shivakumar/MOJ/ctam-jomockapi/docs/".</p>
+<details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p><code>epic-0.0</code> at <code>epics/phase-0/</code> currently holds throwaway BMad-tooling test-fixture content (created earlier this session, explicitly marked non-real). The request repurposes it into a genuine epic, sourced from a real, already-built sibling project: <code>/Users/shivakumar/MOJ/ctam-jomockapi/</code> — a working Node.js/Express mock of the <strong>Judiciary E-links People API v5</strong> (the upstream JOH reference-data source gap <strong>G8.1</strong> flags as having an unconfirmed contract). It serves realistic synthetic JOH people/reference data from the real production CSV exports, with a no-op bearer-auth check, and covers <code>people</code>, <code>leavers</code>, <code>deleted</code>, and <code>reference_data</code> endpoints per its README.</p>
+<p>Clarified with the requester:</p>
+<ol type="1">
+<li><strong>This is real programme scope</strong>, and <code>ctam-jomockapi</code> becomes a documented <strong>17th repo</strong>.</li>
+<li>It is classified <strong>like <code>ctam-mock-auth</code></strong> — dev/integration-only, never deployed to production — not a 12th production service. This keeps every existing "11 services" statement correct as-is; only repo-<strong>count</strong> mentions ("16-repo polyrepo" → 17) and the two repo-listing shards need new content.</li>
+<li>It lives at <code>epics/phase-0/</code>, which becomes a <strong>new, real Phase 0</strong> — distinct from the old Foundations phase that SCP 2026-08-24 renamed to Phase 1. Numerically clean: nothing else renumbers, since 0 &lt; 1 and there is no other "Phase 0" left to collide with.</li>
+</ol>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<ul>
+<li><code>epics/phase-0/epic-0.0-mock-epic.md</code> (fixture) is replaced with <code>epic-0.0-joh-mock-apis.md</code> (real epic), sourced from the sibling repo's README, <code>package.json</code>, and route/lib structure.</li>
+<li><code>epics/phase-0/index.md</code> becomes a real phase index (currently reads "MOCK Phase 0 — Fixture").</li>
+<li>The BMad-tooling test fixture this displaces is retired — if you still want a throwaway fixture for tooling tests later, it'll need a new, non-colliding location (e.g. outside <code>planning-artifacts/</code>, per the option raised and declined earlier today).</li>
+<li>No existing epic (1.0–1.6) changes shape or numbering.</li>
+</ul>
+<h3 id="artifact-conflicts">Artifact conflicts</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Files</th>
+<th>Treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repo-count mentions</td>
+<td><code>CLAUDE.md</code>, <code>README.md</code>, <code>architecture/repository-strategy.md</code>, <code>architecture/delivery-operating-model.md</code>, <code>architecture.md</code> (decision-log row #13, which the established precedent from today's earlier SCP treats as living, not frozen)</td>
+<td>"16-repo" → "17-repo" / "16 repos" → "17 repos"; "15 service/UI/infra repos" (the execution-unit count, excluding the control plane) → "16"</td>
+</tr>
+<tr>
+<td>Repo listings</td>
+<td><code>architecture/repository-strategy.md</code> (Repository List table + total line), <code>architecture/repo-structure.md</code></td>
+<td>Add a <code>ctam-jomockapi</code> row/section, Phase 0, dev/integration-only (same category note as <code>ctam-mock-auth</code>)</td>
+</tr>
+<tr>
+<td>Epics connective docs</td>
+<td><code>epics/framework.md</code>, <code>epics/index.md</code></td>
+<td>Add a Phase 0 row/section ahead of Phase 1; link to the new epic</td>
+</tr>
+<tr>
+<td>Tracking</td>
+<td><code>sprint-status.yaml</code></td>
+<td>Add <code>epic-0.0</code> + its stories</td>
+</tr>
+<tr>
+<td>Build tooling</td>
+<td><code>scripts/python/build_html.py</code> NAV</td>
+<td>Add the Phase 0 pages back (real content this time)</td>
+</tr>
+<tr>
+<td><strong>Not touched</strong></td>
+<td>Every "11 services" mention (PRD success criteria, NFR40, architecture.md service clusters, <code>conventions.md</code>, <code>starter-template.md</code>, etc.)</td>
+<td>Correct as-is under the dev/integration-only classification — <code>ctam-jomockapi</code> doesn't join the 11-service count, same as <code>ctam-mock-auth</code> today</td>
+</tr>
+<tr>
+<td><strong>Not touched</strong></td>
+<td>Dated historical reports, PRD's D-table/editHistory, changelog.md's prior version rows</td>
+<td>Immutable history, same convention as before</td>
+</tr>
+</tbody>
+</table>
+<h3 id="technical-impact">Technical impact</h3>
+<p>None — this control plane holds no runtime code, and <code>ctam-jomockapi</code> already exists and runs independently. This SCP only documents it; it doesn't move, rewrite, or take ownership of that repo's code.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct Adjustment</strong> — repurpose one fixture epic into a real one, add one new repo entry, update repo-count mentions. Effort: Medium (real epic-writing plus a repo-count sweep across ~6 living files — much smaller than today's earlier renumbering, since the "11 services" language is explicitly untouched under the dev/integration-only classification). Risk: Low, given the classification precedent (<code>ctam-mock-auth</code>) already exists to model this on.</p>
+</div></details><details class="section" id="4-prd-mvp-impact"><summary><span class="section-title">4. PRD MVP Impact</span></summary><div class="section-body">
+<p>None to FRs/NFRs. <code>ctam-jomockapi</code> doesn't fulfil an FR itself (it's a dev aid standing in for an unconfirmed upstream contract); it de-risks gap <strong>G8.1</strong> by giving <code>ctam-reference-data</code>'s Epic 1.1 (ingestion) a concrete, realistic contract to build and test against ahead of the real eLinks API being confirmed. <code>gaps.md</code> G8.1 gets a note pointing at it.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope classification: Minor</strong> — additive, no FR/NFR/scope change, models an existing precedent (<code>ctam-mock-auth</code>). Direct implementation this session.</p>
+<p><strong>Plan:</strong></p>
+<ol type="1">
+<li>Write the real <code>epic-0.0-joh-mock-apis.md</code> (user outcome, vertical slice referencing the actual endpoints/auth/data-generation approach, FRs supported — none directly, referenced from G8.1 — stories for "stand up the mock server for local dev" / "wire epic-1.1 ingestion against it").</li>
+<li>Rewrite <code>epics/phase-0/index.md</code> as a real phase index.</li>
+<li>Add the repo-list row to <code>repository-strategy.md</code> and a tree section to <code>repo-structure.md</code>.</li>
+<li>Sweep repo-count mentions (16→17, 15→16 execution units) in <code>CLAUDE.md</code>, <code>README.md</code>, <code>delivery-operating-model.md</code>, <code>architecture.md</code>'s decision-log row #13.</li>
+<li>Add a Phase 0 section to <code>framework.md</code>, a Phase 0 entry to <code>epics/index.md</code>, <code>epic-0.0</code> to <code>sprint-status.yaml</code>, Phase 0 pages to <code>build_html.py</code> NAV.</li>
+<li>Add a <code>changelog.md</code> entry.</li>
+<li>Verify with the same kind of audit script used for the earlier renumbering (grep every changed repo-count number against its original, confirm no stray "11 services" got bumped).</li>
+<li>Regenerate <code>docs/</code>.</li>
+</ol>
+<p><strong>Success criteria:</strong> <code>ctam-jomockapi</code> is documented once, correctly, in the two repo-listing shards; every living repo-count mention reads 17 (not 16, not 18); every "11 services" mention is untouched; the new Phase 0 epic accurately reflects what the sibling repo actually does (verified against its README); <code>docs/</code> regenerates clean.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-24b.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#artifact-conflicts">Artifact conflicts</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-prd-mvp-impact">4. PRD MVP Impact</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-24b";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

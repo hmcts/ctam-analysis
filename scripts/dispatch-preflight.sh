@@ -2,8 +2,8 @@
 # Pre-dispatch safety check. Run BEFORE creating a story packet.
 #
 #   scripts/dispatch-preflight.sh <story-id> [remote-url-or-path]
-#   scripts/dispatch-preflight.sh 0.1.4
-#   scripts/dispatch-preflight.sh 0.1.4 https://github.com/hmcts/ctam-reference-data.git
+#   scripts/dispatch-preflight.sh 1.1.4
+#   scripts/dispatch-preflight.sh 1.1.4 https://github.com/hmcts/ctam-reference-data.git
 #
 # WHY THIS EXISTS
 # Coordination in the control plane is by convention: ONE DISPATCHER AT A TIME. sprint-status.yaml
@@ -38,13 +38,13 @@ story="${1:-}"
 remote_arg="${2:-}"
 
 if [ -z "$story" ]; then
-  echo "usage: $(basename "$0") <story-id> [remote-url-or-path]   e.g. $(basename "$0") 0.1.4" >&2
+  echo "usage: $(basename "$0") <story-id> [remote-url-or-path]   e.g. $(basename "$0") 1.1.4" >&2
   exit 2
 fi
 [ -f "$STATUS_FILE" ] || { echo "error: no sprint-status.yaml at $STATUS_FILE — run bmad-sprint-planning" >&2; exit 1; }
 
-dashed="${story//./-}"                       # 0.1.4 -> 0-1-4
-epic_num="${story%.*}"                       # 0.1.4 -> 0.1
+dashed="${story//./-}"                       # 1.1.4 -> 1-1-4
+epic_num="${story%.*}"                       # 1.1.4 -> 1.1
 epic="epic-${epic_num}"
 problems=0
 warn() { printf '  \033[33mWARN\033[0m  %s\n' "$1"; }
@@ -138,7 +138,7 @@ fi
 # ---------------------------------------------------------------- 4. is it its turn?
 # Stories inside a CTAM epic are ordered by construction — scaffold the repo, then the schema, then
 # the ingestion that needs both — and NO field records that ordering. The epic's `depends_on` covers
-# epic-to-epic only, so nothing stopped 0.1.4 being dispatched while 0.1.1 had not been built. The
+# epic-to-epic only, so nothing stopped 1.1.4 being dispatched while 1.1.1 had not been built. The
 # order in sprint-status.yaml IS the story-level dependency: an earlier sibling still `backlog`
 # means the ground this story stands on does not exist yet.
 if printf '%s' "$story" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then

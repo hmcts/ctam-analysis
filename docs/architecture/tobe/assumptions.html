@@ -94,7 +94,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </blockquote>
 <p>Each assumption is either:</p>
 <ul>
-<li>An external precondition (verifiable with the named owner before Phase 0 or pre-Phase-9), or</li>
+<li>An external precondition (verifiable with the named owner before Phase 1 or pre-Phase-10), or</li>
 <li>A simplifying choice that can be revisited if wrong.</li>
 </ul>
 <p>Assumptions that affect implementation correctness (not just convenience) are flagged <strong>load-bearing</strong>.</p>
@@ -111,20 +111,20 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>A1</strong></td>
 <td>HMCTS IdP supports OIDC for human-user authentication</td>
-<td>Load-bearing <strong>for Phase 9+ only</strong></td>
-<td>Pre-Phase-9 prerequisite (G1.1)</td>
+<td>Load-bearing <strong>for Phase 10+ only</strong></td>
+<td>Pre-Phase-10 prerequisite (G1.1)</td>
 </tr>
 <tr>
 <td><strong>A2</strong> <em>(reopened v2.6, 2026-05-07)</em></td>
 <td>HMCTS IdP supports OAuth 2.0 <code>client_credentials</code> grant for service principals — needed in production for the <strong>payment-processing batch</strong> (introduced in v2.6). At MVP this is satisfied by <code>ctam-mock-auth</code> (non-prod only); production issuer is a deferred decision (G7.1, with Azure Workload Identity as the default recommendation).</td>
-<td>Pre-Phase-9 decision per G7.1; mock covers Phase 0–8</td>
+<td>Pre-Phase-10 decision per G7.1; mock covers Phase 1–9</td>
 <td></td>
 </tr>
 <tr>
 <td><strong>A3</strong></td>
-<td>HMCTS IdP supports principal export / query API for pre-Phase-9 reconciliation</td>
-<td>Load-bearing <strong>for Phase 9+ only</strong></td>
-<td>Pre-Phase-9 prerequisite (G1.3); manual fallback documented</td>
+<td>HMCTS IdP supports principal export / query API for pre-Phase-10 reconciliation</td>
+<td>Load-bearing <strong>for Phase 10+ only</strong></td>
+<td>Pre-Phase-10 prerequisite (G1.3); manual fallback documented</td>
 </tr>
 <tr>
 <td><strong>A4</strong> <em>(reconciled 2026-06-17)</em></td>
@@ -136,7 +136,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong>A5</strong></td>
 <td>HMCTS Email infrastructure is reachable from AKS-hosted Notification service via documented transport</td>
 <td>Load-bearing</td>
-<td>Phase 0 prerequisite (G1.5)</td>
+<td>Phase 1 prerequisite (G1.5)</td>
 </tr>
 <tr>
 <td><strong>A6</strong></td>
@@ -226,7 +226,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong>A20</strong></td>
 <td>Azure subscription is provisioned per HMCTS / MoJ standard with appropriate RBAC; all resources within it are Terraform-provisioned per the 2026-06-11 decision (shared estate in the dedicated <code>ctam-shared-infrastructure</code> repo per decision #13, 2026-07-06)</td>
 <td>Reversible</td>
-<td>Phase 0 prerequisite; Terraform conventions per G9.1</td>
+<td>Phase 1 prerequisite; Terraform conventions per G9.1</td>
 </tr>
 <tr>
 <td><strong>A21</strong></td>
@@ -262,23 +262,23 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong>A26</strong> <em>(widened v2.6, 2026-05-07)</em></td>
 <td>Mock auth (Spring Authorization Server) provides full OIDC contract parity with the production issuer for (a) human <code>authorization_code</code> and (b) <code>client_credentials</code> for batch service principals (initially <code>ctam-payment-batch</code>).</td>
 <td>Load-bearing</td>
-<td>Phase 0 deliverable; integration tests verify human + service-principal contract parity</td>
+<td>Phase 1 deliverable; integration tests verify human + service-principal contract parity</td>
 </tr>
 <tr>
 <td><strong>A27</strong></td>
 <td>Mock auth never runs in production; CI lint and Spring profile validation prevent this</td>
 <td>Load-bearing — critical for production security</td>
-<td>Phase 0 deliverable; enforced by CI rules</td>
+<td>Phase 1 deliverable; enforced by CI rules</td>
 </tr>
 <tr>
 <td><strong>A28</strong></td>
 <td>One global PostgreSQL Flexible Server instance is sufficient for the full bounded CTAM Pathfinder workload (~hundreds of concurrent users, read-mostly patterns, indexed joins)</td>
 <td>Load-bearing</td>
-<td>Phase 0 sizing decision; reversible — can introduce read replicas post-MVP per Principle 2</td>
+<td>Phase 1 sizing decision; reversible — can introduce read replicas post-MVP per Principle 2</td>
 </tr>
 <tr>
 <td><strong>A29</strong> <em>(reconciled 2026-06-17; Flyway → Liquibase 2026-06-18)</em></td>
-<td>Schema evolution: <strong>Liquibase</strong> (<code>liquibase-core</code>). <strong>Liquibase is NOT in the template baseline</strong> — it is a CTAM convention added by <code>ctam-scaffold.sh</code> (the HMCTS demo repo's Database branch uses Flyway; CTAM standardises on Liquibase, per AR19/G1.4a). Liquibase owns CTAM Pathfinder's own DDL — table creation, column add/drop, grants. <strong>Not</strong> upstream data movement; the JOH eLinks sync and MRD ingestion (see <a href="../../architecture.html"><code>../architecture.md</code></a> → <em>Upstream reference-data ingestion</em>; replaced the retracted Phase 0 ETL<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>) load tier-(a) data into tables Liquibase has already created.</td>
+<td>Schema evolution: <strong>Liquibase</strong> (<code>liquibase-core</code>). <strong>Liquibase is NOT in the template baseline</strong> — it is a CTAM convention added by <code>ctam-scaffold.sh</code> (the HMCTS demo repo's Database branch uses Flyway; CTAM standardises on Liquibase, per AR19/G1.4a). Liquibase owns CTAM Pathfinder's own DDL — table creation, column add/drop, grants. <strong>Not</strong> upstream data movement; the JOH eLinks sync and MRD ingestion (see <a href="../../architecture.html"><code>../architecture.md</code></a> → <em>Upstream reference-data ingestion</em>; replaced the retracted Phase 1 ETL<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>) load tier-(a) data into tables Liquibase has already created.</td>
 <td>Tool sourcing corrected 2026-06-17 (was wrongly attributed to the template baseline); ingestion reframing 2026-06-11; Flyway → Liquibase 2026-06-18</td>
 <td></td>
 </tr>
@@ -296,7 +296,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>A32</strong> <em>(SUPERSEDED 2026-06-11)</em></td>
-<td><del>Phase 0 Reference Data + Users/Roles migration is an ETL.</del> Superseded by the revised D3 (2026-06-10): no legacy migration of any kind; reference data is ingested from JOH eLinks + MRD (see A36); user/authorisation records are bootstrapped by mechanisms outside the PRD's scope<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</td>
+<td><del>Phase 1 Reference Data + Users/Roles migration is an ETL.</del> Superseded by the revised D3 (2026-06-10): no legacy migration of any kind; reference data is ingested from JOH eLinks + MRD (see A36); user/authorisation records are bootstrapped by mechanisms outside the PRD's scope<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</td>
 <td>Superseded</td>
 <td>Closed — see A36/A37 and G8.1.</td>
 </tr>
@@ -310,11 +310,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong>A34</strong></td>
 <td>Azure UK South provides three availability zones with zone-redundant managed services (AKS multi-zone node pools, PostgreSQL Flexible Server zone-redundant HA, Key Vault Premium, APIM Premium, ACR Premium).</td>
 <td>Load-bearing</td>
-<td>Phase 0 infra-provisioning verification (via the Story 0.1.1 Terraform apply); if any zone-redundant SKU is unavailable, the component degrades to single-zone HA + accepted-risk note.</td>
+<td>Phase 1 infra-provisioning verification (via the Story 1.1.1 Terraform apply); if any zone-redundant SKU is unavailable, the component degrades to single-zone HA + accepted-risk note.</td>
 </tr>
 <tr>
 <td><strong>A35</strong> <em>(softened v2.6, 2026-05-07)</em></td>
-<td>Most MVP runtime requests are user-initiated. One exception: the payment-processing batch (<code>ctam-payment-batch</code>), which runs on a schedule and authenticates as a service principal. User-initiated inter-service auth: JWT propagation. Batch inter-service auth: OAuth <code>client_credentials</code> against <code>ctam-mock-auth</code> in non-prod; production issuer per G7.1. Other non-user-initiated flows (DA&amp;I service-consumer calls, scheduled aggregations, async messaging) are out of MVP scope and would reuse the service-principal pattern. Phase 0 production migration runs operator-initiated (G4.7); dev/CI seeding via one-off scripts.</td>
+<td>Most MVP runtime requests are user-initiated. One exception: the payment-processing batch (<code>ctam-payment-batch</code>), which runs on a schedule and authenticates as a service principal. User-initiated inter-service auth: JWT propagation. Batch inter-service auth: OAuth <code>client_credentials</code> against <code>ctam-mock-auth</code> in non-prod; production issuer per G7.1. Other non-user-initiated flows (DA&amp;I service-consumer calls, scheduled aggregations, async messaging) are out of MVP scope and would reuse the service-principal pattern. Phase 1 production migration runs operator-initiated (G4.7); dev/CI seeding via one-off scripts.</td>
 <td>Load-bearing</td>
 <td>The payment batch is the only non-user-initiated runtime flow at MVP. Adding more reopens the production service-auth choice (G7.1).</td>
 </tr>
@@ -322,13 +322,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong>A36</strong> <em>(new 2026-06-11)</em></td>
 <td>The JOH eLinks API exposes all 15 <code>jo_*</code> entities with stable natural keys (<code>personnel_number</code> for <code>jo_people</code>) at a cadence compatible with a nightly pull, and the jurisdiction hierarchy's parent-child shape is available natively or derivable on ingest<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</td>
 <td>Load-bearing for the reference-data tier and the JOH identity lookup</td>
-<td>Verify against the eLinks API contract in Phase 0 (G8.1).</td>
+<td>Verify against the eLinks API contract in Phase 1 (G8.1).</td>
 </tr>
 <tr>
 <td><strong>A37</strong> <em>(new 2026-06-11)</em></td>
 <td>The MRD team can deliver the weekly Excel workbook to an agreed Azure Blob container in a stable shape, and the workbook's entities carry jurisdiction-aware reference data as stated in the revised D3.</td>
 <td>Load-bearing for tier-(a) MRD data (JOH Specialisations)</td>
-<td>Verify with the MRD team in Phase 0 (G8.1); transitional until MRD public APIs ship.</td>
+<td>Verify with the MRD team in Phase 1 (G8.1); transitional until MRD public APIs ship.</td>
 </tr>
 </tbody>
 </table>

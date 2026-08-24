@@ -259,15 +259,19 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Phase × Area framework", "epics/framework", False),
         ("FR coverage map", "epics/fr-coverage-map", False),
     ]),
-    ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0.0 added 2026-07-06)", [
+    ("Implementation — Phase 0 (dev/integration prerequisites, not part of the product's own phase sequence; added 2026-08-24)", [
         ("Phase 0 overview", "epics/phase-0/index", False),
-        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
-        ("Epic 0.1 — Upstream JOH/MRD reference data is ingested (4 stories)", "epics/phase-0/epic-0.1-upstream-reference-data-ingested", False),
-        ("Epic 0.2 — User authenticates (5 stories)", "epics/phase-0/epic-0.2-user-authenticates", False),
-        ("Epic 0.3 — Reference data read-only API (2 stories)", "epics/phase-0/epic-0.3-reference-data-read-only-api", False),
-        ("Epic 0.4 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.4-user-populations-bootstrapped", False),
-        ("Epic 0.5 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.5-system-dispatches-emails", False),
-        ("Epic 0.6 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.6-context-bus-and-shared-baseline", False),
+        ("Epic 0.0 — JOH Mock APIs, local eLinks mock server (2 stories)", "epics/phase-0/epic-0.0-joh-mock-apis", False),
+    ]),
+    ("Implementation — Phase 1 (platform-then-integrations-first; Epic 1.0 added 2026-07-06)", [
+        ("Phase 1 overview", "epics/phase-1/index", False),
+        ("Epic 1.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-1/epic-1.0-platform-estate-provisioned", False),
+        ("Epic 1.1 — Upstream JOH/MRD reference data is ingested (4 stories)", "epics/phase-1/epic-1.1-upstream-reference-data-ingested", False),
+        ("Epic 1.2 — User authenticates (5 stories)", "epics/phase-1/epic-1.2-user-authenticates", False),
+        ("Epic 1.3 — Reference data read-only API (2 stories)", "epics/phase-1/epic-1.3-reference-data-read-only-api", False),
+        ("Epic 1.4 — User populations bootstrapped (1 story)", "epics/phase-1/epic-1.4-user-populations-bootstrapped", False),
+        ("Epic 1.5 — Notification scaffolded (2 stories)", "epics/phase-1/epic-1.5-system-dispatches-emails", False),
+        ("Epic 1.6 — Context bus published + shared config baseline (2 stories)", "epics/phase-1/epic-1.6-context-bus-and-shared-baseline", False),
     ]),
 ]
 

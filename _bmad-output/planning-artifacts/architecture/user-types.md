@@ -269,10 +269,10 @@ The Payment Authoriser is **not an CTAM Pathfinder application access type**. It
 **Modelling in CTAM Pathfinder:**
 
 1. Stored as configuration, not as an authenticated principal.
-2. The list of valid Payment Authoriser recipients is administrable (Phase 0 design decision: most likely the shared `ctam_configuration_values` infrastructure table or an admin-maintained reference list — to be finalised in the Payment service's design).
+2. The list of valid Payment Authoriser recipients is administrable (Phase 1 design decision: most likely the shared `ctam_configuration_values` infrastructure table or an admin-maintained reference list — to be finalised in the Payment service's design).
 3. Finance users select a Payment Authoriser from this list when generating a payment schedule (FR43).
 4. The recipient does **not** log into CTAM Pathfinder. They receive the JFEPS Excel by email and forward it to Liberata out-of-system (D6, unchanged from APEX).
-5. The 2 individuals recorded against this entry in the as-is catalogue (Feb 2026) are tracked operationally but are not migrated as CTAM Pathfinder users in Phase 0[^d9].
+5. The 2 individuals recorded against this entry in the as-is catalogue (Feb 2026) are tracked operationally but are not migrated as CTAM Pathfinder users in Phase 1[^d9].
 
 ## Administrative / cross-cutting roles
 
@@ -289,7 +289,7 @@ These are not user-facing access types in the as-is catalogue; they are CTAM Pat
 - **Authentication:** HMCTS IdP via OIDC `authorization_code` (FR1). CTAM Pathfinder does not own password, session, or account lifecycle.
 - **Authorisation state:** `ctam-authorisation` owns `ctam_auth_users`, `ctam_auth_roles`, `ctam_auth_user_roles`, `ctam_auth_user_region_scopes`, `ctam_auth_user_activation_flags`. Authoritative table ownership is recorded in [`./data-tables.md`](./data-tables.md).
 - **Enforcement:** every API call resolves principal → role(s) + Region/Area scope through Authorisation; implemented as per-service middleware (FR2). Effective-permission lookup is `POST /authz/check` (FR3).
-- **Phase 0 migration:** active APEX users + role/Region-Area scope assignments are loaded into CTAM Pathfinder via the Authorisation API and mapped to IdP principals (D9, Risk #14). Unmatched records get an explicit decision — drop / hold / manual map. Zero ambiguous migrations.
+- **Phase 1 migration:** active APEX users + role/Region-Area scope assignments are loaded into CTAM Pathfinder via the Authorisation API and mapped to IdP principals (D9, Risk #14). Unmatched records get an explicit decision — drop / hold / manual map. Zero ambiguous migrations.
 - **Per-user activation flag:** rollout gating uses `ctam_auth_user_activation_flags` keyed by (jurisdiction, region) (FR57) — migrated users do not use the incumbent; non-migrated users do not use CTAM Pathfinder[^d8][^d11].
 - **Verifier separation of duties:** confirmation and verification of sittings/bookings must be performed by different principals — enforced at the application tier on the sitting/booking row's `confirmed_by` field. Re-open enforces a similar constraint (FR40).
 
@@ -299,14 +299,14 @@ Each domain service has a manual UAT script walked by jurisdiction-incumbent-exp
 
 | Service / phase | UAT access types |
 |---|---|
-| Reference Data, Authorisation, Notification (Phase 0) | Regional (Admin), System Administrator |
+| Reference Data, Authorisation, Notification (Phase 1) | Regional (Admin), System Administrator |
 | Judge, Absence (Phases 1–2) | Regional (Full Access, Admin), Judge, Judge's Clerk |
-| Vacancy (Phase 3) | Regional (Full Access, Admin, No Fees), Court (Full Access) |
-| Booking (Phase 4) | Regional (Full Access, Admin, No Fees), Court (Full Access, Enhanced CJ) |
-| Sitting (Phase 5) | Court (Full Access, Enhanced CJ, Limited, Verifier), Regional (Verifier) |
-| Payment (Phase 6) | Finance, (Payment Authoriser as email recipient — out-of-band UAT) |
-| Itinerary (Phase 7) | Judge, Judge's Clerk, Presiding Judge, Presiding Judge's Clerk *(if any user exists at time of UAT)*, Judge Itin View Only, Judicial College |
-| MI Feed (Phase 8) | All access types verifying reports; primary owners: Regional and Finance |
+| Vacancy (Phase 4) | Regional (Full Access, Admin, No Fees), Court (Full Access) |
+| Booking (Phase 5) | Regional (Full Access, Admin, No Fees), Court (Full Access, Enhanced CJ) |
+| Sitting (Phase 6) | Court (Full Access, Enhanced CJ, Limited, Verifier), Regional (Verifier) |
+| Payment (Phase 7) | Finance, (Payment Authoriser as email recipient — out-of-band UAT) |
+| Itinerary (Phase 8) | Judge, Judge's Clerk, Presiding Judge, Presiding Judge's Clerk *(if any user exists at time of UAT)*, Judge Itin View Only, Judicial College |
+| MI Feed (Phase 9) | All access types verifying reports; primary owners: Regional and Finance |
 
 ## Related documents
 

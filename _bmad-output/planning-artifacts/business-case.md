@@ -75,7 +75,7 @@ In scope for the MVP:
 - SSO authentication (HMCTS IdP) with CTAM-owned authorisation; two user populations (JOHs and admin staff).
 - Modern, accessible business-user UI replicating the wave-1 incumbent's functional surface (scoped by the ET as-is analysis pack — G8.4/G8.5).
 - **Employment Tribunals jurisdiction cutover (wave 1)**, with behavioural parity verified by manual UAT performed by incumbent-experienced users (panel constituted once G8.4 identifies the incumbent).
-- API-as-Product standards from Phase 0; JFEPS-compatible payment export preserved unchanged.
+- API-as-Product standards from Phase 1; JFEPS-compatible payment export preserved unchanged.
 
 Deferred (post-MVP roadmap, **not in this case**): admin UI and admin-write APIs; structured user-action audit; full metrics/traces observability; event streams/webhooks; active matching/allocation (an external-system concern); historical-data access policy.
 
@@ -119,16 +119,16 @@ Deferred (post-MVP roadmap, **not in this case**): admin UI and admin-write APIs
 
 ## 8. Delivery Approach & Timeline
 
-Delivery follows a phased build (Phase 0 foundations → Phases 1–8 domain services) then a per-jurisdiction cutover (Phase 9 — **ET wave 1**). Phase 0 doubles as a **platform smoke-test**, exercising the API, deployment and authorisation foundations before any domain service is built.
+Delivery follows a phased build (Phase 1 foundations → Phases 2–9 domain services) then a per-jurisdiction cutover (Phase 10 — **ET wave 1**). Phase 1 doubles as a **platform smoke-test**, exercising the API, deployment and authorisation foundations before any domain service is built.
 
 | Milestone | Target | Status |
 |---|---|---|
-| Phase 0 — Foundations (ingestion-first; reference data, auth, notification, CI/CD) | `[PLACEHOLDER]` | Planned — implementation-ready (readiness assessed 2026-06-17) |
-| Phases 1–8 — Domain services build | `[PLACEHOLDER]` | Planned |
-| Phase 9 — ET wave 1 cutover | `[PLACEHOLDER]` | Planned |
+| Phase 1 — Foundations (ingestion-first; reference data, auth, notification, CI/CD) | `[PLACEHOLDER]` | Planned — implementation-ready (readiness assessed 2026-06-17) |
+| Phases 2–9 — Domain services build | `[PLACEHOLDER]` | Planned |
+| Phase 10 — ET wave 1 cutover | `[PLACEHOLDER]` | Planned |
 | Waves 2+ — Courts regions / APEX retirement | `[PLACEHOLDER]` | Future cases |
 
-The Phase 0 implementation-readiness assessment (2026-06-17) returned **READY for sprint planning** with no critical issues, indicating the MVP is well-defined and de-risked at the requirements and architecture level.
+The Phase 1 implementation-readiness assessment (2026-06-17) returned **READY for sprint planning** with no critical issues, indicating the MVP is well-defined and de-risked at the requirements and architecture level.
 
 ---
 

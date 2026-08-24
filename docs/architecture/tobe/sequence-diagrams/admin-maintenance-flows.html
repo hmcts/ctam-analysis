@@ -92,19 +92,19 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p>Sequence diagram of the two admin write paths exposed by <code>ctam-admin-ui</code> at MVP. Both paths share the same actor (System Administrator), the same auth pattern, and the same UI shell — only the destination service and the downstream effect differ. Both run in <code>ctam-admin-ui</code>, never in <code>ctam-ui</code>, per the v2.10 architecture decision separating admin from business workflows at the repo boundary.</p>
 <ul>
 <li><strong>Path A — Reference Data maintenance (FR6)</strong> — Sys Admin (or RSU-with-admin-rights — same admin module, same role-gate) creates / updates an entry in any of the 15 Reference Data tables (Regions, Offices, calendar / financial-year boundaries, the 12 judicial vocabularies). Writes go via the <code>ctam-reference-data</code> versioned API. Other services pick up the change on their next direct-SQL read of the affected table (per revised FR7) — no cache invalidation needed because there is no cache (architecture Principle 2).</li>
-<li><strong>Path B — User &amp; Role admin (FR4)</strong> — Sys Admin updates a user's role and Region/Area scope assignment, or creates a new user record. Writes go via the <code>ctam-authorisation</code> versioned API. The change is reflected on the affected user's <em>next</em> request via the standard per-request <code>authz/check</code> (see <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a> Phase 3) — no propagation step is needed because authz is resolved per request.</li>
+<li><strong>Path B — User &amp; Role admin (FR4)</strong> — Sys Admin updates a user's role and Region/Area scope assignment, or creates a new user record. Writes go via the <code>ctam-authorisation</code> versioned API. The change is reflected on the affected user's <em>next</em> request via the standard per-request <code>authz/check</code> (see <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a> Phase 4) — no propagation step is needed because authz is resolved per request.</li>
 </ul>
 <p>Four phases: (1) admin login + role-gate; (2) Reference Data write path; (3) User &amp; Role write path; (4) downstream visibility (no propagation step).</p>
 <details class="section" id="not-in-this-diagram"><summary><span class="section-title">Not in this diagram</span></summary><div class="section-body">
 <ul>
-<li><strong>Upstream reference-data ingestion</strong> <em>(replaces the retracted Phase 0 ETL — revised D3, 2026-06-10)</em> — the JOH eLinks nightly sync and MRD weekly blob pick-up populate the tier-(a) <code>jo_*</code>/<code>mrd_*</code> tables in-process inside <code>ctam-reference-data</code>; never via admin UI or admin API. See <a href="joh-onboarding-and-sitting-generation.html"><code>./joh-onboarding-and-sitting-generation.md</code></a> Phase 1. The admin maintenance flows here apply to <strong>tier-(b) CTAM-owned data only</strong> (FR6).</li>
+<li><strong>Upstream reference-data ingestion</strong> <em>(replaces the retracted Phase 1 ETL — revised D3, 2026-06-10)</em> — the JOH eLinks nightly sync and MRD weekly blob pick-up populate the tier-(a) <code>jo_*</code>/<code>mrd_*</code> tables in-process inside <code>ctam-reference-data</code>; never via admin UI or admin API. See <a href="joh-onboarding-and-sitting-generation.html"><code>./joh-onboarding-and-sitting-generation.md</code></a> Phase 2. The admin maintenance flows here apply to <strong>tier-(b) CTAM-owned data only</strong> (FR6).</li>
 <li><strong>Per-(jurisdiction, region) phased activation cutover</strong> (FR57) — wave-cutover operation that flips <code>ctam_auth_user_activation_flags</code> by jurisdiction + region. Operator-initiated per wave, DBA-via-SQL per the rollout runbook in MVP<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</li>
 <li><strong>Named-owner sign-off workflow detail</strong> — Reference Data writes are subject to named-owner sign-off per FR6; the diagram captures the validation point but not the full multi-step approval. Sign-off mechanics are programme-level.</li>
 <li><strong>Post-MVP admin modules</strong> — per-(jurisdiction, region) activation dashboard and user-action audit viewer. Module placeholders are reserved in <code>ctam-admin-ui</code>, which is itself post-MVP<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> — in MVP every flow on this page is performed by DBAs via direct SQL per operational runbooks.</li>
 </ul>
 </div></details><details class="section" id="cross-cutting-steps-omitted-for-clarity"><summary><span class="section-title">Cross-cutting steps omitted for clarity</span></summary><div class="section-body">
 <ul>
-<li><strong>Authentication + per-request authorisation</strong> — Sys Admin's JWT is validated by both <code>ctam-reference-data</code>'s and <code>ctam-authorisation</code>'s <code>JWTFilter</code>. Admin role gating is enforced by <code>ctam-authorisation</code> itself (role = <code>sys-admin</code>); for User &amp; Role admin, this means <code>ctam-authorisation</code> is both the gatekeeper <em>and</em> the writer of the change. See <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a> Phase 3.</li>
+<li><strong>Authentication + per-request authorisation</strong> — Sys Admin's JWT is validated by both <code>ctam-reference-data</code>'s and <code>ctam-authorisation</code>'s <code>JWTFilter</code>. Admin role gating is enforced by <code>ctam-authorisation</code> itself (role = <code>sys-admin</code>); for User &amp; Role admin, this means <code>ctam-authorisation</code> is both the gatekeeper <em>and</em> the writer of the change. See <a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a> Phase 4.</li>
 <li>All UI → service calls flow through Azure API Management. <code>ctam-admin-ui</code> deploys to its own hostname (e.g. <code>admin.ctam.hmcts.gov.uk</code>) but the same APIM tier handles its requests.</li>
 </ul>
 <p><img src="admin-maintenance-flows.png" alt="Admin maintenance flows sequence" /></p>
@@ -165,11 +165,11 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><code>ctam-reference-data</code> repo purpose and key functions</td>
-<td><a href="../repository-strategy.html"><code>../repository-strategy.md</code></a> Phase 0 row</td>
+<td><a href="../repository-strategy.html"><code>../repository-strategy.md</code></a> Phase 1 row</td>
 </tr>
 <tr>
 <td><code>ctam-authorisation</code> repo purpose and key functions</td>
-<td><a href="../repository-strategy.html"><code>../repository-strategy.md</code></a> Phase 0 row</td>
+<td><a href="../repository-strategy.html"><code>../repository-strategy.md</code></a> Phase 1 row</td>
 </tr>
 <tr>
 <td>15 Reference Data tables + 5 Authorisation tables (column-level detail)</td>
@@ -185,7 +185,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>Per-request authz resolution that picks up Path B changes on the next call</td>
-<td><a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a> Phase 3</td>
+<td><a href="user-authentication-and-authorisation.html"><code>./user-authentication-and-authorisation.md</code></a> Phase 4</td>
 </tr>
 <tr>
 <td>Upstream reference-data ingestion (replaces the retracted ETL)</td>

@@ -155,7 +155,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 │   ├── service/
 │   ├── repository/                              (integration tests, Testcontainers)
 │   └── client/
-├── terraform/                                   (this repo&#39;s OWN Azure resources only, per-env stacks dev/staging/production — AR53 revised; the shared estate — AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault — lives in the dedicated ctam-shared-infrastructure repo, provisioned in Epic 0.0 per the HMCTS CNP {product}-shared-infrastructure standard)
+├── terraform/                                   (this repo&#39;s OWN Azure resources only, per-env stacks dev/staging/production — AR53 revised; the shared estate — AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault — lives in the dedicated ctam-shared-infrastructure repo, provisioned in Epic 1.0 per the HMCTS CNP {product}-shared-infrastructure standard)
 │   ├── dev/
 │   ├── staging/
 │   └── production/
@@ -247,8 +247,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 ├── tests/
 │   ├── unit/                                    (Vitest)
 │   └── e2e/                                     (Playwright; one suite per phase)
-│       ├── phase-1-judge.spec.ts
-│       ├── phase-2-absence.spec.ts
+│       ├── phase-2-judge.spec.ts
+│       ├── phase-3-absence.spec.ts
 │       └── ...
 ├── api-clients/                                 (generated; regenerated in CI from per-service OpenAPI)
 │   ├── judge-client/
@@ -321,7 +321,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Future admin surfaces reserved</strong> (not built at MVP — placeholders only):</p>
 <ul>
 <li><code>modules/activation/</code> — per-(jurisdiction, region) activation flag dashboard (FR57 admin side)</li>
-<li><code>modules/migration-reports/</code> — Phase 0 reconciliation report viewer (FR57)</li>
+<li><code>modules/migration-reports/</code> — Phase 1 reconciliation report viewer (FR57)</li>
 <li><code>modules/audit/</code> — post-MVP user-action audit viewer (D7 roadmap)</li>
 </ul>
 <p><strong>Deployment:</strong> independent of <code>ctam-ui</code>. Same Azure Static Web Apps pattern, separate hostname (e.g. <code>admin.ctam.hmcts.gov.uk</code> vs <code>ctam.hmcts.gov.uk</code>), separate Helm release, separate per-environment rollout.</p>
@@ -371,8 +371,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
     └── per-region-rollout-playbook.md</code></pre>
 <p><strong>Why <code>migration/</code> lives here, not as a separate service or as Liquibase changesets:</strong></p>
 <ul>
-<li>The migration is a <strong>one-shot programme deliverable</strong> (Phase 0; re-run per wave for incremental user activation). It is not a runtime service, so it has no <code>controller/</code> / <code>service/</code> / <code>repository/</code> shape.</li>
-<li>It is <strong>owned by the architecture team</strong> (and the named Phase 0 owners per Risk #13), not by any single domain service. Living under <code>ctam-architecture/</code> keeps that ownership visible.</li>
+<li>The migration is a <strong>one-shot programme deliverable</strong> (Phase 1; re-run per wave for incremental user activation). It is not a runtime service, so it has no <code>controller/</code> / <code>service/</code> / <code>repository/</code> shape.</li>
+<li>It is <strong>owned by the architecture team</strong> (and the named Phase 1 owners per Risk #13), not by any single domain service. Living under <code>ctam-architecture/</code> keeps that ownership visible.</li>
 <li>It <strong>calls CTAM Pathfinder APIs</strong> (Reference Data API, Authorisation API) — it does not write directly to CTAM Pathfinder tables. Per the v1.6 decision, writes go via the API so validation, idempotency, and any audit-logging hooks fire.</li>
 <li>It is <strong>separate from Liquibase</strong>. Liquibase in CTAM Pathfinder is for CTAM Pathfinder's DDL (creating tables, adding columns, granting permissions). The ETL is for moving APEX data into CTAM Pathfinder tables that Liquibase has already created.</li>
 </ul>
@@ -391,7 +391,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 │   ├── dev/                           (stack: composes modules; remote state backend)
 │   ├── staging/
 │   └── production/                    (UK South; zone-redundant SKUs — A34)
-├── verification/                      (per-layer deploy-time smoke checks — Epic 0.0 ACs)
+├── verification/                      (per-layer deploy-time smoke checks — Epic 1.0 ACs)
 │   ├── aks-nodes.sh                   (kubectl get nodes + hello pod schedules)
 │   ├── postgres-tls.sh                (TLS-only connect; plaintext refused; scratch DB)
 │   ├── keyvault-roundtrip.sh          (secret round-trips from a pod via workload identity)
@@ -406,7 +406,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 └── docs/
     ├── README.md
     └── decisions/                     (estate-level ADRs)</code></pre>
-<p><strong>Why the shared estate lives here, not in a service repo:</strong> product-level shared infrastructure gets its own dedicated <code>{product}-shared-infrastructure</code> repo per the HMCTS Cloud Native Platform standard (AR53 revised) — it is not colocated inside the first service scaffolded. The <code>verification/</code> scripts are the deploy-time acceptance tests from Epic 0.0: each Terraform layer is proven as it lands (AKS reachable, PostgreSQL TLS-only, Key Vault round-trips, ACR pull works, telemetry ingests, APIM routes over TLS) before any service depends on it. This repo has <strong>no <code>src/</code>, no Helm chart, no deployable workload</strong> — Terraform provisions the estate; services (via Helm) deploy onto it.</p>
+<p><strong>Why the shared estate lives here, not in a service repo:</strong> product-level shared infrastructure gets its own dedicated <code>{product}-shared-infrastructure</code> repo per the HMCTS Cloud Native Platform standard (AR53 revised) — it is not colocated inside the first service scaffolded. The <code>verification/</code> scripts are the deploy-time acceptance tests from Epic 1.0: each Terraform layer is proven as it lands (AKS reachable, PostgreSQL TLS-only, Key Vault round-trips, ACR pull works, telemetry ingests, APIM routes over TLS) before any service depends on it. This repo has <strong>no <code>src/</code>, no Helm chart, no deployable workload</strong> — Terraform provisions the estate; services (via Helm) deploy onto it.</p>
 </div></details><details class="section" id="file-organisation-patterns"><summary><span class="section-title">File Organisation Patterns</span></summary><div class="section-body">
 <p><strong>Configuration files:</strong></p>
 <ul>
@@ -489,7 +489,7 @@ Manual approval (per region/wave)
 [Deploy to production-uk-south] (or per-region)
    └─ Manual UAT sign-off by jurisdiction-incumbent-experienced users runs as gate (FR60 / NFR41 revised)</code></pre>
 <blockquote>
-<p>The architectural rules for the per-region production gate (manual UAT, automated tests, migration sign-off, programme sign-off) and the rollback path live in <a href="../../architecture.html"><code>../architecture.md</code></a> under <em>Region rollout flow (Phase 9+)</em>.</p>
+<p>The architectural rules for the per-region production gate (manual UAT, automated tests, migration sign-off, programme sign-off) and the rollback path live in <a href="../../architecture.html"><code>../architecture.md</code></a> under <em>Region rollout flow (Phase 10+)</em>.</p>
 </blockquote>
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/architecture/repo-structure.md</code></p>

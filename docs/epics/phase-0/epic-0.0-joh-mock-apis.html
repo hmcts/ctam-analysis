@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.0: JOH Mock APIs — local eLinks mock server — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+
+<h1 id="epic-00-joh-mock-apis--local-elinks-mock-server">Epic 0.0: JOH Mock APIs — local eLinks mock server</h1>
+<blockquote>
+<p><strong>Dev/integration-only, like <code>ctam-mock-auth</code></strong> — never deployed to production, not one of the 11 production services. Existed and ran independently (<code>/Users/shivakumar/MOJ/ctam-jomockapi</code>) before this epic was written; this epic documents it in the planning pack and wires it into Phase 1's ingestion work, it does not build it from scratch. Precedes Phase 1 numerically because it is a prerequisite dev aid, not a phase of the product itself — the real Foundations phase (Reference Data, Authorisation, Notification, etc.) is Phase 1, unaffected by this epic.</p>
+</blockquote>
+<p><strong>User outcome:</strong> <code>ctam-reference-data</code>'s upstream ingestion sync (Epic 1.1) can be built and tested end-to-end against a realistic, stable stand-in for the <strong>Judiciary E-links People API (v5)</strong> — the upstream source of truth for <code>jo_people</code> and the other 14 <code>jo_*</code> reference-data entities — before the real API's contract is confirmed with Judicial Office (gap <strong>G8.1</strong>). Removes "wait for the real eLinks contract" from Epic 1.1's critical path.</p>
+<p><strong>What it is:</strong> a local Node.js/Express server (<code>ctam-jomockapi</code>, package name <code>jo-mock-api</code>) built from the real Swagger UI export (<code>docs/Swagger UI.pdf</code>) and complete example payloads (<code>docs/apiresponses.docx</code>, since several PDF-exported examples were truncated). It is <strong>not</strong> a hand-written stub — every endpoint, parameter, and response shape is grounded in the documented contract, and reference-data responses are served from the <strong>real production reference-data exports</strong> (<code>docs/ReferenceData/*.csv|json</code> — <code>locations</code>: 2000 rows, <code>base_locations</code>: 1462, <code>appointment_titles</code>: 194, <code>judiciary_roles</code>: 164, <code>tickets</code>: 159, <code>ticket_categories</code>: 54, plus the smaller fixed vocabularies <code>genders</code>/<code>contract_types</code>/<code>location_types</code>/<code>ticket_category_types</code>/<code>jurisdictions</code>).</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li>Express server (<code>server.js</code>) mounted at both the bare path and <code>/elinks</code> (the swagger doc names the server base path <code>/elinks</code>, but every real request example in <code>apiresponses.docx</code> is against a bare <code>/api/v5/...</code> path — the mock accepts both so it matches whichever base a client expects)</li>
+<li>Bearer-token auth middleware (<code>src/middleware/auth.js</code>) on every People/Reference Data route, matching the documented <code>401 Unauthorized. Invalid or missing token.</code> behaviour — the mock accepts any non-empty token (no real credential to check) so callers can exercise both the happy path and the documented 401 path</li>
+<li><code>GET /api/v5/reference_data/:attribute_name</code> (list) and <code>.../:attribute_name/:reference_id</code> (single, wrapped in <code>results: [...]</code>), covering all 15 <code>jo_*</code> reference vocabularies plus their deprecated singular aliases</li>
+<li><code>GET /api/v5/people/:id</code> (full profile, <code>?include_previous_appointments=true</code>) and <code>GET /api/v5/people</code> (the change-feed shape — <strong>required</strong> <code>?updated_since=YYYY-MM-DD</code>, plus <code>per_page</code>/<code>page</code>)</li>
+<li><code>GET /api/v5/leavers</code> and <code>GET /api/v5/deleted</code> (both <strong>require</strong> their respective <code>*_since</code> date filter, plus pagination)</li>
+<li><code>GET /</code> and <code>GET /api/v5/healthcheck</code> public (no auth), per the swagger doc</li>
+<li>100 generated JOH people (<code>src/lib/personGenerator.js</code>, fixed random seed via <code>src/lib/rng.js</code> so ids/values are stable across restarts) with appointments, judiciary roles, and authorisations built by <strong>joining against the real reference data</strong>, so names/ids are realistic and internally consistent (~85% <code>active</code>, ~10% <code>leaver</code>, ~5% <code>deleted</code>)</li>
+<li><code>GET /api/v5/people</code> change-feed mixes full profiles (active) with the compact <code>LeaverResponse</code>/<code>DeletedResponse</code> stubs for leavers/deleted, matching the documented shape; <code>GET /api/v5/people/:id</code> always returns a full profile (404 once deleted)</li>
+<li>100 leaver records and 100 deleted records (<code>src/lib/leaverDeletedGenerator.js</code>), each seeded from the corresponding people plus independent historical padding so each endpoint has its own 100-record history</li>
+<li>An interactive <code>/docs</code> console (<code>public/docs.html</code>) that lists every endpoint and can call the auth-protected ones from the browser (plain links can't send the <code>Authorization</code> header)</li>
+</ul>
+<p><strong>Known, documented deviations from the swagger doc</strong> (all deliberate, all recorded in the sibling repo's own README — carried here so this epic doesn't silently duplicate or contradict them): the generic <code>ReferenceDataResponse</code> schema in the swagger doc only lists <code>id, updated_at, created_at, start_date, end_date</code>, but the mock returns the <strong>full real column set</strong> per attribute (e.g. <code>name</code>, <code>jurisdiction_id</code>, <code>type_id</code>) since that's what the actual reference data contains; <code>appointments</code> is always an array (the swagger doc's single-person example showed a single object, but the list example and the <code>AppointmentsResponse</code> schema both treat it as a collection — matching a person holding multiple appointments in reality); <code>include_previous_appointments</code> is implemented by including a person's ended appointments in the same <code>appointments</code> array (there's no separate field for it in the documented schema).</p>
+<p><strong>Not covered — out of scope for this epic:</strong> the real Judiciary eLinks API's actual behaviour where it differs from its own documentation (unknowable until G8.1 closes); the MRD weekly Excel feed (a separate upstream integration, unrelated to eLinks); any production deployment of <code>ctam-jomockapi</code> (it is a local dev tool, run with <code>npm start</code>, never containerised or given a Helm chart).</p>
+<p><strong>FRs covered:</strong> none directly — this is a dev/test aid, not a product capability. Supports FR1 (the <code>jo_people</code> lookup target) and FR6/FR7 tier-(a) indirectly, by giving Epic 1.1's ingestion sync something real to build against.</p>
+<p><strong>References:</strong> <code>architecture/gaps.md</code> G8.1 (JOH eLinks API contract unconfirmed); <code>epics/phase-1/epic-1.1-upstream-reference-data-ingested.md</code> (the consumer of this mock).</p>
+<hr />
+<h2 id="story-001-stand-up-ctam-jomockapi-for-local-development">Story 0.0.1: Stand up <code>ctam-jomockapi</code> for local development</h2>
+<p>As a <strong>backend engineer building <code>ctam-reference-data</code></strong>, I want a documented, runnable local mock of the JOH eLinks People API, So that <strong>I can develop and manually exercise the ingestion sync against a realistic contract without depending on the real upstream API being available</strong>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the <code>ctam-jomockapi</code> repo (<code>npm install &amp;&amp; npm start</code>)<br/><strong>When</strong> the server starts<br/><strong>Then</strong> it listens on <code>http://localhost:3000</code> and logs a ready message<br/><strong>And</strong> <code>GET /api/v5/healthcheck</code> returns <code>200 { "message": "Service is healthy" }</code> with no auth required.</p>
+<p><strong>Given</strong> the server is running<br/><strong>When</strong> a request to any People or Reference Data endpoint omits the <code>Authorization</code> header (or sends a malformed one)<br/><strong>Then</strong> the response is <code>401 Unauthorized. Invalid or missing token.</code>, matching the documented real-API behaviour<br/><strong>And</strong> the same request with any non-empty <code>Bearer</code> token succeeds.</p>
+<p><strong>Given</strong> a request to <code>GET /api/v5/reference_data/jurisdictions</code> (or any of the other 14 <code>jo_*</code> attribute names, including their deprecated singular aliases)<br/><strong>When</strong> the request is authenticated<br/><strong>Then</strong> the response returns the real reference-data rows loaded from <code>docs/ReferenceData/*.csv|json</code> at startup, not fabricated placeholder values.</p>
+<p><strong>Given</strong> a request to <code>GET /api/v5/people?updated_since=2020-01-01</code><br/><strong>When</strong> the request is authenticated<br/><strong>Then</strong> the response returns the documented change-feed shape — full profiles for active people, <code>LeaverResponse</code>/<code>DeletedResponse</code> stubs for leavers/deleted — paginated per <code>per_page</code>/<code>page</code>.</p>
+<h2 id="story-002-wire-ctam-reference-datas-ingestion-sync-against-the-mock">Story 0.0.2: Wire <code>ctam-reference-data</code>'s ingestion sync against the mock</h2>
+<p>As a <strong>backend engineer implementing Epic 1.1's JOH eLinks sync</strong>, I want the nightly ingestion job's eLinks client configurable to point at <code>ctam-jomockapi</code> in dev/CI, So that <strong>the full sync path — fetch, upsert on natural key, soft-deactivation — is exercised end-to-end before the real eLinks contract is confirmed</strong>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> <code>ctam-jomockapi</code> is running and reachable from the <code>ctam-reference-data</code> dev/CI environment<br/><strong>When</strong> the eLinks client's base URL is set to it via Spring profile (dev/CI only — never <code>production</code>)<br/><strong>Then</strong> the nightly sync job runs against it exactly as it would against the real API, using the same <code>/api/v5/...</code> paths and bearer-auth header.</p>
+<p><strong>Given</strong> the sync job runs a full cycle against the mock<br/><strong>When</strong> it completes<br/><strong>Then</strong> all 15 <code>jo_*</code> reference-data entities and <code>jo_people</code> are populated in <code>ctam-reference-data</code>'s tables from the mock's real reference-data values and generated people<br/><strong>And</strong> <code>ctam_sync_status</code> records a successful run.</p>
+<p><strong>Given</strong> the mock's stable random seed keeps ids/values consistent across restarts<br/><strong>When</strong> the sync job runs twice in a row (e.g. in CI)<br/><strong>Then</strong> the second run's upsert-on-natural-key logic is provably idempotent — no duplicate rows, only updated timestamps where the mock's data hasn't changed.</p>
+<p><strong>Given</strong> gap G8.1 is later closed (real eLinks contract confirmed)<br/><strong>When</strong> any documented deviation between the mock and the real API surfaces (see this epic's "Known, documented deviations" section)<br/><strong>Then</strong> the ingestion mapping is re-validated against the real contract per G8.1's existing closure criteria — this story does not close G8.1 itself, it only removes the mock's absence as a blocker to building and testing the sync.</p>
+
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.0-joh-mock-apis.md</code></p>
+</main>
+
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.0-joh-mock-apis";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
