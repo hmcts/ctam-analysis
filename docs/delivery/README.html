@@ -213,15 +213,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li><strong>One branch per story</strong>, <code>story/{story-id}</code>, created at dispatch and carried through to the PR. <strong><code>main</code> is protected; the PR is the human gate</strong> — an agent branches, commits and pushes; a human opens, reviews and merges.</li>
 <li><strong>Bus pinning:</strong> a story records the <code>bus_version</code> it was built against; repos re-sync only via an explicit submodule bump.</li>
 </ul>
-</div></details><details class="section" id="current-state-2026-08-19"><summary><span class="section-title">Current state (2026-08-19)</span></summary><div class="section-body">
+</div></details><details class="section" id="current-state-2026-08-24"><summary><span class="section-title">Current state (2026-08-24)</span></summary><div class="section-body">
 <ul>
-<li><strong>Phase 1:</strong> 7 epics, 21 stories in <code>sprint-status.yaml</code>. Epic 1.6 is <code>in-progress</code> (story 1.6.1 — the bus published and tagged <code>arch-v1.0</code> — is <code>done</code>); everything else is <code>backlog</code>.</li>
+<li><strong>Phase 0 (dev/integration prerequisite, not part of the product's own phase sequence — SCP 2026-08-24b):</strong> 1 epic, 2 stories — Epic 0.0 (JOH Mock APIs) is <code>backlog</code>.</li>
+<li><strong>Phase 1:</strong> 7 epics, 21 stories in <code>sprint-status.yaml</code>. Epic 1.6 is <code>in-progress</code> (story 1.6.1 — the bus published and tagged <code>arch-v1.0</code> — is <code>done</code>); everything else is <code>backlog</code>. <strong>Dispatch note:</strong> <code>arch-v1.0</code> is no longer sufficient for a new packet — changelog v4.7 tagged <strong><code>arch-v1.1</code></strong> on 2026-08-20 as the minimum <code>bus_version</code> (adds the story-packet template, PR-as-gate policy, one-branch-per-story); a repo still pinned at <code>arch-v1.0</code> needs a submodule bump before its first dispatch.</li>
 <li><strong>Phases 2–9 + post-MVP:</strong> not decomposed. Their dependency edges are recorded in <a href="../epics/framework.html"><code>../epics/framework.md</code></a> → <em>Phase dependency order</em>; each phase gains structured frontmatter when <code>bmad-create-epics-and-stories</code> runs for it, after which re-running <code>bmad-sprint-planning</code> picks the new epics up automatically.</li>
 </ul>
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/delivery/README.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#where-delivery-state-lives-now">Where delivery state lives now</a></li><li><a href="#the-delivery-loop">The delivery loop</a></li><li><a href="#bmad-skill-mapping">BMad skill mapping</a></li><li><a href="#multi-user-coordination">Multi-user coordination</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#current-state-2026-08-19">Current state (2026-08-19)</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#where-delivery-state-lives-now">Where delivery state lives now</a></li><li><a href="#the-delivery-loop">The delivery loop</a></li><li><a href="#bmad-skill-mapping">BMad skill mapping</a></li><li><a href="#multi-user-coordination">Multi-user coordination</a></li><li><a href="#conventions">Conventions</a></li><li><a href="#current-state-2026-08-24">Current state (2026-08-24)</a></li></ul></aside>
 <script>window.__NAV_BASE__="../";window.__PAGE__="delivery/README";</script>
 <script src="../nav.js"></script>
 <script>

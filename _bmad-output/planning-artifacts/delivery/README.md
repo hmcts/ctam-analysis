@@ -77,7 +77,8 @@ Execution parallelises freely: work happens in different service repos, where br
 - **One branch per story**, `story/{story-id}`, created at dispatch and carried through to the PR. **`main` is protected; the PR is the human gate** — an agent branches, commits and pushes; a human opens, reviews and merges.
 - **Bus pinning:** a story records the `bus_version` it was built against; repos re-sync only via an explicit submodule bump.
 
-## Current state (2026-08-19)
+## Current state (2026-08-24)
 
-- **Phase 1:** 7 epics, 21 stories in `sprint-status.yaml`. Epic 1.6 is `in-progress` (story 1.6.1 — the bus published and tagged `arch-v1.0` — is `done`); everything else is `backlog`.
+- **Phase 0 (dev/integration prerequisite, not part of the product's own phase sequence — SCP 2026-08-24b):** 1 epic, 2 stories — Epic 0.0 (JOH Mock APIs) is `backlog`.
+- **Phase 1:** 7 epics, 21 stories in `sprint-status.yaml`. Epic 1.6 is `in-progress` (story 1.6.1 — the bus published and tagged `arch-v1.0` — is `done`); everything else is `backlog`. **Dispatch note:** `arch-v1.0` is no longer sufficient for a new packet — changelog v4.7 tagged **`arch-v1.1`** on 2026-08-20 as the minimum `bus_version` (adds the story-packet template, PR-as-gate policy, one-branch-per-story); a repo still pinned at `arch-v1.0` needs a submodule bump before its first dispatch.
 - **Phases 2–9 + post-MVP:** not decomposed. Their dependency edges are recorded in [`../epics/framework.md`](../epics/framework.md) → *Phase dependency order*; each phase gains structured frontmatter when `bmad-create-epics-and-stories` runs for it, after which re-running `bmad-sprint-planning` picks the new epics up automatically.
