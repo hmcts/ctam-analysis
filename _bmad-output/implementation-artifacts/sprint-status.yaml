@@ -25,7 +25,7 @@
 #
 # CTAM POLYREPO CAVEATS — read before trusting a status here:
 # ===========================================================
-# 1. Story packets do NOT live in story_location. CTAM is a 16-repo polyrepo, so a packet is
+# 1. Story packets do NOT live in story_location. CTAM is a 17-repo polyrepo, so a packet is
 #    landed in its TARGET SERVICE REPO at docs/stories/<story_id>.md (see delivery-operating-model.md
 #    and its Deviation register). Sprint planning's file-existence detection therefore
 #    cannot upgrade a status here — statuses in this file are set when a story is dispatched and
