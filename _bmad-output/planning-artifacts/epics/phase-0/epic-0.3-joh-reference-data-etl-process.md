@@ -144,8 +144,9 @@ So that **`jo_people` and the rest of the tier-(a) surface exist with the correc
 **And** `jo_people.personnel_number` is the upstream natural key, to which CTAM binds a stable `ctam_joh_identities.id` (UUID); `personnel_number` is the upstream link only,
 **And** `jo_jurisdictions` preserves the upstream parent-child hierarchy shape (or establishes it on ingest)[^d8],
 **And** the `ctam_reference_data` DB role owns the tables; **no other role holds INSERT/UPDATE on any `jo_*` table** (tier-(a) write protection per AR49, FR6),
-**And** SELECT grants exist for `ctam_joh` (schema composition, Epic 0.1) and placeholder roles for future services,
-**And** the ArchUnit/grants fitness function in CI verifies the tier-(a) write-protection rule.
+**And** SELECT grants on the `jo_*` tables exist for `ctam_joh` (schema composition, Epic 0.1) and placeholder roles for future services,
+**And** `ctam_joh_identities` is granted `SELECT` to **every** current and placeholder domain service DB role — not just `ctam_joh` — per `architecture/data-tables.md`'s explicit note that it is "SELECT-granted to every domain service" (it is the JOH spine every domain table keys off of, not a `ctam_joh`-specific concern),
+**And** the ArchUnit/grants fitness function in CI verifies the tier-(a) write-protection rule and the `ctam_joh_identities` grant breadth.
 
 **References:** FR6 tier (a), FR7 (writes follow the tier); NFR15; AR18–AR20, AR22, AR49; D3 (revised), D8, D9 (restructured).
 
@@ -182,7 +183,7 @@ So that **`jo_people` exists and is current — jurisdiction is available (`jo_j
 **Given** the sync has run successfully at least once in dev,
 **When** an engineer queries `jo_people` directly (no authorisation service exists in this scope to front the lookup — auth is out of Phase 0 scope per SCP 2026-08-25d),
 **Then** a seeded JOH email's row resolves to a `personnel_number`, and via `ctam_joh_identities` to the CTAM JOH UUID,
-**And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).
+**And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR54 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).
 
 **Given** the JOH eLinks mock API (`ctam-jomockapi`, Epic 0.2) is running locally via Docker Compose (not deployed to any shared environment, SCP 2026-08-25f), and `ctam-reference-data` is **also** run locally for this check (`./gradlew bootRun` alongside `docker-compose up`, per Story 0.3.1's local-verification AC) — **not** the AKS-deployed instance from Story 0.3.1's other ACs, which has no network path to a developer's Docker Compose network,
 **When** the locally-running sync's base URL is configured to point at the locally-running mock,
@@ -193,7 +194,7 @@ So that **`jo_people` exists and is current — jurisdiction is available (`jo_j
 **Then** the ingestion mapping is validated against it (every upstream field CTAM needs has a slot; the natural-key scheme holds; cadence/SLA workable),
 **And** any unmapped upstream structure raises an architectural PR (per G8.1) — this AC is the story's external-dependency gate and is tracked explicitly in sprint planning.
 
-**References:** FR1 (identity lookup target), FR6 tier (a), FR7 (writes follow the tier); NFR16, NFR24, NFR25–NFR28; AR46, AR48, AR49; gaps.md G8.1; Epic 0.2; D3 (revised), D8, D9 (restructured).
+**References:** FR1 (identity lookup target), FR6 tier (a), FR7 (writes follow the tier); NFR16, NFR24, NFR25–NFR28; AR46, AR48, AR49, AR54; gaps.md G8.1; Epic 0.2; D3 (revised), D8, D9 (restructured).
 
 **Explicitly NOT in scope:**
 - MRD ingestion — not planned (removed from Phase 0 scope, SCP 2026-08-25d)

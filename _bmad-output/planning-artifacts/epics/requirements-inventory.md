@@ -291,6 +291,7 @@ sourceDocuments:
 ### Identity bootstrap + verification
 
 - AR52 — User and authorisation records (`auth_*` tables incl. `ctam_auth_staff_identities`) are **strictly CTAM-internal**, populated by programme-management / operational mechanisms outside the PRD's scope — no external authority provides this data and no legacy system seeds it. CTAM provides: (a) dev/CI seed scripts spanning both identity populations; (b) a **bootstrap-verification job** that confirms every bootstrapped user (both populations) maps to a real IdP principal — run before each wave's cutover and at the pre-Phase-9 IdP cutover (G1.3); (c) the production bootstrap runbook.[^d9]
+- AR54 — **CI-only WireMock/stub eLinks API**: `ctam-reference-data`'s eLinks sync (AR46) is integration-tested in CI against a WireMock (or equivalent HTTP-stub) server standing in for the real JOH eLinks API — fast, hermetic, no live network dependency. This is **retained unchanged** alongside the deployed `ctam-jomockapi` mock (Epic 0.2): the WireMock stub exercises the sync code path in CI; the locally-run `ctam-jomockapi` exercises the same sync end-to-end against a realistic, schema-faithful network target during local development (Epic 0.2, Story 0.2.3) — complementary, not a replacement of one by the other.
 
 ## UX Design Requirements
 

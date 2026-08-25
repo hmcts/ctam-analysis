@@ -140,7 +140,7 @@ So that **the full ingestion pipeline — full-refresh-upsert, `ctam_joh_identit
 **When** the sync's soft-deactivation logic (rows absent upstream marked inactive, never hard-deleted, per AR46) is exercised against them,
 **Then** the behaviour is verified against realistic leaver/deleted data — something the CI WireMock stub's canned fixtures don't exercise as thoroughly.
 
-**Given** the CI-only WireMock/stub eLinks API (AR52) used by `ctam-reference-data`'s automated tests,
+**Given** the CI-only WireMock/stub eLinks API (AR54) used by `ctam-reference-data`'s automated tests,
 **When** this story lands,
 **Then** the WireMock stub is **retained unchanged** for unit/integration tests — it and the locally-running `ctam-jomockapi` are complementary (fast, hermetic CI checks vs. a realistic local network target), not a replacement of one by the other.
 
@@ -148,7 +148,7 @@ So that **the full ingestion pipeline — full-refresh-upsert, `ctam_joh_identit
 **When** this story's ACs are met,
 **Then** G8.1 is **not** closed by this story — it remains open until Judicial Office confirms the real contract and it is validated against the (by-then-live) ingestion mapping; this story closes the *local demonstrability* gap only, not the *contract-confirmation* gap, and does **not** demonstrate the pipeline in any shared (dev/staging) environment.
 
-**References:** FR1, FR6 tier-(a), NFR24 (exercised locally only — not in a shared environment); gaps.md G8.1 (stays open); AR46, AR48, AR52; depends on Story 0.3.3 and Story 0.2.2.
+**References:** FR1, FR6 tier-(a), NFR24 (exercised locally only — not in a shared environment); gaps.md G8.1 (stays open); AR46, AR48, AR54; depends on Story 0.3.3 and Story 0.2.2.
 
 **Explicitly NOT in scope:**
 - Closing G8.1 — that needs the real contract from Judicial Office

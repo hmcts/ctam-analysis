@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-25i — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-25i">Sprint Change Proposal — 2026-08-25i</h1>
+<p><strong>Trigger:</strong> <em>"review all epics in phase-0"</em> — a second review pass, following SCP 2026-08-25h's fixes from the first pass.</p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> <strong>Minor</strong> — documentation/citation fixes within existing epics; no scope, FR/NFR, or dependency change.</p>
+<hr />
+<details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p>A second full review of all 5 Phase 0 epics was requested. Rather than re-checking the same epic-to-epic cross-references already fixed in SCP 2026-08-25h, this pass cross-checked each epic's claims against the two documents epics are supposed to be <em>derived from</em>: <code>architecture/data-tables.md</code> (the canonical table inventory) and <code>requirements-inventory.md</code>'s AR list (the canonical architecture-rule numbering). That angle surfaced two more issues neither epic-to-epic comparison nor the first pass had caught.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="finding-6--ctam_joh_identities-grant-breadth-understated">Finding 6 — <code>ctam_joh_identities</code> grant breadth understated</h3>
+<p><code>data-tables.md</code> documents <code>ctam_joh_identities</code> explicitly: <em>"SELECT-granted to every domain service"</em> — listing Authorisation, JOH, Absence, Booking, Sitting, Itinerary, and MI Feed as key consumers, because it's the JOH identity spine every domain table keys off of (<code>joh_id</code> → <code>ctam_joh_identities.id</code>). Story 0.3.2's grants AC (which SCP 2026-08-25h had just extended to also <em>create</em> this table) only said SELECT grants exist "for <code>ctam_joh</code> (schema composition, Epic 0.1) and placeholder roles for future services" — correct for the <code>jo_*</code> tables, but understating <code>ctam_joh_identities</code>'s actual grant scope, which isn't <code>ctam_joh</code>-specific at all.</p>
+<p><strong>Fix:</strong> Story 0.3.2's grants AC now states explicitly that <code>ctam_joh_identities</code> is SELECT-granted to <em>every</em> current and placeholder domain service DB role, quoting <code>data-tables.md</code>'s own language, and the fitness-function AC now verifies grant breadth as well as the tier-(a) write-protection rule.</p>
+<h3 id="finding-7--ar52-mis-cited-for-the-wiremockstub-testing-convention">Finding 7 — AR52 mis-cited for the WireMock/stub testing convention</h3>
+<p>Three places cite "AR52" for <code>ctam-reference-data</code>'s CI-only WireMock/stub eLinks API pattern: Epic 0.3's Story 0.3.3 AC, and Epic 0.2's Story 0.2.3 AC plus its References line. But AR52 in <code>requirements-inventory.md</code> is actually: <em>"User and authorisation records... are strictly CTAM-internal, populated by programme-management / operational mechanisms..."</em> — completely unrelated to WireMock or eLinks testing. Searching the whole <code>requirements-inventory.md</code> for "WireMock" turned up nothing — no architecture rule anywhere actually documents this testing convention, despite three stories treating it as an established, numbered rule.</p>
+<p><strong>Fix:</strong> Added <strong>AR54</strong> to <code>requirements-inventory.md</code>, describing the WireMock/stub convention and its relationship to Epic 0.2's locally-run mock (complementary — fast hermetic CI checks vs. a realistic local network target, not a replacement of one by the other). Corrected all three stale "AR52" citations to "AR54," and completed Story 0.3.3's References line, which cited AR46/AR48/AR49 but had omitted AR54/AR52 entirely even though its own AC body referenced it.</p>
+<h3 id="artifact-sweep">Artifact sweep</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td>New <strong>AR54</strong> added (CI-only WireMock/stub eLinks API convention)</td>
+</tr>
+<tr>
+<td><code>epic-0.3-joh-reference-data-etl-process.md</code></td>
+<td>Story 0.3.2's grants AC extended for <code>ctam_joh_identities</code> breadth; Story 0.3.3's AR52 → AR54 citation fixed; Story 0.3.3's References line completed with AR54</td>
+</tr>
+<tr>
+<td><code>epic-0.2-joh-elinks-mock-api-stands-in.md</code></td>
+<td>Story 0.2.3's AR52 → AR54 citation fixed (AC body + References line)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#22</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.19</strong> entry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>epic-0.0</code>, <code>epic-0.1</code>, <code>epic-0.4</code> (no findings against them this pass); <code>sprint-status.yaml</code> (no story added/removed/renamed); <code>fr-coverage-map.md</code>, <code>gaps.md</code>, <code>assumptions.md</code> (checked, no discrepancy found this pass); dated historical SCPs/changelog entries (immutable record).</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct implementation.</strong> Effort: <strong>Low</strong> — two targeted fixes, one new AR entry, four citation corrections. <strong>Risk:</strong> Very low — no structural change; both fixes make documentation match what other parts of the same epics (and <code>data-tables.md</code>) already assumed was true.</p>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<p>See §2 for the full before/after mapping. Full diffs are in the files themselves.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope: Minor</strong> — documentation/citation corrections within the existing plan, no scope or dependency change.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits above applied directly; nothing committed without being asked.</li>
+</ul>
+<p><strong>Success criteria:</strong> <code>ctam_joh_identities</code>'s documented grant scope in Story 0.3.2 matches <code>data-tables.md</code>'s "every domain service" note; every citation of the WireMock/stub convention across Epic 0.2 and Epic 0.3 points at a real, existing AR (AR54); Story 0.3.3's References line lists every AR its own ACs actually cite.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-25i.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#finding-6--ctam_joh_identities-grant-breadth-understated">Finding 6 — ctam_joh_identities grant breadth understated</a></li><li class="h3"><a href="#finding-7--ar52-mis-cited-for-the-wiremockstub-testing-convention">Finding 7 — AR52 mis-cited for the WireMock/stub testing convention</a></li><li class="h3"><a href="#artifact-sweep">Artifact sweep</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-25i";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
