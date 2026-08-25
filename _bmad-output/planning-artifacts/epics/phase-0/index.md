@@ -35,11 +35,11 @@ phaseName: 'Foundations'
 | Epic | Title | Stories | Status |
 |---|---|---|---|
 | [0.0](epic-0.0-platform-estate-provisioned.md) | Platform estate is provisioned, verifiable, and CNP-compliant | 7 | 🟡 Planned |
-| [0.1](epic-0.1-postgres-sql-schema-design.md) | JOH domain schema is designed and implemented in PostgreSQL | 2 | 🟡 Planned |
+| [0.1](epic-0.1-postgres-sql-schema-design.md) | JOH domain schema is designed and implemented in PostgreSQL | 4 | 🟡 Planned |
 | [0.2](epic-0.2-joh-elinks-mock-api-stands-in.md) | JOH eLinks mock API stands in for the unconfirmed upstream contract | 3 | 🟡 Planned |
 | [0.3](epic-0.3-joh-reference-data-etl-process.md) | JOH reference-data ETL process | 3 | 🟡 Planned |
 | [0.4](epic-0.4-joh-data-read-only-api.md) | JOH data is served read-only via a versioned API | 2 | 🟡 Planned |
-| **Total** | | **17 stories** | |
+| **Total** | | **19 stories** | |
 
 ## Epic summaries
 
@@ -51,9 +51,9 @@ phaseName: 'Foundations'
 
 → [Full epic with stories](epic-0.0-platform-estate-provisioned.md)
 
-### Epic 0.1: JOH domain schema is designed and implemented in PostgreSQL (2 stories)
+### Epic 0.1: JOH domain schema is designed and implemented in PostgreSQL (4 stories)
 
-**User outcome:** `ctam-joh`'s 5 domain tables — working patterns, per-day pattern breakdown, ticket overlay, location overlay, jurisdictional splits — are designed and implemented via Liquibase, keyed by `joh_id` → `ctam_joh_identities.id`, with tier ownership and a cross-service SELECT grant to `ctam-reference-data`. **Schema only** — the behavioral stories that populate and maintain this schema are future Phase 1 epics. *(Added as Epic 1.1 via SCP 2026-08-24c, moved to Phase 0 as Epic 0.9 via SCP 2026-08-25, renumbered to Epic 0.1 via SCP 2026-08-25b.)*
+**User outcome:** `ctam-joh`'s 5 domain tables — working patterns, per-day pattern breakdown, ticket overlay, location overlay, jurisdictional splits — are **designed explicitly** (a written design-decisions doc, an ER diagram, a full column-level spec, and a data-warnings/open-questions doc — mirroring the documentation rigor of the JOH eLinks integration schema, `3.2.1.1`/`3.2.1.2`) and implemented via Liquibase, keyed by `joh_id` → `ctam_joh_identities.id`, with tier ownership and a cross-service SELECT grant to `ctam-reference-data`. **Schema only** — the behavioral stories that populate and maintain this schema are future Phase 1 epics. *(Added as Epic 1.1 via SCP 2026-08-24c, moved to Phase 0 as Epic 0.9 via SCP 2026-08-25, renumbered to Epic 0.1 via SCP 2026-08-25b; design-rigor expansion from 2 to 4 stories via SCP 2026-08-25j.)*
 
 **FRs covered:** none behaviourally — schema groundwork for FR12, FR15b, FR16, FR17 (Phase 1 FRs).
 
@@ -90,11 +90,11 @@ phaseName: 'Foundations'
 | Epic | Stories | FRs covered | Phase 0 demo |
 |---|---|---|---|
 | 0.0 | 7 stories (0.0.1–0.0.7) | FR8 (Story 0.0.7); NFR10, NFR11, NFR16, NFR25–NFR28, NFR31, NFR40 | Each Terraform layer stands up and is verified as deployed — `kubectl get nodes` Ready across AZs, PostgreSQL TLS-only, Key Vault secret round-trip, ACR image pull, APIM smoke API → 200 over TLS; `arch-v1.0` tagged and resolvable via `_arch/`; a service role SELECTs `ctam_configuration_values` and is refused a write |
-| 0.1 | 2 stories (0.1.1–0.1.2) | none directly; schema groundwork for FR12, FR15b, FR16, FR17 | `ctam-joh` scaffolded; its 5 domain tables exist via Liquibase, keyed to `ctam_joh_identities`, tier-owned + SELECT-granted to `ctam-reference-data` |
+| 0.1 | 4 stories (0.1.1–0.1.4) | none directly; schema groundwork for FR12, FR15b, FR16, FR17 | `ctam-joh` scaffolded; its schema design-decisions doc + ER diagram exist; its 5 domain tables exist via Liquibase, keyed to `ctam_joh_identities`, tier-owned + SELECT-granted to `ctam-reference-data`; data-warnings/open-questions doc exists |
 | 0.2 | 3 stories (0.2.1–0.2.3) | none directly; supports FR1, FR6 tier (a), FR7 tier (a); NFR24 | `ctam-jomockapi` running locally via Docker Compose; Story 0.3.3's sync runs against it end-to-end locally |
 | 0.3 | 3 stories (0.3.1–0.3.3) | FR1 (`jo_people` target), FR6 tier (a), FR7 tier (a), FR8, FR59; NFR24 | JOH eLinks ETL process flows data in → `jo_people` current (verified via `ctam_sync_status` + CI WireMock stub, and end-to-end locally against Epic 0.2's locally-run mock) |
 | 0.4 | 2 stories (0.4.1–0.4.2) | FR6 (tier b + JOH read API), FR7, FR58 | Open, jurisdiction-unfiltered JOH data API serves both tiers read-only |
-| **Total** | **17 stories** | | The five demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate |
+| **Total** | **19 stories** | | The five demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate |
 
 **Cross-cutting NFRs verified across Phase 0 stories:** NFR10 (TLS), NFR11 (data-at-rest), NFR14 (no forbidden data), NFR15 (change trails per runbooks), NFR16 (Key Vault incl. eLinks credential), NFR24 (JOH eLinks MVP integration), NFR25–NFR28 (observability), NFR31 (Azure UK South), NFR39 (API-as-Product), NFR40 (per-service deployable), NFR42 (Postman collections). *(NFR12, NFR13, NFR17–NFR20, NFR22 — JWT propagation, authz enforcement, business UI WCAG, HMCTS IdP, HMCTS email — are not exercised in this reduced scope; they return when auth/notification/UI are re-planned.)*
 

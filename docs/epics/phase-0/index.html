@@ -130,7 +130,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><a href="epic-0.1-postgres-sql-schema-design.html">0.1</a></td>
 <td>JOH domain schema is designed and implemented in PostgreSQL</td>
-<td>2</td>
+<td>4</td>
 <td>🟡 Planned</td>
 </tr>
 <tr>
@@ -154,7 +154,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong>Total</strong></td>
 <td></td>
-<td><strong>17 stories</strong></td>
+<td><strong>19 stories</strong></td>
 <td></td>
 </tr>
 </tbody>
@@ -164,8 +164,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>User outcome:</strong> The shared Azure estate — AKS, PostgreSQL Flexible Server, ACR, APIM, Application Insights, Key Vault — is stood up via <strong>Terraform</strong> in its own dedicated repo, <strong><code>ctam-shared-infrastructure</code></strong> (HMCTS CNP <code>{product}-shared-infrastructure</code> standard, AR53 revised), provisioned <strong>layer-by-layer with each layer independently verified at deploy time</strong>, so every Phase 0 service has a tested platform to deploy onto. The published context bus and shared config baseline (Stories 0.0.6–0.0.7, folded in from the former Epic 0.6, SCP 2026-08-25d) also live here. Precedes every other epic. Stories: 0.0.1 repo + Terraform foundation; 0.0.2 network + AKS; 0.0.3 PostgreSQL + Key Vault; 0.0.4 ACR + observability; 0.0.5 APIM + smoke API; 0.0.6 publish <code>ctam-architecture</code> as the context bus; 0.0.7 shared <code>ctam_configuration_values</code> baseline.</p>
 <p><strong>FRs covered:</strong> FR8 (shared config baseline, Story 0.0.7). <strong>NFRs:</strong> NFR10, NFR11, NFR16, NFR25–NFR28, NFR31, NFR40. <strong>ARs:</strong> AR53 (revised), A34, G9.</p>
 <p>→ <a href="epic-0.0-platform-estate-provisioned.html">Full epic with stories</a></p>
-<h3 id="epic-01-joh-domain-schema-is-designed-and-implemented-in-postgresql-2-stories">Epic 0.1: JOH domain schema is designed and implemented in PostgreSQL (2 stories)</h3>
-<p><strong>User outcome:</strong> <code>ctam-joh</code>'s 5 domain tables — working patterns, per-day pattern breakdown, ticket overlay, location overlay, jurisdictional splits — are designed and implemented via Liquibase, keyed by <code>joh_id</code> → <code>ctam_joh_identities.id</code>, with tier ownership and a cross-service SELECT grant to <code>ctam-reference-data</code>. <strong>Schema only</strong> — the behavioral stories that populate and maintain this schema are future Phase 1 epics. <em>(Added as Epic 1.1 via SCP 2026-08-24c, moved to Phase 0 as Epic 0.9 via SCP 2026-08-25, renumbered to Epic 0.1 via SCP 2026-08-25b.)</em></p>
+<h3 id="epic-01-joh-domain-schema-is-designed-and-implemented-in-postgresql-4-stories">Epic 0.1: JOH domain schema is designed and implemented in PostgreSQL (4 stories)</h3>
+<p><strong>User outcome:</strong> <code>ctam-joh</code>'s 5 domain tables — working patterns, per-day pattern breakdown, ticket overlay, location overlay, jurisdictional splits — are <strong>designed explicitly</strong> (a written design-decisions doc, an ER diagram, a full column-level spec, and a data-warnings/open-questions doc — mirroring the documentation rigor of the JOH eLinks integration schema, <code>3.2.1.1</code>/<code>3.2.1.2</code>) and implemented via Liquibase, keyed by <code>joh_id</code> → <code>ctam_joh_identities.id</code>, with tier ownership and a cross-service SELECT grant to <code>ctam-reference-data</code>. <strong>Schema only</strong> — the behavioral stories that populate and maintain this schema are future Phase 1 epics. <em>(Added as Epic 1.1 via SCP 2026-08-24c, moved to Phase 0 as Epic 0.9 via SCP 2026-08-25, renumbered to Epic 0.1 via SCP 2026-08-25b; design-rigor expansion from 2 to 4 stories via SCP 2026-08-25j.)</em></p>
 <p><strong>FRs covered:</strong> none behaviourally — schema groundwork for FR12, FR15b, FR16, FR17 (Phase 1 FRs).</p>
 <p>→ <a href="epic-0.1-postgres-sql-schema-design.html">Full epic with stories</a></p>
 <h3 id="epic-02-joh-elinks-mock-api-stands-in-for-the-unconfirmed-upstream-contract-3-stories">Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract (3 stories)</h3>
@@ -200,9 +200,9 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td>0.1</td>
-<td>2 stories (0.1.1–0.1.2)</td>
+<td>4 stories (0.1.1–0.1.4)</td>
 <td>none directly; schema groundwork for FR12, FR15b, FR16, FR17</td>
-<td><code>ctam-joh</code> scaffolded; its 5 domain tables exist via Liquibase, keyed to <code>ctam_joh_identities</code>, tier-owned + SELECT-granted to <code>ctam-reference-data</code></td>
+<td><code>ctam-joh</code> scaffolded; its schema design-decisions doc + ER diagram exist; its 5 domain tables exist via Liquibase, keyed to <code>ctam_joh_identities</code>, tier-owned + SELECT-granted to <code>ctam-reference-data</code>; data-warnings/open-questions doc exists</td>
 </tr>
 <tr>
 <td>0.2</td>
@@ -224,7 +224,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 <tr>
 <td><strong>Total</strong></td>
-<td><strong>17 stories</strong></td>
+<td><strong>19 stories</strong></td>
 <td></td>
 <td>The five demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate</td>
 </tr>
@@ -262,7 +262,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/index.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-scope-model">Phase 0 scope model</a></li><li><a href="#epics">Epics</a></li><li><a href="#epic-summaries">Epic summaries</a></li><li class="h3"><a href="#epic-00-platform-estate-is-provisioned-verifiable-and-cnp-compliant-7-stories">Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant (7 stories)</a></li><li class="h3"><a href="#epic-01-joh-domain-schema-is-designed-and-implemented-in-postgresql-2-stories">Epic 0.1: JOH domain schema is designed and implemented in PostgreSQL (2 stories)</a></li><li class="h3"><a href="#epic-02-joh-elinks-mock-api-stands-in-for-the-unconfirmed-upstream-contract-3-stories">Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract (3 stories)</a></li><li class="h3"><a href="#epic-03-joh-reference-data-etl-process-3-stories">Epic 0.3: JOH reference-data ETL process (3 stories)</a></li><li class="h3"><a href="#epic-04-joh-data-is-served-read-only-via-a-versioned-api-2-stories">Epic 0.4: JOH data is served read-only via a versioned API (2 stories)</a></li><li><a href="#phase-0-epic-stories-summary">Phase 0 Epic Stories Summary</a></li><li><a href="#post-mvp-roadmap-items">Post-MVP roadmap items</a></li><li><a href="#validation">Validation</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#phase-0-scope-model">Phase 0 scope model</a></li><li><a href="#epics">Epics</a></li><li><a href="#epic-summaries">Epic summaries</a></li><li class="h3"><a href="#epic-00-platform-estate-is-provisioned-verifiable-and-cnp-compliant-7-stories">Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant (7 stories)</a></li><li class="h3"><a href="#epic-01-joh-domain-schema-is-designed-and-implemented-in-postgresql-4-stories">Epic 0.1: JOH domain schema is designed and implemented in PostgreSQL (4 stories)</a></li><li class="h3"><a href="#epic-02-joh-elinks-mock-api-stands-in-for-the-unconfirmed-upstream-contract-3-stories">Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract (3 stories)</a></li><li class="h3"><a href="#epic-03-joh-reference-data-etl-process-3-stories">Epic 0.3: JOH reference-data ETL process (3 stories)</a></li><li class="h3"><a href="#epic-04-joh-data-is-served-read-only-via-a-versioned-api-2-stories">Epic 0.4: JOH data is served read-only via a versioned API (2 stories)</a></li><li><a href="#phase-0-epic-stories-summary">Phase 0 Epic Stories Summary</a></li><li><a href="#post-mvp-roadmap-items">Post-MVP roadmap items</a></li><li><a href="#validation">Validation</a></li></ul></aside>
 <script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/index";</script>
 <script src="../../nav.js"></script>
 <script>
