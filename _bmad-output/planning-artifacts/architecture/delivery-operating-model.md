@@ -88,7 +88,7 @@ epic: 0.3
 title: 'JOH reference-data ETL process'
 storyCount: 3
 repo: ctam-reference-data          # or a list: [ctam-authorisation, ctam-mock-auth, ctam-ui]
-depends_on: [epic-0.0, epic-0.6]   # epic ids, resolved against sprint-status.yaml
+depends_on: [epic-0.0]             # epic ids, resolved against sprint-status.yaml
 ```
 
 Two fields, on the artefact that is already authored, parsed and version-controlled — and the artefact `bmad-sprint-planning` already reads.
@@ -100,7 +100,7 @@ Two fields, on the artefact that is already authored, parsed and version-control
 - **No duplication.** The story list, title, phase and decomposition state are already in the epic file and in `sprint-status.yaml`; a graph repeated all four.
 - **No second `bus_version` claim.** The graph asserted one; the real pin is each repo's submodule. Two claims is a drift risk, not a convenience.
 
-**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.5 (Notification) needs only the estate, so it can run alongside 0.3/0.7.
+**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.1 (JOH schema) and Epic 0.2 (mock API) both need only the estate, so they can run alongside each other and ahead of Epic 0.3.
 
 This is checked by `scripts/dispatch-preflight.sh <story-id>`, which is read-only and also confirms the story is still `backlog` and that no branch on the target remote already claims it (see *Multi-user coordination* below).
 
@@ -155,16 +155,16 @@ Canonical template, versioned with the bus so every repo gets the same one:
 
 ```markdown
 ---
-story_id: 0.8.1
-epic: epic-0.8-mrd-supplementary-reference-data-ingested
+story_id: 0.4.2
+epic: epic-0.4-joh-data-read-only-api
 repo: ctam-reference-data
 bus_version: arch-v1.0            # the target repo's actual _arch pin, not an aspiration
-frs: [FR6, FR7]
-nfrs: [NFR24]
+frs: [FR6, FR7, FR58]
+nfrs: [NFR14, NFR42]
 depends_on_stories: [0.0.3]       # optional intra-graph prerequisites
-sprint_status_key: 0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
+sprint_status_key: 0-4-2-joh-data-read-only-rest-api-with-versioning-openapi-rfc-9457-errors
 ---
-# Story 0.8.1: <title>
+# Story 0.4.2: <title>
 Status: ready-for-dev
 ## Story                    (as a / I want / so that)
 ## Acceptance Criteria      (numbered; Gherkin inside an item — AC-3 must resolve to item 3)

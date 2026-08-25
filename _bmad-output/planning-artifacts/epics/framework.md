@@ -25,7 +25,7 @@ The first level of grouping below is **Phase** (delivery sequence); the second l
 |---|---|---|---|
 | **0** | Platform & DevEx | `ctam-architecture` (scaffolding), GitHub Actions, APIM, AKS, Application Insights, shared `ctam_configuration_values` | FR8, FR58, FR59, NFR25–NFR28, NFR40, NFR42 |
 | **0** | Identity & Authorisation | `ctam-mock-auth`, `ctam-authorisation` (two-population identity resolution; jurisdiction-aware) | FR1–FR4, FR57 *(flag surface)*, NFR12, NFR13 |
-| **0** | Upstream Reference-Data Ingestion | `ctam-reference-data` in-process JOH eLinks ETL (Epic 0.3: `jo_*`) + MRD blob ingestion (Epic 0.8: `mrd_*`), shared `ctam_sync_status` | FR6 *(tier a)*, FR7, NFR24 |
+| **0** | Upstream Reference-Data Ingestion | `ctam-reference-data` in-process JOH eLinks ETL (Epic 0.3: `jo_*`), `ctam_sync_status`. *(MRD blob ingestion removed 2026-08-25d — was Epic 0.8.)* | FR6 *(tier a)*, FR7, NFR24 |
 | **0** | Reference Data (tier (b) + read API) | `ctam-reference-data` (backend); maintenance UI post-MVP in `ctam-admin-ui`[^d10] | FR6, FR7 |
 | **0** | Notification | `ctam-notification` | FR9, NFR22 |
 | **0** | Identity Bootstrap & Verification | seed scripts + bootstrap-verification job + runbook (`ctam-architecture`) | FR1 *(data)*, FR4 *(data layer)*, FR57 *(initial flags)* |
@@ -46,9 +46,11 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 ## Phase 0 — Foundations
 
-> Phase 0 is the platform smoke-test (per PRD Key Characteristic 4). All API-as-Product standards (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), `Deprecation`/`Sunset`) are exercised on Reference Data reads and Authorisation lookups before any domain service is built.
+> **Scope reduction 2026-08-25 (SCP 2026-08-25d)**: Phase 0's concrete epics are narrowed to **0.0–0.4** (platform estate, JOH domain schema, JOH eLinks mock API, JOH ETL process, JOH data read API). Identity & Authorisation, Notification, Identity Bootstrap & Verification, and Business UI Foundation — each previously covered by a concrete epic — **have no concrete epic in Phase 0 for now**; their Areas below remain the architectural map for when they're re-planned, but nothing under them is currently being built. The context bus (formerly its own Area entry under a dedicated epic) is folded into the Platform & DevEx epic.
+
+> Phase 0 is the platform smoke-test (per PRD Key Characteristic 4). API-as-Product standards (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), `Deprecation`/`Sunset`) are exercised on Reference Data reads before any domain service is built. Authorisation lookups are **not** exercised in this reduced scope — the read API is open (see Epic 0.4's scope-reduction note).
 >
-> The Areas below are the **architectural map**. The **implementation plan** is the four concrete user-value epics in [phase-0/](phase-0/index.md).
+> The Areas below are the **architectural map**. The **implementation plan** is the five concrete user-value epics in [phase-0/](phase-0/index.md).
 
 ### Phase 0 · Area: Platform & DevEx
 
@@ -56,53 +58,55 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 **Component(s)**: `ctam-architecture` (scaffolding script + ADRs), GitHub Actions workflows, shared Liquibase baseline changelog, APIM policies, Helm chart conventions.
 
-**Concrete epics in this area**: [Epic 0.0](phase-0/epic-0.0-platform-estate-provisioned.md) (the Azure estate) and [Epic 0.6](phase-0/epic-0.6-context-bus-and-shared-baseline.md) (the published context bus + the shared `ctam_configuration_values` baseline).
+**Concrete epics in this area**: [Epic 0.0](phase-0/epic-0.0-platform-estate-provisioned.md) — the Azure estate **and** (folded in 2026-08-25d, Stories 0.0.6–0.0.7) the published context bus + the shared `ctam_configuration_values` baseline.
 
 **Primary FR/NFR coverage**: FR8, FR58, FR59, NFR25–NFR28, NFR40, NFR42; underpins every AR1–AR52.
 
 ### Phase 0 · Area: Identity & Authorisation
 
-**Scope**: `ctam-mock-auth` OIDC issuer for non-prod (human users via `authorization_code` across **both identity populations**; batch components via `client_credentials`; refuses production profile). `ctam-authorisation` service owning the **6 auth tables** (`ctam_auth_users`, `ctam_auth_staff_identities`, `ctam_auth_roles`, `ctam_auth_user_roles`, `ctam_auth_user_region_scopes`, `ctam_auth_user_activation_flags` keyed by (jurisdiction, region)). **Two-population identity resolution**[^d9]: IdP email → `jo_people` → `personnel_number` → CTAM JOH UUID in `ctam_joh_identities` (JOH users); IdP email → `ctam_auth_staff_identities` → CTAM-assigned UUID (admin staff). Custom `JWTFilter` pattern in every service that validates JWT against JWKS and calls `POST /authz/check` to populate request-scoped `AuthDetails` with canonical id + roles + **jurisdiction** + Region/Area scope + activation flag. Per-user activation flags (FR57) wired to enable jurisdiction-first phased cutover.
+**No concrete epic in Phase 0** *(removed 2026-08-25d — was Epic 0.7)*. `ctam-mock-auth` OIDC issuer + `ctam-authorisation`'s 6 auth tables + two-population identity resolution[^d9] + `JWTFilter`/`POST /authz/check` remain the architectural design for when auth is re-planned; nothing here is being built now. Epic 0.4's read API is **open** (no `JWTFilter`, no jurisdiction filtering) as a direct consequence.
 
-**Component(s)**: `ctam-mock-auth`, `ctam-authorisation`.
+**Component(s)**: `ctam-mock-auth`, `ctam-authorisation` — not scheduled.
 
-**Primary FR/NFR coverage**: FR1, FR2, FR3, FR4, FR57 *(flags wired here; wave activation orchestrated in Phase 9+)*; NFR12, NFR13, NFR16, NFR20. *(FR5 is post-MVP; out of scope here.)*
+**Primary FR/NFR coverage (deferred, not currently delivered):** FR1, FR2, FR3, FR4, FR57; NFR12, NFR13, NFR16, NFR20. *(FR5 is post-MVP regardless.)*
 
 ### Phase 0 · Area: Reference Data
 
-**Scope**: `ctam-reference-data` service owning **all 32 reference-data tables across two ownership tiers** (FR6/FR7): **tier (a) upstream-sourced** — 15 `jo_*` JOH eLinks entities + `mrd_*` MRD entities + `ctam_sync_status`, written only by the ingestion mechanisms, read-only in CTAM, corrections at source; **tier (b) CTAM-owned** — `ctam_regions`, `ctam_offices`, `ctam_calendar_periods` + 12 operational vocabularies, DBA-maintained per runbook in MVP[^d10]. **Read-only, jurisdiction-filtered** versioned REST API over both tiers[^d8]. Per-service DB SELECT grants for direct-SQL reads (per FR7 / Principle 2). API-as-Product standards exercised here first (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), deprecation signalling).
+**Scope**: `ctam-reference-data` service owning **all 32 reference-data tables across two ownership tiers** (FR6/FR7): **tier (a) upstream-sourced** — 15 `jo_*` JOH eLinks entities + `ctam_sync_status`, written only by the ingestion mechanism, read-only in CTAM, corrections at source; **tier (b) CTAM-owned** — `ctam_regions`, `ctam_offices`, `ctam_calendar_periods` + 12 operational vocabularies, DBA-maintained per runbook in MVP[^d10]. **Read-only, open** (no auth in this scope) versioned REST API over both tiers. Per-service DB SELECT grants for direct-SQL reads (per FR7 / Principle 2). API-as-Product standards exercised here first (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), deprecation signalling).
 
-**Ingestion**: **Epic 0.3** — the JOH reference-data ETL process (sign-in depends on `jo_people`) — nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`). **Epic 0.8** — MRD ingestion, split out of Epic 0.3 2026-08-24b — weekly MRD Excel via Azure Blob drop (validate / upsert / archive; idempotent per file; reader swaps for the MRD API post-MVP), same repo, sharing `ctam_sync_status`. Per AR46–AR49. A deployed, schema-faithful mock of the eLinks API (`ctam-jomockapi`, Epic 0.2) gives Epic 0.3's dev/staging sync a live network target while the real contract (gaps.md G8.1) remains unconfirmed.
+*(`mrd_*` MRD data is **not in this scope** — MRD ingestion and its read API were removed 2026-08-25d, along with the epics that carried them, Epic 0.8 and the briefly-existing Epic 0.10.)*
 
-**Read API**: split by upstream source (2026-08-25c) — [Epic 0.4](phase-0/epic-0.4-joh-data-read-only-api.md) serves JOH data (tier-(a) + tier-(b)); [Epic 0.10](phase-0/epic-0.10-mrd-data-read-only-api.md) serves MRD data (`mrd_specialisms`), added as new scope since no MRD read endpoint existed before.
+**Ingestion**: **Epic 0.3** — the JOH reference-data ETL process — nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`). Per AR46–AR49. A deployed, schema-faithful mock of the eLinks API (`ctam-jomockapi`, Epic 0.2) gives Epic 0.3's dev/staging sync a live network target while the real contract (gaps.md G8.1) remains unconfirmed.
+
+**Read API**: [Epic 0.4](phase-0/epic-0.4-joh-data-read-only-api.md) serves JOH data (tier-(a) + tier-(b)), open/unauthenticated in this scope.
 
 **Component(s)**: `ctam-reference-data` (backend incl. ingestion tasks). The tier-(b) maintenance UI (FR6) is post-MVP `ctam-admin-ui`[^d10].
 
-**Primary FR/NFR coverage**: FR6, FR7, NFR24 *(JOH eLinks + MRD are MVP integrations)*; cross-references NFR39 (API-as-Product), AR18, AR20, AR22, AR46–AR49; gaps.md G8.
+**Primary FR/NFR coverage**: FR6, FR7, NFR24 *(JOH eLinks half only — the MRD half of NFR24 is not currently delivered)*; cross-references NFR39 (API-as-Product), AR18, AR20, AR22, AR46–AR49; gaps.md G8.
 
 ### Phase 0 · Area: Notification
 
-**Scope**: `ctam-notification` service. Outbound transactional email dispatch to HMCTS email infrastructure (SMTP). Delivery log with retry on transient failure. Consumed in Phase 1+ for booking acks (FR32), absence acks (FR20), and the Phase 6 payment-schedule dispatch (FR43).
+**No concrete epic in Phase 0** *(removed 2026-08-25d — was Epic 0.5)*. `ctam-notification`'s outbound transactional email dispatch, delivery log, and SMTP integration remain the architectural design; nothing here is being built now. Downstream consumers (booking acks FR32, absence acks FR20, Phase 6 payment-schedule dispatch FR43) will need this re-planned before they can dispatch email.
 
-**Component(s)**: `ctam-notification`.
+**Component(s)**: `ctam-notification` — not scheduled.
 
-**Primary FR/NFR coverage**: FR9, NFR22.
+**Primary FR/NFR coverage (deferred, not currently delivered):** FR9, NFR22.
 
 ### Phase 0 · Area: Identity Bootstrap & Verification
 
-**Scope**: No legacy data migration of any kind exists[^d3]. Reference data arrives via the Upstream Reference-Data Ingestion area (Epic 0.3). User/authorisation data is strictly CTAM-internal, bootstrapped by programme-management mechanisms outside the PRD's scope. CTAM owns: dev/CI **seed scripts** spanning both identity populations; the re-runnable **bootstrap-verification job** confirming every `ctam_auth_users` row (both populations) maps to a real IdP principal (the standing wave-cutover gate artefact, also used at the pre-Phase-9 IdP cutover per G1.3); and the **production bootstrap runbook** (`ctam-architecture/runbooks/identity-bootstrap.md`), which also carries the FR4 DBA-maintenance pattern.
+**No concrete epic in Phase 0** *(removed 2026-08-25d — was Epic 0.9, itself displaced from 0.4)*. No legacy data migration of any kind exists[^d3]; the dev/CI seed scripts, bootstrap-verification job, and production bootstrap runbook remain the architectural design for when user/auth bootstrap is re-planned.
 
-**Component(s)**: `ctam-architecture` (seed scripts, verification job, runbook). Not a runtime service.
+**Component(s)**: `ctam-architecture` (seed scripts, verification job, runbook) — not scheduled.
 
-**Primary FR/NFR coverage**: FR1 *(lookup data)*, FR4 *(MVP data-layer criterion)*, FR57 *(initial all-FALSE flags keyed by (jurisdiction, region))*; AR52.
+**Primary FR/NFR coverage (deferred, not currently delivered):** FR1 *(lookup data)*, FR4 *(MVP data-layer criterion)*, FR57 *(initial all-FALSE flags)*; AR52.
 
 ### Phase 0 · Area: Business UI Foundation
 
-**Scope**: `ctam-ui` repo scaffolded (React + TypeScript + Vite + Vitest + Playwright). GOV.UK Design System base + HMCTS/CTAM Pathfinder extensions. OIDC client wrapper (`HmctsIdpProvider`, `ProtectedRoute`, `useAuth`). HTTP client with auth header attachment and RFC 9457 error handling. Business-user Home shell with role-scoped navigation and Region/Area selector (FR55). axe-core CI for WCAG 2.2 AA gate. Per-phase E2E test suite scaffolding under `tests/e2e/`. **Excludes admin workflows** — tier-(b) Reference Data maintenance (FR6) and User & Role admin (FR4) live in `ctam-admin-ui` (itself post-MVP[^d10]), never here.
+**No concrete epic in Phase 0** *(removed 2026-08-25d — was part of Epic 0.7)*. `ctam-ui`'s scaffold, OIDC client wrapper, business Home shell, and axe-core WCAG gate remain the architectural design; nothing here is being built now — there is no UI consumer of Epic 0.4's read API yet.
 
-**Component(s)**: `ctam-ui` (shared + business Home shell only — per-domain modules land in their respective phases).
+**Component(s)**: `ctam-ui` — not scheduled.
 
-**Primary FR/NFR coverage**: FR55 *(business Home shell)*, FR56 *(modern UI stack)*, NFR17, NFR18, NFR19.
+**Primary FR/NFR coverage (deferred, not currently delivered):** FR55, FR56, NFR17, NFR18, NFR19.
 
 ### Post-MVP · Area: Admin UI Foundation *(post-MVP)*
 
@@ -142,17 +146,17 @@ Phase 0's dependencies are structured data, held in each epic's frontmatter (`re
 
 | Phase | Repo(s) | Depends on | Why |
 |---|---|---|---|
-| **1 — JOH** | `ctam-joh` | Phase 0 epics 0.7, 0.4 | needs auth + reference-data reads |
-| **2 — Absence** | `ctam-absence` | Phase 1, epic 0.5 | absence hangs off JOH records; acknowledgement emails need Notification |
+| **1 — JOH** | `ctam-joh` | Phase 0 epic 0.4 | needs reference-data reads. *(Previously also needed auth, Phase 0 epic 0.7 — removed 2026-08-25d; JOH profile views compose against an open API for now.)* |
+| **2 — Absence** | `ctam-absence` | Phase 1 | absence hangs off JOH records; acknowledgement emails need Notification, which has no Phase 0 epic (removed 2026-08-25d) — deferred until re-planned |
 | **3 — Vacancy** | `ctam-vacancy` | Phase 2 | vacancies are created from absences |
 | **4 — Booking** | `ctam-booking` | Phase 3 | bookings fill vacancies |
 | **5 — Sitting** | `ctam-sitting` | Phase 1 | sittings are generated from JOH working patterns — **parallelisable with 3 and 4** |
-| **6 — Payment** | `ctam-payment`, `ctam-payment-batch` | Phases 4 and 5, epic 0.5 | pays for bookings and sittings; the batch is the first `client_credentials` consumer |
+| **6 — Payment** | `ctam-payment`, `ctam-payment-batch` | Phases 4 and 5 | pays for bookings and sittings; the batch is the first `client_credentials` consumer; also needs Notification (no Phase 0 epic — deferred) |
 | **7 — Itineraries** | `ctam-itinerary` | Phases 1–5 | a federated read model over everything above; owns no tables |
 | **8 — MI Feed** | `ctam-mi-feed` | Phase 7 | reporting over the read model; owns no tables |
-| **post-MVP — Admin UI** | `ctam-admin-ui` | Phase 0 epics 0.7, 0.4 | needs auth + reference data[^d10] |
+| **post-MVP — Admin UI** | `ctam-admin-ui` | Phase 0 epic 0.4 | needs reference data[^d10]; also needs auth (no Phase 0 epic — deferred) |
 
-**Parallelism worth keeping in view:** epic 0.5 (Notification) needs only the estate, so it can run alongside 0.3/0.7; and Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in Phase 0 is close to a straight line.
+**Parallelism worth keeping in view:** Phase 5 (Sitting) branches off Phase 1 independently of 3 and 4. Everything else in Phase 0 (epics 0.0–0.4) is close to a straight line: estate → JOH schema/mock API (parallel) → JOH ETL → JOH read API.
 
 ## Phase 1 — JOH
 

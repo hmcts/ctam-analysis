@@ -259,19 +259,13 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Phase × Area framework", "epics/framework", False),
         ("FR coverage map", "epics/fr-coverage-map", False),
     ]),
-    ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0.0 added 2026-07-06)", [
+    ("Implementation — Phase 0 (narrowed to epics 0.0-0.4, SCP 2026-08-25d)", [
         ("Phase 0 overview", "epics/phase-0/index", False),
-        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
+        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (7 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
         ("Epic 0.1 — JOH domain schema is designed and implemented in PostgreSQL (2 stories)", "epics/phase-0/epic-0.1-postgres-sql-schema-design", False),
         ("Epic 0.2 — JOH eLinks mock API stands in for the unconfirmed contract (3 stories)", "epics/phase-0/epic-0.2-joh-elinks-mock-api-stands-in", False),
         ("Epic 0.3 — JOH reference-data ETL process (3 stories)", "epics/phase-0/epic-0.3-joh-reference-data-etl-process", False),
         ("Epic 0.4 — JOH data read-only API (2 stories)", "epics/phase-0/epic-0.4-joh-data-read-only-api", False),
-        ("Epic 0.5 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.5-system-dispatches-emails", False),
-        ("Epic 0.6 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.6-context-bus-and-shared-baseline", False),
-        ("Epic 0.7 — User authenticates (5 stories)", "epics/phase-0/epic-0.7-user-authenticates", False),
-        ("Epic 0.8 — MRD supplementary reference data is ingested (1 story)", "epics/phase-0/epic-0.8-mrd-supplementary-reference-data-ingested", False),
-        ("Epic 0.9 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.9-user-populations-bootstrapped", False),
-        ("Epic 0.10 — MRD data read-only API (1 story)", "epics/phase-0/epic-0.10-mrd-data-read-only-api", False),
     ]),
 ]
 

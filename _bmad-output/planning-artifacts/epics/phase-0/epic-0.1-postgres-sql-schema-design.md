@@ -9,7 +9,7 @@ epic: 0.1
 title: 'JOH domain schema is designed and implemented in PostgreSQL'
 storyCount: 2
 repo: ctam-joh
-depends_on: [epic-0.0, epic-0.3, epic-0.6]
+depends_on: [epic-0.0, epic-0.3]
 ---
 
 # Epic 0.1: JOH domain schema is designed and implemented in PostgreSQL
@@ -53,12 +53,12 @@ So that **the JOH domain schema (Story 0.1.2) has a service to live in**, follow
 **Then** the service reaches the shared cluster, database, registry, gateway, and observability estate (this story **consumes** the estate; it does not provision it),
 **And** `GET /actuator/health` returns `200 OK`, liveness/readiness probes pass, and structured JSON logs with `correlationId` appear (per NFR25, NFR28, AR30, AR32).
 
-**Given** the `ctam-architecture` Liquibase baseline and shared `ctam_configuration_values` table already exist (Epic 0.6),
+**Given** the `ctam-architecture` Liquibase baseline and shared `ctam_configuration_values` table already exist (Epic 0.0, Stories 0.0.6–0.0.7),
 **When** `ctam-joh` is scaffolded,
 **Then** its DB role has `SELECT` on `ctam_configuration_values`,
 **And** its own service-owned Liquibase changelog directory exists but is empty (the 5 domain tables are created in Story 0.1.2).
 
-**References:** AR2–AR17, AR23–AR32, AR41, AR53 (revised); D10; depends on Epic 0.0 (shared estate) and Epic 0.6 (context bus + config baseline).
+**References:** AR2–AR17, AR23–AR32, AR41, AR53 (revised); D10; depends on Epic 0.0 (shared estate + context bus + config baseline, Stories 0.0.6–0.0.7).
 
 **Explicitly NOT in scope:**
 - The 5 domain tables and tier ownership/grants — Story 0.1.2

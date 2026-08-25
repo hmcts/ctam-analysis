@@ -25,7 +25,7 @@
 #
 # CTAM POLYREPO CAVEATS — read before trusting a status here:
 # ===========================================================
-# 1. Story packets do NOT live in story_location. CTAM is a 16-repo polyrepo, so a packet is
+# 1. Story packets do NOT live in story_location. CTAM is a 17-repo polyrepo, so a packet is
 #    landed in its TARGET SERVICE REPO at docs/stories/<story_id>.md (see delivery-operating-model.md
 #    and its Deviation register). Sprint planning's file-existence detection therefore
 #    cannot upgrade a status here — statuses in this file are set when a story is dispatched and
@@ -44,12 +44,14 @@ tracking_system: file-system
 story_location: _bmad-output/implementation-artifacts
 
 development_status:
-  epic-0.0: backlog
+  epic-0.0: in-progress
   0-0-1-scaffold-ctam-shared-infrastructure-and-establish-the-terraform-foundation: backlog
   0-0-2-provision-networking-and-the-aks-cluster-dev-verifiable-via-kubectl: backlog
   0-0-3-provision-postgresql-and-key-vault-dev-verifiable-over-tls-from-the-cluster: backlog
   0-0-4-provision-acr-and-observability-dev-verifiable-via-image-pull-and-a-test-trace: backlog
   0-0-5-provision-apim-dev-verifiable-end-to-end-via-a-smoke-api-over-tls: backlog
+  0-0-6-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0: done
+  0-0-7-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants: backlog
   epic-0.0-retrospective: optional
 
   epic-0.1: backlog
@@ -71,35 +73,5 @@ development_status:
 
   epic-0.4: backlog
   0-4-1-tier-b-ctam-owned-reference-tables-seed-data-and-the-dba-maintenance-runbook: backlog
-  0-4-2-joh-data-read-only-rest-api-with-jurisdiction-filtering-versioning-openapi-rfc-9457-errors: backlog
+  0-4-2-joh-data-read-only-rest-api-with-versioning-openapi-rfc-9457-errors: backlog
   epic-0.4-retrospective: optional
-
-  epic-0.5: backlog
-  0-5-1-scaffold-ctam-notification-service-delivery-log-table-smtp-integration: backlog
-  0-5-2-post-v1-notifications-send-endpoint-with-jwt-propagation-retry-semantics-delivery-logging-rfc-9457-errors: backlog
-  epic-0.5-retrospective: optional
-
-  epic-0.6: in-progress
-  0-6-1-publish-ctam-architecture-as-the-context-bus-and-tag-arch-v1-0: done
-  0-6-2-shared-ctam-configuration-values-liquibase-baseline-with-per-service-select-grants: backlog
-  epic-0.6-retrospective: optional
-
-  epic-0.7: backlog
-  0-7-1-scaffold-ctam-authorisation-service-from-the-hmcts-crime-springboot-template: backlog
-  0-7-2-user-can-authenticate-against-ctam-mock-auth-and-receive-a-jwt: backlog
-  0-7-3-ctam-authorisation-validates-jwts-and-resolves-identity-roles-jurisdiction-region-area-scope-read-only-api: backlog
-  0-7-4-scaffold-ctam-ui-repo-with-react-typescript-vite-gov-uk-base-auth-wrapper: backlog
-  0-7-5-user-signs-into-ctam-pathfinder-via-sso-and-lands-on-a-role-scoped-home-page: backlog
-  epic-0.7-retrospective: optional
-
-  epic-0.8: backlog
-  0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed: backlog
-  epic-0.8-retrospective: optional
-
-  epic-0.9: backlog
-  0-9-1-identity-seed-scripts-both-populations-bootstrap-verification-job-and-the-production-bootstrap-runbook: backlog
-  epic-0.9-retrospective: optional
-
-  epic-0.10: backlog
-  0-10-1-mrd-data-read-only-rest-api-with-jurisdiction-filtering-versioning-openapi-rfc-9457-errors: backlog
-  epic-0.10-retrospective: optional
