@@ -54,7 +54,7 @@ So that **CTAM-owned reference data that does not exist upstream (Regions, Offic
 
 **Acceptance Criteria:**
 
-**Given** `ctam-reference-data` is scaffolded and carries the tier-(a) tables per Story 0.3.3,
+**Given** `ctam-reference-data` is scaffolded and carries the tier-(a) tables per Story 0.3.2 (this story only needs the tier-(a) *tables* to exist, to keep them separate from the new tier-(b) tables — it does not need Story 0.3.3's sync to have run any data into them yet),
 **When** the engineer adds the Liquibase changeset `db/changelog/003-init-tier-b-ctam-owned-tables.sql`,
 **Then** the 15 tier-(b) tables exist with schemas per `architecture/data-tables.md`: `ctam_regions`, `ctam_offices`, `ctam_calendar_periods`, plus the 12 operational vocabularies (`ctam_joh_types`, `ctam_work_types`, `ctam_court_types`, `ctam_ticket_types`, `ctam_session_types`, `ctam_absence_types`, `ctam_working_pattern_types`, `ctam_booking_statuses`, `ctam_sitting_outcomes`, `ctam_joh_fee_entitlements`, `ctam_payment_lifecycle_statuses`, `ctam_reconciliation_statuses`),
 **And** the `ctam_reference_data` DB role owns the tables (per AR19),

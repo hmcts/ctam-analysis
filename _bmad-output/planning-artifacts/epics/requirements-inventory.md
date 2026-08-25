@@ -187,7 +187,7 @@ sourceDocuments:
 ### Starter template (Story 1 of every service epic)
 
 - AR2[^d10] — Each CTAM Pathfinder backend service is scaffolded from the **HMCTS Crime SpringBoot template** (`https://github.com/hmcts/service-hmcts-crime-springboot-template`, default branch `main`) cloned via the `ctam-scaffold.sh` script in `ctam-architecture/scaffolding/`. The scaffolding script applies CTAM Pathfinder conventions on top of the starter and is used at service-creation time only. **The `gh` CLI is NOT available in the engineering environment** — `ctam-scaffold.sh` handles only local scaffolding + `git push` to a pre-created remote; all GitHub admin operations are performed manually via the GitHub web UI per AR51.
-- AR3 — Group ID `uk.gov.hmcts.ctam`; artefact `ctam-{service-name}`; package `uk.gov.hmcts.ctam.{service-name}`. Default port 8082.
+- AR3 — Group ID `uk.gov.hmcts.ctam`; artefact `ctam-{service-name}`; package `uk.gov.hmcts.ctam.{service-name}`. **Each service is scaffolded with its own distinct port** (starting from 8082, incremented per service in scaffold order — `ctam-reference-data` 8082, `ctam-joh` 8083, and so on) so that no two services collide when run side by side locally or in the same cluster; `ctam-jomockapi` (Epic 0.2, non-production-only) uses 8090, set apart from the domain-service sequence.
 - AR4 — Initial commit for every new service is *"Scaffold CTAM Pathfinder {service-name} from HMCTS starter"* — this is the first implementation story per service.
 
 ### Locked technology stack (carried from PRD; enumerated here as architecture-confirmed dependency versions)

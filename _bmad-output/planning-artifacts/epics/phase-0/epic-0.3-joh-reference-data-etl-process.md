@@ -30,7 +30,7 @@ depends_on: [epic-0.0]
 - Tier-(a) upstream-sourced tables: 15 `jo_*` + `ctam_sync_status` (CTAM-internal ingestion run log), service-owned Liquibase changelogs (AR18–AR20), tier-(a) write-protection (only `ctam_reference_data` holds INSERT/UPDATE — AR49, FR6)
 - **JOH eLinks nightly in-process `@Scheduled` sync** — the ETL's extract/transform/load run (AR46, AR48)
 
-**FRs covered:** FR1 (the identity-lookup *target* data — `jo_people` populated), FR6 tier-(a), FR7 tier-(a) grants, FR8 (shared `ctam_configuration_values` baseline first lands here); NFR24 (JOH eLinks MVP integration).
+**FRs covered:** FR1 (the identity-lookup *target* data — `jo_people` populated), FR6 tier-(a), FR7 tier-(a) grants; NFR24 (JOH eLinks MVP integration). *(FR8 is delivered by Epic 0.0, Story 0.0.7 — this epic only consumes/verifies the shared `ctam_configuration_values` baseline, per Story 0.3.1's AC.)*
 
 **Key NFRs first exercised here:** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR16 (Key Vault — incl. the eLinks API credential), NFR24 (JOH eLinks integration), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness probes), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes), NFR42 (Postman collections), NFR59 (structured logs first exercised at scaffold).
 
@@ -140,7 +140,8 @@ So that **`jo_people` and the rest of the tier-(a) surface exist with the correc
 **When** the engineer adds the Liquibase changeset `db/changelog/001-init-tier-a-upstream-tables.sql` (formatted-SQL, included from `db.changelog-master.yaml`),
 **Then** the 15 `jo_*` tables exist with schemas per `architecture/data-tables.md` (`jo_people`, `jo_appointments`, `jo_judiciary_role_assignments`, `jo_authorisations_with_dates`, `jo_appointment_titles`, `jo_base_locations`, `jo_contract_types`, `jo_genders`, `jo_judiciary_roles`, `jo_jurisdictions`, `jo_locations`, `jo_location_types`, `jo_tickets`, `jo_ticket_categories`, `jo_ticket_category_types`),
 **And** `ctam_sync_status` exists (CTAM-internal ingestion run log),
-**And** `jo_people.personnel_number` is the upstream natural key, to which CTAM binds a stable `ctam_joh_identities.id` (UUID) — the CTAM-assigned canonical JOH identifier referenced by every downstream domain table (per AR22); `personnel_number` is the upstream link only,
+**And** `ctam_joh_identities` exists — `id uuid PK`, `personnel_number` (unique, FK-equivalent to `jo_people.personnel_number`), `created_at`/`updated_at timestamptz NOT NULL` — the CTAM-assigned canonical JOH identifier table referenced by every downstream domain table (per AR22); the table is created here, empty, and populated row-by-row by the sync in Story 0.3.3,
+**And** `jo_people.personnel_number` is the upstream natural key, to which CTAM binds a stable `ctam_joh_identities.id` (UUID); `personnel_number` is the upstream link only,
 **And** `jo_jurisdictions` preserves the upstream parent-child hierarchy shape (or establishes it on ingest)[^d8],
 **And** the `ctam_reference_data` DB role owns the tables; **no other role holds INSERT/UPDATE on any `jo_*` table** (tier-(a) write protection per AR49, FR6),
 **And** SELECT grants exist for `ctam_joh` (schema composition, Epic 0.1) and placeholder roles for future services,
@@ -183,8 +184,8 @@ So that **`jo_people` exists and is current — jurisdiction is available (`jo_j
 **Then** a seeded JOH email's row resolves to a `personnel_number`, and via `ctam_joh_identities` to the CTAM JOH UUID,
 **And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).
 
-**Given** the JOH eLinks mock API (`ctam-jomockapi`, Epic 0.2) is running locally via Docker Compose (not deployed to any shared environment, SCP 2026-08-25f),
-**When** the sync's local base URL is configured to point at it,
+**Given** the JOH eLinks mock API (`ctam-jomockapi`, Epic 0.2) is running locally via Docker Compose (not deployed to any shared environment, SCP 2026-08-25f), and `ctam-reference-data` is **also** run locally for this check (`./gradlew bootRun` alongside `docker-compose up`, per Story 0.3.1's local-verification AC) — **not** the AKS-deployed instance from Story 0.3.1's other ACs, which has no network path to a developer's Docker Compose network,
+**When** the locally-running sync's base URL is configured to point at the locally-running mock,
 **Then** the nightly sync runs end-to-end against a local network endpoint modelling the real eLinks contract — not just the CI WireMock stub — giving Phase 0 a demoable ingestion pipeline locally ahead of the real contract landing (per Epic 0.2, Story 0.2.3).
 
 **Given** the JOH eLinks API contract has not yet been confirmed (gaps.md G8.1),
