@@ -5,12 +5,12 @@ resource: 'architecture/tobe/assumptions.html'
 tags: [ctam-pathfinder, architecture]
 timestamp: '2026-05-06'
 parent: ../architecture.md
-title: Assumptions (A1–A37)
+title: Assumptions (A1–A38)
 last_updated: 2026-05-06
 extracted_in: architecture.md v1.8 — Strategy B refactor
 ---
 
-# Assumptions (A1–A37)
+# Assumptions (A1–A38)
 
 > Sibling of [`../architecture.md`](../architecture.md). Linked from *Architecture Validation Results*.
 
@@ -56,10 +56,11 @@ Assumptions that affect implementation correctness (not just convenience) are fl
 | **A31** | The shared-schema cross-service access model (table-name convention + per-service DB roles + explicit grants + fitness functions) is operationally maintainable with PR-coordination between services. | Reversible | If maintenance burden grows: retreat to API-only writes (reads-via-direct-SQL stays). If isolation needs grow: introduce schema-per-service — per-service DB roles already make this a grants-and-tables refactor, not a connection-layer change. |
 | **A32** *(SUPERSEDED 2026-06-11)* | ~~Phase 0 Reference Data + Users/Roles migration is an ETL.~~ Superseded by the revised D3 (2026-06-10): no legacy migration of any kind; reference data is ingested from JOH eLinks + MRD (see A36); user/authorisation records are bootstrapped by mechanisms outside the PRD's scope[^d9]. | Superseded | Closed — see A36/A37 and G8.1. |
 | **A33** *(SUPERSEDED 2026-06-11)* | ~~Migration tool's APEX-side input mapping revalidated against the APEX SQL dump.~~ Superseded with the ETL. The successor concern — validating the ingestion mapping against the JOH eLinks contract and the first MRD workbook — is G8.1; the table inventory remains CTAM Pathfinder's design (now 55 tables in [`./data-tables.md`](./data-tables.md)). | Superseded | Closed — see G8.1. |
-| **A34** | Azure UK South provides three availability zones with zone-redundant managed services (AKS multi-zone node pools, PostgreSQL Flexible Server zone-redundant HA, Key Vault Premium, APIM Premium, ACR Premium). | Load-bearing | Phase 0 infra-provisioning verification (via the Story 0.1.1 Terraform apply); if any zone-redundant SKU is unavailable, the component degrades to single-zone HA + accepted-risk note. |
+| **A34** | Azure UK South provides three availability zones with zone-redundant managed services (AKS multi-zone node pools, PostgreSQL Flexible Server zone-redundant HA, Key Vault Premium, APIM Premium, ACR Premium). | Load-bearing | Phase 0 infra-provisioning verification (via the Story 0.3.1 Terraform apply); if any zone-redundant SKU is unavailable, the component degrades to single-zone HA + accepted-risk note. |
 | **A35** *(softened v2.6, 2026-05-07)* | Most MVP runtime requests are user-initiated. One exception: the payment-processing batch (`ctam-payment-batch`), which runs on a schedule and authenticates as a service principal. User-initiated inter-service auth: JWT propagation. Batch inter-service auth: OAuth `client_credentials` against `ctam-mock-auth` in non-prod; production issuer per G7.1. Other non-user-initiated flows (DA&I service-consumer calls, scheduled aggregations, async messaging) are out of MVP scope and would reuse the service-principal pattern. Phase 0 production migration runs operator-initiated (G4.7); dev/CI seeding via one-off scripts. | Load-bearing | The payment batch is the only non-user-initiated runtime flow at MVP. Adding more reopens the production service-auth choice (G7.1). |
 | **A36** *(new 2026-06-11)* | The JOH eLinks API exposes all 15 `jo_*` entities with stable natural keys (`personnel_number` for `jo_people`) at a cadence compatible with a nightly pull, and the jurisdiction hierarchy's parent-child shape is available natively or derivable on ingest[^d8]. | Load-bearing for the reference-data tier and the JOH identity lookup | Verify against the eLinks API contract in Phase 0 (G8.1). |
 | **A37** *(new 2026-06-11)* | The MRD team can deliver the weekly Excel workbook to an agreed Azure Blob container in a stable shape, and the workbook's entities carry jurisdiction-aware reference data as stated in the revised D3. | Load-bearing for tier-(a) MRD data (JOH Specialisations) | Verify with the MRD team in Phase 0 (G8.1); transitional until MRD public APIs ship. |
+| **A38** *(new 2026-08-24, SCP 2026-08-24)* | `ctam-jomockapi` provides a schema-faithful mock of the JOH eLinks People API v5 (built from the real Swagger doc + `apiresponses.docx`, seeded from real reference-data exports) for Phase 0 dev/staging/CI consumption. It is **not** a confirmation of the real contract — mirrors A26/A27's mock-auth pattern: non-production only, contract-parity claim is scoped to what the public docs describe, and real-contract confirmation (G8.1) still gates production cutover. | Load-bearing **for Phase 0 dev/staging demonstrability only** | Epic 0.2 deliverable; enforced by CI/deploy guard (no production Helm values, per Story 0.2.1). |
 
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-24b — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-24b">Sprint Change Proposal — 2026-08-24b</h1>
+<p><strong>Trigger:</strong> <em>"we are focusing on joh data as phase-0 update epic-0.1 as joh-reference-data-etl process"</em></p>
+<p><strong>Clarified via two questions before drafting:</strong></p>
+<ol type="1">
+<li><strong>"ETL" meaning</strong> → <strong>Rename/reframe only.</strong> The technical design (in-process nightly <code>@Scheduled</code> sync, decision #9 in <code>architecture.md</code>) is unchanged. "ETL" becomes the epic's label for that ongoing pipeline.</li>
+<li><strong>"Focusing on JOH data" scope</strong> → <strong>Split MRD out.</strong> Epic 0.1 becomes JOH-eLinks-only (Stories 0.1.1–0.1.3); MRD ingestion (former Story 0.1.4) moves to a new Epic 0.8.</li>
+</ol>
+<p><strong>Mode:</strong> Batch (carried over from the prior SCP this session). <strong>Scope classification:</strong> Moderate (epic retitle + split, story renumbering, coordinated shard sweep; no PRD/FR/NFR change).</p>
+<p><strong>Note on process:</strong> given the two clarifying answers fully scoped this change, edits below were drafted directly rather than staged separately; nothing is committed to git — this document is the record, and anything here can still be adjusted before that happens.</p>
+<hr />
+<details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p>Epic 0.1 ("Upstream JOH/MRD reference data is ingested") bundled two upstream integrations — the JOH eLinks API sync (Stories 0.1.1–0.1.3) and the MRD weekly Excel ingestion (Story 0.1.4) — under one epic. The team's near-term focus is JOH data specifically; keeping MRD bundled into the same epic obscures that focus and overstates what "Epic 0.1 done" means (an epic-level <code>depends_on</code> gate, per <code>dispatch-preflight.sh</code>, currently can't distinguish "JOH ETL done" from "JOH ETL done AND MRD done").</p>
+<p>Separately, the team wants Epic 0.1 to carry the "ETL" label for communication clarity. This needs care: "ETL" was <strong>explicitly retired</strong> in this repo (D3, 2026-06-10; gaps.md G4.6) when it referred to the <strong>one-shot legacy APEX-migration tool</strong> — retracted because CTAM Pathfinder does no legacy data migration of any kind. Reusing "ETL" for a <em>different</em>, ongoing thing (the nightly eLinks sync) is fine, but only if clearly distinguished from that retirement, or it silently reopens a settled decision. Both gaps.md (G4.6) and the new epic file now carry that distinction explicitly.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<ul>
+<li><strong>Epic 0.1</strong> retitled <strong>"JOH Reference-Data ETL Process"</strong>; narrowed to Stories 0.1.1–0.1.3 (JOH eLinks only). <code>depends_on</code> unchanged (<code>[epic-0.0, epic-0.6]</code>).</li>
+<li><strong>New Epic 0.8</strong> ("MRD supplementary reference data is ingested") carries the former Story 0.1.4, renumbered <strong>Story 0.8.1</strong>, content otherwise verbatim. <code>depends_on: [epic-0.0, epic-0.1]</code> — same repo (<code>ctam-reference-data</code>), needs Epic 0.1's scaffold (0.1.1) and tier-(a) write-protection pattern (0.1.2) established first.</li>
+<li>No other epic's scope changes. Epic 0.2 (auth) still depends on Epic 0.1 for <code>jo_people</code> — unaffected, since JOH data (not MRD) is what sign-in needs.</li>
+</ul>
+<h3 id="story-impact">Story impact</h3>
+<ul>
+<li>Story 0.1.4 → <strong>Story 0.8.1</strong>, moved wholesale (Acceptance Criteria, references, out-of-scope notes carried over unchanged).</li>
+<li>Stories 0.1.1, 0.1.2, 0.1.3 — cross-references to "Story 0.1.4" updated to "Epic 0.8, Story 0.8.1"; no AC content changed.</li>
+<li>No story is added, removed in substance, or has its acceptance criteria altered — this is a <strong>relabelling + regrouping</strong>, not a scope change.</li>
+</ul>
+<h3 id="artifact-conflicts--updates-needed">Artifact conflicts / updates needed</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.1-upstream-reference-data-ingested.md</code></td>
+<td>Retitled "JOH Reference-Data ETL Process"; naming note added (ETL distinction); Story 0.1.4 removed; storyCount 4→3; cross-references fixed</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.8-mrd-supplementary-reference-data-ingested.md</code> <em>(new)</em></td>
+<td>Former Story 0.1.4, now Story 0.8.1, as its own epic; <code>depends_on: [epic-0.0, epic-0.1]</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Epic table (0.1 retitled/3 stories, +0.8/1 story); epic summaries (0.1 rewritten, +0.8); Stories Summary table (0.1/+0.8 rows; <strong>total corrected to 24</strong> — the table previously read 22, an arithmetic carry-over error caught while editing it)</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Reference Data area: ingestion paragraph split by epic; Phase 0 area-table row updated</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>FR6 and NFR24 rows: split JOH (0.1.3) vs MRD (0.8.1)</td>
+</tr>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td>MRD storage Terraform cross-reference updated to Epic 0.8</td>
+</tr>
+<tr>
+<td><code>architecture/non-functional-requirements-coverage.md</code></td>
+<td>NFR24 bullet: JOH → Epic 0.1, MRD → Epic 0.8</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td><code>ctam-reference-data</code> row: MRD storage cross-reference + "JOH eLinks ETL process" phrasing</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code></td>
+<td>Story-packet template's illustrative example (<code>story_id</code>, <code>epic</code>, <code>sprint_status_key</code>) updated from the now-moved <code>0.1.4</code> to <code>0.8.1</code> so the worked example stays accurate</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td>G4.6: terminology note distinguishing reused "ETL" from the retired legacy-migration ETL. G8.1: epic-split cross-reference (JOH→0.1, MRD→0.8)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>Decision log: new <strong>#15</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.10</strong> entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td><code>0-1-4-...</code> moved out of <code>epic-0.1</code> block into new <code>epic-0.8</code> block as <code>0-8-1-...</code>, status unchanged (<code>backlog</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched (deliberately):</strong> dated historical records — <code>sprint-change-proposal-2026-05-15.md</code>, <code>-2026-06-17.md</code>, <code>-2026-08-20.md</code>, <code>implementation-readiness-report-2026-06-17.md</code>, and the <code>changelog.md</code> v3.1/v4.6/v4.7 entries — all correctly describe the state <em>as of their date</em> and are left as immutable history per this repo's convention. <code>assumptions.md</code> A36/A37 (reference G8.1, not epic numbers — no change needed). No PRD, UX, or FR/NFR change.</p>
+<h3 id="technical-impact">Technical impact</h3>
+<p>None. The eLinks sync's implementation (in-process <code>@Scheduled</code>, full-refresh upsert, <code>ctam_sync_status</code> logging) and MRD's implementation (blob poll, validate, upsert, archive) are unchanged — only which epic tracks each, and what Epic 0.1 is called. <code>ctam_sync_status</code> remains a single shared table written by both, now-separately-tracked, processes in the same repo.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Option 1 — Direct Adjustment.</strong> This is a pure backlog reorganisation: retitle one epic, split one story into a sibling epic, sweep cross-references. Nothing is built yet (<code>sprint-status.yaml</code> shows both epics fully <code>backlog</code>), so there's no rollback question (Option 2 doesn't apply) and no MVP/FR impact (Option 3 doesn't apply).</p>
+<p><strong>Effort:</strong> Low. <strong>Risk:</strong> Low — relabelling plus a mechanical cross-reference sweep, verified file-by-file rather than blind find-replace (per this repo's cross-cutting-change convention). <strong>Timeline impact:</strong> None — Epic 0.8's <code>depends_on</code> on Epic 0.1 preserves the same effective build order MRD already had as Story 0.1.4 (it came after 0.1.1–0.1.3 anyway).</p>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<p>All edits are described in full, with before/after text, in the files themselves (this SCP intentionally doesn't re-paste the whole rewritten epic files — see the two epic files directly for the authoritative before/after). Summary of the key renames:</p>
+<ul>
+<li><strong>Epic 0.1</strong>: "Upstream JOH/MRD reference data is ingested" → <strong>"JOH Reference-Data ETL Process"</strong>, 4 stories → 3 (0.1.1–0.1.3).</li>
+<li><strong>Epic 0.8</strong> <em>(new)</em>: "MRD supplementary reference data is ingested", 1 story (0.8.1 — was 0.1.4).</li>
+<li><strong>Decision #15</strong> added to <code>architecture.md</code>'s decision log; <strong>v4.10</strong> added to <code>changelog.md</code>.</li>
+<li><strong>G4.6</strong> (gaps.md) gains a terminology note; <strong>G8.1</strong> gains an epic-split cross-reference.</li>
+<li>Phase 0 totals: <strong>9 epics</strong> (was 8), <strong>24 stories</strong> (unchanged — 3+1 replaces the old 4).</li>
+</ul>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope: Moderate</strong> — backlog reorganisation (epic retitle + split + renumbering) with a coordinated cross-reference sweep. No PRD rewrite, no FR/NFR change. Routed as <strong>Product Owner / Developer</strong>, not Product Manager / Architect.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits above have been drafted directly in the tracked planning-artifact files (nothing committed). Pending final approval, the next step is <code>scripts/build-html.sh</code> to regenerate <code>docs/</code>.</li>
+<li><strong>Product Owner (human):</strong> confirm no dispatcher has picked up <code>0.1.4</code>/Story 0.8.1 under its old identity outside this control plane (checked: <code>sprint-status.yaml</code> shows it was <code>backlog</code> under <code>epic-0.1</code>, never dispatched).</li>
+</ul>
+<p><strong>Success criteria:</strong> Epic 0.1 and Epic 0.8 files are internally consistent and cross-reference each other correctly; <code>epics/phase-0/index.md</code>'s two summary tables agree on totals (24 stories, 9 epics); <code>docs/</code> regenerates cleanly; no FR/NFR/PRD text changed.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-24b.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#story-impact">Story impact</a></li><li class="h3"><a href="#artifact-conflicts--updates-needed">Artifact conflicts / updates needed</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-24b";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

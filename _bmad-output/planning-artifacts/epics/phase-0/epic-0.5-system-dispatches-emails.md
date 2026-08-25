@@ -9,7 +9,7 @@ epic: 0.5
 title: 'Notification service is scaffolded and contractually ready'
 storyCount: 2
 repo: ctam-notification
-depends_on: [epic-0.0]                      # only needs the estate — parallelisable with 0.1/0.2
+depends_on: [epic-0.0]                      # only needs the estate — parallelisable with 0.3/0.7
 ---
 
 # Epic 0.5: Notification service is scaffolded and contractually ready
@@ -46,10 +46,10 @@ So that **downstream phases** (Phase 2 absence ack, Phase 4 booking ack, Phase 6
 
 **Acceptance Criteria:**
 
-**Given** the engineer has manually pre-created the private GitHub repo `ctam-notification` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`; the `gh` CLI is **not** available — see Story 0.1.1 for the canonical manual-setup pattern),
+**Given** the engineer has manually pre-created the private GitHub repo `ctam-notification` with branch protection on `main` via the GitHub web UI (per `ctam-architecture/runbooks/github-setup.md`; the `gh` CLI is **not** available — see Story 0.3.1 for the canonical manual-setup pattern),
 **And** runs `ctam-scaffold.sh ctam-notification`,
 **When** the scaffold completes,
-**Then** the new repo has the same baseline as Stories 0.1.1 / 0.2.1 (Spring Boot 4, Helm chart, GitHub Actions, Actuator, structured logs, OpenAPI tooling, Spectral, ArchUnit, Spotless, Checkstyle, Pact, Postman),
+**Then** the new repo has the same baseline as Stories 0.3.1 / 0.7.1 (Spring Boot 4, Helm chart, GitHub Actions, Actuator, structured logs, OpenAPI tooling, Spectral, ArchUnit, Spotless, Checkstyle, Pact, Postman),
 **And** Group ID is `uk.gov.hmcts.ctam`, artefact is `ctam-notification`, package is `uk.gov.hmcts.ctam.notification`, default port is 8082,
 **And** initial commit is *"Scaffold CTAM Pathfinder notification from HMCTS starter"* (per AR4).
 

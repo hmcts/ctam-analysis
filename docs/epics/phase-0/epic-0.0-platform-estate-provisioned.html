@@ -90,8 +90,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="epic-00-platform-estate-is-provisioned-verifiable-and-cnp-compliant">Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant</h1>
 <p><strong>User outcome:</strong> The shared Azure estate — <strong>AKS, a global PostgreSQL Flexible Server, Azure Container Registry, APIM, Application Insights / Log Analytics, and Key Vault</strong> — is stood up via <strong>Terraform</strong> in its own dedicated repository, <strong><code>ctam-shared-infrastructure</code></strong>, following the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a <code>{product}-shared-infrastructure</code> repo (not colocated in a service repo). The estate is provisioned <strong>layer-by-layer, and each layer is independently verifiable at deploy time</strong> — so that every Phase 0 service (<code>ctam-reference-data</code> first, then <code>ctam-authorisation</code>, <code>ctam-notification</code>, <code>ctam-ui</code>) has a <em>tested</em> platform to deploy onto, and the team can prove the platform works before any domain service is scaffolded.</p>
-<p><strong>Hosting:</strong> the shared estate lives in <strong><code>ctam-shared-infrastructure</code></strong> (CNP <code>{product}-shared-infrastructure</code> convention). This <strong>supersedes AR53's colocated first-consumer rule</strong> — the shared estate is no longer carried inside <code>ctam-reference-data/terraform/</code>. Each service repo's own <code>terraform/</code> continues to hold <strong>only that service's own resources</strong> (e.g. the MRD storage account in <code>ctam-reference-data</code>, Story 0.1.4).</p>
-<p><strong>Why this is Epic 0.0 (precedes ingestion):</strong> the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.1.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP <code>-shared-infrastructure</code> standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens <code>ctam-reference-data</code> down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the <strong>domain</strong> deliverables (0.1 → 0.5) is unchanged.</p>
+<p><strong>Hosting:</strong> the shared estate lives in <strong><code>ctam-shared-infrastructure</code></strong> (CNP <code>{product}-shared-infrastructure</code> convention). This <strong>supersedes AR53's colocated first-consumer rule</strong> — the shared estate is no longer carried inside <code>ctam-reference-data/terraform/</code>. Each service repo's own <code>terraform/</code> continues to hold <strong>only that service's own resources</strong> (e.g. the MRD storage account in <code>ctam-reference-data</code>, Story 0.8.1).</p>
+<p><strong>Why this is Epic 0.0 (precedes ingestion):</strong> the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.3.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP <code>-shared-infrastructure</code> standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens <code>ctam-reference-data</code> down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the <strong>domain</strong> deliverables (ETL 0.3 → auth 0.7 → read API 0.9 → bootstrap 0.4 → notification 0.5) is unchanged.</p>
 <p><strong>Vertical slice:</strong></p>
 <ul>
 <li><strong>New dedicated repo <code>ctam-shared-infrastructure</code></strong> (CNP naming), scaffolded per the manual GitHub web-UI setup runbook (<code>ctam-architecture/runbooks/github-setup.md</code> — the <code>gh</code> CLI is not available)</li>
@@ -102,7 +102,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>FRs covered:</strong> none — this is foundational platform infrastructure with no functional-requirement surface. It is the enablement layer for every Phase 0 FR.</p>
 <p><strong>Key NFRs first exercised here:</strong> NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR16 (Key Vault), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness plumbing), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes — the cluster it deploys to).</p>
 <p><strong>Architecture requirements:</strong> <strong>AR53 (revised — dedicated <code>ctam-shared-infrastructure</code> per CNP)</strong>; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern).</p>
-<p><strong>Out of scope (explicitly):</strong> any domain service scaffolding (<code>ctam-reference-data</code> — Epic 0.1, Story 0.1.1); any service's own per-repo <code>terraform/</code> resources (they stay in their service repos); production-region rollout gating (Phase 9+); the <code>ctam_configuration_values</code> Liquibase baseline (owned by <code>ctam-architecture</code>, lands ahead of Epic 0.1).</p>
+<p><strong>Out of scope (explicitly):</strong> any domain service scaffolding (<code>ctam-reference-data</code> — Epic 0.3, Story 0.3.1); any service's own per-repo <code>terraform/</code> resources (they stay in their service repos); production-region rollout gating (Phase 9+); the <code>ctam_configuration_values</code> Liquibase baseline (owned by <code>ctam-architecture</code>, lands ahead of Epic 0.3).</p>
 <hr />
 <details class="section" id="story-001-scaffold-ctam-shared-infrastructure-and-establish-the-terraform-foundation"><summary><span class="section-title">Story 0.0.1: Scaffold <code>ctam-shared-infrastructure</code> and establish the Terraform foundation</span></summary><div class="section-body">
 <p>As a <strong>platform engineer</strong>, I want the dedicated <strong><code>ctam-shared-infrastructure</code></strong> repo scaffolded per the HMCTS CNP standard, with a working Terraform backend, per-environment stacks, and a plan/apply CI pipeline, So that <strong>the shared estate has a CNP-compliant home with safe, reviewable, state-backed change management before any resource is provisioned</strong>.</p>
@@ -119,7 +119,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Explicitly NOT in scope:</strong></p>
 <ul>
 <li>Any actual Azure resources — Stories 0.0.2–0.0.5</li>
-<li>Any service repo scaffolding — Epic 0.1</li>
+<li>Any service repo scaffolding — Epic 0.3</li>
 </ul>
 <hr />
 </div></details><details class="section" id="story-002-provision-networking-and-the-aks-cluster-dev-verifiable-via-kubectl"><summary><span class="section-title">Story 0.0.2: Provision networking and the AKS cluster (dev), verifiable via kubectl</span></summary><div class="section-body">
@@ -131,7 +131,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Explicitly NOT in scope:</strong></p>
 <ul>
 <li>PostgreSQL, Key Vault, ACR, App Insights, APIM — Stories 0.0.3–0.0.5</li>
-<li>Deploying any CTAM service — Epic 0.1</li>
+<li>Deploying any CTAM service — Epic 0.3</li>
 </ul>
 <hr />
 </div></details><details class="section" id="story-003-provision-postgresql-and-key-vault-dev-verifiable-over-tls-from-the-cluster"><summary><span class="section-title">Story 0.0.3: Provision PostgreSQL and Key Vault (dev), verifiable over TLS from the cluster</span></summary><div class="section-body">
@@ -142,7 +142,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>References:</strong> AR53 (revised); NFR10, NFR11, NFR16; A34.</p>
 <p><strong>Explicitly NOT in scope:</strong></p>
 <ul>
-<li>Per-service DB roles/grants and the <code>ctam_configuration_values</code> baseline (owned by <code>ctam-architecture</code>; consumed in Epic 0.1)</li>
+<li>Per-service DB roles/grants and the <code>ctam_configuration_values</code> baseline (owned by <code>ctam-architecture</code>; consumed in Epic 0.3)</li>
 <li>ACR, App Insights, APIM — Stories 0.0.4–0.0.5</li>
 </ul>
 <hr />
@@ -163,12 +163,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Acceptance Criteria:</strong></p>
 <p><strong>Given</strong> the AKS cluster exists per Story 0.0.2<br/><strong>When</strong> the engineer adds the APIM module and runs <code>terraform apply</code> for dev<br/><strong>Then</strong> an <strong>APIM instance</strong> is provisioned (zone-redundant SKU per A34) with base policies (TLS termination at the latest platform-supported version — NFR10; correlation-ID pass-through; default rate limits)<br/><strong>And</strong> a <strong>smoke API</strong> is registered pointing at an in-cluster echo service<br/><strong>And</strong> HTTP-only requests are rejected/redirected to HTTPS.</p>
 <p><strong>Given</strong> APIM and the smoke API are provisioned<br/><strong>When</strong> the engineer calls the smoke operation through the APIM gateway<br/><strong>Then</strong> the call returns <code>200</code> over TLS from the in-cluster echo service (end-to-end path gateway → AKS confirmed)<br/><strong>And</strong> a request below the platform's minimum TLS version is refused (verified by a CI check using <code>testssl.sh</code> or equivalent — NFR10 verified as deployed)<br/><strong>And</strong> an unauthenticated call to a policy-protected route is rejected<br/><strong>And</strong> these checks are captured as documented post-apply verification steps.</p>
-<p><strong>Given</strong> all five layers are applied<br/><strong>When</strong> the engineer reviews the dev estate<br/><strong>Then</strong> the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM) exists in UK South, each layer independently verified<br/><strong>And</strong> the estate is ready for <code>ctam-reference-data</code> to scaffold and deploy onto (Epic 0.1, Story 0.1.1).</p>
+<p><strong>Given</strong> all five layers are applied<br/><strong>When</strong> the engineer reviews the dev estate<br/><strong>Then</strong> the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM) exists in UK South, each layer independently verified<br/><strong>And</strong> the estate is ready for <code>ctam-reference-data</code> to scaffold and deploy onto (Epic 0.3, Story 0.3.1).</p>
 <p><strong>References:</strong> AR53 (revised); NFR10, NFR31; A34; gaps.md G9.</p>
 <p><strong>Explicitly NOT in scope:</strong></p>
 <ul>
 <li>Per-service API registration in APIM (each service publishes its own OpenAPI-backed API)</li>
-<li>Any domain service — Epic 0.1 onward</li>
+<li>Any domain service — Epic 0.3 onward</li>
 </ul>
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.0-platform-estate-provisioned.md</code></p>

@@ -84,9 +84,9 @@ The context-bus row above lists "aggregated OpenAPI contracts." That aggregation
 Build order is **structured data on each epic**, in its frontmatter:
 
 ```yaml
-epic: 0.1
-title: 'Upstream JOH/MRD reference data is ingested'
-storyCount: 4
+epic: 0.3
+title: 'JOH reference-data ETL process'
+storyCount: 3
 repo: ctam-reference-data          # or a list: [ctam-authorisation, ctam-mock-auth, ctam-ui]
 depends_on: [epic-0.0, epic-0.6]   # epic ids, resolved against sprint-status.yaml
 ```
@@ -100,7 +100,7 @@ Two fields, on the artefact that is already authored, parsed and version-control
 - **No duplication.** The story list, title, phase and decomposition state are already in the epic file and in `sprint-status.yaml`; a graph repeated all four.
 - **No second `bus_version` claim.** The graph asserted one; the real pin is each repo's submodule. Two claims is a drift risk, not a convenience.
 
-**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.5 (Notification) needs only the estate, so it can run alongside 0.1/0.2.
+**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.5 (Notification) needs only the estate, so it can run alongside 0.3/0.7.
 
 This is checked by `scripts/dispatch-preflight.sh <story-id>`, which is read-only and also confirms the story is still `backlog` and that no branch on the target remote already claims it (see *Multi-user coordination* below).
 
@@ -155,16 +155,16 @@ Canonical template, versioned with the bus so every repo gets the same one:
 
 ```markdown
 ---
-story_id: 0.1.4
-epic: epic-0.1-upstream-reference-data-ingested
+story_id: 0.8.1
+epic: epic-0.8-mrd-supplementary-reference-data-ingested
 repo: ctam-reference-data
 bus_version: arch-v1.0            # the target repo's actual _arch pin, not an aspiration
 frs: [FR6, FR7]
 nfrs: [NFR24]
 depends_on_stories: [0.0.3]       # optional intra-graph prerequisites
-sprint_status_key: 0-1-4-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
+sprint_status_key: 0-8-1-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
 ---
-# Story 0.1.4: <title>
+# Story 0.8.1: <title>
 Status: ready-for-dev
 ## Story                    (as a / I want / so that)
 ## Acceptance Criteria      (numbered; Gherkin inside an item — AC-3 must resolve to item 3)
@@ -199,11 +199,11 @@ One authoritative view of programme progress — the thing a fat orchestrator wo
 
 ```yaml
 development_status:
-  epic-0.1: backlog
-  0-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter: backlog
-  0-1-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection: backlog
+  epic-0.3: backlog
+  0-3-1-scaffold-ctam-reference-data-from-the-hmcts-starter: backlog
+  0-3-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection: backlog
   ...
-  epic-0.1-retrospective: optional
+  epic-0.3-retrospective: optional
 ```
 
 **One status vocabulary**, BMad's: stories `backlog → ready-for-dev → in-progress → review → done`; epics `backlog → in-progress → done`. The story packet's `Status:` line uses the same words. There is no second vocabulary anywhere — the previous two-vocabulary arrangement was the source of a documented contradiction.

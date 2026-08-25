@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="epic-02-joh-elinks-mock-api-stands-in-for-the-unconfirmed-upstream-contract">Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract</h1>
+<p><strong>User outcome:</strong> <code>ctam-reference-data</code>'s nightly JOH eLinks sync (Story 0.3.3) runs <strong>end-to-end against a live, deployed mock</strong> of the eLinks People API v5 — not just a CI-only WireMock stub — so Phase 0 has a genuine, demoable ingestion pipeline in dev/staging while the real eLinks API contract remains unconfirmed (gaps.md G8.1). <code>ctam-jomockapi</code> is onboarded as CTAM Pathfinder's 17th repo, non-production-only, in the same category as <code>ctam-mock-auth</code> (repository-strategy.md).</p>
+<p><strong>Hosting:</strong> <code>ctam-jomockapi</code> is a standalone Node.js/Express service — an explicitly-scoped deviation from the Java/Spring Boot stack baseline (see gaps.md / assumptions.md A38), justified because it delivers no FR/NFR and never deploys to production. It deploys onto the shared estate provisioned in Epic 0.0, alongside <code>ctam-mock-auth</code>.</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li>Onboard the existing <code>ctam-jomockapi</code> codebase as a CTAM Pathfinder GitHub repo, per the manual GitHub-setup runbook (D10 — no <code>gh</code> CLI)</li>
+<li>CI: run its existing test suite (<code>npm test</code>), build + push a container image to ACR</li>
+<li>A minimal Helm chart deploying it to dev/staging AKS, fronted by the shared APIM gateway</li>
+<li>A Key-Vault-held mock bearer credential, wired the same way the real eLinks credential will be (NFR16) — the mock itself accepts any non-empty token, so this exercises the <em>wiring</em>, not an auth check</li>
+<li><code>ctam-reference-data</code>'s eLinks sync (Story 0.3.3) points its dev/staging base URL at the deployed mock instead of <code>localhost</code></li>
+</ul>
+<p><strong>FRs covered:</strong> none directly (infrastructure/tooling, not a product feature). <strong>Supports:</strong> FR1, FR6 tier-(a), FR7 tier-(a), NFR24 (exercised end-to-end pre-contract).</p>
+<p><strong>Key NFRs first exercised here:</strong> NFR16 (Key Vault credential wiring, dev/staging), NFR31 (Azure UK South), NFR40 (per-service deployable).</p>
+<p><strong>Out of scope (explicitly):</strong></p>
+<ul>
+<li>The real JOH eLinks API contract (gaps.md G8.1 remains open until Judicial Office confirms it; production cutover is gated on that, not on this epic)</li>
+<li>MRD ingestion (Story 0.8.1) — the mock covers eLinks only, not MRD's Excel feed</li>
+<li>Rewriting <code>ctam-jomockapi</code> in Java/Spring — it stays Node/Express as already built</li>
+<li>Production deployment of <code>ctam-jomockapi</code> — never (same guard as <code>ctam-mock-auth</code>, A27-equivalent)</li>
+</ul>
+<hr />
+<details class="section" id="story-021-onboard-ctam-jomockapi-as-a-ctam-pathfinder-repo"><summary><span class="section-title">Story 0.2.1: Onboard <code>ctam-jomockapi</code> as a CTAM Pathfinder repo</span></summary><div class="section-body">
+<p>As a <strong>platform engineer</strong>, I want the existing <code>ctam-jomockapi</code> codebase onboarded as a CTAM Pathfinder GitHub repo with CI wired to its existing test suite, So that <strong>the mock is a tracked, reviewable, CI-gated artifact like every other repo in the polyrepo</strong>, not an out-of-band local tool.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the engineer has performed the GitHub manual-setup checklist (<code>ctam-architecture/runbooks/github-setup.md</code>)<br/><strong>When</strong> <code>ctam-jomockapi</code>'s existing code (README, <code>server.js</code>, <code>src/</code>, <code>test/</code>, <code>package.json</code>, <code>ReferenceData/*.csv|json</code>, <code>Swagger UI.pdf</code>, <code>apiresponses.docx</code>) is pushed to a new private repo under the HMCTS org via a feature branch and PR (no <code>gh</code> CLI, per D10)<br/><strong>Then</strong> branch protection on <code>main</code> is enabled (require PR review, require status checks, require linear history)<br/><strong>And</strong> <code>.github/workflows/ci.yml</code> runs <code>npm install &amp;&amp; npm test</code> plus a container build (<code>docker build</code>)<br/><strong>And</strong> <code>CODEOWNERS</code> and <code>PULL_REQUEST_TEMPLATE.md</code> exist per CTAM convention.</p>
+<p><strong>Given</strong> the onboarded repo<br/><strong>When</strong> a CI run completes on the PR<br/><strong>Then</strong> the existing test suite (<code>test/</code>) passes<br/><strong>And</strong> the container image builds and is pushed to ACR on merge to <code>main</code>.</p>
+<p><strong>Given</strong> this is a non-production-only mock<br/><strong>When</strong> the Helm values / CI workflow are authored<br/><strong>Then</strong> there is <strong>no</strong> <code>deploy-production.yml</code> and <strong>no</strong> production Helm values file — mirroring <code>ctam-mock-auth</code>'s "never deployed to production" guard.</p>
+<p><strong>References:</strong> repository-strategy.md (new row); D10; this story does <strong>not</strong> depend on Epic 0.0 (no deployment yet — Story 0.2.2 needs the estate).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Deployment to any environment — Story 0.2.2</li>
+<li>Any change to the mock's existing endpoint behaviour, seeded data, or auth handling</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-022-deploy-ctam-jomockapi-onto-the-shared-devstaging-estate"><summary><span class="section-title">Story 0.2.2: Deploy <code>ctam-jomockapi</code> onto the shared dev/staging estate</span></summary><div class="section-body">
+<p>As a <strong>platform engineer</strong>, I want <code>ctam-jomockapi</code> deployed onto the shared Azure estate (Epic 0.0) in dev and staging, with its mock bearer credential held in Key Vault, So that <strong>it is reachable over the network by <code>ctam-reference-data</code>'s scheduled sync job</strong>, not just runnable locally via <code>npm start</code>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> <code>ctam-jomockapi</code> is onboarded per Story 0.2.1, and the shared estate (AKS, ACR, Key Vault, APIM) is provisioned and verified per Epic 0.0<br/><strong>When</strong> a Helm chart (<code>charts/ctam-jomockapi/</code> with <code>values-dev.yaml</code> / <code>values-staging.yaml</code>) is deployed<br/><strong>Then</strong> the service runs as a pod in the dev AKS cluster, reachable at a stable in-cluster/APIM-fronted URL<br/><strong>And</strong> liveness/readiness probes pass against <code>GET /api/v5/healthcheck</code> (public, no auth, per the mock's existing contract)<br/><strong>And</strong> the deployed pod's logs confirm the mock data was generated with the documented fixed seed (ids stable across restarts).</p>
+<p><strong>Given</strong> the mock requires a bearer token (any non-empty value, per its existing auth behaviour)<br/><strong>When</strong> a mock credential is provisioned in the shared Key Vault (namespaced to <code>ctam-jomockapi</code>, separate from the real eLinks credential slot reserved for <code>ctam-reference-data</code>)<br/><strong>Then</strong> the credential round-trips from a pod via workload identity (same pattern as Epic 0.0's Key Vault verification)<br/><strong>And</strong> no production Key Vault namespace or profile is created for this credential (non-prod only).</p>
+<p><strong>Given</strong> the deployed mock<br/><strong>When</strong> an engineer curls <code>GET /api/v5/reference_data/jurisdictions</code> with the Key-Vault-sourced token from within the dev cluster<br/><strong>Then</strong> the response matches the documented <code>ReferenceDataResponse</code> shape and returns the real jurisdiction reference values.</p>
+<p><strong>References:</strong> NFR16 (Key Vault), NFR31 (UK South), NFR40 (per-service deployable); depends on Epic 0.0.</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Wiring <code>ctam-reference-data</code>'s sync to this URL — Story 0.2.3</li>
+<li>Production deployment — never, per this epic's out-of-scope note</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-023-ctam-reference-datas-elinks-sync-runs-against-the-deployed-mock-in-devstaging"><summary><span class="section-title">Story 0.2.3: <code>ctam-reference-data</code>'s eLinks sync runs against the deployed mock in dev/staging</span></summary><div class="section-body">
+<p>As a <strong>CTAM Pathfinder platform</strong> (and every downstream consumer of JOH identity and reference data), I want Story 0.3.3's nightly <code>@Scheduled</code> eLinks sync to run, in dev and staging, against the <code>ctam-jomockapi</code> URL deployed in Story 0.2.2, So that <strong>the full ingestion pipeline — full-refresh-upsert, <code>ctam_joh_identities</code> minting, soft-deactivation of records absent upstream, <code>ctam_sync_status</code> logging — is demoable end-to-end before the real eLinks contract (G8.1) is confirmed.</strong></p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> <code>ctam-jomockapi</code> is deployed per Story 0.2.2, and the Key Vault credential is available to <code>ctam-reference-data</code>'s pod<br/><strong>When</strong> <code>ctam-reference-data</code>'s dev/staging configuration sets the eLinks base URL to the deployed mock's URL instead of any placeholder/localhost value<br/><strong>Then</strong> the nightly (and manually-triggered) sync run in Story 0.3.3 completes successfully against it<br/><strong>And</strong> all 15 <code>jo_*</code> tables populate from the mock's <code>/people</code> change-feed and <code>/reference_data/*</code> responses<br/><strong>And</strong> <code>jo_people.personnel_number</code> upserts correctly and mints <code>ctam_joh_identities</code> rows exactly as designed for a real upstream source.</p>
+<p><strong>Given</strong> the mock's <code>/leavers</code> and <code>/deleted</code> endpoints (100 records each, independent of the 100 <code>/people</code> profiles)<br/><strong>When</strong> the sync's soft-deactivation logic (rows absent upstream marked inactive, never hard-deleted, per AR46) is exercised against them<br/><strong>Then</strong> the behaviour is verified against realistic leaver/deleted data — something the CI WireMock stub's canned fixtures don't exercise as thoroughly.</p>
+<p><strong>Given</strong> the CI-only WireMock/stub eLinks API (AR52) used by <code>ctam-reference-data</code>'s automated tests<br/><strong>When</strong> this story lands<br/><strong>Then</strong> the WireMock stub is <strong>retained unchanged</strong> for unit/integration tests — it and the deployed <code>ctam-jomockapi</code> are complementary (fast, hermetic CI checks vs. a realistic dev/staging network target), not a replacement of one by the other.</p>
+<p><strong>Given</strong> the real JOH eLinks API contract is still unconfirmed (gaps.md G8.1)<br/><strong>When</strong> this story's ACs are met<br/><strong>Then</strong> G8.1 is <strong>not</strong> closed by this story — it remains open until Judicial Office confirms the real contract and it is validated against the (by-then-live) ingestion mapping; this story closes the <em>dev/staging demonstrability</em> gap only, not the <em>contract-confirmation</em> gap.</p>
+<p><strong>References:</strong> FR1, FR6 tier-(a), NFR24; gaps.md G8.1 (stays open); AR46, AR48, AR52; depends on Story 0.3.3 and Story 0.2.2.</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Closing G8.1 — that needs the real contract from Judicial Office</li>
+<li>MRD ingestion (Story 0.8.1) — unaffected, no mock exists or is needed for MRD in this SCP</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.2-joh-elinks-mock-api-stands-in.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#story-021-onboard-ctam-jomockapi-as-a-ctam-pathfinder-repo">Story 0.2.1: Onboard ctam-jomockapi as a CTAM Pathfinder repo</a></li><li><a href="#story-022-deploy-ctam-jomockapi-onto-the-shared-devstaging-estate">Story 0.2.2: Deploy ctam-jomockapi onto the shared dev/staging estate</a></li><li><a href="#story-023-ctam-reference-datas-elinks-sync-runs-against-the-deployed-mock-in-devstaging">Story 0.2.3: ctam-reference-data's eLinks sync runs against the deployed mock in dev/staging</a></li></ul></aside>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.2-joh-elinks-mock-api-stands-in";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

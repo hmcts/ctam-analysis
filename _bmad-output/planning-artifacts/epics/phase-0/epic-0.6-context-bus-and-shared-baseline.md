@@ -14,7 +14,7 @@ depends_on: [epic-0.0]
 
 # Epic 0.6: Context bus is published and the shared configuration baseline exists
 
-> **Runs between Epic 0.0 and Epic 0.1 — the number is not the order.** Sequence comes from `depends_on`, not from the epic number: this epic depends on Epic 0.0 and Epic 0.1 depends on it. Note the dependency is **story-specific in practice** — Story 0.6.1 (publish and tag the bus) needs nothing and is already done; only Story 0.6.2 (the Liquibase baseline) needs Epic 0.0's shared PostgreSQL. `depends_on` is epic-level, so it records the stricter of the two; expect `dispatch-preflight.sh` to flag Epic 0.0 as a blocker for 0.6.1 even though that story is complete. It is numbered 0.6 because renumbering the authored epics 0.1–0.5 would break every FR mapping and cross-reference for no benefit.
+> **Runs between Epic 0.0 and Epic 0.3 — the number is not the order.** Sequence comes from `depends_on`, not from the epic number: this epic depends on Epic 0.0 and Epic 0.3 depends on it. Note the dependency is **story-specific in practice** — Story 0.6.1 (publish and tag the bus) needs nothing and is already done; only Story 0.6.2 (the Liquibase baseline) needs Epic 0.0's shared PostgreSQL. `depends_on` is epic-level, so it records the stricter of the two; expect `dispatch-preflight.sh` to flag Epic 0.0 as a blocker for 0.6.1 even though that story is complete. It is numbered 0.6 because renumbering the authored epics 0.1–0.5 would break every FR mapping and cross-reference for no benefit.
 >
 > **History:** this was `arch-baseline` in `delivery/dispatch-graph.yaml`, a node marked `decomposed: false`. That made it invisible to every BMad skill — it appeared in no sprint status, had no stories, and could not be dispatched. Promoted to a real epic when the dispatch graph was retired (SCP 2026-08-19d).
 
@@ -34,7 +34,7 @@ depends_on: [epic-0.0]
 **Out of scope for Phase 0 (deferred):**
 - A UI or API for editing configuration values — **post-MVP**; MVP maintenance is DBA-via-SQL per operational runbooks[^d10]
 - Publishing `diagrams/`, `sequence-diagrams/` or `architecture/analysis/` to the bus — added when a consumer needs them, not speculatively
-- The `api-specs/` read-only contract mirror — arrives with the first published service spec (Epic 0.3)
+- The `api-specs/` read-only contract mirror — arrives with the first published service spec (Epic 0.4)
 
 ---
 

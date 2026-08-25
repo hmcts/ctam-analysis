@@ -93,7 +93,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. The parent links here from its <em>Project Structure &amp; Boundaries</em> section.</p>
 </blockquote>
 <h2 id="repository-strategy-polyrepo">Repository Strategy: Polyrepo</h2>
-<p><strong>Decision:</strong> 11 service repos + 1 mock-auth repo + 2 UI repos (business + admin) + 1 architecture/scaffolding repo + 1 shared-infrastructure repo. No monorepo, no Gradle root project.</p>
+<p><strong>Decision:</strong> 11 service repos + 1 mock-auth repo + 1 JOH-mock repo + 2 UI repos (business + admin) + 1 architecture/scaffolding repo + 1 shared-infrastructure repo. No monorepo, no Gradle root project.</p>
 <p>A monorepo would either share <code>build.gradle</code> config (breaks no-shared-coupling), coordinate releases (breaks per-region phased rollout independence), or add Bazel-style hermetic build complexity that CTAM Pathfinder's requirements don't need.</p>
 <p>Polyrepo gives each service its own repo, pipeline, release cadence, CODEOWNERS, branch protection, and review policy. What stays cross-repo: API contracts (OpenAPI specs), the architecture documents and ADRs, the scaffolding script.</p>
 <h2 id="repository-list">Repository List</h2>
@@ -126,10 +126,16 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>Issue JWTs via OIDC <code>authorization_code</code> for human users; <strong>issue service tokens via OAuth <code>client_credentials</code></strong> for batch components (initially <code>ctam-payment-batch</code>); refuse to start with <code>production</code> profile (G5.3).</td>
 </tr>
 <tr>
+<td><strong><code>ctam-jomockapi</code></strong></td>
+<td>0</td>
+<td>Node.js/Express mock of the <strong>JOH eLinks People API v5</strong>, standing in for the unconfirmed upstream contract (gaps.md G8.1). <strong>Never deployed to production.</strong></td>
+<td>Serve the documented eLinks v5 contract (people change-feed, leavers, deleted, 11 reference-data vocabularies) from realistic seeded data joined against real production reference-data exports; give <code>ctam-reference-data</code>'s dev/staging eLinks sync a live network target (Epic 0.2).</td>
+</tr>
+<tr>
 <td><strong><code>ctam-reference-data</code></strong></td>
 <td>0</td>
-<td>Owns all 33 reference-data tables — tier (a) upstream-sourced (15 <code>jo_*</code> + <code>mrd_*</code>) and tier (b) CTAM-owned (<code>ctam_regions</code> / <code>ctam_offices</code> / <code>ctam_calendar_periods</code> + vocabularies), plus <code>ctam_sync_status</code> and <code>ctam_joh_identities</code> (the CTAM-assigned JOH identifier, minted during the eLinks sync). <strong>First domain service scaffolded</strong> (integrations-first sequencing, decision #12 / SCP 2026-06-17); <strong>deploys onto the shared estate provisioned in <code>ctam-shared-infrastructure</code></strong> (Epic 0.0, AR53 revised); carries only its own per-repo Terraform (MRD storage, Story 0.1.4).</td>
-<td>In-process JOH eLinks nightly sync + MRD weekly blob pick-up (tier a — the programme's first deliverable and first external integration); versioned read API (jurisdiction-filtered<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> — downstream of auth, lands after the auth epic); tier-(b) maintenance by DBAs via SQL in MVP<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>; reads happen via direct SQL by other services.</td>
+<td>Owns all 33 reference-data tables — tier (a) upstream-sourced (15 <code>jo_*</code> + <code>mrd_*</code>) and tier (b) CTAM-owned (<code>ctam_regions</code> / <code>ctam_offices</code> / <code>ctam_calendar_periods</code> + vocabularies), plus <code>ctam_sync_status</code> and <code>ctam_joh_identities</code> (the CTAM-assigned JOH identifier, minted during the eLinks sync). <strong>First domain service scaffolded</strong> (integrations-first sequencing, decision #12 / SCP 2026-06-17); <strong>deploys onto the shared estate provisioned in <code>ctam-shared-infrastructure</code></strong> (Epic 0.0, AR53 revised); carries only its own per-repo Terraform (MRD storage, Epic 0.8 Story 0.8.1).</td>
+<td>In-process JOH eLinks ETL process (Epic 0.3) + MRD weekly blob pick-up (Epic 0.8, split out 2026-08-24b) (tier a — the programme's first deliverable and first external integration); versioned read API (jurisdiction-filtered<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> — downstream of auth, lands after the auth epic); tier-(b) maintenance by DBAs via SQL in MVP<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>; reads happen via direct SQL by other services.</td>
 </tr>
 <tr>
 <td><strong><code>ctam-authorisation</code></strong></td>
@@ -205,7 +211,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tr>
 </tbody>
 </table>
-<p><strong>16 repos total</strong> (11 production services + 2 UI + architecture + mock-auth + shared-infrastructure). <code>ctam-shared-infrastructure</code> is Terraform-only (no deployable workload); <code>ctam-mock-auth</code> is dev/integration-only and never deploys to production.</p>
+<p><strong>17 repos total</strong> (11 production services + 2 UI + architecture + mock-auth + JOH-mock + shared-infrastructure). <code>ctam-shared-infrastructure</code> is Terraform-only (no deployable workload); <code>ctam-mock-auth</code> and <code>ctam-jomockapi</code> are dev/integration-only and never deploy to production.</p>
 <p><strong>Why split admin and business UI:</strong> business operational workflows (judges, absences, vacancies, bookings, sittings, payments, itineraries, reports) are continuously evolving with HMCTS judicial process. Admin work (managing the controlled vocabularies and user role assignments those workflows depend on) is lower-cadence, higher-stakes (a wrong Region rename or role flip cascades into operational chaos), and has a different audience (system administrators, not RSU/Court/Judges). Keeping them in separate repos gives independent CI/CD, independent rollout, distinct CODEOWNERS, and prevents accidental coupling — for example, admin-only screens cannot leak into a business user's nav by misconfiguration. Same as the backend's per-service polyrepo discipline: minimise shared code, accept duplication, gain independence.</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />

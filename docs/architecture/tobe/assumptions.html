@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Assumptions (A1–A37) — CTAM Pathfinder Documentation</title>
+<title>Assumptions (A1–A38) — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,7 +88,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 
-<h1 id="assumptions-a1a37">Assumptions (A1–A37)</h1>
+<h1 id="assumptions-a1a38">Assumptions (A1–A38)</h1>
 <blockquote>
 <p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. Linked from <em>Architecture Validation Results</em>.</p>
 </blockquote>
@@ -310,7 +310,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong>A34</strong></td>
 <td>Azure UK South provides three availability zones with zone-redundant managed services (AKS multi-zone node pools, PostgreSQL Flexible Server zone-redundant HA, Key Vault Premium, APIM Premium, ACR Premium).</td>
 <td>Load-bearing</td>
-<td>Phase 0 infra-provisioning verification (via the Story 0.1.1 Terraform apply); if any zone-redundant SKU is unavailable, the component degrades to single-zone HA + accepted-risk note.</td>
+<td>Phase 0 infra-provisioning verification (via the Story 0.3.1 Terraform apply); if any zone-redundant SKU is unavailable, the component degrades to single-zone HA + accepted-risk note.</td>
 </tr>
 <tr>
 <td><strong>A35</strong> <em>(softened v2.6, 2026-05-07)</em></td>
@@ -329,6 +329,12 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>The MRD team can deliver the weekly Excel workbook to an agreed Azure Blob container in a stable shape, and the workbook's entities carry jurisdiction-aware reference data as stated in the revised D3.</td>
 <td>Load-bearing for tier-(a) MRD data (JOH Specialisations)</td>
 <td>Verify with the MRD team in Phase 0 (G8.1); transitional until MRD public APIs ship.</td>
+</tr>
+<tr>
+<td><strong>A38</strong> <em>(new 2026-08-24, SCP 2026-08-24)</em></td>
+<td><code>ctam-jomockapi</code> provides a schema-faithful mock of the JOH eLinks People API v5 (built from the real Swagger doc + <code>apiresponses.docx</code>, seeded from real reference-data exports) for Phase 0 dev/staging/CI consumption. It is <strong>not</strong> a confirmation of the real contract — mirrors A26/A27's mock-auth pattern: non-production only, contract-parity claim is scoped to what the public docs describe, and real-contract confirmation (G8.1) still gates production cutover.</td>
+<td>Load-bearing <strong>for Phase 0 dev/staging demonstrability only</strong></td>
+<td>Epic 0.2 deliverable; enforced by CI/deploy guard (no production Helm values, per Story 0.2.1).</td>
 </tr>
 </tbody>
 </table>
