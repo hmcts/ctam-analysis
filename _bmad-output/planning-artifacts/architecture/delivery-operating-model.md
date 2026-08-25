@@ -100,7 +100,7 @@ Two fields, on the artefact that is already authored, parsed and version-control
 - **No duplication.** The story list, title, phase and decomposition state are already in the epic file and in `sprint-status.yaml`; a graph repeated all four.
 - **No second `bus_version` claim.** The graph asserted one; the real pin is each repo's submodule. Two claims is a drift risk, not a convenience.
 
-**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.1 (JOH schema) and Epic 0.2 (mock API) both need only the estate, so they can run alongside each other and ahead of Epic 0.3.
+**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.1 (JOH schema) needs the estate (Epic 0.0) and Epic 0.2 (mock API, local-only per SCP 2026-08-25f) needs nothing at all, so they can run alongside each other and ahead of Epic 0.3.
 
 This is checked by `scripts/dispatch-preflight.sh <story-id>`, which is read-only and also confirms the story is still `backlog` and that no branch on the target remote already claims it (see *Multi-user coordination* below).
 

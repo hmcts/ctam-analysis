@@ -93,7 +93,10 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>Scope reduction 2026-08-25 (SCP 2026-08-25d)</strong> — Phase 0 is narrowed to <strong>epics 0.0–0.4</strong>. Removed from the plan for now: Notification (was 0.5), Context bus (was 0.6 — <strong>folded into Epic 0.0</strong> as Stories 0.0.6–0.0.7, not deleted), User authenticates (was 0.7), MRD ingestion (was 0.8), User populations bootstrapped (was 0.9), MRD data read API (was 0.10). Two real dependency edges into removed epics were resolved: Epic 0.1/0.3's dependency on the context bus now points at Epic 0.0 (where it's folded in); Epic 0.4's read API, which needed <code>JWTFilter</code>/jurisdiction-filtering from the removed auth epic, is <strong>simplified to an open, unauthenticated API</strong> for this scope. See the epic files' own scope-reduction notes for full detail, and <code>sprint-change-proposal-2026-08-25d.md</code> for the complete before/after.</p>
 </blockquote>
 <blockquote>
-<p>Phase 0 is sequenced <strong>platform-then-JOH-data-pipeline</strong>: Epic 0.0 platform estate (+ context bus) → Epic 0.1 JOH schema / Epic 0.2 JOH mock API (parallel) → Epic 0.3 JOH ETL ingestion → Epic 0.4 JOH data read API. The shared Azure estate stands up and is independently verified first (Epic 0.0, <code>ctam-shared-infrastructure</code>); the ingestion then runs in-process inside <code>ctam-reference-data</code> — there is no <code>ctam-integrations</code> repo.</p>
+<p><strong>Further scope reduction 2026-08-25 (SCP 2026-08-25f)</strong> — Epic 0.2 (JOH eLinks mock API) no longer deploys anywhere: <code>ctam-jomockapi</code> runs <strong>locally via Docker Compose</strong> only, alongside a locally-run <code>ctam-reference-data</code>. <code>depends_on</code> drops to <code>[]</code> (it never needed the estate for anything but that deployment). Every "demoable in dev/staging" claim tied to this mock (NFR24, gaps.md G8.1) is narrowed to "demoable locally" — see the epic files' own scope-reduction notes.</p>
+</blockquote>
+<blockquote>
+<p>Phase 0 is sequenced <strong>platform-then-JOH-data-pipeline</strong>: Epic 0.0 platform estate (+ context bus) → Epic 0.1 JOH schema / Epic 0.2 JOH mock API (parallel, no epic dependency) → Epic 0.3 JOH ETL ingestion → Epic 0.4 JOH data read API. The shared Azure estate stands up and is independently verified first (Epic 0.0, <code>ctam-shared-infrastructure</code>); the ingestion then runs in-process inside <code>ctam-reference-data</code> — there is no <code>ctam-integrations</code> repo.</p>
 </blockquote>
 <blockquote>
 <p>Phase 0 is the platform smoke-test (per PRD Key Characteristic 4). API-as-Product standards (versioning, OpenAPI, <a href="https://datatracker.ietf.org/doc/html/rfc9457">RFC 9457</a>, <code>Deprecation</code>/<code>Sunset</code>) are exercised on Reference Data <strong>reads</strong> before any domain service is built. Authorisation lookups are <strong>not</strong> exercised in this reduced scope.</p>
@@ -166,8 +169,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p><strong>FRs covered:</strong> none behaviourally — schema groundwork for FR12, FR15b, FR16, FR17 (Phase 1 FRs).</p>
 <p>→ <a href="epic-0.1-postgres-sql-schema-design.html">Full epic with stories</a></p>
 <h3 id="epic-02-joh-elinks-mock-api-stands-in-for-the-unconfirmed-upstream-contract-3-stories">Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract (3 stories)</h3>
-<p><strong>User outcome:</strong> <code>ctam-reference-data</code>'s nightly eLinks sync (Story 0.3.3) runs end-to-end against a deployed, schema-faithful mock of the JOH eLinks People API v5 (<code>ctam-jomockapi</code>, CTAM Pathfinder's 17th repo, non-production-only — same category as <code>ctam-mock-auth</code>), so Phase 0 has a demoable ingestion pipeline in dev/staging while the real eLinks contract (gaps.md G8.1) remains unconfirmed. <em>(New 2026-08-24 as Epic 0.7, SCP 2026-08-24; renumbered to Epic 0.2 via SCP 2026-08-25b.)</em></p>
-<p><strong>Runs alongside Epic 0.0</strong> — the number is not the order; see <code>depends_on</code> in its frontmatter (<code>[epic-0.0]</code> only).</p>
+<p><strong>User outcome:</strong> <code>ctam-reference-data</code>'s nightly eLinks sync (Story 0.3.3) runs end-to-end against a locally-run, schema-faithful mock of the JOH eLinks People API v5 (<code>ctam-jomockapi</code>, CTAM Pathfinder's 17th repo, non-production-only — same category as <code>ctam-mock-auth</code>), so Phase 0 has a demoable ingestion pipeline in local development while the real eLinks contract (gaps.md G8.1) remains unconfirmed. <em>(New 2026-08-24 as Epic 0.7, SCP 2026-08-24; renumbered to Epic 0.2 via SCP 2026-08-25b; narrowed to local-only, no shared-estate deployment, via SCP 2026-08-25f.)</em></p>
+<p><strong>Has no epic dependency</strong> — it never deploys to the shared estate (see its own scope-reduction note); <code>depends_on: []</code>.</p>
 <p><strong>FRs covered:</strong> none directly (infrastructure/tooling). <strong>Supports:</strong> FR1, FR6 tier-(a), FR7 tier-(a), NFR24 (exercised end-to-end pre-contract).</p>
 <p>→ <a href="epic-0.2-joh-elinks-mock-api-stands-in.html">Full epic with stories</a></p>
 <h3 id="epic-03-joh-reference-data-etl-process-3-stories">Epic 0.3: JOH reference-data ETL process (3 stories)</h3>
@@ -205,13 +208,13 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>0.2</td>
 <td>3 stories (0.2.1–0.2.3)</td>
 <td>none directly; supports FR1, FR6 tier (a), FR7 tier (a); NFR24</td>
-<td><code>ctam-jomockapi</code> deployed to dev/staging; Story 0.3.3's sync runs against it end-to-end</td>
+<td><code>ctam-jomockapi</code> running locally via Docker Compose; Story 0.3.3's sync runs against it end-to-end locally</td>
 </tr>
 <tr>
 <td>0.3</td>
 <td>3 stories (0.3.1–0.3.3)</td>
 <td>FR1 (<code>jo_people</code> target), FR6 tier (a), FR7 tier (a), FR8, FR59; NFR24</td>
-<td>JOH eLinks ETL process flows data in → <code>jo_people</code> current (verified via <code>ctam_sync_status</code> + CI WireMock stub, and end-to-end in dev/staging against Epic 0.2's deployed mock)</td>
+<td>JOH eLinks ETL process flows data in → <code>jo_people</code> current (verified via <code>ctam_sync_status</code> + CI WireMock stub, and end-to-end locally against Epic 0.2's locally-run mock)</td>
 </tr>
 <tr>
 <td>0.4</td>

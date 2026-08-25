@@ -60,9 +60,9 @@ development_status:
   epic-0.1-retrospective: optional
 
   epic-0.2: backlog
-  0-2-1-onboard-ctam-jomockapi-as-a-ctam-pathfinder-repo: backlog
-  0-2-2-deploy-ctam-jomockapi-onto-the-shared-dev-staging-estate: backlog
-  0-2-3-ctam-reference-data-s-elinks-sync-runs-against-the-deployed-mock-in-dev-staging: backlog
+  0-2-1-scaffold-ctam-jomockapi-from-the-hmcts-starter-and-port-the-elinks-mock-to-java-spring-boot: backlog
+  0-2-2-run-ctam-jomockapi-locally-via-docker-compose: backlog
+  0-2-3-ctam-reference-data-s-elinks-sync-runs-against-the-locally-running-mock: backlog
   epic-0.2-retrospective: optional
 
   epic-0.3: backlog

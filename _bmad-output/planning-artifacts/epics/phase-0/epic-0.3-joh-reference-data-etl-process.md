@@ -183,9 +183,9 @@ So that **`jo_people` exists and is current — jurisdiction is available (`jo_j
 **Then** a seeded JOH email's row resolves to a `personnel_number`, and via `ctam_joh_identities` to the CTAM JOH UUID,
 **And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).
 
-**Given** the JOH eLinks mock API (`ctam-jomockapi`, Epic 0.2) is deployed to dev/staging,
-**When** the sync's dev/staging base URL is configured to point at it,
-**Then** the nightly sync runs end-to-end against a live network endpoint modelling the real eLinks contract — not just the CI WireMock stub — giving Phase 0 a demoable ingestion pipeline ahead of the real contract landing (per Epic 0.2, Story 0.2.3).
+**Given** the JOH eLinks mock API (`ctam-jomockapi`, Epic 0.2) is running locally via Docker Compose (not deployed to any shared environment, SCP 2026-08-25f),
+**When** the sync's local base URL is configured to point at it,
+**Then** the nightly sync runs end-to-end against a local network endpoint modelling the real eLinks contract — not just the CI WireMock stub — giving Phase 0 a demoable ingestion pipeline locally ahead of the real contract landing (per Epic 0.2, Story 0.2.3).
 
 **Given** the JOH eLinks API contract has not yet been confirmed (gaps.md G8.1),
 **When** the contract lands,

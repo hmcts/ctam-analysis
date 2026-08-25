@@ -14,7 +14,9 @@ phaseName: 'Foundations'
 
 > **Scope reduction 2026-08-25 (SCP 2026-08-25d)** — Phase 0 is narrowed to **epics 0.0–0.4**. Removed from the plan for now: Notification (was 0.5), Context bus (was 0.6 — **folded into Epic 0.0** as Stories 0.0.6–0.0.7, not deleted), User authenticates (was 0.7), MRD ingestion (was 0.8), User populations bootstrapped (was 0.9), MRD data read API (was 0.10). Two real dependency edges into removed epics were resolved: Epic 0.1/0.3's dependency on the context bus now points at Epic 0.0 (where it's folded in); Epic 0.4's read API, which needed `JWTFilter`/jurisdiction-filtering from the removed auth epic, is **simplified to an open, unauthenticated API** for this scope. See the epic files' own scope-reduction notes for full detail, and `sprint-change-proposal-2026-08-25d.md` for the complete before/after.
 
-> Phase 0 is sequenced **platform-then-JOH-data-pipeline**: Epic 0.0 platform estate (+ context bus) → Epic 0.1 JOH schema / Epic 0.2 JOH mock API (parallel) → Epic 0.3 JOH ETL ingestion → Epic 0.4 JOH data read API. The shared Azure estate stands up and is independently verified first (Epic 0.0, `ctam-shared-infrastructure`); the ingestion then runs in-process inside `ctam-reference-data` — there is no `ctam-integrations` repo.
+> **Further scope reduction 2026-08-25 (SCP 2026-08-25f)** — Epic 0.2 (JOH eLinks mock API) no longer deploys anywhere: `ctam-jomockapi` runs **locally via Docker Compose** only, alongside a locally-run `ctam-reference-data`. `depends_on` drops to `[]` (it never needed the estate for anything but that deployment). Every "demoable in dev/staging" claim tied to this mock (NFR24, gaps.md G8.1) is narrowed to "demoable locally" — see the epic files' own scope-reduction notes.
+
+> Phase 0 is sequenced **platform-then-JOH-data-pipeline**: Epic 0.0 platform estate (+ context bus) → Epic 0.1 JOH schema / Epic 0.2 JOH mock API (parallel, no epic dependency) → Epic 0.3 JOH ETL ingestion → Epic 0.4 JOH data read API. The shared Azure estate stands up and is independently verified first (Epic 0.0, `ctam-shared-infrastructure`); the ingestion then runs in-process inside `ctam-reference-data` — there is no `ctam-integrations` repo.
 
 > Phase 0 is the platform smoke-test (per PRD Key Characteristic 4). API-as-Product standards (versioning, OpenAPI, [RFC 9457](https://datatracker.ietf.org/doc/html/rfc9457), `Deprecation`/`Sunset`) are exercised on Reference Data **reads** before any domain service is built. Authorisation lookups are **not** exercised in this reduced scope.
 >
@@ -59,9 +61,9 @@ phaseName: 'Foundations'
 
 ### Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract (3 stories)
 
-**User outcome:** `ctam-reference-data`'s nightly eLinks sync (Story 0.3.3) runs end-to-end against a deployed, schema-faithful mock of the JOH eLinks People API v5 (`ctam-jomockapi`, CTAM Pathfinder's 17th repo, non-production-only — same category as `ctam-mock-auth`), so Phase 0 has a demoable ingestion pipeline in dev/staging while the real eLinks contract (gaps.md G8.1) remains unconfirmed. *(New 2026-08-24 as Epic 0.7, SCP 2026-08-24; renumbered to Epic 0.2 via SCP 2026-08-25b.)*
+**User outcome:** `ctam-reference-data`'s nightly eLinks sync (Story 0.3.3) runs end-to-end against a locally-run, schema-faithful mock of the JOH eLinks People API v5 (`ctam-jomockapi`, CTAM Pathfinder's 17th repo, non-production-only — same category as `ctam-mock-auth`), so Phase 0 has a demoable ingestion pipeline in local development while the real eLinks contract (gaps.md G8.1) remains unconfirmed. *(New 2026-08-24 as Epic 0.7, SCP 2026-08-24; renumbered to Epic 0.2 via SCP 2026-08-25b; narrowed to local-only, no shared-estate deployment, via SCP 2026-08-25f.)*
 
-**Runs alongside Epic 0.0** — the number is not the order; see `depends_on` in its frontmatter (`[epic-0.0]` only).
+**Has no epic dependency** — it never deploys to the shared estate (see its own scope-reduction note); `depends_on: []`.
 
 **FRs covered:** none directly (infrastructure/tooling). **Supports:** FR1, FR6 tier-(a), FR7 tier-(a), NFR24 (exercised end-to-end pre-contract).
 
@@ -89,8 +91,8 @@ phaseName: 'Foundations'
 |---|---|---|---|
 | 0.0 | 7 stories (0.0.1–0.0.7) | FR8 (Story 0.0.7); NFR10, NFR11, NFR16, NFR25–NFR28, NFR31, NFR40 | Each Terraform layer stands up and is verified as deployed — `kubectl get nodes` Ready across AZs, PostgreSQL TLS-only, Key Vault secret round-trip, ACR image pull, APIM smoke API → 200 over TLS; `arch-v1.0` tagged and resolvable via `_arch/`; a service role SELECTs `ctam_configuration_values` and is refused a write |
 | 0.1 | 2 stories (0.1.1–0.1.2) | none directly; schema groundwork for FR12, FR15b, FR16, FR17 | `ctam-joh` scaffolded; its 5 domain tables exist via Liquibase, keyed to `ctam_joh_identities`, tier-owned + SELECT-granted to `ctam-reference-data` |
-| 0.2 | 3 stories (0.2.1–0.2.3) | none directly; supports FR1, FR6 tier (a), FR7 tier (a); NFR24 | `ctam-jomockapi` deployed to dev/staging; Story 0.3.3's sync runs against it end-to-end |
-| 0.3 | 3 stories (0.3.1–0.3.3) | FR1 (`jo_people` target), FR6 tier (a), FR7 tier (a), FR8, FR59; NFR24 | JOH eLinks ETL process flows data in → `jo_people` current (verified via `ctam_sync_status` + CI WireMock stub, and end-to-end in dev/staging against Epic 0.2's deployed mock) |
+| 0.2 | 3 stories (0.2.1–0.2.3) | none directly; supports FR1, FR6 tier (a), FR7 tier (a); NFR24 | `ctam-jomockapi` running locally via Docker Compose; Story 0.3.3's sync runs against it end-to-end locally |
+| 0.3 | 3 stories (0.3.1–0.3.3) | FR1 (`jo_people` target), FR6 tier (a), FR7 tier (a), FR8, FR59; NFR24 | JOH eLinks ETL process flows data in → `jo_people` current (verified via `ctam_sync_status` + CI WireMock stub, and end-to-end locally against Epic 0.2's locally-run mock) |
 | 0.4 | 2 stories (0.4.1–0.4.2) | FR6 (tier b + JOH read API), FR7, FR58 | Open, jurisdiction-unfiltered JOH data API serves both tiers read-only |
 | **Total** | **17 stories** | | The five demos chain together for the Phase 0 stakeholder walkthrough — starting with the verified platform estate |
 

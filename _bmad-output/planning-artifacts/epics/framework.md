@@ -76,7 +76,7 @@ Cross-cutting NFRs (performance NFR1–NFR9, security/data NFR10–NFR16, NFR30�
 
 *(`mrd_*` MRD data is **not in this scope** — MRD ingestion and its read API were removed 2026-08-25d, along with the epics that carried them, Epic 0.8 and the briefly-existing Epic 0.10.)*
 
-**Ingestion**: **Epic 0.3** — the JOH reference-data ETL process — nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`). Per AR46–AR49. A deployed, schema-faithful mock of the eLinks API (`ctam-jomockapi`, Epic 0.2) gives Epic 0.3's dev/staging sync a live network target while the real contract (gaps.md G8.1) remains unconfirmed.
+**Ingestion**: **Epic 0.3** — the JOH reference-data ETL process — nightly in-process `@Scheduled` eLinks sync (full-refresh upsert on upstream natural keys; soft-deactivation, never hard-delete; run log in `ctam_sync_status`). Per AR46–AR49. A schema-faithful mock of the eLinks API (`ctam-jomockapi`, Epic 0.2) running locally via Docker Compose gives Epic 0.3's local sync a live network target while the real contract (gaps.md G8.1) remains unconfirmed — no shared-estate deployment in this scope (SCP 2026-08-25f).
 
 **Read API**: [Epic 0.4](phase-0/epic-0.4-joh-data-read-only-api.md) serves JOH data (tier-(a) + tier-(b)), open/unauthenticated in this scope.
 

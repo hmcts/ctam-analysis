@@ -128,8 +128,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong><code>ctam-jomockapi</code></strong></td>
 <td>0</td>
-<td>Node.js/Express mock of the <strong>JOH eLinks People API v5</strong>, standing in for the unconfirmed upstream contract (gaps.md G8.1). <strong>Never deployed to production.</strong></td>
-<td>Serve the documented eLinks v5 contract (people change-feed, leavers, deleted, 11 reference-data vocabularies) from realistic seeded data joined against real production reference-data exports; give <code>ctam-reference-data</code>'s dev/staging eLinks sync a live network target (Epic 0.2).</td>
+<td><strong>Java/Spring Boot</strong> mock of the <strong>JOH eLinks People API v5</strong> (scaffolded from the same HMCTS Crime SpringBoot template as every other service, <code>ctam-scaffold.sh</code> — no stack deviation, SCP 2026-08-25g; ported from an earlier Node/Express reference implementation), standing in for the unconfirmed upstream contract (gaps.md G8.1). <strong>Never deployed anywhere but locally</strong> — no shared-estate deployment in this scope (SCP 2026-08-25f).</td>
+<td>Serve the documented eLinks v5 contract (people change-feed, leavers, deleted, 11 reference-data vocabularies) from realistic seeded data joined against real production reference-data exports; give <code>ctam-reference-data</code>'s local eLinks sync a live network target via Docker Compose (Epic 0.2).</td>
 </tr>
 <tr>
 <td><strong><code>ctam-reference-data</code></strong></td>
