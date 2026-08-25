@@ -141,6 +141,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Adding a database, Liquibase changelog, or any persistence layer — the mock stays stateless</li>
 <li>Mounting routes under the real API's <code>/elinks</code> gateway-routing path segment (visible in the Swagger doc's <code>Servers</code> value) — that segment is production gateway routing, not part of the application contract, and this mock runs with no gateway in front of it locally; routes stay bare <code>/api/v5/...</code></li>
 </ul>
+<p><strong>Implementation touchpoints</strong> <em>(dispatch guidance for <code>bmad-create-story</code> — not the BMad <code>## Tasks / Subtasks</code> section itself, which <code>bmad-create-story</code> generates in the story-packet at dispatch time, per <code>delivery-operating-model.md</code>)</em>:</p>
+<ul>
+<li><strong>API changes:</strong> new REST controllers under <code>uk.gov.hmcts.ctam.jomockapi.controller</code> — <code>PeopleController</code> (<code>GET /api/v5/people</code>, <code>GET /api/v5/people/{id}</code>), <code>LeaversController</code> (<code>GET /api/v5/leavers</code>), <code>DeletedController</code> (<code>GET /api/v5/deleted</code>), <code>ReferenceDataController</code> (<code>GET /api/v5/reference_data/{attribute_name}</code>, <code>GET /api/v5/reference_data/{attribute_name}/{reference_id}</code>), <code>UtilsController</code> (<code>GET /api/v5/healthcheck</code>); springdoc-openapi generates the mock's own OpenAPI 3.x doc.</li>
+<li><strong>Service changes:</strong> <code>PeopleService</code>/<code>LeaverService</code>/<code>DeletedService</code> (fixed-seed deterministic data generation, ported from the Node implementation's generator logic); <code>ReferenceDataService</code> (loads the 11 <code>ReferenceData/*.csv|json</code> fixtures from classpath at startup, serves by <code>attribute_name</code> including the deprecated singular aliases); a <code>BearerTokenAuthFilter</code> (accepts any non-empty token, no real validation).</li>
+<li><strong>Repository changes:</strong> none — no Spring Data JPA repository layer and no database; classpath resource loading (<code>ClassPathResource</code>) replaces Node's file read, consistent with the "no Liquibase, no Testcontainers" AC above.</li>
+<li><strong>UI changes:</strong> none — this epic has no UI component.</li>
+<li><strong>Tests:</strong> JUnit 5 + Spring Boot Test controller/unit tests ported from the existing Node <code>test/</code> suite with behaviour-equivalent assertions against the same fixtures; JaCoCo coverage; Spotless/Checkstyle lint gates; CI container-image build verification (no registry push).</li>
+</ul>
 <hr />
 </div></details><details class="section" id="story-022-run-ctam-jomockapi-locally-via-docker-compose"><summary><span class="section-title">Story 0.2.2: Run <code>ctam-jomockapi</code> locally via Docker Compose</span></summary><div class="section-body">
 <p>As a <strong>platform engineer</strong>, I want <code>ctam-jomockapi</code> runnable locally via Docker Compose, with its mock bearer credential set via a local environment file, So that <strong>it is reachable over the local Docker network by <code>ctam-reference-data</code>'s scheduled sync job during development</strong>, not just runnable standalone via <code>./gradlew bootRun</code>.</p>
@@ -153,6 +161,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <ul>
 <li>Wiring <code>ctam-reference-data</code>'s sync to this local instance — Story 0.2.3</li>
 <li>Deployment to any shared environment (dev, staging, or production) — not in this epic's scope at all, per its out-of-scope note</li>
+</ul>
+<p><strong>Implementation touchpoints</strong> <em>(dispatch guidance for <code>bmad-create-story</code> — not the BMad <code>## Tasks / Subtasks</code> section itself, which <code>bmad-create-story</code> generates in the story-packet at dispatch time, per <code>delivery-operating-model.md</code>)</em>:</p>
+<ul>
+<li><strong>API changes:</strong> none — no new endpoints; this story is deployment/wiring only.</li>
+<li><strong>Service changes:</strong> none in application code — <code>application-dev.yml</code>/<code>.env</code> carries the local mock bearer credential placeholder.</li>
+<li><strong>Repository changes:</strong> none.</li>
+<li><strong>UI changes:</strong> none.</li>
+<li><strong>Tests:</strong> <code>docker-compose up jomockapi</code> liveness check against <code>GET /api/v5/healthcheck</code>; manual curl verification of <code>GET /api/v5/reference_data/jurisdictions</code> from the host and from another container on the same Docker network, per the AC above.</li>
 </ul>
 <hr />
 </div></details><details class="section" id="story-023-ctam-reference-datas-elinks-sync-runs-against-the-locally-running-mock"><summary><span class="section-title">Story 0.2.3: <code>ctam-reference-data</code>'s eLinks sync runs against the locally-running mock</span></summary><div class="section-body">
@@ -168,6 +184,14 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <li>Closing G8.1 — that needs the real contract from Judicial Office</li>
 <li>Demonstrating this pipeline in a shared dev/staging environment — this epic is local-only, per its scope-reduction note</li>
 <li>MRD ingestion (Story 0.8.1) — unaffected, no mock exists or is needed for MRD in this SCP</li>
+</ul>
+<p><strong>Implementation touchpoints</strong> <em>(dispatch guidance for <code>bmad-create-story</code> — not the BMad <code>## Tasks / Subtasks</code> section itself, which <code>bmad-create-story</code> generates in the story-packet at dispatch time, per <code>delivery-operating-model.md</code>; this story's code changes land in <strong><code>ctam-reference-data</code></strong>, not <code>ctam-jomockapi</code>)</em>:</p>
+<ul>
+<li><strong>API changes:</strong> none — consumes <code>ctam-jomockapi</code>'s existing contract as-is; no new endpoint on either side.</li>
+<li><strong>Service changes:</strong> <code>ctam-reference-data</code>'s eLinks sync service configuration — base URL pointed at the docker-compose <code>ctam-jomockapi</code> Docker-network hostname instead of a placeholder; no new sync logic (Story 0.3.3 already implements the sync itself).</li>
+<li><strong>Repository changes:</strong> none new — the sync's existing JPA repositories for the 15 <code>jo_*</code> tables and <code>ctam_joh_identities</code> (created by Story 0.3.2) populate via the already-implemented sync path; this story verifies that path against realistic mock data, it doesn't add repository code.</li>
+<li><strong>UI changes:</strong> none.</li>
+<li><strong>Tests:</strong> integration test verifying a full local sync run against <code>ctam-jomockapi</code> populates all 15 <code>jo_*</code> tables and mints <code>ctam_joh_identities</code>; soft-deactivation exercised against the mock's <code>/leavers</code>/<code>/deleted</code> data; the existing CI-only WireMock stub (AR54) is retained unchanged, complementary to this test.</li>
 </ul>
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.2-joh-elinks-mock-api-stands-in.md</code></p>

@@ -99,6 +99,13 @@ So that **the mock is a tracked, reviewable, CI-gated Java/Spring Boot artifact 
 - Adding a database, Liquibase changelog, or any persistence layer — the mock stays stateless
 - Mounting routes under the real API's `/elinks` gateway-routing path segment (visible in the Swagger doc's `Servers` value) — that segment is production gateway routing, not part of the application contract, and this mock runs with no gateway in front of it locally; routes stay bare `/api/v5/...`
 
+**Implementation touchpoints** *(dispatch guidance for `bmad-create-story` — not the BMad `## Tasks / Subtasks` section itself, which `bmad-create-story` generates in the story-packet at dispatch time, per `delivery-operating-model.md`)*:
+- **API changes:** new REST controllers under `uk.gov.hmcts.ctam.jomockapi.controller` — `PeopleController` (`GET /api/v5/people`, `GET /api/v5/people/{id}`), `LeaversController` (`GET /api/v5/leavers`), `DeletedController` (`GET /api/v5/deleted`), `ReferenceDataController` (`GET /api/v5/reference_data/{attribute_name}`, `GET /api/v5/reference_data/{attribute_name}/{reference_id}`), `UtilsController` (`GET /api/v5/healthcheck`); springdoc-openapi generates the mock's own OpenAPI 3.x doc.
+- **Service changes:** `PeopleService`/`LeaverService`/`DeletedService` (fixed-seed deterministic data generation, ported from the Node implementation's generator logic); `ReferenceDataService` (loads the 11 `ReferenceData/*.csv|json` fixtures from classpath at startup, serves by `attribute_name` including the deprecated singular aliases); a `BearerTokenAuthFilter` (accepts any non-empty token, no real validation).
+- **Repository changes:** none — no Spring Data JPA repository layer and no database; classpath resource loading (`ClassPathResource`) replaces Node's file read, consistent with the "no Liquibase, no Testcontainers" AC above.
+- **UI changes:** none — this epic has no UI component.
+- **Tests:** JUnit 5 + Spring Boot Test controller/unit tests ported from the existing Node `test/` suite with behaviour-equivalent assertions against the same fixtures; JaCoCo coverage; Spotless/Checkstyle lint gates; CI container-image build verification (no registry push).
+
 ---
 
 ## Story 0.2.2: Run `ctam-jomockapi` locally via Docker Compose
@@ -128,6 +135,13 @@ So that **it is reachable over the local Docker network by `ctam-reference-data`
 **Explicitly NOT in scope:**
 - Wiring `ctam-reference-data`'s sync to this local instance — Story 0.2.3
 - Deployment to any shared environment (dev, staging, or production) — not in this epic's scope at all, per its out-of-scope note
+
+**Implementation touchpoints** *(dispatch guidance for `bmad-create-story` — not the BMad `## Tasks / Subtasks` section itself, which `bmad-create-story` generates in the story-packet at dispatch time, per `delivery-operating-model.md`)*:
+- **API changes:** none — no new endpoints; this story is deployment/wiring only.
+- **Service changes:** none in application code — `application-dev.yml`/`.env` carries the local mock bearer credential placeholder.
+- **Repository changes:** none.
+- **UI changes:** none.
+- **Tests:** `docker-compose up jomockapi` liveness check against `GET /api/v5/healthcheck`; manual curl verification of `GET /api/v5/reference_data/jurisdictions` from the host and from another container on the same Docker network, per the AC above.
 
 ---
 
@@ -163,3 +177,10 @@ So that **the full ingestion pipeline — full-refresh-upsert, `ctam_joh_identit
 - Closing G8.1 — that needs the real contract from Judicial Office
 - Demonstrating this pipeline in a shared dev/staging environment — this epic is local-only, per its scope-reduction note
 - MRD ingestion (Story 0.8.1) — unaffected, no mock exists or is needed for MRD in this SCP
+
+**Implementation touchpoints** *(dispatch guidance for `bmad-create-story` — not the BMad `## Tasks / Subtasks` section itself, which `bmad-create-story` generates in the story-packet at dispatch time, per `delivery-operating-model.md`; this story's code changes land in **`ctam-reference-data`**, not `ctam-jomockapi`)*:
+- **API changes:** none — consumes `ctam-jomockapi`'s existing contract as-is; no new endpoint on either side.
+- **Service changes:** `ctam-reference-data`'s eLinks sync service configuration — base URL pointed at the docker-compose `ctam-jomockapi` Docker-network hostname instead of a placeholder; no new sync logic (Story 0.3.3 already implements the sync itself).
+- **Repository changes:** none new — the sync's existing JPA repositories for the 15 `jo_*` tables and `ctam_joh_identities` (created by Story 0.3.2) populate via the already-implemented sync path; this story verifies that path against realistic mock data, it doesn't add repository code.
+- **UI changes:** none.
+- **Tests:** integration test verifying a full local sync run against `ctam-jomockapi` populates all 15 `jo_*` tables and mints `ctam_joh_identities`; soft-deactivation exercised against the mock's `/leavers`/`/deleted` data; the existing CI-only WireMock stub (AR54) is retained unchanged, complementary to this test.
