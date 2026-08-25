@@ -62,9 +62,17 @@ So that **the mock is a tracked, reviewable, CI-gated Java/Spring Boot artifact 
 **And** a Helm chart skeleton and per-service `terraform/` directory are **not** created — this epic never deploys anywhere but a developer's machine (SCP 2026-08-25f), so neither applies,
 **And** GitHub Actions workflow `.github/workflows/ci.yml` exists (no `deploy-*.yml` of any kind), `CODEOWNERS`, `PULL_REQUEST_TEMPLATE.md`, and a Postman collection skeleton exist (per AR28, AR29, AR41).
 
-**Given** the existing Node/Express reference implementation's documented contract (the real Swagger doc, `apiresponses.docx`, and the `ReferenceData/*.csv|json` seed fixtures),
+**Given** the existing Node/Express reference implementation's documented contract (the real `E-links API v5.0` Swagger doc, `apiresponses.docx`, and the `ReferenceData/*.csv|json` seed fixtures),
 **When** the engineer ports it to Java/Spring Boot controllers and services,
-**Then** every endpoint is reimplemented with an **identical** request/response shape: the `/api/v5/people` change-feed, `/api/v5/leavers` and `/api/v5/deleted` (100 records each, independent of the 100 `/people` profiles), the 11 `/api/v5/reference_data/*` vocabularies, and `/api/v5/healthcheck`,
+**Then** every endpoint is reimplemented with an **identical** request/response shape:
+- `GET /api/v5/people` — the change-feed, **requiring** `updated_since` (missing → `400` validation error, per the documented contract) plus optional `per_page` (default 50), `page` (default 1), and `include_previous_appointments`, paginated per the documented `PaginationResponse` shape (`pages`, `current_page`, `results_per_page`, `more_pages`),
+- `GET /api/v5/people/{id}` — single-person lookup by id, with optional `include_previous_appointments` (a distinct endpoint from the change-feed, both present in the real contract),
+- `GET /api/v5/leavers` — **requiring** `left_since`, optional `per_page`/`page`, paginated (100 records, independent of the 100 `/people` profiles),
+- `GET /api/v5/deleted` — **requiring** `deleted_since`, optional `per_page`/`page`, paginated (100 records, independent of the 100 `/people` profiles),
+- `GET /api/v5/reference_data/{attribute_name}` — the 11 vocabularies (`appointment_titles`, `base_locations`, `contract_types`, `genders`, `judiciary_roles`, `jurisdictions`, `location_types`, `locations`, `ticket_categories`, `ticket_category_types`, `tickets`), each also reachable via its documented deprecated singular alias (`appointment_title`, `base_location`, `contract_type`, `gender`, `judiciary_role`, `jurisdiction`, `location_type`, `location`, `ticket_category`, `ticket_category_type`, `ticket`) on the same `attribute_name` path parameter,
+- `GET /api/v5/reference_data/{attribute_name}/{reference_id}` — single reference-data item lookup by id,
+- `GET /api/v5/healthcheck`,
+
 **And** the fixed-seed deterministic data generation is ported so IDs stay stable across restarts, exactly as the Node implementation behaves,
 **And** the `ReferenceData/*.csv|json` fixture files are carried over into the Java service's `src/main/resources/` **unchanged in content** — only the loading mechanism changes (Node's file read → Spring's classpath resource loading),
 **And** bearer-token handling is ported unchanged: any non-empty token is accepted, exercising the *wiring* the real eLinks credential will use, not an auth check.
@@ -83,12 +91,13 @@ So that **the mock is a tracked, reviewable, CI-gated Java/Spring Boot artifact 
 **When** the CI workflow is authored,
 **Then** there is **no** `deploy-dev.yml`, **no** `deploy-staging.yml`, and **no** `deploy-production.yml` — this epic has no deployment workflow at all, mirroring `ctam-mock-auth`'s "never deployed to production" guard, taken one step further (never deployed anywhere but a developer's machine, in this scope).
 
-**References:** repository-strategy.md (row revised — Java/Spring Boot, not Node); AR2–AR9, AR14, AR17, AR28, AR29, AR41; D10; gaps.md G8.1; assumptions.md A38 (revised — no longer a stack deviation); this epic has no dependency on Epic 0.0 — Story 0.2.2 runs the mock locally, not on the shared estate.
+**References:** repository-strategy.md (row revised — Java/Spring Boot, not Node); AR2–AR9, AR14, AR17, AR28, AR29, AR41; D10; gaps.md G8.1; assumptions.md A38 (revised — no longer a stack deviation); the real `E-links API v5.0` Swagger doc and June 2026 production reference-data exports, archived to `_bmad-output/source-docs/joh-elinks-api/` (SCP 2026-08-25k); this epic has no dependency on Epic 0.0 — Story 0.2.2 runs the mock locally, not on the shared estate.
 
 **Explicitly NOT in scope:**
 - Running the mock anywhere but locally — Story 0.2.2
 - Any change to the mock's documented endpoint behaviour, seeded data, or auth handling during the port — faithful reimplementation only
 - Adding a database, Liquibase changelog, or any persistence layer — the mock stays stateless
+- Mounting routes under the real API's `/elinks` gateway-routing path segment (visible in the Swagger doc's `Servers` value) — that segment is production gateway routing, not part of the application contract, and this mock runs with no gateway in front of it locally; routes stay bare `/api/v5/...`
 
 ---
 
