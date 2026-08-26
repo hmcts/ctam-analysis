@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sprint Change Proposal — 2026-08-25g — CTAM Pathfinder Documentation</title>
+<title>Sprint Change Proposal — 2026-08-26 — CTAM Pathfinder Documentation</title>
 <style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:16px}
@@ -88,76 +88,45 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
-<h1 id="sprint-change-proposal--2026-08-25g">Sprint Change Proposal — 2026-08-25g</h1>
-<p><strong>Trigger:</strong> <em>"Modify epic-0.2 to build the joh-elinks-mock-api using java springboot applications instead of npm"</em>.</p>
-<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> <strong>Minor</strong> — a build-stack change within Epic 0.2's own repo; no cross-epic dependency, FR/NFR, or PRD impact.</p>
+<h1 id="sprint-change-proposal--2026-08-26">Sprint Change Proposal — 2026-08-26</h1>
+<p><strong>Trigger:</strong> <em>"consolidate the sprint-change-proposal a single file per day"</em>, following an earlier same-day request to consolidate all 29 proposals into one file, which was implemented and then explicitly reverted at the user's request before this narrower version was asked for.</p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> <strong>Moderate</strong> — a documentation-architecture change (29 files → 13, 94 cross-references rewritten) with no scope, FR/NFR, or epic/dependency impact.</p>
 <hr />
 <details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
-<p>Epic 0.2's <code>ctam-jomockapi</code> was previously scoped as an explicitly-recorded deviation from CTAM Pathfinder's Java/Spring Boot stack baseline (assumptions.md A38) — the existing Node.js/Express codebase at the real <code>ctam-jomockapi</code> repo was to be onboarded as-is, justified because it delivers no FR/NFR and never reaches production (mirroring <code>ctam-mock-auth</code>'s non-production-only exemption). The team now wants it built with Java/Spring Boot instead, like every other CTAM Pathfinder service — removing that stack deviation entirely.</p>
+<p>Earlier today, all 29 <code>sprint-change-proposal-{date}.md</code> files were merged into a single <code>sprint-change-proposal-log.md</code> (that SCP's record was itself part of the merge and no longer exists as a standalone entry — it was reverted along with everything else). The user then asked for that to be undone, which was done via <code>git revert</code> (a new commit, not a history rewrite, since the merge commit was already pushed).</p>
+<p>The user then asked for a narrower consolidation instead: <strong>one file per day</strong>, not one file total. Multiple proposals landed on the same calendar date use a lettered suffix (<code>2026-08-19</code>, <code>-19b</code>, <code>-19c</code>, <code>-19d</code>; <code>2026-08-24</code>, <code>-24b</code>, <code>-24c</code>; <code>2026-08-25</code>, <code>-25b</code> through <code>-25m</code>) — those groups get merged into their day's base file. The 10 dates that only ever had one proposal are untouched, since they're already "one file per day."</p>
 </div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
 <h3 id="what-changed">What changed</h3>
 <ul>
-<li><strong>Story 0.2.1</strong> — retitled from "Onboard <code>ctam-jomockapi</code> as a CTAM Pathfinder repo" to "Scaffold <code>ctam-jomockapi</code> from the HMCTS starter and port the eLinks mock to Java/Spring Boot." Its ACs are rewritten around <code>ctam-scaffold.sh</code> (same pattern as <code>ctam-reference-data</code>/<code>ctam-joh</code>'s scaffold stories): Spring Boot 4.0.x, Gradle Groovy DSL, Group ID <code>uk.gov.hmcts.ctam</code>, artefact <code>ctam-jomockapi</code>, base package <code>uk.gov.hmcts.ctam.jomockapi</code>, port <code>8090</code>. The existing Node/Express reference implementation's documented contract — endpoints, fixed-seed data generation, bearer-token handling, the <code>ReferenceData/*.csv|json</code> fixtures — is explicitly scoped as a <strong>faithful port</strong>, not a redesign: same request/response shapes, same seed data, same auth behaviour.</li>
-<li><strong>Deliberately excluded</strong>, unlike every domain service: Liquibase, Testcontainers PostgreSQL, MapStruct (the mock is stateless — no database, no cross-object mapping need), and a Helm chart / per-service Terraform (it still never deploys anywhere but locally, per SCP 2026-08-25f).</li>
-<li><strong>Story 0.2.2</strong> — updated for the new stack: port references change from Node's <code>4000</code> to the new service's <code>8090</code>; the <code>npm start</code> comparison in the story's "so that" clause becomes <code>./gradlew bootRun</code>.</li>
-<li><strong>Story 0.2.3</strong> — unaffected; it never referenced Node/npm specifically, only "the local instance," which is stack-agnostic.</li>
-<li><strong>Epic 0.2's Hosting/vertical-slice/out-of-scope sections</strong> — the "standalone Node.js/Express service — an explicitly-scoped deviation" framing is replaced with "scaffolded like every other CTAM Pathfinder backend service — no stack deviation." The old out-of-scope bullet "Rewriting <code>ctam-jomockapi</code> in Java/Spring — it stays Node/Express as already built" is <strong>removed</strong> (it's now the literal opposite of what this epic does) and replaced with two new exclusions: no behavioural contract change during the port, and no database of any kind.</li>
-<li><strong>assumptions.md A38</strong> — revised in place (not superseded via a new row — this is a living reference document, not a dated record) to describe the Java/Spring Boot build instead of the Node/Express deviation.</li>
-<li><strong>repository-strategy.md's <code>ctam-jomockapi</code> row</strong> — revised to describe a Java/Spring Boot service scaffolded via <code>ctam-scaffold.sh</code>, ported from an earlier Node/Express reference implementation.</li>
+<li><strong><code>sprint-change-proposal-2026-08-19.md</code></strong> — merged with <code>-19b</code>, <code>-19c</code>, <code>-19d</code> (4 → 1). Now covers: agent delivery rules (TDD/coverage/mutation gates); story-packet schema reconciled with BMad; PR as the human gate; <code>sprint-status.yaml</code> replacing the bespoke ledger.</li>
+<li><strong><code>sprint-change-proposal-2026-08-24.md</code></strong> — merged with <code>-24b</code>, <code>-24c</code> (3 → 1). Now covers the <code>ctam-jomockapi</code> onboarding SCP and its two follow-ups.</li>
+<li><strong><code>sprint-change-proposal-2026-08-25.md</code></strong> — merged with <code>-25b</code> through <code>-25m</code> (12 → 1). Now covers the full day's work: the epic-numbering swaps, MRD-scope removal, JOH schema epic relocation, the local-only mock move, the Java/Spring Boot rebuild, both consistency-review rounds, the schema design-rigor expansion, the mock-contract correction against the real Swagger doc, the "Implementation touchpoints" guidance, and the source-docs relocation.</li>
+<li><strong>16 lettered files deleted</strong> (and their generated <code>docs/*.html</code> pages). <strong>10 single-proposal dates untouched.</strong> Total: <strong>29 files → 13.</strong></li>
+<li><strong>94 cross-references</strong> rewritten across <code>architecture.md</code> (28), <code>architecture/changelog.md</code> (36), the three merged day-files themselves (29, now-internal same-file references between former siblings), and <code>epics/phase-0/index.md</code> (1) — from the old lettered filenames to <code>sprint-change-proposal-{date}.md#sprint-change-proposal-{date}{letter}</code> anchors.</li>
+<li><strong><code>scripts/python/build_html.py</code>'s NAV</strong> updated to list the 13 surviving files. While doing this, a pre-existing gap was also closed: the NAV list had never carried entries for <code>2026-08-24</code> or <code>2026-08-25</code> at all (any of their lettered variants) — a gap from before this session, unrelated to today's consolidation but natural to fix while rewriting this exact block.</li>
 </ul>
-<h3 id="artifact-sweep">Artifact sweep</h3>
-<table>
-<thead>
-<tr>
-<th>Artifact</th>
-<th>Change</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>epic-0.2-joh-elinks-mock-api-stands-in.md</code></td>
-<td>Stack-change scope-reduction note added; description/User outcome/Hosting/vertical-slice/out-of-scope reworded; Story 0.2.1 fully rewritten (scaffold + faithful port); Story 0.2.2 updated (port 8090, <code>./gradlew bootRun</code>)</td>
-</tr>
-<tr>
-<td><code>architecture/assumptions.md</code></td>
-<td>A38 revised in place</td>
-</tr>
-<tr>
-<td><code>architecture/repository-strategy.md</code></td>
-<td><code>ctam-jomockapi</code> row revised</td>
-</tr>
-<tr>
-<td><code>architecture.md</code></td>
-<td>New decision <strong>#20</strong></td>
-</tr>
-<tr>
-<td><code>architecture/changelog.md</code></td>
-<td>New <strong>v4.17</strong> entry</td>
-</tr>
-<tr>
-<td><code>sprint-status.yaml</code></td>
-<td>Story 0.2.1's slug renamed to match the new title</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Not touched:</strong> <code>epic-0.3</code> (its Story 0.3.3 cross-reference to Epic 0.2 doesn't name a tech stack, so it's unaffected by this change — it was already updated for the local-vs-dev/staging change in SCP 2026-08-25f); Story 0.2.3 (stack-agnostic); gaps.md G8.1 (doesn't mention tech stack); <code>epics/framework.md</code> (its Epic 0.2 mention doesn't name a stack either); FR/NFR coverage (this mock delivers no FR/NFR directly, unaffected); dated historical SCPs/changelog entries (immutable record).</p>
+<h3 id="not-touched">Not touched</h3>
+<ul>
+<li>The <strong>content</strong> of any individual proposal — every entry reads exactly as it did in its own file, only nested one heading-level deeper.</li>
+<li><code>prd.md</code>, <code>prd-validation-report-2026-06-10.md</code>, <code>implementation-readiness-report-2026-05-15-rev2.md</code>, <code>business-case.md</code> — these only cite dates that were never lettered (single-proposal days), so nothing in them needed to change.</li>
+<li>Decision-log entries' and changelog rows' own prose — only their SCP link targets were updated (unavoidable, since the files they pointed at no longer exist standalone), consistent with how every prior file-rename/deletion this session has been handled.</li>
+</ul>
 </div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
-<p><strong>Direct implementation.</strong> Effort: <strong>Low</strong> — one story rewritten, one story lightly touched, two reference docs updated in place. <strong>Risk:</strong> Low — <code>epic-0.2: backlog</code> in <code>sprint-status.yaml</code>, nothing built yet against the old Node-based plan; the actual <code>ctam-jomockapi</code> codebase on disk (a real, already-built Node/Express app) is unaffected by this planning-repo change until Story 0.2.1 is actually dispatched and executed against it — at which point the story now instructs a fresh Java/Spring Boot scaffold with the existing app treated as a reference implementation to port, not a codebase to onboard verbatim.</p>
+<p><strong>Direct implementation</strong>, matching the user's explicit "one file per day" scope (narrower than the all-in-one attempt made and reverted earlier today). Effort: <strong>Medium</strong> (mechanical merge + reference sweep across a meaningful but bounded surface — 16 files, 94 references, versus 29/111 for the earlier all-in-one attempt). <strong>Risk:</strong> Low — verified via a full repo grep for the 16 deleted lettered filenames post-merge, finding zero dangling references; <code>docs/</code> rebuild produced no unexpected diffs beyond the intended file set.</p>
 </div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
 <p>See §2 for the full before/after mapping. Full diffs are in the files themselves.</p>
 </div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
-<p><strong>Scope: Minor</strong> — a build-stack change within one epic's own scope, no cross-epic ripple beyond what SCP 2026-08-25f already touched.</p>
+<p><strong>Scope: Moderate</strong> — a repo-wide documentation reorganisation, no functional/epic/dependency change.</p>
 <p><strong>Responsibilities:</strong></p>
 <ul>
-<li><strong>Product Owner / stakeholders:</strong> confirm the Java/Spring Boot port is worth the engineering effort versus keeping the existing, already-working Node/Express mock — this SCP does not weigh that trade-off, it only encodes the decision as given.</li>
-<li><strong>This session:</strong> all edits above applied directly; nothing committed without being asked.</li>
+<li><strong>This session:</strong> all edits above applied directly; nothing committed or pushed without being asked.</li>
 </ul>
-<p><strong>Success criteria:</strong> Epic 0.2 no longer mentions Node.js/Express as its build stack anywhere except as the explicit port-source; Story 0.2.1's ACs consistently describe a <code>ctam-scaffold.sh</code>-based Spring Boot scaffold with a faithful contract port, not an onboarding of the existing codebase as-is; assumptions.md A38 and repository-strategy.md's <code>ctam-jomockapi</code> row agree with the epic; <code>docs/</code> regenerates cleanly.</p>
+<p><strong>Success criteria:</strong> <code>ls sprint-change-proposal-*.md</code> in <code>planning-artifacts/</code> returns exactly 13 files; a repo-wide grep for the 16 deleted lettered filenames returns nothing; every merged file's index correctly lists and links to every entry that day; <code>docs/</code> regenerates cleanly with 13 SCP pages (was 29) and no dangling links.</p>
 </div></details>
-<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-25g.md</code></p>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-26.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#what-changed">What changed</a></li><li class="h3"><a href="#artifact-sweep">Artifact sweep</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
-<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-25g";</script>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#what-changed">What changed</a></li><li class="h3"><a href="#not-touched">Not touched</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-26";</script>
 <script src="./nav.js"></script>
 <script>
 (function(){

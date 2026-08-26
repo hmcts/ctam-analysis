@@ -89,9 +89,20 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <main class="content">
 <div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
 <h1 id="sprint-change-proposal--2026-08-19">Sprint Change Proposal — 2026-08-19</h1>
+<p>This file consolidates <strong>4 Sprint Change Proposals</strong> made on <strong>2026-08-19</strong> into one file (previously separate files: <code>sprint-change-proposal-2026-08-19.md#sprint-change-proposal-2026-08-19</code>, <code>sprint-change-proposal-2026-08-19.md#sprint-change-proposal-2026-08-19b</code>, <code>sprint-change-proposal-2026-08-19.md#sprint-change-proposal-2026-08-19c</code>, <code>sprint-change-proposal-2026-08-19.md#sprint-change-proposal-2026-08-19d</code>). Each entry below is preserved verbatim from its original file — only frontmatter, heading levels, and the file boundary changed.</p>
+<details class="section" id="index"><summary><span class="section-title">Index</span></summary><div class="section-body">
+<ul>
+<li><a href="#sprint-change-proposal-2026-08-19">Sprint Change Proposal — 2026-08-19</a> — Agent delivery rules adopted; test gates amended (TDD evidence, coverage floor, mutation threshold)</li>
+<li><a href="#sprint-change-proposal-2026-08-19b">Sprint Change Proposal — 2026-08-19b</a> — story-packet schema reconciled with the BMad story template; dispatch chain corrected</li>
+<li><a href="#sprint-change-proposal-2026-08-19c">Sprint Change Proposal — 2026-08-19c</a> — the human gate moves from every commit to the pull request</li>
+<li><a href="#sprint-change-proposal-2026-08-19d">Sprint Change Proposal — 2026-08-19d</a> — bespoke delivery tracking retired in favour of BMad sprint status; dispatch graph retired; arch-baseline promoted to Epic 0.6</li>
+</ul>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-19-1"><summary><span class="section-title">Sprint Change Proposal — 2026-08-19</span></summary><div class="section-body">
+<p><em>Agent delivery rules adopted; test gates amended (TDD evidence, coverage floor, mutation threshold)</em></p>
 <p><strong>Agent delivery rules adopted; test gates amended</strong></p>
 <hr />
-<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<h3 id="section-1--issue-summary">Section 1 — Issue Summary</h3>
 <p><strong>Trigger:</strong> Delivery is <strong>AI-led</strong> (Claude Code, BMAD method) across a <strong>16-repo polyrepo</strong> with <strong>no shared runtime library</strong>. The artifact set answered <em>what</em> to build in detail — <code>conventions.md</code>, <code>data-tables.md</code>, <code>project-context.md</code>, the epics with embedded Gherkin — but nothing stated <em>how the implementing agent must work</em>. That gap carries three specific risks, each amplified by the delivery model:</p>
 <table>
 <thead>
@@ -165,8 +176,8 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ul>
 <p><strong>Discovery context:</strong> implementation has not started — all six Phase 0 epics remain <code>status: not-started</code> in <code>delivery/ledger/</code>. Like the SCPs of 2026-07-06 through 2026-08-13, this is a documentation change with no code to unwind. It is the last moment at which a TDD discipline can be adopted for free.</p>
 <hr />
-</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
-<h3 id="21-the-one-genuine-conflict--the-coverage-stance">2.1 The one genuine conflict — the coverage stance</h3>
+<h3 id="section-2--impact-analysis">Section 2 — Impact Analysis</h3>
+<h4 id="21-the-one-genuine-conflict--the-coverage-stance">2.1 The one genuine conflict — the coverage stance</h4>
 <p><code>conventions.md</code> → <em>Test conventions</em> has said, since v1.8:</p>
 <blockquote>
 <p><strong>Coverage target:</strong> behaviour coverage, not line coverage. PRs include behaviour-test rationale, not coverage stats.</p>
@@ -202,7 +213,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p>Excluded from all three: <code>config/</code>, <code>dto/</code>, <code>*Application.java</code>, generated sources, Liquibase changelogs.</p>
 <p><strong>Why mutation testing carries the weight.</strong> Line coverage can be manufactured by executing code without asserting on it — precisely the failure mode an agent falls into when topping up a number. A surviving mutant names a specific statement the tests do not actually check, so it cannot be gamed the same way. The JaCoCo floor is the cheap, fast backstop; PIT is the honest measure. Both are floors, not targets, and the rules say so explicitly.</p>
 <p><strong>What did not change:</strong> behaviour coverage remains the goal, PRs still justify behaviour rather than reciting statistics, and no per-PR coverage reporting ritual is introduced.</p>
-<h3 id="22-additive--no-conflict">2.2 Additive — no conflict</h3>
+<h4 id="22-additive--no-conflict">2.2 Additive — no conflict</h4>
 <table>
 <thead>
 <tr>
@@ -238,22 +249,22 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tbody>
 </table>
 <p>The scaffolding overlay in <code>starter-template.md</code> §B already listed <strong>Spectral · ArchUnit · Spotless · Checkstyle</strong> as CTAM conventions to be added by <code>ctam-scaffold.sh</code> (G1.4a). This SCP supplies the actual configurations those entries anticipated, and adds PIT.</p>
-<h3 id="23-two-defects-found-in-the-canonical-docs-while-authoring">2.3 Two defects found in the canonical docs while authoring</h3>
+<h4 id="23-two-defects-found-in-the-canonical-docs-while-authoring">2.3 Two defects found in the canonical docs while authoring</h4>
 <p>Recorded as gaps rather than silently resolved — the same cite-or-ask discipline the rules impose:</p>
 <ul>
 <li><strong>G6.7 — contradictory status code for optimistic-lock failure.</strong> <code>conventions.md</code> → <em>Process Patterns</em> maps <code>OptimisticLockingFailureException</code> to <strong>409</strong>; <code>conventions.md</code> → <em>Communication Patterns</em> ("Retry safety and concurrency control") says optimistic locking for lost-update returns <strong>412</strong>. Both are current text. Until resolved, the rules make an optimistic-lock path an explicit stop-and-ask rather than picking one.</li>
 <li><strong>G1.4c — quality-gate tool versions unproven on the target toolchain.</strong> Versions were verified as released (Checkstyle 14.0.0, Spotless 8.10.0, JaCoCo 0.8.14 — first with official Java 25 support, ArchUnit 1.5.0, gradle-pitest 1.19.0, pitest 1.25.9, pitest-junit5 1.2.3) but <strong>nothing in the enforcement pack has been compiled or executed</strong>, because the control-plane workspace holds no Java build. PIT running <em>on</em> a Java 25 toolchain against Spring Boot 4 is the specific unknown. The pack states its own validation status per file, and the first scaffolding story owns making it run and reporting corrections back to the bus.</li>
 </ul>
-<h3 id="24-enforcement-honesty">2.4 Enforcement honesty</h3>
+<h4 id="24-enforcement-honesty">2.4 Enforcement honesty</h4>
 <p>Two limits are stated in the pack rather than papered over:</p>
 <ul>
 <li><strong><code>require-red-test.sh</code> is a guardrail, not a proof.</strong> It refuses <code>src/main/**</code> edits unless a recent failing test run was recorded by <code>scripts/red.sh</code>. It raises the cost of skipping TDD; it cannot verify the failing test was the <em>right</em> test. The real evidence is the pasted red/green output, reviewed by a human.</li>
 <li><strong>Rules with no automated enforcer are listed as such.</strong> <code>enforcement/README.md</code> maps every rule id to its enforcer and marks <em>review only</em> explicitly, with the four worth mechanising next (the <code>/v1</code> append-only check, the authorisation-per-endpoint rule, changeset immutability, and AC → test mapping). A soft spot recorded is a soft spot that can be closed.</li>
 </ul>
-<h3 id="25-what-is-not-covered">2.5 What is not covered</h3>
+<h4 id="25-what-is-not-covered">2.5 What is not covered</h4>
 <p><code>ctam-ui</code> / <code>ctam-admin-ui</code> (React/TypeScript) and <code>ctam-shared-infrastructure</code> (Terraform/Helm) have <strong>no language-specific rules or enforcers</strong>. The core rules R1–R14 still govern conduct in those repos. This matters for sequencing: <code>ctam-shared-infrastructure</code> is the phase-0 repo built <strong>first</strong> and is not Java, so its stories run without an enforcement pack. Recommended follow-up: an infrastructure pack before Epic 0.0 dispatch, then a UI pack before the Epic 0.ui-shell work.</p>
 <hr />
-</div></details><details class="section" id="section-3--recommended-path-forward"><summary><span class="section-title">Section 3 — Recommended Path Forward</span></summary><div class="section-body">
+<h3 id="section-3--recommended-path-forward">Section 3 — Recommended Path Forward</h3>
 <p><strong>Direct adjustment, single batch.</strong> No epic rollback, no re-planning, no PRD re-validation — no requirement changed, and no product decision was taken. Recorded as an <strong>architecture-practice</strong> change (<code>changelog.md</code> v4.2) rather than a PRD locked decision, following the precedent of SCP 2026-07-07.</p>
 <p><strong>Applied:</strong></p>
 <ol type="1">
@@ -268,7 +279,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </ol>
 <p><strong>Not applied, deliberately:</strong> no FR/NFR change; no epic, story or <code>dispatch-graph.yaml</code> change; no ledger status change; no PRD decision; no shard mirrored into <code>planning-artifacts/</code> (that would be the copy this model exists to avoid); no UI or infrastructure rules; no <code>arch-v1.0</code> tag — publishing the architecture set to the bus and tagging it remains bootstrap step 1, and is a prerequisite before any service repo can pin these rules.</p>
 <hr />
-</div></details><details class="section" id="section-4--change-scope-summary"><summary><span class="section-title">Section 4 — Change Scope Summary</span></summary><div class="section-body">
+<h3 id="section-4--change-scope-summary">Section 4 — Change Scope Summary</h3>
 <table>
 <thead>
 <tr>
@@ -324,10 +335,465 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 </tbody>
 </table>
 <p><strong>Handoff:</strong> the pack is drafted, not proven. Two things gate its first real use — (1) publish the architecture set to <code>ctam-architecture</code> and tag <code>arch-v1.0</code>, per bootstrap step 1; (2) the first scaffolding story compiles and runs the enforcement pack, fixes the API drift its validation-status table anticipates, and reports every correction back to the bus. An infrastructure rules pack is recommended before Epic 0.0 dispatch (§2.5).</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-19b"><summary><span class="section-title">Sprint Change Proposal — 2026-08-19b</span></summary><div class="section-body">
+<p><em>story-packet schema reconciled with the BMad story template; dispatch chain corrected</em></p>
+<p><strong>Story-packet schema reconciled with the BMad story template; dispatch chain corrected</strong></p>
+<hr />
+<h3 id="section-1--issue-summary-1">Section 1 — Issue Summary</h3>
+<p><strong>Trigger:</strong> The first dispatched story packet (<code>pilot-0.5.1</code>, the delivery-method pilot) did not match BMad's story template. The executing session found it had no <code>## Tasks / Subtasks</code> to work through and no <code>## Dev Agent Record</code> or <code>### File List</code> to write into — <code>bmad-dev-story</code> reads and writes those by exact heading.</p>
+<p><strong>Root cause is a contradiction inside a single file, not an authoring slip.</strong> <a href="architecture/tobe/delivery-operating-model.html"><code>architecture/delivery-operating-model.md</code></a> contained both:</p>
+<ul>
+<li>a skills table mapping <strong>"1 · Dispatch → <code>bmad-create-story</code>"</strong>, and</li>
+<li>three lines later, a <strong>"Story packet schema"</strong> specifying a bespoke layout — YAML frontmatter, <code>status: dispatched</code>, <code>## Context (distilled…)</code>, <code>## Acceptance criteria (Gherkin…)</code>, <code>## Out of scope / boundaries</code>, <code>## Definition of done</code> — none of which <code>bmad-create-story</code> emits.</li>
+</ul>
+<p>The packet was authored to the schema, as the shard instructed. Both instructions were followed as written; they cannot both be satisfied.</p>
+<p><strong>Second, deeper cause — the BMad chain had never been started.</strong> <code>bmad-create-story</code>'s workflow refuses to run without <code>{implementation_artifacts}/sprint-status.yaml</code> and emits <em>"Run sprint-planning workflow first to create sprint-status.yaml"</em>. That file does not exist, because <strong><code>bmad-sprint-planning</code> has never been run</strong>. So at the dispatch step there was no runnable skill to invoke, and the shard's schema was the only usable instruction. The contradiction and the missing prerequisite compounded.</p>
+<p><strong>What should have happened regardless:</strong> the conflict should have been raised as a stop-and-ask rather than silently resolved in favour of one half — exactly what <code>agent-rules</code> <strong>R5</strong> requires. Recorded as such.</p>
+<hr />
+<h3 id="section-2--impact-analysis-1">Section 2 — Impact Analysis</h3>
+<h4 id="21-blast-radius">2.1 Blast radius</h4>
+<p><strong>Contained.</strong> One packet, in a pilot repo, uncommitted at the time of discovery. No epic, story, FR/NFR or ledger entry was affected. Had this reached real delivery, every packet for phases 0–8 would have carried the same defect, and every <code>bmad-dev-story</code> run would have had nowhere to record its work — so the cost of finding it now is one file rewrite instead of a programme-wide re-issue.</p>
+<h4 id="22-why-both-schemas-exist-and-what-each-holds">2.2 Why both schemas exist, and what each holds</h4>
+<p>Neither is redundant, which is why the fix is a reconciliation rather than a winner:</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Owner</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Status:</code>, <code>## Story</code>, <code>## Acceptance Criteria</code>, <code>## Tasks / Subtasks</code>, <code>## Dev Notes</code>, <code>## Dev Agent Record</code>, <code>### File List</code></td>
+<td><strong>BMad template</strong></td>
+<td><code>bmad-dev-story</code> reads and writes them by exact heading</td>
+</tr>
+<tr>
+<td><code>bus_version</code>, <code>repo</code>, <code>epic</code>, <code>frs</code>, <code>nfrs</code>, <code>depends_on_stories</code>, <code>ledger</code>, recorded deviations</td>
+<td><strong>CTAM operating model</strong></td>
+<td>Polyrepo facts BMad does not model: which repo, which pinned bus version, which requirements, which ledger shard</td>
+</tr>
+<tr>
+<td>Packet location <code>docs/stories/&lt;id&gt;.md</code> <strong>in the target repo</strong></td>
+<td><strong>CTAM operating model</strong></td>
+<td>BMad defaults to <code>{implementation_artifacts}</code> in the control plane, which assumes a monorepo. A service repo must be independently readable by a fresh session with none of the control plane's context</td>
+</tr>
+<tr>
+<td>Status vocabulary</td>
+<td><strong>BMad</strong> (`ready-for-dev</td>
+<td>in-progress</td>
+</tr>
+</tbody>
+</table>
+<h4 id="23-a-related-duplication-not-yet-resolved">2.3 A related duplication, not yet resolved</h4>
+<p>The same pattern appears once more: CTAM's <code>delivery/ledger/</code> (per-epic shards with <code>status</code> + <code>owner</code>, authored 2026-07-07) duplicates what BMad's <code>sprint-status.yaml</code> tracks. Two status stores, no stated precedence. This SCP does <strong>not</strong> resolve it — it records it as a decision required before the next real story is dispatched (pilot finding <strong>F13</strong>). The recommended direction is that BMad state owns the story lifecycle and the ledger keeps only what BMad does not model (bus version per repo, PR link, FR/NFR mapping), but that is a decision, not an inference.</p>
+<hr />
+<h3 id="section-3--recommended-path-forward-1">Section 3 — Recommended Path Forward</h3>
+<p>Prose alone caused this, so the fix is executable at three of its four layers.</p>
+<p><strong>Applied:</strong></p>
+<ol type="1">
+<li><strong>Canonical template on the bus</strong> — <code>ctam-architecture/agent-rules/templates/story-packet.md</code>. BMad's template with CTAM frontmatter and CTAM detail nested under <code>## Dev Notes</code>. Versioned with the bus, so every repo gets the same one and a bump is auditable.</li>
+<li><strong>Committed BMad customization</strong> — <code>_bmad/custom/bmad-create-story.toml</code>, using BMad's own team-customization layer (<code>activation_steps_append</code> + <code>persistent_facts</code>) to point the skill at the canonical template, at the target-repo output location, and at the validator. <code>.gitignore</code> gained a scoped negation (<code>!_bmad/custom/</code>) so the team layer is tracked while the installer's files stay ignored — <code>_bmad/config.toml</code> itself designates <code>_bmad/custom/</code> as committed.</li>
+<li><strong>Deterministic validator</strong> — <code>scripts/validate-story-packet.sh</code> fails on a missing BMad section, a CTAM section promoted to top level, a missing frontmatter key, a duplicate <code>status:</code>, an out-of-vocabulary <code>Status:</code>, unnumbered ACs, or absent task checkboxes. Run against the offending packet it reported <strong>18 errors</strong>; the regenerated packet and the template both pass.</li>
+<li><strong>The contradiction removed</strong> — <code>delivery-operating-model.md</code>'s <em>Story packet schema</em> section rewritten as the three-rule contract, with the sprint-planning prerequisite stated explicitly so the next person does not hit the same dead end.</li>
+<li><strong>The pilot packet regenerated</strong> in the conforming shape, ACs and deviations preserved, plus the tasks/subtasks and Dev Agent Record scaffolding <code>bmad-dev-story</code> needs.</li>
+</ol>
+<p><strong>Not applied — requires a decision:</strong></p>
+<ul>
+<li><strong>Run <code>bmad-sprint-planning</code></strong> to create <code>sprint-status.yaml</code> and unblock <code>bmad-create-story</code> for every real story. This is the remaining half of the root cause: without it, dispatch still has no runnable skill. It also forces the <code>delivery/ledger/</code> vs <code>sprint-status.yaml</code> precedence decision in §2.3, because sprint planning will create the competing artefact.</li>
+</ul>
+<hr />
+<h3 id="section-4--change-scope-summary-1">Section 4 — Change Scope Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="architecture/tobe/delivery-operating-model.html"><code>architecture/delivery-operating-model.md</code></a></td>
+<td><em>Story packet schema</em> section <strong>rewritten</strong> — three-rule contract, canonical template pointer, enforcement pointers, sprint-planning prerequisite</td>
+</tr>
+<tr>
+<td><code>ctam-architecture/agent-rules/templates/story-packet.md</code></td>
+<td><strong>New</strong> — canonical packet template on the bus</td>
+</tr>
+<tr>
+<td><code>_bmad/custom/bmad-create-story.toml</code></td>
+<td><strong>New</strong> — committed team customization pointing the skill at the template, location and validator</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Scoped negation <code>!_bmad/custom/</code> so the team customization layer is tracked</td>
+</tr>
+<tr>
+<td><code>scripts/validate-story-packet.sh</code></td>
+<td><strong>New</strong> — deterministic packet validator</td>
+</tr>
+<tr>
+<td><code>ctam-notification/docs/stories/pilot-0.5.1.md</code></td>
+<td><strong>Regenerated</strong> in the conforming shape</td>
+</tr>
+<tr>
+<td><a href="delivery/pilots/pilot-0.5-findings.html"><code>delivery/pilots/pilot-0.5-findings.md</code></a></td>
+<td><strong>F10–F14 added</strong></td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/changelog.html"><code>architecture/changelog.md</code></a></td>
+<td><strong>v4.3</strong> entry</td>
+</tr>
+<tr>
+<td><strong>This SCP</strong></td>
+<td>New</td>
+</tr>
+<tr>
+<td>Tooling — <code>scripts/python/build_html.py</code></td>
+<td>NAV gains this SCP</td>
+</tr>
+<tr>
+<td><strong><code>docs/</code></strong></td>
+<td><strong>Regenerated</strong></td>
+</tr>
+<tr>
+<td><strong>Unchanged</strong></td>
+<td><code>prd.md</code>, <code>epics/</code> (including Epic 0.5), <code>delivery/ledger/</code>, <code>dispatch-graph.yaml</code>, <code>conventions.md</code>, all FR/NFR coverage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Handoff:</strong> the dispatch chain is correct for packet <em>shape</em>; it is still not runnable end-to-end until <code>bmad-sprint-planning</code> has produced <code>sprint-status.yaml</code> and the ledger-versus-sprint-status precedence is decided. Both are named in the pilot findings and neither should be inferred.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-19c"><summary><span class="section-title">Sprint Change Proposal — 2026-08-19c</span></summary><div class="section-body">
+<p><em>the human gate moves from every commit to the pull request</em></p>
+<p><strong>The human gate moves from every commit to the pull request</strong></p>
+<hr />
+<h3 id="section-1--issue-summary-2">Section 1 — Issue Summary</h3>
+<p><strong>Trigger:</strong> product-owner decision (Ramnish, 2026-08-19). The original constraint — Claude performs <em>no</em> version-control operations, the human commits externally from VSCode — made every commit a manual handoff. In an AI-led delivery model that produces a large uncommitted working tree, reviewed as a single lump, with the red-green sequence invisible.</p>
+<p><strong>Decision:</strong> an agent owns its branch; a human owns <code>main</code>. The <strong>pull request</strong> is the review gate, enforced by server-side branch protection as well as by the hook.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Before</th>
+<th>After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Branch, stage, commit</td>
+<td>denied</td>
+<td><strong>allowed</strong> on a feature branch</td>
+</tr>
+<tr>
+<td>Push</td>
+<td>denied</td>
+<td><strong>allowed</strong> to a non-protected branch</td>
+</tr>
+<tr>
+<td>Commit / merge / rebase / push / pull while HEAD is <code>main</code></td>
+<td>denied</td>
+<td><strong>denied</strong></td>
+</tr>
+<tr>
+<td>Push targeting a protected branch, any spelling</td>
+<td>denied</td>
+<td><strong>denied</strong></td>
+</tr>
+<tr>
+<td>Force-push, <code>--mirror</code>, <code>+refspec</code></td>
+<td>denied</td>
+<td><strong>denied</strong></td>
+</tr>
+<tr>
+<td>Branch delete or rename, <code>push --delete</code>, <code>push :branch</code></td>
+<td>denied</td>
+<td><strong>denied</strong></td>
+</tr>
+<tr>
+<td>Tags, <code>push --tags</code></td>
+<td>denied</td>
+<td><strong>denied</strong></td>
+</tr>
+<tr>
+<td><code>reset --hard</code>, <code>clean</code>, <code>rm</code>, <code>restore</code>, <code>checkout -- &lt;path&gt;</code>, <code>stash drop</code>/<code>clear</code></td>
+<td>denied</td>
+<td><strong>denied</strong></td>
+</tr>
+<tr>
+<td>GitHub CLI (<code>gh</code>, <code>hub</code>)</td>
+<td>denied</td>
+<td><strong>denied</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="section-2--impact-analysis-2">Section 2 — Impact Analysis</h3>
+<h4 id="21-why-this-is-still-a-real-gate--and-a-better-one">2.1 Why this is still a real gate — and a better one</h4>
+<ul>
+<li><strong>The review boundary is unchanged.</strong> Nothing reaches <code>main</code> without a human reading a diff. What changed is <em>where</em>: a pull request with commit-by-commit history, rather than an uncommitted working tree in an editor.</li>
+<li><strong>The history becomes evidence.</strong> Red-green cycles committed as they happen are reviewable. That matters more in AI-led delivery than in hand-written code, because the <em>sequence</em> is what a reviewer must inspect to believe a TDD claim (<strong>R2</strong>).</li>
+<li><strong>Enforcement moves to the mechanism built for it</strong> — branch protection and CODEOWNERS — instead of a convention every agent must remember.</li>
+<li><strong>Tags stay human</strong> because <code>arch-vN</code> is consumed by pinned submodules across the polyrepo: a stray tag silently changes what every downstream repo can adopt.</li>
+<li><strong>Work-discarding operations stay denied</strong> because uncommitted changes may be the only copy of something.</li>
+<li><strong>The GitHub CLI stays denied</strong> because opening, approving and merging a pull request <em>is</em> the gate, and a text-matching hook cannot safely distinguish creating a PR from merging one with admin override. It also keeps pilot finding <strong>F1</strong> closed — the HMCTS template's own <code>setup-new-repo.sh</code> makes a repository <strong>public</strong>, which contradicts the standing rule that CTAM repositories are private.</li>
+</ul>
+<h4 id="22-implementation-and-verification">2.2 Implementation and verification</h4>
+<p><code>.claude/hooks/block-git-writes.sh</code> was rewritten. The filename was <strong>retained deliberately</strong> so that no <code>settings.json</code> in any repo needs changing and no session loses its guard mid-run.</p>
+<p>Two defects were found by testing rather than by reading, both worth recording:</p>
+<ol type="1">
+<li><strong>Unborn-branch detection.</strong> The first implementation resolved the current branch with <code>rev-parse --abbrev-ref HEAD</code>, which <em>fails</em> in a repository with no commits. <code>ctam-notification</code> is exactly that repository — so main protection was silently off in the one situation where a first commit would land on <code>main</code>. Fixed by trying <code>symbolic-ref --quiet --short HEAD</code> first.</li>
+<li><strong>Documentation trips the guard.</strong> The pattern treated a backtick as a command separator, so prose mentioning a blocked command in inline code read as an invocation of it. Writing this SCP was itself blocked by the hook it describes. Command positions are now start-of-line, after a separator, or inside <code>$( )</code> / a subshell — a backtick is no longer one.</li>
+</ol>
+<p>A <strong>known limit is accepted and documented in the hook</strong>: it matches text, so a blocked command appearing as <em>data</em> at a command position (a here-doc line, a test fixture) is still denied. The alternative — ignoring quoted spans — would let a blocked command through inside <code>sh -c "…"</code>, which is worse. The workaround is to write such files with an editor tool rather than a here-doc.</p>
+<p>Verified against a <strong>46-case matrix</strong> in two contexts: HEAD on a feature branch (39/39), plus 7 cases covering subshells, separators and documentation-in-backticks. On <code>main</code> in a repo with no commits, <code>commit</code>, <code>push</code>, <code>merge</code> and <code>pull</code> are denied while <code>status</code>, <code>add</code>, <code>switch -c</code> and <code>stash push</code> are allowed. All three copies of the hook are byte-identical (verified by checksum). The protected set is overridable per environment via <code>CTAM_PROTECTED_BRANCHES</code>.</p>
+<h4 id="23-standing-personal-instruction-that-now-conflicts">2.3 Standing personal instruction that now conflicts</h4>
+<p>The user's <strong>global</strong> <code>~/.claude/CLAUDE.md</code> still states <em>"DO NOT PERFORM ANY GITHUB OPERATIONS from within Claude sessions — GitHub commits will be handled externally using VSCode after reviewing the work."</em> That file governs every project on the machine and was <strong>not</strong> edited by this change, deliberately: narrowing a personal, cross-project instruction is the user's call, not a programme decision. Until it is updated, a session that reads it will be told the opposite of this SCP, and a global instruction outranks a project one.</p>
+<p><strong>Recommended:</strong> amend the global rule to reference branch-protection semantics, or scope it explicitly to non-CTAM projects.</p>
+<hr />
+<h3 id="section-3--recommended-path-forward-2">Section 3 — Recommended Path Forward</h3>
+<p><strong>Applied:</strong></p>
+<ol type="1">
+<li><code>.claude/hooks/block-git-writes.sh</code> rewritten in <code>ctam-analysis</code>, and copied byte-identically to the bus (<code>agent-rules/enforcement/claude/hooks/</code>) and to <code>ctam-notification</code>.</li>
+<li><strong>R13</strong> rewritten in <code>agent-rules/00-core.md</code> and in the target-repo <code>CLAUDE.md.template</code>; stop conditions updated in both.</li>
+<li><strong>W7</strong> in <code>agent-rules/60-session-protocol.md</code> rewritten as <em>"the pull request is the human gate"</em>, with the branch → commit → push → hand-back sequence; the loop's handoff step updated to match.</li>
+<li><code>agent-rules/enforcement/README.md</code> rule→enforcer rows for R13 and W7 updated.</li>
+<li><code>CLAUDE.md</code> (repo root), <code>_bmad-output/project-context.md</code>, and <code>architecture/delivery-operating-model.md</code> → <em>Human gates and the branch-protection constraint</em> rewritten with the rationale.</li>
+<li><code>ctam-notification</code>: <code>CLAUDE.md</code> regenerated from the updated template, README's contributing section updated, and the pilot packet's Task 8 now ends with branch → commit → push → surface the compare URL.</li>
+<li>Housekeeping in the same pass, now that the tag exists: the pilot packet's <code>bus_version</code> set to <code>arch-v1.0</code> and deviation <strong>D-8</strong> removed.</li>
+</ol>
+<p><strong>Not applied:</strong> the user's global <code>~/.claude/CLAUDE.md</code> (§2.3) — flagged for the user to decide.</p>
+<hr />
+<h3 id="section-4--change-scope-summary-2">Section 4 — Change Scope Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.claude/hooks/block-git-writes.sh</code> (all three repos)</td>
+<td><strong>Rewritten</strong> — protected-branch policy, unborn-branch-safe detection, command-position boundaries, <code>CTAM_PROTECTED_BRANCHES</code> override</td>
+</tr>
+<tr>
+<td><code>agent-rules/00-core.md</code></td>
+<td><strong>R13</strong> rewritten; stop conditions updated</td>
+</tr>
+<tr>
+<td><code>agent-rules/60-session-protocol.md</code></td>
+<td><strong>W7</strong> rewritten</td>
+</tr>
+<tr>
+<td><code>agent-rules/enforcement/claude/CLAUDE.md.template</code></td>
+<td>R13, loop step 8, stop conditions, closing note</td>
+</tr>
+<tr>
+<td><code>agent-rules/enforcement/README.md</code></td>
+<td>R13 / W7 enforcer rows</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/delivery-operating-model.html"><code>architecture/delivery-operating-model.md</code></a></td>
+<td><em>Human gates</em> section rewritten</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code> (repo root) · <code>_bmad-output/project-context.md</code></td>
+<td>Hard rule and delivery-discipline bullets</td>
+</tr>
+<tr>
+<td><code>ctam-notification</code></td>
+<td><code>CLAUDE.md</code> regenerated · README · packet Task 8 · packet <code>bus_version</code> + D-8 removal</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/changelog.html"><code>architecture/changelog.md</code></a></td>
+<td><strong>v4.4</strong> entry</td>
+</tr>
+<tr>
+<td><strong>This SCP</strong></td>
+<td>New</td>
+</tr>
+<tr>
+<td><strong><code>docs/</code></strong></td>
+<td>Regenerated</td>
+</tr>
+<tr>
+<td><strong>Unchanged</strong></td>
+<td><code>prd.md</code>, <code>epics/</code>, <code>delivery/ledger/</code>, <code>dispatch-graph.yaml</code>, <code>conventions.md</code> → <em>Git conventions</em> (branch naming and Conventional Commits were already correct), FR/NFR coverage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Handoff:</strong> the policy is live in all three repos. The one open item is the global personal instruction in §2.3.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-19d"><summary><span class="section-title">Sprint Change Proposal — 2026-08-19d</span></summary><div class="section-body">
+<p><em>bespoke delivery tracking retired in favour of BMad sprint status; dispatch graph retired; arch-baseline promoted to Epic 0.6</em></p>
+<p><strong>Bespoke delivery tracking retired in favour of BMad's own; dispatch graph retired; <code>arch-baseline</code> promoted to Epic 0.6</strong></p>
+<hr />
+<h3 id="section-1--issue-summary-3">Section 1 — Issue Summary</h3>
+<p><strong>Trigger:</strong> product-owner decision (Ramnish, 2026-08-19) — <em>"align with the BMad process better rather than adding the additional layer of ledger."</em></p>
+<p>The control plane had accumulated two bespoke artefacts that duplicated or pre-empted BMad's own:</p>
+<ul>
+<li><strong><code>delivery/ledger/</code></strong> — six per-epic YAML shards carrying <code>status</code>, <code>owner</code>, <code>pr</code>, <code>repo</code>, <code>frs</code> and <code>bus_version</code> per story, sharded specifically so that multiple people could update different epics without git conflicts.</li>
+<li><strong><code>delivery/dispatch-graph.yaml</code></strong> — an epic-level build-order graph.</li>
+</ul>
+<p><strong>Two findings settled it.</strong> First, <code>bmad-sprint-planning</code> had <strong>never been run</strong>, so <code>sprint-status.yaml</code> did not exist — and <code>bmad-create-story</code> refuses to run without it. The BMad chain was never started, which is why bespoke substitutes grew in its place. Second, <strong>at the point of retirement every ledger entry still read <code>not-started</code> / <code>owner: null</code> / <code>pr: null</code></strong> — 25 status entries, 25 owners, 19 PR fields, all empty. The ledger was tracking nothing.</p>
+<p><strong>On the dispatch graph:</strong> of its nine fields, five duplicated something else (<code>title</code>, <code>stories</code>, <code>phase</code>, <code>decomposed</code> from the epic files; <code>bus_version</code> from the tag and each repo's submodule pin — a second claim on the same fact, so a drift risk rather than a convenience). <strong>No BMad skill read it</strong>; <code>bmad-sprint-planning</code> parses epic files only. The operating model's claim that <em>"sprint planning reads dispatch-graph.yaml → next buildable stories"</em> was never true. Only <code>repo:</code> and <code>depends_on:</code> were genuinely unique — and both are properties of the epic.</p>
+<hr />
+<h3 id="section-2--impact-analysis-3">Section 2 — Impact Analysis</h3>
+<h4 id="21-multi-user-coordination-what-replaces-the-ledgers-owner">2.1 Multi-user coordination: what replaces the ledger's <code>owner</code></h4>
+<p>The ledger's sharding and <code>owner</code> field existed to solve one problem — two people picking up the same work. Options were reviewed (branch-as-claim, GitHub Issues, editing the single BMad file, packet-as-truth with a generated board, one-file-per-claim, one dispatcher). The decision:</p>
+<p><strong>One dispatcher at a time, by convention, with a branch-existence check as the backstop.</strong></p>
+<ul>
+<li><code>sprint-status.yaml</code> is a single file, so concurrent dispatch would conflict on it. Dispatch is a small fraction of total effort, so serialising it costs little.</li>
+<li><strong>A branch on the target remote is the claim.</strong> No shared field to contend over, and it is where the work actually is.</li>
+<li><code>scripts/dispatch-preflight.sh &lt;story-id&gt;</code> — new, read-only — checks all three preconditions: the story is still <code>backlog</code>; no branch on the target remote names it; the epic's <code>depends_on</code> are all <code>done</code>. Verified against stories that should pass, stories blocked by prerequisites, epics spanning three repos, and a story already <code>done</code>.</li>
+<li><strong>Execution parallelises freely</strong>, because it happens in different service repos where branches and PRs already show who is doing what.</li>
+</ul>
+<h4 id="22-a-contradiction-that-disappears">2.2 A contradiction that disappears</h4>
+<p>The ledger had its own status vocabulary (<code>not-started → dispatched → in-progress → in-review → done</code>) alongside BMad's (<code>backlog → ready-for-dev → in-progress → review → done</code>). That mismatch was a recorded wart — <code>review</code> versus <code>in-review</code> — and the reason agent-rules W13 needed a two-row translation table. <strong>Retiring the ledger collapses the two vocabularies into one.</strong> W13's table becomes a statement of who sets what, <code>90-definition-of-done.md</code> Q13 simplifies, and the story-packet template drops its warning about mirroring a second vocabulary.</p>
+<h4 id="23-where-the-ledgers-other-fields-went">2.3 Where the ledger's other fields went</h4>
+<table>
+<thead>
+<tr>
+<th>Ledger field</th>
+<th>New home</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td><code>implementation-artifacts/sprint-status.yaml</code> (generated by <code>bmad-sprint-planning</code>)</td>
+</tr>
+<tr>
+<td><code>repo</code></td>
+<td>the <strong>epic's frontmatter</strong> (<code>repo:</code>), and the packet's <code>repo:</code></td>
+</tr>
+<tr>
+<td><code>frs</code> / <code>bus_version</code></td>
+<td>the <strong>packet's frontmatter</strong> — produced by the service repo that holds the pin</td>
+</tr>
+<tr>
+<td><code>pr</code></td>
+<td>the PR itself, and the packet's <em>Dev Agent Record</em></td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td><strong>the branch</strong> on the target remote</td>
+</tr>
+</tbody>
+</table>
+<p><strong>One capability is genuinely traded away:</strong> reverse lookups (<em>which stories cover FR6? which repos are on which bus version?</em>) become a <strong>generated</strong> report over packet frontmatter rather than an always-available table. Deferred deliberately — there are no packets yet to scan. This is the same producer-owned / read-only-mirror principle already used for API contracts.</p>
+<h4 id="24-arch-baseline-promoted-to-epic-06">2.4 <code>arch-baseline</code> promoted to Epic 0.6</h4>
+<p>The graph held one node, <code>arch-baseline</code> (<code>decomposed: false</code>), covering the context-bus publish plus the shared <code>ctam_configuration_values</code> Liquibase baseline (FR8). Because it was a graph node rather than an epic, <strong>it was invisible to every BMad skill</strong> — no sprint-status entry, no stories, not dispatchable.</p>
+<p>It is now <strong>Epic 0.6</strong>, with two stories: 0.6.1 (publish the bus and tag <code>arch-v1.0</code>) and 0.6.2 (the shared baseline with per-service <code>SELECT</code> grants). Story 0.6.1 is recorded <strong><code>done</code></strong> — the bus is published and <code>arch-v1.0</code> is tagged — and the epic is <code>in-progress</code>. Phase 0 is now <strong>7 epics, 21 stories</strong>.</p>
+<p><strong>Why 0.6 and not an insertion at 0.0a:</strong> renumbering the authored epics 0.1–0.5 would break every FR mapping and cross-reference for no benefit. <strong>The number is not the order</strong> — sequence comes from <code>depends_on</code>, and the epic says so at the top. One honest wrinkle recorded in the epic: <code>depends_on</code> is epic-level, but only story 0.6.2 needs Epic 0.0's PostgreSQL, so the pre-flight check will flag Epic 0.0 as a blocker for 0.6.1 even though that story is complete.</p>
+<h4 id="25-phases-18">2.5 Phases 1–8</h4>
+<p>The graph's <code>future:</code> block held repo-level placeholders and dependency edges for phases 1–8. The repo names duplicated <code>repository-strategy.md</code>; only the edges were unique, and they describe undecomposed work. They are folded into <code>epics/framework.md</code> → <strong>Phase dependency order</strong> as a table, with the parallelism worth knowing called out (Phase 5 branches off Phase 1 independently of 3 and 4). Each phase gains structured frontmatter when <code>bmad-create-epics-and-stories</code> runs for it.</p>
+<hr />
+<h3 id="section-3--recommended-path-forward-3">Section 3 — Recommended Path Forward</h3>
+<p><strong>Applied:</strong></p>
+<ol type="1">
+<li><strong><code>bmad-sprint-planning</code> run</strong> — <code>implementation-artifacts/sprint-status.yaml</code> generated from the epics: 7 epics, 21 stories, 7 retrospectives, 35 entries. Validated for legal statuses and duplicate keys. Its header records two polyrepo caveats: packets live in target repos so BMad's file-existence detection cannot upgrade statuses here, and the packet's <code>Status:</code> line is authoritative for a story in flight.</li>
+<li><strong>Ledger deleted</strong> — six shards + its README.</li>
+<li><strong><code>dispatch-graph.yaml</code> deleted.</strong></li>
+<li><strong><code>repo:</code> + <code>depends_on:</code> added to all seven phase-0 epics' frontmatter</strong>, lifted verbatim from the graph (with <code>arch-baseline</code> rewritten to <code>epic-0.6</code>).</li>
+<li><strong>Epic 0.6 authored</strong>, added to <code>phase-0/index.md</code> (table, summary, stories summary) and named in <code>framework.md</code>'s Platform &amp; DevEx area.</li>
+<li><strong><code>framework.md</code></strong> gains the <em>Phase dependency order</em> table.</li>
+<li><strong><code>scripts/dispatch-preflight.sh</code></strong> added; reads epic frontmatter and <code>sprint-status.yaml</code>.</li>
+<li><strong><code>scripts/validate-story-packet.sh</code></strong> — required key <code>ledger</code> → <code>sprint_status_key</code>.</li>
+<li><strong><code>_bmad/custom/bmad-create-story.toml</code></strong> — resolves the target repo from the epic's frontmatter, populates <code>sprint_status_key</code>, and runs the pre-flight check before writing a packet.</li>
+<li><strong><code>delivery/README.md</code> rewritten</strong>; <code>architecture/delivery-operating-model.md</code> — Decision 2 rewritten, the ledger section replaced, control-plane row, flow diagram, skills table, packet schema, bootstrapping order all updated.</li>
+<li><strong><code>CLAUDE.md</code>, <code>README.md</code>, <code>build_html.py</code> NAV</strong> updated; Epic 0.6 added to the nav.</li>
+<li><strong>Bus (<code>agent-rules</code>)</strong> — packet template (<code>sprint_status_key</code>), <code>00-core.md</code> (loop step 8, R14), <code>60-session-protocol.md</code> (W12 fields, W13 one vocabulary), <code>90-definition-of-done.md</code> (Q12, Q13), <code>enforcement/README.md</code>. Architecture mirror republished.</li>
+</ol>
+<p><strong>Not applied:</strong> the FR/NFR coverage report (§2.3) — deferred until packets exist.</p>
+<hr />
+<h3 id="section-4--change-scope-summary-3">Section 4 — Change Scope Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>delivery/ledger/</code> (7 files)</td>
+<td><strong>Deleted</strong> — held no state; every entry was <code>not-started</code> / null</td>
+</tr>
+<tr>
+<td><code>delivery/dispatch-graph.yaml</code></td>
+<td><strong>Deleted</strong> — 5 of 9 fields duplicated; no BMad skill read it</td>
+</tr>
+<tr>
+<td><code>implementation-artifacts/sprint-status.yaml</code></td>
+<td><strong>New</strong> — generated; 7 epics, 21 stories, 35 entries</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.6-context-bus-and-shared-baseline.md</code></td>
+<td><strong>New</strong> — <code>arch-baseline</code> promoted; 2 stories, 0.6.1 <code>done</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.{0,1,2,3,4,5}-*.md</code></td>
+<td><strong><code>repo:</code> + <code>depends_on:</code> frontmatter added</strong> — no body content changed</td>
+</tr>
+<tr>
+<td><a href="epics/phase-0/index.html"><code>epics/phase-0/index.md</code></a></td>
+<td>Epic 0.6 row, summary, stories-summary row; total 19 → 21 stories</td>
+</tr>
+<tr>
+<td><a href="epics/framework.html"><code>epics/framework.md</code></a></td>
+<td><em>Phase dependency order</em> table; Epic 0.6 named in Platform &amp; DevEx</td>
+</tr>
+<tr>
+<td><a href="delivery/README.html"><code>delivery/README.md</code></a></td>
+<td><strong>Rewritten</strong> around BMad artefacts and one-dispatcher coordination</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/delivery-operating-model.html"><code>architecture/delivery-operating-model.md</code></a></td>
+<td>Decision 2 rewritten; ledger section replaced; control-plane row, flow, skills table, packet schema, bootstrapping order</td>
+</tr>
+<tr>
+<td><code>scripts/dispatch-preflight.sh</code></td>
+<td><strong>New</strong></td>
+</tr>
+<tr>
+<td><code>scripts/validate-story-packet.sh</code> · <code>_bmad/custom/bmad-create-story.toml</code></td>
+<td><code>ledger</code> → <code>sprint_status_key</code>; epic-frontmatter repo resolution; pre-flight step</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code> · <code>README.md</code> · <code>scripts/python/build_html.py</code></td>
+<td>Updated; Epic 0.6 in the nav</td>
+</tr>
+<tr>
+<td><code>agent-rules/</code> (5 files, bus)</td>
+<td>Packet template, R14, loop step 8, W12, W13, Q12, Q13, enforcer map</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/changelog.html"><code>architecture/changelog.md</code></a></td>
+<td><strong>v4.5</strong> entry</td>
+</tr>
+<tr>
+<td><strong>This SCP</strong></td>
+<td>New</td>
+</tr>
+<tr>
+<td><strong><code>docs/</code></strong></td>
+<td>Regenerated</td>
+</tr>
+<tr>
+<td><strong>Unchanged</strong></td>
+<td><code>prd.md</code>, <code>business-case.md</code>, every epic <strong>body</strong>, all FR/NFR coverage, <code>conventions.md</code>, <code>repository-strategy.md</code>, <code>gaps.md</code>, <code>assumptions.md</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Handoff:</strong> the bus edits need an <strong><code>arch-v1.1</code></strong> tag before any service repo can adopt them, and <code>ctam-architecture</code> currently has these plus earlier changes uncommitted on <code>main</code> — which the revised git policy correctly refuses, so they need a branch and a PR. Next delivery action is unchanged: Epic 0.0, story 0.0.1, via <code>scripts/dispatch-preflight.sh 0.0.1</code> then <code>bmad-create-story</code>.</p>
 </div></details>
 <p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-19.md</code></p>
 </main>
-<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-the-one-genuine-conflict--the-coverage-stance">2.1 The one genuine conflict — the coverage stance</a></li><li class="h3"><a href="#22-additive--no-conflict">2.2 Additive — no conflict</a></li><li class="h3"><a href="#23-two-defects-found-in-the-canonical-docs-while-authoring">2.3 Two defects found in the canonical docs while authoring</a></li><li class="h3"><a href="#24-enforcement-honesty">2.4 Enforcement honesty</a></li><li class="h3"><a href="#25-what-is-not-covered">2.5 What is not covered</a></li><li><a href="#section-3--recommended-path-forward">Section 3 — Recommended Path Forward</a></li><li><a href="#section-4--change-scope-summary">Section 4 — Change Scope Summary</a></li></ul></aside>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#index">Index</a></li><li><a href="#sprint-change-proposal--2026-08-19-1">Sprint Change Proposal — 2026-08-19</a></li><li class="h3"><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li class="h3"><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#section-3--recommended-path-forward">Section 3 — Recommended Path Forward</a></li><li class="h3"><a href="#section-4--change-scope-summary">Section 4 — Change Scope Summary</a></li><li><a href="#sprint-change-proposal--2026-08-19b">Sprint Change Proposal — 2026-08-19b</a></li><li class="h3"><a href="#section-1--issue-summary-1">Section 1 — Issue Summary</a></li><li class="h3"><a href="#section-2--impact-analysis-1">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#section-3--recommended-path-forward-1">Section 3 — Recommended Path Forward</a></li><li class="h3"><a href="#section-4--change-scope-summary-1">Section 4 — Change Scope Summary</a></li><li><a href="#sprint-change-proposal--2026-08-19c">Sprint Change Proposal — 2026-08-19c</a></li><li class="h3"><a href="#section-1--issue-summary-2">Section 1 — Issue Summary</a></li><li class="h3"><a href="#section-2--impact-analysis-2">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#section-3--recommended-path-forward-2">Section 3 — Recommended Path Forward</a></li><li class="h3"><a href="#section-4--change-scope-summary-2">Section 4 — Change Scope Summary</a></li><li><a href="#sprint-change-proposal--2026-08-19d">Sprint Change Proposal — 2026-08-19d</a></li><li class="h3"><a href="#section-1--issue-summary-3">Section 1 — Issue Summary</a></li><li class="h3"><a href="#section-2--impact-analysis-3">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#section-3--recommended-path-forward-3">Section 3 — Recommended Path Forward</a></li><li class="h3"><a href="#section-4--change-scope-summary-3">Section 4 — Change Scope Summary</a></li></ul></aside>
 <script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-19";</script>
 <script src="./nav.js"></script>
 <script>
