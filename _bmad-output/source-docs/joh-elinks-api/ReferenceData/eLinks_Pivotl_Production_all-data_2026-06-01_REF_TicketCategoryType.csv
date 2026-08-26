@@ -1,6 +1,0 @@
-id,name,jurisdiction_id,integration_code,start_date,end_date,created_at,updated_at
-1,"Court Type",30,"COURTS_COURT_TYPE","2023-03-30",,"2023-05-19T11:18:47Z","2024-05-29T00:03:20Z"
-2,"Tribunal Type",34,"TRIBS_TYPE","2023-03-30",,"2023-05-19T11:18:47Z","2024-05-29T00:03:20Z"
-3,"Tribunal Name",34,"TRIBS_NAME","2023-03-30",,"2023-05-19T11:18:47Z","2024-05-29T00:03:20Z"
-4,"Court Type",84,"MAGS_COURT_TYPE","2023-03-30",,"2023-05-19T11:18:47Z","2024-05-29T00:03:20Z"
-5,"Skills Category",87,"SKILLS_CATEGORY","2023-03-30",,"2023-05-19T11:18:47Z","2024-05-29T00:03:20Z"

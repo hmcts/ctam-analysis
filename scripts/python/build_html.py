@@ -232,6 +232,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Changelog", "architecture/tobe/changelog", False),
     ]),
     ("Change Control & Readiness", [
+        ("Sprint Change Proposal — 2026-08-25m (source-docs archive relocated out of the repo)", "sprint-change-proposal-2026-08-25m", False),
         ("Sprint Change Proposal — 2026-08-25l (Epic 0.2 stories gain Implementation touchpoints guidance)", "sprint-change-proposal-2026-08-25l", False),
         ("Sprint Change Proposal — 2026-08-25k (Epic 0.2 mock-API contract corrected against real E-links Swagger)", "sprint-change-proposal-2026-08-25k", False),
         ("Sprint Change Proposal — 2026-08-25j (Epic 0.1 schema design-rigor expansion, 2 → 4 stories)", "sprint-change-proposal-2026-08-25j", False),

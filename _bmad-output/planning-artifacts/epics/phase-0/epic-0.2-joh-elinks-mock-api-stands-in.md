@@ -91,7 +91,7 @@ So that **the mock is a tracked, reviewable, CI-gated Java/Spring Boot artifact 
 **When** the CI workflow is authored,
 **Then** there is **no** `deploy-dev.yml`, **no** `deploy-staging.yml`, and **no** `deploy-production.yml` — this epic has no deployment workflow at all, mirroring `ctam-mock-auth`'s "never deployed to production" guard, taken one step further (never deployed anywhere but a developer's machine, in this scope).
 
-**References:** repository-strategy.md (row revised — Java/Spring Boot, not Node); AR2–AR9, AR14, AR17, AR28, AR29, AR41; D10; gaps.md G8.1; assumptions.md A38 (revised — no longer a stack deviation); the real `E-links API v5.0` Swagger doc and June 2026 production reference-data exports, archived to `_bmad-output/source-docs/joh-elinks-api/` (SCP 2026-08-25k); this epic has no dependency on Epic 0.0 — Story 0.2.2 runs the mock locally, not on the shared estate.
+**References:** repository-strategy.md (row revised — Java/Spring Boot, not Node); AR2–AR9, AR14, AR17, AR28, AR29, AR41; D10; gaps.md G8.1; assumptions.md A38 (revised — no longer a stack deviation); the real `E-links API v5.0` Swagger doc and June 2026 production reference-data exports (SCP 2026-08-25k; a local archived copy existed at `_bmad-output/source-docs/joh-elinks-api/` until relocated out of the repo to a local, non-versioned path on 2026-08-25, SCP 2026-08-25m); this epic has no dependency on Epic 0.0 — Story 0.2.2 runs the mock locally, not on the shared estate.
 
 **Explicitly NOT in scope:**
 - Running the mock anywhere but locally — Story 0.2.2
