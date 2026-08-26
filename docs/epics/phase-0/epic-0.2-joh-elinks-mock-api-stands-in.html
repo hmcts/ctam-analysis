@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="epic-02-joh-elinks-mock-api-stands-in-for-the-unconfirmed-upstream-contract">Epic 0.2: JOH eLinks mock API stands in for the unconfirmed upstream contract</h1>
+<blockquote>
+<p><strong>Scope reduction</strong> <em>(SCP 2026-08-25f)</em>: this epic no longer deploys to any shared dev/staging environment. <code>ctam-jomockapi</code> runs <strong>locally via Docker Compose</strong> during development — the service being ingested from (<code>ctam-reference-data</code>) is likewise run locally in this scope. <code>depends_on</code> drops the estate dependency entirely (<code>[]</code>); the Key Vault / AKS / APIM deployment stories are replaced with local-only equivalents.</p>
+<p><strong>Stack change</strong> <em>(SCP 2026-08-25g)</em>: <code>ctam-jomockapi</code> is no longer built as a standalone Node.js/Express service. It is <strong>scaffolded from the same HMCTS Crime SpringBoot template as every other CTAM Pathfinder service</strong> (<code>ctam-scaffold.sh</code>, AR2–AR9) and the existing Node/Express reference implementation's documented eLinks v5 contract — endpoints, fixed-seed data, auth behaviour — is <strong>faithfully ported to Java/Spring Boot</strong>, not redesigned. This removes the stack deviation gaps.md/assumptions.md previously recorded for it (A38, revised).</p>
+</blockquote>
+<p><strong>User outcome:</strong> <code>ctam-reference-data</code>'s nightly JOH eLinks sync (Story 0.3.3) runs <strong>end-to-end against a locally-running mock</strong> of the eLinks People API v5 — not just a CI-only WireMock stub — so Phase 0 has a genuine, demoable ingestion pipeline in local development while the real eLinks API contract remains unconfirmed (gaps.md G8.1). <code>ctam-jomockapi</code> is onboarded as CTAM Pathfinder's 17th repo, non-production-only, in the same category as <code>ctam-mock-auth</code> (repository-strategy.md) — and, as of this scope, built with the <strong>same Java/Spring Boot stack as every other repo</strong>.</p>
+<p><strong>Hosting:</strong> <code>ctam-jomockapi</code> is scaffolded like every other CTAM Pathfinder backend service — HMCTS Crime SpringBoot template + <code>ctam-scaffold.sh</code> conventions (AR2–AR9) — <strong>no stack deviation</strong>. It runs locally via Docker Compose only in this scope — no shared-estate deployment.</p>
+<p><strong>Vertical slice:</strong></p>
+<ul>
+<li>Scaffold <code>ctam-jomockapi</code> from the HMCTS Crime SpringBoot template (<code>ctam-scaffold.sh</code>, same pattern as <code>ctam-reference-data</code>/<code>ctam-joh</code>), per the manual GitHub-setup runbook (D10 — no <code>gh</code> CLI)</li>
+<li>Port the existing Node/Express reference implementation's documented contract — <code>/people</code> change-feed, <code>/leavers</code>, <code>/deleted</code>, 11 <code>/reference_data/*</code> vocabularies, <code>/healthcheck</code>, bearer-token handling, fixed-seed deterministic data generation — to Java/Spring Boot controllers/services: a <strong>faithful reimplementation</strong>, not a redesign</li>
+<li>CI: Gradle build + JUnit test suite (ported from the existing <code>test/</code> suite, behaviour-equivalent assertions) + lint gates; confirm the container image builds (no registry push — nothing deploys from it in this scope)</li>
+<li>A <code>docker-compose.yml</code> service definition for local bring-up of <code>ctam-jomockapi</code> alongside <code>ctam-reference-data</code></li>
+<li>A local mock bearer credential set via <code>application-dev.yml</code>/<code>.env</code> (non-secret — the mock accepts any non-empty token); no Key Vault involved</li>
+<li><code>ctam-reference-data</code>'s eLinks sync (Story 0.3.3) points its <strong>local</strong> base URL at the docker-compose <code>ctam-jomockapi</code> service instead of a placeholder</li>
+</ul>
+<p><strong>FRs covered:</strong> none directly (infrastructure/tooling, not a product feature). <strong>Supports:</strong> FR1, FR6 tier-(a), FR7 tier-(a), NFR24 (exercised end-to-end locally, pre-contract).</p>
+<p><strong>Key NFRs first exercised here:</strong> none — this epic runs entirely in local development; NFR16 (Key Vault), NFR31 (Azure UK South) and NFR40 (per-service deployable) are <strong>not</strong> exercised here since nothing is deployed to the shared estate. They remain open for whichever epic first deploys <code>ctam-reference-data</code>'s eLinks integration to a shared environment.</p>
+<p><strong>Out of scope (explicitly):</strong></p>
+<ul>
+<li>The real JOH eLinks API contract (gaps.md G8.1 remains open until Judicial Office confirms it; production cutover is gated on that, not on this epic)</li>
+<li>MRD ingestion (Story 0.8.1) — the mock covers eLinks only, not MRD's Excel feed</li>
+<li><strong>Any behaviour change to the mock's documented contract during the Java port</strong> — endpoint shapes, seeded data, and auth handling are carried over unchanged; this is a stack port, not a redesign</li>
+<li><strong>A database of any kind</strong> — the mock stays stateless, seeded from fixture data at startup (ported from the existing <code>ReferenceData/*.csv|json</code> files into the Java service's resources); no Liquibase, no Testcontainers PostgreSQL, unlike every domain service</li>
+<li><strong>Deployment of <code>ctam-jomockapi</code> to any shared environment (dev, staging, or production)</strong> — local Docker Compose only, per SCP 2026-08-25f; a future epic can add shared-estate deployment if a demoable dev/staging pipeline is later needed</li>
+</ul>
+<hr />
+<details class="section" id="story-021-scaffold-ctam-jomockapi-from-the-hmcts-starter-and-port-the-elinks-mock-to-javaspring-boot"><summary><span class="section-title">Story 0.2.1: Scaffold <code>ctam-jomockapi</code> from the HMCTS starter and port the eLinks mock to Java/Spring Boot</span></summary><div class="section-body">
+<p>As a <strong>platform engineer</strong>, I want <code>ctam-jomockapi</code> scaffolded from the same HMCTS Crime SpringBoot template as every other CTAM Pathfinder service, with the existing Node/Express mock's documented eLinks v5 contract faithfully reimplemented in Java/Spring Boot, So that <strong>the mock is a tracked, reviewable, CI-gated Java/Spring Boot artifact like every other repo in the polyrepo</strong> — no Node/Express stack deviation — while its endpoint behaviour, seeded data, and contract shape are unchanged from the existing reference implementation.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> the engineer has performed the GitHub manual-setup checklist (<code>ctam-architecture/runbooks/github-setup.md</code>) <strong>before</strong> running the scaffold<br/><strong>When</strong> the engineer runs <code>ctam-scaffold.sh ctam-jomockapi</code> from <code>ctam-architecture/scaffolding/</code><br/><strong>Then</strong> the script scaffolds a Spring Boot 4.0.x project locally from <code>https://github.com/hmcts/service-hmcts-crime-springboot-template</code>, commits, and pushes to the pre-created remote on a feature branch via plain <code>git</code> (no <code>gh</code> CLI, per D10)<br/><strong>And</strong> Group ID is <code>uk.gov.hmcts.ctam</code>, artefact is <code>ctam-jomockapi</code>, base package is <code>uk.gov.hmcts.ctam.jomockapi</code>, default port is <code>8090</code> (chosen distinct from every other CTAM service's port to avoid collisions when run together via Docker Compose, per Story 0.2.2)<br/><strong>And</strong> Gradle build uses Groovy DSL with Spring Boot Gradle plugin 4.1.0 and <code>io.spring.dependency-management:1.1.7</code> (per AR5)<br/><strong>And</strong> Lombok, springdoc-openapi (OpenAPI 3.x generation for the mock's own contract), JaCoCo, gradle-git-properties, gradle-docker-compose plugin, Spotless, and Checkstyle are configured (per AR6, AR8–AR11, AR17)<br/><strong>And</strong> Spring Boot Test with JUnit 5 (<code>junit-bom:6.0.3</code>) is configured for unit/controller tests (per AR14)<br/><strong>And</strong> — <strong>unlike every domain service</strong> — <strong>no</strong> Liquibase, <strong>no</strong> Testcontainers PostgreSQL, and <strong>no</strong> MapStruct are configured: the mock is stateless, serving fixed-seed generated data with no database and no cross-object mapping need<br/><strong>And</strong> a Helm chart skeleton and per-service <code>terraform/</code> directory are <strong>not</strong> created — this epic never deploys anywhere but a developer's machine (SCP 2026-08-25f), so neither applies<br/><strong>And</strong> GitHub Actions workflow <code>.github/workflows/ci.yml</code> exists (no <code>deploy-*.yml</code> of any kind), <code>CODEOWNERS</code>, <code>PULL_REQUEST_TEMPLATE.md</code>, and a Postman collection skeleton exist (per AR28, AR29, AR41).</p>
+<p><strong>Given</strong> the existing Node/Express reference implementation's documented contract (the real <code>E-links API v5.0</code> Swagger doc, <code>apiresponses.docx</code>, and the <code>ReferenceData/*.csv|json</code> seed fixtures)<br/><strong>When</strong> the engineer ports it to Java/Spring Boot controllers and services<br/><strong>Then</strong> every endpoint is reimplemented with an <strong>identical</strong> request/response shape:</p>
+<ul>
+<li><code>GET /api/v5/people</code> — the change-feed, <strong>requiring</strong> <code>updated_since</code> (missing → <code>400</code> validation error, per the documented contract) plus optional <code>per_page</code> (default 50), <code>page</code> (default 1), and <code>include_previous_appointments</code>, paginated per the documented <code>PaginationResponse</code> shape (<code>pages</code>, <code>current_page</code>, <code>results_per_page</code>, <code>more_pages</code>),</li>
+<li><code>GET /api/v5/people/{id}</code> — single-person lookup by id, with optional <code>include_previous_appointments</code> (a distinct endpoint from the change-feed, both present in the real contract),</li>
+<li><code>GET /api/v5/leavers</code> — <strong>requiring</strong> <code>left_since</code>, optional <code>per_page</code>/<code>page</code>, paginated (100 records, independent of the 100 <code>/people</code> profiles),</li>
+<li><code>GET /api/v5/deleted</code> — <strong>requiring</strong> <code>deleted_since</code>, optional <code>per_page</code>/<code>page</code>, paginated (100 records, independent of the 100 <code>/people</code> profiles),</li>
+<li><code>GET /api/v5/reference_data/{attribute_name}</code> — the 11 vocabularies (<code>appointment_titles</code>, <code>base_locations</code>, <code>contract_types</code>, <code>genders</code>, <code>judiciary_roles</code>, <code>jurisdictions</code>, <code>location_types</code>, <code>locations</code>, <code>ticket_categories</code>, <code>ticket_category_types</code>, <code>tickets</code>), each also reachable via its documented deprecated singular alias (<code>appointment_title</code>, <code>base_location</code>, <code>contract_type</code>, <code>gender</code>, <code>judiciary_role</code>, <code>jurisdiction</code>, <code>location_type</code>, <code>location</code>, <code>ticket_category</code>, <code>ticket_category_type</code>, <code>ticket</code>) on the same <code>attribute_name</code> path parameter,</li>
+<li><code>GET /api/v5/reference_data/{attribute_name}/{reference_id}</code> — single reference-data item lookup by id,</li>
+<li><code>GET /api/v5/healthcheck</code>,</li>
+</ul>
+<p><strong>And</strong> the fixed-seed deterministic data generation is ported so IDs stay stable across restarts, exactly as the Node implementation behaves<br/><strong>And</strong> the <code>ReferenceData/*.csv|json</code> fixture files are carried over into the Java service's <code>src/main/resources/</code> <strong>unchanged in content</strong> — only the loading mechanism changes (Node's file read → Spring's classpath resource loading)<br/><strong>And</strong> bearer-token handling is ported unchanged: any non-empty token is accepted, exercising the <em>wiring</em> the real eLinks credential will use, not an auth check.</p>
+<p><strong>Given</strong> the scaffolded and ported service runs locally via <code>./gradlew bootRun</code><br/><strong>When</strong> the engineer queries <code>http://localhost:8090/api/v5/healthcheck</code><br/><strong>Then</strong> the response matches the Node implementation's documented shape<br/><strong>And</strong> structured JSON logs via Logstash Logback Encoder appear on stdout, consistent with every other CTAM service (per AR30) — an improvement over the Node original, not a behavioural contract change.</p>
+<p><strong>Given</strong> CI<br/><strong>When</strong> <code>ci.yml</code> runs on a PR<br/><strong>Then</strong> the Gradle build + the JUnit test suite (ported from the existing <code>test/</code> suite, with behaviour-equivalent assertions against the same fixtures) + Spotless + Checkstyle pass<br/><strong>And</strong> the container image builds successfully (no registry push — this epic never deploys the image anywhere; Story 0.2.2 runs it locally via Docker Compose instead).</p>
+<p><strong>Given</strong> this is a non-production-only, local-only mock<br/><strong>When</strong> the CI workflow is authored<br/><strong>Then</strong> there is <strong>no</strong> <code>deploy-dev.yml</code>, <strong>no</strong> <code>deploy-staging.yml</code>, and <strong>no</strong> <code>deploy-production.yml</code> — this epic has no deployment workflow at all, mirroring <code>ctam-mock-auth</code>'s "never deployed to production" guard, taken one step further (never deployed anywhere but a developer's machine, in this scope).</p>
+<p><strong>References:</strong> repository-strategy.md (row revised — Java/Spring Boot, not Node); AR2–AR9, AR14, AR17, AR28, AR29, AR41; D10; gaps.md G8.1; assumptions.md A38 (revised — no longer a stack deviation); the real <code>E-links API v5.0</code> Swagger doc and June 2026 production reference-data exports (SCP 2026-08-25k; a local archived copy existed at <code>_bmad-output/source-docs/joh-elinks-api/</code> until relocated out of the repo to a local, non-versioned path on 2026-08-25, SCP 2026-08-25m); this epic has no dependency on Epic 0.0 — Story 0.2.2 runs the mock locally, not on the shared estate.</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Running the mock anywhere but locally — Story 0.2.2</li>
+<li>Any change to the mock's documented endpoint behaviour, seeded data, or auth handling during the port — faithful reimplementation only</li>
+<li>Adding a database, Liquibase changelog, or any persistence layer — the mock stays stateless</li>
+<li>Mounting routes under the real API's <code>/elinks</code> gateway-routing path segment (visible in the Swagger doc's <code>Servers</code> value) — that segment is production gateway routing, not part of the application contract, and this mock runs with no gateway in front of it locally; routes stay bare <code>/api/v5/...</code></li>
+</ul>
+<p><strong>Implementation touchpoints</strong> <em>(dispatch guidance for <code>bmad-create-story</code> — not the BMad <code>## Tasks / Subtasks</code> section itself, which <code>bmad-create-story</code> generates in the story-packet at dispatch time, per <code>delivery-operating-model.md</code>)</em>:</p>
+<ul>
+<li><strong>API changes:</strong> new REST controllers under <code>uk.gov.hmcts.ctam.jomockapi.controller</code> — <code>PeopleController</code> (<code>GET /api/v5/people</code>, <code>GET /api/v5/people/{id}</code>), <code>LeaversController</code> (<code>GET /api/v5/leavers</code>), <code>DeletedController</code> (<code>GET /api/v5/deleted</code>), <code>ReferenceDataController</code> (<code>GET /api/v5/reference_data/{attribute_name}</code>, <code>GET /api/v5/reference_data/{attribute_name}/{reference_id}</code>), <code>UtilsController</code> (<code>GET /api/v5/healthcheck</code>); springdoc-openapi generates the mock's own OpenAPI 3.x doc.</li>
+<li><strong>Service changes:</strong> <code>PeopleService</code>/<code>LeaverService</code>/<code>DeletedService</code> (fixed-seed deterministic data generation, ported from the Node implementation's generator logic); <code>ReferenceDataService</code> (loads the 11 <code>ReferenceData/*.csv|json</code> fixtures from classpath at startup, serves by <code>attribute_name</code> including the deprecated singular aliases); a <code>BearerTokenAuthFilter</code> (accepts any non-empty token, no real validation).</li>
+<li><strong>Repository changes:</strong> none — no Spring Data JPA repository layer and no database; classpath resource loading (<code>ClassPathResource</code>) replaces Node's file read, consistent with the "no Liquibase, no Testcontainers" AC above.</li>
+<li><strong>UI changes:</strong> none — this epic has no UI component.</li>
+<li><strong>Tests:</strong> JUnit 5 + Spring Boot Test controller/unit tests ported from the existing Node <code>test/</code> suite with behaviour-equivalent assertions against the same fixtures; JaCoCo coverage; Spotless/Checkstyle lint gates; CI container-image build verification (no registry push).</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-022-run-ctam-jomockapi-locally-via-docker-compose"><summary><span class="section-title">Story 0.2.2: Run <code>ctam-jomockapi</code> locally via Docker Compose</span></summary><div class="section-body">
+<p>As a <strong>platform engineer</strong>, I want <code>ctam-jomockapi</code> runnable locally via Docker Compose, with its mock bearer credential set via a local environment file, So that <strong>it is reachable over the local Docker network by <code>ctam-reference-data</code>'s scheduled sync job during development</strong>, not just runnable standalone via <code>./gradlew bootRun</code>.</p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> <code>ctam-jomockapi</code> is scaffolded and ported per Story 0.2.1<br/><strong>When</strong> a <code>docker-compose.yml</code> service definition (<code>jomockapi</code>) is added<br/><strong>Then</strong> <code>docker-compose up jomockapi</code> starts the mock reachable at a stable Docker-network hostname (e.g. <code>jomockapi:8090</code>) and, if published, <code>http://localhost:8090</code> on the host<br/><strong>And</strong> liveness passes against <code>GET /api/v5/healthcheck</code> (public, no auth, per the mock's existing contract)<br/><strong>And</strong> the running container's logs confirm the mock data was generated with the documented fixed seed (ids stable across restarts).</p>
+<p><strong>Given</strong> the mock requires a bearer token (any non-empty value, per its existing auth behaviour)<br/><strong>When</strong> a mock credential is set via a local <code>.env</code> value (documented as a placeholder in <code>README.md</code>; not a secret, since the mock accepts any non-empty token and this never runs outside a developer's machine)<br/><strong>Then</strong> the credential is available to any local consumer without any Key Vault or cloud secret store involved.</p>
+<p><strong>Given</strong> the running local mock<br/><strong>When</strong> an engineer curls <code>GET /api/v5/reference_data/jurisdictions</code> with the local token from the host or from another container on the same Docker network<br/><strong>Then</strong> the response matches the documented <code>ReferenceDataResponse</code> shape and returns the real jurisdiction reference values.</p>
+<p><strong>References:</strong> NFR40 does not apply (no per-service Kubernetes deployment in this scope); no epic dependency (local only, no shared estate involved).</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Wiring <code>ctam-reference-data</code>'s sync to this local instance — Story 0.2.3</li>
+<li>Deployment to any shared environment (dev, staging, or production) — not in this epic's scope at all, per its out-of-scope note</li>
+</ul>
+<p><strong>Implementation touchpoints</strong> <em>(dispatch guidance for <code>bmad-create-story</code> — not the BMad <code>## Tasks / Subtasks</code> section itself, which <code>bmad-create-story</code> generates in the story-packet at dispatch time, per <code>delivery-operating-model.md</code>)</em>:</p>
+<ul>
+<li><strong>API changes:</strong> none — no new endpoints; this story is deployment/wiring only.</li>
+<li><strong>Service changes:</strong> none in application code — <code>application-dev.yml</code>/<code>.env</code> carries the local mock bearer credential placeholder.</li>
+<li><strong>Repository changes:</strong> none.</li>
+<li><strong>UI changes:</strong> none.</li>
+<li><strong>Tests:</strong> <code>docker-compose up jomockapi</code> liveness check against <code>GET /api/v5/healthcheck</code>; manual curl verification of <code>GET /api/v5/reference_data/jurisdictions</code> from the host and from another container on the same Docker network, per the AC above.</li>
+</ul>
+<hr />
+</div></details><details class="section" id="story-023-ctam-reference-datas-elinks-sync-runs-against-the-locally-running-mock"><summary><span class="section-title">Story 0.2.3: <code>ctam-reference-data</code>'s eLinks sync runs against the locally-running mock</span></summary><div class="section-body">
+<p>As a <strong>CTAM Pathfinder platform</strong> (and every downstream consumer of JOH identity and reference data), I want Story 0.3.3's nightly <code>@Scheduled</code> eLinks sync to run, during local development, against the <code>ctam-jomockapi</code> instance started in Story 0.2.2, So that <strong>the full ingestion pipeline — full-refresh-upsert, <code>ctam_joh_identities</code> minting, soft-deactivation of records absent upstream, <code>ctam_sync_status</code> logging — is demoable end-to-end locally before the real eLinks contract (G8.1) is confirmed.</strong></p>
+<p><strong>Acceptance Criteria:</strong></p>
+<p><strong>Given</strong> <code>ctam-jomockapi</code> is running locally per Story 0.2.2, and the local mock credential is available to <code>ctam-reference-data</code>'s local process (via <code>application-dev.yml</code> / <code>.env</code>)<br/><strong>When</strong> <code>ctam-reference-data</code>'s local configuration sets the eLinks base URL to the docker-compose <code>ctam-jomockapi</code> service's Docker-network hostname instead of any unset/placeholder value<br/><strong>Then</strong> the nightly (and manually-triggered) sync run in Story 0.3.3 completes successfully against it when both services are run locally together (<code>docker-compose up</code>)<br/><strong>And</strong> all 15 <code>jo_*</code> tables populate from the mock's <code>/people</code> change-feed and <code>/reference_data/*</code> responses<br/><strong>And</strong> <code>jo_people.personnel_number</code> upserts correctly and mints <code>ctam_joh_identities</code> rows exactly as designed for a real upstream source.</p>
+<p><strong>Given</strong> the mock's <code>/leavers</code> and <code>/deleted</code> endpoints (100 records each, independent of the 100 <code>/people</code> profiles)<br/><strong>When</strong> the sync's soft-deactivation logic (rows absent upstream marked inactive, never hard-deleted, per AR46) is exercised against them<br/><strong>Then</strong> the behaviour is verified against realistic leaver/deleted data — something the CI WireMock stub's canned fixtures don't exercise as thoroughly.</p>
+<p><strong>Given</strong> the CI-only WireMock/stub eLinks API (AR54) used by <code>ctam-reference-data</code>'s automated tests<br/><strong>When</strong> this story lands<br/><strong>Then</strong> the WireMock stub is <strong>retained unchanged</strong> for unit/integration tests — it and the locally-running <code>ctam-jomockapi</code> are complementary (fast, hermetic CI checks vs. a realistic local network target), not a replacement of one by the other.</p>
+<p><strong>Given</strong> the real JOH eLinks API contract is still unconfirmed (gaps.md G8.1)<br/><strong>When</strong> this story's ACs are met<br/><strong>Then</strong> G8.1 is <strong>not</strong> closed by this story — it remains open until Judicial Office confirms the real contract and it is validated against the (by-then-live) ingestion mapping; this story closes the <em>local demonstrability</em> gap only, not the <em>contract-confirmation</em> gap, and does <strong>not</strong> demonstrate the pipeline in any shared (dev/staging) environment.</p>
+<p><strong>References:</strong> FR1, FR6 tier-(a), NFR24 (exercised locally only — not in a shared environment); gaps.md G8.1 (stays open); AR46, AR48, AR54; depends on Story 0.3.3 and Story 0.2.2.</p>
+<p><strong>Explicitly NOT in scope:</strong></p>
+<ul>
+<li>Closing G8.1 — that needs the real contract from Judicial Office</li>
+<li>Demonstrating this pipeline in a shared dev/staging environment — this epic is local-only, per its scope-reduction note</li>
+<li>MRD ingestion (Story 0.8.1) — unaffected, no mock exists or is needed for MRD in this SCP</li>
+</ul>
+<p><strong>Implementation touchpoints</strong> <em>(dispatch guidance for <code>bmad-create-story</code> — not the BMad <code>## Tasks / Subtasks</code> section itself, which <code>bmad-create-story</code> generates in the story-packet at dispatch time, per <code>delivery-operating-model.md</code>; this story's code changes land in <strong><code>ctam-reference-data</code></strong>, not <code>ctam-jomockapi</code>)</em>:</p>
+<ul>
+<li><strong>API changes:</strong> none — consumes <code>ctam-jomockapi</code>'s existing contract as-is; no new endpoint on either side.</li>
+<li><strong>Service changes:</strong> <code>ctam-reference-data</code>'s eLinks sync service configuration — base URL pointed at the docker-compose <code>ctam-jomockapi</code> Docker-network hostname instead of a placeholder; no new sync logic (Story 0.3.3 already implements the sync itself).</li>
+<li><strong>Repository changes:</strong> none new — the sync's existing JPA repositories for the 15 <code>jo_*</code> tables and <code>ctam_joh_identities</code> (created by Story 0.3.2) populate via the already-implemented sync path; this story verifies that path against realistic mock data, it doesn't add repository code.</li>
+<li><strong>UI changes:</strong> none.</li>
+<li><strong>Tests:</strong> integration test verifying a full local sync run against <code>ctam-jomockapi</code> populates all 15 <code>jo_*</code> tables and mints <code>ctam_joh_identities</code>; soft-deactivation exercised against the mock's <code>/leavers</code>/<code>/deleted</code> data; the existing CI-only WireMock stub (AR54) is retained unchanged, complementary to this test.</li>
+</ul>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/epics/phase-0/epic-0.2-joh-elinks-mock-api-stands-in.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#story-021-scaffold-ctam-jomockapi-from-the-hmcts-starter-and-port-the-elinks-mock-to-javaspring-boot">Story 0.2.1: Scaffold ctam-jomockapi from the HMCTS starter and port the eLinks mock to Java/Spring Boot</a></li><li><a href="#story-022-run-ctam-jomockapi-locally-via-docker-compose">Story 0.2.2: Run ctam-jomockapi locally via Docker Compose</a></li><li><a href="#story-023-ctam-reference-datas-elinks-sync-runs-against-the-locally-running-mock">Story 0.2.3: ctam-reference-data's eLinks sync runs against the locally-running mock</a></li></ul></aside>
+<script>window.__NAV_BASE__="../../";window.__PAGE__="epics/phase-0/epic-0.2-joh-elinks-mock-api-stands-in";</script>
+<script src="../../nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

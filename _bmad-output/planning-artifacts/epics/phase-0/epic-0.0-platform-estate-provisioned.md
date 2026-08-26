@@ -1,24 +1,26 @@
 ---
 type: 'Epic'
-description: 'User outcome: The shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) is stood up via Terraform in its own ctam-shared-infrastructure repo per the HMCTS CNP standard, provisioned layer-by-layer with each layer independently verifiable…'
+description: "User outcome: The shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) is stood up via Terraform in its own ctam-shared-infrastructure repo per the HMCTS CNP standard, provisioned layer-by-layer with each layer independently verifiable; the published context bus and shared config baseline (formerly Epic 0.6) are folded in here too."
 resource: 'epics/phase-0/epic-0.0-platform-estate-provisioned.html'
 tags: [ctam-pathfinder, epics, phase-0, infrastructure]
-timestamp: '2026-07-06'
+timestamp: '2026-08-25'
 parent: 'epics/phase-0/index.md'
 epic: 0.0
 title: 'Platform estate is provisioned, verifiable, and CNP-compliant'
-storyCount: 5
-repo: ctam-shared-infrastructure
+storyCount: 7
+repo: [ctam-shared-infrastructure, ctam-architecture]
 depends_on: []                              # nothing precedes the estate
 ---
 
 # Epic 0.0: Platform estate is provisioned, verifiable, and CNP-compliant
 
-**User outcome:** The shared Azure estate — **AKS, a global PostgreSQL Flexible Server, Azure Container Registry, APIM, Application Insights / Log Analytics, and Key Vault** — is stood up via **Terraform** in its own dedicated repository, **`ctam-shared-infrastructure`**, following the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a `{product}-shared-infrastructure` repo (not colocated in a service repo). The estate is provisioned **layer-by-layer, and each layer is independently verifiable at deploy time** — so that every Phase 0 service (`ctam-reference-data` first, then `ctam-authorisation`, `ctam-notification`, `ctam-ui`) has a *tested* platform to deploy onto, and the team can prove the platform works before any domain service is scaffolded.
+> **Scope reduction** *(SCP 2026-08-25d)*: Phase 0 is narrowed to epics 0.0–0.4 (platform, JOH schema, JOH mock API, JOH ETL, JOH read API) — Notification, User authentication, MRD ingestion, User-population bootstrap, and the MRD read API are removed from the plan for now. **Epic 0.6** (context bus + shared `ctam_configuration_values` baseline) is folded into this epic as Stories 0.0.6–0.0.7, since Epic 0.1 and Epic 0.3 still need it and it no longer merits a separate epic number on its own.
 
-**Hosting:** the shared estate lives in **`ctam-shared-infrastructure`** (CNP `{product}-shared-infrastructure` convention). This **supersedes AR53's colocated first-consumer rule** — the shared estate is no longer carried inside `ctam-reference-data/terraform/`. Each service repo's own `terraform/` continues to hold **only that service's own resources** (e.g. the MRD storage account in `ctam-reference-data`, Story 0.1.4).
+**User outcome:** The shared Azure estate — **AKS, a global PostgreSQL Flexible Server, Azure Container Registry, APIM, Application Insights / Log Analytics, and Key Vault** — is stood up via **Terraform** in its own dedicated repository, **`ctam-shared-infrastructure`**, following the HMCTS Cloud Native Platform standard that product-level shared infrastructure lives in a `{product}-shared-infrastructure` repo (not colocated in a service repo). The estate is provisioned **layer-by-layer, and each layer is independently verifiable at deploy time** — so that `ctam-reference-data` and `ctam-joh` have a *tested* platform to deploy onto, and the team can prove the platform works before any domain service is scaffolded. The published context bus and shared config baseline (Stories 0.0.6–0.0.7, folded in from the former Epic 0.6) also live here.
 
-**Why this is Epic 0.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.1.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ctam-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The integrations-first ordering of the **domain** deliverables (0.1 → 0.5) is unchanged.
+**Hosting:** the shared estate lives in **`ctam-shared-infrastructure`** (CNP `{product}-shared-infrastructure` convention); the context bus lives in `ctam-architecture` (Stories 0.0.6–0.0.7). This **supersedes AR53's colocated first-consumer rule** — the shared estate is no longer carried inside `ctam-reference-data/terraform/`. Each service repo's own `terraform/` continues to hold **only that service's own resources**.
+
+**Why this is Epic 0.0 (precedes ingestion):** the shared cluster/database/registry/gateway/observability were always an implicit prerequisite of Story 0.3.1. Making them a first-class, independently-tested epic (a) aligns CTAM with the CNP `-shared-infrastructure` standard, (b) lets the estate be validated on its own before a service depends on it, and (c) tightens `ctam-reference-data` down to its domain — consistent with the polyrepo "minimise shared coupling" principle. The domain deliverables that remain in scope (JOH schema 0.1 → JOH mock API 0.2 → JOH ETL 0.3 → JOH read API 0.4) all build on this estate.
 
 **Vertical slice:**
 - **New dedicated repo `ctam-shared-infrastructure`** (CNP naming), scaffolded per the manual GitHub web-UI setup runbook (`ctam-architecture/runbooks/github-setup.md` — the `gh` CLI is not available)
@@ -32,7 +34,7 @@ depends_on: []                              # nothing precedes the estate
 
 **Architecture requirements:** **AR53 (revised — dedicated `ctam-shared-infrastructure` per CNP)**; A34 (zone-redundant SKUs); gaps.md G9 (Terraform state backend + plan/apply pipeline pattern).
 
-**Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — Epic 0.1, Story 0.1.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+); the `ctam_configuration_values` Liquibase baseline (owned by `ctam-architecture`, lands ahead of Epic 0.1).
+**Out of scope (explicitly):** any domain service scaffolding (`ctam-reference-data` — Epic 0.3, Story 0.3.1); any service's own per-repo `terraform/` resources (they stay in their service repos); production-region rollout gating (Phase 9+). *(The `ctam_configuration_values` Liquibase baseline and the context-bus publish are IN scope here — Stories 0.0.6–0.0.7, folded in from the former Epic 0.6.)*
 
 ---
 
@@ -66,7 +68,7 @@ So that **the shared estate has a CNP-compliant home with safe, reviewable, stat
 
 **Explicitly NOT in scope:**
 - Any actual Azure resources — Stories 0.0.2–0.0.5
-- Any service repo scaffolding — Epic 0.1
+- Any service repo scaffolding — Epic 0.3
 
 ---
 
@@ -95,7 +97,7 @@ So that **there is a verified Kubernetes target — zone-spread and reachable �
 
 **Explicitly NOT in scope:**
 - PostgreSQL, Key Vault, ACR, App Insights, APIM — Stories 0.0.3–0.0.5
-- Deploying any CTAM service — Epic 0.1
+- Deploying any CTAM service — Epic 0.3
 
 ---
 
@@ -124,7 +126,7 @@ So that **services have an encrypted, TLS-only shared database and a secret stor
 **References:** AR53 (revised); NFR10, NFR11, NFR16; A34.
 
 **Explicitly NOT in scope:**
-- Per-service DB roles/grants and the `ctam_configuration_values` baseline (owned by `ctam-architecture`; consumed in Epic 0.1)
+- Per-service DB roles/grants; the `ctam_configuration_values` baseline itself — Story 0.0.7
 - ACR, App Insights, APIM — Stories 0.0.4–0.0.5
 
 ---
@@ -182,13 +184,89 @@ So that **the shared public gateway is proven to terminate TLS and route to the 
 **Given** all five layers are applied,
 **When** the engineer reviews the dev estate,
 **Then** the full shared estate (AKS + PostgreSQL + Key Vault + ACR + App Insights + APIM) exists in UK South, each layer independently verified,
-**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (Epic 0.1, Story 0.1.1).
+**And** the estate is ready for `ctam-reference-data` to scaffold and deploy onto (Epic 0.3, Story 0.3.1).
 
 **References:** AR53 (revised); NFR10, NFR31; A34; gaps.md G9.
 
 **Explicitly NOT in scope:**
 - Per-service API registration in APIM (each service publishes its own OpenAPI-backed API)
-- Any domain service — Epic 0.1 onward
+- Any domain service — Epic 0.3 onward
+
+---
+
+## Story 0.0.6: Publish `ctam-architecture` as the context bus and tag `arch-v1.0`
+
+> *(Folded in from the former Epic 0.6, Story 0.6.1 — SCP 2026-08-25d. Content unchanged, only the id.)*
+
+As a **platform engineer**,
+I want the architecture set and the agent-rules pack published in `ctam-architecture` and tagged,
+So that **every service repo can pin exactly one version of shared truth** as a submodule, and adopt a newer one only by a deliberate, auditable bump.
+
+**Acceptance Criteria:**
+
+**Given** the canonical architecture lives in `ctam-analysis/_bmad-output/planning-artifacts/`,
+**When** `ctam-analysis/scripts/publish-arch.sh` is run,
+**Then** `architecture.md`, `architecture-summary.md`, `prd.md` and every `architecture/*.md` shard are copied into `ctam-architecture`,
+**And** `architecture/PUBLISHED.md` states that those files are a mirror and must never be hand-edited,
+**And** the script performs no version-control operations of its own.
+
+**Given** the published payload plus the authored `agent-rules/` pack are on `main`,
+**When** the release is tagged,
+**Then** an annotated tag `arch-v1.0` exists on `ctam-architecture`,
+**And** the tag is pushed and readable by `git ls-remote --tags`,
+**And** tagging was performed by a human — a Claude session cannot create tags (agent-rules R13).
+
+**Given** a service repo needs shared truth,
+**When** it adds `ctam-architecture` as a submodule at `_arch/` and checks out `arch-v1.0`,
+**Then** `_arch/agent-rules/00-core.md` and `_arch/architecture/conventions.md` both resolve,
+**And** the pinned version is recorded in the repo's `CLAUDE.md` and in each story packet's `bus_version`.
+
+**Given** a convention later changes,
+**When** the change is published,
+**Then** it is a new tag (`arch-v(N+1)`) plus a deliberate submodule bump in each adopting repo — the bus never mutates a downstream repo silently.
+
+**References:** FR8; NFR40; AR2; `architecture/delivery-operating-model.md` (Decision 1, the bus-pinning rule); `architecture/repo-structure.md` (the `ctam-architecture` tree).
+
+---
+
+## Story 0.0.7: Shared `ctam_configuration_values` Liquibase baseline with per-service SELECT grants
+
+> *(Folded in from the former Epic 0.6, Story 0.6.2 — SCP 2026-08-25d. Content unchanged, only the id.)*
+
+As a **service developer**,
+I want one shared, typed table of cross-service runtime policy values that my service can read but not write,
+So that policy visible to several services (session-timeout warnings, batch schedules, feature flags) lives in exactly one place, instead of being duplicated per service or hard-coded.
+
+**Acceptance Criteria:**
+
+**Given** the shared PostgreSQL instance from this epic exists (Story 0.0.3),
+**And** the engineer adds `ctam-architecture`'s Liquibase **baseline** changelog,
+**When** Liquibase applies it,
+**Then** `ctam_configuration_values` exists in the shared schema,
+**And** it holds **typed** policy values — a key, a value, and the value's type — with `id uuid` primary key and `created_at` / `updated_at timestamptz NOT NULL`, per `conventions.md` → *Naming Patterns*,
+**And** no column beyond that minimal shape is added without a cited need (agent-rules R6),
+**And** the table is documented as **shared infrastructure with no owning service** in `architecture/data-tables.md`.
+
+**Given** the table exists,
+**When** DB roles are granted,
+**Then** every service role holds `SELECT` on it,
+**And** **no service role holds INSERT, UPDATE or DELETE** — writes are DBA-only in MVP,
+**And** the grants are codified in `ctam-architecture`'s changelog, not applied by hand (per `gaps.md` G6.4).
+
+**Given** a service reads a policy value,
+**When** it does so,
+**Then** it reads via JPA against the shared schema — there is no configuration client or service to call,
+**And** the value is treated as policy, never as a secret: secrets remain in Azure Key Vault (NFR16).
+
+**Given** an integration test runs,
+**When** the baseline changelog is applied to an empty database via Testcontainers,
+**Then** the table and its grants are created from scratch and asserted — proving the changelog, not the developer's local database (agent-rules P6).
+
+**References:** FR8; NFR16; `architecture/data-tables.md` (shared-infrastructure row); `architecture/conventions.md` → *Naming Patterns*; `gaps.md` G6.4 (grant maintenance).
+
+**Explicitly NOT in scope:**
+- Any write path, UI or API for configuration values — post-MVP[^d10]
+- Per-service configuration, which stays in Spring profiles + `application.yml` + Key Vault (FR8 revised v2.2)
 
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.

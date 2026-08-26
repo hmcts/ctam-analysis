@@ -46,7 +46,7 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 
 | Phase | Folder | Status |
 |---|---|---|
-| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 6 epics, 19 stories |
+| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 5 epics, 19 stories (narrowed 2026-08-25d — auth/notification/MRD/bootstrap removed; Epic 0.1 expanded 2 → 4 stories 2026-08-25j — schema design-rigor pass) |
 | **1** — JOH | _to be storied_ | ⚪ Framework only |
 | **2** — Absence | _to be storied_ | ⚪ Framework only |
 | **3** — Vacancy | _to be storied_ | ⚪ Framework only |

@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-24 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-24">Sprint Change Proposal — 2026-08-24</h1>
+<p>This file consolidates <strong>3 Sprint Change Proposals</strong> made on <strong>2026-08-24</strong> into one file (previously separate files: <code>sprint-change-proposal-2026-08-24.md#sprint-change-proposal-2026-08-24</code>, <code>sprint-change-proposal-2026-08-24.md#sprint-change-proposal-2026-08-24b</code>, <code>sprint-change-proposal-2026-08-24.md#sprint-change-proposal-2026-08-24c</code>). Each entry below is preserved verbatim from its original file — only frontmatter, heading levels, and the file boundary changed.</p>
+<details class="section" id="index"><summary><span class="section-title">Index</span></summary><div class="section-body">
+<ul>
+<li><a href="#sprint-change-proposal-2026-08-24">Sprint Change Proposal — 2026-08-24</a></li>
+<li><a href="#sprint-change-proposal-2026-08-24b">Sprint Change Proposal — 2026-08-24b</a></li>
+<li><a href="#sprint-change-proposal-2026-08-24c">Sprint Change Proposal — 2026-08-24c</a></li>
+</ul>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-24-1"><summary><span class="section-title">Sprint Change Proposal — 2026-08-24</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> <em>"We don't have real APIs to consume the data from JOH. We are building a mock API with mock data for consumption."</em> — evidenced by <code>/Users/shivakumar/MOJ/ctam-jomockapi</code>, an already-implemented Node/Express mock of the <strong>Judiciary "E-links" People API v5</strong>, built directly from the real <code>Swagger UI.pdf</code> + <code>apiresponses.docx</code> and populated from the real <code>ReferenceData/*.csv|json</code> exports.</p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> Moderate (backlog reorganisation — new epic + story amendment + architecture-shard updates; no PRD/MVP change).</p>
+<hr />
+<h3 id="1-issue-summary">1. Issue Summary</h3>
+<p>Phase 0's foundational data layer (Epic 0.1, <code>ctam-reference-data</code>) is built on an <strong>unconfirmed external dependency</strong>: the JOH eLinks API contract (gaps.md <strong>G8.1</strong>, business-case.md risk #1, "Med/High"). The existing mitigation on record is thin — Story 0.1.3's AC and the 2026-06-17 implementation-readiness report both point to <em>"the sync code path is integration-tested against a WireMock/stub eLinks API in CI"</em> (AR52-referenced). That mitigation is CI-test-only: it proves the sync <em>code path</em> compiles and runs against a canned response, but nothing in the current plan lets the real <code>@Scheduled</code> nightly sync job run <strong>end-to-end against a live network endpoint</strong> in dev or staging, and nothing gives Phase 0 a demoable ingestion walkthrough before the real eLinks contract lands.</p>
+<p>That gap has now been closed by work already done outside this repo: <code>ctam-jomockapi</code> is a complete, runnable mock service — not a test fixture — covering the full documented eLinks v5 contract (auth-token behaviour, <code>/people</code> change-feed with <code>updated_since</code>/pagination, <code>/leavers</code>, <code>/deleted</code>, and all 11 <code>/reference_data/:attribute_name</code> vocabularies), seeded with 100 realistic JOH profiles joined against the <strong>real</strong> production reference-data exports (2000 locations, 1462 base locations, 194 appointment titles, 164 judiciary roles, 159 tickets, 54 ticket categories, etc.), with a fixed random seed for stable ids across restarts.</p>
+<p><strong>This is a legitimate correct-course trigger, not a scope change:</strong> it doesn't alter any FR/NFR, PRD goal, or the eventual need to confirm the real eLinks contract (G8.1 stays open). It upgrades the <em>interim substitute</em> for that contract from "CI-only WireMock stub" to "a deployed, schema-faithful mock service" — which was already the plan's own stated mitigation pattern (business-case.md: <em>"Build against a WireMock stub now; contract gates production cutover only"</em>), just not yet reflected as a repo, an epic, or a deployment target in the tracked artifacts.</p>
+<h3 id="2-impact-analysis">2. Impact Analysis</h3>
+<h4 id="epic-impact">Epic impact</h4>
+<ul>
+<li><strong>Epic 0.1</strong> (<code>epics/phase-0/epic-0.1-upstream-reference-data-ingested.md</code>) is <strong>not invalidated</strong> — it proceeds as planned. <strong>Story 0.1.3</strong> gains one new AC block: the dev/staging nightly sync points at the deployed <code>ctam-jomockapi</code> endpoint (config-driven base URL + Key-Vault-held bearer token, mirroring the real eLinks credential wiring per NFR16) rather than <code>localhost</code>; the existing CI WireMock stub (AR52) is retained for pure unit/integration tests — the two are complementary, not a replacement of one by the other.</li>
+<li><strong>New Epic 0.7</strong> is added: <em>"JOH eLinks mock API stands in for the unconfirmed upstream contract."</em> It onboards <code>ctam-jomockapi</code> as a CTAM Pathfinder repo, deploys it onto the shared estate (Epic 0.0), and hands <code>ctam-reference-data</code> a live URL to sync against. It is <strong>not numbered 0.1a / inserted mid-sequence</strong> — following the Epic 0.6 precedent ("the number is not the order"; see <code>depends_on</code>), it runs in parallel with / shortly after Epic 0.0 and ahead of Story 0.1.3's dev-verification AC.</li>
+<li>No other Phase 0 epic (0.0, 0.2–0.6) changes. No Phase 1–8 epic is affected (none exist yet beyond framework-level prose).</li>
+</ul>
+<h4 id="story-impact">Story impact</h4>
+<ul>
+<li><strong>Story 0.1.3</strong> — amended AC (see §4).</li>
+<li><strong>New Stories 0.7.1–0.7.3</strong> — repo onboarding, dev/staging deployment, and the wiring-in of Story 0.1.3's sync against it.</li>
+</ul>
+<h4 id="artifact-conflicts--updates-needed">Artifact conflicts / updates needed</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Conflict</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td>States "16 repos total"; <code>ctam-jomockapi</code> isn't listed</td>
+<td>Add repo row; 16 → 17</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code> (G8.1)</td>
+<td>Silent on the mock's existence</td>
+<td>Append dated note: mock unblocks <em>dev</em>, contract confirmation still gates <em>production</em></td>
+</tr>
+<tr>
+<td><code>architecture/assumptions.md</code></td>
+<td>No assumption records the mock</td>
+<td>Add <strong>A38</strong>, mirroring the <code>ctam-mock-auth</code> precedent (A26/A27: non-prod only, contract parity claim scoped)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code> (decision log)</td>
+<td>No record of this decision</td>
+<td>Add <strong>decision #14</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>No entry</td>
+<td>Add <strong>v4.9</strong></td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code> (Phase 0 · Area: Reference Data)</td>
+<td>Ingestion narrative doesn't mention a dev/staging network target</td>
+<td>One-sentence addition</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code> / <code>architecture/non-functional-requirements-coverage.md</code> (NFR24)</td>
+<td>Coverage row doesn't cite Epic 0.7</td>
+<td>Add cross-reference</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Epic table, summaries, story counts (19 → 22)</td>
+<td>Add Epic 0.7 row + summary</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.1-...md</code></td>
+<td><code>depends_on</code> frontmatter unchanged; Story 0.1.3 AC</td>
+<td>Add AC block; no <code>depends_on</code> change (see below)</td>
+</tr>
+<tr>
+<td><code>CLAUDE.md</code></td>
+<td>"16-repo polyrepo" repo list</td>
+<td>16 → 17; add <code>ctam-jomockapi</code></td>
+</tr>
+<tr>
+<td><code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></td>
+<td>No epic-0.7 entries</td>
+<td>Add epic-0.7 + 3 stories, <code>backlog</code></td>
+</tr>
+<tr>
+<td><code>docs/*.html</code></td>
+<td>Generated from the above</td>
+<td>Regenerate via <code>scripts/build-html.sh</code> after all edits land</td>
+</tr>
+</tbody>
+</table>
+<p><strong>No PRD, UX, or FR/NFR change.</strong> No change to <code>data-tables.md</code> (no new persisted table — the mock is external infrastructure, not a CTAM-owned schema) or to <code>conventions.md</code> (the deviation is scoped and justified inline, not a house-wide rule change).</p>
+<p><strong>On <code>depends_on</code>:</strong> Epic 0.1's frontmatter is <strong>left unchanged</strong> (<code>[epic-0.0, epic-0.6]</code>). Making the whole of Epic 0.1 depend on Epic 0.7 would block Stories 0.1.1 (scaffold) and 0.1.2 (tier-(a) tables) on a repo-onboarding epic they don't need — <code>depends_on</code> in this codebase is epic-granularity only (<code>scripts/dispatch-preflight.sh</code> gates the <em>whole</em> epic on it), so a hard dependency here would be needlessly coarse. Story 0.1.3's new AC instead carries the sequencing note inline — the same pattern already used for its existing G8.1/AR52 callouts. Epic 0.7 itself depends only on <code>epic-0.0</code> (needs the shared estate to deploy onto).</p>
+<h4 id="technical-impact">Technical impact</h4>
+<ul>
+<li><code>ctam-jomockapi</code> is Node.js/Express — a <strong>deliberate, explicitly-scoped deviation</strong> from the Java 25/Spring Boot 4 stack baseline in <code>_bmad-output/project-context.md</code>. Justification: it delivers no FR/NFR, is never deployed to production, and is not a CTAM Pathfinder domain service — the same category of exception the repository strategy already grants <code>ctam-mock-auth</code> (non-prod-only, contract-parity tooling, distinct lifecycle from the 15 production/UI repos). It is <strong>not</strong> rewritten in Java; the existing implementation is onboarded as-is.</li>
+<li>Deploying it onto the shared AKS estate needs: a minimal Helm chart, a Key-Vault-held mock bearer credential (the mock accepts any non-empty token — Key Vault storage is for wiring-realism/parity with the real eLinks credential path, not because the mock enforces anything), and a <code>values-{env}.yaml</code> exposing its base URL to <code>ctam-reference-data</code>'s config.</li>
+<li>No database, no Liquibase, no tier-ownership — the mock generates its dataset in-memory at startup with a fixed seed; nothing to migrate or grant.</li>
+</ul>
+<h3 id="3-recommended-approach">3. Recommended Approach</h3>
+<p><strong>Selected: Option 1 — Direct Adjustment</strong> (new epic + one story's AC amended within the existing Phase 0 structure).</p>
+<ul>
+<li><strong>Option 2 (rollback)</strong> — not viable/not applicable: no Epic 0.1 stories are built yet (all <code>backlog</code> in <code>sprint-status.yaml</code>); there is nothing to roll back.</li>
+<li><strong>Option 3 (MVP review)</strong> — not needed: no FR/NFR/PRD goal is affected; this closes an execution risk the plan already flagged (business-case.md risk #1), it doesn't reopen it.</li>
+<li><strong>Option 1</strong> fits cleanly: the architecture already has a precedent shape for exactly this kind of repo (<code>ctam-mock-auth</code> — non-prod mock, own epic-adjacent story, deployed onto the shared estate, explicit "never production" guard). Epic 0.7 reuses that shape for the JOH eLinks side.</li>
+</ul>
+<p><strong>Effort:</strong> Low–Medium. Three small stories (repo onboarding, Helm/deploy, wiring), no new production code path, no schema change. <strong>Risk:</strong> Low. The mock is additive infrastructure; if it were deleted tomorrow, Story 0.1.3 falls back to exactly today's plan (CI WireMock stub + real contract when it lands). <strong>Timeline impact:</strong> Positive — it <em>de-risks</em> Epic 0.1's dev/staging demo readiness ahead of the ET-cohort implementation-readiness assessment, rather than adding to the critical path (Epic 0.7 can run alongside Epic 0.0/0.6).</p>
+<h3 id="4-detailed-change-proposals">4. Detailed Change Proposals</h3>
+<h4 id="41-new-file--epicsphase-0epic-07-joh-elinks-mock-api-stands-inmd">4.1 New file — <code>epics/phase-0/epic-0.7-joh-elinks-mock-api-stands-in.md</code></h4>
+<pre class="markdown"><code>---
+type: &#39;Epic&#39;
+description: &#39;User outcome: ctam-reference-data&#39;&quot;&#39;&quot;&#39;s nightly eLinks sync runs end-to-end against a deployed, schema-faithful mock of the JOH eLinks People API v5, so Phase 0 has a demoable ingestion pipeline in dev/staging before the real eLinks contract (gaps.md G8.1) is confirmed.&#39;
+resource: &#39;epics/phase-0/epic-0.7-joh-elinks-mock-api-stands-in.html&#39;
+tags: [ctam-pathfinder, epics, phase-0]
+timestamp: &#39;2026-08-24&#39;
+parent: &#39;epics/phase-0/index.md&#39;
+epic: 0.7
+title: &#39;JOH eLinks mock API stands in for the unconfirmed upstream contract&#39;
+storyCount: 3
+repo: ctam-jomockapi
+depends_on: [epic-0.0]
+---
+
+# Epic 0.7: JOH eLinks mock API stands in for the unconfirmed upstream contract
+
+**User outcome:** `ctam-reference-data`&#39;s nightly JOH eLinks sync (Story 0.1.3) runs **end-to-end against a live, deployed mock** of the eLinks People API v5 — not just a CI-only WireMock stub — so Phase 0 has a genuine, demoable ingestion pipeline in dev/staging while the real eLinks API contract remains unconfirmed (gaps.md G8.1). `ctam-jomockapi` is onboarded as CTAM Pathfinder&#39;s 17th repo, non-production-only, in the same category as `ctam-mock-auth` (repository-strategy.md).
+
+**Hosting:** `ctam-jomockapi` is a standalone Node.js/Express service — an explicitly-scoped deviation from the Java/Spring Boot stack baseline (see gaps.md / assumptions.md A38), justified because it delivers no FR/NFR and never deploys to production. It deploys onto the shared estate provisioned in Epic 0.0, alongside `ctam-mock-auth`.
+
+**Vertical slice:**
+- Onboard the existing `ctam-jomockapi` codebase as a CTAM Pathfinder GitHub repo, per the manual GitHub-setup runbook (D10 — no `gh` CLI)
+- CI: run its existing test suite (`npm test`), build + push a container image to ACR
+- A minimal Helm chart deploying it to dev/staging AKS, fronted by the shared APIM gateway
+- A Key-Vault-held mock bearer credential, wired the same way the real eLinks credential will be (NFR16) — the mock itself accepts any non-empty token, so this exercises the *wiring*, not an auth check
+- `ctam-reference-data`&#39;s eLinks sync (Story 0.1.3) points its dev/staging base URL at the deployed mock instead of `localhost`
+
+**FRs covered:** none directly (infrastructure/tooling, not a product feature). **Supports:** FR1, FR6 tier-(a), FR7 tier-(a), NFR24 (exercised end-to-end pre-contract).
+
+**Key NFRs first exercised here:** NFR16 (Key Vault credential wiring, dev/staging), NFR31 (Azure UK South), NFR40 (per-service deployable).
+
+**Out of scope (explicitly):**
+- The real JOH eLinks API contract (gaps.md G8.1 remains open until Judicial Office confirms it; production cutover is gated on that, not on this epic)
+- MRD ingestion (Story 0.1.4) — the mock covers eLinks only, not MRD&#39;s Excel feed
+- Rewriting `ctam-jomockapi` in Java/Spring — it stays Node/Express as already built
+- Production deployment of `ctam-jomockapi` — never (same guard as `ctam-mock-auth`, A27-equivalent)
+
+---
+
+## Story 0.7.1: Onboard `ctam-jomockapi` as a CTAM Pathfinder repo
+
+As a **platform engineer**,
+I want the existing `ctam-jomockapi` codebase onboarded as a CTAM Pathfinder GitHub repo with CI wired to its existing test suite,
+So that **the mock is a tracked, reviewable, CI-gated artifact like every other repo in the polyrepo**, not an out-of-band local tool.
+
+**Acceptance Criteria:**
+
+**Given** the engineer has performed the GitHub manual-setup checklist (`ctam-architecture/runbooks/github-setup.md`),
+**When** `ctam-jomockapi`&#39;s existing code (README, `server.js`, `src/`, `test/`, `package.json`, `ReferenceData/*.csv|json`, `Swagger UI.pdf`, `apiresponses.docx`) is pushed to a new private repo under the HMCTS org via a feature branch and PR (no `gh` CLI, per D10),
+**Then** branch protection on `main` is enabled (require PR review, require status checks, require linear history),
+**And** `.github/workflows/ci.yml` runs `npm install &amp;&amp; npm test` plus a container build (`docker build`),
+**And** `CODEOWNERS` and `PULL_REQUEST_TEMPLATE.md` exist per CTAM convention.
+
+**Given** the onboarded repo,
+**When** a CI run completes on the PR,
+**Then** the existing test suite (`test/`) passes,
+**And** the container image builds and is pushed to ACR on merge to `main`.
+
+**Given** this is a non-production-only mock,
+**When** the Helm values / CI workflow are authored,
+**Then** there is **no** `deploy-production.yml` and **no** production Helm values file — mirroring `ctam-mock-auth`&#39;s &quot;never deployed to production&quot; guard.
+
+**References:** repository-strategy.md (new row); D10; **depends on Epic 0.0** is NOT required for this story (no deployment yet — Story 0.7.2 needs the estate).
+
+**Explicitly NOT in scope:**
+- Deployment to any environment — Story 0.7.2
+- Any change to the mock&#39;s existing endpoint behaviour, seeded data, or auth handling
+
+---
+
+## Story 0.7.2: Deploy `ctam-jomockapi` onto the shared dev/staging estate
+
+As a **platform engineer**,
+I want `ctam-jomockapi` deployed onto the shared Azure estate (Epic 0.0) in dev and staging, with its mock bearer credential held in Key Vault,
+So that **it is reachable over the network by `ctam-reference-data`&#39;s scheduled sync job**, not just runnable locally via `npm start`.
+
+**Acceptance Criteria:**
+
+**Given** `ctam-jomockapi` is onboarded per Story 0.7.1, and the shared estate (AKS, ACR, Key Vault, APIM) is provisioned and verified per Epic 0.0,
+**When** a Helm chart (`charts/ctam-jomockapi/` with `values-dev.yaml` / `values-staging.yaml`) is deployed,
+**Then** the service runs as a pod in the dev AKS cluster, reachable at a stable in-cluster/APIM-fronted URL,
+**And** liveness/readiness probes pass against `GET /api/v5/healthcheck` (public, no auth, per the mock&#39;s existing contract),
+**And** the deployed pod&#39;s logs confirm the mock data was generated with the documented fixed seed (ids stable across restarts).
+
+**Given** the mock requires a bearer token (any non-empty value, per its existing auth behaviour),
+**When** a mock credential is provisioned in the shared Key Vault (namespaced to `ctam-jomockapi`, separate from the real eLinks credential slot reserved for `ctam-reference-data`),
+**Then** the credential round-trips from a pod via workload identity (same pattern as Epic 0.0&#39;s Key Vault verification),
+**And** no production Key Vault namespace or profile is created for this credential (non-prod only).
+
+**Given** the deployed mock,
+**When** an engineer curls `GET /api/v5/reference_data/jurisdictions` with the Key-Vault-sourced token from within the dev cluster,
+**Then** the response matches the documented `ReferenceDataResponse` shape and returns the real jurisdiction reference values.
+
+**References:** NFR16 (Key Vault), NFR31 (UK South), NFR40 (per-service deployable); depends on Epic 0.0.
+
+**Explicitly NOT in scope:**
+- Wiring `ctam-reference-data`&#39;s sync to this URL — Story 0.7.3
+- Production deployment — never, per this epic&#39;s out-of-scope note
+
+---
+
+## Story 0.7.3: `ctam-reference-data`&#39;s eLinks sync runs against the deployed mock in dev/staging
+
+As a **CTAM Pathfinder platform** (and every downstream consumer of JOH identity and reference data),
+I want Story 0.1.3&#39;s nightly `@Scheduled` eLinks sync to run, in dev and staging, against the `ctam-jomockapi` URL deployed in Story 0.7.2,
+So that **the full ingestion pipeline — full-refresh-upsert, `ctam_joh_identities` minting, soft-deactivation of records absent upstream, `ctam_sync_status` logging — is demoable end-to-end before the real eLinks contract (G8.1) is confirmed.**
+
+**Acceptance Criteria:**
+
+**Given** `ctam-jomockapi` is deployed per Story 0.7.2, and the Key Vault credential is available to `ctam-reference-data`&#39;s pod,
+**When** `ctam-reference-data`&#39;s dev/staging configuration sets the eLinks base URL to the deployed mock&#39;s URL instead of any placeholder/localhost value,
+**Then** the nightly (and manually-triggered) sync run in Story 0.1.3 completes successfully against it,
+**And** all 15 `jo_*` tables populate from the mock&#39;s `/people` change-feed and `/reference_data/*` responses,
+**And** `jo_people.personnel_number` upserts correctly and mints `ctam_joh_identities` rows exactly as designed for a real upstream source.
+
+**Given** the mock&#39;s `/leavers` and `/deleted` endpoints (100 records each, independent of the 100 `/people` profiles),
+**When** the sync&#39;s soft-deactivation logic (rows absent upstream marked inactive, never hard-deleted, per AR46) is exercised against them,
+**Then** the behaviour is verified against realistic leaver/deleted data — something the CI WireMock stub&#39;s canned fixtures don&#39;t exercise as thoroughly.
+
+**Given** the CI-only WireMock/stub eLinks API (AR52) used by `ctam-reference-data`&#39;s automated tests,
+**When** this story lands,
+**Then** the WireMock stub is **retained unchanged** for unit/integration tests — it and the deployed `ctam-jomockapi` are complementary (fast, hermetic CI checks vs. a realistic dev/staging network target), not a replacement of one by the other.
+
+**Given** the real JOH eLinks API contract is still unconfirmed (gaps.md G8.1),
+**When** this story&#39;s ACs are met,
+**Then** G8.1 is **not** closed by this story — it remains open until Judicial Office confirms the real contract and it is validated against the (by-then-live) ingestion mapping; this story closes the *dev/staging demonstrability* gap only, not the *contract-confirmation* gap.
+
+**References:** FR1, FR6 tier-(a), NFR24; gaps.md G8.1 (stays open); AR46, AR48, AR52; depends on Story 0.1.3 and Story 0.7.2.
+
+**Explicitly NOT in scope:**
+- Closing G8.1 — that needs the real contract from Judicial Office
+- MRD ingestion (Story 0.1.4) — unaffected, no mock exists or is needed for MRD in this SCP</code></pre>
+<h4 id="42-epicsphase-0epic-01-upstream-reference-data-ingestedmd--story-013-amendment">4.2 <code>epics/phase-0/epic-0.1-upstream-reference-data-ingested.md</code> — Story 0.1.3 amendment</h4>
+<p><strong>OLD</strong> (Story 0.1.3, third <code>Given/When/Then</code> block):</p>
+<pre><code>**Given** the sync has run successfully at least once in dev,
+**When** `ctam-authorisation` (Epic 0.2, Story 0.2.3) looks up a seeded JOH email,
+**Then** the lookup resolves against `jo_people` to a `personnel_number`, and via `ctam_joh_identities` to the CTAM JOH UUID,
+**And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).</code></pre>
+<p><strong>NEW</strong> (adds a sentence + a new block immediately after):</p>
+<pre><code>**Given** the sync has run successfully at least once in dev,
+**When** `ctam-authorisation` (Epic 0.2, Story 0.2.3) looks up a seeded JOH email,
+**Then** the lookup resolves against `jo_people` to a `personnel_number`, and via `ctam_joh_identities` to the CTAM JOH UUID,
+**And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).
+
+**Given** the JOH eLinks mock API (`ctam-jomockapi`, Epic 0.7) is deployed to dev/staging,
+**When** the sync&#39;s dev/staging base URL is configured to point at it,
+**Then** the nightly sync runs end-to-end against a live network endpoint modelling the real eLinks contract — not just the CI WireMock stub — giving Phase 0 a demoable ingestion pipeline ahead of the real contract landing (per Epic 0.7, Story 0.7.3).</code></pre>
+<p><strong>References line</strong> — append <code>; Epic 0.7</code> after <code>gaps.md G8.1</code>.</p>
+<h4 id="43-architecturerepository-strategymd">4.3 <code>architecture/repository-strategy.md</code></h4>
+<ul>
+<li><p>Line 1 decision statement: <code>11 service repos + 1 mock-auth repo + 1 JOH-mock repo + 2 UI repos (business + admin) + 1 architecture/scaffolding repo.</code> (frontmatter <code>description</code> and body).</p></li>
+<li><p>New table row, inserted after <code>ctam-mock-auth</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Phase</th>
+<th>Purpose</th>
+<th>Key Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>ctam-jomockapi</code></strong></td>
+<td>0</td>
+<td>Node.js/Express mock of the <strong>JOH eLinks People API v5</strong>, standing in for the unconfirmed upstream contract (gaps.md G8.1). <strong>Never deployed to production.</strong></td>
+<td>Serve the documented eLinks v5 contract (people change-feed, leavers, deleted, 11 reference-data vocabularies) from realistic seeded data joined against real production reference-data exports; give <code>ctam-reference-data</code>'s dev/staging eLinks sync a live network target (Epic 0.7).</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Closing summary line: <code>**16 repos total**</code> → <code>**17 repos total** (11 production services + 2 UI + architecture + mock-auth + JOH-mock + shared-infrastructure). ... \</code>ctam-jomockapi` is dev/staging/CI-only and never deploys to production, in the same category as `ctam-mock-auth`.`</p></li>
+</ul>
+<h4 id="44-architecturegapsmd--g81-append-dont-rewrite-the-row">4.4 <code>architecture/gaps.md</code> — G8.1 (append, don't rewrite the row)</h4>
+<p>Append to the end of the G8.1 <strong>Detail</strong> cell:</p>
+<blockquote>
+<p><strong>Mock unblock added 2026-08-24 (SCP 2026-08-24):</strong> a schema-faithful mock of the eLinks People API v5 (<code>ctam-jomockapi</code>, built directly from the real Swagger doc + example-response docs, seeded from real reference-data exports) is now deployed to dev/staging (Epic 0.7) so Phase 0's ingestion pipeline is demoable end-to-end without waiting on this gap. <strong>This does not close G8.1</strong> — the mock is built from documentation, not a confirmed live contract, and production cutover still requires the real contract to be confirmed and the ingestion mapping validated against it.</p>
+</blockquote>
+<h4 id="45-architectureassumptionsmd">4.5 <code>architecture/assumptions.md</code></h4>
+<p>New row (title becomes "Assumptions (A1–A38)"):</p>
+<p>| <strong>A38</strong> <em>(new 2026-08-24, SCP 2026-08-24)</em> | <code>ctam-jomockapi</code> provides a schema-faithful mock of the JOH eLinks People API v5 (built from the real Swagger doc + <code>apiresponses.docx</code>, seeded from real reference-data exports) for Phase 0 dev/staging/CI consumption. It is <strong>not</strong> a confirmation of the real contract — mirrors A26/A27's mock-auth pattern: non-production only, contract-parity claim is scoped to what the public docs describe, and real-contract confirmation (G8.1) still gates production cutover. | Load-bearing <strong>for Phase 0 dev/staging demonstrability only</strong> | Epic 0.7 deliverable; enforced by CI/deploy guard (no production Helm values, per Story 0.7.1) |</p>
+<h4 id="46-architecturemd--decision-log">4.6 <code>architecture.md</code> — decision log</h4>
+<p>New row after #13:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>TBD</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>14</td>
+<td>Interim substitute for the unconfirmed JOH eLinks contract <em>(SCP 2026-08-24)</em></td>
+<td><strong>A deployed, schema-faithful mock — <code>ctam-jomockapi</code> (17 repos total)</strong> — replaces "CI-only WireMock stub" as Phase 0's dev/staging demonstrability story, without closing G8.1. Onboarded as a new Epic 0.7, in the same non-production-only category as <code>ctam-mock-auth</code> (repository-strategy.md). Story 0.1.3 gains one AC block pointing its dev/staging sync target at the deployed mock; the existing CI WireMock stub is retained unchanged. See <a href="sprint-change-proposal-2026-08-24.html#sprint-change-proposal-2026-08-24"><code>./sprint-change-proposal-2026-08-24.md#sprint-change-proposal-2026-08-24</code></a>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="47-architecturechangelogmd">4.7 <code>architecture/changelog.md</code></h4>
+<p>New version row:</p>
+<p>| <strong>v4.9 — JOH eLinks mock API (<code>ctam-jomockapi</code>) onboarded as Epic 0.7</strong> | 2026-08-24 | <strong>Additive, no FR/NFR/PRD change.</strong> Adds a 17th repo, <code>ctam-jomockapi</code> (Node/Express, non-production-only — same category as <code>ctam-mock-auth</code>), giving <code>ctam-reference-data</code>'s eLinks sync (Story 0.1.3) a deployed, schema-faithful dev/staging network target while the real eLinks contract (G8.1) remains unconfirmed. G8.1 is <strong>not closed</strong> by this change. See <a href="../sprint-change-proposal-2026-08-24.md#sprint-change-proposal-2026-08-24"><code>../sprint-change-proposal-2026-08-24.md#sprint-change-proposal-2026-08-24</code></a>. | <code>repository-strategy.md</code>, <code>gaps.md</code> (G8.1), <code>assumptions.md</code> (A38), decision log (#14), <code>epics/phase-0/epic-0.1-...md</code> (Story 0.1.3), new <code>epics/phase-0/epic-0.7-...md</code> |</p>
+<h4 id="48-epicsframeworkmd--phase-0--area-reference-data">4.8 <code>epics/framework.md</code> — Phase 0 · Area: Reference Data</h4>
+<p>Append one sentence to the existing "Ingestion" paragraph: <em>"A deployed, schema-faithful mock of the eLinks API (<code>ctam-jomockapi</code>, Epic 0.7) gives the dev/staging sync a live network target while the real contract (gaps.md G8.1) remains unconfirmed."</em></p>
+<h4 id="49-epicsfr-coverage-mapmd-and-architecturenon-functional-requirements-coveragemd-nfr24">4.9 <code>epics/fr-coverage-map.md</code> and <code>architecture/non-functional-requirements-coverage.md</code> (NFR24)</h4>
+<p>Append <code>; dev/staging demonstrability via Epic 0.7's deployed mock ahead of the real contract</code> to the existing NFR24 rows in both files.</p>
+<h4 id="410-epicsphase-0indexmd">4.10 <code>epics/phase-0/index.md</code></h4>
+<ul>
+<li>Epic table: add a row <code>| [0.7](epic-0.7-joh-elinks-mock-api-stands-in.html) | JOH eLinks mock API stands in for the unconfirmed upstream contract | 3 | 🟡 Planned |</code>; <strong>Total</strong> stories 21 → 24.</li>
+<li>Add an "### Epic 0.7: ..." summary paragraph (mirrors the Epic 0.6 "runs between 0.0 and 0.1 — the number is not the order" framing).</li>
+<li>Phase 0 Epic Stories Summary table: add a <code>0.7</code> row (3 stories); <strong>Total</strong> 19 → 22 stories; update the 0.1 row's demo note to mention the deployed mock.</li>
+</ul>
+<h4 id="411-claudemd">4.11 <code>CLAUDE.md</code></h4>
+<ul>
+<li>"ships as a <strong>16-repo polyrepo</strong>" → "<strong>17-repo polyrepo</strong>"; add <code>ctam-jomockapi</code> to the parenthetical repo list (after <code>ctam-mock-auth</code>, before <code>ctam-reference-data</code>, matching the phase-0 grouping used elsewhere).</li>
+</ul>
+<h4 id="412-_bmad-outputimplementation-artifactssprint-statusyaml">4.12 <code>_bmad-output/implementation-artifacts/sprint-status.yaml</code></h4>
+<p>Append after the <code>epic-0.6</code> block:</p>
+<pre class="yaml"><code>  epic-0.7: backlog
+  0-7-1-onboard-ctam-jomockapi-as-a-ctam-pathfinder-repo: backlog
+  0-7-2-deploy-ctam-jomockapi-onto-the-shared-dev-staging-estate: backlog
+  0-7-3-ctam-reference-data-s-elinks-sync-runs-against-the-deployed-mock-in-dev-staging: backlog
+  epic-0.7-retrospective: optional</code></pre>
+<h4 id="413-regenerate-the-site">4.13 Regenerate the site</h4>
+<p>Run <code>scripts/build-html.sh</code> after all markdown edits land (hard rule — <code>docs/*.html</code> is generated, never hand-edited).</p>
+<h3 id="5-implementation-handoff">5. Implementation Handoff</h3>
+<p><strong>Scope: Moderate</strong> — backlog reorganisation (one new epic + one story's AC amended) plus a coordinated sweep across architecture shards that reference the repo count, G8.1, and the assumptions/decision/changelog ledgers. No PRD rewrite, no FR/NFR change, no re-plan of programme goals — routed as <strong>Product Owner / Developer</strong>, not Product Manager / Architect.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session (Developer agent role)</strong>: apply all edits in §4 directly (they're additive, mechanical, and don't touch <code>main</code> per the protected-branch hook — all writes are to tracked planning-artifact markdown in the working tree), then run <code>scripts/build-html.sh</code> to regenerate <code>docs/</code>.</li>
+<li><strong>Product Owner (human)</strong>: confirm the new Epic 0.7 story numbering doesn't collide with any in-flight dispatch (checked: <code>sprint-status.yaml</code> shows Epic 0.1 fully <code>backlog</code>, so no collision), and decide when <code>ctam-jomockapi</code>'s GitHub-setup runbook step (Story 0.7.1) gets scheduled relative to Epic 0.0.</li>
+<li><strong>Judicial Office / eLinks liaison (unchanged owner)</strong>: G8.1 remains their gate — this SCP does not change who owns confirming the real contract, only what CTAM can demonstrate before it lands.</li>
+</ul>
+<p><strong>Success criteria:</strong> all thirteen artifact edits in §4 land consistently (cross-references resolve, story/epic counts match across <code>index.md</code>, <code>sprint-status.yaml</code>, and the epic files themselves), <code>docs/</code> regenerates cleanly, and G8.1 in <code>gaps.md</code> explicitly still reads as open.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-24b"><summary><span class="section-title">Sprint Change Proposal — 2026-08-24b</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> <em>"we are focusing on joh data as phase-0 update epic-0.1 as joh-reference-data-etl process"</em></p>
+<p><strong>Clarified via two questions before drafting:</strong></p>
+<ol type="1">
+<li><strong>"ETL" meaning</strong> → <strong>Rename/reframe only.</strong> The technical design (in-process nightly <code>@Scheduled</code> sync, decision #9 in <code>architecture.md</code>) is unchanged. "ETL" becomes the epic's label for that ongoing pipeline.</li>
+<li><strong>"Focusing on JOH data" scope</strong> → <strong>Split MRD out.</strong> Epic 0.1 becomes JOH-eLinks-only (Stories 0.1.1–0.1.3); MRD ingestion (former Story 0.1.4) moves to a new Epic 0.8.</li>
+</ol>
+<p><strong>Mode:</strong> Batch (carried over from the prior SCP this session). <strong>Scope classification:</strong> Moderate (epic retitle + split, story renumbering, coordinated shard sweep; no PRD/FR/NFR change).</p>
+<p><strong>Note on process:</strong> given the two clarifying answers fully scoped this change, edits below were drafted directly rather than staged separately; nothing is committed to git — this document is the record, and anything here can still be adjusted before that happens.</p>
+<hr />
+<h3 id="1-issue-summary-1">1. Issue Summary</h3>
+<p>Epic 0.1 ("Upstream JOH/MRD reference data is ingested") bundled two upstream integrations — the JOH eLinks API sync (Stories 0.1.1–0.1.3) and the MRD weekly Excel ingestion (Story 0.1.4) — under one epic. The team's near-term focus is JOH data specifically; keeping MRD bundled into the same epic obscures that focus and overstates what "Epic 0.1 done" means (an epic-level <code>depends_on</code> gate, per <code>dispatch-preflight.sh</code>, currently can't distinguish "JOH ETL done" from "JOH ETL done AND MRD done").</p>
+<p>Separately, the team wants Epic 0.1 to carry the "ETL" label for communication clarity. This needs care: "ETL" was <strong>explicitly retired</strong> in this repo (D3, 2026-06-10; gaps.md G4.6) when it referred to the <strong>one-shot legacy APEX-migration tool</strong> — retracted because CTAM Pathfinder does no legacy data migration of any kind. Reusing "ETL" for a <em>different</em>, ongoing thing (the nightly eLinks sync) is fine, but only if clearly distinguished from that retirement, or it silently reopens a settled decision. Both gaps.md (G4.6) and the new epic file now carry that distinction explicitly.</p>
+<h3 id="2-impact-analysis-1">2. Impact Analysis</h3>
+<h4 id="epic-impact-1">Epic impact</h4>
+<ul>
+<li><strong>Epic 0.1</strong> retitled <strong>"JOH Reference-Data ETL Process"</strong>; narrowed to Stories 0.1.1–0.1.3 (JOH eLinks only). <code>depends_on</code> unchanged (<code>[epic-0.0, epic-0.6]</code>).</li>
+<li><strong>New Epic 0.8</strong> ("MRD supplementary reference data is ingested") carries the former Story 0.1.4, renumbered <strong>Story 0.8.1</strong>, content otherwise verbatim. <code>depends_on: [epic-0.0, epic-0.1]</code> — same repo (<code>ctam-reference-data</code>), needs Epic 0.1's scaffold (0.1.1) and tier-(a) write-protection pattern (0.1.2) established first.</li>
+<li>No other epic's scope changes. Epic 0.2 (auth) still depends on Epic 0.1 for <code>jo_people</code> — unaffected, since JOH data (not MRD) is what sign-in needs.</li>
+</ul>
+<h4 id="story-impact-1">Story impact</h4>
+<ul>
+<li>Story 0.1.4 → <strong>Story 0.8.1</strong>, moved wholesale (Acceptance Criteria, references, out-of-scope notes carried over unchanged).</li>
+<li>Stories 0.1.1, 0.1.2, 0.1.3 — cross-references to "Story 0.1.4" updated to "Epic 0.8, Story 0.8.1"; no AC content changed.</li>
+<li>No story is added, removed in substance, or has its acceptance criteria altered — this is a <strong>relabelling + regrouping</strong>, not a scope change.</li>
+</ul>
+<h4 id="artifact-conflicts--updates-needed-1">Artifact conflicts / updates needed</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.1-upstream-reference-data-ingested.md</code></td>
+<td>Retitled "JOH Reference-Data ETL Process"; naming note added (ETL distinction); Story 0.1.4 removed; storyCount 4→3; cross-references fixed</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.8-mrd-supplementary-reference-data-ingested.md</code> <em>(new)</em></td>
+<td>Former Story 0.1.4, now Story 0.8.1, as its own epic; <code>depends_on: [epic-0.0, epic-0.1]</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Epic table (0.1 retitled/3 stories, +0.8/1 story); epic summaries (0.1 rewritten, +0.8); Stories Summary table (0.1/+0.8 rows; <strong>total corrected to 24</strong> — the table previously read 22, an arithmetic carry-over error caught while editing it)</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Reference Data area: ingestion paragraph split by epic; Phase 0 area-table row updated</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>FR6 and NFR24 rows: split JOH (0.1.3) vs MRD (0.8.1)</td>
+</tr>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td>MRD storage Terraform cross-reference updated to Epic 0.8</td>
+</tr>
+<tr>
+<td><code>architecture/non-functional-requirements-coverage.md</code></td>
+<td>NFR24 bullet: JOH → Epic 0.1, MRD → Epic 0.8</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td><code>ctam-reference-data</code> row: MRD storage cross-reference + "JOH eLinks ETL process" phrasing</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code></td>
+<td>Story-packet template's illustrative example (<code>story_id</code>, <code>epic</code>, <code>sprint_status_key</code>) updated from the now-moved <code>0.1.4</code> to <code>0.8.1</code> so the worked example stays accurate</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td>G4.6: terminology note distinguishing reused "ETL" from the retired legacy-migration ETL. G8.1: epic-split cross-reference (JOH→0.1, MRD→0.8)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>Decision log: new <strong>#15</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.10</strong> entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td><code>0-1-4-...</code> moved out of <code>epic-0.1</code> block into new <code>epic-0.8</code> block as <code>0-8-1-...</code>, status unchanged (<code>backlog</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched (deliberately):</strong> dated historical records — <code>sprint-change-proposal-2026-05-15.md</code>, <code>-2026-06-17.md</code>, <code>-2026-08-20.md</code>, <code>implementation-readiness-report-2026-06-17.md</code>, and the <code>changelog.md</code> v3.1/v4.6/v4.7 entries — all correctly describe the state <em>as of their date</em> and are left as immutable history per this repo's convention. <code>assumptions.md</code> A36/A37 (reference G8.1, not epic numbers — no change needed). No PRD, UX, or FR/NFR change.</p>
+<h4 id="technical-impact-1">Technical impact</h4>
+<p>None. The eLinks sync's implementation (in-process <code>@Scheduled</code>, full-refresh upsert, <code>ctam_sync_status</code> logging) and MRD's implementation (blob poll, validate, upsert, archive) are unchanged — only which epic tracks each, and what Epic 0.1 is called. <code>ctam_sync_status</code> remains a single shared table written by both, now-separately-tracked, processes in the same repo.</p>
+<h3 id="3-recommended-approach-1">3. Recommended Approach</h3>
+<p><strong>Option 1 — Direct Adjustment.</strong> This is a pure backlog reorganisation: retitle one epic, split one story into a sibling epic, sweep cross-references. Nothing is built yet (<code>sprint-status.yaml</code> shows both epics fully <code>backlog</code>), so there's no rollback question (Option 2 doesn't apply) and no MVP/FR impact (Option 3 doesn't apply).</p>
+<p><strong>Effort:</strong> Low. <strong>Risk:</strong> Low — relabelling plus a mechanical cross-reference sweep, verified file-by-file rather than blind find-replace (per this repo's cross-cutting-change convention). <strong>Timeline impact:</strong> None — Epic 0.8's <code>depends_on</code> on Epic 0.1 preserves the same effective build order MRD already had as Story 0.1.4 (it came after 0.1.1–0.1.3 anyway).</p>
+<h3 id="4-detailed-change-proposals-1">4. Detailed Change Proposals</h3>
+<p>All edits are described in full, with before/after text, in the files themselves (this SCP intentionally doesn't re-paste the whole rewritten epic files — see the two epic files directly for the authoritative before/after). Summary of the key renames:</p>
+<ul>
+<li><strong>Epic 0.1</strong>: "Upstream JOH/MRD reference data is ingested" → <strong>"JOH Reference-Data ETL Process"</strong>, 4 stories → 3 (0.1.1–0.1.3).</li>
+<li><strong>Epic 0.8</strong> <em>(new)</em>: "MRD supplementary reference data is ingested", 1 story (0.8.1 — was 0.1.4).</li>
+<li><strong>Decision #15</strong> added to <code>architecture.md</code>'s decision log; <strong>v4.10</strong> added to <code>changelog.md</code>.</li>
+<li><strong>G4.6</strong> (gaps.md) gains a terminology note; <strong>G8.1</strong> gains an epic-split cross-reference.</li>
+<li>Phase 0 totals: <strong>9 epics</strong> (was 8), <strong>24 stories</strong> (unchanged — 3+1 replaces the old 4).</li>
+</ul>
+<h3 id="5-implementation-handoff-1">5. Implementation Handoff</h3>
+<p><strong>Scope: Moderate</strong> — backlog reorganisation (epic retitle + split + renumbering) with a coordinated cross-reference sweep. No PRD rewrite, no FR/NFR change. Routed as <strong>Product Owner / Developer</strong>, not Product Manager / Architect.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits above have been drafted directly in the tracked planning-artifact files (nothing committed). Pending final approval, the next step is <code>scripts/build-html.sh</code> to regenerate <code>docs/</code>.</li>
+<li><strong>Product Owner (human):</strong> confirm no dispatcher has picked up <code>0.1.4</code>/Story 0.8.1 under its old identity outside this control plane (checked: <code>sprint-status.yaml</code> shows it was <code>backlog</code> under <code>epic-0.1</code>, never dispatched).</li>
+</ul>
+<p><strong>Success criteria:</strong> Epic 0.1 and Epic 0.8 files are internally consistent and cross-reference each other correctly; <code>epics/phase-0/index.md</code>'s two summary tables agree on totals (24 stories, 9 epics); <code>docs/</code> regenerates cleanly; no FR/NFR/PRD text changed.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-24c"><summary><span class="section-title">Sprint Change Proposal — 2026-08-24c</span></summary><div class="section-body">
+<p><strong>Status:</strong> proposed</p>
+<p><strong>Trigger:</strong> <em>"create an epic for postgress-sql-schema-design. This is to design and implement the joh schema in postgres sql database"</em></p>
+<p><strong>Clarified via two questions before drafting:</strong></p>
+<ol type="1">
+<li><strong>Which "JOH schema"</strong> → <strong><code>ctam-joh</code>'s own domain schema</strong> — the 5 CTAM-owned overlay tables (working patterns, ticket/location overlays, jurisdictional splits), <em>not</em> the tier-(a) <code>jo_*</code> eLinks tables (already covered by Epic 0.1 Story 0.1.2).</li>
+<li><strong>Scope</strong> → <strong>Schema only</strong> — tables, PKs/FKs, Liquibase changelogs, tier ownership/grants. No working-pattern-generation, overlay-CRUD, or jurisdictional-split-validation <em>business logic</em> — that's later Phase 1 work.</li>
+</ol>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> Moderate — this is the <strong>first Phase 1 epic ever created</strong> (Phase 1 currently has no epics/stories, only a <code>framework.md</code> area description), so it's a bigger step than the Phase-0 backlog edits earlier this session, even though its own content is schema-only.</p>
+<hr />
+<h3 id="1-issue-summary-2">1. Issue Summary</h3>
+<p>Phase 1 (JOH) has never been decomposed into epics — <code>epics/index.md</code>'s phase table lists it as "<em>to be storied</em> / ⚪ Framework only," and <code>architecture/data-tables.md</code> already fully specifies <code>ctam-joh</code>'s 5 domain tables (§"JOH service (<code>ctam-joh</code>) — 5 tables") without any story ever scheduling their creation. The team wants to start Phase 1 with the database schema specifically — design and implement <code>ctam-joh</code>'s own PostgreSQL tables — before building the working-pattern/overlay business logic on top of them, mirroring the pattern Epic 0.1 already used (Story 0.1.2 "tables" landed before Story 0.1.3 "sync logic").</p>
+<p>This SCP creates that one schema-only epic. It does <strong>not</strong> run the full <code>bmad-create-epics-and-stories</code> decomposition for Phase 1 — FR12–FR18's behavioral stories (working-pattern management, forward-sitting generation, overlay CRUD, jurisdictional-split workflow) remain undecomposed and are explicitly out of scope here.</p>
+<h3 id="2-impact-analysis-2">2. Impact Analysis</h3>
+<h4 id="epic-impact-2">Epic impact</h4>
+<ul>
+<li><strong>New Epic 1.1</strong> — "JOH domain schema is designed and implemented in PostgreSQL" (file slug: <code>postgres-sql-schema-design</code>, per the trigger). First epic in a new <code>epics/phase-1/</code> folder.</li>
+<li><strong>Depends on Epic 0.1</strong> (hard dependency: <code>ctam_joh_identities</code> — the FK target for every <code>ctam-joh</code> table's <code>joh_id</code> column — is minted by Epic 0.1's eLinks sync, Story 0.1.3, and its schema is created in Story 0.1.2). Also depends on <strong>Epic 0.0</strong> (shared estate) and <strong>Epic 0.6</strong> (context bus + config baseline), mirroring Epic 0.1's own dependency set for the same reasons (first <code>ctam-joh</code> scaffold needs both).</li>
+<li><strong>Open item flagged, not resolved here:</strong> some of the 5 tables plausibly carry FK columns into tier-(b) vocabulary tables owned by <code>ctam-reference-data</code> (e.g. a working-pattern-type reference into <code>ctam_working_pattern_types</code>, landed in Epic 0.3 Story 0.3.1) — <code>data-tables.md</code> documents the vocabulary tables and their JOH-consumer relationship but not full column-level DDL, so I'm not asserting a hard Epic 0.3 dependency I can't verify. The new epic's schema story instead carries an explicit AC: verify each such FK against <code>data-tables.md</code> and Epic 0.3's landing status at implementation time; raise an architectural PR (same pattern as gaps.md G8.1's "unmapped upstream structure") if a referenced vocabulary table doesn't exist yet.</li>
+<li>No existing epic (0.0–0.8) changes.</li>
+</ul>
+<h4 id="story-impact-2">Story impact</h4>
+<ul>
+<li><strong>New Story 1.1.1</strong> — scaffold <code>ctam-joh</code> from the HMCTS starter (mirrors Story 0.1.1's pattern — first time this repo is scaffolded).</li>
+<li><strong>New Story 1.1.2</strong> — the 5-table domain schema itself, via Liquibase, with tier ownership + grants (mirrors Story 0.1.2's pattern).</li>
+<li>No existing story changes.</li>
+</ul>
+<h4 id="artifact-conflicts--updates-needed-2">Artifact conflicts / updates needed</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-1/index.md</code> <em>(new)</em></td>
+<td>Phase 1 overview — Epic 1.1 only; explicit note that FR12–FR18 behavioral decomposition is still pending</td>
+</tr>
+<tr>
+<td><code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code> <em>(new)</em></td>
+<td>The epic itself — 2 stories</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase-level breakdowns table: Phase 1 row updated from "<em>to be storied</em> / ⚪" to link + partial status</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Phase 1 · Area: JOH Records &amp; Working Patterns — one-sentence cross-reference to Epic 1.1</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>Phases 1–9+ pending table: FR10–FR18 row annotated (schema groundwork landed; behavior still pending) — status stays ⚪, not flipped to ✅</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New version entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td>New <code>epic-1.1</code> block, 2 stories, <code>backlog</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>data-tables.md</code> (already fully specifies these 5 tables — nothing to change, this epic just schedules building what's already documented there). <code>architecture.md</code> decision log (no new architectural decision — the schema design was already fixed by <code>data-tables.md</code>; this is pure backlog scheduling). No PRD, FR/NFR, or UX change.</p>
+<h4 id="technical-impact-2">Technical impact</h4>
+<p>None beyond what's already documented: <code>ctam-joh</code> becomes the second domain service scaffolded (after <code>ctam-reference-data</code>), owns 5 tables with the same conventions as every other domain table (<code>id uuid</code> PK, <code>joh_id</code> FK → <code>ctam_joh_identities.id</code>, <code>created_at</code>/<code>updated_at timestamptz NOT NULL</code>, Liquibase-only DDL, per-service DB role write ownership, ArchUnit grants fitness function). One genuinely open technical question, flagged as a story AC rather than resolved here: <code>ctam_jurisdictional_splits</code>' "must total 100%" constraint (FR16) is a <strong>cross-row</strong> invariant — a plain Postgres <code>CHECK</code> constraint can't express "this JOH's rows sum to 100," so the story requires the implementer to choose (and justify) a trigger, an application-level enforcement, or a materialized total column, rather than silently assuming one.</p>
+<h3 id="3-recommended-approach-2">3. Recommended Approach</h3>
+<p><strong>Option 1 — Direct Adjustment (new epic).</strong> Nothing rolls back (Phase 1 has zero stories today, so Option 2 doesn't apply) and nothing touches MVP scope or FR/NFR text (Option 3 doesn't apply). This is additive: one new epic, schema-only, in a phase that's otherwise still framework-only.</p>
+<p><strong>Effort:</strong> Low–Medium (two stories: a scaffold mirroring an already-proven pattern, and a schema migration against an already-fully-specified table set). <strong>Risk:</strong> Low, with one flagged design question (the 100%-sum constraint) that the story surfaces rather than resolves — appropriate for a schema-only epic to hand to the implementer as a cited open item, not something this SCP should invent an answer for. <strong>Timeline impact:</strong> None on Phase 0; this is the first step of Phase 1 and doesn't block anything currently in flight (all Phase 0 epics still <code>backlog</code>/<code>in-progress</code> per <code>sprint-status.yaml</code>).</p>
+<h3 id="4-detailed-change-proposals-2">4. Detailed Change Proposals</h3>
+<h4 id="41-new-file--epicsphase-1epic-11-postgres-sql-schema-designmd">4.1 New file — <code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code></h4>
+<pre class="markdown"><code>---
+type: &#39;Epic&#39;
+description: &quot;User outcome: ctam-joh&#39;s own PostgreSQL domain schema — 5 tables (working patterns, ticket/location overlays, jurisdictional splits) — is designed and implemented via Liquibase, so later Phase 1 behavioral epics have a schema to build against. Schema only — no business logic.&quot;
+resource: &#39;epics/phase-1/epic-1.1-postgres-sql-schema-design.html&#39;
+tags: [ctam-pathfinder, epics, phase-1]
+timestamp: &#39;2026-08-24&#39;
+parent: &#39;epics/phase-1/index.md&#39;
+epic: 1.1
+title: &#39;JOH domain schema is designed and implemented in PostgreSQL&#39;
+storyCount: 2
+repo: ctam-joh
+depends_on: [epic-0.0, epic-0.1, epic-0.6]
+---
+
+# Epic 1.1: JOH domain schema is designed and implemented in PostgreSQL
+
+**User outcome:** `ctam-joh`&#39;s own PostgreSQL domain schema — the 5 CTAM-owned overlay tables (`ctam_working_patterns`, `ctam_working_pattern_days`, `ctam_joh_ticket`, `ctam_joh_location`, `ctam_jurisdictional_splits` — per `architecture/data-tables.md`) — is designed and implemented via Liquibase, each keyed by `joh_id` → `ctam_joh_identities.id`, so that later Phase 1 epics (working-pattern management, overlay maintenance, jurisdictional-split workflow — FR12, FR15b, FR16, FR17) have a schema to build against. **Schema only** — no business logic, no API, no UI in this epic.
+
+**Hosting:** `ctam-joh` is the **second** domain service scaffolded (after `ctam-reference-data`, Epic 0.1); it deploys onto the shared Azure estate provisioned in **Epic 0.0** and carries only its own per-repo Terraform. This epic does not build `ctam-joh`&#39;s API or any working-pattern/overlay business logic — those are later Phase 1 epics, run via `bmad-create-epics-and-stories` once Phase 1 is fully decomposed.
+
+**Vertical slice:**
+- **Second scaffolded backend service: `ctam-joh`** (HMCTS Crime SpringBoot template + `ctam-scaffold.sh` conventions per AR2–AR4, same pattern as Epic 0.1 Story 0.1.1)
+- **Consumes the shared Azure estate** provisioned in Epic 0.0
+- The 5 domain tables, service-owned Liquibase changelog (AR18–AR20), keyed by `joh_id` → `ctam_joh_identities.id` (Epic 0.1)
+- Tier ownership: only the `ctam_joh` DB role holds INSERT/UPDATE on its own tables; SELECT-granted to `ctam_reference_data` for JOH profile-view composition (per `data-tables.md`&#39;s explicit note)
+
+**FRs covered:** none behaviourally — **schema groundwork only** for FR12 (working patterns), FR15b (ticket overlay), FR16 (jurisdictional split), FR17 (location overlay). Full behavioral coverage is later Phase 1 epics.
+
+**Key NFRs first exercised here (for `ctam-joh`):** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR25–NFR28 (structured logs + observability), NFR31 (Azure UK South), NFR40 (per-service deployable).
+
+**Out of scope (explicitly):** Working-pattern generation / forward-sitting generation (FR13). Ticket/location overlay CRUD business logic. Jurisdictional-split validation workflow. JOH profile *view* composition itself (only the SELECT grant enabling it is this epic&#39;s concern). `ctam-joh`&#39;s REST API. `ctam-ui`&#39;s `joh/` module. All of these are future Phase 1 epics.
+
+---
+
+## Story 1.1.1: Scaffold `ctam-joh` from the HMCTS starter (onto the Epic 0.0 estate)
+
+As a **platform engineer**,
+I want to scaffold `ctam-joh` — the second CTAM Pathfinder backend service — from the HMCTS Crime SpringBoot template using `ctam-scaffold.sh`, and deploy it onto the shared Azure estate provisioned in Epic 0.0,
+So that **the JOH domain schema (Story 1.1.2) has a service to live in**, following the same proven scaffold pattern Epic 0.1 established for `ctam-reference-data`.
+
+**Acceptance Criteria:**
+
+**Given** the engineer has performed the GitHub manual-setup checklist (`ctam-architecture/runbooks/github-setup.md`) **before** running the scaffold (repo `ctam-joh` created via the GitHub web UI; branch protection on `main`; no `gh` CLI, per D10),
+**When** the engineer runs `ctam-scaffold.sh ctam-joh` from `ctam-architecture/scaffolding/`,
+**Then** the script scaffolds a Spring Boot 4.0.x project locally from `https://github.com/hmcts/service-hmcts-crime-springboot-template`, commits, and pushes to the pre-created remote on a feature branch via plain `git`,
+**And** Group ID is `uk.gov.hmcts.ctam`, artefact is `ctam-joh`, base package is `uk.gov.hmcts.ctam.joh`, default port is 8082 (per AR3),
+**And** the same baseline dependency set as every other CTAM service is configured (Liquibase, Testcontainers PostgreSQL, MapStruct, OWASP encoder, docker-compose plugin, OpenAPI tooling, Helm chart, Key Vault, JaCoCo, CycloneDX SBOM — per AR5–AR17),
+**And** a `terraform/` directory exists holding only `ctam-joh`&#39;s own resources (Key Vault namespace) — the shared estate lives in `ctam-shared-infrastructure` (per AR53 revised),
+**And** GitHub Actions workflows, `CODEOWNERS`, `PULL_REQUEST_TEMPLATE.md`, and a Postman collection skeleton exist (per AR28, AR29, AR41).
+
+**Given** the shared Azure estate provisioned and independently verified in Epic 0.0,
+**When** `ctam-joh`&#39;s Helm chart is deployed to the dev AKS cluster,
+**Then** the service reaches the shared cluster, database, registry, gateway, and observability estate (this story **consumes** the estate; it does not provision it),
+**And** `GET /actuator/health` returns `200 OK`, liveness/readiness probes pass, and structured JSON logs with `correlationId` appear (per NFR25, NFR28, AR30, AR32).
+
+**Given** the `ctam-architecture` Liquibase baseline and shared `ctam_configuration_values` table already exist (Epic 0.6),
+**When** `ctam-joh` is scaffolded,
+**Then** its DB role has `SELECT` on `ctam_configuration_values`,
+**And** its own service-owned Liquibase changelog directory exists but is empty (the 5 domain tables are created in Story 1.1.2).
+
+**References:** AR2–AR17, AR23–AR32, AR41, AR53 (revised); D10; depends on Epic 0.0 (shared estate) and Epic 0.6 (context bus + config baseline).
+
+**Explicitly NOT in scope:**
+- The 5 domain tables and tier ownership/grants — Story 1.1.2
+- Any `ctam-joh` API, business logic, or UI — future Phase 1 epics
+
+---
+
+## Story 1.1.2: The 5 `ctam-joh` domain tables are designed and implemented
+
+As a **CTAM Pathfinder platform** (and every future Phase 1 story that builds on this schema),
+I want the 5 CTAM-owned `ctam-joh` overlay tables created via Liquibase, keyed by `joh_id` → `ctam_joh_identities.id`, with tier ownership and cross-service SELECT grants in place,
+So that **later Phase 1 epics (working-pattern management, overlay maintenance, jurisdictional-split workflow) have a correctly-owned schema to build behavior against, and `ctam-reference-data` can compose JOH profile views without a shared code dependency**.
+
+**Acceptance Criteria:**
+
+**Given** `ctam-joh` is scaffolded per Story 1.1.1, and `ctam_joh_identities` exists (Epic 0.1, Story 0.1.2),
+**When** the engineer adds the Liquibase changeset `db/changelog/001-init-joh-domain-tables.sql` (formatted-SQL, included from `db.changelog-master.yaml`),
+**Then** the 5 tables exist per `architecture/data-tables.md`&#39;s &quot;JOH service (`ctam-joh`) — 5 tables&quot; section:
+  - `ctam_working_patterns` — per-JOH working-pattern definition (target sit %, active period; FR12)
+  - `ctam_working_pattern_days` — per-day work-type breakdown within a working pattern (FR12)
+  - `ctam_joh_ticket` — CTAM-overlay tickets layered on the upstream `jo_tickets` set (FR15 layer (b))
+  - `ctam_joh_location` — JOH base-location changes recorded in CTAM, not propagated upstream (FR17)
+  - `ctam_jurisdictional_splits` — per-JOH jurisdictional split percentages (FR16)
+**And** every table has `id uuid PK`, `joh_id uuid` FK → `ctam_joh_identities.id` (never a bare `personnel_number`), and `created_at`/`updated_at timestamptz NOT NULL`, per house convention,
+**And** `ctam_working_pattern_days` FKs to its parent `ctam_working_patterns.id`.
+
+**Given** any of the 5 tables needs a foreign key into a tier-(b) vocabulary table owned by `ctam-reference-data` (e.g. a working-pattern-type reference into `ctam_working_pattern_types`),
+**When** the engineer designs that column,
+**Then** the referenced vocabulary table&#39;s existence and shape is verified against `data-tables.md` and Epic 0.3&#39;s landing status **before** the FK is added — an unmapped or not-yet-landed vocabulary table raises an architectural PR rather than being assumed (cite-or-ask; mirrors gaps.md G8.1&#39;s &quot;unmapped upstream structure raises an architectural PR&quot; pattern).
+
+**Given** `ctam_jurisdictional_splits`&#39; percentages must total 100% per JOH (FR16) — a **cross-row** invariant a single-row Postgres `CHECK` constraint cannot express,
+**When** the engineer designs this table&#39;s enforcement,
+**Then** the chosen mechanism (a trigger, application-level validation, or an equivalent) is explicit and justified in the migration&#39;s accompanying notes — this AC exists precisely so the choice is made deliberately, not defaulted to &quot;no enforcement.&quot;
+
+**Given** the tables are created,
+**When** grants are configured,
+**Then** the `ctam_joh` DB role owns all 5 tables and holds INSERT/UPDATE on them; **no other role holds INSERT/UPDATE** (mirrors AR49&#39;s tier-ownership pattern, now for `ctam-joh`&#39;s own tier rather than tier (a)),
+**And** `ctam_reference_data`&#39;s DB role holds `SELECT` on all 5 tables (per `data-tables.md`: &quot;the overlay tables are SELECT-granted to `ctam_reference_data`&quot; for JOH profile-view composition),
+**And** the ArchUnit/grants fitness function in CI verifies this write-protection + grant rule.
+
+**References:** FR12, FR15b, FR16, FR17 (schema groundwork only — no behavior); NFR15; AR18–AR20, AR22; `architecture/data-tables.md` §&quot;JOH service (`ctam-joh`) — 5 tables&quot;; depends on Epic 0.1 Story 0.1.2 (`ctam_joh_identities`).
+
+**Explicitly NOT in scope:**
+- Working-pattern generation / forward-sitting generation (FR13) — future Phase 1 epic
+- Ticket/location overlay CRUD, jurisdictional-split validation workflow — future Phase 1 epics
+- JOH profile view composition (only the SELECT grant enabling it is here) — future Phase 1 epic
+- `ctam-joh`&#39;s REST API — future Phase 1 epic</code></pre>
+<h4 id="42-new-file--epicsphase-1indexmd">4.2 New file — <code>epics/phase-1/index.md</code></h4>
+<pre class="markdown"><code>---
+type: &#39;Phase Index&#39;
+title: &#39;Phase 1 — JOH&#39;
+description: &#39;Epic 1.1 (schema only) is the first Phase 1 epic. FR10–FR18 behavioral decomposition is still pending a full bmad-create-epics-and-stories run for this phase.&#39;
+resource: &#39;epics/phase-1/index.html&#39;
+tags: [ctam-pathfinder, epics, phase-1]
+timestamp: &#39;2026-08-24&#39;
+parent: &#39;epics/index.md&#39;
+phase: 1
+phaseName: &#39;JOH&#39;
+---
+
+# Phase 1 — JOH
+
+&gt; **Partial decomposition.** Only **Epic 1.1** (schema-only) exists so far — added via Sprint Change Proposal 2026-08-24c, ahead of a full Phase 1 decomposition. FR10–FR18&#39;s behavioral stories (working-pattern management, forward-sitting generation, overlay CRUD, jurisdictional-split workflow, JOH search/profile views — see [`../framework.md`](../framework.md) → *Phase 1 · Area: JOH Records &amp; Working Patterns*) are **not yet storied**. Run `bmad-create-epics-and-stories` for Phase 1 to decompose the rest; Epic 1.1&#39;s schema is what those future epics will build against.
+
+## Epics
+
+| Epic | Title | Stories | Status |
+|---|---|---|---|
+| [1.1](epic-1.1-postgres-sql-schema-design.html) | JOH domain schema is designed and implemented in PostgreSQL | 2 | 🟡 Planned |
+| **Total** | | **2 stories** | |
+
+## Epic summaries
+
+### Epic 1.1: JOH domain schema is designed and implemented in PostgreSQL (2 stories)
+
+**User outcome:** `ctam-joh`&#39;s 5 domain tables — working patterns, per-day pattern breakdown, ticket overlay, location overlay, jurisdictional splits — are designed and implemented via Liquibase, keyed by `joh_id` → `ctam_joh_identities.id`, with tier ownership and a cross-service SELECT grant to `ctam-reference-data`. **Schema only** — the behavioral stories that populate and maintain this schema are future Phase 1 epics.
+
+**FRs covered:** none behaviourally — schema groundwork for FR12, FR15b, FR16, FR17.
+
+→ [Full epic with stories](epic-1.1-postgres-sql-schema-design.html)
+
+## Not yet storied
+
+FR10, FR11, FR13, FR14, FR18, and the behavioral halves of FR12/FR15b/FR16/FR17 — see [`../framework.md`](../framework.md) → *Phase 1 · Area: JOH Records &amp; Working Patterns* for the architectural map. Run `bmad-create-epics-and-stories` for Phase 1 when ready to decompose these.</code></pre>
+<h4 id="43-epicsindexmd--phase-level-breakdowns-table">4.3 <code>epics/index.md</code> — Phase-level breakdowns table</h4>
+<p><strong>OLD:</strong></p>
+<pre><code>| **1** — JOH | _to be storied_ | ⚪ Framework only |</code></pre>
+<p><strong>NEW:</strong></p>
+<pre><code>| **1** — JOH | [phase-1/](phase-1/index.html) | 🟡 Partially planned — 1 epic (schema only, SCP 2026-08-24c); FR10–FR18 behavior still to be storied |</code></pre>
+<h4 id="44-epicsframeworkmd--phase-1--area-joh-records--working-patterns">4.4 <code>epics/framework.md</code> — Phase 1 · Area: JOH Records &amp; Working Patterns</h4>
+<p>Append one sentence to the existing scope paragraph: <em>"<code>ctam-joh</code>'s own PostgreSQL schema (the 5 tables above) is designed and implemented in <a href="phase-1/epic-1.1-postgres-sql-schema-design.html">Epic 1.1</a> — schema only; the behavioral stories in this area are not yet storied."</em></p>
+<h4 id="45-epicsfr-coverage-mapmd--phases-19-pending-table">4.5 <code>epics/fr-coverage-map.md</code> — Phases 1–9+ pending table</h4>
+<p><strong>OLD:</strong></p>
+<pre><code>| FR10–FR18 | 1 | JOH Records &amp; Working Patterns (profiles are *views* over tier (a) + `ctam-joh` overlays; FR14 is display-only — conversions happen upstream) | ⚪ |</code></pre>
+<p><strong>NEW:</strong></p>
+<pre><code>| FR10–FR18 | 1 | JOH Records &amp; Working Patterns (profiles are *views* over tier (a) + `ctam-joh` overlays; FR14 is display-only — conversions happen upstream). **Schema groundwork landed**: [Epic 1.1](phase-1/epic-1.1-postgres-sql-schema-design.html) (SCP 2026-08-24c) — schema only, behavior still ⚪ | ⚪ |</code></pre>
+<h4 id="46-architecturechangelogmd">4.6 <code>architecture/changelog.md</code></h4>
+<p>New version row (above the current top entry):</p>
+<p>| <strong>v4.11 — Phase 1's first epic: <code>ctam-joh</code> domain schema (schema only)</strong> | 2026-08-24 | <strong>Additive</strong> (SCP 2026-08-24c), no FR/NFR/PRD/architecture-decision change — <code>data-tables.md</code> already fully specified these 5 tables. Adds <strong>Epic 1.1</strong> in a new <code>epics/phase-1/</code> folder: scaffold <code>ctam-joh</code> (Story 1.1.1) + create its 5 domain tables via Liquibase (Story 1.1.2), keyed by <code>joh_id</code> → <code>ctam_joh_identities.id</code> (Epic 0.1), tier-owned + SELECT-granted to <code>ctam_reference_data</code>. Schema only — FR12/FR15b/FR16/FR17's behavioral stories remain unstoried. Flags one open design question for the implementer: <code>ctam_jurisdictional_splits</code>' 100%-sum constraint is a cross-row invariant, not a plain <code>CHECK</code>. See <a href="../sprint-change-proposal-2026-08-24.md#sprint-change-proposal-2026-08-24c"><code>../sprint-change-proposal-2026-08-24.md#sprint-change-proposal-2026-08-24c</code></a>. | new <code>epics/phase-1/index.md</code>, new <code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code>; <code>epics/index.md</code>; <code>epics/framework.md</code>; <code>epics/fr-coverage-map.md</code>; <code>sprint-status.yaml</code> |</p>
+<h4 id="47-sprint-statusyaml">4.7 <code>sprint-status.yaml</code></h4>
+<p>Append a new block:</p>
+<pre class="yaml"><code>  epic-1.1: backlog
+  1-1-1-scaffold-ctam-joh-from-the-hmcts-starter-onto-the-epic-0-0-estate: backlog
+  1-1-2-the-5-ctam-joh-domain-tables-are-designed-and-implemented: backlog
+  epic-1.1-retrospective: optional</code></pre>
+<h3 id="5-implementation-handoff-2">5. Implementation Handoff</h3>
+<p><strong>Scope: Moderate</strong> — first Phase 1 epic, schema-only, additive. No PRD/FR/NFR/architecture-decision change (the schema itself was already fixed in <code>data-tables.md</code>; this only schedules building it). Routed as <strong>Product Owner / Developer</strong>.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> on approval, create the two new files and apply the five edits above, then regenerate <code>docs/</code> and add the two new NAV entries (<code>epics/phase-1/index.md</code>, <code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code>) to <code>scripts/python/build_html.py</code>, following the same convention as the Phase 0 entries.</li>
+<li><strong>Implementing engineer (Story 1.1.2):</strong> resolve the two flagged open items at implementation time — (a) verify any tier-(b) vocabulary FK against <code>data-tables.md</code>/Epic 0.3's status before adding it, raising an architectural PR if unmapped; (b) choose and justify the <code>ctam_jurisdictional_splits</code> 100%-sum enforcement mechanism.</li>
+<li><strong>Product Owner (human):</strong> decide when to run <code>bmad-create-epics-and-stories</code> for the rest of Phase 1 (FR10–FR18 behavior) — not part of this SCP's scope.</li>
+</ul>
+<p><strong>Success criteria:</strong> <code>epics/phase-1/index.md</code> and the new epic file are internally consistent; <code>epics/index.md</code>'s Phase 1 row links correctly; <code>docs/</code> regenerates cleanly with both new pages reachable from the NAV sidebar; no FR/NFR/PRD text changed; <code>data-tables.md</code> unchanged (nothing here contradicts it).</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-24.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#index">Index</a></li><li><a href="#sprint-change-proposal--2026-08-24-1">Sprint Change Proposal — 2026-08-24</a></li><li class="h3"><a href="#1-issue-summary">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-24b">Sprint Change Proposal — 2026-08-24b</a></li><li class="h3"><a href="#1-issue-summary-1">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-1">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-1">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-1">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-1">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-24c">Sprint Change Proposal — 2026-08-24c</a></li><li class="h3"><a href="#1-issue-summary-2">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-2">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-2">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-2">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-2">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-24";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

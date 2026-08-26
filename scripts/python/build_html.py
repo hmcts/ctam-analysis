@@ -232,12 +232,12 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Changelog", "architecture/tobe/changelog", False),
     ]),
     ("Change Control & Readiness", [
+        ("Sprint Change Proposal — 2026-08-26 (29 proposals consolidated to one file per day)", "sprint-change-proposal-2026-08-26", False),
+        ("Sprint Change Proposal — 2026-08-25 (12 proposals, consolidated: local-only mock, Java rebuild, epic review fixes, schema design-rigor, contract correction, source-docs relocated)", "sprint-change-proposal-2026-08-25", False),
+        ("Sprint Change Proposal — 2026-08-24 (3 proposals, consolidated: JOH eLinks mock API onboarded)", "sprint-change-proposal-2026-08-24", False),
         ("Sprint Change Proposal — 2026-08-21 (bmad-create-story override retired; deviation register)", "sprint-change-proposal-2026-08-21", False),
         ("Sprint Change Proposal — 2026-08-20 (one branch per story, created at dispatch)", "sprint-change-proposal-2026-08-20", False),
-        ("Sprint Change Proposal — 2026-08-19d (ledger + dispatch graph retired for BMad sprint status)", "sprint-change-proposal-2026-08-19d", False),
-        ("Sprint Change Proposal — 2026-08-19c (human gate: commit → pull request)", "sprint-change-proposal-2026-08-19c", False),
-        ("Sprint Change Proposal — 2026-08-19b (story-packet schema reconciled with BMad)", "sprint-change-proposal-2026-08-19b", False),
-        ("Sprint Change Proposal — 2026-08-19 (agent delivery rules; TDD + coverage/mutation gates)", "sprint-change-proposal-2026-08-19", False),
+        ("Sprint Change Proposal — 2026-08-19 (4 proposals, consolidated: agent delivery rules; TDD + coverage/mutation gates; story-packet schema; PR human gate; sprint-status retirement)", "sprint-change-proposal-2026-08-19", False),
         ("Sprint Change Proposal — 2026-08-13 (programme renamed RAM → CTAM)", "sprint-change-proposal-2026-08-13", False),
         ("Sprint Change Proposal — 2026-07-09 (CTAM-assigned JOH identity; personnel_number → upstream link)", "sprint-change-proposal-2026-07-09", False),
         ("Sprint Change Proposal — 2026-07-07 (Gradle vs Maven-format terminology; contract read-only mirror)", "sprint-change-proposal-2026-07-07", False),
@@ -259,15 +259,13 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Phase × Area framework", "epics/framework", False),
         ("FR coverage map", "epics/fr-coverage-map", False),
     ]),
-    ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0.0 added 2026-07-06)", [
+    ("Implementation — Phase 0 (narrowed to epics 0.0-0.4, SCP 2026-08-25d)", [
         ("Phase 0 overview", "epics/phase-0/index", False),
-        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
-        ("Epic 0.1 — Upstream JOH/MRD reference data is ingested (4 stories)", "epics/phase-0/epic-0.1-upstream-reference-data-ingested", False),
-        ("Epic 0.2 — User authenticates (5 stories)", "epics/phase-0/epic-0.2-user-authenticates", False),
-        ("Epic 0.3 — Reference data read-only API (2 stories)", "epics/phase-0/epic-0.3-reference-data-read-only-api", False),
-        ("Epic 0.4 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.4-user-populations-bootstrapped", False),
-        ("Epic 0.5 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.5-system-dispatches-emails", False),
-        ("Epic 0.6 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.6-context-bus-and-shared-baseline", False),
+        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (7 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
+        ("Epic 0.1 — JOH domain schema is designed and implemented in PostgreSQL (2 stories)", "epics/phase-0/epic-0.1-postgres-sql-schema-design", False),
+        ("Epic 0.2 — JOH eLinks mock API stands in for the unconfirmed contract (3 stories)", "epics/phase-0/epic-0.2-joh-elinks-mock-api-stands-in", False),
+        ("Epic 0.3 — JOH reference-data ETL process (3 stories)", "epics/phase-0/epic-0.3-joh-reference-data-etl-process", False),
+        ("Epic 0.4 — JOH data read-only API (2 stories)", "epics/phase-0/epic-0.4-joh-data-read-only-api", False),
     ]),
 ]
 

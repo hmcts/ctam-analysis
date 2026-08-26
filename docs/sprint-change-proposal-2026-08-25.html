@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-25 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-25">Sprint Change Proposal — 2026-08-25</h1>
+<p>This file consolidates <strong>12 Sprint Change Proposals</strong> made on <strong>2026-08-25</strong> into one file (previously separate files: <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25b</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25c</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25d</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25f</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25g</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25h</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25i</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25j</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25k</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25l</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25m</code>). Each entry below is preserved verbatim from its original file — only frontmatter, heading levels, and the file boundary changed.</p>
+<details class="section" id="index"><summary><span class="section-title">Index</span></summary><div class="section-body">
+<ul>
+<li><a href="#sprint-change-proposal-2026-08-25">Sprint Change Proposal — 2026-08-25</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25b">Sprint Change Proposal — 2026-08-25b</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25c">Sprint Change Proposal — 2026-08-25c</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25d">Sprint Change Proposal — 2026-08-25d</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25f">Sprint Change Proposal — 2026-08-25f</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25g">Sprint Change Proposal — 2026-08-25g</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25h">Sprint Change Proposal — 2026-08-25h</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25i">Sprint Change Proposal — 2026-08-25i</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25j">Sprint Change Proposal — 2026-08-25j</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25k">Sprint Change Proposal — 2026-08-25k</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25l">Sprint Change Proposal — 2026-08-25l</a></li>
+<li><a href="#sprint-change-proposal-2026-08-25m">Sprint Change Proposal — 2026-08-25m</a></li>
+</ul>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25-1"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25</span></summary><div class="section-body">
+<p><strong>Status:</strong> proposed</p>
+<p><strong>Trigger:</strong> <em>"move epic-1.1 to phase-0"</em></p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> Minor — a pure relocate/renumber, no story content, no FR/NFR, no architecture-decision change.</p>
+<h3 id="1-issue-summary">1. Issue Summary</h3>
+<p>Epic 1.1 ("JOH domain schema is designed and implemented in PostgreSQL") was added yesterday (SCP 2026-08-24c) as the first — and only — epic in a new <code>epics/phase-1/</code> folder. The team wants it filed as a Phase 0 epic instead. Since it was the sole occupant of Phase 1, moving it out leaves Phase 1 with nothing, reverting to its prior "framework only" state.</p>
+<p>Nothing about the epic's <em>content</em> changes — same 2 stories (scaffold <code>ctam-joh</code>; create its 5 domain tables), same dependencies, same open items flagged for the implementer (tier-(b) vocabulary FK verification; the <code>ctam_jurisdictional_splits</code> 100%-sum enforcement choice). Only its number, file location, and cross-references change.</p>
+<h3 id="2-impact-analysis">2. Impact Analysis</h3>
+<ul>
+<li><strong>Epic renumbered:</strong> 1.1 → <strong>0.9</strong> (next free Phase 0 slot). Stories 1.1.1/1.1.2 → <strong>0.9.1/0.9.2</strong>.</li>
+<li><strong>File moved:</strong> <code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code> → <code>epics/phase-0/epic-0.9-postgres-sql-schema-design.md</code> (via <code>git mv</code>, preserving history).</li>
+<li><strong><code>epics/phase-1/</code> folder removed</strong> — Phase 1 had no other epics, so it reverts to "<em>to be storied</em> / ⚪ Framework only" in <code>epics/index.md</code>, same as every other undecomposed phase.</li>
+<li><strong><code>depends_on</code> unchanged</strong> (<code>[epic-0.0, epic-0.1, epic-0.6]</code> — all were already Phase 0 epics, so the dependency set needed no change).</li>
+<li><strong><code>framework.md</code>'s Phase 1 · JOH area</strong> keeps its cross-reference to this schema epic (the <em>content</em> is still JOH-domain schema work, described in that architectural area) — only the link target updates to the new Phase 0 location. This mirrors how Epic 0.6/0.7 already sit in the Phase 0 folder while covering cross-cutting, not purely Phase-0-scoped, concerns.</li>
+<li><strong><code>fr-coverage-map.md</code></strong> — the "schema groundwork landed" note under the Phase 1 pending FR10–FR18 row updates its link/label from Epic 1.1 to Epic 0.9; it stays in the <em>Phase 1 FRs</em> table (FR-ownership, not file location, drives that table).</li>
+<li><strong>Caught while editing:</strong> <code>epics/index.md</code>'s Phase 0 summary line still read "6 epics, 19 stories" — stale since the Epic 0.6/0.7/0.8 additions earlier this session. Corrected to the actual current total (10 epics, 26 stories, including this move) alongside this change.</li>
+<li><strong>Not touched:</strong> <code>data-tables.md</code> (unaffected — same 5 tables, same design), the epic's own story content/ACs (verbatim, only numbers change), <code>architecture.md</code> decision log (a file relocation isn't an architectural decision), and yesterday's SCP 2026-08-24c (left as an immutable historical record of what was proposed and approved that day).</li>
+</ul>
+<h3 id="3-recommended-approach">3. Recommended Approach</h3>
+<p>Direct relocate + renumber (Option 1, trivially). No rollback question (nothing built against Epic 1.1 yet — <code>sprint-status.yaml</code> shows it <code>backlog</code>), no MVP/FR impact.</p>
+<p><strong>Effort:</strong> Low. <strong>Risk:</strong> Low — mechanical, verified file-by-file rather than blind find-replace. <strong>Timeline impact:</strong> None.</p>
+<h3 id="4-detailed-change-proposals">4. Detailed Change Proposals</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.9-postgres-sql-schema-design.md</code> <em>(moved + renumbered)</em></td>
+<td><code>epic: 1.1</code>→<code>0.9</code>; <code>parent</code>/<code>resource</code> → phase-0 paths; H1 "Epic 1.1"→"Epic 0.9"; Stories 1.1.1/1.1.2 → 0.9.1/0.9.2 throughout; body content otherwise verbatim</td>
+</tr>
+<tr>
+<td><code>epics/phase-1/</code></td>
+<td>Removed (<code>index.md</code> deleted — no epics left)</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 row: 6 epics/19 stories → 10 epics/26 stories (corrects stale count + adds this epic). Phase 1 row: reverts to <code>_to be storied_</code> / ⚪</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Epic 0.9 row added to epics table + summary section; Stories Summary table +1 row; totals 24→26 stories, 9→10 epics; "nine demos"→"ten demos"</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Phase 1 · JOH area: link updated from <code>phase-1/epic-1.1-...</code> to <code>phase-0/epic-0.9-...</code></td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>FR10–FR18 pending row: "Epic 1.1" → "Epic 0.9", link updated</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New v4.12 entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td><code>epic-1.1</code>/<code>1-1-1-...</code>/<code>1-1-2-...</code> renamed to <code>epic-0.9</code>/<code>0-9-1-...</code>/<code>0-9-2-...</code>, status unchanged (<code>backlog</code>)</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>Remove "Implementation — Phase 1" NAV group; add Epic 0.9 to "Implementation — Phase 0" NAV list</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-implementation-handoff">5. Implementation Handoff</h3>
+<p><strong>Scope: Minor</strong> — direct implementation, no PO/DEV backlog coordination needed beyond the mechanical sweep above.</p>
+<p><strong>Success criteria:</strong> <code>epic-0.9</code>'s file is internally consistent (no leftover "1.1"/"Phase 1" references); <code>epics/index.md</code> and <code>epics/phase-0/index.md</code> totals agree; <code>docs/</code> regenerates cleanly with no dangling Phase 1 nav entries; <code>data-tables.md</code> and the epic's ACs are unchanged in substance.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25b"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25b</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> <em>"reorder the epics as follows: postgress-sql-schema-design as 0.1, joh-elinks-mock-api as 0.2, joh-reference-data-etl-process as 0.3"</em></p>
+<p><strong>Clarified via two questions before drafting</strong> (the requested target slots 0.1–0.3 were occupied by two other epics not mentioned in the request):</p>
+<ol type="1">
+<li><strong>Displaced-epic handling</strong> → <strong>Minimal swap.</strong> Only the 5 involved epics move, as a closed permutation: ETL-process 0.1→0.3, User-authenticates 0.2→0.7, Reference-data-API 0.3→0.9, Mock-API 0.7→0.2, Schema-design 0.9→0.1. Epics 0.0, 0.4, 0.5, 0.6, 0.8 untouched.</li>
+<li><strong>Relabeling scope</strong> → <strong>Relabeling only.</strong> Real technical dependencies are unchanged; <code>depends_on</code> arrays get rewired to point at the new ids of the same epics, not altered in meaning.</li>
+</ol>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> Moderate — mechanically large (touches every Phase 0 epic file plus ~10 supporting artifacts), but conceptually simple (a closed permutation, no content change).</p>
+<hr />
+<h3 id="1-issue-summary-1">1. Issue Summary</h3>
+<p>The team wants three epics — JOH domain schema, JOH eLinks mock API, and the JOH reference-data ETL process — filed at the front of Phase 0's numbering (0.1–0.3), ahead of the auth and reference-data-API epics that currently occupy those slots. Since every epic's <code>depends_on</code> array references other epics <strong>by id</strong> (e.g. <code>depends_on: [epic-0.0, epic-0.1, epic-0.6]</code>), a renumber isn't just a label change — every epic that depended on one of the 5 moved epics needs its <code>depends_on</code> rewired to the new id, or the dependency graph silently breaks (pointing at whatever epic now happens to sit at the old number).</p>
+<h3 id="2-impact-analysis-1">2. Impact Analysis</h3>
+<h4 id="the-permutation">The permutation</h4>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Old → New</th>
+<th>Title</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schema design</td>
+<td>0.9 → <strong>0.1</strong></td>
+<td>JOH domain schema is designed and implemented in PostgreSQL</td>
+</tr>
+<tr>
+<td>Mock API</td>
+<td>0.7 → <strong>0.2</strong></td>
+<td>JOH eLinks mock API stands in for the unconfirmed upstream contract</td>
+</tr>
+<tr>
+<td>ETL process</td>
+<td>0.1 → <strong>0.3</strong></td>
+<td>JOH reference-data ETL process</td>
+</tr>
+<tr>
+<td>User authenticates</td>
+<td>0.2 → <strong>0.7</strong></td>
+<td>User authenticates and lands on a role-scoped Home page</td>
+</tr>
+<tr>
+<td>Reference data read API</td>
+<td>0.3 → <strong>0.9</strong></td>
+<td>Reference data is served read-only via a versioned, jurisdiction-filtered API</td>
+</tr>
+</tbody>
+</table>
+<p>Unaffected: 0.0 (Platform estate), 0.4 (User populations bootstrapped), 0.5 (Notification), 0.6 (Context bus), 0.8 (MRD ingestion).</p>
+<h4 id="dependency-graph-rewiring">Dependency graph rewiring</h4>
+<p>Every <code>depends_on</code> array across all 10 Phase 0 epics was checked and rewired where it referenced one of the 5 moved epics (values only — the <em>files that declare</em> these arrays, e.g. epic 0.4 or 0.8, were themselves untouched in number):</p>
+<table>
+<thead>
+<tr>
+<th>Epic (new id)</th>
+<th><code>depends_on</code> before</th>
+<th><code>depends_on</code> after</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.1 (schema)</td>
+<td><code>[epic-0.0, epic-0.1, epic-0.6]</code></td>
+<td><code>[epic-0.0, epic-0.3, epic-0.6]</code></td>
+</tr>
+<tr>
+<td>0.2 (mock API)</td>
+<td><code>[epic-0.0]</code></td>
+<td><code>[epic-0.0]</code> (unchanged)</td>
+</tr>
+<tr>
+<td>0.3 (ETL)</td>
+<td><code>[epic-0.0, epic-0.6]</code></td>
+<td><code>[epic-0.0, epic-0.6]</code> (unchanged)</td>
+</tr>
+<tr>
+<td>0.4 (bootstrap)</td>
+<td><code>[epic-0.1, epic-0.2]</code></td>
+<td><code>[epic-0.3, epic-0.7]</code></td>
+</tr>
+<tr>
+<td>0.7 (auth)</td>
+<td><code>[epic-0.0, epic-0.1]</code></td>
+<td><code>[epic-0.0, epic-0.3]</code></td>
+</tr>
+<tr>
+<td>0.8 (MRD)</td>
+<td><code>[epic-0.0, epic-0.1]</code></td>
+<td><code>[epic-0.0, epic-0.3]</code></td>
+</tr>
+<tr>
+<td>0.9 (read API)</td>
+<td><code>[epic-0.1, epic-0.2]</code></td>
+<td><code>[epic-0.3, epic-0.7]</code></td>
+</tr>
+</tbody>
+</table>
+<p>Every real technical dependency is unchanged (e.g. the schema epic still needs <code>ctam_joh_identities</code>, which the ETL epic mints — it now just cites that epic as <code>epic-0.3</code> instead of <code>epic-0.1</code>).</p>
+<h4 id="story-renumbering">Story renumbering</h4>
+<p>Each moved epic's stories move with it (story index within the epic stays the same, only the epic-number prefix changes): 0.1.1–0.1.3 → 0.3.1–0.3.3 (ETL); 0.2.1–0.2.5 → 0.7.1–0.7.5 (auth); 0.3.1–0.3.2 → 0.9.1–0.9.2 (read API); 0.7.1–0.7.3 → 0.2.1–0.2.3 (mock API); 0.9.1–0.9.2 → 0.1.1–0.1.2 (schema).</p>
+<h4 id="artifact-conflicts--updates-needed">Artifact conflicts / updates needed</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All 10 <code>epics/phase-0/epic-0.*.md</code></td>
+<td>5 files renamed (slug kept, number changed); every file's cross-references (frontmatter <code>epic:</code>/<code>resource:</code>, <code>depends_on:</code>, prose "Epic 0.X"/"Story 0.X.Y") rewired</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Full rewrite: epics table, summaries, and Stories Summary table reordered/relabeled</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code>, <code>epics/fr-coverage-map.md</code>, <code>epics/requirements-inventory.md</code></td>
+<td>Cross-references rewired</td>
+</tr>
+<tr>
+<td><code>architecture/non-functional-requirements-coverage.md</code>, <code>architecture/repository-strategy.md</code>, <code>architecture/gaps.md</code>, <code>architecture/assumptions.md</code></td>
+<td>Cross-references rewired</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code></td>
+<td>Illustrative epic-frontmatter/sprint-status examples rewired (see below — also fixed pre-existing staleness)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#16</strong>; supersession notes added to #14/#15 (their epic numbers are left as historical record of what was true when each decision was made, per this repo's "add, don't rewrite" convention — mirroring how #12 carries a "superseded by #13" note rather than being rewritten)</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.13</strong> entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td>All <code>epic-0.X</code> blocks and story slugs renumbered to match, reordered to ascending numeric order</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>NAV list reordered/relabeled to match</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> dated historical records — <code>changelog.md</code>'s v4.9–v4.12 entries, all prior dated SCPs, <code>implementation-readiness-report-2026-06-17.md</code> — left as accurate point-in-time record of what was true when written. <code>data-tables.md</code>, PRD, FR/NFR text — untouched (pure epic-numbering change).</p>
+<h4 id="pre-existing-staleness-caught-during-the-sweep">Pre-existing staleness caught during the sweep</h4>
+<p>The mechanical sweep (see §3) surfaced three bugs left over from <strong>earlier</strong> SCPs this session, unrelated to today's renumber but fixed while already touching these files:</p>
+<ol type="1">
+<li>Several "Story 0.1.4" mentions (in <code>epic-0.0</code>, <code>epic-0.7</code>'s NOT-in-scope notes, <code>epic-0.8</code>'s split note, <code>gaps.md</code> G8.1) were never updated to "Story 0.8.1" when MRD split out in SCP 2026-08-24b — because that split's sweep, like this one, needs to distinguish "was called X" (historical, correctly kept as <code>0.1.4</code>) from "currently called X" (should say <code>0.8.1</code>). Both kinds now read correctly.</li>
+<li><code>delivery-operating-model.md</code>'s illustrative epic-frontmatter example still carried the <strong>pre-retitle</strong> title ("Upstream JOH/MRD reference data is ingested") and story count (4) from before the SCP 2026-08-24b retitle — corrected to the current title and story count (3).</li>
+<li>Two <strong>plural</strong> "Stories 0.X.Y/0.X.Z" references (<code>epic-0.9-reference-data-read-only-api.md</code>, <code>epic-0.5-system-dispatches-emails.md</code>, <code>fr-coverage-map.md</code>'s FR1 row) were missed by both today's and the 2026-08-24b sweep's singular-form pattern-matching — found and fixed by hand.</li>
+</ol>
+<h3 id="3-recommended-approach-1">3. Recommended Approach</h3>
+<p><strong>Direct implementation</strong>, done via a scripted two-pass text substitution rather than manual per-file edits, to guarantee the 5-way permutation applied atomically (no risk of a sequential find-replace re-processing its own output — e.g. mapping 1→3 and then later re-mapping that same 3→9 by accident). Pass A fixed the pre-existing "Story 0.1.4" staleness first (so it couldn't collide with the epic-swap mapping); Pass B applied the 5-way swap to <code>epic-0.X-</code> (file links), bare <code>epic-0.X</code> (<code>depends_on</code> entries), <code>Epic 0.X</code> (prose), <code>epic: 0.X</code> (frontmatter), and <code>Story 0.X.Y</code> (story ids) patterns in one regex pass per file. The 5 files were then renamed via intermediate <code>.tmp</code> names to avoid collisions mid-rename (e.g. renaming 0.1→0.3 while 0.3 still existed under its old name). Every result was verified by grep — checking every referenced filename resolves to a real file, and manually reviewing every remaining "0.1.4"/"previously"/"Stories" (plural) occurrence for correctness — before writing this proposal.</p>
+<p><strong>Effort:</strong> Medium (large mechanical surface, low conceptual risk). <strong>Risk:</strong> Low, given the verification pass; the three pre-existing bugs it caught are evidence the verification was worth doing. <strong>Timeline impact:</strong> None — no story content or dependency semantics changed, only labels.</p>
+<h3 id="4-detailed-change-proposals-1">4. Detailed Change Proposals</h3>
+<p>See §2's tables for the full before/after mapping. Full per-file diffs are in the files themselves — given the scale (10 epic files + 9 supporting artifacts), this SCP records the mapping and verification method rather than re-pasting every changed line.</p>
+<h3 id="5-implementation-handoff-1">5. Implementation Handoff</h3>
+<p><strong>Scope: Moderate</strong> — large mechanical footprint, no content/scope change, no PO/DEV coordination needed beyond the sweep itself (already done).</p>
+<p><strong>Success criteria:</strong> every <code>epic-0.X-slug.md</code> filename referenced anywhere in the live (non-historical) doc set resolves to a real file on disk (verified via <code>comm</code> diff against <code>ls</code>); every <code>depends_on</code> array's real technical dependency is preserved under its new id; <code>epics/phase-0/index.md</code>'s two summary tables agree with each other and with the individual epic files (26 stories, 10 epics); <code>docs/</code> regenerates cleanly with no dangling nav links.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25c"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25c</span></summary><div class="section-body">
+<p><strong>Status:</strong> proposed</p>
+<blockquote>
+<p><strong>Addendum (approved in the same turn):</strong> the user additionally asked to place the JOH-data read-only API epic at <strong>Epic 0.4</strong> instead of keeping it at 0.9. Epic 0.4 was already occupied ("Both user populations are bootstrapped and verifiable against the IdP") — resolved as a minimal 2-way swap, consistent with this session's established pattern for numbering collisions (see SCP 2026-08-25b): <strong>JOH data read-only API → Epic 0.4</strong>; <strong>User populations bootstrapped → Epic 0.9</strong> (the slot the JOH-data epic vacates). The MRD-data-read-only-api epic is unaffected by this — it lands at <strong>Epic 0.10</strong> exactly as designed below. Every mention of "Epic 0.9" below that refers to the JOH-data-API epic should be read as <strong>Epic 0.4</strong> in the final implementation, and "Epic 0.4" (bootstrap) as <strong>Epic 0.9</strong> — this addendum is the authoritative numbering; the body below is kept as originally drafted/approved for the record rather than rewritten line-by-line.</p>
+</blockquote>
+<p><strong>Trigger:</strong> <em>"split epic-0.9 into 2 epics joh-data-read-only-api and mrd-data-read-only-api"</em></p>
+<p><strong>Clarified via two questions before drafting</strong> (Epic 0.9 today has no MRD read endpoint at all, so a clean split wasn't mechanical):</p>
+<ol type="1">
+<li><strong>Tier-(b) placement</strong> → stays with the <strong>JOH-data</strong> epic (which becomes the "main" reference-data epic — mirrors how Epic 0.3 stayed the main ETL epic when MRD split off as the narrower Epic 0.8 back in SCP 2026-08-24b).</li>
+<li><strong>MRD API scope</strong> → <strong>add a new story</strong>, not a placeholder. Epic 0.10 gets a real, designed endpoint for <code>mrd_specialisms</code>, not a stub.</li>
+</ol>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> Moderate — one new epic with genuinely new story content (an endpoint that didn't exist before), plus a cross-reference sweep.</p>
+<hr />
+<h3 id="1-issue-summary-2">1. Issue Summary</h3>
+<p>Epic 0.9 ("Reference data is served read-only via a versioned, jurisdiction-filtered API") bundles tier-(b) CTAM-owned tables (Story 0.9.1) and a read-only REST API (Story 0.9.2) that, on inspection, only ever defined endpoints for tier-(b) vocab (<code>/regions</code>, <code>/offices</code>, <code>/calendar</code>, <code>/vocabularies/{list}</code>) and tier-(a) <strong>JOH</strong> data (<code>/johs</code>, <code>/jurisdictions</code>, <code>/tickets</code>). There is no endpoint anywhere for <code>mrd_specialisms</code> (Epic 0.8's MRD ingestion target) — MRD data lands in the database but nothing reads it back out via API today. That's a real gap, not just an organisational one: any Phase 1+ service wanting JOH Specialisations would currently need direct SQL access to <code>ctam-reference-data</code>'s schema, breaking the "reads via API" pattern the rest of the read surface follows.</p>
+<p>Splitting the epic by upstream source — mirroring the Epic 0.3 (JOH ETL) / Epic 0.8 (MRD ingestion) split already in place on the write side — gives MRD data the same API-as-Product treatment JOH data gets, instead of leaving it as a silent gap.</p>
+<h3 id="2-impact-analysis-2">2. Impact Analysis</h3>
+<h4 id="epic-impact">Epic impact</h4>
+<ul>
+<li><strong>Epic 0.9</strong> retitled <strong>"JOH data is served read-only via a versioned, jurisdiction-filtered API"</strong> — keeps Stories 0.9.1 (tier-(b) tables) and 0.9.2 (JOH + tier-(b) read API), content essentially unchanged (it never covered MRD), just reframed from generic "Reference data" to "JOH data" and given an explicit pointer to the new MRD epic. <code>depends_on</code> unchanged (<code>[epic-0.3, epic-0.7]</code>).</li>
+<li><strong>New Epic 0.10</strong> — "MRD data is served read-only via a versioned, jurisdiction-filtered API" — one new story (0.10.1) adding <code>GET /v1/reference-data/specialisms</code> for <code>mrd_specialisms</code>, following the same jurisdiction-filtered/versioned/OpenAPI/RFC-9457/Postman pattern as Epic 0.9's endpoints. <code>depends_on: [epic-0.7, epic-0.8]</code> (needs auth for <code>JWTFilter</code>/jurisdiction, and Epic 0.8 for <code>mrd_specialisms</code> to exist — the JOH-ETL dependency Epic 0.9 has doesn't apply here since this epic never touches <code>jo_*</code> data).</li>
+</ul>
+<h4 id="story-impact">Story impact</h4>
+<ul>
+<li>Story 0.9.1 — unchanged.</li>
+<li>Story 0.9.2 — reworded from "Reference Data" to "JOH data" framing; out-of-scope note added pointing to Epic 0.10 for MRD.</li>
+<li><strong>New Story 0.10.1</strong> — MRD read-only REST API (real content, not a stub, per your answer).</li>
+</ul>
+<h4 id="artifact-conflicts--updates-needed-1">Artifact conflicts / updates needed</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-0/epic-0.9-reference-data-read-only-api.md</code></td>
+<td>Retitled/reframed to JOH-specific; unchanged stories, unchanged <code>depends_on</code></td>
+</tr>
+<tr>
+<td><code>epics/phase-0/epic-0.10-mrd-data-read-only-api.md</code> <em>(new)</em></td>
+<td>New epic, 1 story</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Epic 0.9 row/summary updated; new 0.10 row/summary; Stories Summary table +1 row; totals 26→27 stories, 10→11 epics</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 summary line: 10→11 epics, 26→27 stories</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Reference Data area: note the JOH/MRD read-API split</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>FR6/FR7/FR58 rows: note Epic 0.10 covers the MRD read surface</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision entry (#17)</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New version entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td><code>epic-0.9</code> story list unchanged; new <code>epic-0.10</code> block</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>NAV: retitle 0.9 entry, add 0.10 entry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>data-tables.md</code> (no new table — <code>mrd_specialisms</code> already exists via Epic 0.8; this only adds a read endpoint over it). <code>gaps.md</code>/<code>assumptions.md</code> (G8.1 is about the ingestion contract, not the read API — unaffected).</p>
+<h3 id="3-recommended-approach-2">3. Recommended Approach</h3>
+<p><strong>Direct Adjustment</strong> — split one epic into two, with one epic gaining a genuinely new (but small — one endpoint) story. Nothing rolls back (<code>sprint-status.yaml</code> shows Epic 0.9 fully <code>backlog</code>). No FR/NFR/PRD text changes (FR6/FR7/FR58 already covered "read API" generically; this just fills a coverage gap the epic-level text hadn't caught).</p>
+<p><strong>Effort:</strong> Low–Medium. <strong>Risk:</strong> Low — new story mirrors an already-proven pattern (Epic 0.9's own endpoints) closely enough that there's little design risk. <strong>Timeline impact:</strong> None — Epic 0.10 depends only on Epic 0.7 (auth) and Epic 0.8 (MRD ingestion), both already-planned Phase 0 epics; it doesn't block or get blocked by Epic 0.9.</p>
+<h3 id="4-detailed-change-proposals-2">4. Detailed Change Proposals</h3>
+<h4 id="41-epic-09-reference-data-read-only-apimd--retitle-and-reframe">4.1 <code>epic-0.9-reference-data-read-only-api.md</code> — retitle and reframe</h4>
+<p><strong>Title:</strong> "Reference data is served read-only via a versioned, jurisdiction-filtered API" → <strong>"JOH data is served read-only via a versioned, jurisdiction-filtered API"</strong></p>
+<p><strong>User outcome paragraph</strong> — reworded to say tier-(a) <strong>JOH</strong> data + tier-(b) CTAM-owned data (dropping the implication that "reference data" covers MRD too), with an explicit line: <em>"MRD-sourced data (<code>mrd_specialisms</code>) is served by a separate epic, Epic 0.10, since it wasn't covered by any endpoint here."</em></p>
+<p><strong>Story 0.9.2</strong>'s AC list is otherwise unchanged (it already only ever listed JOH + tier-(b) endpoints) — just the epic-level framing changes, plus an explicit "Explicitly NOT in scope: MRD read endpoints — Epic 0.10" line.</p>
+<h4 id="42-new-file--epic-010-mrd-data-read-only-apimd">4.2 New file — <code>epic-0.10-mrd-data-read-only-api.md</code></h4>
+<pre class="markdown"><code>---
+type: &#39;Epic&#39;
+description: &quot;User outcome: mrd_specialisms (ingested by Epic 0.8) is queryable read-only via ctam-reference-data&#39;s versioned REST API, jurisdiction-filtered, so Phase 1+ services can read JOH Specialisations without direct SQL access. Split out of Epic 0.9 (SCP 2026-08-25c) as new scope - no MRD read endpoint existed before this epic.&quot;
+epic: 0.10
+title: &#39;MRD data is served read-only via a versioned, jurisdiction-filtered API&#39;
+storyCount: 1
+repo: ctam-reference-data
+depends_on: [epic-0.7, epic-0.8]
+---
+
+# Epic 0.10: MRD data is served read-only via a versioned, jurisdiction-filtered API
+
+**User outcome:** `mrd_specialisms` (ingested by Epic 0.8&#39;s weekly MRD Excel pick-up) is queryable **read-only** via `ctam-reference-data`&#39;s versioned REST API, **jurisdiction-filtered**[^d8], so Phase 1+ services can read JOH Specialisations at runtime instead of needing direct SQL access. **Split out of Epic 0.9** (SCP 2026-08-25c) — this is genuinely new scope: no endpoint over `mrd_*` data existed before this epic (Epic 0.9&#39;s Story 0.9.2 only ever covered tier-(b) vocab and tier-(a) JOH data).
+
+**Vertical slice:**
+- Reference Data **read-only** REST API extended with an MRD-sourced resource: `GET /v1/reference-data/specialisms`, jurisdiction-filtered
+- Same API-as-Product read-side standards as Epic 0.9: URL versioning, OpenAPI 3.x (springdoc, Spectral-linted), RFC 9457 problem-details, RFC 9745 `Deprecation` + RFC 8594 `Sunset` headers
+- Postman collection coverage added to the existing `ctam-reference-data-phase0.postman_collection.json`
+- **No write endpoints** — `mrd_*` is tier-(a), corrections happen at source (MRD team), never hand-edited in CTAM (FR6)
+
+**FRs covered:** FR6 (read surface over tier-(a) MRD data), FR7, FR58 (versioned read API contract), FR59 (structured logs).
+
+**Key NFRs:** NFR14 (no forbidden data), NFR40 (per-service deployable), NFR42 (Postman collection).
+
+**Out of scope (explicitly):** JOH data and tier-(b) vocab endpoints — Epic 0.9 (unchanged, already shipped there). Write endpoints for `mrd_*` (never, in any phase). MRD API integration replacing the Excel blob-drop reader (post-MVP, per Epic 0.8).
+
+---
+
+## Story 0.10.1: MRD data read-only REST API with jurisdiction filtering, versioning, OpenAPI, RFC 9457 errors
+
+As an **API consumer** (downstream services from Phase 1+; `ctam-ui`),
+I want a versioned **read-only** endpoint over MRD-sourced supplementary reference data (JOH Specialisations), with jurisdiction-filtered responses, full OpenAPI spec, and RFC 9457 error envelopes,
+So that **Phase 1+ services can query JOH Specialisations at runtime, scoped to the requester&#39;s jurisdiction, without direct SQL access to `ctam-reference-data`&#39;s schema** — closing the gap Epic 0.9&#39;s read API left over MRD data.
+
+**Acceptance Criteria:**
+
+**Given** `ctam-reference-data` carries `mrd_specialisms` (Epic 0.8, Story 0.8.1), and `JWTFilter` + jurisdiction resolution are available (Epic 0.7),
+**When** the engineer implements the endpoint,
+**Then** `GET /v1/reference-data/specialisms` returns `200 OK` with structured JSON,
+**And** the endpoint is protected by `JWTFilter` (any authenticated principal can read; per NFR13),
+**And** **responses are filtered by the requester&#39;s jurisdiction** resolved from `AuthDetails` (D8/FR2) — a specialism record&#39;s jurisdiction is resolved via its JOH&#39;s `personnel_number` → `jo_people` → `jo_jurisdictions`,
+**And** **no write endpoints** (`POST`/`PUT`/`PATCH`/`DELETE`) are implemented — the controller rejects with `405 Method Not Allowed` and an RFC 9457 problem-details body pointing to &quot;corrections at source&quot; (MRD team, per FR6).
+
+**Given** the engineer implements pagination + filtering,
+**When** a consumer queries `GET /v1/reference-data/specialisms?personnelNumber=...&amp;page=1&amp;size=50`,
+**Then** the response uses the same paginated envelope as Epic 0.9&#39;s endpoints (`{items, page, size, totalElements, totalPages}`),
+**And** invalid query parameters return `400 Bad Request` with RFC 9457 problem-details.
+
+**Given** the OpenAPI spec is regenerated and Spectral lint runs in CI,
+**When** the spec is built,
+**Then** it passes Spectral lint, and the `specialisms` resource is documented alongside the existing Epic 0.9 endpoints in the same published `api-ctam-reference-data` artefact (no separate spec — one service, one contract),
+**And** `Deprecation`/`Sunset` headers are wired the same way as Epic 0.9&#39;s mechanism (none flagged deprecated at Phase 0).
+
+**Given** the existing Phase 0 Postman collection (`postman/ctam-reference-data-phase0.postman_collection.json`, first published in Epic 0.9),
+**When** the collection is extended,
+**Then** it exercises the new endpoint: happy path + jurisdiction filtering + 400 (invalid query) + 401 (unauthenticated) + 405 (write attempt), per NFR42 — the same collection file, not a new one (one service, one collection).
+
+**References:** FR6 (read surface over `mrd_*`), FR7, FR58, FR59; NFR12, NFR13, NFR14, NFR39, NFR42; AR8, AR17, AR27, AR33, AR37, AR38, AR39, AR41; D8; depends on Epic 0.7 (auth) and Epic 0.8 (`mrd_specialisms` exists).
+
+**Explicitly NOT in scope:**
+- JOH data / tier-(b) vocab endpoints — Epic 0.9 (already shipped there)
+- Admin write endpoints for `mrd_*` (never, in any phase)
+- MRD API integration replacing the blob-drop reader (post-MVP, per Epic 0.8)
+
+[^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.</code></pre>
+<h4 id="43-epicsphase-0indexmd">4.3 <code>epics/phase-0/index.md</code></h4>
+<ul>
+<li>Epics table: retitle 0.9 row to "JOH data is served read-only via a versioned, jurisdiction-filtered API"; add row <code>| [0.10](epic-0.10-mrd-data-read-only-api.html) | MRD data is served read-only via a versioned, jurisdiction-filtered API | 1 | 🟡 Planned |</code>; total 26→27 stories.</li>
+<li>Epic 0.9 summary: reworded per §4.1; new Epic 0.10 summary added.</li>
+<li>Phase 0 Epic Stories Summary table: 0.9 row description updated to "JOH"; new 0.10 row (1 story); total 26→27 stories, "ten demos"→"eleven demos".</li>
+</ul>
+<h4 id="44-epicsindexmd">4.4 <code>epics/index.md</code></h4>
+<p>Phase 0 row: "🟡 Planned — 10 epics, 26 stories" → "🟡 Planned — 11 epics, 27 stories".</p>
+<h4 id="45-epicsframeworkmd--reference-data-area">4.5 <code>epics/framework.md</code> — Reference Data area</h4>
+<p>Append: <em>"The read-only API is split by upstream source: <a href="phase-0/epic-0.9-reference-data-read-only-api.html">Epic 0.9</a> serves JOH data (tier-(a) + tier-(b)); <a href="phase-0/epic-0.10-mrd-data-read-only-api.html">Epic 0.10</a> serves MRD data (<code>mrd_specialisms</code>) — split 2026-08-25c since no MRD read endpoint existed before."</em></p>
+<h4 id="46-epicsfr-coverage-mapmd">4.6 <code>epics/fr-coverage-map.md</code></h4>
+<p>FR6, FR7, FR58 rows: append "; MRD read surface is <a href="phase-0/epic-0.10-mrd-data-read-only-api.html">Epic 0.10</a>, split out 2026-08-25c" where they cite Epic 0.9's Story 0.9.2.</p>
+<h4 id="47-architecturemd--decision-log">4.7 <code>architecture.md</code> — decision log</h4>
+<p>New row:</p>
+<p>| 17 | Reference Data read API split by upstream source: JOH (0.9) vs MRD (new 0.10) <em>(SCP 2026-08-25c)</em> | Epic 0.9's read API never actually covered <code>mrd_*</code> data — only tier-(b) vocab and tier-(a) JOH endpoints were ever specified, leaving MRD data reachable only via direct SQL. Split the epic by upstream source, mirroring the Epic 0.3 (JOH ingestion) / Epic 0.8 (MRD ingestion) write-side split: <strong>Epic 0.9</strong> keeps JOH + tier-(b) (unchanged content, retitled); <strong>new Epic 0.10</strong> adds the first <code>mrd_*</code> read endpoint (<code>GET /v1/reference-data/specialisms</code>), same API-as-Product conventions, published in the same <code>api-ctam-reference-data</code> OpenAPI artefact (one service, one contract — no new repo or deployable). See <a href="sprint-change-proposal-2026-08-25.html#sprint-change-proposal-2026-08-25c"><code>./sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25c</code></a>. |</p>
+<h4 id="48-architecturechangelogmd">4.8 <code>architecture/changelog.md</code></h4>
+<p>New version entry (v4.14) summarising the split and the new-scope MRD endpoint.</p>
+<h4 id="49-sprint-statusyaml">4.9 <code>sprint-status.yaml</code></h4>
+<p>Append:</p>
+<pre class="yaml"><code>  epic-0.10: backlog
+  0-10-1-mrd-data-read-only-rest-api-with-jurisdiction-filtering-versioning-openapi-rfc-9457-errors: backlog
+  epic-0.10-retrospective: optional</code></pre>
+<p>(Epic 0.9's own block is unchanged — same two stories, same slugs.)</p>
+<h4 id="410-scriptspythonbuild_htmlpy">4.10 <code>scripts/python/build_html.py</code></h4>
+<p>NAV: retitle the Epic 0.9 entry; add an Epic 0.10 entry after it.</p>
+<h3 id="5-implementation-handoff-2">5. Implementation Handoff</h3>
+<p><strong>Scope: Moderate</strong> — one new epic with real (if small) new story content, plus a cross-reference sweep. Routed as <strong>Product Owner / Developer</strong>.</p>
+<p><strong>Success criteria:</strong> Epic 0.9 and Epic 0.10 are each internally consistent; <code>epics/phase-0/index.md</code>'s two summary tables agree (27 stories, 11 epics); <code>docs/</code> regenerates cleanly with Epic 0.10 reachable from the nav; <code>data-tables.md</code> unchanged (no new table — this only adds a read endpoint over the existing <code>mrd_specialisms</code>).</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25d"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25d</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> <em>"retain the epics from 0.0,0.1,0.2,0.3,0.4 and remove all the other epics"</em>, followed by <em>"update all the files based on latest changes"</em> after the initial clarifying questions were declined.</p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> <strong>Major</strong> — this removes real product scope (auth, notification, MRD, user bootstrap) from Phase 0, not just relabeling. Routed as recorded below.</p>
+<hr />
+<h3 id="1-issue-summary-3">1. Issue Summary</h3>
+<p>The team wants Phase 0 narrowed to just epics 0.0–0.4 — the platform estate and the JOH data pipeline (schema, mock API, ETL, read API) — with everything else removed. This is not a pure numbering exercise like the previous several SCPs this session: two of the epics being removed are genuine dependencies of epics being kept:</p>
+<ol type="1">
+<li><strong>Epic 0.1</strong> (JOH schema) and <strong>Epic 0.3</strong> (JOH ETL) both <code>depends_on: epic-0.6</code> — the context bus (published architecture submodule) and the shared <code>ctam_configuration_values</code> baseline table.</li>
+<li><strong>Epic 0.4</strong> (JOH data read API)'s stories require <code>JWTFilter</code>-protected, jurisdiction-filtered endpoints, sourced from <strong>Epic 0.7</strong> (User authenticates).</li>
+</ol>
+<p>I asked clarifying questions about how to resolve these two breaks and about whether "remove" meant permanent deletion or deferral; the questions were declined and the follow-up instruction was to proceed and keep everything else consistent. I resolved the two breaks using the options I'd flagged as recommended:</p>
+<ol type="1">
+<li><strong>Context bus folded into Epic 0.0</strong> — its two stories become Stories 0.0.6–0.0.7. This is not just relabeling: Story 0.6.1 (publish <code>ctam-architecture</code> as the context bus, tag <code>arch-v1.0</code>) was recorded <code>done</code> in <code>sprint-status.yaml</code> — that status carries forward as Story 0.0.6, it is not reset to <code>backlog</code>.</li>
+<li><strong>Epic 0.4's read API simplified to open/unauthenticated</strong> — <code>JWTFilter</code> protection and jurisdiction-filtering are removed from its acceptance criteria, with an explicit note that re-adding them later (when an auth epic returns) is additive, not a redesign.</li>
+</ol>
+<h3 id="2-impact-analysis-3">2. Impact Analysis</h3>
+<h4 id="epics-removed-files-deleted-git-history-retains-them">Epics removed (files deleted, git history retains them)</h4>
+<table>
+<thead>
+<tr>
+<th>Epic</th>
+<th>Title</th>
+<th>Stories</th>
+<th>What happens to its scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5</td>
+<td>Notification service is scaffolded and contractually ready</td>
+<td>2</td>
+<td>FR9 unimplemented; downstream consumers (booking/absence acks, payment-schedule dispatch) blocked until re-planned</td>
+</tr>
+<tr>
+<td>0.6</td>
+<td>Context bus is published and the shared configuration baseline exists</td>
+<td>2</td>
+<td><strong>Folded into Epic 0.0</strong>, not lost — Stories 0.0.6–0.0.7, <code>done</code> status preserved</td>
+</tr>
+<tr>
+<td>0.7</td>
+<td>User authenticates and lands on a role-scoped Home page</td>
+<td>5</td>
+<td>FR1–FR3, FR55, FR56, FR58 (auth half) unimplemented; Epic 0.4's API loses auth protection as a direct consequence</td>
+</tr>
+<tr>
+<td>0.8</td>
+<td>MRD supplementary reference data is ingested</td>
+<td>1</td>
+<td><code>mrd_*</code> ingestion unimplemented; MRD read API (0.10) loses its data source</td>
+</tr>
+<tr>
+<td>0.9</td>
+<td>Both user populations are bootstrapped and verifiable against the IdP</td>
+<td>1</td>
+<td>FR4, FR57 unimplemented</td>
+</tr>
+<tr>
+<td>0.10</td>
+<td>MRD data is served read-only via a versioned, jurisdiction-filtered API</td>
+<td>1</td>
+<td>Removed along with its data source (Epic 0.8)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total removed: 12 stories.</strong> Phase 0 goes from 11 epics / 27 stories to <strong>5 epics / 17 stories</strong> (the +2 from folding Epic 0.6 into Epic 0.0 is why it isn't 15).</p>
+<h4 id="epics-kept-and-what-changed-in-them">Epics kept, and what changed in them</h4>
+<ul>
+<li><strong>Epic 0.0</strong> — gains Stories 0.0.6–0.0.7 (folded from 0.6), <code>repo:</code> becomes a list (<code>[ctam-shared-infrastructure, ctam-architecture]</code>), storyCount 5→7.</li>
+<li><strong>Epic 0.1</strong> — <code>depends_on</code> drops <code>epic-0.6</code>, now <code>[epic-0.0, epic-0.3]</code> (the context bus dependency now resolves through Epic 0.0).</li>
+<li><strong>Epic 0.2</strong> — unaffected (no cross-references to removed epics).</li>
+<li><strong>Epic 0.3</strong> — <code>depends_on</code> drops <code>epic-0.6</code>, now <code>[epic-0.0]</code>. All MRD and auth cross-references reworded to reflect their removal (not deletion of the ETL epic's own content — its 3 stories are unchanged).</li>
+<li><strong>Epic 0.4</strong> — <code>depends_on</code> drops <code>epic-0.7</code>, now <code>[epic-0.3]</code>. Story 0.4.2 rewritten: drops <code>JWTFilter</code> protection, jurisdiction-filtering, the 401 Postman case, and the MRD-specific NFR13/NFR12 references. Title drops "jurisdiction-filtered." Explicit scope-reduction note added.</li>
+</ul>
+<h4 id="artifact-sweep">Artifact sweep</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6 epic files</td>
+<td>Deleted</td>
+</tr>
+<tr>
+<td><code>epic-0.0-platform-estate-provisioned.md</code></td>
+<td>+2 stories (0.0.6–0.0.7), <code>repo:</code> → list, scope-reduction note</td>
+</tr>
+<tr>
+<td><code>epic-0.1-postgres-sql-schema-design.md</code></td>
+<td><code>depends_on</code> fixed, context-bus reference updated to Epic 0.0</td>
+</tr>
+<tr>
+<td><code>epic-0.3-joh-reference-data-etl-process.md</code></td>
+<td><code>depends_on</code> fixed; MRD/auth cross-references reworded throughout; one Story 0.3.3 AC reworded (no longer references the removed authorisation service for verification)</td>
+</tr>
+<tr>
+<td><code>epic-0.4-joh-data-read-only-api.md</code></td>
+<td><code>depends_on</code> fixed; retitled; Story 0.4.2 rewritten to open/unauthenticated; scope-reduction notes added</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Full rewrite: 5 epics, 17 stories</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 count: 5 epics, 17 stories</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Phase 0 Areas without a concrete epic marked as such (not deleted — they're still the architectural map); dependency-order table and parallelism note fixed</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>FR1–FR4, FR9, FR55–FR58 (partial), FR57 marked ⚪ not currently delivered (not deleted — real PRD requirements)</td>
+</tr>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td>MRD storage cross-reference marked not-currently-provisioned</td>
+</tr>
+<tr>
+<td><code>architecture/non-functional-requirements-coverage.md</code></td>
+<td>NFR24 narrowed to JOH-only</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td><code>ctam-reference-data</code> row: MRD/auth cross-references removed</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td>G8.1: MRD half marked untracked (gap itself not closed)</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code></td>
+<td>Illustrative examples referencing removed epics swapped for still-valid ones</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#18</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.15</strong> entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td>6 epic blocks removed; Epic 0.0 gains Stories 0.0.6 (<strong><code>done</code></strong>, carried forward) and 0.0.7; incidental fix of a stale "16-repo" comment to "17-repo"</td>
+</tr>
+<tr>
+<td><code>scripts/python/build_html.py</code></td>
+<td>NAV: 6 entries removed, Epic 0.0's story count updated</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> dated historical SCPs/changelog entries (immutable record of what was true when written); <code>data-tables.md</code> (schema for removed epics' tables is unaffected — the tables just aren't being created by an active epic right now).</p>
+<h3 id="3-recommended-approach-3">3. Recommended Approach</h3>
+<p><strong>Direct implementation</strong> (the two clarifying questions were declined, so I proceeded using the recommended defaults I'd already identified, rather than blocking further). Deletion was judged safe to do literally (not just deferred) because: this branch's prior commit is already pushed to the remote PR, so the removed epics' content remains fully recoverable via git history without needing an in-repo "deferred" holding area.</p>
+<p><strong>Effort:</strong> High (large mechanical sweep). <strong>Risk:</strong> Medium — this is a real scope cut, not a relabel; FR1–FR4, FR9, FR55–58, FR57 genuinely lose Phase 0 coverage and are flagged as such rather than silently dropped. <strong>Timeline impact:</strong> Reduces Phase 0's build scope by roughly 44% of its stories (12 of 27); nothing currently in flight was disrupted (<code>sprint-status.yaml</code> showed only Story 0.6.1 as <code>done</code>, now carried forward as 0.0.6).</p>
+<h3 id="4-detailed-change-proposals-3">4. Detailed Change Proposals</h3>
+<p>See §2 for the full before/after mapping. Full diffs are in the files themselves.</p>
+<h3 id="5-implementation-handoff-3">5. Implementation Handoff</h3>
+<p><strong>Scope: Major</strong> — real functional scope removed from an active plan, not a backlog reorganisation. Per the workflow's own classification this would normally route to Product Manager / Solution Architect for a fundamental replan; it was executed directly here per explicit, repeated user instruction (the clarifying questions that would normally precede PM/Architect-level judgment were declined twice).</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>Product Owner / stakeholders:</strong> confirm this scope cut is intended for the demo/milestone this narrower Phase 0 is meant to support, and decide when (if ever) auth, notification, MRD, and user bootstrap should be re-planned as new epics.</li>
+<li><strong>This session:</strong> all edits above applied directly; <code>docs/</code> regenerated; nothing committed without being asked.</li>
+</ul>
+<p><strong>Success criteria:</strong> all 5 remaining epic files are internally consistent (no dangling references to removed epics); <code>depends_on</code> arrays across the 5 epics resolve only to each other; <code>epics/phase-0/index.md</code>'s two summary tables agree (17 stories, 5 epics); <code>fr-coverage-map.md</code> accurately marks every FR that lost coverage; <code>docs/</code> regenerates cleanly with no dangling nav links to deleted epic pages.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25f"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25f</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> <em>"we are deploying the service in local environment remove the dependency on 0.0"</em>, following a <code>/bmad-help</code> exchange about why Epic 0.2 depends on Epic 0.0.</p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> <strong>Moderate</strong> — a deployment-target narrowing within one epic, not a functional cut.</p>
+<hr />
+<h3 id="1-issue-summary-4">1. Issue Summary</h3>
+<p>Epic 0.2 (<code>ctam-jomockapi</code>, the JOH eLinks mock API) previously deployed to the shared dev/staging Azure estate (AKS, ACR, Key Vault, APIM) so that <code>ctam-reference-data</code>'s eLinks sync could reach it over the network in a shared environment — this was the epic's entire reason for <code>depends_on: [epic-0.0]</code>. The team is instead running these services locally during development. Since the mock is never deployed anywhere but a developer's machine in this scope, the shared-estate dependency is not just unnecessary — it doesn't correspond to anything the epic actually does anymore, so it's removed.</p>
+<h3 id="2-impact-analysis-4">2. Impact Analysis</h3>
+<h4 id="what-changed">What changed</h4>
+<ul>
+<li><strong>Epic 0.2</strong> — <code>depends_on</code> drops from <code>[epic-0.0]</code> to <code>[]</code>. Story 0.2.2 rewritten from "Deploy <code>ctam-jomockapi</code> onto the shared dev/staging estate" (Helm chart, AKS, Key Vault-held credential) to "Run <code>ctam-jomockapi</code> locally via Docker Compose" (a <code>docker-compose.yml</code> service, a local <code>.env</code> credential). Story 0.2.3 rewritten from "...runs against the deployed mock in dev/staging" to "...runs against the locally-running mock" — the demonstrability claim narrows from "dev/staging" to "local development." Story 0.2.1 (onboarding) is adjusted to drop the ACR registry push and any Helm/deploy-workflow scaffolding, since nothing in this epic deploys anywhere shared.</li>
+<li><strong>Epic 0.3</strong> — Story 0.3.3's AC block that pointed the sync's "dev/staging base URL" at Epic 0.2's deployed mock is reworded to point the sync's <em>local</em> base URL at the locally-running mock instead.</li>
+<li><strong>NFR16 (Key Vault), NFR31 (Azure UK South), NFR40 (per-service deployable)</strong> — no longer exercised by Epic 0.2 at all (nothing is deployed to the shared estate from this epic). <strong>NFR24</strong>'s "exercised end-to-end pre-contract" claim narrows from a dev/staging demonstration to a local-only one.</li>
+<li><strong>gaps.md G8.1</strong> and <strong>non-functional-requirements-coverage.md's NFR24 entry</strong> — reworded to say the mock unblock is local, not dev/staging. G8.1 itself (the real eLinks contract confirmation) stays open regardless — unaffected by where the mock runs.</li>
+</ul>
+<h4 id="artifact-sweep-1">Artifact sweep</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epic-0.2-joh-elinks-mock-api-stands-in.md</code></td>
+<td><code>depends_on</code> → <code>[]</code>; scope-reduction note added; Hosting/vertical-slice/out-of-scope reworded; Story 0.2.1 (registry push dropped), 0.2.2 (full rewrite to Docker Compose), 0.2.3 (full rewrite to "locally-running mock")</td>
+</tr>
+<tr>
+<td><code>epic-0.3-joh-reference-data-etl-process.md</code></td>
+<td>Story 0.3.3's mock-target AC reworded from dev/staging to local</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Epic 0.2 summary, sequencing note, Phase 0 Epic Stories Summary table rows for 0.2 and 0.3</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Ingestion area note (Epic 0.2's mock target reworded)</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>NFR24 row</td>
+</tr>
+<tr>
+<td><code>architecture/gaps.md</code></td>
+<td>G8.1</td>
+</tr>
+<tr>
+<td><code>architecture/non-functional-requirements-coverage.md</code></td>
+<td>NFR24 entry</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td><code>ctam-jomockapi</code> row</td>
+</tr>
+<tr>
+<td><code>architecture/assumptions.md</code></td>
+<td>A38</td>
+</tr>
+<tr>
+<td><code>architecture/delivery-operating-model.md</code></td>
+<td>Parallelism illustration (Epic 0.2 has no epic dependency, not "needs only the estate")</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#19</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.16</strong> entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td>Epic 0.2's Story 0.2.2/0.2.3 slugs renamed to match the rewritten titles</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> dated historical SCPs/changelog entries and decision-log rows (immutable record); Epic 0.0, 0.1, 0.4 (unaffected — this change is scoped to Epic 0.2 and the one cross-reference in Epic 0.3).</p>
+<h3 id="3-recommended-approach-4">3. Recommended Approach</h3>
+<p><strong>Direct implementation.</strong> Effort: <strong>Low-Medium</strong> (one epic's deployment model changes, with a small ripple into Epic 0.3's one AC block and several NFR/gap cross-references). <strong>Risk:</strong> Low — nothing was <code>done</code> on this epic yet (<code>epic-0.2: backlog</code>), so no completed work is disrupted; the real eLinks contract gap (G8.1) is explicitly unaffected.</p>
+<h3 id="4-detailed-change-proposals-4">4. Detailed Change Proposals</h3>
+<p>See §2 for the full before/after mapping. Full diffs are in the files themselves.</p>
+<h3 id="5-implementation-handoff-4">5. Implementation Handoff</h3>
+<p><strong>Scope: Moderate</strong> — one epic's deployment target changes, with cross-references updated to match; not a functional cut.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>Product Owner / stakeholders:</strong> confirm local-only is acceptable for Phase 0's demoability goal for this integration — if a shared dev/staging demonstration is later needed, a future epic can add it back (Epic 0.2's out-of-scope note says so explicitly).</li>
+<li><strong>This session:</strong> all edits above applied directly; nothing committed without being asked.</li>
+</ul>
+<p><strong>Success criteria:</strong> Epic 0.2's <code>depends_on</code> is <code>[]</code> and every AC in its 3 stories consistently describes a local Docker Compose flow, not a shared-estate deployment; Epic 0.3's Story 0.3.3 cross-reference matches; no remaining "dev/staging" claim tied to this mock anywhere in the sweep list above; <code>docs/</code> regenerates cleanly.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25g"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25g</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> <em>"Modify epic-0.2 to build the joh-elinks-mock-api using java springboot applications instead of npm"</em>.</p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> <strong>Minor</strong> — a build-stack change within Epic 0.2's own repo; no cross-epic dependency, FR/NFR, or PRD impact.</p>
+<hr />
+<h3 id="1-issue-summary-5">1. Issue Summary</h3>
+<p>Epic 0.2's <code>ctam-jomockapi</code> was previously scoped as an explicitly-recorded deviation from CTAM Pathfinder's Java/Spring Boot stack baseline (assumptions.md A38) — the existing Node.js/Express codebase at the real <code>ctam-jomockapi</code> repo was to be onboarded as-is, justified because it delivers no FR/NFR and never reaches production (mirroring <code>ctam-mock-auth</code>'s non-production-only exemption). The team now wants it built with Java/Spring Boot instead, like every other CTAM Pathfinder service — removing that stack deviation entirely.</p>
+<h3 id="2-impact-analysis-5">2. Impact Analysis</h3>
+<h4 id="what-changed-1">What changed</h4>
+<ul>
+<li><strong>Story 0.2.1</strong> — retitled from "Onboard <code>ctam-jomockapi</code> as a CTAM Pathfinder repo" to "Scaffold <code>ctam-jomockapi</code> from the HMCTS starter and port the eLinks mock to Java/Spring Boot." Its ACs are rewritten around <code>ctam-scaffold.sh</code> (same pattern as <code>ctam-reference-data</code>/<code>ctam-joh</code>'s scaffold stories): Spring Boot 4.0.x, Gradle Groovy DSL, Group ID <code>uk.gov.hmcts.ctam</code>, artefact <code>ctam-jomockapi</code>, base package <code>uk.gov.hmcts.ctam.jomockapi</code>, port <code>8090</code>. The existing Node/Express reference implementation's documented contract — endpoints, fixed-seed data generation, bearer-token handling, the <code>ReferenceData/*.csv|json</code> fixtures — is explicitly scoped as a <strong>faithful port</strong>, not a redesign: same request/response shapes, same seed data, same auth behaviour.</li>
+<li><strong>Deliberately excluded</strong>, unlike every domain service: Liquibase, Testcontainers PostgreSQL, MapStruct (the mock is stateless — no database, no cross-object mapping need), and a Helm chart / per-service Terraform (it still never deploys anywhere but locally, per SCP 2026-08-25f).</li>
+<li><strong>Story 0.2.2</strong> — updated for the new stack: port references change from Node's <code>4000</code> to the new service's <code>8090</code>; the <code>npm start</code> comparison in the story's "so that" clause becomes <code>./gradlew bootRun</code>.</li>
+<li><strong>Story 0.2.3</strong> — unaffected; it never referenced Node/npm specifically, only "the local instance," which is stack-agnostic.</li>
+<li><strong>Epic 0.2's Hosting/vertical-slice/out-of-scope sections</strong> — the "standalone Node.js/Express service — an explicitly-scoped deviation" framing is replaced with "scaffolded like every other CTAM Pathfinder backend service — no stack deviation." The old out-of-scope bullet "Rewriting <code>ctam-jomockapi</code> in Java/Spring — it stays Node/Express as already built" is <strong>removed</strong> (it's now the literal opposite of what this epic does) and replaced with two new exclusions: no behavioural contract change during the port, and no database of any kind.</li>
+<li><strong>assumptions.md A38</strong> — revised in place (not superseded via a new row — this is a living reference document, not a dated record) to describe the Java/Spring Boot build instead of the Node/Express deviation.</li>
+<li><strong>repository-strategy.md's <code>ctam-jomockapi</code> row</strong> — revised to describe a Java/Spring Boot service scaffolded via <code>ctam-scaffold.sh</code>, ported from an earlier Node/Express reference implementation.</li>
+</ul>
+<h4 id="artifact-sweep-2">Artifact sweep</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epic-0.2-joh-elinks-mock-api-stands-in.md</code></td>
+<td>Stack-change scope-reduction note added; description/User outcome/Hosting/vertical-slice/out-of-scope reworded; Story 0.2.1 fully rewritten (scaffold + faithful port); Story 0.2.2 updated (port 8090, <code>./gradlew bootRun</code>)</td>
+</tr>
+<tr>
+<td><code>architecture/assumptions.md</code></td>
+<td>A38 revised in place</td>
+</tr>
+<tr>
+<td><code>architecture/repository-strategy.md</code></td>
+<td><code>ctam-jomockapi</code> row revised</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#20</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.17</strong> entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td>Story 0.2.1's slug renamed to match the new title</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>epic-0.3</code> (its Story 0.3.3 cross-reference to Epic 0.2 doesn't name a tech stack, so it's unaffected by this change — it was already updated for the local-vs-dev/staging change in SCP 2026-08-25f); Story 0.2.3 (stack-agnostic); gaps.md G8.1 (doesn't mention tech stack); <code>epics/framework.md</code> (its Epic 0.2 mention doesn't name a stack either); FR/NFR coverage (this mock delivers no FR/NFR directly, unaffected); dated historical SCPs/changelog entries (immutable record).</p>
+<h3 id="3-recommended-approach-5">3. Recommended Approach</h3>
+<p><strong>Direct implementation.</strong> Effort: <strong>Low</strong> — one story rewritten, one story lightly touched, two reference docs updated in place. <strong>Risk:</strong> Low — <code>epic-0.2: backlog</code> in <code>sprint-status.yaml</code>, nothing built yet against the old Node-based plan; the actual <code>ctam-jomockapi</code> codebase on disk (a real, already-built Node/Express app) is unaffected by this planning-repo change until Story 0.2.1 is actually dispatched and executed against it — at which point the story now instructs a fresh Java/Spring Boot scaffold with the existing app treated as a reference implementation to port, not a codebase to onboard verbatim.</p>
+<h3 id="4-detailed-change-proposals-5">4. Detailed Change Proposals</h3>
+<p>See §2 for the full before/after mapping. Full diffs are in the files themselves.</p>
+<h3 id="5-implementation-handoff-5">5. Implementation Handoff</h3>
+<p><strong>Scope: Minor</strong> — a build-stack change within one epic's own scope, no cross-epic ripple beyond what SCP 2026-08-25f already touched.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>Product Owner / stakeholders:</strong> confirm the Java/Spring Boot port is worth the engineering effort versus keeping the existing, already-working Node/Express mock — this SCP does not weigh that trade-off, it only encodes the decision as given.</li>
+<li><strong>This session:</strong> all edits above applied directly; nothing committed without being asked.</li>
+</ul>
+<p><strong>Success criteria:</strong> Epic 0.2 no longer mentions Node.js/Express as its build stack anywhere except as the explicit port-source; Story 0.2.1's ACs consistently describe a <code>ctam-scaffold.sh</code>-based Spring Boot scaffold with a faithful contract port, not an onboarding of the existing codebase as-is; assumptions.md A38 and repository-strategy.md's <code>ctam-jomockapi</code> row agree with the epic; <code>docs/</code> regenerates cleanly.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25h"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25h</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> <em>"review all the 5 epics and suggest if there are any changes"</em>, followed by <em>"fix all the above inconsistencies"</em> after the review was presented.</p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> <strong>Minor</strong> — documentation/citation fixes within existing epics; no scope change, no FR/NFR change, no <code>depends_on</code> change.</p>
+<hr />
+<h3 id="1-issue-summary-6">1. Issue Summary</h3>
+<p>A full read-through of all 5 Phase 0 epics (0.0–0.4) — prompted by a request to review them for consistency — surfaced five concrete inconsistencies, none caught by the narrower per-round sweeps in earlier SCPs because they cut across epics rather than living inside the one epic each prior SCP touched.</p>
+<h3 id="2-impact-analysis-6">2. Impact Analysis</h3>
+<h4 id="finding-1--port-collision-between-ctam-joh-and-ctam-reference-data">Finding 1 — Port collision between <code>ctam-joh</code> and <code>ctam-reference-data</code></h4>
+<p>Story 0.1.1 and Story 0.3.1 both hardcoded "default port is 8082 (per AR3)," and AR3 itself just says "Default port 8082" with no per-service override. Two services scaffolded from the same rule would collide the moment they run side by side (locally, or in a cluster without an explicit override).</p>
+<p><strong>Fix:</strong> AR3 revised to say each service gets its own distinct port, starting from 8082 and incrementing per service in scaffold order. <code>ctam-joh</code> moves to <strong>8083</strong>; <code>ctam-reference-data</code> keeps <strong>8082</strong> (it was scaffolded first, and is referenced by port number in several other places — moving it would have a larger ripple for no benefit); <code>ctam-jomockapi</code>'s existing 8090 is called out as consistent with this pattern.</p>
+<h4 id="finding-2--fr8-double-attributed">Finding 2 — FR8 double-attributed</h4>
+<p>Epic 0.3's "FRs covered" line claimed <em>"FR8 (shared <code>ctam_configuration_values</code> baseline first lands here)"</em> — but <code>fr-coverage-map.md</code> and Epic 0.0 Story 0.0.7 both correctly show Epic 0.0 as the epic that creates that table. Epic 0.3 only verifies the table is reachable before <code>ctam-reference-data</code> proceeds (Story 0.3.1's AC); it doesn't deliver FR8.</p>
+<p><strong>Fix:</strong> Epic 0.3's "FRs covered" line drops the FR8 claim and adds a parenthetical: <em>"FR8 is delivered by Epic 0.0, Story 0.0.7 — this epic only consumes/verifies the shared baseline."</em></p>
+<h4 id="finding-3--wrong-story-citation-in-epic-04-story-041">Finding 3 — Wrong story citation in Epic 0.4, Story 0.4.1</h4>
+<p>Its lead AC said <em>"Given <code>ctam-reference-data</code> is scaffolded and carries the tier-(a) tables per Story 0.3.3"</em> — Story 0.3.3 is the nightly sync (populates data); the tables themselves are created in <strong>Story 0.3.2</strong>. Story 0.4.1 only needs the tables to exist (to keep tier-(b) tables separate from them), not populated data.</p>
+<p><strong>Fix:</strong> Citation corrected to Story 0.3.2, with a parenthetical explaining why (doesn't need the sync to have run).</p>
+<h4 id="finding-4--ctam_joh_identities-never-explicitly-created">Finding 4 — <code>ctam_joh_identities</code> never explicitly created</h4>
+<p>Story 0.3.2's changeset AC enumerated exactly the 15 <code>jo_*</code> tables plus <code>ctam_sync_status</code> — <code>ctam_joh_identities</code> appeared nowhere in either list, despite Story 0.3.3 minting rows into it, Epic 0.1's Story 0.1.2 citing it as an existing FK target (correctly, citing Story 0.3.2), and Epic 0.3's own prose describing binding <code>personnel_number</code> to it.</p>
+<p><strong>Fix:</strong> Story 0.3.2's changeset AC now explicitly creates <code>ctam_joh_identities</code> (<code>id uuid PK</code>, <code>personnel_number</code> unique, <code>created_at</code>/<code>updated_at</code>), stating it's created empty here and populated row-by-row by Story 0.3.3's sync.</p>
+<h4 id="finding-5--local-mock-vs-aks-deployed-ctam-reference-data-unreconciled">Finding 5 — Local mock vs. AKS-deployed <code>ctam-reference-data</code> unreconciled</h4>
+<p>Epic 0.2's <code>ctam-jomockapi</code> runs <strong>only locally</strong> via Docker Compose (SCP 2026-08-25f). Story 0.3.3's mock-integration AC pointed the sync's "local base URL" at it — but Story 0.3.1 (same epic) also deploys <code>ctam-reference-data</code> to the shared AKS dev cluster, and an AKS pod has no network path to a developer's Docker Compose network. Nothing said which run-mode of <code>ctam-reference-data</code> the mock-integration AC exercises.</p>
+<p><strong>Fix:</strong> The AC now states explicitly that it exercises <code>ctam-reference-data</code> run locally too (<code>./gradlew bootRun</code> alongside <code>docker-compose up</code>, per Story 0.3.1's local-verification AC) — <strong>not</strong> the AKS-deployed instance.</p>
+<h4 id="not-fixed--raised-as-an-open-question-instead">Not fixed — raised as an open question instead</h4>
+<p>A sixth observation from the review: Epic 0.0 still provisions a full Terraform shared Azure estate (5 stories) for the domain services, while Epic 0.2 just moved to local-only for its mock. Whether that split is intentional (mocks stay local forever; domain services need a real shared environment eventually) or whether the team's local-first practice should extend further is a product/architecture call, not a documentation bug — left open for the user to decide, not fixed here.</p>
+<h4 id="artifact-sweep-3">Artifact sweep</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td>AR3 reworded — per-service distinct ports</td>
+</tr>
+<tr>
+<td><code>epic-0.1-postgres-sql-schema-design.md</code></td>
+<td>Story 0.1.1 port 8082 → 8083</td>
+</tr>
+<tr>
+<td><code>epic-0.3-joh-reference-data-etl-process.md</code></td>
+<td>FR8 attribution reworded; <code>ctam_joh_identities</code> added to Story 0.3.2's changeset; Story 0.3.3's mock-integration AC clarified (local <code>ctam-reference-data</code>, not AKS)</td>
+</tr>
+<tr>
+<td><code>epic-0.4-joh-data-read-only-api.md</code></td>
+<td>Story 0.4.1's prerequisite citation fixed (0.3.3 → 0.3.2)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#21</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.18</strong> entry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>epic-0.0</code>, <code>epic-0.2</code> (no findings against them beyond the open question); <code>fr-coverage-map.md</code> (already correctly attributed FR8 to Epic 0.0 — Epic 0.3 was the one out of step, now fixed to match); <code>sprint-status.yaml</code> (no story added/removed/renamed — only AC text and one port number changed within existing stories); dated historical SCPs/changelog entries (immutable record).</p>
+<h3 id="3-recommended-approach-6">3. Recommended Approach</h3>
+<p><strong>Direct implementation.</strong> Effort: <strong>Low</strong> — five targeted text edits across three epic files plus one requirements-inventory row, no structural change. <strong>Risk:</strong> Very low — nothing here changes <code>depends_on</code>, FR/NFR coverage, or story counts; it only corrects citations, a port number, and an implicit-but-undocumented table creation to match what other stories already assumed.</p>
+<h3 id="4-detailed-change-proposals-6">4. Detailed Change Proposals</h3>
+<p>See §2 for the full before/after mapping. Full diffs are in the files themselves.</p>
+<h3 id="5-implementation-handoff-6">5. Implementation Handoff</h3>
+<p><strong>Scope: Minor</strong> — documentation/citation corrections within the existing plan, no scope or dependency change.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits above applied directly; nothing committed without being asked.</li>
+<li><strong>Product Owner / Architect (deferred):</strong> decide the open question above — whether Epic 0.0's shared-estate scope should also narrow toward local-first for Phase 0, or stays as-is for the real domain services. Not gating on this SCP.</li>
+</ul>
+<p><strong>Success criteria:</strong> no two Phase 0 services share a hardcoded port; Epic 0.3's FR8 claim matches <code>fr-coverage-map.md</code> and Epic 0.0; every story citation in Epic 0.4 points at the story that actually delivers what it depends on; <code>ctam_joh_identities</code> has an explicit creation point before anything reads or writes it; Story 0.3.3's mock-integration AC is unambiguous about which <code>ctam-reference-data</code> run-mode it exercises.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25i"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25i</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> <em>"review all epics in phase-0"</em> — a second review pass, following SCP 2026-08-25h's fixes from the first pass.</p>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> <strong>Minor</strong> — documentation/citation fixes within existing epics; no scope, FR/NFR, or dependency change.</p>
+<hr />
+<h3 id="1-issue-summary-7">1. Issue Summary</h3>
+<p>A second full review of all 5 Phase 0 epics was requested. Rather than re-checking the same epic-to-epic cross-references already fixed in SCP 2026-08-25h, this pass cross-checked each epic's claims against the two documents epics are supposed to be <em>derived from</em>: <code>architecture/data-tables.md</code> (the canonical table inventory) and <code>requirements-inventory.md</code>'s AR list (the canonical architecture-rule numbering). That angle surfaced two more issues neither epic-to-epic comparison nor the first pass had caught.</p>
+<h3 id="2-impact-analysis-7">2. Impact Analysis</h3>
+<h4 id="finding-6--ctam_joh_identities-grant-breadth-understated">Finding 6 — <code>ctam_joh_identities</code> grant breadth understated</h4>
+<p><code>data-tables.md</code> documents <code>ctam_joh_identities</code> explicitly: <em>"SELECT-granted to every domain service"</em> — listing Authorisation, JOH, Absence, Booking, Sitting, Itinerary, and MI Feed as key consumers, because it's the JOH identity spine every domain table keys off of (<code>joh_id</code> → <code>ctam_joh_identities.id</code>). Story 0.3.2's grants AC (which SCP 2026-08-25h had just extended to also <em>create</em> this table) only said SELECT grants exist "for <code>ctam_joh</code> (schema composition, Epic 0.1) and placeholder roles for future services" — correct for the <code>jo_*</code> tables, but understating <code>ctam_joh_identities</code>'s actual grant scope, which isn't <code>ctam_joh</code>-specific at all.</p>
+<p><strong>Fix:</strong> Story 0.3.2's grants AC now states explicitly that <code>ctam_joh_identities</code> is SELECT-granted to <em>every</em> current and placeholder domain service DB role, quoting <code>data-tables.md</code>'s own language, and the fitness-function AC now verifies grant breadth as well as the tier-(a) write-protection rule.</p>
+<h4 id="finding-7--ar52-mis-cited-for-the-wiremockstub-testing-convention">Finding 7 — AR52 mis-cited for the WireMock/stub testing convention</h4>
+<p>Three places cite "AR52" for <code>ctam-reference-data</code>'s CI-only WireMock/stub eLinks API pattern: Epic 0.3's Story 0.3.3 AC, and Epic 0.2's Story 0.2.3 AC plus its References line. But AR52 in <code>requirements-inventory.md</code> is actually: <em>"User and authorisation records... are strictly CTAM-internal, populated by programme-management / operational mechanisms..."</em> — completely unrelated to WireMock or eLinks testing. Searching the whole <code>requirements-inventory.md</code> for "WireMock" turned up nothing — no architecture rule anywhere actually documents this testing convention, despite three stories treating it as an established, numbered rule.</p>
+<p><strong>Fix:</strong> Added <strong>AR54</strong> to <code>requirements-inventory.md</code>, describing the WireMock/stub convention and its relationship to Epic 0.2's locally-run mock (complementary — fast hermetic CI checks vs. a realistic local network target, not a replacement of one by the other). Corrected all three stale "AR52" citations to "AR54," and completed Story 0.3.3's References line, which cited AR46/AR48/AR49 but had omitted AR54/AR52 entirely even though its own AC body referenced it.</p>
+<h4 id="artifact-sweep-4">Artifact sweep</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/requirements-inventory.md</code></td>
+<td>New <strong>AR54</strong> added (CI-only WireMock/stub eLinks API convention)</td>
+</tr>
+<tr>
+<td><code>epic-0.3-joh-reference-data-etl-process.md</code></td>
+<td>Story 0.3.2's grants AC extended for <code>ctam_joh_identities</code> breadth; Story 0.3.3's AR52 → AR54 citation fixed; Story 0.3.3's References line completed with AR54</td>
+</tr>
+<tr>
+<td><code>epic-0.2-joh-elinks-mock-api-stands-in.md</code></td>
+<td>Story 0.2.3's AR52 → AR54 citation fixed (AC body + References line)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#22</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.19</strong> entry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>epic-0.0</code>, <code>epic-0.1</code>, <code>epic-0.4</code> (no findings against them this pass); <code>sprint-status.yaml</code> (no story added/removed/renamed); <code>fr-coverage-map.md</code>, <code>gaps.md</code>, <code>assumptions.md</code> (checked, no discrepancy found this pass); dated historical SCPs/changelog entries (immutable record).</p>
+<h3 id="3-recommended-approach-7">3. Recommended Approach</h3>
+<p><strong>Direct implementation.</strong> Effort: <strong>Low</strong> — two targeted fixes, one new AR entry, four citation corrections. <strong>Risk:</strong> Very low — no structural change; both fixes make documentation match what other parts of the same epics (and <code>data-tables.md</code>) already assumed was true.</p>
+<h3 id="4-detailed-change-proposals-7">4. Detailed Change Proposals</h3>
+<p>See §2 for the full before/after mapping. Full diffs are in the files themselves.</p>
+<h3 id="5-implementation-handoff-7">5. Implementation Handoff</h3>
+<p><strong>Scope: Minor</strong> — documentation/citation corrections within the existing plan, no scope or dependency change.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits above applied directly; nothing committed without being asked.</li>
+</ul>
+<p><strong>Success criteria:</strong> <code>ctam_joh_identities</code>'s documented grant scope in Story 0.3.2 matches <code>data-tables.md</code>'s "every domain service" note; every citation of the WireMock/stub convention across Epic 0.2 and Epic 0.3 points at a real, existing AR (AR54); Story 0.3.3's References line lists every AR its own ACs actually cite.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25j"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25j</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> User request — two Confluence pages (<code>3.2.1.1 CTAM JO Schema</code>, <code>3.2.1.2 CTAM Schema and Source Mapping</code>) document how the JOH eLinks integration schema was designed; the user wants CTAM's own PostgreSQL schema designed "in the similar way," with Epic 0.1 updated and new stories authored for it.</p>
+<p><strong>Mode:</strong> Incremental (single artifact, iterated live with the user). <strong>Scope classification:</strong> <strong>Moderate</strong> — epic content is substantially rewritten (2 → 4 stories) and Phase 0 story totals shift, but no PRD/FR/NFR change, no new table, no new repo, no dependency-graph change.</p>
+<hr />
+<h3 id="1-issue-summary-8">1. Issue Summary</h3>
+<p>The user supplied two internal HMCTS Confluence pages under the JUDIT space:</p>
+<ul>
+<li><code>3.2.1.1 CTAM JO Schema</code> — ER diagrams (full + transactional-core) for the JOH eLinks integration.</li>
+<li><code>3.2.1.2 CTAM Schema and Source Mapping</code> — the same schema's design decisions (naming, JOH lifecycle, deprecated-attribute exclusion, sync metadata, FK strategy, a documented edge case), a 16-table list, a full column-level mapping per table (CTAM column / type / PK-FK / source attribute / description), a refresh-strategy note, 8 numbered data warnings, and 13 numbered open questions (11 closed, 2 open).</li>
+</ul>
+<p>Both pages are behind HMCTS's internal <code>tools.hmcts.net</code> Confluence, unreachable from this environment; the user exported them to PDF, which were read in full and distilled to <code>_bmad-output/source-docs/joh-schema-confluence/</code>.</p>
+<p>Cross-checking the source pages against the current architecture surfaced a structural fact the user's request needed reconciling with: the 16 tables these pages describe are the <strong>tier-(a) <code>jo_*</code> upstream-replica schema</strong>, which <code>architecture/data-tables.md</code> and decision D3/D9 already assign to <strong><code>ctam-reference-data</code> / Epic 0.3</strong> (Story 0.3.2) — a different repo and a different, non-overlapping table set from <strong>Epic 0.1</strong>'s 5 CTAM-owned tier-(b) <code>ctam-joh</code> overlay tables (<code>ctam_working_patterns</code>, <code>ctam_working_pattern_days</code>, <code>ctam_joh_ticket</code>, <code>ctam_joh_location</code>, <code>ctam_jurisdictional_splits</code>). Duplicating <code>jo_*</code> table definitions into Epic 0.1 would put tier-(a) DDL in the wrong repo and break the single-writer tier-ownership rule (AR49: only <code>ctam_reference_data</code> holds INSERT/UPDATE on <code>jo_*</code>).</p>
+<p>The user, on hearing this, directed: keep the update on Epic 0.1, and design <code>ctam-joh</code>'s own schema <strong>the same way</strong> the source pages design theirs — i.e. adopt the <em>documentation rigor</em> (design-decisions doc → ER diagram → column-level spec → data-warnings/open-questions doc), not the specific <code>jo_*</code> tables. This SCP implements that direction.</p>
+<h3 id="2-impact-analysis-8">2. Impact Analysis</h3>
+<h4 id="epic-impact-1">Epic Impact</h4>
+<p><strong>Epic 0.1</strong> (<code>epic-0.1-postgres-sql-schema-design.md</code>) — substantially rewritten:</p>
+<ul>
+<li>Story count: 2 → 4.</li>
+<li>Story 0.1.1 (scaffold <code>ctam-joh</code>) — unchanged content; forward-references to "Story 0.1.2" for table creation corrected to point at the new Story 0.1.3.</li>
+<li><strong>New Story 0.1.2</strong> — a schema design-decisions doc (<code>architecture/ctam-joh-schema-design.md</code>), covering naming/PK/FK conventions, the <code>ctam_jurisdictional_splits</code> cross-row invariant decision (carried forward verbatim from the old Story 0.1.2's AC), the tier-(b)-vocabulary FK verification gate (also carried forward), and an explicit restatement of the grant model.</li>
+<li><strong>Story 0.1.3</strong> (rewritten from the old Story 0.1.2) — the actual DDL, now paired with a D2+ELK ER diagram (house standard, <code>CLAUDE.md</code>) and a full column-level reference per table, mirroring the source pages' own column-mapping tables (minus a "source attribute" column, since these are CTAM-native tables with no upstream source).</li>
+<li><strong>New Story 0.1.4</strong> — a data-warnings/open-questions companion doc, mirroring the source pages' §5–6, seeded with three concrete warning candidates specific to <code>ctam-joh</code>'s overlay tables (soft-delete parity on upstream leaver/deleted, split re-validation timing, overlay reconciliation against the tier-(a) baseline).</li>
+<li>Epic-level frontmatter (<code>description</code>, <code>storyCount</code>), vertical-slice bullets, and out-of-scope note updated to match.</li>
+</ul>
+<p><strong>Epic 0.3</strong> (<code>ctam-reference-data</code>, tier-(a) <code>jo_*</code> tables) — <strong>not touched by this SCP.</strong> Its Story 0.3.2 already lists the correct 15 <code>jo_*</code> table names (matching the source pages' table list exactly) but has no column-level detail. The source pages could supply that detail and may partially close <code>gaps.md</code> G8.1 (previously: "the JOH eLinks API contract... is unconfirmed" — these pages are sourced from "eLinks (a.k.a. JHR) REST API, Data Dictionary v2.0, 2025-07-02," i.e. a real, dated contract artefact). This is flagged as a follow-up, not actioned here, since the user's request was explicitly scoped to Epic 0.1.</p>
+<p><strong><code>data-tables.md</code></strong> — not touched. Its <code>jo_*</code> and <code>ctam-joh</code> sections both remain accurate at the level of detail they already carry (table names + one-line descriptions); this SCP adds column-level detail to Epic 0.1's own doc set, not to this shard.</p>
+<h4 id="a-naming-question-surfaced-deliberately-not-resolved-here">A naming question surfaced, deliberately not resolved here</h4>
+<p>The source pages' real natural-key column is <code>jo_people.personal_code</code> (VARCHAR(32)) — but 27 files across this repo (PRD, <code>architecture.md</code>, <code>conventions.md</code>, every Phase-0 epic, decision D9) use <code>personnel_number</code> for the same concept, and <code>personal_code</code> appears nowhere in the current repo. This is a <code>jo_*</code>/Epic 0.3 concern, not an Epic 0.1 one (Epic 0.1's own tables reference <code>ctam_joh_identities.id</code> via <code>joh_id</code>, never <code>personnel_number</code> directly, so the rename — if made — would not change any Epic 0.1 AC). Raised here for visibility; <strong>not actioned</strong>, and left for a future SCP scoped to Epic 0.3 if the user wants it resolved.</p>
+<h4 id="artifact-sweep-5">Artifact sweep</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epic-0.1-postgres-sql-schema-design.md</code></td>
+<td>Full rewrite: 2 → 4 stories, frontmatter, vertical slice, out-of-scope note</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Epic table row (2 → 4 stories), Epic 0.1 summary paragraph, Phase 0 Epic Stories Summary table row, both story totals (17 → 19)</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 status line story total (17 → 19)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#23</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.20</strong> entry</td>
+</tr>
+<tr>
+<td><code>_bmad-output/source-docs/joh-schema-confluence/</code></td>
+<td>New — the two source PDFs, copied in (source documents are read-only elsewhere in the repo; this is the designated distillation location)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>epic-0.0</code>, <code>epic-0.2</code>, <code>epic-0.3</code>, <code>epic-0.4</code> (flagged as a follow-up candidate only, per above); <code>data-tables.md</code>; <code>gaps.md</code> (G8.1 flagged, not edited); <code>fr-coverage-map.md</code> (Epic 0.1's FR coverage claim — "schema groundwork only" — is unchanged by this expansion); <code>requirements-inventory.md</code> (no new AR — this epic cites existing AR2–AR32 plus <code>CLAUDE.md</code>'s D2+ELK diagram standard, which isn't a numbered AR); <code>sprint-status.yaml</code> (out of this session's scope — a sprint-planning concern, not a course-correction one); dated historical SCPs/changelog entries (immutable record).</p>
+<h3 id="3-recommended-approach-8">3. Recommended Approach</h3>
+<p><strong>Direct Adjustment</strong> — rewrite Epic 0.1 in place; no rollback, no MVP scope change. Effort: <strong>Moderate</strong> (one epic substantially rewritten, two index files updated, one decision-log + changelog entry). Risk: <strong>Low</strong> — additive documentation rigor to an epic with no implementation started yet (per the epic's own "nothing built yet" precedent, decision #8); no FR/NFR/dependency-graph change; the one open naming question is explicitly deferred rather than silently decided.</p>
+<h3 id="4-detailed-change-proposals-8">4. Detailed Change Proposals</h3>
+<p>See §2 for the full before/after mapping; the rewritten epic file carries complete Given/When/Then ACs for all 4 stories.</p>
+<p>Story-shape rationale (why 4, not more or fewer): the source pages' own structure has four natural phases — <em>design decisions</em> (§1), <em>ER diagram</em> (their two diagrams), <em>column-level mapping</em> (§3, 16 sub-sections), <em>data warnings/open questions</em> (§5–6). Column-level mapping and the ER diagram are combined into one story (0.1.3) because for CTAM-native tables the diagram and the DDL are authored together, not sequentially the way a replicated schema's diagram (fixed by the source) can precede its mapping table.</p>
+<h3 id="5-implementation-handoff-8">5. Implementation Handoff</h3>
+<p><strong>Scope: Moderate</strong> — epic content substantially rewritten (backlog reorganization: story count changes, no code exists yet to migrate). Routed to <strong>Product Owner / Developer agents</strong> for sprint-planning pickup (<code>bmad-sprint-planning</code> will need to regenerate <code>sprint-status.yaml</code> entries for the new Story ids 0.1.2–0.1.4, since the old 0.1.2 no longer refers to table DDL).</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits above applied directly; nothing committed without being asked.</li>
+<li><strong>Follow-up (not this SCP, flagged for a future one):</strong> an equivalent column-level documentation pass against Epic 0.3 Story 0.3.2 / <code>data-tables.md</code>'s <code>jo_*</code> section, using the same two source pages; and a decision on the <code>personnel_number</code> vs. <code>personal_code</code> naming question.</li>
+</ul>
+<p><strong>Success criteria:</strong> Epic 0.1 has 4 stories with complete ACs; every forward/backward story cross-reference within the epic resolves correctly (0.1.1 → 0.1.2/0.1.3/0.1.4; 0.1.3 depends on 0.1.2; 0.1.4 depends on 0.1.2 + 0.1.3); Phase 0 story totals are consistent across <code>epic-0.1</code>, <code>phase-0/index.md</code>, and <code>epics/index.md</code> (19 everywhere); the decision log and changelog both record this as a traceable, dated change; the <code>jo_*</code> schema itself is not duplicated anywhere in Epic 0.1.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25k"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25k</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> User request — "update epic-0.2 based on the files in <code>/Users/shivakumar/MOJ/ram_analysis_docs</code>," a folder containing the real <code>E-links API v5.0</code> Swagger doc (<code>Swagger UI.pdf</code>) and June 2026 production reference-data exports (<code>ReferenceData/*.csv|json</code>) — the same class of source material Epic 0.2's Story 0.2.1 already claims to port "faithfully," but a direct comparison had not previously been done against this specific Swagger export.</p>
+<p><strong>Mode:</strong> Incremental (single artifact, iterated live with the user). <strong>Scope classification:</strong> <strong>Minor</strong> — Story 0.2.1's AC is corrected in place for completeness; no new story, no FR/NFR/PRD change, no dependency-graph change.</p>
+<hr />
+<h3 id="1-issue-summary-9">1. Issue Summary</h3>
+<p>Comparing the real Swagger doc's <code>Schemas</code>/<code>Paths</code> against Story 0.2.1's endpoint-porting AC (which claims every endpoint is reimplemented with an "identical" request/response shape) surfaced two omissions and several unspecified contract details:</p>
+<ol type="1">
+<li><strong><code>GET /api/v5/people/{id}</code></strong> — a single-person lookup endpoint, distinct from the <code>/people</code> change-feed, present in the real contract but never named in the epic.</li>
+<li><strong><code>GET /api/v5/reference_data/{attribute_name}/{reference_id}</code></strong> — a single reference-data-item lookup, companion to the already-named list endpoint, also never named.</li>
+<li><strong>Required query parameters</strong> — <code>updated_since</code> (<code>/people</code>), <code>left_since</code> (<code>/leavers</code>), and <code>deleted_since</code> (<code>/deleted</code>) are all <code>required</code> in the real contract (missing → <code>400</code> validation error, confirmed from the Swagger UI's own "Try it out" error state); the epic didn't say so.</li>
+<li><strong>Pagination defaults and metadata</strong> — <code>per_page</code> (default 50) and <code>page</code> (default 1) are documented optional params, with responses carrying a <code>PaginationResponse</code> (<code>pages</code>, <code>current_page</code>, <code>results_per_page</code>, <code>more_pages</code>); not previously specified.</li>
+<li><strong>Deprecated singular aliases</strong> — the real <code>attribute_name</code> path parameter accepts 11 deprecated singular forms (<code>appointment_title</code>, <code>base_location</code>, …) alongside the 11 canonical plural names; not previously specified.</li>
+</ol>
+<p>The real reference-data exports (<code>AppointmentTitle</code>, <code>BaseLocation</code>, <code>ContractType</code>, <code>Gender</code>, <code>JudiciaryRole</code>, <code>Jurisdiction</code>, <code>Location</code>, <code>LocationType</code>, <code>Ticket</code>, <code>TicketCategory</code>, <code>TicketCategoryType</code> — 11 files) confirm the epic's existing "11 vocabularies" claim is correct; no change needed there.</p>
+<p><strong>Discussed and explicitly decided against:</strong> the real Swagger doc's <code>Servers</code> value is <code>/elinks</code>, meaning production routes are <code>{host}/elinks/api/v5/...</code>. The user confirmed the mock should <strong>not</strong> adopt this prefix — it reads as gateway/ingress routing in front of the real hosted service, not part of the application's own contract, and a local Spring Boot mock has no gateway in front of it. The epic's existing bare <code>/api/v5/...</code> routes stand; this is now recorded as an explicit out-of-scope item so it isn't re-litigated later.</p>
+<h3 id="2-impact-analysis-9">2. Impact Analysis</h3>
+<p><strong>Epic impact:</strong> Epic 0.2 only, Story 0.2.1's endpoint-porting AC. Stories 0.2.2 and 0.2.3 are unaffected — neither depends on the two newly-named endpoints or the parameter detail added here.</p>
+<p><strong>Artifact impact:</strong> no PRD, architecture pattern, or UX change. No new table, repo, or dependency edge.</p>
+<h4 id="artifact-sweep-6">Artifact sweep</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epic-0.2-joh-elinks-mock-api-stands-in.md</code></td>
+<td>Story 0.2.1's endpoint-porting AC rewritten to name all 7 endpoints (was 5 named/6 implied) plus required-param, pagination, and deprecated-alias detail; References line updated; one new out-of-scope bullet (<code>/elinks</code> prefix)</td>
+</tr>
+<tr>
+<td><code>_bmad-output/source-docs/joh-elinks-api/</code></td>
+<td>New — the real Swagger doc + `ReferenceData/*.csv</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#24</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.21</strong> entry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>epics/phase-0/index.md</code>, <code>epics/index.md</code> (story count unchanged — 19); <code>sprint-status.yaml</code> (no story added/removed/renamed); Stories 0.2.2, 0.2.3 (no dependency on the corrected detail); <code>gaps.md</code> G8.1 (unaffected — this is mock-fidelity, not real-contract confirmation); <code>repository-strategy.md</code>, <code>assumptions.md</code> A38 (both already describe the mock at the right level of abstraction; no correction needed).</p>
+<h3 id="3-recommended-approach-9">3. Recommended Approach</h3>
+<p><strong>Direct Adjustment.</strong> Effort: <strong>Low</strong> — one AC block rewritten, one out-of-scope bullet, one References update, source-doc archival, decision-log + changelog entries. <strong>Risk:</strong> Very low — additive precision to an existing "faithful reimplementation" claim; no behavioural redesign, no story restructuring.</p>
+<h3 id="4-detailed-change-proposals-9">4. Detailed Change Proposals</h3>
+<p>See §1 for the full finding-by-finding rationale; the applied diff is in <code>epic-0.2-joh-elinks-mock-api-stands-in.md</code> itself.</p>
+<h3 id="5-implementation-handoff-9">5. Implementation Handoff</h3>
+<p><strong>Scope: Minor</strong> — direct edit to existing epic content, no scope or dependency change.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits applied directly; nothing committed or pushed without being asked.</li>
+</ul>
+<p><strong>Success criteria:</strong> Story 0.2.1's endpoint-porting AC names every endpoint in the real <code>E-links API v5.0</code> Swagger doc that Epic 0.2's scope covers (people change-feed, people-by-id, leavers, deleted, reference-data list, reference-data-by-id, healthcheck), with required/optional query-parameter behaviour and pagination shape specified; the <code>/elinks</code> prefix question is recorded as a decided out-of-scope item, not left open; the real source material is archived under <code>_bmad-output/source-docs/</code> for future traceability; <code>docs/</code> regenerated from the updated markdown.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25l"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25l</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> User request — "Update epic-0.2 stories with the following details: Acceptance Criteria [already present]; Tasks/Subtasks: API changes, service changes, repository changes, UI changes, tests."</p>
+<p><strong>Mode:</strong> Incremental (single artifact, iterated live with the user). <strong>Scope classification:</strong> <strong>Minor</strong> — additive guidance content within existing stories; no AC change, no FR/NFR/PRD change, no dependency-graph change.</p>
+<hr />
+<h3 id="1-issue-summary-10">1. Issue Summary</h3>
+<p>The literal request — add a <code>## Tasks / Subtasks</code> section to Epic 0.2's stories, broken into API/service/repository/UI/test changes — collides with a documented, previously-incident-tested contract in <code>architecture/delivery-operating-model.md</code>: <strong><code>## Tasks / Subtasks</code> is a BMad-reserved heading</strong>, generated by <code>bmad-create-story</code> into the <strong>story-packet</strong> (<code>docs/stories/&lt;id&gt;.md</code> in the <em>target</em> repo) at dispatch time, and read/written by exact heading by <code>bmad-dev-story</code>. That same file records that SCP 2026-08-19b existed specifically to fix a prior incident where a hand-authored packet omitted <code>## Tasks / Subtasks</code> and broke the dev workflow — the rule against improvising that heading elsewhere is not incidental, it's load-bearing.</p>
+<p>Epics in this repo (<code>_bmad-output/planning-artifacts/epics/</code>) are documented to carry embedded Gherkin Acceptance Criteria only; the task-level breakdown is meant to be produced later, per-story, when <code>bmad-create-story</code> actually dispatches that story using the epic's ACs as input.</p>
+<p><strong>Resolution, confirmed with the user:</strong> keep the <em>content</em> the user asked for (an API/service/repository/UI/test breakdown per story) but under a <strong>differently-named subsection</strong> — <strong>"Implementation touchpoints"</strong> — so it (a) doesn't collide with the reserved heading <code>bmad-dev-story</code> reads/writes, and (b) reads unambiguously as <em>dispatch guidance for <code>bmad-create-story</code></em>, not as the dispatch-time artifact itself.</p>
+<h3 id="2-impact-analysis-10">2. Impact Analysis</h3>
+<p><strong>Epic impact:</strong> Epic 0.2 only, all three stories (0.2.1, 0.2.2, 0.2.3) gain a new "Implementation touchpoints" paragraph each, placed after their existing "Explicitly NOT in scope" bullets. No AC changed, no story added or renumbered.</p>
+<p><strong>Artifact impact:</strong> no PRD, architecture pattern, FR/NFR, or UX change. No new table, repo, or dependency edge. Introduces (but does not mandate elsewhere) a reusable per-story guidance pattern that future epics may adopt the same way — not applied retroactively to any other epic by this SCP.</p>
+<h4 id="artifact-sweep-7">Artifact sweep</h4>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epic-0.2-joh-elinks-mock-api-stands-in.md</code></td>
+<td>New "Implementation touchpoints" paragraph added to each of Stories 0.2.1, 0.2.2, 0.2.3</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#25</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.22</strong> entry</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>epics/phase-0/index.md</code>, <code>epics/index.md</code> (story count unchanged — 19); <code>sprint-status.yaml</code> (no story added/removed/renamed); every other Phase 0 epic (this SCP does not retrofit the pattern elsewhere); <code>epics/framework.md</code> (no canonical epic-content template exists there to update).</p>
+<h3 id="3-recommended-approach-10">3. Recommended Approach</h3>
+<p><strong>Direct Adjustment.</strong> Effort: <strong>Low</strong> — three additive paragraphs, decision-log + changelog entries. <strong>Risk:</strong> Very low — purely additive guidance content; the naming choice specifically avoids the one collision risk this kind of change could otherwise create.</p>
+<h3 id="4-detailed-change-proposals-10">4. Detailed Change Proposals</h3>
+<p>Per story, a new paragraph:</p>
+<blockquote>
+<p><strong>Implementation touchpoints</strong> <em>(dispatch guidance for <code>bmad-create-story</code> — not the BMad <code>## Tasks / Subtasks</code> section itself, which <code>bmad-create-story</code> generates in the story-packet at dispatch time, per <code>delivery-operating-model.md</code>)</em>:</p>
+<ul>
+<li><strong>API changes:</strong> ...</li>
+<li><strong>Service changes:</strong> ...</li>
+<li><strong>Repository changes:</strong> ...</li>
+<li><strong>UI changes:</strong> ...</li>
+<li><strong>Tests:</strong> ...</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>Story 0.2.1:</strong> names the new Spring controllers/services by class name, confirms no repository layer (stateless mock, no DB) and no UI, and describes the ported JUnit test suite.</li>
+<li><strong>Story 0.2.2:</strong> all categories are "none" except tests (Docker Compose liveness + manual curl verification) — this story is deployment/wiring only.</li>
+<li><strong>Story 0.2.3:</strong> flagged explicitly that its code changes land in <strong><code>ctam-reference-data</code></strong>, not <code>ctam-jomockapi</code> — config-only service change (base URL), no new repository code (existing Story 0.3.2 repositories), integration test verifying the full sync against the mock.</li>
+</ul>
+<p>Full text is in the epic file itself.</p>
+<h3 id="5-implementation-handoff-10">5. Implementation Handoff</h3>
+<p><strong>Scope: Minor</strong> — direct edit to existing epic content, no scope or dependency change.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits applied directly; nothing committed or pushed without being asked.</li>
+</ul>
+<p><strong>Success criteria:</strong> every one of Epic 0.2's three stories carries an "Implementation touchpoints" paragraph covering API/service/repository/UI/test changes; no story acquires a literal <code>## Tasks / Subtasks</code> heading; the naming and framing make clear this is dispatch-time guidance, not the BMad-generated artifact itself; <code>docs/</code> regenerated from the updated markdown.</p>
+<hr />
+</div></details><details class="section" id="sprint-change-proposal--2026-08-25m"><summary><span class="section-title">Sprint Change Proposal — 2026-08-25m</span></summary><div class="section-body">
+<p><strong>Status:</strong> approved</p>
+<p><strong>Trigger:</strong> Explicit user request — first "remove the source-docs folder completely and update," then refined to "move source-docs from this folder to <code>/Users/shivakumar/MOJ/docs</code>." The net effect implemented is the second, refined instruction: relocate, not delete.</p>
+<p><strong>Mode:</strong> Direct execution (unambiguous instruction; no judgment call to iterate on). <strong>Scope classification:</strong> <strong>Minor</strong> — file relocation + reference correction; no AC/FR/NFR/PRD change, no dependency-graph change.</p>
+<hr />
+<h3 id="1-issue-summary-11">1. Issue Summary</h3>
+<p><code>_bmad-output/source-docs/</code> held two archives created earlier the same day:</p>
+<ul>
+<li><code>joh-schema-confluence/</code> (SCP 2026-08-25j) — two distilled PDFs of internal HMCTS Confluence pages describing the JOH eLinks integration schema.</li>
+<li><code>joh-elinks-api/</code> (SCP 2026-08-25k) — the real E-links API v5.0 Swagger doc, plus <strong>real HMCTS production reference-data exports</strong> (<code>eLinks_Pivotl_Production_all-data_2026-06-01_*</code>, 11 CSV/JSON files) supplied by the user for the mock-API contract correction.</li>
+</ul>
+<p>The user asked for this folder to be taken out of the repo and relocated to <code>/Users/shivakumar/MOJ/docs</code> on their own machine — outside version control, outside <code>ctam-analysis</code> entirely — and for the resulting references to be updated accordingly.</p>
+<h3 id="2-impact-analysis-11">2. Impact Analysis</h3>
+<p><strong>Epic impact:</strong> none structural — Epic 0.1 and Epic 0.2's <em>content</em> (the schema-design pattern adopted, the mock-API contract corrections) stands independently of whether a local copy of the source material is archived inside the repo. Only the two places that claimed an in-repo archived copy needed correcting.</p>
+<p><strong>Artifact impact:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_bmad-output/source-docs/</code></td>
+<td>Moved out of the repo to <code>/Users/shivakumar/MOJ/docs/source-docs/</code> (both subfolders, 14 files, preserved intact — not deleted, an unrelated pre-existing PDF already in the destination folder is untouched)</td>
+</tr>
+<tr>
+<td><code>epic-0.1-postgres-sql-schema-design.md</code></td>
+<td>Design-rigor note's "distilled to <code>_bmad-output/source-docs/joh-schema-confluence/</code>" claim removed; a dated note added recording the relocation</td>
+</tr>
+<tr>
+<td><code>epic-0.2-joh-elinks-mock-api-stands-in.md</code></td>
+<td>Story 0.2.1's References line's "archived to <code>_bmad-output/source-docs/joh-elinks-api/</code>" claim corrected to note the archive existed in-repo and was later relocated out</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>Decisions #23 and #24 get a short bracketed annotation (<code>*(relocated out of the repo by #26)*</code>) — matching the existing #14/#16 precedent for a later decision affecting an earlier one — text otherwise left as immutable history; new decision <strong>#26</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.23</strong> entry; v4.20/v4.21 entries left untouched (immutable history, per this repo's convention)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25j</code>, <code>sprint-change-proposal-2026-08-25.md#sprint-change-proposal-2026-08-25k</code> (dated historical records — immutable, per <code>CLAUDE.md</code>'s "leave dated reports and existing changelog entries as immutable history — add, don't rewrite"); the Confluence-page and Swagger-doc <em>citations themselves</em> (still valid — only the claim of an in-repo copy is removed); <code>sprint-status.yaml</code>, <code>epics/phase-0/index.md</code>, <code>epics/index.md</code> (no story/count change).</p>
+<p><strong>Not done:</strong> a git-history rewrite. The relocated files remain recoverable from the commits that added them (<code>a4bd168</code> for <code>joh-schema-confluence/</code>, <code>3be19ef</code> for <code>joh-elinks-api/</code>) unless the user separately, explicitly requests a history rewrite — not attempted here per this repo's hard rules on destructive git operations.</p>
+<h3 id="3-recommended-approach-11">3. Recommended Approach</h3>
+<p><strong>Direct Adjustment.</strong> Effort: <strong>Low</strong>. <strong>Risk:</strong> Very low — the relocation was explicitly requested; the only risk was leaving dangling in-repo references, which this SCP corrects.</p>
+<h3 id="4-detailed-change-proposals-11">4. Detailed Change Proposals</h3>
+<p>See §2; full diffs are in the files themselves.</p>
+<h3 id="5-implementation-handoff-11">5. Implementation Handoff</h3>
+<p><strong>Scope: Minor</strong> — direct file relocation + reference correction, no scope or dependency change.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits applied directly; nothing committed or pushed without being asked.</li>
+</ul>
+<p><strong>Success criteria:</strong> <code>_bmad-output/source-docs/</code> no longer exists inside <code>ctam-analysis</code>; the 14 files are intact at <code>/Users/shivakumar/MOJ/docs/source-docs/</code>; no remaining planning-artifact text claims an in-repo archived copy exists; the underlying source citations (Confluence pages, real Swagger doc, real reference-data exports) remain accurately described as sources, just without an in-repo copy; <code>docs/</code> (the published site) regenerated from the updated markdown.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-25.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#index">Index</a></li><li><a href="#sprint-change-proposal--2026-08-25-1">Sprint Change Proposal — 2026-08-25</a></li><li class="h3"><a href="#1-issue-summary">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25b">Sprint Change Proposal — 2026-08-25b</a></li><li class="h3"><a href="#1-issue-summary-1">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-1">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-1">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-1">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-1">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25c">Sprint Change Proposal — 2026-08-25c</a></li><li class="h3"><a href="#1-issue-summary-2">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-2">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-2">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-2">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-2">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25d">Sprint Change Proposal — 2026-08-25d</a></li><li class="h3"><a href="#1-issue-summary-3">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-3">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-3">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-3">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-3">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25f">Sprint Change Proposal — 2026-08-25f</a></li><li class="h3"><a href="#1-issue-summary-4">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-4">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-4">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-4">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-4">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25g">Sprint Change Proposal — 2026-08-25g</a></li><li class="h3"><a href="#1-issue-summary-5">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-5">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-5">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-5">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-5">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25h">Sprint Change Proposal — 2026-08-25h</a></li><li class="h3"><a href="#1-issue-summary-6">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-6">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-6">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-6">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-6">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25i">Sprint Change Proposal — 2026-08-25i</a></li><li class="h3"><a href="#1-issue-summary-7">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-7">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-7">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-7">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-7">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25j">Sprint Change Proposal — 2026-08-25j</a></li><li class="h3"><a href="#1-issue-summary-8">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-8">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-8">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-8">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-8">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25k">Sprint Change Proposal — 2026-08-25k</a></li><li class="h3"><a href="#1-issue-summary-9">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-9">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-9">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-9">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-9">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25l">Sprint Change Proposal — 2026-08-25l</a></li><li class="h3"><a href="#1-issue-summary-10">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-10">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-10">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-10">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-10">5. Implementation Handoff</a></li><li><a href="#sprint-change-proposal--2026-08-25m">Sprint Change Proposal — 2026-08-25m</a></li><li class="h3"><a href="#1-issue-summary-11">1. Issue Summary</a></li><li class="h3"><a href="#2-impact-analysis-11">2. Impact Analysis</a></li><li class="h3"><a href="#3-recommended-approach-11">3. Recommended Approach</a></li><li class="h3"><a href="#4-detailed-change-proposals-11">4. Detailed Change Proposals</a></li><li class="h3"><a href="#5-implementation-handoff-11">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-25";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

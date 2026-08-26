@@ -93,7 +93,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <p>Sibling of <a href="../../architecture.html"><code>../architecture.md</code></a>. The parent links here from its <em>Project Structure &amp; Boundaries</em> section.</p>
 </blockquote>
 <h2 id="repository-strategy-polyrepo">Repository Strategy: Polyrepo</h2>
-<p><strong>Decision:</strong> 11 service repos + 1 mock-auth repo + 2 UI repos (business + admin) + 1 architecture/scaffolding repo + 1 shared-infrastructure repo. No monorepo, no Gradle root project.</p>
+<p><strong>Decision:</strong> 11 service repos + 1 mock-auth repo + 1 JOH-mock repo + 2 UI repos (business + admin) + 1 architecture/scaffolding repo + 1 shared-infrastructure repo. No monorepo, no Gradle root project.</p>
 <p>A monorepo would either share <code>build.gradle</code> config (breaks no-shared-coupling), coordinate releases (breaks per-region phased rollout independence), or add Bazel-style hermetic build complexity that CTAM Pathfinder's requirements don't need.</p>
 <p>Polyrepo gives each service its own repo, pipeline, release cadence, CODEOWNERS, branch protection, and review policy. What stays cross-repo: API contracts (OpenAPI specs), the architecture documents and ADRs, the scaffolding script.</p>
 <h2 id="repository-list">Repository List</h2>
@@ -126,16 +126,22 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td>Issue JWTs via OIDC <code>authorization_code</code> for human users; <strong>issue service tokens via OAuth <code>client_credentials</code></strong> for batch components (initially <code>ctam-payment-batch</code>); refuse to start with <code>production</code> profile (G5.3).</td>
 </tr>
 <tr>
+<td><strong><code>ctam-jomockapi</code></strong></td>
+<td>0</td>
+<td><strong>Java/Spring Boot</strong> mock of the <strong>JOH eLinks People API v5</strong> (scaffolded from the same HMCTS Crime SpringBoot template as every other service, <code>ctam-scaffold.sh</code> — no stack deviation, SCP 2026-08-25g; ported from an earlier Node/Express reference implementation), standing in for the unconfirmed upstream contract (gaps.md G8.1). <strong>Never deployed anywhere but locally</strong> — no shared-estate deployment in this scope (SCP 2026-08-25f).</td>
+<td>Serve the documented eLinks v5 contract (people change-feed, leavers, deleted, 11 reference-data vocabularies) from realistic seeded data joined against real production reference-data exports; give <code>ctam-reference-data</code>'s local eLinks sync a live network target via Docker Compose (Epic 0.2).</td>
+</tr>
+<tr>
 <td><strong><code>ctam-reference-data</code></strong></td>
 <td>0</td>
-<td>Owns all 33 reference-data tables — tier (a) upstream-sourced (15 <code>jo_*</code> + <code>mrd_*</code>) and tier (b) CTAM-owned (<code>ctam_regions</code> / <code>ctam_offices</code> / <code>ctam_calendar_periods</code> + vocabularies), plus <code>ctam_sync_status</code> and <code>ctam_joh_identities</code> (the CTAM-assigned JOH identifier, minted during the eLinks sync). <strong>First domain service scaffolded</strong> (integrations-first sequencing, decision #12 / SCP 2026-06-17); <strong>deploys onto the shared estate provisioned in <code>ctam-shared-infrastructure</code></strong> (Epic 0.0, AR53 revised); carries only its own per-repo Terraform (MRD storage, Story 0.1.4).</td>
-<td>In-process JOH eLinks nightly sync + MRD weekly blob pick-up (tier a — the programme's first deliverable and first external integration); versioned read API (jurisdiction-filtered<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> — downstream of auth, lands after the auth epic); tier-(b) maintenance by DBAs via SQL in MVP<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>; reads happen via direct SQL by other services.</td>
+<td>Owns 32 reference-data tables — tier (a) upstream-sourced (15 <code>jo_*</code>) and tier (b) CTAM-owned (<code>ctam_regions</code> / <code>ctam_offices</code> / <code>ctam_calendar_periods</code> + vocabularies), plus <code>ctam_sync_status</code> and <code>ctam_joh_identities</code> (the CTAM-assigned JOH identifier, minted during the eLinks sync). <strong>First domain service scaffolded</strong> (integrations-first sequencing, decision #12 / SCP 2026-06-17); <strong>deploys onto the shared estate provisioned in <code>ctam-shared-infrastructure</code></strong> (Epic 0.0, AR53 revised). <em>(<code>mrd_*</code> and its Terraform-provisioned blob storage are not currently in scope — MRD ingestion removed 2026-08-25d.)</em></td>
+<td>In-process JOH eLinks ETL process (Epic 0.3) (tier a — the programme's first deliverable and first external integration); versioned <strong>open</strong> read API (Epic 0.4 — no auth in this scope, SCP 2026-08-25d); tier-(b) maintenance by DBAs via SQL in MVP<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>; reads happen via direct SQL by other services.</td>
 </tr>
 <tr>
 <td><strong><code>ctam-authorisation</code></strong></td>
 <td>0</td>
 <td>Owns the 6 Authorisation tables; <strong>the per-request authz authority</strong>.</td>
-<td>Manage <code>ctam_auth_users</code>, <code>ctam_auth_staff_identities</code>, <code>ctam_auth_roles</code>, <code>ctam_auth_user_roles</code>, <code>ctam_auth_user_region_scopes</code>, <code>ctam_auth_user_activation_flags</code>; expose <code>POST /authz/check</code> with two-population identity resolution (IdP email → <code>jo_people</code> → <code>personnel_number</code> → <code>ctam_joh_identities</code> CTAM JOH UUID for JOHs; → <code>ctam_auth_staff_identities</code> CTAM UUID for admin staff,<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>); enforce per-(jurisdiction, region) phased activation (FR57).</td>
+<td>Manage <code>ctam_auth_users</code>, <code>ctam_auth_staff_identities</code>, <code>ctam_auth_roles</code>, <code>ctam_auth_user_roles</code>, <code>ctam_auth_user_region_scopes</code>, <code>ctam_auth_user_activation_flags</code>; expose <code>POST /authz/check</code> with two-population identity resolution (IdP email → <code>jo_people</code> → <code>personnel_number</code> → <code>ctam_joh_identities</code> CTAM JOH UUID for JOHs; → <code>ctam_auth_staff_identities</code> CTAM UUID for admin staff,<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>); enforce per-(jurisdiction, region) phased activation (FR57).</td>
 </tr>
 <tr>
 <td><strong><code>ctam-notification</code></strong></td>
@@ -146,7 +152,7 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <tr>
 <td><strong><code>ctam-joh</code></strong></td>
 <td>1</td>
-<td>JOH operational state — working patterns + ticket/location overlays + jurisdictional split, keyed by <code>joh_id</code> → <code>ctam_joh_identities</code>. <em>(Renamed from <code>ctam-joh</code><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>; the canonical JOH person record is <code>jo_people</code>, owned by Reference Data.)</em></td>
+<td>JOH operational state — working patterns + ticket/location overlays + jurisdictional split, keyed by <code>joh_id</code> → <code>ctam_joh_identities</code>. <em>(Renamed from <code>ctam-joh</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>; the canonical JOH person record is <code>jo_people</code>, owned by Reference Data.)</em></td>
 <td>Manage working patterns (FR12); generate forward sittings (FR13); manage ticket overlays (FR15b) and location overlays (FR17); jurisdictional splits with 100% sum constraint (FR16); JOH search/profile views compose <code>jo_*</code> + overlays (FR10, FR11).</td>
 </tr>
 <tr>
@@ -201,20 +207,19 @@ main .section-body>h3:first-child,main .section-body>p:first-child,main .section
 <td><strong><code>ctam-admin-ui</code></strong></td>
 <td>0</td>
 <td><strong>Admin-facing SPA</strong>, separated from business workflows. Same stack as <code>ctam-ui</code> but distinct repo, pipeline, and deployment.</td>
-<td>Reference Data maintenance (FR6 — Regions, Offices, judicial vocabularies, calendar / financial-year boundaries with named-owner sign-off); User &amp; Role admin (FR4 — system administrators update role and Region/Area assignments for migrated and new users). <strong>Post-MVP repo<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></strong> — in MVP these operations are DBA-via-SQL per runbook. Future admin surfaces reserved: per-(jurisdiction, region) activation flag dashboard (FR57), post-MVP user-action audit viewer (D7 roadmap). Same SSO + Authorisation pattern as <code>ctam-ui</code>.</td>
+<td>Reference Data maintenance (FR6 — Regions, Offices, judicial vocabularies, calendar / financial-year boundaries with named-owner sign-off); User &amp; Role admin (FR4 — system administrators update role and Region/Area assignments for migrated and new users). <strong>Post-MVP repo<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></strong> — in MVP these operations are DBA-via-SQL per runbook. Future admin surfaces reserved: per-(jurisdiction, region) activation flag dashboard (FR57), post-MVP user-action audit viewer (D7 roadmap). Same SSO + Authorisation pattern as <code>ctam-ui</code>.</td>
 </tr>
 </tbody>
 </table>
-<p><strong>16 repos total</strong> (11 production services + 2 UI + architecture + mock-auth + shared-infrastructure). <code>ctam-shared-infrastructure</code> is Terraform-only (no deployable workload); <code>ctam-mock-auth</code> is dev/integration-only and never deploys to production.</p>
+<p><strong>17 repos total</strong> (11 production services + 2 UI + architecture + mock-auth + JOH-mock + shared-infrastructure). <code>ctam-shared-infrastructure</code> is Terraform-only (no deployable workload); <code>ctam-mock-auth</code> and <code>ctam-jomockapi</code> are dev/integration-only and never deploy to production.</p>
 <p><strong>Why split admin and business UI:</strong> business operational workflows (judges, absences, vacancies, bookings, sittings, payments, itineraries, reports) are continuously evolving with HMCTS judicial process. Admin work (managing the controlled vocabularies and user role assignments those workflows depend on) is lower-cadence, higher-stakes (a wrong Region rename or role flip cascades into operational chaos), and has a different audience (system administrators, not RSU/Court/Judges). Keeping them in separate repos gives independent CI/CD, independent rollout, distinct CODEOWNERS, and prevents accidental coupling — for example, admin-only screens cannot leak into a business user's nav by misconfiguration. Same as the backend's per-service polyrepo discipline: minimise shared code, accept duplication, gain independence.</p>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr />
 <ol>
-<li id="fn1"><p>D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>D11 (2026-06-10, amended 2026-06-18; <strong>superseded by D13 2026-08-07 for wave ordering</strong>) — SSCS pilot wave: CTAM Pathfinder replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>. Per D13 the SSCS wave is <strong>wave 2</strong>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Restructured D9 (2026-06-10; refined 2026-07-09 per SCP) — two user populations. JOHs resolve IdP email → <code>jo_people</code> → <code>personnel_number</code> → a <strong>CTAM-assigned JOH UUID</strong> (<code>ctam_joh_identities</code>); HMCTS admin staff via a CTAM-internal identity table. Both key on a CTAM-assigned UUID; <code>personnel_number</code> is the upstream link only. No legacy user migration.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>D11 (2026-06-10, amended 2026-06-18; <strong>superseded by D13 2026-08-07 for wave ordering</strong>) — SSCS pilot wave: CTAM Pathfinder replaces <strong>ListAssist</strong> (the SSCS judicial-scheduling tool); <strong>GAPS (SSCS case management) is retained, not replaced</strong>. Per D13 the SSCS wave is <strong>wave 2</strong>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>D10 (2026-05-15) — admin UI is post-MVP; MVP admin operations are DBA-via-SQL per operational runbooks.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

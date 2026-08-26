@@ -187,7 +187,7 @@ sourceDocuments:
 ### Starter template (Story 1 of every service epic)
 
 - AR2[^d10] — Each CTAM Pathfinder backend service is scaffolded from the **HMCTS Crime SpringBoot template** (`https://github.com/hmcts/service-hmcts-crime-springboot-template`, default branch `main`) cloned via the `ctam-scaffold.sh` script in `ctam-architecture/scaffolding/`. The scaffolding script applies CTAM Pathfinder conventions on top of the starter and is used at service-creation time only. **The `gh` CLI is NOT available in the engineering environment** — `ctam-scaffold.sh` handles only local scaffolding + `git push` to a pre-created remote; all GitHub admin operations are performed manually via the GitHub web UI per AR51.
-- AR3 — Group ID `uk.gov.hmcts.ctam`; artefact `ctam-{service-name}`; package `uk.gov.hmcts.ctam.{service-name}`. Default port 8082.
+- AR3 — Group ID `uk.gov.hmcts.ctam`; artefact `ctam-{service-name}`; package `uk.gov.hmcts.ctam.{service-name}`. **Each service is scaffolded with its own distinct port** (starting from 8082, incremented per service in scaffold order — `ctam-reference-data` 8082, `ctam-joh` 8083, and so on) so that no two services collide when run side by side locally or in the same cluster; `ctam-jomockapi` (Epic 0.2, non-production-only) uses 8090, set apart from the domain-service sequence.
 - AR4 — Initial commit for every new service is *"Scaffold CTAM Pathfinder {service-name} from HMCTS starter"* — this is the first implementation story per service.
 
 ### Locked technology stack (carried from PRD; enumerated here as architecture-confirmed dependency versions)
@@ -282,7 +282,7 @@ sourceDocuments:
 - AR53 — **(revised 2026-07-06)** **All Azure infrastructure is provisioned via Terraform** (HMCTS standard) — no Bicep, no portal click-ops. **Product-level *shared* infrastructure lives in its own dedicated repository, `ctam-shared-infrastructure`**, per the HMCTS Cloud Native Platform `{product}-shared-infrastructure` standard. This **supersedes the prior "colocated first-consumer" rule** (SCP 2026-06-17): the shared estate is no longer carried inside `ctam-reference-data`. Allocation under the revised rule:
   - **`ctam-shared-infrastructure`** carries the **shared estate**: AKS cluster + node pools, PostgreSQL Flexible Server, Azure Container Registry, APIM instance + base policies, Application Insights / Log Analytics workspace (incl. retention settings), Key Vault — provisioned and **independently verified in Epic 0.0**, ahead of any service.
   - **Each service repo** carries Terraform for its **own resources only**: its Key Vault namespace/secrets, service-specific storage, APIM per-API policy additions.
-  - **`ctam-reference-data`** carries the MRD feed storage account + blob container (Epic 0.1 Story 0.1.4 — its own resource).
+  - **`ctam-reference-data`** — the MRD feed storage account + blob container (previously Epic 0.8, Story 0.8.1) is **not currently provisioned** — MRD ingestion was removed from Phase 0 scope (SCP 2026-08-25d).
   - **`ctam-ui`** carries its Azure Static Web App.
   - Terraform lives under `terraform/` with per-environment stacks (`dev` / `staging` / `production`) in **`ctam-shared-infrastructure`** (shared estate) and in each service repo (own resources); `ctam-scaffold.sh` adds the per-service `terraform/` skeleton alongside the Helm chart (same pattern as G1.4a).
   - **Helm remains the application-deployment mechanism** onto the shared AKS cluster provisioned in Epic 0.0 — Terraform provisions the estate; Helm deploys workloads onto it; Liquibase owns DB schema. The three do not overlap.
@@ -291,6 +291,7 @@ sourceDocuments:
 ### Identity bootstrap + verification
 
 - AR52 — User and authorisation records (`auth_*` tables incl. `ctam_auth_staff_identities`) are **strictly CTAM-internal**, populated by programme-management / operational mechanisms outside the PRD's scope — no external authority provides this data and no legacy system seeds it. CTAM provides: (a) dev/CI seed scripts spanning both identity populations; (b) a **bootstrap-verification job** that confirms every bootstrapped user (both populations) maps to a real IdP principal — run before each wave's cutover and at the pre-Phase-9 IdP cutover (G1.3); (c) the production bootstrap runbook.[^d9]
+- AR54 — **CI-only WireMock/stub eLinks API**: `ctam-reference-data`'s eLinks sync (AR46) is integration-tested in CI against a WireMock (or equivalent HTTP-stub) server standing in for the real JOH eLinks API — fast, hermetic, no live network dependency. This is **retained unchanged** alongside the deployed `ctam-jomockapi` mock (Epic 0.2): the WireMock stub exercises the sync code path in CI; the locally-run `ctam-jomockapi` exercises the same sync end-to-end against a realistic, schema-faithful network target during local development (Epic 0.2, Story 0.2.3) — complementary, not a replacement of one by the other.
 
 ## UX Design Requirements
 

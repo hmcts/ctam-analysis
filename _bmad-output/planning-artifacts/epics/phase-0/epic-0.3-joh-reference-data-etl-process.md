@@ -1,41 +1,44 @@
 ---
 type: 'Epic'
-description: 'User outcome: Judicial-holder reference data flows into CTAM Pathfinder from its upstream sources of truth — the JOH eLinks API (15 jo_ entities, nightly) and the MRD weekly dataset (supplementary…'
-resource: 'epics/phase-0/epic-0.1-upstream-reference-data-ingested.html'
+description: "User outcome: the JOH reference-data ETL process — extract nightly from the JOH eLinks API, transform into CTAM's tier-(a) schema, load via full-refresh upsert — populates and keeps current the 15 jo_ entities inside ctam-reference-data."
+resource: 'epics/phase-0/epic-0.3-joh-reference-data-etl-process.html'
 tags: [ctam-pathfinder, epics, phase-0]
-timestamp: '2026-06-17'
+timestamp: '2026-08-25'
 parent: 'epics/phase-0/index.md'
-epic: 0.1
-title: 'Upstream JOH/MRD reference data is ingested'
-storyCount: 4
+epic: 0.3
+title: 'JOH reference-data ETL process'
+storyCount: 3
 repo: ctam-reference-data
-depends_on: [epic-0.0, epic-0.6]            # needs the estate + the shared config baseline (was arch-baseline)
+depends_on: [epic-0.0]
 ---
 
-# Epic 0.1: Upstream JOH/MRD reference data is ingested
+# Epic 0.3: JOH Reference-Data ETL Process
 
-**User outcome:** Judicial-holder reference data flows into CTAM Pathfinder from its upstream sources of truth — the **JOH eLinks API** (15 `jo_*` entities, nightly) and the **MRD** weekly dataset (supplementary `mrd_*` data) — so that `jo_people` exists and is current, `jo_jurisdictions` is available as the first-class jurisdiction dimension (D8), and judicial-holder reference data is authoritative in CTAM **without any legacy migration** (revised D3, NFR24). This is the platform's foundational data layer: every downstream consumer of JOH identity and reference data depends on it, and JOH sign-in (Epic 0.2) is impossible until `jo_people` — the identity-lookup target — is populated.
+> **Naming note** *(SCP 2026-08-24b)*: "ETL" here labels this epic's **ongoing** JOH eLinks ingestion pipeline — extract nightly from the eLinks API, transform into CTAM's tier-(a) schema, load via full-refresh upsert — not the retired **one-shot legacy APEX-migration** tool the term previously referred to (retracted with D3, 2026-06-10; see gaps.md G4.6). The underlying technical design is unchanged from decision #9 in `../architecture.md`: an in-process `@Scheduled` sync inside `ctam-reference-data`, no new deployable, no service identity.
 
-**Hosting:** the ingestion runs in-process inside `ctam-reference-data` — no separate `ctam-integrations` repo. `ctam-reference-data` is the first **domain** service scaffolded; it deploys onto the shared Azure estate provisioned in **Epic 0.0** (`ctam-shared-infrastructure`) and carries only its **own** per-repo Terraform (Key Vault namespace; MRD storage — Story 0.1.4).
+> **Scope reduction** *(SCP 2026-08-25d)*: MRD ingestion (previously its own Epic 0.8, split out 2026-08-24b when this epic was numbered 0.1) is **removed from the plan for now**, along with Notification, User authentication, User-population bootstrap, and the MRD read API — Phase 0 is narrowed to epics 0.0–0.4. This epic covers **JOH eLinks data only**; `mrd_*` ingestion would need to be re-planned as a future epic if MRD scope returns. The context-bus dependency (formerly Epic 0.6) is folded into **Epic 0.0** (Stories 0.0.6–0.0.7), so this epic now depends only on Epic 0.0.
+
+**User outcome:** The JOH reference-data ETL process — **extract** nightly from the **JOH eLinks API**, **transform** into CTAM's tier-(a) schema, **load** via full-refresh upsert — populates and keeps current the 15 `jo_*` tables inside `ctam-reference-data`, so that `jo_people` exists and is current, `jo_jurisdictions` is available as the first-class jurisdiction dimension (D8), and judicial-holder reference data is authoritative in CTAM **without any legacy migration** (revised D3, NFR24). This is the platform's foundational data layer: every downstream consumer of JOH identity and reference data depends on it — including Epic 0.4's read API and Epic 0.1's `ctam-joh` schema (via `ctam_joh_identities`).
+
+**Hosting:** the ETL process runs in-process inside `ctam-reference-data` — no separate `ctam-integrations` repo. `ctam-reference-data` is the first **domain** service scaffolded; it deploys onto the shared Azure estate provisioned in **Epic 0.0** (`ctam-shared-infrastructure`) and carries only its **own** per-repo Terraform (Key Vault namespace).
 
 **Vertical slice:**
 - **GitHub manual-setup runbook** at `ctam-architecture/runbooks/github-setup.md` (the `gh` CLI is **not** available — all GitHub admin operations are manual via the web UI; `ctam-scaffold.sh` handles only local scaffolding + `git push` to a pre-created remote)
 - **First scaffolded backend service: `ctam-reference-data`** (HMCTS Crime SpringBoot template + `ctam-scaffold.sh` conventions per AR2–AR4)
 - **Consumes the shared Azure estate** (AKS, shared global PostgreSQL Flexible Server + per-service DB roles, ACR, APIM, App Insights, Key Vault) **provisioned in Epic 0.0** per AR53 (revised — dedicated `ctam-shared-infrastructure`)
-- Shared `ctam_configuration_values` Liquibase baseline changelog established by `ctam-architecture` ahead of `ctam-reference-data` (FR8); SELECT-granted to every service role
-- Tier-(a) upstream-sourced tables: 15 `jo_*` + `mrd_specialisms` + `ctam_sync_status` (CTAM-internal ingestion run log), service-owned Liquibase changelogs (AR18–AR20), tier-(a) write-protection (only `ctam_reference_data` holds INSERT/UPDATE — AR49, FR6)
-- **JOH eLinks nightly in-process `@Scheduled` sync** (AR46, AR48)
-- **MRD weekly Excel blob ingestion** via Azure Blob drop + scheduled pick-up (AR47)
+- Shared `ctam_configuration_values` Liquibase baseline changelog established by `ctam-architecture` (Epic 0.0, Story 0.0.7) ahead of `ctam-reference-data`; SELECT-granted to every service role
+- Tier-(a) upstream-sourced tables: 15 `jo_*` + `ctam_sync_status` (CTAM-internal ingestion run log), service-owned Liquibase changelogs (AR18–AR20), tier-(a) write-protection (only `ctam_reference_data` holds INSERT/UPDATE — AR49, FR6)
+- **JOH eLinks nightly in-process `@Scheduled` sync** — the ETL's extract/transform/load run (AR46, AR48)
 
-**FRs covered:** FR1 (the identity-lookup *target* data — `jo_people` populated), FR6 tier-(a), FR7 tier-(a) grants, FR8 (shared `ctam_configuration_values` baseline first lands here); NFR24 (JOH eLinks + MRD MVP integrations).
+**FRs covered:** FR1 (the identity-lookup *target* data — `jo_people` populated), FR6 tier-(a), FR7 tier-(a) grants; NFR24 (JOH eLinks MVP integration). *(FR8 is delivered by Epic 0.0, Story 0.0.7 — this epic only consumes/verifies the shared `ctam_configuration_values` baseline, per Story 0.3.1's AC.)*
 
-**Key NFRs first exercised here:** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR16 (Key Vault — incl. the eLinks API credential), NFR24 (JOH eLinks + MRD integrations), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness probes), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes), NFR42 (Postman collections), NFR59 (structured logs first exercised at scaffold).
+**Key NFRs first exercised here:** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR16 (Key Vault — incl. the eLinks API credential), NFR24 (JOH eLinks integration), NFR25–NFR28 (structured logs + Application Insights ingestion + liveness/readiness probes), NFR31 (Azure UK South data residency), NFR40 (per-service deployable on Kubernetes), NFR42 (Postman collections), NFR59 (structured logs first exercised at scaffold).
 
-**Out of scope (explicitly):** the read-only Reference Data API + jurisdiction filtering (Epic 0.3, Story 0.3.2 — downstream of auth). Tier-(b) CTAM-owned reference tables (Epic 0.3, Story 0.3.1). All authentication / authorisation / UI (Epic 0.2). MRD API integration (post-MVP — when MRD ships public APIs). Hand-editing of tier-(a) data in CTAM (never, in any phase — corrections at source per FR6).
+**Out of scope (explicitly):** MRD ingestion (removed from Phase 0 scope — SCP 2026-08-25d; was Epic 0.8). The read-only Reference Data API (Epic 0.4, Story 0.4.2). Tier-(b) CTAM-owned reference tables (Epic 0.4, Story 0.4.1). All authentication / authorisation / UI (removed from Phase 0 scope — SCP 2026-08-25d). Hand-editing of tier-(a) data in CTAM (never, in any phase — corrections at source per FR6).
 
 ---
 
-## Story 0.1.1: Scaffold `ctam-reference-data` from the HMCTS starter (onto the Epic 0.0 estate)
+## Story 0.3.1: Scaffold `ctam-reference-data` from the HMCTS starter (onto the Epic 0.0 estate)
 
 As a **platform engineer**,
 I want to scaffold the **first** CTAM Pathfinder backend service — `ctam-reference-data` — from the HMCTS Crime SpringBoot template using `ctam-scaffold.sh`, and to deploy it onto the shared Azure estate provisioned in Epic 0.0,
@@ -61,7 +64,7 @@ So that **subsequent services follow a consistent, version-pinned, supply-chain-
 **And** Spring Boot Test with JUnit 5 (`junit-bom:6.0.3`), Testcontainers PostgreSQL 1.21.4, Spring Boot Testcontainers 4.1.0, and spring-boot-starter-webmvc-test are configured (per AR14–AR15),
 **And** Spectral, ArchUnit, Spotless, and Checkstyle are configured (per AR17),
 **And** a Helm chart skeleton exists at `charts/ctam-reference-data/` with `values-dev.yaml`, `values-staging.yaml`, `values-production.yaml` overlays (per AR24),
-**And** a `terraform/` directory exists with per-environment stacks (`dev` / `staging` / `production`) holding **only this service's own resources** (Key Vault namespace; the MRD storage added in Story 0.1.4) — the shared estate lives in `ctam-shared-infrastructure` (Epic 0.0), per AR53 (revised),
+**And** a `terraform/` directory exists with per-environment stacks (`dev` / `staging` / `production`) holding **only this service's own resources** (Key Vault namespace) — the shared estate lives in `ctam-shared-infrastructure` (Epic 0.0), per AR53 (revised),
 **And** GitHub Actions workflows exist at `.github/workflows/ci.yml`, `deploy-dev.yml`, `deploy-staging.yml`, `deploy-production.yml` (per AR28),
 **And** `CODEOWNERS` and `PULL_REQUEST_TEMPLATE.md` exist (per AR29),
 **And** a Postman collection skeleton exists at `postman/ctam-reference-data-phase0.postman_collection.json` (per AR41).
@@ -77,13 +80,13 @@ So that **subsequent services follow a consistent, version-pinned, supply-chain-
 **Given** the shared Azure estate has been provisioned and independently verified in **Epic 0.0** (`ctam-shared-infrastructure`) — AKS, PostgreSQL Flexible Server, ACR, APIM + base policies, Application Insights / Log Analytics, Key Vault — all in UK South with the documented SKUs (per A34, gaps.md G9),
 **When** `ctam-reference-data`'s Helm chart is deployed to the dev AKS cluster,
 **Then** the service reaches the shared cluster, database, registry, gateway, and observability estate provisioned in Epic 0.0 (this story **consumes** the estate; it does not provision it — AR53 revised),
-**And** the deployment fails fast with a clear diagnostic if any Epic 0.0 estate dependency is absent (making the Epic 0.0 → 0.1 sequencing explicit).
+**And** the deployment fails fast with a clear diagnostic if any Epic 0.0 estate dependency is absent (making the Epic 0.0 → 0.3 sequencing explicit).
 
-**Given** the `ctam-architecture` Liquibase baseline changelog runs **before** `ctam-reference-data` (it owns the shared infrastructure table),
+**Given** the `ctam-architecture` Liquibase baseline changelog (Epic 0.0, Story 0.0.7) runs **before** `ctam-reference-data` (it owns the shared infrastructure table),
 **When** the baseline is applied to the dev PostgreSQL instance,
 **Then** the shared `ctam_configuration_values` infrastructure table exists (per FR8, AR19),
 **And** `ctam-reference-data`'s DB role has `SELECT` on `ctam_configuration_values` (per AR22),
-**And** `ctam-reference-data`'s own service-owned Liquibase changelog directory (`src/main/resources/db/changelog/`, master `db.changelog-master.yaml`) exists but is empty (tier-(a) tables created in Story 0.1.2).
+**And** `ctam-reference-data`'s own service-owned Liquibase changelog directory (`src/main/resources/db/changelog/`, master `db.changelog-master.yaml`) exists but is empty (tier-(a) tables created in Story 0.3.2).
 
 **Given** the shared APIM gateway (provisioned + TLS-verified in Epic 0.0, Story 0.0.5),
 **When** `ctam-reference-data` registers its API through APIM and an HTTP request reaches the gateway,
@@ -118,13 +121,14 @@ So that **subsequent services follow a consistent, version-pinned, supply-chain-
 > **Scaffolding note:** the HMCTS Crime SpringBoot template base is minimal; `ctam-scaffold.sh` assembles the remaining dependencies (Liquibase, Testcontainers, MapStruct, OWASP encoder, docker-compose plugin, OpenAPI tooling, Helm, Key Vault, the CI quality gates) from `hmcts/service-hmcts-springboot-demo` + CTAM conventions — inventory in `architecture/starter-template.md` §B (G1.4).
 
 **Explicitly NOT in scope:**
-- Tier-(a) `jo_*` / `mrd_*` tables and `ctam_sync_status` — Story 0.1.2
-- The eLinks sync and MRD ingestion mechanisms — Stories 0.1.3 / 0.1.4
-- Tier-(b) CTAM-owned tables + the read-only API — Epic 0.3
+- Tier-(a) `jo_*` tables and `ctam_sync_status` — Story 0.3.2
+- The `mrd_*` tables — not planned (MRD removed from Phase 0 scope, SCP 2026-08-25d)
+- The eLinks sync (extract/transform/load run) — Story 0.3.3
+- Tier-(b) CTAM-owned tables + the read-only API — Epic 0.4
 
 ---
 
-## Story 0.1.2: Tier-(a) upstream `jo_*` tables, `ctam_sync_status`, and tier-(a) write protection
+## Story 0.3.2: Tier-(a) upstream `jo_*` tables, `ctam_sync_status`, and tier-(a) write protection
 
 As a **CTAM Pathfinder platform** (and every downstream consumer of JOH identity and reference data),
 I want the 15 `jo_*` upstream-sourced tables and the `ctam_sync_status` run-log created with service-owned Liquibase changelogs and enforced single-writer ownership,
@@ -132,35 +136,37 @@ So that **`jo_people` and the rest of the tier-(a) surface exist with the correc
 
 **Acceptance Criteria:**
 
-**Given** `ctam-reference-data` is scaffolded per Story 0.1.1,
+**Given** `ctam-reference-data` is scaffolded per Story 0.3.1,
 **When** the engineer adds the Liquibase changeset `db/changelog/001-init-tier-a-upstream-tables.sql` (formatted-SQL, included from `db.changelog-master.yaml`),
 **Then** the 15 `jo_*` tables exist with schemas per `architecture/data-tables.md` (`jo_people`, `jo_appointments`, `jo_judiciary_role_assignments`, `jo_authorisations_with_dates`, `jo_appointment_titles`, `jo_base_locations`, `jo_contract_types`, `jo_genders`, `jo_judiciary_roles`, `jo_jurisdictions`, `jo_locations`, `jo_location_types`, `jo_tickets`, `jo_ticket_categories`, `jo_ticket_category_types`),
 **And** `ctam_sync_status` exists (CTAM-internal ingestion run log),
-**And** `jo_people.personnel_number` is the upstream natural key, to which CTAM binds a stable `ctam_joh_identities.id` (UUID) — the CTAM-assigned canonical JOH identifier referenced by every downstream domain table (per AR22); `personnel_number` is the upstream link only,
+**And** `ctam_joh_identities` exists — `id uuid PK`, `personnel_number` (unique, FK-equivalent to `jo_people.personnel_number`), `created_at`/`updated_at timestamptz NOT NULL` — the CTAM-assigned canonical JOH identifier table referenced by every downstream domain table (per AR22); the table is created here, empty, and populated row-by-row by the sync in Story 0.3.3,
+**And** `jo_people.personnel_number` is the upstream natural key, to which CTAM binds a stable `ctam_joh_identities.id` (UUID); `personnel_number` is the upstream link only,
 **And** `jo_jurisdictions` preserves the upstream parent-child hierarchy shape (or establishes it on ingest)[^d8],
 **And** the `ctam_reference_data` DB role owns the tables; **no other role holds INSERT/UPDATE on any `jo_*` table** (tier-(a) write protection per AR49, FR6),
-**And** SELECT grants exist for `ctam_authorisation` (identity lookup, Epic 0.2) and placeholder roles for future services,
-**And** the ArchUnit/grants fitness function in CI verifies the tier-(a) write-protection rule.
+**And** SELECT grants on the `jo_*` tables exist for `ctam_joh` (schema composition, Epic 0.1) and placeholder roles for future services,
+**And** `ctam_joh_identities` is granted `SELECT` to **every** current and placeholder domain service DB role — not just `ctam_joh` — per `architecture/data-tables.md`'s explicit note that it is "SELECT-granted to every domain service" (it is the JOH spine every domain table keys off of, not a `ctam_joh`-specific concern),
+**And** the ArchUnit/grants fitness function in CI verifies the tier-(a) write-protection rule and the `ctam_joh_identities` grant breadth.
 
 **References:** FR6 tier (a), FR7 (writes follow the tier); NFR15; AR18–AR20, AR22, AR49; D3 (revised), D8, D9 (restructured).
 
 **Explicitly NOT in scope:**
-- The eLinks sync that populates these tables — Story 0.1.3
-- The `mrd_*` tables — Story 0.1.4
-- Tier-(b) CTAM-owned tables (regions, offices, vocabularies) — Epic 0.3, Story 0.3.1
-- The read-only REST API — Epic 0.3, Story 0.3.2
+- The eLinks ETL run that populates these tables — Story 0.3.3
+- The `mrd_*` tables — not planned (MRD removed from Phase 0 scope, SCP 2026-08-25d)
+- Tier-(b) CTAM-owned tables (regions, offices, vocabularies) — Epic 0.4, Story 0.4.1
+- The read-only REST API — Epic 0.4, Story 0.4.2
 
 ---
 
-## Story 0.1.3: JOH reference data flows into CTAM nightly from the JOH eLinks API
+## Story 0.3.3: JOH reference data flows into CTAM nightly from the JOH eLinks API
 
 As a **CTAM Pathfinder platform** (and every downstream consumer of JOH identity and reference data),
-I want an in-process scheduled sync that pulls the JOH eLinks API nightly and refreshes the tier-(a) `jo_*` tables,
-So that **`jo_people` exists and is current — making JOH sign-in resolvable (FR1), jurisdiction available (`jo_jurisdictions`, D8), and judicial-holder reference data authoritative without any legacy migration** (revised D3, NFR24).
+I want an in-process scheduled sync that pulls the JOH eLinks API nightly and refreshes the tier-(a) `jo_*` tables — the ETL process's extract/transform/load run,
+So that **`jo_people` exists and is current — jurisdiction is available (`jo_jurisdictions`, D8), and judicial-holder reference data is authoritative without any legacy migration** (revised D3, NFR24).
 
 **Acceptance Criteria:**
 
-**Given** the tier-(a) `jo_*` tables and `ctam_sync_status` exist per Story 0.1.2,
+**Given** the tier-(a) `jo_*` tables and `ctam_sync_status` exist per Story 0.3.2,
 **When** the engineer implements the eLinks sync as an in-process `@Scheduled` task (per AR46 — no new deployable, no service principal),
 **Then** the sync runs on its nightly schedule and pulls all 15 entities from the JOH eLinks API using the outbound credential held in Azure Key Vault (per NFR16),
 **And** it **full-refresh-upserts** each table keyed on the upstream natural key (`personnel_number` for `jo_people`), and mints a `ctam_joh_identities` row (a stable CTAM JOH UUID keyed to `personnel_number`) for any `jo_people` row lacking one,
@@ -175,62 +181,24 @@ So that **`jo_people` exists and is current — making JOH sign-in resolvable (F
 **And** reference data is at most one sync cycle stale.
 
 **Given** the sync has run successfully at least once in dev,
-**When** `ctam-authorisation` (Epic 0.2, Story 0.2.3) looks up a seeded JOH email,
-**Then** the lookup resolves against `jo_people` to a `personnel_number`, and via `ctam_joh_identities` to the CTAM JOH UUID,
-**And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR52 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).
+**When** an engineer queries `jo_people` directly (no authorisation service exists in this scope to front the lookup — auth is out of Phase 0 scope per SCP 2026-08-25d),
+**Then** a seeded JOH email's row resolves to a `personnel_number`, and via `ctam_joh_identities` to the CTAM JOH UUID,
+**And** dev/CI environments use seeded `jo_*` fixtures loaded by the one-off seed scripts where a live eLinks connection is unavailable (per AR54 — the sync code path is integration-tested against a WireMock/stub eLinks API in CI).
+
+**Given** the JOH eLinks mock API (`ctam-jomockapi`, Epic 0.2) is running locally via Docker Compose (not deployed to any shared environment, SCP 2026-08-25f), and `ctam-reference-data` is **also** run locally for this check (`./gradlew bootRun` alongside `docker-compose up`, per Story 0.3.1's local-verification AC) — **not** the AKS-deployed instance from Story 0.3.1's other ACs, which has no network path to a developer's Docker Compose network,
+**When** the locally-running sync's base URL is configured to point at the locally-running mock,
+**Then** the nightly sync runs end-to-end against a local network endpoint modelling the real eLinks contract — not just the CI WireMock stub — giving Phase 0 a demoable ingestion pipeline locally ahead of the real contract landing (per Epic 0.2, Story 0.2.3).
 
 **Given** the JOH eLinks API contract has not yet been confirmed (gaps.md G8.1),
 **When** the contract lands,
 **Then** the ingestion mapping is validated against it (every upstream field CTAM needs has a slot; the natural-key scheme holds; cadence/SLA workable),
 **And** any unmapped upstream structure raises an architectural PR (per G8.1) — this AC is the story's external-dependency gate and is tracked explicitly in sprint planning.
 
-**References:** FR1 (identity lookup target), FR6 tier (a), FR7 (writes follow the tier); NFR16, NFR24, NFR25–NFR28; AR46, AR48, AR49; gaps.md G8.1; D3 (revised), D8, D9 (restructured).
+**References:** FR1 (identity lookup target), FR6 tier (a), FR7 (writes follow the tier); NFR16, NFR24, NFR25–NFR28; AR46, AR48, AR49, AR54; gaps.md G8.1; Epic 0.2; D3 (revised), D8, D9 (restructured).
 
 **Explicitly NOT in scope:**
-- MRD ingestion — Story 0.1.4
-- The read-only REST API — Epic 0.3, Story 0.3.2
-
----
-
-## Story 0.1.4: MRD supplementary reference data is ingested from the weekly Excel feed
-
-As a **CTAM Pathfinder platform** (and downstream consumers of JOH Specialisations),
-I want the MRD team's weekly Excel workbook ingested from an Azure Blob drop into the `mrd_*` tables,
-So that **supplementary judicial reference data not present in JOH eLinks (notably JOH Specialisations) is available in CTAM** (revised D3, NFR24) without waiting for MRD's public APIs.
-
-**Acceptance Criteria:**
-
-**Given** a dedicated Azure storage account + Blob container exists for the MRD feed — provisioned via **Terraform in this repo's `terraform/` directory** (per AR53: `ctam-reference-data` is the first repo to need this resource; access for the MRD team or ops to drop the weekly workbook),
-**And** the Liquibase changeset `db/changelog/002-init-mrd-tables.sql` creates `mrd_specialisms` (further `mrd_*` tables added as MRD entities enter scope) owned by `ctam_reference_data` with the same tier-(a) write protection as the `jo_*` tables (per AR49),
-**When** the weekly workbook lands in the container,
-**Then** a `@Scheduled` task in `ctam-reference-data` detects it on its polling cycle (per AR47).
-
-**Given** the ingestion task picks up a workbook,
-**When** processing runs,
-**Then** the workbook is validated before any write — shape (expected sheets/columns), vocabulary (values resolvable against controlled lists), and referential checks (Specialisations reference resolvable JOH personnel numbers / jurisdiction codes),
-**And** valid rows are upserted into the `mrd_*` tables keyed on the upstream natural key,
-**And** the processed file is **archived** (moved to an `archive/` path in the container, retained for lineage/audit per AR47),
-**And** the run is recorded in `ctam_sync_status` (source = `mrd-excel`) with row counts and outcome (per AR48).
-
-**Given** the same workbook is dropped twice (or the task restarts mid-cycle),
-**When** ingestion re-runs,
-**Then** the result is idempotent per file — no duplicate rows, no spurious updates (per AR47).
-
-**Given** a workbook fails validation,
-**When** the task rejects it,
-**Then** no `mrd_*` table is modified (previous good state intact, per AR48),
-**And** the file is moved to a `rejected/` path with a validation report alongside it,
-**And** the failure is recorded in `ctam_sync_status` and surfaced via structured logs for ops to liaise with the MRD team (corrections happen at source per FR6 tier (a)).
-
-**Given** MRD's public APIs become available post-MVP,
-**When** the integration is upgraded,
-**Then** only the reader component swaps (blob pick-up → API client); the `mrd_*` tables and downstream consumers are unchanged (per AR47 — the blob-drop seam is the explicit upgrade point).
-
-**References:** FR6 tier (a), FR7; NFR16, NFR24, NFR25–NFR28; AR47, AR48, AR49, AR53; gaps.md G8.1; D3 (revised).
-
-**Explicitly NOT in scope:**
-- MRD API integration (post-MVP — when MRD ships public APIs)
-- Hand-editing of `mrd_*` data in CTAM (never, in any phase — tier (a) per FR6)
+- MRD ingestion — not planned (removed from Phase 0 scope, SCP 2026-08-25d)
+- The read-only REST API — Epic 0.4, Story 0.4.2
 
 [^d3]: Revised D3 (2026-06-10) — no data migration from any legacy system; judicial-holder reference data is ingested from the JOH eLinks API and MRD.
 [^d8]: D8 — rollout is jurisdiction-first, then per-region; jurisdiction is a first-class hierarchical attribute.
