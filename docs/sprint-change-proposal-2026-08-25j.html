@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-25j — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-25j">Sprint Change Proposal — 2026-08-25j</h1>
+<p><strong>Trigger:</strong> User request — two Confluence pages (<code>3.2.1.1 CTAM JO Schema</code>, <code>3.2.1.2 CTAM Schema and Source Mapping</code>) document how the JOH eLinks integration schema was designed; the user wants CTAM's own PostgreSQL schema designed "in the similar way," with Epic 0.1 updated and new stories authored for it.</p>
+<p><strong>Mode:</strong> Incremental (single artifact, iterated live with the user). <strong>Scope classification:</strong> <strong>Moderate</strong> — epic content is substantially rewritten (2 → 4 stories) and Phase 0 story totals shift, but no PRD/FR/NFR change, no new table, no new repo, no dependency-graph change.</p>
+<hr />
+<details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p>The user supplied two internal HMCTS Confluence pages under the JUDIT space:</p>
+<ul>
+<li><code>3.2.1.1 CTAM JO Schema</code> — ER diagrams (full + transactional-core) for the JOH eLinks integration.</li>
+<li><code>3.2.1.2 CTAM Schema and Source Mapping</code> — the same schema's design decisions (naming, JOH lifecycle, deprecated-attribute exclusion, sync metadata, FK strategy, a documented edge case), a 16-table list, a full column-level mapping per table (CTAM column / type / PK-FK / source attribute / description), a refresh-strategy note, 8 numbered data warnings, and 13 numbered open questions (11 closed, 2 open).</li>
+</ul>
+<p>Both pages are behind HMCTS's internal <code>tools.hmcts.net</code> Confluence, unreachable from this environment; the user exported them to PDF, which were read in full and distilled to <code>_bmad-output/source-docs/joh-schema-confluence/</code>.</p>
+<p>Cross-checking the source pages against the current architecture surfaced a structural fact the user's request needed reconciling with: the 16 tables these pages describe are the <strong>tier-(a) <code>jo_*</code> upstream-replica schema</strong>, which <code>architecture/data-tables.md</code> and decision D3/D9 already assign to <strong><code>ctam-reference-data</code> / Epic 0.3</strong> (Story 0.3.2) — a different repo and a different, non-overlapping table set from <strong>Epic 0.1</strong>'s 5 CTAM-owned tier-(b) <code>ctam-joh</code> overlay tables (<code>ctam_working_patterns</code>, <code>ctam_working_pattern_days</code>, <code>ctam_joh_ticket</code>, <code>ctam_joh_location</code>, <code>ctam_jurisdictional_splits</code>). Duplicating <code>jo_*</code> table definitions into Epic 0.1 would put tier-(a) DDL in the wrong repo and break the single-writer tier-ownership rule (AR49: only <code>ctam_reference_data</code> holds INSERT/UPDATE on <code>jo_*</code>).</p>
+<p>The user, on hearing this, directed: keep the update on Epic 0.1, and design <code>ctam-joh</code>'s own schema <strong>the same way</strong> the source pages design theirs — i.e. adopt the <em>documentation rigor</em> (design-decisions doc → ER diagram → column-level spec → data-warnings/open-questions doc), not the specific <code>jo_*</code> tables. This SCP implements that direction.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic Impact</h3>
+<p><strong>Epic 0.1</strong> (<code>epic-0.1-postgres-sql-schema-design.md</code>) — substantially rewritten:</p>
+<ul>
+<li>Story count: 2 → 4.</li>
+<li>Story 0.1.1 (scaffold <code>ctam-joh</code>) — unchanged content; forward-references to "Story 0.1.2" for table creation corrected to point at the new Story 0.1.3.</li>
+<li><strong>New Story 0.1.2</strong> — a schema design-decisions doc (<code>architecture/ctam-joh-schema-design.md</code>), covering naming/PK/FK conventions, the <code>ctam_jurisdictional_splits</code> cross-row invariant decision (carried forward verbatim from the old Story 0.1.2's AC), the tier-(b)-vocabulary FK verification gate (also carried forward), and an explicit restatement of the grant model.</li>
+<li><strong>Story 0.1.3</strong> (rewritten from the old Story 0.1.2) — the actual DDL, now paired with a D2+ELK ER diagram (house standard, <code>CLAUDE.md</code>) and a full column-level reference per table, mirroring the source pages' own column-mapping tables (minus a "source attribute" column, since these are CTAM-native tables with no upstream source).</li>
+<li><strong>New Story 0.1.4</strong> — a data-warnings/open-questions companion doc, mirroring the source pages' §5–6, seeded with three concrete warning candidates specific to <code>ctam-joh</code>'s overlay tables (soft-delete parity on upstream leaver/deleted, split re-validation timing, overlay reconciliation against the tier-(a) baseline).</li>
+<li>Epic-level frontmatter (<code>description</code>, <code>storyCount</code>), vertical-slice bullets, and out-of-scope note updated to match.</li>
+</ul>
+<p><strong>Epic 0.3</strong> (<code>ctam-reference-data</code>, tier-(a) <code>jo_*</code> tables) — <strong>not touched by this SCP.</strong> Its Story 0.3.2 already lists the correct 15 <code>jo_*</code> table names (matching the source pages' table list exactly) but has no column-level detail. The source pages could supply that detail and may partially close <code>gaps.md</code> G8.1 (previously: "the JOH eLinks API contract... is unconfirmed" — these pages are sourced from "eLinks (a.k.a. JHR) REST API, Data Dictionary v2.0, 2025-07-02," i.e. a real, dated contract artefact). This is flagged as a follow-up, not actioned here, since the user's request was explicitly scoped to Epic 0.1.</p>
+<p><strong><code>data-tables.md</code></strong> — not touched. Its <code>jo_*</code> and <code>ctam-joh</code> sections both remain accurate at the level of detail they already carry (table names + one-line descriptions); this SCP adds column-level detail to Epic 0.1's own doc set, not to this shard.</p>
+<h3 id="a-naming-question-surfaced-deliberately-not-resolved-here">A naming question surfaced, deliberately not resolved here</h3>
+<p>The source pages' real natural-key column is <code>jo_people.personal_code</code> (VARCHAR(32)) — but 27 files across this repo (PRD, <code>architecture.md</code>, <code>conventions.md</code>, every Phase-0 epic, decision D9) use <code>personnel_number</code> for the same concept, and <code>personal_code</code> appears nowhere in the current repo. This is a <code>jo_*</code>/Epic 0.3 concern, not an Epic 0.1 one (Epic 0.1's own tables reference <code>ctam_joh_identities.id</code> via <code>joh_id</code>, never <code>personnel_number</code> directly, so the rename — if made — would not change any Epic 0.1 AC). Raised here for visibility; <strong>not actioned</strong>, and left for a future SCP scoped to Epic 0.3 if the user wants it resolved.</p>
+<h3 id="artifact-sweep">Artifact sweep</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epic-0.1-postgres-sql-schema-design.md</code></td>
+<td>Full rewrite: 2 → 4 stories, frontmatter, vertical slice, out-of-scope note</td>
+</tr>
+<tr>
+<td><code>epics/phase-0/index.md</code></td>
+<td>Epic table row (2 → 4 stories), Epic 0.1 summary paragraph, Phase 0 Epic Stories Summary table row, both story totals (17 → 19)</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase 0 status line story total (17 → 19)</td>
+</tr>
+<tr>
+<td><code>architecture.md</code></td>
+<td>New decision <strong>#23</strong></td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New <strong>v4.20</strong> entry</td>
+</tr>
+<tr>
+<td><code>_bmad-output/source-docs/joh-schema-confluence/</code></td>
+<td>New — the two source PDFs, copied in (source documents are read-only elsewhere in the repo; this is the designated distillation location)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>epic-0.0</code>, <code>epic-0.2</code>, <code>epic-0.3</code>, <code>epic-0.4</code> (flagged as a follow-up candidate only, per above); <code>data-tables.md</code>; <code>gaps.md</code> (G8.1 flagged, not edited); <code>fr-coverage-map.md</code> (Epic 0.1's FR coverage claim — "schema groundwork only" — is unchanged by this expansion); <code>requirements-inventory.md</code> (no new AR — this epic cites existing AR2–AR32 plus <code>CLAUDE.md</code>'s D2+ELK diagram standard, which isn't a numbered AR); <code>sprint-status.yaml</code> (out of this session's scope — a sprint-planning concern, not a course-correction one); dated historical SCPs/changelog entries (immutable record).</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Direct Adjustment</strong> — rewrite Epic 0.1 in place; no rollback, no MVP scope change. Effort: <strong>Moderate</strong> (one epic substantially rewritten, two index files updated, one decision-log + changelog entry). Risk: <strong>Low</strong> — additive documentation rigor to an epic with no implementation started yet (per the epic's own "nothing built yet" precedent, decision #8); no FR/NFR/dependency-graph change; the one open naming question is explicitly deferred rather than silently decided.</p>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<p>See §2 for the full before/after mapping; the rewritten epic file carries complete Given/When/Then ACs for all 4 stories.</p>
+<p>Story-shape rationale (why 4, not more or fewer): the source pages' own structure has four natural phases — <em>design decisions</em> (§1), <em>ER diagram</em> (their two diagrams), <em>column-level mapping</em> (§3, 16 sub-sections), <em>data warnings/open questions</em> (§5–6). Column-level mapping and the ER diagram are combined into one story (0.1.3) because for CTAM-native tables the diagram and the DDL are authored together, not sequentially the way a replicated schema's diagram (fixed by the source) can precede its mapping table.</p>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope: Moderate</strong> — epic content substantially rewritten (backlog reorganization: story count changes, no code exists yet to migrate). Routed to <strong>Product Owner / Developer agents</strong> for sprint-planning pickup (<code>bmad-sprint-planning</code> will need to regenerate <code>sprint-status.yaml</code> entries for the new Story ids 0.1.2–0.1.4, since the old 0.1.2 no longer refers to table DDL).</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> all edits above applied directly; nothing committed without being asked.</li>
+<li><strong>Follow-up (not this SCP, flagged for a future one):</strong> an equivalent column-level documentation pass against Epic 0.3 Story 0.3.2 / <code>data-tables.md</code>'s <code>jo_*</code> section, using the same two source pages; and a decision on the <code>personnel_number</code> vs. <code>personal_code</code> naming question.</li>
+</ul>
+<p><strong>Success criteria:</strong> Epic 0.1 has 4 stories with complete ACs; every forward/backward story cross-reference within the epic resolves correctly (0.1.1 → 0.1.2/0.1.3/0.1.4; 0.1.3 depends on 0.1.2; 0.1.4 depends on 0.1.2 + 0.1.3); Phase 0 story totals are consistent across <code>epic-0.1</code>, <code>phase-0/index.md</code>, and <code>epics/index.md</code> (19 everywhere); the decision log and changelog both record this as a traceable, dated change; the <code>jo_*</code> schema itself is not duplicated anywhere in Epic 0.1.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-25j.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic Impact</a></li><li class="h3"><a href="#a-naming-question-surfaced-deliberately-not-resolved-here">A naming question surfaced, deliberately not resolved here</a></li><li class="h3"><a href="#artifact-sweep">Artifact sweep</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-25j";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

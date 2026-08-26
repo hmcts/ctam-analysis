@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-19 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-19">Sprint Change Proposal — 2026-08-19</h1>
+<p><strong>Agent delivery rules adopted; test gates amended</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> Delivery is <strong>AI-led</strong> (Claude Code, BMAD method) across a <strong>16-repo polyrepo</strong> with <strong>no shared runtime library</strong>. The artifact set answered <em>what</em> to build in detail — <code>conventions.md</code>, <code>data-tables.md</code>, <code>project-context.md</code>, the epics with embedded Gherkin — but nothing stated <em>how the implementing agent must work</em>. That gap carries three specific risks, each amplified by the delivery model:</p>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Why the delivery model amplifies it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hallucinated APIs, versions and business rules</strong></td>
+<td>An agent's training data predates the codebase, and there is no human pair mid-session to catch an invented method or an inferred validation threshold</td>
+</tr>
+<tr>
+<td><strong>Tests that cannot fail</strong></td>
+<td>Tests written <em>after</em> the code describe what the code does, not what the requirement demands. They pass for the life of the codebase without protecting anything, and a coverage percentage will not reveal it</td>
+</tr>
+<tr>
+<td><strong>Code that cannot be maintained</strong></td>
+<td>With no shared library, a bad abstraction cannot be fixed centrally — it is duplicated by design across up to twelve repos. Size and boundary discipline is the only defence</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Disposition agreed at intake (2026-08-19):</strong> eight questions were settled before anything was written.</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TDD rigour</td>
+<td><strong>Evidence-based red-green-refactor.</strong> No production edit without a test that was <em>run</em> and failed <em>on an assertion</em>; a compile error is not a red test</td>
+</tr>
+<tr>
+<td>Test gates</td>
+<td><strong>Mutation threshold <em>and</em> a JaCoCo floor</strong> — the only answer here that amends an existing convention (see §2.1)</td>
+</tr>
+<tr>
+<td>API-first</td>
+<td><strong>Contract-test-first, spec still generated</strong> by Swagger Core — no change to AR8 or the producer-owned contract model</td>
+</tr>
+<tr>
+<td>Uncertainty protocol</td>
+<td><strong>Hard: cite or ask.</strong> Every non-obvious decision names its authority; unknowns stop the thread rather than being inferred</td>
+</tr>
+<tr>
+<td>Packaging</td>
+<td><strong>Lean always-on core + modular rule files</strong> read on demand — small always-on context budget, detail one hop away</td>
+</tr>
+<tr>
+<td>Enforcement</td>
+<td><strong>Rules <em>and</em> runnable enforcement</strong> — ArchUnit, Checkstyle, Gradle gates, Spectral, plus two Claude Code hooks</td>
+</tr>
+<tr>
+<td>Modularity limits</td>
+<td><strong>Hard numbers, build-failing.</strong> An agent cannot rationalise past a number the way it can past a principle</td>
+</tr>
+<tr>
+<td>Scope of the first cut</td>
+<td><strong>Java/Spring services only.</strong> UI (React/TS) and infrastructure (Terraform/Helm) packs are a follow-up</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Home — a deliberate departure from the usual shard pattern.</strong> The rules were authored <strong>in <code>ctam-architecture</code></strong> (the context bus) as <code>agent-rules/</code>, not as a <code>planning-artifacts/architecture/</code> shard. Per <a href="architecture/tobe/delivery-operating-model.html"><code>./architecture/delivery-operating-model.md</code></a>, the bus is exactly the mechanism for shared truth that every service repo consumes by pinned submodule: <strong>one authored copy, version-pinned, adopted by a deliberate bump PR.</strong> Authoring here and copying out would have re-created the 12-way drift the operating model exists to prevent. Two consequences, accepted:</p>
+<ul>
+<li>The pack is <strong>not</strong> published to the <code>docs/</code> site, because <code>build_html.py</code> reads <code>planning-artifacts/</code>. When the bus repo gains its own site, the pack publishes there.</li>
+<li><code>agent-rules/</code> is the <strong>first</strong> piece of bus payload to land in <code>ctam-architecture</code>. The published architecture set (<code>architecture.md</code>, <code>conventions.md</code>, <code>data-tables.md</code>, <code>delivery-operating-model.md</code>) is still canonical here and unpublished there, so the pack's <code>_arch/architecture/…</code> citations resolve only after bootstrap step 1 of the operating model. This is recorded at the top of <code>agent-rules/index.md</code> rather than left to be discovered.</li>
+</ul>
+<p><strong>Discovery context:</strong> implementation has not started — all six Phase 0 epics remain <code>status: not-started</code> in <code>delivery/ledger/</code>. Like the SCPs of 2026-07-06 through 2026-08-13, this is a documentation change with no code to unwind. It is the last moment at which a TDD discipline can be adopted for free.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-the-one-genuine-conflict--the-coverage-stance">2.1 The one genuine conflict — the coverage stance</h3>
+<p><code>conventions.md</code> → <em>Test conventions</em> has said, since v1.8:</p>
+<blockquote>
+<p><strong>Coverage target:</strong> behaviour coverage, not line coverage. PRs include behaviour-test rationale, not coverage stats.</p>
+</blockquote>
+<p>The intent was right and is preserved: a percentage is not evidence that a story is tested — the AC → test map is. But as written it left <strong>no deterministic floor at all</strong>, which in AI-led delivery means the only thing standing between the programme and a vacuous suite is a reviewer's attention on every PR.</p>
+<p><strong>Amended to keep the intent and add the floor:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Threshold</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JaCoCo line coverage</td>
+<td>≥ 85%</td>
+<td><code>**/service/**</code>, <code>**/domain/**</code></td>
+</tr>
+<tr>
+<td>JaCoCo branch coverage</td>
+<td>≥ 75%</td>
+<td><code>**/service/**</code>, <code>**/domain/**</code></td>
+</tr>
+<tr>
+<td>PIT mutation score</td>
+<td>≥ 70%</td>
+<td><code>**/service/**</code>, <code>**/domain/**</code></td>
+</tr>
+</tbody>
+</table>
+<p>Excluded from all three: <code>config/</code>, <code>dto/</code>, <code>*Application.java</code>, generated sources, Liquibase changelogs.</p>
+<p><strong>Why mutation testing carries the weight.</strong> Line coverage can be manufactured by executing code without asserting on it — precisely the failure mode an agent falls into when topping up a number. A surviving mutant names a specific statement the tests do not actually check, so it cannot be gamed the same way. The JaCoCo floor is the cheap, fast backstop; PIT is the honest measure. Both are floors, not targets, and the rules say so explicitly.</p>
+<p><strong>What did not change:</strong> behaviour coverage remains the goal, PRs still justify behaviour rather than reciting statistics, and no per-PR coverage reporting ritual is introduced.</p>
+<h3 id="22-additive--no-conflict">2.2 Additive — no conflict</h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Addition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TDD discipline</strong></td>
+<td>Evidence-based red-green loop (T1–T4), the test taxonomy and when each level is appropriate (T7–T9), test-quality rules (T10–T15). <code>conventions.md</code>'s test-type naming (<code>*Test</code> / <code>*IT</code>) and the Testcontainers/Pact/E2E layers are referenced, not restated</td>
+</tr>
+<tr>
+<td><strong>Modularity</strong></td>
+<td>Numeric limits (M1–M8, M23) and layering, injection, time and naming rules (M9–M22). Consistent with the fixed package layout in <code>conventions.md</code> → <em>Structure Patterns</em>; adds the dependency direction between those packages, which was previously implicit</td>
+</tr>
+<tr>
+<td><strong>Uncertainty protocol</strong></td>
+<td>Cite-or-ask (R4), stop-on-unknown (R5), no unsanctioned surface (R6), no memory-asserted APIs (R7), nothing unfinished ships (R8)</td>
+</tr>
+<tr>
+<td><strong>Session protocol</strong></td>
+<td>Read order, the plan-before-edit step, <code>_arch/</code> read-only, repo boundaries, handoff format, <code>in-review</code> never <code>done</code> (W1–W13)</td>
+</tr>
+<tr>
+<td><strong>Definition of done</strong></td>
+<td>A single gate command and a 13-item checklist, each item evidenced (Q1–Q13)</td>
+</tr>
+<tr>
+<td><strong>Enforcement pack</strong></td>
+<td>ArchUnit fitness functions, Checkstyle config + the only sanctioned suppressions, Gradle wiring, Spectral ruleset, <code>verify.sh</code> / <code>red.sh</code> / <code>forbidden-patterns.sh</code>, target-repo <code>CLAUDE.md</code> template, hook registration, and two hooks</td>
+</tr>
+</tbody>
+</table>
+<p>The scaffolding overlay in <code>starter-template.md</code> §B already listed <strong>Spectral · ArchUnit · Spotless · Checkstyle</strong> as CTAM conventions to be added by <code>ctam-scaffold.sh</code> (G1.4a). This SCP supplies the actual configurations those entries anticipated, and adds PIT.</p>
+<h3 id="23-two-defects-found-in-the-canonical-docs-while-authoring">2.3 Two defects found in the canonical docs while authoring</h3>
+<p>Recorded as gaps rather than silently resolved — the same cite-or-ask discipline the rules impose:</p>
+<ul>
+<li><strong>G6.7 — contradictory status code for optimistic-lock failure.</strong> <code>conventions.md</code> → <em>Process Patterns</em> maps <code>OptimisticLockingFailureException</code> to <strong>409</strong>; <code>conventions.md</code> → <em>Communication Patterns</em> ("Retry safety and concurrency control") says optimistic locking for lost-update returns <strong>412</strong>. Both are current text. Until resolved, the rules make an optimistic-lock path an explicit stop-and-ask rather than picking one.</li>
+<li><strong>G1.4c — quality-gate tool versions unproven on the target toolchain.</strong> Versions were verified as released (Checkstyle 14.0.0, Spotless 8.10.0, JaCoCo 0.8.14 — first with official Java 25 support, ArchUnit 1.5.0, gradle-pitest 1.19.0, pitest 1.25.9, pitest-junit5 1.2.3) but <strong>nothing in the enforcement pack has been compiled or executed</strong>, because the control-plane workspace holds no Java build. PIT running <em>on</em> a Java 25 toolchain against Spring Boot 4 is the specific unknown. The pack states its own validation status per file, and the first scaffolding story owns making it run and reporting corrections back to the bus.</li>
+</ul>
+<h3 id="24-enforcement-honesty">2.4 Enforcement honesty</h3>
+<p>Two limits are stated in the pack rather than papered over:</p>
+<ul>
+<li><strong><code>require-red-test.sh</code> is a guardrail, not a proof.</strong> It refuses <code>src/main/**</code> edits unless a recent failing test run was recorded by <code>scripts/red.sh</code>. It raises the cost of skipping TDD; it cannot verify the failing test was the <em>right</em> test. The real evidence is the pasted red/green output, reviewed by a human.</li>
+<li><strong>Rules with no automated enforcer are listed as such.</strong> <code>enforcement/README.md</code> maps every rule id to its enforcer and marks <em>review only</em> explicitly, with the four worth mechanising next (the <code>/v1</code> append-only check, the authorisation-per-endpoint rule, changeset immutability, and AC → test mapping). A soft spot recorded is a soft spot that can be closed.</li>
+</ul>
+<h3 id="25-what-is-not-covered">2.5 What is not covered</h3>
+<p><code>ctam-ui</code> / <code>ctam-admin-ui</code> (React/TypeScript) and <code>ctam-shared-infrastructure</code> (Terraform/Helm) have <strong>no language-specific rules or enforcers</strong>. The core rules R1–R14 still govern conduct in those repos. This matters for sequencing: <code>ctam-shared-infrastructure</code> is the phase-0 repo built <strong>first</strong> and is not Java, so its stories run without an enforcement pack. Recommended follow-up: an infrastructure pack before Epic 0.0 dispatch, then a UI pack before the Epic 0.ui-shell work.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-path-forward"><summary><span class="section-title">Section 3 — Recommended Path Forward</span></summary><div class="section-body">
+<p><strong>Direct adjustment, single batch.</strong> No epic rollback, no re-planning, no PRD re-validation — no requirement changed, and no product decision was taken. Recorded as an <strong>architecture-practice</strong> change (<code>changelog.md</code> v4.2) rather than a PRD locked decision, following the precedent of SCP 2026-07-07.</p>
+<p><strong>Applied:</strong></p>
+<ol type="1">
+<li><strong><code>ctam-architecture/agent-rules/</code></strong> — nine rule documents (<code>index.md</code>, <code>00-core.md</code>, <code>10-tdd.md</code>, <code>20-modularity.md</code>, <code>30-api-contracts.md</code>, <code>40-data-and-liquibase.md</code>, <code>50-security-and-logging.md</code>, <code>60-session-protocol.md</code>, <code>90-definition-of-done.md</code>).</li>
+<li><strong><code>ctam-architecture/agent-rules/enforcement/</code></strong> — fourteen files: two ArchUnit fitness classes, two Checkstyle configs, the Gradle quality script, the Spectral ruleset, three shell scripts, the target-repo <code>CLAUDE.md</code> template, hook registration, two hooks, and the rule → enforcer map.</li>
+<li><strong><code>conventions.md</code></strong> — <em>Test conventions</em> coverage bullet amended per §2.1; <em>Enforcement Guidelines</em> and <em>Pattern enforcement mechanisms</em> gain the agent-rules pack, the JaCoCo floor and the PIT threshold.</li>
+<li><strong><code>project-context.md</code></strong> — <em>Testing</em> and <em>Workflow &amp; enforcement</em> updated to match, with a pointer to the pack.</li>
+<li><strong><code>architecture.md</code></strong> — a "Published to the context bus" pointer to <code>agent-rules/</code>.</li>
+<li><strong><code>gaps.md</code></strong> — <strong>G1.4c</strong> and <strong>G6.7</strong> added.</li>
+<li><strong><code>changelog.md</code></strong> — <strong>v4.2</strong> entry.</li>
+<li><strong>This SCP</strong>, plus its <code>build_html.py</code> NAV entry; <strong><code>docs/</code> regenerated</strong>.</li>
+</ol>
+<p><strong>Not applied, deliberately:</strong> no FR/NFR change; no epic, story or <code>dispatch-graph.yaml</code> change; no ledger status change; no PRD decision; no shard mirrored into <code>planning-artifacts/</code> (that would be the copy this model exists to avoid); no UI or infrastructure rules; no <code>arch-v1.0</code> tag — publishing the architecture set to the bus and tagging it remains bootstrap step 1, and is a prerequisite before any service repo can pin these rules.</p>
+<hr />
+</div></details><details class="section" id="section-4--change-scope-summary"><summary><span class="section-title">Section 4 — Change Scope Summary</span></summary><div class="section-body">
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ctam-architecture/agent-rules/</code> (9 files)</td>
+<td><strong>New</strong> — the how-we-work contract: R (core), T (tests), M (modularity), C (contracts), P (persistence), S (security), W (workflow), Q (done)</td>
+</tr>
+<tr>
+<td><code>ctam-architecture/agent-rules/enforcement/</code> (14 files)</td>
+<td><strong>New</strong> — runnable enforcement + rule → enforcer map + validation-status table</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/conventions.html"><code>architecture/conventions.md</code></a></td>
+<td><em>Test conventions</em> coverage bullet <strong>amended</strong> (§2.1); <em>Enforcement Guidelines</em> + <em>Pattern enforcement mechanisms</em> extended</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/gaps.html"><code>architecture/gaps.md</code></a></td>
+<td><strong>G1.4c</strong>, <strong>G6.7</strong> added</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/changelog.html"><code>architecture/changelog.md</code></a></td>
+<td><strong>v4.2</strong> entry added</td>
+</tr>
+<tr>
+<td><a href="architecture.html"><code>architecture.md</code></a></td>
+<td>Context-bus pointer to <code>agent-rules/</code></td>
+</tr>
+<tr>
+<td><code>_bmad-output/project-context.md</code></td>
+<td><em>Testing</em> + <em>Workflow &amp; enforcement</em> updated; pointer to the pack</td>
+</tr>
+<tr>
+<td><strong>This SCP</strong></td>
+<td>New</td>
+</tr>
+<tr>
+<td>Tooling — <code>scripts/python/build_html.py</code></td>
+<td>NAV gains this SCP</td>
+</tr>
+<tr>
+<td><strong><code>docs/</code></strong></td>
+<td><strong>Regenerated</strong> — never hand-edited</td>
+</tr>
+<tr>
+<td><strong>Unchanged</strong></td>
+<td><code>prd.md</code>, <code>business-case.md</code>, <code>epics/</code>, <code>delivery/</code> (graph + ledger), <code>repo-structure.md</code>, <code>repository-strategy.md</code>, <code>starter-template.md</code>, FR/NFR coverage, <code>assumptions.md</code>, dated reports</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Handoff:</strong> the pack is drafted, not proven. Two things gate its first real use — (1) publish the architecture set to <code>ctam-architecture</code> and tag <code>arch-v1.0</code>, per bootstrap step 1; (2) the first scaffolding story compiles and runs the enforcement pack, fixes the API drift its validation-status table anticipates, and reports every correction back to the bus. An infrastructure rules pack is recommended before Epic 0.0 dispatch (§2.5).</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-19.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-the-one-genuine-conflict--the-coverage-stance">2.1 The one genuine conflict — the coverage stance</a></li><li class="h3"><a href="#22-additive--no-conflict">2.2 Additive — no conflict</a></li><li class="h3"><a href="#23-two-defects-found-in-the-canonical-docs-while-authoring">2.3 Two defects found in the canonical docs while authoring</a></li><li class="h3"><a href="#24-enforcement-honesty">2.4 Enforcement honesty</a></li><li class="h3"><a href="#25-what-is-not-covered">2.5 What is not covered</a></li><li><a href="#section-3--recommended-path-forward">Section 3 — Recommended Path Forward</a></li><li><a href="#section-4--change-scope-summary">Section 4 — Change Scope Summary</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-19";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-20 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-20">Sprint Change Proposal — 2026-08-20</h1>
+<p><strong>One branch per story, created at dispatch</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> a question — <em>does BMad create a branch so the story is developed on a branch in the target repo?</em> It does not. Checked directly:</p>
+<table>
+<thead>
+<tr>
+<th>Skill</th>
+<th>Version-control behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bmad-sprint-planning</code></td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>bmad-create-story</code></td>
+<td>none. Its only <code>git</code> references are <strong>read-only history analysis</strong>, mining past commits for context while writing the packet</td>
+</tr>
+<tr>
+<td><code>bmad-dev-story</code></td>
+<td><strong>zero</strong> mentions of git, commit, branch or VCS</td>
+</tr>
+<tr>
+<td><code>bmad-code-review</code></td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<p>BMad writes files and moves statuses. Branching was already a <strong>rules-layer</strong> behaviour — <code>agent-rules</code> W7 told the implementing session to cut a branch — which left a gap the pre-flight check could not cover.</p>
+<p><strong>The gap.</strong> <code>scripts/dispatch-preflight.sh</code> treats <em>a branch on the target remote</em> as the claim on a story (that is what replaced the retired ledger's <code>owner</code> field, SCP 2026-08-19d). But nothing created a branch until the implementing session started. So between dispatch and execution a story read <code>ready-for-dev</code> with <strong>no visible claim</strong>, and the packet existed only as an uncommitted file on the dispatcher's disk — lost if that person's machine or attention moved on.</p>
+<p><strong>Decision (Ramnish, 2026-08-20):</strong> dispatch creates the branch, and there is <strong>one branch per story</strong>, using the <code>story/{story-id}</code> name.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-what-changes">2.1 What changes</h3>
+<p>Dispatch gains four steps in the target repo, after the packet is written and validated:</p>
+<pre class="bash"><code>git switch main &amp;&amp; git pull
+git switch -c story/0.1.4
+git add docs/stories/0.1.4.md
+git commit -m &quot;docs: land story packet 0.1.4&quot;
+git push -u origin story/0.1.4</code></pre>
+<p><strong>Pushing is the point.</strong> The pre-flight check reads the <em>remote</em>, so an unpushed branch claims nothing.</p>
+<p>The implementing session then <strong>continues on that branch</strong> and must not cut another. This is the substance of "one branch only": the branch is simultaneously the claim, the home of the packet, and the home of the work, from dispatch through to the PR a human opens.</p>
+<h3 id="22-a-branch-naming-convention-is-amended">2.2 A branch-naming convention is amended</h3>
+<p><code>conventions.md</code> → <em>Git conventions</em> previously prescribed <code>feature/{ticket-id}-{short-description}</code> for all work. Story work now uses <strong><code>story/{story-id}</code></strong> — e.g. <code>story/0.1.4</code>. <code>bugfix/</code>, <code>chore/</code> and <code>feature/</code> remain for work that is not a dispatched story.</p>
+<p>Two reasons for the rename rather than reusing <code>feature/</code>:</p>
+<ul>
+<li><strong>It carries the story id, which is what the claim check matches on.</strong> A <code>feature/CTAM-123-mrd-ingestion</code> branch does not tell the pre-flight check which story it claims; <code>story/0.1.4</code> does, and the existing regex already matches it.</li>
+<li><strong>It says what the branch is.</strong> One branch that holds a packet, its implementation and its review is not a generic feature branch, and naming it after the story makes the one-branch-per-story rule self-evident on the branch list.</li>
+</ul>
+<h3 id="23-what-this-does-not-change">2.3 What this does not change</h3>
+<p>The human gate is untouched: <code>main</code> stays protected, and opening, approving and merging the pull request remain the human's (SCP 2026-08-19c). An agent still cannot use the GitHub CLI, so it cannot open the PR — it reports the compare URL and stops.</p>
+<p>Nor does this reintroduce anything the ledger did. There is still no <code>owner</code> field and no shared mutable state to contend over; the branch is the claim, and it now exists from the earliest moment it could.</p>
+<h3 id="24-residual-weakness-stated-plainly">2.4 Residual weakness, stated plainly</h3>
+<p>A branch is a <em>claim</em>, not a <em>lock</em>. Two people dispatching the same story within the same minute can both create it, and the second push simply fails or diverges. The mitigation remains the convention — <strong>one dispatcher at a time</strong> — with the pre-flight check as the backstop rather than a guarantee. That was accepted when the ledger was retired and is unchanged here.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-path-forward"><summary><span class="section-title">Section 3 — Recommended Path Forward</span></summary><div class="section-body">
+<p><strong>Applied:</strong></p>
+<ol type="1">
+<li><strong><code>_bmad/custom/bmad-create-story.toml</code></strong> — new <code>CTAM DISPATCH BRANCH</code> activation step spelling out the four commands, the push requirement, the one-branch rule and the prohibition on opening the PR. The seven activation steps were also <strong>reordered into execution order</strong> (pre-flight → packet contract → output location → frontmatter → context depth → validation gate → dispatch branch), and the file was verified to parse as TOML.</li>
+<li><strong><code>architecture/conventions.md</code></strong> → <em>Git conventions</em> — <code>story/{story-id}</code> for story work, with the claim rationale; <code>bugfix/</code> / <code>chore/</code> / <code>feature/</code> retained for other work.</li>
+<li><strong><code>agent-rules/60-session-protocol.md</code></strong> → <strong>W7 step 1 inverted</strong>: it no longer tells the session to create a branch. It says <em>you are already on <code>story/&lt;id&gt;</code>, confirm and continue, do not cut another</em> — and to stop and ask if HEAD is on a protected branch, because that means dispatch went wrong.</li>
+<li><strong><code>agent-rules/00-core.md</code></strong> → <strong>R13</strong> now permits commits and pushes on <em>this story's</em> branch rather than "a feature branch".</li>
+<li><strong><code>agent-rules/enforcement/claude/CLAUDE.md.template</code></strong> — R13 and the loop's handoff step.</li>
+<li><strong><code>delivery/README.md</code></strong> — the loop diagram shows the branch created at dispatch and the claim it constitutes; the multi-user section and the conventions list say who creates it.</li>
+<li><strong><code>architecture/delivery-operating-model.md</code></strong> — the per-story flow's LAND step and the skills table.</li>
+<li><strong><code>scripts/dispatch-preflight.sh</code></strong> — its success message now prints the exact four-step sequence, including the reminder that the check reads the remote.</li>
+<li><strong><code>_bmad-output/project-context.md</code></strong> — the git bullet.</li>
+</ol>
+<p><strong>Not changed:</strong> the pre-flight check's matching logic. <code>story/0.1.4</code> already satisfies its existing pattern, so no code change was needed — verified rather than assumed.</p>
+<hr />
+</div></details><details class="section" id="section-4--change-scope-summary"><summary><span class="section-title">Section 4 — Change Scope Summary</span></summary><div class="section-body">
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_bmad/custom/bmad-create-story.toml</code></td>
+<td><strong><code>CTAM DISPATCH BRANCH</code> step added</strong>; steps reordered into execution order; TOML validated</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/conventions.html"><code>architecture/conventions.md</code></a></td>
+<td><em>Git conventions</em> — <code>story/{story-id}</code> for story work</td>
+</tr>
+<tr>
+<td><code>agent-rules/60-session-protocol.md</code> (bus)</td>
+<td><strong>W7 step 1 inverted</strong> — continue on the dispatch branch, never cut a second</td>
+</tr>
+<tr>
+<td><code>agent-rules/00-core.md</code> (bus)</td>
+<td>R13 wording</td>
+</tr>
+<tr>
+<td><code>agent-rules/enforcement/claude/CLAUDE.md.template</code> (bus)</td>
+<td>R13 + handoff step</td>
+</tr>
+<tr>
+<td><a href="delivery/README.html"><code>delivery/README.md</code></a></td>
+<td>Loop diagram, multi-user section, conventions list</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/delivery-operating-model.html"><code>architecture/delivery-operating-model.md</code></a></td>
+<td>Per-story flow LAND step, skills table</td>
+</tr>
+<tr>
+<td><code>scripts/dispatch-preflight.sh</code></td>
+<td>Success message spells out the branch sequence</td>
+</tr>
+<tr>
+<td><code>_bmad-output/project-context.md</code></td>
+<td>Git bullet</td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/changelog.html"><code>architecture/changelog.md</code></a></td>
+<td><strong>v4.6</strong> entry</td>
+</tr>
+<tr>
+<td><strong>This SCP</strong></td>
+<td>New</td>
+</tr>
+<tr>
+<td><strong><code>docs/</code></strong></td>
+<td>Regenerated</td>
+</tr>
+<tr>
+<td><strong>Unchanged</strong></td>
+<td><code>prd.md</code>, every epic, <code>sprint-status.yaml</code>, FR/NFR coverage, the pre-flight matching logic</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Handoff:</strong> the bus changes join those already waiting on <code>chore/agent-rules-and-bmad-alignment</code> in <code>ctam-architecture</code>. They need that PR merged and a new <strong><code>arch-v1.1</code></strong> tag before a service repo can pin them — <code>arch-v1.0</code> still carries the old R13 and W7, and no story-packet template at all.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-20.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-what-changes">2.1 What changes</a></li><li class="h3"><a href="#22-a-branch-naming-convention-is-amended">2.2 A branch-naming convention is amended</a></li><li class="h3"><a href="#23-what-this-does-not-change">2.3 What this does not change</a></li><li class="h3"><a href="#24-residual-weakness-stated-plainly">2.4 Residual weakness, stated plainly</a></li><li><a href="#section-3--recommended-path-forward">Section 3 — Recommended Path Forward</a></li><li><a href="#section-4--change-scope-summary">Section 4 — Change Scope Summary</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-20";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

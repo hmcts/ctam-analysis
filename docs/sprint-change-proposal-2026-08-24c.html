@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-24c — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-24c">Sprint Change Proposal — 2026-08-24c</h1>
+<p><strong>Trigger:</strong> <em>"create an epic for postgress-sql-schema-design. This is to design and implement the joh schema in postgres sql database"</em></p>
+<p><strong>Clarified via two questions before drafting:</strong></p>
+<ol type="1">
+<li><strong>Which "JOH schema"</strong> → <strong><code>ctam-joh</code>'s own domain schema</strong> — the 5 CTAM-owned overlay tables (working patterns, ticket/location overlays, jurisdictional splits), <em>not</em> the tier-(a) <code>jo_*</code> eLinks tables (already covered by Epic 0.1 Story 0.1.2).</li>
+<li><strong>Scope</strong> → <strong>Schema only</strong> — tables, PKs/FKs, Liquibase changelogs, tier ownership/grants. No working-pattern-generation, overlay-CRUD, or jurisdictional-split-validation <em>business logic</em> — that's later Phase 1 work.</li>
+</ol>
+<p><strong>Mode:</strong> Batch. <strong>Scope classification:</strong> Moderate — this is the <strong>first Phase 1 epic ever created</strong> (Phase 1 currently has no epics/stories, only a <code>framework.md</code> area description), so it's a bigger step than the Phase-0 backlog edits earlier this session, even though its own content is schema-only.</p>
+<hr />
+<details class="section" id="1-issue-summary"><summary><span class="section-title">1. Issue Summary</span></summary><div class="section-body">
+<p>Phase 1 (JOH) has never been decomposed into epics — <code>epics/index.md</code>'s phase table lists it as "<em>to be storied</em> / ⚪ Framework only," and <code>architecture/data-tables.md</code> already fully specifies <code>ctam-joh</code>'s 5 domain tables (§"JOH service (<code>ctam-joh</code>) — 5 tables") without any story ever scheduling their creation. The team wants to start Phase 1 with the database schema specifically — design and implement <code>ctam-joh</code>'s own PostgreSQL tables — before building the working-pattern/overlay business logic on top of them, mirroring the pattern Epic 0.1 already used (Story 0.1.2 "tables" landed before Story 0.1.3 "sync logic").</p>
+<p>This SCP creates that one schema-only epic. It does <strong>not</strong> run the full <code>bmad-create-epics-and-stories</code> decomposition for Phase 1 — FR12–FR18's behavioral stories (working-pattern management, forward-sitting generation, overlay CRUD, jurisdictional-split workflow) remain undecomposed and are explicitly out of scope here.</p>
+</div></details><details class="section" id="2-impact-analysis"><summary><span class="section-title">2. Impact Analysis</span></summary><div class="section-body">
+<h3 id="epic-impact">Epic impact</h3>
+<ul>
+<li><strong>New Epic 1.1</strong> — "JOH domain schema is designed and implemented in PostgreSQL" (file slug: <code>postgres-sql-schema-design</code>, per the trigger). First epic in a new <code>epics/phase-1/</code> folder.</li>
+<li><strong>Depends on Epic 0.1</strong> (hard dependency: <code>ctam_joh_identities</code> — the FK target for every <code>ctam-joh</code> table's <code>joh_id</code> column — is minted by Epic 0.1's eLinks sync, Story 0.1.3, and its schema is created in Story 0.1.2). Also depends on <strong>Epic 0.0</strong> (shared estate) and <strong>Epic 0.6</strong> (context bus + config baseline), mirroring Epic 0.1's own dependency set for the same reasons (first <code>ctam-joh</code> scaffold needs both).</li>
+<li><strong>Open item flagged, not resolved here:</strong> some of the 5 tables plausibly carry FK columns into tier-(b) vocabulary tables owned by <code>ctam-reference-data</code> (e.g. a working-pattern-type reference into <code>ctam_working_pattern_types</code>, landed in Epic 0.3 Story 0.3.1) — <code>data-tables.md</code> documents the vocabulary tables and their JOH-consumer relationship but not full column-level DDL, so I'm not asserting a hard Epic 0.3 dependency I can't verify. The new epic's schema story instead carries an explicit AC: verify each such FK against <code>data-tables.md</code> and Epic 0.3's landing status at implementation time; raise an architectural PR (same pattern as gaps.md G8.1's "unmapped upstream structure") if a referenced vocabulary table doesn't exist yet.</li>
+<li>No existing epic (0.0–0.8) changes.</li>
+</ul>
+<h3 id="story-impact">Story impact</h3>
+<ul>
+<li><strong>New Story 1.1.1</strong> — scaffold <code>ctam-joh</code> from the HMCTS starter (mirrors Story 0.1.1's pattern — first time this repo is scaffolded).</li>
+<li><strong>New Story 1.1.2</strong> — the 5-table domain schema itself, via Liquibase, with tier ownership + grants (mirrors Story 0.1.2's pattern).</li>
+<li>No existing story changes.</li>
+</ul>
+<h3 id="artifact-conflicts--updates-needed">Artifact conflicts / updates needed</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>epics/phase-1/index.md</code> <em>(new)</em></td>
+<td>Phase 1 overview — Epic 1.1 only; explicit note that FR12–FR18 behavioral decomposition is still pending</td>
+</tr>
+<tr>
+<td><code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code> <em>(new)</em></td>
+<td>The epic itself — 2 stories</td>
+</tr>
+<tr>
+<td><code>epics/index.md</code></td>
+<td>Phase-level breakdowns table: Phase 1 row updated from "<em>to be storied</em> / ⚪" to link + partial status</td>
+</tr>
+<tr>
+<td><code>epics/framework.md</code></td>
+<td>Phase 1 · Area: JOH Records &amp; Working Patterns — one-sentence cross-reference to Epic 1.1</td>
+</tr>
+<tr>
+<td><code>epics/fr-coverage-map.md</code></td>
+<td>Phases 1–9+ pending table: FR10–FR18 row annotated (schema groundwork landed; behavior still pending) — status stays ⚪, not flipped to ✅</td>
+</tr>
+<tr>
+<td><code>architecture/changelog.md</code></td>
+<td>New version entry</td>
+</tr>
+<tr>
+<td><code>sprint-status.yaml</code></td>
+<td>New <code>epic-1.1</code> block, 2 stories, <code>backlog</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not touched:</strong> <code>data-tables.md</code> (already fully specifies these 5 tables — nothing to change, this epic just schedules building what's already documented there). <code>architecture.md</code> decision log (no new architectural decision — the schema design was already fixed by <code>data-tables.md</code>; this is pure backlog scheduling). No PRD, FR/NFR, or UX change.</p>
+<h3 id="technical-impact">Technical impact</h3>
+<p>None beyond what's already documented: <code>ctam-joh</code> becomes the second domain service scaffolded (after <code>ctam-reference-data</code>), owns 5 tables with the same conventions as every other domain table (<code>id uuid</code> PK, <code>joh_id</code> FK → <code>ctam_joh_identities.id</code>, <code>created_at</code>/<code>updated_at timestamptz NOT NULL</code>, Liquibase-only DDL, per-service DB role write ownership, ArchUnit grants fitness function). One genuinely open technical question, flagged as a story AC rather than resolved here: <code>ctam_jurisdictional_splits</code>' "must total 100%" constraint (FR16) is a <strong>cross-row</strong> invariant — a plain Postgres <code>CHECK</code> constraint can't express "this JOH's rows sum to 100," so the story requires the implementer to choose (and justify) a trigger, an application-level enforcement, or a materialized total column, rather than silently assuming one.</p>
+</div></details><details class="section" id="3-recommended-approach"><summary><span class="section-title">3. Recommended Approach</span></summary><div class="section-body">
+<p><strong>Option 1 — Direct Adjustment (new epic).</strong> Nothing rolls back (Phase 1 has zero stories today, so Option 2 doesn't apply) and nothing touches MVP scope or FR/NFR text (Option 3 doesn't apply). This is additive: one new epic, schema-only, in a phase that's otherwise still framework-only.</p>
+<p><strong>Effort:</strong> Low–Medium (two stories: a scaffold mirroring an already-proven pattern, and a schema migration against an already-fully-specified table set). <strong>Risk:</strong> Low, with one flagged design question (the 100%-sum constraint) that the story surfaces rather than resolves — appropriate for a schema-only epic to hand to the implementer as a cited open item, not something this SCP should invent an answer for. <strong>Timeline impact:</strong> None on Phase 0; this is the first step of Phase 1 and doesn't block anything currently in flight (all Phase 0 epics still <code>backlog</code>/<code>in-progress</code> per <code>sprint-status.yaml</code>).</p>
+</div></details><details class="section" id="4-detailed-change-proposals"><summary><span class="section-title">4. Detailed Change Proposals</span></summary><div class="section-body">
+<h3 id="41-new-file--epicsphase-1epic-11-postgres-sql-schema-designmd">4.1 New file — <code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code></h3>
+<pre class="markdown"><code>---
+type: &#39;Epic&#39;
+description: &quot;User outcome: ctam-joh&#39;s own PostgreSQL domain schema — 5 tables (working patterns, ticket/location overlays, jurisdictional splits) — is designed and implemented via Liquibase, so later Phase 1 behavioral epics have a schema to build against. Schema only — no business logic.&quot;
+resource: &#39;epics/phase-1/epic-1.1-postgres-sql-schema-design.html&#39;
+tags: [ctam-pathfinder, epics, phase-1]
+timestamp: &#39;2026-08-24&#39;
+parent: &#39;epics/phase-1/index.md&#39;
+epic: 1.1
+title: &#39;JOH domain schema is designed and implemented in PostgreSQL&#39;
+storyCount: 2
+repo: ctam-joh
+depends_on: [epic-0.0, epic-0.1, epic-0.6]
+---
+
+# Epic 1.1: JOH domain schema is designed and implemented in PostgreSQL
+
+**User outcome:** `ctam-joh`&#39;s own PostgreSQL domain schema — the 5 CTAM-owned overlay tables (`ctam_working_patterns`, `ctam_working_pattern_days`, `ctam_joh_ticket`, `ctam_joh_location`, `ctam_jurisdictional_splits` — per `architecture/data-tables.md`) — is designed and implemented via Liquibase, each keyed by `joh_id` → `ctam_joh_identities.id`, so that later Phase 1 epics (working-pattern management, overlay maintenance, jurisdictional-split workflow — FR12, FR15b, FR16, FR17) have a schema to build against. **Schema only** — no business logic, no API, no UI in this epic.
+
+**Hosting:** `ctam-joh` is the **second** domain service scaffolded (after `ctam-reference-data`, Epic 0.1); it deploys onto the shared Azure estate provisioned in **Epic 0.0** and carries only its own per-repo Terraform. This epic does not build `ctam-joh`&#39;s API or any working-pattern/overlay business logic — those are later Phase 1 epics, run via `bmad-create-epics-and-stories` once Phase 1 is fully decomposed.
+
+**Vertical slice:**
+- **Second scaffolded backend service: `ctam-joh`** (HMCTS Crime SpringBoot template + `ctam-scaffold.sh` conventions per AR2–AR4, same pattern as Epic 0.1 Story 0.1.1)
+- **Consumes the shared Azure estate** provisioned in Epic 0.0
+- The 5 domain tables, service-owned Liquibase changelog (AR18–AR20), keyed by `joh_id` → `ctam_joh_identities.id` (Epic 0.1)
+- Tier ownership: only the `ctam_joh` DB role holds INSERT/UPDATE on its own tables; SELECT-granted to `ctam_reference_data` for JOH profile-view composition (per `data-tables.md`&#39;s explicit note)
+
+**FRs covered:** none behaviourally — **schema groundwork only** for FR12 (working patterns), FR15b (ticket overlay), FR16 (jurisdictional split), FR17 (location overlay). Full behavioral coverage is later Phase 1 epics.
+
+**Key NFRs first exercised here (for `ctam-joh`):** NFR10 (TLS at APIM), NFR11 (data-at-rest), NFR25–NFR28 (structured logs + observability), NFR31 (Azure UK South), NFR40 (per-service deployable).
+
+**Out of scope (explicitly):** Working-pattern generation / forward-sitting generation (FR13). Ticket/location overlay CRUD business logic. Jurisdictional-split validation workflow. JOH profile *view* composition itself (only the SELECT grant enabling it is this epic&#39;s concern). `ctam-joh`&#39;s REST API. `ctam-ui`&#39;s `joh/` module. All of these are future Phase 1 epics.
+
+---
+
+## Story 1.1.1: Scaffold `ctam-joh` from the HMCTS starter (onto the Epic 0.0 estate)
+
+As a **platform engineer**,
+I want to scaffold `ctam-joh` — the second CTAM Pathfinder backend service — from the HMCTS Crime SpringBoot template using `ctam-scaffold.sh`, and deploy it onto the shared Azure estate provisioned in Epic 0.0,
+So that **the JOH domain schema (Story 1.1.2) has a service to live in**, following the same proven scaffold pattern Epic 0.1 established for `ctam-reference-data`.
+
+**Acceptance Criteria:**
+
+**Given** the engineer has performed the GitHub manual-setup checklist (`ctam-architecture/runbooks/github-setup.md`) **before** running the scaffold (repo `ctam-joh` created via the GitHub web UI; branch protection on `main`; no `gh` CLI, per D10),
+**When** the engineer runs `ctam-scaffold.sh ctam-joh` from `ctam-architecture/scaffolding/`,
+**Then** the script scaffolds a Spring Boot 4.0.x project locally from `https://github.com/hmcts/service-hmcts-crime-springboot-template`, commits, and pushes to the pre-created remote on a feature branch via plain `git`,
+**And** Group ID is `uk.gov.hmcts.ctam`, artefact is `ctam-joh`, base package is `uk.gov.hmcts.ctam.joh`, default port is 8082 (per AR3),
+**And** the same baseline dependency set as every other CTAM service is configured (Liquibase, Testcontainers PostgreSQL, MapStruct, OWASP encoder, docker-compose plugin, OpenAPI tooling, Helm chart, Key Vault, JaCoCo, CycloneDX SBOM — per AR5–AR17),
+**And** a `terraform/` directory exists holding only `ctam-joh`&#39;s own resources (Key Vault namespace) — the shared estate lives in `ctam-shared-infrastructure` (per AR53 revised),
+**And** GitHub Actions workflows, `CODEOWNERS`, `PULL_REQUEST_TEMPLATE.md`, and a Postman collection skeleton exist (per AR28, AR29, AR41).
+
+**Given** the shared Azure estate provisioned and independently verified in Epic 0.0,
+**When** `ctam-joh`&#39;s Helm chart is deployed to the dev AKS cluster,
+**Then** the service reaches the shared cluster, database, registry, gateway, and observability estate (this story **consumes** the estate; it does not provision it),
+**And** `GET /actuator/health` returns `200 OK`, liveness/readiness probes pass, and structured JSON logs with `correlationId` appear (per NFR25, NFR28, AR30, AR32).
+
+**Given** the `ctam-architecture` Liquibase baseline and shared `ctam_configuration_values` table already exist (Epic 0.6),
+**When** `ctam-joh` is scaffolded,
+**Then** its DB role has `SELECT` on `ctam_configuration_values`,
+**And** its own service-owned Liquibase changelog directory exists but is empty (the 5 domain tables are created in Story 1.1.2).
+
+**References:** AR2–AR17, AR23–AR32, AR41, AR53 (revised); D10; depends on Epic 0.0 (shared estate) and Epic 0.6 (context bus + config baseline).
+
+**Explicitly NOT in scope:**
+- The 5 domain tables and tier ownership/grants — Story 1.1.2
+- Any `ctam-joh` API, business logic, or UI — future Phase 1 epics
+
+---
+
+## Story 1.1.2: The 5 `ctam-joh` domain tables are designed and implemented
+
+As a **CTAM Pathfinder platform** (and every future Phase 1 story that builds on this schema),
+I want the 5 CTAM-owned `ctam-joh` overlay tables created via Liquibase, keyed by `joh_id` → `ctam_joh_identities.id`, with tier ownership and cross-service SELECT grants in place,
+So that **later Phase 1 epics (working-pattern management, overlay maintenance, jurisdictional-split workflow) have a correctly-owned schema to build behavior against, and `ctam-reference-data` can compose JOH profile views without a shared code dependency**.
+
+**Acceptance Criteria:**
+
+**Given** `ctam-joh` is scaffolded per Story 1.1.1, and `ctam_joh_identities` exists (Epic 0.1, Story 0.1.2),
+**When** the engineer adds the Liquibase changeset `db/changelog/001-init-joh-domain-tables.sql` (formatted-SQL, included from `db.changelog-master.yaml`),
+**Then** the 5 tables exist per `architecture/data-tables.md`&#39;s &quot;JOH service (`ctam-joh`) — 5 tables&quot; section:
+  - `ctam_working_patterns` — per-JOH working-pattern definition (target sit %, active period; FR12)
+  - `ctam_working_pattern_days` — per-day work-type breakdown within a working pattern (FR12)
+  - `ctam_joh_ticket` — CTAM-overlay tickets layered on the upstream `jo_tickets` set (FR15 layer (b))
+  - `ctam_joh_location` — JOH base-location changes recorded in CTAM, not propagated upstream (FR17)
+  - `ctam_jurisdictional_splits` — per-JOH jurisdictional split percentages (FR16)
+**And** every table has `id uuid PK`, `joh_id uuid` FK → `ctam_joh_identities.id` (never a bare `personnel_number`), and `created_at`/`updated_at timestamptz NOT NULL`, per house convention,
+**And** `ctam_working_pattern_days` FKs to its parent `ctam_working_patterns.id`.
+
+**Given** any of the 5 tables needs a foreign key into a tier-(b) vocabulary table owned by `ctam-reference-data` (e.g. a working-pattern-type reference into `ctam_working_pattern_types`),
+**When** the engineer designs that column,
+**Then** the referenced vocabulary table&#39;s existence and shape is verified against `data-tables.md` and Epic 0.3&#39;s landing status **before** the FK is added — an unmapped or not-yet-landed vocabulary table raises an architectural PR rather than being assumed (cite-or-ask; mirrors gaps.md G8.1&#39;s &quot;unmapped upstream structure raises an architectural PR&quot; pattern).
+
+**Given** `ctam_jurisdictional_splits`&#39; percentages must total 100% per JOH (FR16) — a **cross-row** invariant a single-row Postgres `CHECK` constraint cannot express,
+**When** the engineer designs this table&#39;s enforcement,
+**Then** the chosen mechanism (a trigger, application-level validation, or an equivalent) is explicit and justified in the migration&#39;s accompanying notes — this AC exists precisely so the choice is made deliberately, not defaulted to &quot;no enforcement.&quot;
+
+**Given** the tables are created,
+**When** grants are configured,
+**Then** the `ctam_joh` DB role owns all 5 tables and holds INSERT/UPDATE on them; **no other role holds INSERT/UPDATE** (mirrors AR49&#39;s tier-ownership pattern, now for `ctam-joh`&#39;s own tier rather than tier (a)),
+**And** `ctam_reference_data`&#39;s DB role holds `SELECT` on all 5 tables (per `data-tables.md`: &quot;the overlay tables are SELECT-granted to `ctam_reference_data`&quot; for JOH profile-view composition),
+**And** the ArchUnit/grants fitness function in CI verifies this write-protection + grant rule.
+
+**References:** FR12, FR15b, FR16, FR17 (schema groundwork only — no behavior); NFR15; AR18–AR20, AR22; `architecture/data-tables.md` §&quot;JOH service (`ctam-joh`) — 5 tables&quot;; depends on Epic 0.1 Story 0.1.2 (`ctam_joh_identities`).
+
+**Explicitly NOT in scope:**
+- Working-pattern generation / forward-sitting generation (FR13) — future Phase 1 epic
+- Ticket/location overlay CRUD, jurisdictional-split validation workflow — future Phase 1 epics
+- JOH profile view composition (only the SELECT grant enabling it is here) — future Phase 1 epic
+- `ctam-joh`&#39;s REST API — future Phase 1 epic</code></pre>
+<h3 id="42-new-file--epicsphase-1indexmd">4.2 New file — <code>epics/phase-1/index.md</code></h3>
+<pre class="markdown"><code>---
+type: &#39;Phase Index&#39;
+title: &#39;Phase 1 — JOH&#39;
+description: &#39;Epic 1.1 (schema only) is the first Phase 1 epic. FR10–FR18 behavioral decomposition is still pending a full bmad-create-epics-and-stories run for this phase.&#39;
+resource: &#39;epics/phase-1/index.html&#39;
+tags: [ctam-pathfinder, epics, phase-1]
+timestamp: &#39;2026-08-24&#39;
+parent: &#39;epics/index.md&#39;
+phase: 1
+phaseName: &#39;JOH&#39;
+---
+
+# Phase 1 — JOH
+
+&gt; **Partial decomposition.** Only **Epic 1.1** (schema-only) exists so far — added via Sprint Change Proposal 2026-08-24c, ahead of a full Phase 1 decomposition. FR10–FR18&#39;s behavioral stories (working-pattern management, forward-sitting generation, overlay CRUD, jurisdictional-split workflow, JOH search/profile views — see [`../framework.md`](../framework.md) → *Phase 1 · Area: JOH Records &amp; Working Patterns*) are **not yet storied**. Run `bmad-create-epics-and-stories` for Phase 1 to decompose the rest; Epic 1.1&#39;s schema is what those future epics will build against.
+
+## Epics
+
+| Epic | Title | Stories | Status |
+|---|---|---|---|
+| [1.1](epic-1.1-postgres-sql-schema-design.html) | JOH domain schema is designed and implemented in PostgreSQL | 2 | 🟡 Planned |
+| **Total** | | **2 stories** | |
+
+## Epic summaries
+
+### Epic 1.1: JOH domain schema is designed and implemented in PostgreSQL (2 stories)
+
+**User outcome:** `ctam-joh`&#39;s 5 domain tables — working patterns, per-day pattern breakdown, ticket overlay, location overlay, jurisdictional splits — are designed and implemented via Liquibase, keyed by `joh_id` → `ctam_joh_identities.id`, with tier ownership and a cross-service SELECT grant to `ctam-reference-data`. **Schema only** — the behavioral stories that populate and maintain this schema are future Phase 1 epics.
+
+**FRs covered:** none behaviourally — schema groundwork for FR12, FR15b, FR16, FR17.
+
+→ [Full epic with stories](epic-1.1-postgres-sql-schema-design.html)
+
+## Not yet storied
+
+FR10, FR11, FR13, FR14, FR18, and the behavioral halves of FR12/FR15b/FR16/FR17 — see [`../framework.md`](../framework.md) → *Phase 1 · Area: JOH Records &amp; Working Patterns* for the architectural map. Run `bmad-create-epics-and-stories` for Phase 1 when ready to decompose these.</code></pre>
+<h3 id="43-epicsindexmd--phase-level-breakdowns-table">4.3 <code>epics/index.md</code> — Phase-level breakdowns table</h3>
+<p><strong>OLD:</strong></p>
+<pre><code>| **1** — JOH | _to be storied_ | ⚪ Framework only |</code></pre>
+<p><strong>NEW:</strong></p>
+<pre><code>| **1** — JOH | [phase-1/](phase-1/index.html) | 🟡 Partially planned — 1 epic (schema only, SCP 2026-08-24c); FR10–FR18 behavior still to be storied |</code></pre>
+<h3 id="44-epicsframeworkmd--phase-1--area-joh-records--working-patterns">4.4 <code>epics/framework.md</code> — Phase 1 · Area: JOH Records &amp; Working Patterns</h3>
+<p>Append one sentence to the existing scope paragraph: <em>"<code>ctam-joh</code>'s own PostgreSQL schema (the 5 tables above) is designed and implemented in <a href="phase-1/epic-1.1-postgres-sql-schema-design.html">Epic 1.1</a> — schema only; the behavioral stories in this area are not yet storied."</em></p>
+<h3 id="45-epicsfr-coverage-mapmd--phases-19-pending-table">4.5 <code>epics/fr-coverage-map.md</code> — Phases 1–9+ pending table</h3>
+<p><strong>OLD:</strong></p>
+<pre><code>| FR10–FR18 | 1 | JOH Records &amp; Working Patterns (profiles are *views* over tier (a) + `ctam-joh` overlays; FR14 is display-only — conversions happen upstream) | ⚪ |</code></pre>
+<p><strong>NEW:</strong></p>
+<pre><code>| FR10–FR18 | 1 | JOH Records &amp; Working Patterns (profiles are *views* over tier (a) + `ctam-joh` overlays; FR14 is display-only — conversions happen upstream). **Schema groundwork landed**: [Epic 1.1](phase-1/epic-1.1-postgres-sql-schema-design.html) (SCP 2026-08-24c) — schema only, behavior still ⚪ | ⚪ |</code></pre>
+<h3 id="46-architecturechangelogmd">4.6 <code>architecture/changelog.md</code></h3>
+<p>New version row (above the current top entry):</p>
+<p>| <strong>v4.11 — Phase 1's first epic: <code>ctam-joh</code> domain schema (schema only)</strong> | 2026-08-24 | <strong>Additive</strong> (SCP 2026-08-24c), no FR/NFR/PRD/architecture-decision change — <code>data-tables.md</code> already fully specified these 5 tables. Adds <strong>Epic 1.1</strong> in a new <code>epics/phase-1/</code> folder: scaffold <code>ctam-joh</code> (Story 1.1.1) + create its 5 domain tables via Liquibase (Story 1.1.2), keyed by <code>joh_id</code> → <code>ctam_joh_identities.id</code> (Epic 0.1), tier-owned + SELECT-granted to <code>ctam_reference_data</code>. Schema only — FR12/FR15b/FR16/FR17's behavioral stories remain unstoried. Flags one open design question for the implementer: <code>ctam_jurisdictional_splits</code>' 100%-sum constraint is a cross-row invariant, not a plain <code>CHECK</code>. See <a href="../sprint-change-proposal-2026-08-24c.md"><code>../sprint-change-proposal-2026-08-24c.md</code></a>. | new <code>epics/phase-1/index.md</code>, new <code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code>; <code>epics/index.md</code>; <code>epics/framework.md</code>; <code>epics/fr-coverage-map.md</code>; <code>sprint-status.yaml</code> |</p>
+<h3 id="47-sprint-statusyaml">4.7 <code>sprint-status.yaml</code></h3>
+<p>Append a new block:</p>
+<pre class="yaml"><code>  epic-1.1: backlog
+  1-1-1-scaffold-ctam-joh-from-the-hmcts-starter-onto-the-epic-0-0-estate: backlog
+  1-1-2-the-5-ctam-joh-domain-tables-are-designed-and-implemented: backlog
+  epic-1.1-retrospective: optional</code></pre>
+</div></details><details class="section" id="5-implementation-handoff"><summary><span class="section-title">5. Implementation Handoff</span></summary><div class="section-body">
+<p><strong>Scope: Moderate</strong> — first Phase 1 epic, schema-only, additive. No PRD/FR/NFR/architecture-decision change (the schema itself was already fixed in <code>data-tables.md</code>; this only schedules building it). Routed as <strong>Product Owner / Developer</strong>.</p>
+<p><strong>Responsibilities:</strong></p>
+<ul>
+<li><strong>This session:</strong> on approval, create the two new files and apply the five edits above, then regenerate <code>docs/</code> and add the two new NAV entries (<code>epics/phase-1/index.md</code>, <code>epics/phase-1/epic-1.1-postgres-sql-schema-design.md</code>) to <code>scripts/python/build_html.py</code>, following the same convention as the Phase 0 entries.</li>
+<li><strong>Implementing engineer (Story 1.1.2):</strong> resolve the two flagged open items at implementation time — (a) verify any tier-(b) vocabulary FK against <code>data-tables.md</code>/Epic 0.3's status before adding it, raising an architectural PR if unmapped; (b) choose and justify the <code>ctam_jurisdictional_splits</code> 100%-sum enforcement mechanism.</li>
+<li><strong>Product Owner (human):</strong> decide when to run <code>bmad-create-epics-and-stories</code> for the rest of Phase 1 (FR10–FR18 behavior) — not part of this SCP's scope.</li>
+</ul>
+<p><strong>Success criteria:</strong> <code>epics/phase-1/index.md</code> and the new epic file are internally consistent; <code>epics/index.md</code>'s Phase 1 row links correctly; <code>docs/</code> regenerates cleanly with both new pages reachable from the NAV sidebar; no FR/NFR/PRD text changed; <code>data-tables.md</code> unchanged (nothing here contradicts it).</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-24c.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#1-issue-summary">1. Issue Summary</a></li><li><a href="#2-impact-analysis">2. Impact Analysis</a></li><li class="h3"><a href="#epic-impact">Epic impact</a></li><li class="h3"><a href="#story-impact">Story impact</a></li><li class="h3"><a href="#artifact-conflicts--updates-needed">Artifact conflicts / updates needed</a></li><li class="h3"><a href="#technical-impact">Technical impact</a></li><li><a href="#3-recommended-approach">3. Recommended Approach</a></li><li><a href="#4-detailed-change-proposals">4. Detailed Change Proposals</a></li><li class="h3"><a href="#41-new-file--epicsphase-1epic-11-postgres-sql-schema-designmd">4.1 New file — epics/phase-1/epic-1.1-postgres-sql-schema-design.md</a></li><li class="h3"><a href="#42-new-file--epicsphase-1indexmd">4.2 New file — epics/phase-1/index.md</a></li><li class="h3"><a href="#43-epicsindexmd--phase-level-breakdowns-table">4.3 epics/index.md — Phase-level breakdowns table</a></li><li class="h3"><a href="#44-epicsframeworkmd--phase-1--area-joh-records--working-patterns">4.4 epics/framework.md — Phase 1 · Area: JOH Records &amp; Working Patterns</a></li><li class="h3"><a href="#45-epicsfr-coverage-mapmd--phases-19-pending-table">4.5 epics/fr-coverage-map.md — Phases 1–9+ pending table</a></li><li class="h3"><a href="#46-architecturechangelogmd">4.6 architecture/changelog.md</a></li><li class="h3"><a href="#47-sprint-statusyaml">4.7 sprint-status.yaml</a></li><li><a href="#5-implementation-handoff">5. Implementation Handoff</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-24c";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

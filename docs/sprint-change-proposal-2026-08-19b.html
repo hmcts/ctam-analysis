@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-19b — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-19b">Sprint Change Proposal — 2026-08-19b</h1>
+<p><strong>Story-packet schema reconciled with the BMad story template; dispatch chain corrected</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> The first dispatched story packet (<code>pilot-0.5.1</code>, the delivery-method pilot) did not match BMad's story template. The executing session found it had no <code>## Tasks / Subtasks</code> to work through and no <code>## Dev Agent Record</code> or <code>### File List</code> to write into — <code>bmad-dev-story</code> reads and writes those by exact heading.</p>
+<p><strong>Root cause is a contradiction inside a single file, not an authoring slip.</strong> <a href="architecture/tobe/delivery-operating-model.html"><code>architecture/delivery-operating-model.md</code></a> contained both:</p>
+<ul>
+<li>a skills table mapping <strong>"1 · Dispatch → <code>bmad-create-story</code>"</strong>, and</li>
+<li>three lines later, a <strong>"Story packet schema"</strong> specifying a bespoke layout — YAML frontmatter, <code>status: dispatched</code>, <code>## Context (distilled…)</code>, <code>## Acceptance criteria (Gherkin…)</code>, <code>## Out of scope / boundaries</code>, <code>## Definition of done</code> — none of which <code>bmad-create-story</code> emits.</li>
+</ul>
+<p>The packet was authored to the schema, as the shard instructed. Both instructions were followed as written; they cannot both be satisfied.</p>
+<p><strong>Second, deeper cause — the BMad chain had never been started.</strong> <code>bmad-create-story</code>'s workflow refuses to run without <code>{implementation_artifacts}/sprint-status.yaml</code> and emits <em>"Run sprint-planning workflow first to create sprint-status.yaml"</em>. That file does not exist, because <strong><code>bmad-sprint-planning</code> has never been run</strong>. So at the dispatch step there was no runnable skill to invoke, and the shard's schema was the only usable instruction. The contradiction and the missing prerequisite compounded.</p>
+<p><strong>What should have happened regardless:</strong> the conflict should have been raised as a stop-and-ask rather than silently resolved in favour of one half — exactly what <code>agent-rules</code> <strong>R5</strong> requires. Recorded as such.</p>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-blast-radius">2.1 Blast radius</h3>
+<p><strong>Contained.</strong> One packet, in a pilot repo, uncommitted at the time of discovery. No epic, story, FR/NFR or ledger entry was affected. Had this reached real delivery, every packet for phases 0–8 would have carried the same defect, and every <code>bmad-dev-story</code> run would have had nowhere to record its work — so the cost of finding it now is one file rewrite instead of a programme-wide re-issue.</p>
+<h3 id="22-why-both-schemas-exist-and-what-each-holds">2.2 Why both schemas exist, and what each holds</h3>
+<p>Neither is redundant, which is why the fix is a reconciliation rather than a winner:</p>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Owner</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Status:</code>, <code>## Story</code>, <code>## Acceptance Criteria</code>, <code>## Tasks / Subtasks</code>, <code>## Dev Notes</code>, <code>## Dev Agent Record</code>, <code>### File List</code></td>
+<td><strong>BMad template</strong></td>
+<td><code>bmad-dev-story</code> reads and writes them by exact heading</td>
+</tr>
+<tr>
+<td><code>bus_version</code>, <code>repo</code>, <code>epic</code>, <code>frs</code>, <code>nfrs</code>, <code>depends_on_stories</code>, <code>ledger</code>, recorded deviations</td>
+<td><strong>CTAM operating model</strong></td>
+<td>Polyrepo facts BMad does not model: which repo, which pinned bus version, which requirements, which ledger shard</td>
+</tr>
+<tr>
+<td>Packet location <code>docs/stories/&lt;id&gt;.md</code> <strong>in the target repo</strong></td>
+<td><strong>CTAM operating model</strong></td>
+<td>BMad defaults to <code>{implementation_artifacts}</code> in the control plane, which assumes a monorepo. A service repo must be independently readable by a fresh session with none of the control plane's context</td>
+</tr>
+<tr>
+<td>Status vocabulary</td>
+<td><strong>BMad</strong> (`ready-for-dev</td>
+<td>in-progress</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-a-related-duplication-not-yet-resolved">2.3 A related duplication, not yet resolved</h3>
+<p>The same pattern appears once more: CTAM's <code>delivery/ledger/</code> (per-epic shards with <code>status</code> + <code>owner</code>, authored 2026-07-07) duplicates what BMad's <code>sprint-status.yaml</code> tracks. Two status stores, no stated precedence. This SCP does <strong>not</strong> resolve it — it records it as a decision required before the next real story is dispatched (pilot finding <strong>F13</strong>). The recommended direction is that BMad state owns the story lifecycle and the ledger keeps only what BMad does not model (bus version per repo, PR link, FR/NFR mapping), but that is a decision, not an inference.</p>
+<hr />
+</div></details><details class="section" id="section-3--recommended-path-forward"><summary><span class="section-title">Section 3 — Recommended Path Forward</span></summary><div class="section-body">
+<p>Prose alone caused this, so the fix is executable at three of its four layers.</p>
+<p><strong>Applied:</strong></p>
+<ol type="1">
+<li><strong>Canonical template on the bus</strong> — <code>ctam-architecture/agent-rules/templates/story-packet.md</code>. BMad's template with CTAM frontmatter and CTAM detail nested under <code>## Dev Notes</code>. Versioned with the bus, so every repo gets the same one and a bump is auditable.</li>
+<li><strong>Committed BMad customization</strong> — <code>_bmad/custom/bmad-create-story.toml</code>, using BMad's own team-customization layer (<code>activation_steps_append</code> + <code>persistent_facts</code>) to point the skill at the canonical template, at the target-repo output location, and at the validator. <code>.gitignore</code> gained a scoped negation (<code>!_bmad/custom/</code>) so the team layer is tracked while the installer's files stay ignored — <code>_bmad/config.toml</code> itself designates <code>_bmad/custom/</code> as committed.</li>
+<li><strong>Deterministic validator</strong> — <code>scripts/validate-story-packet.sh</code> fails on a missing BMad section, a CTAM section promoted to top level, a missing frontmatter key, a duplicate <code>status:</code>, an out-of-vocabulary <code>Status:</code>, unnumbered ACs, or absent task checkboxes. Run against the offending packet it reported <strong>18 errors</strong>; the regenerated packet and the template both pass.</li>
+<li><strong>The contradiction removed</strong> — <code>delivery-operating-model.md</code>'s <em>Story packet schema</em> section rewritten as the three-rule contract, with the sprint-planning prerequisite stated explicitly so the next person does not hit the same dead end.</li>
+<li><strong>The pilot packet regenerated</strong> in the conforming shape, ACs and deviations preserved, plus the tasks/subtasks and Dev Agent Record scaffolding <code>bmad-dev-story</code> needs.</li>
+</ol>
+<p><strong>Not applied — requires a decision:</strong></p>
+<ul>
+<li><strong>Run <code>bmad-sprint-planning</code></strong> to create <code>sprint-status.yaml</code> and unblock <code>bmad-create-story</code> for every real story. This is the remaining half of the root cause: without it, dispatch still has no runnable skill. It also forces the <code>delivery/ledger/</code> vs <code>sprint-status.yaml</code> precedence decision in §2.3, because sprint planning will create the competing artefact.</li>
+</ul>
+<hr />
+</div></details><details class="section" id="section-4--change-scope-summary"><summary><span class="section-title">Section 4 — Change Scope Summary</span></summary><div class="section-body">
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="architecture/tobe/delivery-operating-model.html"><code>architecture/delivery-operating-model.md</code></a></td>
+<td><em>Story packet schema</em> section <strong>rewritten</strong> — three-rule contract, canonical template pointer, enforcement pointers, sprint-planning prerequisite</td>
+</tr>
+<tr>
+<td><code>ctam-architecture/agent-rules/templates/story-packet.md</code></td>
+<td><strong>New</strong> — canonical packet template on the bus</td>
+</tr>
+<tr>
+<td><code>_bmad/custom/bmad-create-story.toml</code></td>
+<td><strong>New</strong> — committed team customization pointing the skill at the template, location and validator</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Scoped negation <code>!_bmad/custom/</code> so the team customization layer is tracked</td>
+</tr>
+<tr>
+<td><code>scripts/validate-story-packet.sh</code></td>
+<td><strong>New</strong> — deterministic packet validator</td>
+</tr>
+<tr>
+<td><code>ctam-notification/docs/stories/pilot-0.5.1.md</code></td>
+<td><strong>Regenerated</strong> in the conforming shape</td>
+</tr>
+<tr>
+<td><a href="delivery/pilots/pilot-0.5-findings.html"><code>delivery/pilots/pilot-0.5-findings.md</code></a></td>
+<td><strong>F10–F14 added</strong></td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/changelog.html"><code>architecture/changelog.md</code></a></td>
+<td><strong>v4.3</strong> entry</td>
+</tr>
+<tr>
+<td><strong>This SCP</strong></td>
+<td>New</td>
+</tr>
+<tr>
+<td>Tooling — <code>scripts/python/build_html.py</code></td>
+<td>NAV gains this SCP</td>
+</tr>
+<tr>
+<td><strong><code>docs/</code></strong></td>
+<td><strong>Regenerated</strong></td>
+</tr>
+<tr>
+<td><strong>Unchanged</strong></td>
+<td><code>prd.md</code>, <code>epics/</code> (including Epic 0.5), <code>delivery/ledger/</code>, <code>dispatch-graph.yaml</code>, <code>conventions.md</code>, all FR/NFR coverage</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Handoff:</strong> the dispatch chain is correct for packet <em>shape</em>; it is still not runnable end-to-end until <code>bmad-sprint-planning</code> has produced <code>sprint-status.yaml</code> and the ledger-versus-sprint-status precedence is decided. Both are named in the pilot findings and neither should be inferred.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-19b.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-blast-radius">2.1 Blast radius</a></li><li class="h3"><a href="#22-why-both-schemas-exist-and-what-each-holds">2.2 Why both schemas exist, and what each holds</a></li><li class="h3"><a href="#23-a-related-duplication-not-yet-resolved">2.3 A related duplication, not yet resolved</a></li><li><a href="#section-3--recommended-path-forward">Section 3 — Recommended Path Forward</a></li><li><a href="#section-4--change-scope-summary">Section 4 — Change Scope Summary</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-19b";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

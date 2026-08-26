@@ -31,7 +31,7 @@ filesIncluded:
   - _bmad-output/planning-artifacts/epics/phase-0/epic-0.3-admin-manages-users-roles.md
   - _bmad-output/planning-artifacts/epics/phase-0/epic-0.4-system-dispatches-emails.md
   - _bmad-output/planning-artifacts/epics/phase-0/validation-report-2026-05-15.md
-  - _bmad-output/planning-artifacts/sprint-change-proposal-log.md#sprint-change-proposal-2026-05-15
+  - _bmad-output/planning-artifacts/sprint-change-proposal-2026-05-15.md
 uxIncluded: false
 uxDeferralReason: 'Project currently scoped to domains and APIs only; UI deferred. Admin UI explicitly post-MVP per D10 (2026-05-15). Business UI accessibility constraints (WCAG 2.2 AA) carried in ctam-ui scaffold stories.'
 priorReports:
@@ -61,7 +61,7 @@ priorReports:
 | `epics/phase-0/epic-0.3-admin-manages-users-roles.md` | Updated in prior turn (single SQL-ETL story) |
 | `epics/phase-0/epic-0.4-system-dispatches-emails.md` | Modified today (Story 0.4.1 first AC block updated) |
 | `epics/phase-0/validation-report-2026-05-15.md` | Updated in prior turn (revised scope verdict) |
-| `sprint-change-proposal-log.md#sprint-change-proposal-2026-05-15` | New today — audit trail of the `bmad-correct-course` run |
+| `sprint-change-proposal-2026-05-15.md` | New today — audit trail of the `bmad-correct-course` run |
 
 UX still absent — accepted gap, now formally captured under D10 (admin UI post-MVP).
 

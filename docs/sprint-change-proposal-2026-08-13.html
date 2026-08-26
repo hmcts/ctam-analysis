@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sprint Change Proposal — 2026-08-13 — CTAM Pathfinder Documentation</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;color:#1f2328;line-height:1.55;background:#fff}
+aside.nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#f6f8fa;border-right:1px solid #d0d7de;padding:16px 12px;font-size:14px}
+aside.nav h2.site-title{font-size:14px;margin:0 0 12px;letter-spacing:.02em;text-transform:uppercase;color:#57606a}
+aside.nav h2.site-title a{color:inherit;text-decoration:none}
+aside.nav details.nav-group{margin:2px 0;border-radius:5px}
+aside.nav details.nav-group>summary{font-size:11px;padding:5px 8px 5px 4px;cursor:pointer;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600;border-radius:4px;list-style:none;user-select:none;display:flex;align-items:center;gap:6px}
+aside.nav details.nav-group>summary::-webkit-details-marker{display:none}
+aside.nav details.nav-group>summary::before{content:'▸';display:inline-block;font-size:9px;color:#8c959f;transition:transform 0.15s ease;flex:0 0 10px;text-align:center}
+aside.nav details.nav-group[open]>summary::before{transform:rotate(90deg)}
+aside.nav details.nav-group>summary:hover{background:#eaeef2;color:#1f2328}
+aside.nav details.nav-group ul{list-style:none;margin:2px 0 6px;padding:0 0 0 16px}
+aside.nav details.nav-group li{margin:1px 0}
+aside.nav details.nav-group a{color:#0969da;text-decoration:none;display:block;padding:3px 8px;border-radius:6px;font-size:13px}
+aside.nav details.nav-group a:hover{background:#eaeef2}
+aside.nav details.nav-group a.current{background:#ddf4ff;font-weight:600;color:#0a3069}
+.nav-controls{margin:0 0 10px;font-size:11px}
+.nav-controls button{background:none;border:none;color:#0969da;cursor:pointer;padding:2px 4px;font-size:inherit;font-family:inherit;text-decoration:underline}
+.nav-controls button:hover{color:#0a3069}
+aside.toc{position:fixed;top:0;right:0;width:240px;height:100vh;overflow-y:auto;background:#fbfbfc;border-left:1px solid #eaeef2;padding:20px 14px;font-size:13px}
+aside.toc h4{font-size:11px;margin:0 0 8px;color:#57606a;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+aside.toc ul{list-style:none;margin:0;padding:0}
+aside.toc li{margin:1px 0}
+aside.toc li.h3{padding-left:14px;font-size:12px}
+aside.toc a{color:#57606a;text-decoration:none;display:block;padding:3px 8px;border-radius:4px;line-height:1.35;border-left:2px solid transparent}
+aside.toc a:hover{background:#eaeef2;color:#0a3069}
+main.content{margin-left:280px;max-width:1000px;padding:20px 40px 80px}
+body.has-toc main.content{margin-right:240px}
+main h1,main h2,main h3,main h4{margin-top:24px;margin-bottom:8px;font-weight:600;line-height:1.25}
+main h1{border-bottom:1px solid #d0d7de;padding-bottom:6px;font-size:1.9em}
+main h2{border-bottom:1px solid #eaeef2;padding-bottom:4px;font-size:1.4em}
+main h3{font-size:1.15em}
+main p{margin:6px 0 14px}
+main code{background:#eff1f3;padding:1px 4px;border-radius:3px;font-size:.92em;font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace}
+main pre{background:#f6f8fa;padding:12px 14px;border-radius:6px;overflow-x:auto;font-size:.88em;line-height:1.45;border:1px solid #eaeef2}
+main pre code{background:transparent;padding:0;font-size:1em}
+main blockquote{border-left:3px solid #d0d7de;color:#57606a;margin:8px 0;padding:0 12px}
+main table{border-collapse:collapse;margin:12px 0;font-size:.92em;display:block;overflow-x:auto;max-width:100%}
+main th,main td{border:1px solid #d0d7de;padding:6px 10px;vertical-align:top;text-align:left}
+main th{background:#f6f8fa;font-weight:600}
+main tr:nth-child(2n){background:#fafbfc}
+main img{max-width:100%;height:auto;border:1px solid #d0d7de;border-radius:4px;display:block;margin:8px 0}
+main a{color:#0969da;text-decoration:none}
+main a:hover{text-decoration:underline}
+main ul,main ol{margin:6px 0 14px;padding-left:28px}
+main section.footnotes{margin-top:40px;font-size:.85em;color:#57606a}
+main section.footnotes hr{border:none;border-top:1px solid #d0d7de;margin-bottom:10px}
+main section.footnotes p{margin:2px 0}
+a.footnote-ref{font-size:.75em;text-decoration:none;padding:0 1px}
+main li{margin:2px 0}
+main hr{border:none;border-top:1px solid #d0d7de;margin:24px 0}
+main details.section{border:1px solid #d0d7de;border-radius:6px;margin:14px 0;background:#fff;overflow:hidden}
+main details.section>summary{cursor:pointer;padding:10px 14px;background:#f6f8fa;list-style:none;user-select:none;display:flex;align-items:center;gap:10px;color:#1f2328;border-radius:5px}
+main details.section[open]>summary{border-bottom:1px solid #d0d7de;border-radius:5px 5px 0 0}
+main details.section>summary::-webkit-details-marker{display:none}
+main details.section>summary::before{content:'▸';display:inline-block;font-size:11px;color:#57606a;transition:transform 0.15s ease;flex:0 0 12px;text-align:center}
+main details.section[open]>summary::before{transform:rotate(90deg)}
+main details.section>summary:hover{background:#eaeef2}
+main details.section>summary .section-title{font-size:1.15em;font-weight:600;line-height:1.3}
+main details.section>summary .section-title code{font-size:.95em}
+main .section-body{padding:14px 18px 18px}
+main .section-body>h3:first-child,main .section-body>p:first-child,main .section-body>ul:first-child{margin-top:6px}
+.section-controls{margin:6px 0 18px;display:flex;gap:14px;font-size:13px;align-items:center}
+.section-controls .label{color:#57606a;font-size:12px}
+.section-controls button{background:none;border:1px solid #d0d7de;color:#0969da;cursor:pointer;padding:3px 10px;font-size:13px;font-family:inherit;border-radius:5px}
+.section-controls button:hover{background:#eaeef2;color:#0a3069}
+.breadcrumb{color:#57606a;font-size:13px;margin:0 0 16px}
+.breadcrumb a{color:#0969da;text-decoration:none}
+.source-note{margin-top:40px;padding-top:12px;border-top:1px solid #eaeef2;font-size:12px;color:#57606a}
+.source-note a{color:#57606a;text-decoration:underline}
+.living-doc-notice{background:#fff8c5;border:1px solid #d4a72c;border-left:4px solid #d4a72c;border-radius:6px;padding:12px 16px;margin:0 0 22px;font-size:14px;color:#4d3800;line-height:1.55}
+.living-doc-notice strong{color:#3d2e00}
+@media (max-width: 1200px){
+  aside.toc{display:none}
+  body.has-toc main.content{margin-right:0}
+}
+</style>
+</head>
+<body class="has-toc has-sections">
+<aside class="nav" id="nav-root" aria-label="Site navigation"></aside>
+<main class="content">
+<div class="section-controls"><span class="label">Sections:</span><button data-section-action="expand">Expand all</button><button data-section-action="collapse">Collapse all</button></div>
+<h1 id="sprint-change-proposal--2026-08-13">Sprint Change Proposal — 2026-08-13</h1>
+<p><strong>Programme name: RAM → CTAM (<em>Court and Tribunals Availability Management</em>)</strong></p>
+<hr />
+<details class="section" id="section-1--issue-summary"><summary><span class="section-title">Section 1 — Issue Summary</span></summary><div class="section-body">
+<p><strong>Trigger:</strong> The programme is renamed. <strong>RAM</strong> (<em>Resource Availability/Allocation Management</em>) becomes <strong>CTAM</strong> (<em>Court and Tribunals Availability Management</em>). The new name states the domain — Courts and Tribunals — rather than the generic capability, and aligns the programme's identity with HMCTS's organisational language.</p>
+<p><strong>Disposition agreed at intake (2026-08-13):</strong> full rename, applied in place, across every surface at once. Four points were settled before any edit was made:</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How deep into technical identifiers?</td>
+<td><strong>All the way</strong> — repos, table prefix, Java package, artefact coordinates, schema name and DNS, not just prose</td>
+</tr>
+<tr>
+<td>Does "Pathfinder" survive?</td>
+<td><strong>Yes</strong> — the product codename is <strong>CTAM Pathfinder</strong></td>
+</tr>
+<tr>
+<td>Dated reports / prior changelog entries?</td>
+<td><strong>Rewritten in place</strong>, overriding the standing "immutable history" convention — the git history is the point-in-time record</td>
+</tr>
+<tr>
+<td>Change record?</td>
+<td><strong>This SCP + a <code>changelog.md</code> v4.1 entry + D14 in the PRD</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Discovery context:</strong> Raised while the programme still sits between planning and execution. <strong>Implementation has not started</strong> — all six Phase 0 epics are <code>status: not-started</code> with <code>owner: null</code> in <code>delivery/ledger/</code>, and <code>_bmad-output/implementation-artifacts/</code> is empty. Like SCPs 2026-07-06, 2026-07-09 and 2026-08-07, this is a <strong>documentation change with no code to unwind</strong>. Unlike those, it carries <strong>no semantic content at all</strong> — it is the largest surface and the smallest risk in the programme's history.</p>
+<p><strong>Evidence — measured surface (repo-wide sweep, 2026-08-13, excluding the generated <code>docs/</code> site):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Occurrences</th>
+<th>Form</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Product codename</td>
+<td>626</td>
+<td><code>RAM Pathfinder</code> → <code>CTAM Pathfinder</code></td>
+</tr>
+<tr>
+<td>Repository names (17)</td>
+<td>1,274</td>
+<td><code>ram-*</code> → <code>ctam-*</code></td>
+</tr>
+<tr>
+<td>Owned-table prefix + index names</td>
+<td>606</td>
+<td><code>ram_*</code> → <code>ctam_*</code>, <code>uq_ram_*</code> → <code>uq_ctam_*</code></td>
+</tr>
+<tr>
+<td>Adjectival prose</td>
+<td>214</td>
+<td><code>RAM-owned</code> / <code>RAM-assigned</code> / <code>RAM-internal</code> / <code>RAM-overlay</code></td>
+</tr>
+<tr>
+<td>Java root package</td>
+<td>37</td>
+<td><code>uk.gov.hmcts.ram</code> → <code>uk.gov.hmcts.ctam</code> (incl. <code>src/…/uk/gov/hmcts/ram/</code> paths)</td>
+</tr>
+<tr>
+<td>API-spec artefact coordinates</td>
+<td>13</td>
+<td><code>api-ram-{service}</code> → <code>api-ctam-{service}</code></td>
+</tr>
+<tr>
+<td>DNS hostnames + shared schema</td>
+<td>8 + 1</td>
+<td><code>ram.hmcts.gov.uk</code>, <code>api.ram.{env}.hmcts.gov.uk</code>, <code>admin.ram.hmcts.gov.uk</code>; schema <code>ram</code></td>
+</tr>
+<tr>
+<td><strong>Total, across 88 files</strong></td>
+<td><strong>~2,780</strong></td>
+<td>60 under <code>planning-artifacts/</code>, plus <code>CLAUDE.md</code>, <code>README.md</code>, <code>project-context.md</code>, <code>sql/</code>, <code>queries/</code>, <code>scripts/python/</code>, <code>.claude/</code></td>
+</tr>
+</tbody>
+</table>
+<p>A further <strong>80 files under <code>docs/</code></strong> carried the old name; <code>docs/</code> is generated and was <strong>regenerated</strong>, not edited.</p>
+<p><strong>Two paths were renamed on disk:</strong></p>
+<ul>
+<li><code>planning-artifacts/briefs/brief-ram-analysis-2026-08-09/</code> → <code>brief-ctam-analysis-2026-08-09/</code></li>
+<li><code>.claude/memory/project_bmad_ram_pathfinder_state.md</code> → <code>project_bmad_ctam_pathfinder_state.md</code></li>
+</ul>
+<hr />
+</div></details><details class="section" id="section-2--impact-analysis"><summary><span class="section-title">Section 2 — Impact Analysis</span></summary><div class="section-body">
+<h3 id="21-the-central-finding--nothing-but-the-name-moves">2.1 The central finding — nothing but the name moves</h3>
+<p><strong>No FR, NFR, epic, story, decision, gap or assumption changes.</strong> The 16-repo decomposition, the 55-table data model, all 60 FRs / 42 NFRs, the Phase 0–8 build sequence, all 6 Phase 0 epics / 19 stories, <code>dispatch-graph.yaml</code>, <code>delivery/ledger/</code> and decisions D1–D13 stand exactly as they were. Only the tokens naming them differ.</p>
+<p>This is a rename, not a course correction. It is recorded through the SCP machinery because the surface is programme-wide and the artifact set must be traceable — not because anything was reconsidered.</p>
+<h3 id="22-what-was-deliberately-not-renamed">2.2 What was deliberately <em>not</em> renamed</h3>
+<p>The <code>ram</code>/<code>RAM</code> token was <strong>only</strong> replaced where it names this programme. Three classes were held back:</p>
+<ul>
+<li><strong>Upstream reference-data prefixes <code>jo_</code> and <code>mrd_</code></strong> — these name JOH eLinks and MRD, source systems outside this programme. The two-tier ownership contract in <code>conventions.md</code> (tier-(a) upstream, read-only in CTAM; tier-(b) CTAM-owned) is unchanged; only the tier-(b) prefix moves.</li>
+<li><strong>The dev-only <code>mock_</code> prefix</strong> — never production, never programme-named.</li>
+<li><strong>English words containing the letters <code>ram</code></strong> — <code>framework</code>, <code>parameter</code>, <code>diagram</code>, <code>reframed</code>, <code>FedRAMP</code>, and the author name <code>Ramnish</code>. The sweep used boundary-anchored patterns (<code>(?&lt;![A-Za-z0-9_])RAM(?![A-Za-z0-9_])</code> and <code>(?&lt;![A-Za-z0-9])ram(?![A-Za-z0-9])</code>), so <code>ram</code> was matched only as a standalone token or as the leading segment of a <code>ram-</code>/<code>ram_</code>/<code>_ram_</code> identifier. A blind find-replace would have corrupted all six; a pre-flight sweep enumerated them and a post-flight sweep confirmed none were touched.</li>
+</ul>
+<h3 id="23-why-now-and-why-in-one-pass">2.3 Why now, and why in one pass</h3>
+<p><strong>No code exists yet.</strong> Every one of the 16 target repos is unbuilt, no Flyway migration has run, no artefact has been published to the internal repository, and no DNS record has been cut. The rename therefore needs <strong>no migration, no deprecation window, no dual-naming period, and no rollback plan</strong> — the three mechanisms that normally make a platform-wide rename expensive are all inapplicable.</p>
+<p>Deferring it does not preserve optionality; it only raises the price. Once <code>ctam-shared-infrastructure</code> provisions the estate and <code>ctam-reference-data</code> runs its first migration, the table prefix becomes a data-migration problem and the DNS names become a cutover problem.</p>
+<h3 id="24-the-one-convention-deliberately-overridden">2.4 The one convention deliberately overridden</h3>
+<p><code>CLAUDE.md</code> states: <em>"Leave dated reports and existing changelog entries as immutable history — add, don't rewrite."</em> That rule was <strong>overridden for this change</strong>, by explicit decision.</p>
+<p>The reasoning: those documents record <em>decisions</em>, and no decision changed. Preserving <code>RAM</code> inside the 7 SCPs, 5 readiness reports and 2 validation reports would leave the artifact set unsearchable under a single name and would strand ~40% of the corpus in vocabulary no one will use again — for the benefit of a point-in-time record that <strong>git already holds exactly</strong>. The rule exists to protect the substance of historical judgements; renaming a token does not touch that substance.</p>
+<p>This override is scoped to this change and does not weaken the convention for future SCPs, where the rewritten text <em>would</em> carry semantic content.</p>
+<h3 id="25-downstream-consumers">2.5 Downstream consumers</h3>
+<p>Nothing is published or consumed yet, so there is no external notification list. Two items are flagged for whoever executes them:</p>
+<ul>
+<li><strong>GitHub repository names.</strong> <code>hmcts/ram-analysis</code> has already been renamed to <code>hmcts/ctam-analysis</code> (this repo's <code>origin</code> confirms it). The other 16 repos <strong>do not yet exist</strong> — they will simply be created under their <code>ctam-*</code> names.</li>
+<li><strong>Azure DNS.</strong> <code>ctam.hmcts.gov.uk</code>, <code>api.ctam.{environment}.hmcts.gov.uk</code> and <code>admin.ctam.hmcts.gov.uk</code> are now the names to reserve. No existing record needs retiring.</li>
+</ul>
+<hr />
+</div></details><details class="section" id="section-3--recommended-path-forward"><summary><span class="section-title">Section 3 — Recommended Path Forward</span></summary><div class="section-body">
+<p><strong>Direct adjustment, single batch.</strong> No epic rollback, no re-planning, no PRD re-validation is warranted — validation assesses requirement quality, and no requirement changed.</p>
+<p><strong>Applied:</strong></p>
+<ol type="1">
+<li>Boundary-anchored token sweep over all 88 tracked non-<code>docs/</code> files (verified clean in both directions: zero residual <code>RAM</code>/<code>ram</code> programme tokens; zero corrupted <code>framework</code>/<code>parameter</code>/<code>diagram</code>/<code>reframe</code>/<code>Ramnish</code>/<code>FedRAMP</code>).</li>
+<li>Two on-disk path renames (§1).</li>
+<li><strong>PRD</strong> — new decision <strong>D14</strong>; new <strong>CTAM</strong> glossary entry recording both the expansion and the retired one; <code>[^d14]</code> footnote; <code>editHistory</code> entry.</li>
+<li><strong>Architecture</strong> — <code>changelog.md</code> <strong>v4.1</strong>.</li>
+<li><strong>This SCP</strong>, plus its <code>build_html.py</code> NAV entry.</li>
+<li><strong><code>docs/</code> regenerated</strong> via <code>scripts/build-html.sh</code>.</li>
+</ol>
+<p><strong>Not applied, and deliberately so:</strong> no FR/NFR renumbering, no epic or story edits beyond the token sweep, no new gap or assumption, no readiness re-assessment.</p>
+<hr />
+</div></details><details class="section" id="section-4--change-scope-summary"><summary><span class="section-title">Section 4 — Change Scope Summary</span></summary><div class="section-body">
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="prd.html"><code>prd.md</code></a></td>
+<td><strong>D14 added</strong>; <strong>CTAM</strong> glossary entry added; <code>[^d14]</code> footnote; <code>editHistory</code> entry; token sweep throughout</td>
+</tr>
+<tr>
+<td><a href="business-case.html"><code>business-case.md</code></a></td>
+<td>Token sweep</td>
+</tr>
+<tr>
+<td><a href="architecture.html"><code>architecture.md</code></a> · <a href="architecture-summary.html"><code>architecture-summary.md</code></a></td>
+<td>Token sweep — incl. shared schema <code>ram</code> → <code>ctam</code>, DNS endpoints, <code>uk.gov.hmcts.ctam.{service}.{layer}</code>, <code>api-ctam-{service}</code></td>
+</tr>
+<tr>
+<td><code>architecture/</code> shards</td>
+<td>Token sweep across <a href="architecture/tobe/conventions.html"><code>conventions.md</code></a> (table-prefix rule), <a href="architecture/tobe/data-tables.html"><code>data-tables.md</code></a> (all 55 tables + <code>uq_ctam_*</code> indexes), <a href="architecture/tobe/repository-strategy.html"><code>repository-strategy.md</code></a>, <a href="architecture/tobe/repo-structure.html"><code>repo-structure.md</code></a> (source-tree paths), <a href="architecture/tobe/delivery-operating-model.html"><code>delivery-operating-model.md</code></a>, <a href="architecture/tobe/user-types.html"><code>user-types.md</code></a>, <a href="architecture/tobe/gaps.html"><code>gaps.md</code></a>, <a href="architecture/tobe/assumptions.html"><code>assumptions.md</code></a>, <a href="architecture/tobe/starter-template.html"><code>starter-template.md</code></a>, FR/NFR coverage, <code>diagrams/</code>, <code>sequence-diagrams/</code></td>
+</tr>
+<tr>
+<td><a href="architecture/tobe/changelog.html"><code>architecture/changelog.md</code></a></td>
+<td><strong>v4.1 entry added</strong>; prior entries token-swept</td>
+</tr>
+<tr>
+<td><code>epics/</code></td>
+<td>Token sweep — <a href="epics/framework.html"><code>framework.md</code></a>, <a href="epics/index.html"><code>index.md</code></a>, <a href="epics/fr-coverage-map.html"><code>fr-coverage-map.md</code></a>, <a href="epics/requirements-inventory.html"><code>requirements-inventory.md</code></a>, all <code>phase-0/</code> epics. <strong>No epic or story added, removed, re-scoped or resequenced.</strong></td>
+</tr>
+<tr>
+<td><code>delivery/</code></td>
+<td>Token sweep — <a href="delivery/dispatch-graph.yaml"><code>dispatch-graph.yaml</code></a> (repo targets), <code>ledger/</code> shards, <a href="delivery/README.html"><code>README.md</code></a>. <strong>No status or owner changed.</strong></td>
+</tr>
+<tr>
+<td>Dated reports (7 SCPs, 5 readiness, 2 validation)</td>
+<td>Token sweep — <strong>rewritten in place</strong> per §2.4</td>
+</tr>
+<tr>
+<td><code>briefs/</code></td>
+<td>Directory renamed <code>brief-ram-analysis-2026-08-09</code> → <code>brief-ctam-analysis-2026-08-09</code>; contents swept</td>
+</tr>
+<tr>
+<td><strong>This SCP</strong></td>
+<td>New</td>
+</tr>
+<tr>
+<td>Repo-level — <code>CLAUDE.md</code>, <code>README.md</code>, <code>project-context.md</code></td>
+<td>Token sweep</td>
+</tr>
+<tr>
+<td>Legacy/exploratory — <code>sql/</code>, <code>queries/</code></td>
+<td>Token sweep (mock DDL comments, <code>psql -d ctam_mock</code>)</td>
+</tr>
+<tr>
+<td>Tooling — <code>scripts/python/</code> (<code>build_html.py</code>, <code>build_graph.py</code>, <code>apply_okf_frontmatter.py</code>), <code>scripts/build-html.sh</code>, <code>.claude/lib/</code>, <code>.claude/memory/</code></td>
+<td>Token sweep; <code>build_html.py</code> NAV gains this SCP; memory file renamed</td>
+</tr>
+<tr>
+<td><strong><code>docs/</code></strong></td>
+<td><strong>Regenerated</strong> — never hand-edited</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Handoff:</strong> none required. No agent, epic or repo is blocked by this change; the next action is unchanged from before it — sprint planning on Epic 0.0.</p>
+</div></details>
+<p class="source-note">Source: <code>_bmad-output/planning-artifacts/sprint-change-proposal-2026-08-13.md</code></p>
+</main>
+<aside class="toc"><h4>On this page</h4><ul><li><a href="#section-1--issue-summary">Section 1 — Issue Summary</a></li><li><a href="#section-2--impact-analysis">Section 2 — Impact Analysis</a></li><li class="h3"><a href="#21-the-central-finding--nothing-but-the-name-moves">2.1 The central finding — nothing but the name moves</a></li><li class="h3"><a href="#22-what-was-deliberately-not-renamed">2.2 What was deliberately not renamed</a></li><li class="h3"><a href="#23-why-now-and-why-in-one-pass">2.3 Why now, and why in one pass</a></li><li class="h3"><a href="#24-the-one-convention-deliberately-overridden">2.4 The one convention deliberately overridden</a></li><li class="h3"><a href="#25-downstream-consumers">2.5 Downstream consumers</a></li><li><a href="#section-3--recommended-path-forward">Section 3 — Recommended Path Forward</a></li><li><a href="#section-4--change-scope-summary">Section 4 — Change Scope Summary</a></li></ul></aside>
+<script>window.__NAV_BASE__="./";window.__PAGE__="sprint-change-proposal-2026-08-13";</script>
+<script src="./nav.js"></script>
+<script>
+(function(){
+  // Sidebar accordion behaviour lives in the shared nav.js (loaded per page).
+
+  // 1. When a fragment link points to a heading inside a collapsed <details>,
+  //    open all ancestor <details> elements so the target is visible.
+  function openAncestors(id){
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    var cur = el.parentElement;
+    while (cur) {
+      if (cur.tagName === 'DETAILS') cur.open = true;
+      cur = cur.parentElement;
+    }
+    setTimeout(function(){
+      try { el.scrollIntoView({block: 'start', behavior: 'smooth'}); } catch (e) {}
+    }, 60);
+  }
+  if (window.location.hash) {
+    openAncestors(window.location.hash.slice(1));
+  }
+  window.addEventListener('hashchange', function(){
+    openAncestors(window.location.hash.slice(1));
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    setTimeout(function(){ openAncestors(href.slice(1)); }, 10);
+  });
+
+  // 2. Expand all / Collapse all (content sections)
+  document.querySelectorAll('button[data-section-action]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var open = b.dataset.sectionAction === 'expand';
+      document.querySelectorAll('main.content details.section').forEach(function(d){ d.open = open; });
+    });
+  });
+})();
+</script>
+</body>
+</html>
