@@ -12,8 +12,8 @@ inputDocuments:
   - 'docs/architecture/asis/functional-modules.md'
   - 'docs/architecture/asis/data-dependencies.md'
   - 'docs/architecture/asis/integration-dependencies.md'
-  - '_bmad-output/planning-artifacts/sprint-change-proposal-2026-06-10.md'
-  - '_bmad-output/planning-artifacts/sprint-change-proposal-2026-05-15.md'
+  - '_bmad-output/planning-artifacts/sprint-change-proposal-log.md#sprint-change-proposal-2026-06-10'
+  - '_bmad-output/planning-artifacts/sprint-change-proposal-log.md#sprint-change-proposal-2026-05-15'
   - '_bmad-output/planning-artifacts/architecture-summary.md'
 validationStepsCompleted: ['step-v-01-discovery', 'step-v-02-format-detection', 'step-v-03-density-validation', 'step-v-04-brief-coverage-validation', 'step-v-05-measurability-validation', 'step-v-06-traceability-validation', 'step-v-07-implementation-leakage-validation', 'step-v-08-domain-compliance-validation', 'step-v-09-project-type-validation', 'step-v-10-smart-validation', 'step-v-11-holistic-quality-validation', 'step-v-12-completeness-validation', 'step-v-13-report-complete']
 validationStatus: COMPLETE
@@ -36,8 +36,8 @@ overallStatus: 'Warning'
 | AS-IS Functional Modules | `docs/architecture/asis/functional-modules.md` | JI/APEX as-is module catalogue |
 | AS-IS Data Dependencies | `docs/architecture/asis/data-dependencies.md` | JI external data dependencies |
 | AS-IS Integration Dependencies | `docs/architecture/asis/integration-dependencies.md` | JI integration flows + mechanisms |
-| Sprint Change Proposal 2026-06-10 | `_bmad-output/planning-artifacts/sprint-change-proposal-2026-06-10.md` | Captures the SSCS-first pivot, D11/D12 additions, and 21 PRD edits |
-| Sprint Change Proposal 2026-05-15 | `_bmad-output/planning-artifacts/sprint-change-proposal-2026-05-15.md` | Captures the prior admin-UI-removed-from-MVP decision (D10) |
+| Sprint Change Proposal 2026-06-10 | `_bmad-output/planning-artifacts/sprint-change-proposal-log.md#sprint-change-proposal-2026-06-10` | Captures the SSCS-first pivot, D11/D12 additions, and 21 PRD edits |
+| Sprint Change Proposal 2026-05-15 | `_bmad-output/planning-artifacts/sprint-change-proposal-log.md#sprint-change-proposal-2026-05-15` | Captures the prior admin-UI-removed-from-MVP decision (D10) |
 | Architecture Summary v2.2 | `_bmad-output/planning-artifacts/architecture-summary.md` | Target-state architecture reference (pre-SSCS-pivot; needs follow-up amendment per SCP 2026-06-10) |
 
 ## Pre-Validation Observations
