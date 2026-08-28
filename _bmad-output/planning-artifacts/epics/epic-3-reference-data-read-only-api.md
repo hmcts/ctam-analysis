@@ -1,26 +1,27 @@
 ---
 type: 'Epic'
 description: 'User outcome: Tier-(b) CTAM-owned reference data (Regions, Offices, calendar / financial-year boundaries, operational vocabularies) exists, is seeded, and is maintainable by DBAs via direct SQL per…'
-resource: 'epics/phase-0/epic-0.3-reference-data-read-only-api.html'
+resource: 'epics/epic-3-reference-data-read-only-api.html'
 tags: [ctam-pathfinder, epics, phase-0]
 timestamp: '2026-06-17'
-parent: 'epics/phase-0/index.md'
-epic: 0.3
+parent: 'epics/phase-0-overview.md'
+epic: 3
+phase: 0
 title: 'Reference data is served read-only via a versioned, jurisdiction-filtered API'
 storyCount: 2
 repo: ctam-reference-data
-depends_on: [epic-0.1, epic-0.2]            # read API is downstream of auth (JWTFilter + authz/check, D8)
+depends_on: [epic-1, epic-2]            # read API is downstream of auth (JWTFilter + authz/check, D8)
 ---
 
-# Epic 0.3: Reference data is served read-only via a versioned, jurisdiction-filtered API
+# Epic 3: Reference data is served read-only via a versioned, jurisdiction-filtered API
 
-**User outcome:** Tier-(b) CTAM-owned reference data (Regions, Offices, calendar / financial-year boundaries, operational vocabularies) exists, is seeded, and is maintainable by DBAs via direct SQL per operational runbook[^d10]. All reference data — both the upstream-sourced tier-(a) tables ingested in Epic 0.1 and the tier-(b) tables created here — is queryable read-only via `ctam-reference-data`'s versioned REST API, **jurisdiction-filtered**[^d8]. **No admin UI is in scope for MVP**; tier-(a) data is never hand-edited in CTAM in any phase (corrections at source per FR6).
+**User outcome:** Tier-(b) CTAM-owned reference data (Regions, Offices, calendar / financial-year boundaries, operational vocabularies) exists, is seeded, and is maintainable by DBAs via direct SQL per operational runbook[^d10]. All reference data — both the upstream-sourced tier-(a) tables ingested in Epic 1 and the tier-(b) tables created here — is queryable read-only via `ctam-reference-data`'s versioned REST API, **jurisdiction-filtered**[^d8]. **No admin UI is in scope for MVP**; tier-(a) data is never hand-edited in CTAM in any phase (corrections at source per FR6).
 
 **Vertical slice:**
-- Tier-(b) CTAM-owned tables (15: `ctam_regions`, `ctam_offices`, `ctam_calendar_periods` + 12 operational vocabularies incl. `ctam_joh_types`, `ctam_joh_fee_entitlements`) with service-owned Liquibase changelogs (per AR18–AR20) — the `ctam-reference-data` service itself was scaffolded in Story 0.1.1
+- Tier-(b) CTAM-owned tables (15: `ctam_regions`, `ctam_offices`, `ctam_calendar_periods` + 12 operational vocabularies incl. `ctam_joh_types`, `ctam_joh_fee_entitlements`) with service-owned Liquibase changelogs (per AR18–AR20) — the `ctam-reference-data` service itself was scaffolded in Story 1.1
 - Tier-(b) seed data via a Liquibase seed changeset + the DBA maintenance runbook (D10 operating model)
 - Per-service `SELECT` grants pattern completed for direct-SQL reads across both tiers (per FR7 / Principle 2)
-- Reference Data **read-only** REST API: `GET` endpoints over both tiers, **jurisdiction-filtered responses**[^d8], for consumption by `ctam-ui`, downstream services, and OpenAPI clients. **No `POST`/`PUT`/`DELETE` endpoints** — tier (a) is written only by the Epic 0.1 ingestion mechanisms; tier (b) by DBAs via SQL per runbook
+- Reference Data **read-only** REST API: `GET` endpoints over both tiers, **jurisdiction-filtered responses**[^d8], for consumption by `ctam-ui`, downstream services, and OpenAPI clients. **No `POST`/`PUT`/`DELETE` endpoints** — tier (a) is written only by the Epic 1 ingestion mechanisms; tier (b) by DBAs via SQL per runbook
 - First end-to-end exercise of API-as-Product **read-side** standards: URL versioning (`/v1/reference-data/...`), OpenAPI 3.x spec published (by Gradle `maven-publish`) as a Maven-format artefact, RFC 9457 problem-details errors, RFC 9745 `Deprecation` + RFC 8594 `Sunset` deprecation signalling (FR58)
 - First Postman collection for Phase 0 published under `postman/ctam-reference-data-phase0.postman_collection.json` (NFR42 first instance)
 
@@ -35,11 +36,11 @@ depends_on: [epic-0.1, epic-0.2]            # read API is downstream of auth (JW
 **Out of scope for Phase 0 (deferred post-MVP):**
 - Admin-gated `POST/PUT/DELETE` endpoints on Reference Data API (tier (b) only — tier (a) never gets a CTAM write surface)
 - `ctam-admin-ui` Reference Data maintenance module
-- *(There is no legacy-data ETL and no git-based sign-off workflow — revised D3. Upstream data arrives via Epic 0.1's ingestion mechanisms.)*
+- *(There is no legacy-data ETL and no git-based sign-off workflow — revised D3. Upstream data arrives via Epic 1's ingestion mechanisms.)*
 
 ---
 
-## Story 0.3.1: Tier-(b) CTAM-owned reference tables, seed data, and the DBA maintenance runbook
+## Story 3.1: Tier-(b) CTAM-owned reference tables, seed data, and the DBA maintenance runbook
 
 As a **platform engineer** (and the DBAs who operate reference data in MVP),
 I want the 15 tier-(b) CTAM-owned reference tables created, seeded, and covered by an operational maintenance runbook,
@@ -47,7 +48,7 @@ So that **CTAM-owned reference data that does not exist upstream (Regions, Offic
 
 **Acceptance Criteria:**
 
-**Given** `ctam-reference-data` is scaffolded and carries the tier-(a) tables per Story 0.1.3,
+**Given** `ctam-reference-data` is scaffolded and carries the tier-(a) tables per Story 1.3,
 **When** the engineer adds the Liquibase changeset `db/changelog/003-init-tier-b-ctam-owned-tables.sql`,
 **Then** the 15 tier-(b) tables exist with schemas per `architecture/data-tables.md`: `ctam_regions`, `ctam_offices`, `ctam_calendar_periods`, plus the 12 operational vocabularies (`ctam_joh_types`, `ctam_work_types`, `ctam_court_types`, `ctam_ticket_types`, `ctam_session_types`, `ctam_absence_types`, `ctam_working_pattern_types`, `ctam_booking_statuses`, `ctam_sitting_outcomes`, `ctam_joh_fee_entitlements`, `ctam_payment_lifecycle_statuses`, `ctam_reconciliation_statuses`),
 **And** the `ctam_reference_data` DB role owns the tables (per AR19),
@@ -75,7 +76,7 @@ So that **CTAM-owned reference data that does not exist upstream (Regions, Offic
 
 ---
 
-## Story 0.3.2: Reference Data read-only REST API with jurisdiction filtering, versioning, OpenAPI, RFC 9457 errors
+## Story 3.2: Reference Data read-only REST API with jurisdiction filtering, versioning, OpenAPI, RFC 9457 errors
 
 As an **API consumer** (`ctam-ui` now; downstream services in Phase 1+; external case-management systems from Phase 9[^d12]),
 I want a versioned **read-only** Reference Data API over both ownership tiers with **jurisdiction-filtered responses**, full OpenAPI spec, RFC 9457 error envelopes, and APIM-injected deprecation headers,
@@ -83,7 +84,7 @@ So that **Phase 1+ services can query controlled lists and JOH reference data at
 
 **Acceptance Criteria:**
 
-**Given** `ctam-reference-data` carries both tiers (tier (a) per Stories 0.1.3/0.1.4; tier (b) per Story 0.3.1),
+**Given** `ctam-reference-data` carries both tiers (tier (a) per Stories 1.3/1.4; tier (b) per Story 3.1),
 **When** the engineer implements read endpoints,
 **Then** `GET /v1/reference-data/regions`, `/offices`, `/calendar`, `/vocabularies/{list}` (tier b) and `GET /v1/reference-data/johs`, `/jurisdictions`, `/tickets` (tier a, composing `jo_*` data) return `200 OK` with structured JSON,
 **And** read endpoints are protected by `JWTFilter` (any authenticated principal can read; per NFR13),

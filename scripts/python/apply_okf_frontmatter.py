@@ -55,7 +55,7 @@ def okf_type(rel: str, name: str) -> str:
         return "FR Coverage Map"
     if rel == "epics/requirements-inventory":
         return "Requirements Inventory"
-    if rel.endswith("/index") and "phase-0" in rel:
+    if rel.startswith("epics/phase-") and rel.endswith("-overview"):
         return "Phase Index"
     if "validation-report" in name or "prd-validation" in name:
         return "Validation Report"
@@ -68,7 +68,7 @@ def okf_type(rel: str, name: str) -> str:
     return "Document"
 
 
-def okf_tags(rel: str, type_: str, body: str) -> list:
+def okf_tags(rel: str, type_: str, body: str, fm: str = "") -> list:
     tags = ["ctam-pathfinder"]
     if rel == "prd" or "PRD" in type_:
         tags.append("prd")
@@ -78,8 +78,16 @@ def okf_tags(rel: str, type_: str, body: str) -> list:
         tags.append("epics")
     if type_ in ("Sprint Change Proposal", "Readiness Report", "Validation Report"):
         tags.append("change-control")
-    if "phase-0" in rel:
-        tags.append("phase-0")
+    # Phase lives in frontmatter (`phase:`), not the path — epics were flattened to
+    # epics/epic-<n>-<slug>.md on 2026-08-28 (SCP 2026-08-28). Fall back to the path for
+    # the phase-<n>-overview shards, which still carry it in the filename.
+    phase_m = re.search(r"^phase:\s*(\d+)\s*$", fm, re.MULTILINE)
+    if phase_m:
+        tags.append(f"phase-{phase_m.group(1)}")
+    else:
+        path_m = re.search(r"phase-(\d+)", rel)
+        if path_m:
+            tags.append(f"phase-{path_m.group(1)}")
     if "sscs" in body.lower()[:4000]:
         tags.append("sscs")
     return tags
@@ -155,7 +163,7 @@ def derive(md: Path):
         ts = datetime.date.fromtimestamp(md.stat().st_mtime).isoformat()
 
     resource = bh.map_out_relpath(rel) + ".html"
-    tags = okf_tags(rel, type_, body)
+    tags = okf_tags(rel, type_, body, fm)
 
     # Only OKF keys that are MISSING (idempotent; never overwrite BMAD/existing)
     candidates = [

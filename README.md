@@ -45,7 +45,7 @@ Per-service code lives in dedicated repositories (no monorepo; no shared runtime
 
 - **PRD & business case** — `prd.md`, `business-case.md`, plus dated validation/readiness reports and `sprint-change-proposal-*` (historical records).
 - **Architecture** — `architecture.md` + `architecture/` shards: `repository-strategy.md`, `repo-structure.md`, `conventions.md` (the consistency contract), `data-tables.md`, `delivery-operating-model.md`, `gaps.md`, `assumptions.md`, `changelog.md`, FR/NFR coverage, `diagrams/`, `sequence-diagrams/`.
-- **Epics** — `epics/framework.md` + `epics/phase-0/` (stories embedded in each epic; only Phase 0 is decomposed so far — 6 epics, 19 stories).
+- **Epics** — `epics/framework.md` + `epics/epic-<n>-<slug>.md` (stories embedded in each epic; epic numbering is global and monotonic, phase is frontmatter. Only Phase 0 is decomposed so far — 7 epics, 21 stories).
 - **Delivery control plane** — [`delivery/README.md`](_bmad-output/planning-artifacts/delivery/README.md): the dispatch -> execute -> signal loop. Build order is `depends_on:` in each epic's frontmatter; status is BMad's `implementation-artifacts/sprint-status.yaml`; `scripts/dispatch-preflight.sh` is the pre-dispatch check.
 - **`project-context.md`** — lean, LLM-optimised implementation rules for the service code.
 
@@ -67,7 +67,7 @@ ctam-analysis/
 ├── _bmad-output/
 │   ├── planning-artifacts/     # CANONICAL, tracked: PRD, architecture, epics, delivery control plane
 │   │   ├── architecture/       # architecture.md shards + diagrams + sequence-diagrams
-│   │   ├── epics/              # framework + phase-0 epics (stories embedded)
+│   │   ├── epics/              # framework + flat epic-<n>-<slug>.md (stories embedded)
 │   │   └── delivery/          # README.md — the dispatch/signal loop
 │   ├── project-context.md      # lean implementation rules for service code
 │   └── brainstorming/          # local scratch (early discovery)

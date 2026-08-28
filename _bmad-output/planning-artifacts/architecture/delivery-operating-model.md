@@ -84,11 +84,12 @@ The context-bus row above lists "aggregated OpenAPI contracts." That aggregation
 Build order is **structured data on each epic**, in its frontmatter:
 
 ```yaml
-epic: 0.1
+epic: 1
+phase: 0                           # phase is an attribute, not a path (flattened 2026-08-28)
 title: 'Upstream JOH/MRD reference data is ingested'
 storyCount: 4
 repo: ctam-reference-data          # or a list: [ctam-authorisation, ctam-mock-auth, ctam-ui]
-depends_on: [epic-0.0, epic-0.6]   # epic ids, resolved against sprint-status.yaml
+depends_on: [epic-0, epic-6]       # epic ids, resolved against sprint-status.yaml
 ```
 
 Two fields, on the artefact that is already authored, parsed and version-controlled — and the artefact `bmad-sprint-planning` already reads.
@@ -100,7 +101,7 @@ Two fields, on the artefact that is already authored, parsed and version-control
 - **No duplication.** The story list, title, phase and decomposition state are already in the epic file and in `sprint-status.yaml`; a graph repeated all four.
 - **No second `bus_version` claim.** The graph asserted one; the real pin is each repo's submodule. Two claims is a drift risk, not a convenience.
 
-**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 0.5 (Notification) needs only the estate, so it can run alongside 0.1/0.2.
+**Buildable-now rule:** an epic is dispatchable iff every id in its `depends_on` is `done` in `sprint-status.yaml`. Epics with disjoint dependency sets and no shared state may run **in parallel** — the core advantage of AI-led delivery. Epic 5 (Notification) needs only the estate, so it can run alongside 1/2.
 
 This is checked by `scripts/dispatch-preflight.sh <story-id>`, which is read-only and also confirms the story is still `backlog` and that no branch on the target remote already claims it (see *Multi-user coordination* below).
 
@@ -155,16 +156,16 @@ Canonical template, versioned with the bus so every repo gets the same one:
 
 ```markdown
 ---
-story_id: 0.1.4
-epic: epic-0.1-upstream-reference-data-ingested
+story_id: 1.4
+epic: epic-1-upstream-reference-data-ingested
 repo: ctam-reference-data
 bus_version: arch-v1.0            # the target repo's actual _arch pin, not an aspiration
 frs: [FR6, FR7]
 nfrs: [NFR24]
-depends_on_stories: [0.0.3]       # optional intra-graph prerequisites
-sprint_status_key: 0-1-4-mrd-supplementary-reference-data-is-ingested-from-the-weekly-excel-feed
+depends_on_stories: [0.3]         # optional intra-graph prerequisites
+sprint_status_key: 1-4-mrd-supplementary-reference-data-is-ingested-from-the-weekly
 ---
-# Story 0.1.4: <title>
+# Story 1.4: <title>
 Status: ready-for-dev
 ## Story                    (as a / I want / so that)
 ## Acceptance Criteria      (numbered; Gherkin inside an item — AC-3 must resolve to item 3)
@@ -199,11 +200,11 @@ One authoritative view of programme progress — the thing a fat orchestrator wo
 
 ```yaml
 development_status:
-  epic-0.1: backlog
-  0-1-1-scaffold-ctam-reference-data-from-the-hmcts-starter: backlog
-  0-1-2-tier-a-upstream-jo-tables-ctam-sync-status-and-tier-a-write-protection: backlog
+  epic-1: backlog
+  1-1-scaffold-ctam-reference-data-from-the-hmcts-starter-onto-the: backlog
+  1-2-tier-a-upstream-jo_-tables-ctam_sync_status-and-tier-a-write: backlog
   ...
-  epic-0.1-retrospective: optional
+  epic-1-retrospective: optional
 ```
 
 **One status vocabulary**, BMad's: stories `backlog → ready-for-dev → in-progress → review → done`; epics `backlog → in-progress → done`. The story packet's `Status:` line uses the same words. There is no second vocabulary anywhere — the previous two-vocabulary arrangement was the source of a documented contradiction.
@@ -226,18 +227,18 @@ development_status:
 
 *Added 2026-08-21 (SCP 2026-08-21). `_bmad/custom/bmad-create-story.toml` — the committed team customization that made these deviations executable — was **deleted** on the same date: BMad 7 is expected to support polyrepo and multi-user delivery natively, and carrying a fourteen-instruction override until then would make the migration a rewrite rather than a delete. `bmad-create-story` is now **stock**. This table is the record of what the override handled, and the checklist for re-testing each item against v7.*
 
-> **Read before dispatching a story.** Deviations 1–6 are *live* against stock BMad 6 — dispatch is not safe unattended until each is either handled by v7 or worked around by hand. The worst failure is silent: with the epics glob unmatched (2), acceptance criteria are **invented** rather than carried verbatim from the epic.
+> **Read before dispatching a story.** Deviations 3–6 are *live* against stock BMad 6 — dispatch is not safe unattended until each is either handled by a later BMad or worked around by hand. **Deviations 1 and 2 were retired on 2026-08-28** (SCP 2026-08-28) by flattening the epic tree: the silent failure they caused — acceptance criteria **invented** rather than carried verbatim, because the epics glob matched no epic file — is gone.
 
 | # | Deviation | Why CTAM needs it | Stock BMad 6 behaviour | v7 exit condition |
 |---|---|---|---|---|
-| 1 | Story ids are **three-part** — `<phase>.<epic>.<story>` (`0.1.4`), because epics are numbered `<phase>.<epic>` | Nine phases, each with its own epic set; renumbering flat would break every FR mapping and cross-reference | Parses the first number as the epic and the second as the story, so `0-1-4-…` yields epic `0.1` — the same id, path and branch for **every** story in the epic | v7 parses a three-part id, **or** CTAM renumbers epics flat and moves the phase into frontmatter |
-| 2 | Epics sit at **`epics/phase-<n>/epic-<n>.<m>-*.md`**, with stories embedded inside each epic | Phase is the programme's primary axis; a flat directory mixes nine phases | The `*epic*/*.md` glob matches `epics/*.md` — `framework.md`, `index.md`, the coverage maps — and **no epic file**. A miss is "not an error", so the epic content silently arrives empty | v7 globs epic shards recursively, **or** CTAM flattens to `epics/` (native, and a v7-agnostic move) |
+| 1 | ~~Story ids are **three-part** — `<phase>.<epic>.<story>` (`0.1.4`)~~ | ~~Nine phases, each with its own epic set~~ | 6.11's `sprint_plan.py` parses `Epic 0.1` as epic **0** with title `.1: …`, collapsing all seven phase-0 epics into one; `epic-0.N` keys are unrecognized entirely | **RETIRED 2026-08-28** (SCP 2026-08-28). Story ids are two-part (`1.4`); epic numbering is global and monotonic |
+| 2 | ~~Epics sit at **`epics/phase-<n>/epic-<n>.<m>-*.md`**~~ | ~~Phase is the programme's primary axis~~ | The `*epic*/*.md` glob matched `epics/*.md` only — `framework.md`, `index.md`, the coverage maps — and **no epic file**. A miss is "not an error", so epic content silently arrived empty | **RETIRED 2026-08-28** (SCP 2026-08-28). Epics are flat at `epics/epic-<n>-<slug>.md`; phase is frontmatter (`phase:`) |
 | 3 | The story packet is written to the **target service repo** at `docs/stories/<id>.md` | A service repo must be independently readable by a cold session with none of the control plane's context | Writes to `{implementation_artifacts}` in the control plane, where the implementing session cannot see it | v7 resolves the output location per-repo from the epic's `repo:` |
 | 4 | Packet = **BMad's template plus CTAM frontmatter** (`repo`, `bus_version`, `frs`, `nfrs`, `depends_on_stories`, `sprint_status_key`) | Polyrepo target and requirement traceability are not in BMad's model | Step 5 emits eleven named outputs (`architecture_compliance`, `testing_requirements`, …) with no home in the template; written literally, each becomes a new top-level section and breaks the headings `bmad-dev-story` reads by exact name | v7 models per-story target repo and requirement traceability. Extra frontmatter keys are additive — BMad ignores them — so this is the cheapest deviation to carry |
 | 5 | Architecture is distilled **at the pinned `arch-vN` tag**, not from the control plane's live copy | The implementing session resolves `_arch/…` at `bus_version`; the control plane always runs ahead | Full-loads the live `architecture/*.md`, so a citation can name a heading, rule or file that does not exist at the pin — and a cold session cannot follow its own packet | v7 models a version-pinned context source |
 | 6 | Previous-story intelligence is read from the **target repo** and its `story/*` branches | The preceding packet lives on its own claim branch, possibly unmerged | Looks in `{implementation_artifacts}`, finds nothing, and ships every story without the carry-forward | Follows deviation 3 |
 | 7 | **One dispatcher at a time**, with the branch on the target remote as the claim | `sprint-status.yaml` is a single file; concurrent dispatch conflicts on it. There is no `owner` field to contend over | No concurrency control of any kind | v7 supports multi-user status. Backstop meanwhile: `scripts/dispatch-preflight.sh` (standalone — BMad never reads it, so it costs nothing at migration) |
-| 8 | Epic status guards must also run on **direct invocation** (`create story 0.1.4`) | Otherwise an epic reads `backlog` while its stories are being dispatched | The direct-invocation branch jumps past all three guards — flip to `in-progress`, halt on `done`, halt on unknown status | Fixed upstream; re-test rather than assume |
+| 8 | Epic status guards must also run on **direct invocation** (`create story 1.4`) | Otherwise an epic reads `backlog` while its stories are being dispatched | The direct-invocation branch jumps past all three guards — flip to `in-progress`, halt on `done`, halt on unknown status | Fixed upstream; re-test rather than assume |
 | 9 | Control-plane writes land on a **feature branch**, never `main` | `main` is protected and the PR is the human gate (SCP 2026-08-19c) | Assumes it can write where it stands | Unlikely to change; enforced by hook regardless of BMad version |
 
 **Retained tooling, all standalone.** `scripts/dispatch-preflight.sh`, `scripts/validate-story-packet.sh` and `scripts/publish-arch.sh` are unaffected by the deletion and are **not** BMad extensions — no BMad skill reads them, so they carry no migration cost. They are invoked from the delivery loop by hand, not from inside a skill step.
@@ -273,5 +274,5 @@ Because polyrepo has no shared runtime state, stories whose dependencies are sat
 1. Publish `ctam-architecture` and tag `arch-v1.0` (the current architecture set becomes the first bus version).
 2. Run `bmad-sprint-planning` in this workspace to generate `sprint-status.yaml` from the epics. `bmad-create-story` cannot run without it.
 3. Scaffold `ctam-shared-infrastructure` (no `depends_on`) via `ctam-scaffold.sh`; wire its `_arch/` submodule + `CLAUDE.md`.
-4. Dispatch epic 0.0's stories → execute → signal. Then follow the graph: mock-auth / reference-data / notification (parallelisable) → authorisation → UI shell.
+4. Dispatch epic 0's stories → execute → signal. Then follow the graph: mock-auth / reference-data / notification (parallelisable) → authorisation → UI shell.
 ```

@@ -232,6 +232,7 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Changelog", "architecture/tobe/changelog", False),
     ]),
     ("Change Control & Readiness", [
+        ("Sprint Change Proposal — 2026-08-28 (epics flattened to stock BMad shape)", "sprint-change-proposal-2026-08-28", False),
         ("Sprint Change Proposal — 2026-08-21 (bmad-create-story override retired; deviation register)", "sprint-change-proposal-2026-08-21", False),
         ("Sprint Change Proposal — 2026-08-20 (one branch per story, created at dispatch)", "sprint-change-proposal-2026-08-20", False),
         ("Sprint Change Proposal — 2026-08-19d (ledger + dispatch graph retired for BMad sprint status)", "sprint-change-proposal-2026-08-19d", False),
@@ -259,15 +260,17 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Phase × Area framework", "epics/framework", False),
         ("FR coverage map", "epics/fr-coverage-map", False),
     ]),
-    ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0.0 added 2026-07-06)", [
-        ("Phase 0 overview", "epics/phase-0/index", False),
-        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
-        ("Epic 0.1 — Upstream JOH/MRD reference data is ingested (4 stories)", "epics/phase-0/epic-0.1-upstream-reference-data-ingested", False),
-        ("Epic 0.2 — User authenticates (5 stories)", "epics/phase-0/epic-0.2-user-authenticates", False),
-        ("Epic 0.3 — Reference data read-only API (2 stories)", "epics/phase-0/epic-0.3-reference-data-read-only-api", False),
-        ("Epic 0.4 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.4-user-populations-bootstrapped", False),
-        ("Epic 0.5 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.5-system-dispatches-emails", False),
-        ("Epic 0.6 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.6-context-bus-and-shared-baseline", False),
+    # Epics are numbered globally and monotonically; phase is frontmatter, not path
+    # (flattened 2026-08-28, SCP 2026-08-28). Phase 1 epics will continue from 7.
+    ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0 added 2026-07-06)", [
+        ("Phase 0 overview", "epics/phase-0-overview", False),
+        ("Epic 0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/epic-0-platform-estate-provisioned", False),
+        ("Epic 1 — Upstream JOH/MRD reference data is ingested (4 stories)", "epics/epic-1-upstream-reference-data-ingested", False),
+        ("Epic 2 — User authenticates (5 stories)", "epics/epic-2-user-authenticates", False),
+        ("Epic 3 — Reference data read-only API (2 stories)", "epics/epic-3-reference-data-read-only-api", False),
+        ("Epic 4 — User populations bootstrapped (1 story)", "epics/epic-4-user-populations-bootstrapped", False),
+        ("Epic 5 — Notification scaffolded (2 stories)", "epics/epic-5-system-dispatches-emails", False),
+        ("Epic 6 — Context bus published + shared config baseline (2 stories)", "epics/epic-6-context-bus-and-shared-baseline", False),
     ]),
 ]
 

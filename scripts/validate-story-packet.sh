@@ -104,19 +104,21 @@ for packet in "$@"; do
       errors=$((errors + 1))
     fi
 
-    # story_id must be CTAM's three-part <phase>.<epic>.<story>, and must agree with the filename,
-    # sprint_status_key and H1. Presence alone was not enough: BMad's default key parse yields a
-    # TWO-part id (epic 0.1 story 4 -> "0.1"), which is present, plausible, and puts every story in
-    # an epic at one path and on one branch. Present-but-wrong needs a shape check.
+    # story_id is BMad's two-part <epic>.<story> (e.g. 1.4) and must agree with the filename,
+    # sprint_status_key and H1. Presence alone is not enough: a bare epic id ("1") is present,
+    # plausible, and would put every story in an epic at one path and on one branch, so the shape
+    # is checked too. (Was three-part <phase>.<epic>.<story> until the 2026-08-28 epic flattening —
+    # phase now lives in epic frontmatter, and epic numbering is global and monotonic.)
     fm_value() {
       printf '%s\n' "$frontmatter" |
         awk -v k="^$1:" '$0 ~ k { sub(/^[^:]*:[[:space:]]*/, ""); sub(/[[:space:]]*#.*$/, ""); gsub(/[[:space:]]*$/, ""); print; exit }'
     }
     sid=$(fm_value story_id)
     if [ -n "$sid" ]; then
-      if ! printf '%s' "$sid" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
-        echo "   ERROR: story_id '$sid' is not <phase>.<epic>.<story> (e.g. 0.1.4)"
-        echo "          A two-part id means BMad's default key parse was taken unchanged."
+      if ! printf '%s' "$sid" | grep -qE '^[0-9]+\.[0-9]+$'; then
+        echo "   ERROR: story_id '$sid' is not <epic>.<story> (e.g. 1.4)"
+        echo "          A three-part id is the pre-2026-08-28 phase-nested shape; a bare epic id is"
+        echo "          the owning epic's, not this story's."
         errors=$((errors + 1))
       fi
       base=$(basename "$packet" .md)
@@ -134,20 +136,20 @@ for packet in "$@"; do
       fi
       if ! grep -qE "^# Story ${sid//./\\.}: .+" "$packet"; then
         echo "   ERROR: no '# Story $sid: <title>' heading"
-        echo "          the H1 carries the full three-part id, not the owning epic's"
+        echo "          the H1 carries the full two-part id, not the owning epic's"
         errors=$((errors + 1))
       fi
     fi
 
     # depends_on_stories carries three-part ids too. It is derived, not recorded anywhere upstream,
-    # so a two-part id here means an epic reference was written where a story reference belongs.
+    # so a bare epic id here means an epic reference was written where a story reference belongs.
     deps=$(fm_value depends_on_stories)
     deps="${deps//[\[\]]/}"
     for d in $(printf '%s' "$deps" | tr ',' ' '); do
       d="${d//[[:space:]]/}"
       [ -z "$d" ] && continue
-      printf '%s' "$d" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$' || {
-        echo "   ERROR: depends_on_stories entry '$d' is not a three-part story id (e.g. 0.1.1)"
+      printf '%s' "$d" | grep -qE '^[0-9]+\.[0-9]+$' || {
+        echo "   ERROR: depends_on_stories entry '$d' is not a two-part story id (e.g. 1.1)"
         errors=$((errors + 1))
       }
     done

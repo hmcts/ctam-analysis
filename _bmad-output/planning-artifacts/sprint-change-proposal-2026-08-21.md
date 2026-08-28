@@ -33,7 +33,7 @@ This is accepted deliberately. Nothing is in flight, and no dispatch is planned 
 
 ## Retained, and why it costs nothing
 
-`scripts/dispatch-preflight.sh`, `scripts/validate-story-packet.sh` and `scripts/publish-arch.sh` stay. No BMad skill reads them, so they are not extensions of BMad and carry no migration cost — they are invoked by hand from the delivery loop. `scripts/publish-arch.sh` is additionally an acceptance criterion of [Epic 0.6](epics/phase-0/epic-0.6-context-bus-and-shared-baseline.md).
+`scripts/dispatch-preflight.sh`, `scripts/validate-story-packet.sh` and `scripts/publish-arch.sh` stay. No BMad skill reads them, so they are not extensions of BMad and carry no migration cost — they are invoked by hand from the delivery loop. `scripts/publish-arch.sh` is additionally an acceptance criterion of [Epic 0.6](epics/epic-6-context-bus-and-shared-baseline.md).
 
 `_bmad/custom/config.toml` (an empty team-override stub) and the `.gitignore` negation that keeps `_bmad/custom/` tracked both remain.
 

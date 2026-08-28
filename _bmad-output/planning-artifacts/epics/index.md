@@ -42,11 +42,11 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 | [framework.md](framework.md) | Phase × Area architectural framework — the spine that organises concrete epics across 10 sequential phases |
 | [fr-coverage-map.md](fr-coverage-map.md) | Single source of truth for FR → Epic mapping across the whole programme |
 
-### Phase-level breakdowns (one folder per phase)
+### Phase-level breakdowns
 
-| Phase | Folder | Status |
+| Phase | Overview | Status |
 |---|---|---|
-| **0** — Foundations | [phase-0/](phase-0/index.md) | 🟡 Planned — 6 epics, 19 stories |
+| **0** — Foundations | [phase-0-overview.md](phase-0-overview.md) | 🟡 Planned — 7 epics, 21 stories |
 | **1** — JOH | _to be storied_ | ⚪ Framework only |
 | **2** — Absence | _to be storied_ | ⚪ Framework only |
 | **3** — Vacancy | _to be storied_ | ⚪ Framework only |
@@ -56,6 +56,20 @@ UX Design document is not present; downstream epics inherit UI requirements dire
 | **7** — Itineraries | _to be storied_ | ⚪ Framework only |
 | **8** — MI Feed & Reporting | _to be storied_ | ⚪ Framework only |
 | **9+** — Wave Rollout (jurisdiction-first) | _to be storied_ | ⚪ Framework only |
+
+### Phase 0 epics
+
+Epic files sit flat in this folder as `epic-{n}-{slug}.md`, with stories embedded. Phase is frontmatter (`phase:`), not path.
+
+| Epic | Title | Stories |
+|---|---|---|
+| [0](epic-0-platform-estate-provisioned.md) | Platform estate is provisioned, verifiable, and CNP-compliant | 5 |
+| [1](epic-1-upstream-reference-data-ingested.md) | Upstream JOH/MRD reference data is ingested | 4 |
+| [2](epic-2-user-authenticates.md) | User authenticates and lands on a role-scoped Home page | 5 |
+| [3](epic-3-reference-data-read-only-api.md) | Reference data is served read-only via a versioned, jurisdiction-filtered API | 2 |
+| [4](epic-4-user-populations-bootstrapped.md) | Both user populations are bootstrapped and verifiable against the IdP | 1 |
+| [5](epic-5-system-dispatches-emails.md) | Notification service is scaffolded and contractually ready | 2 |
+| [6](epic-6-context-bus-and-shared-baseline.md) | Context bus is published and the shared configuration baseline exists | 2 |
 
 ## How this document is produced
 
@@ -70,11 +84,11 @@ Phase 0 has completed all four steps. Phases 1–9+ are at the framework stage o
 
 ## How to find your way
 
-- **Looking for what to build next?** Start at the phase index (e.g. [phase-0/index.md](phase-0/index.md)) and pick an epic.
-- **Looking for a specific story?** Stories are named `Story {phase}.{epic}.{n}` (e.g. Story 0.1.5). They live under `phase-{n}/epic-{n}.{m}-{slug}.md`.
+- **Looking for what to build next?** Start at the phase overview (e.g. [phase-0-overview.md](phase-0-overview.md)) and pick an epic.
+- **Looking for a specific story?** Epics are numbered **globally and monotonically** — `Epic {n}` in `epic-{n}-{slug}.md`, with the phase carried in frontmatter (`phase:`), not in the path. Stories are `Story {n}.{m}` (e.g. Story 1.4), embedded in their epic file.
 - **Looking for an FR?** Use [fr-coverage-map.md](fr-coverage-map.md).
 - **Looking for an architecture rule?** Use [requirements-inventory.md](requirements-inventory.md) — ARs are in the Additional Requirements section.
-- **Verifying readiness?** Run `bmad-check-implementation-readiness` from the repo root; it understands this sharded shape.
+- **Verifying readiness?** Run `bmad-sprint-planning` from the repo root; it gates readiness and regenerates `sprint-status.yaml` from these epic files.
 
 [^d11]: D11 (2026-06-10, amended 2026-06-18; **superseded by D13 2026-08-07 for wave ordering**) — SSCS pilot wave: CTAM Pathfinder replaces **ListAssist** (the SSCS judicial-scheduling tool); **GAPS (SSCS case management) is retained, not replaced**. Per D13 the SSCS wave is **wave 2**.
 

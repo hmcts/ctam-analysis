@@ -107,7 +107,7 @@ The graph's `future:` block held repo-level placeholders and dependency edges fo
 | `implementation-artifacts/sprint-status.yaml` | **New** — generated; 7 epics, 21 stories, 35 entries |
 | `epics/phase-0/epic-0.6-context-bus-and-shared-baseline.md` | **New** — `arch-baseline` promoted; 2 stories, 0.6.1 `done` |
 | `epics/phase-0/epic-0.{0,1,2,3,4,5}-*.md` | **`repo:` + `depends_on:` frontmatter added** — no body content changed |
-| [`epics/phase-0/index.md`](./epics/phase-0/index.md) | Epic 0.6 row, summary, stories-summary row; total 19 → 21 stories |
+| [`epics/phase-0/index.md`](./epics/phase-0-overview.md) | Epic 0.6 row, summary, stories-summary row; total 19 → 21 stories |
 | [`epics/framework.md`](./epics/framework.md) | *Phase dependency order* table; Epic 0.6 named in Platform & DevEx |
 | [`delivery/README.md`](./delivery/README.md) | **Rewritten** around BMad artefacts and one-dispatcher coordination |
 | [`architecture/delivery-operating-model.md`](./architecture/delivery-operating-model.md) | Decision 2 rewritten; ledger section replaced; control-plane row, flow, skills table, packet schema, bootstrapping order |
