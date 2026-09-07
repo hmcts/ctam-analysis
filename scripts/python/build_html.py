@@ -165,16 +165,13 @@ ASIS_MARKDOWN: List[Tuple[str, str]] = [
 
 # Sidebar navigation. Each entry: (display label, source path without .md, is_special)
 # is_special marks entries that have no source file (e.g. the index page).
-# Group naming convention: "As-is — …" for legacy JI; "To-be — …" for CTAM Pathfinder.
+# Scope: the published site navigates the **as-is** JI estate only. The to-be
+# CTAM Pathfinder artefacts (architecture, PRD, sequence diagrams, epics/stories,
+# change-control and readiness records) still build and keep their URLs — they
+# are simply not linked from the sidebar or the index page.
 NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
     ("Overview", [
         ("Index", "index", True),
-        ("Knowledge graph (OKF)", "graph", False),
-    ]),
-    ("Product", [
-        ("PRD (CTAM Pathfinder)", "prd", False),
-        ("PRD validation report — 2026-06-17 (5/5)", "prd-validation-report-2026-06-17", False),
-        ("PRD validation report — 2026-06-10", "prd-validation-report-2026-06-10", False),
     ]),
     ("As-is — JI Architecture Views", [
         ("System Context (as-is)", "asis/system-context", False),
@@ -182,6 +179,9 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
     ]),
     ("As-is — JI Analysis Pack", [
         ("Functional modules (as-is)", "architecture/asis/functional-modules", False),
+        # As-is JI analysis; the URL keeps its historic `tobe/` prefix (see map_out_relpath).
+        ("Function decomposition (as-is)", "architecture/tobe/analysis/function-decomposition", False),
+        ("JI user types & access catalogue (as-is)", "architecture/tobe/user-types", False),
         ("Data dependencies (as-is)", "architecture/asis/data-dependencies", False),
         ("Integration dependencies (as-is)", "architecture/asis/integration-dependencies", False),
     ]),
@@ -198,76 +198,6 @@ NAV: List[Tuple[str, List[Tuple[str, str, bool]]]] = [
         ("Reference Data", "asis/database/ji_schema_reference-work", False),
         ("Audit & Cross-cutting", "asis/database/ji_schema_audit-cross-cutting", False),
         ("Companion reference (triggers, FKs, externals)", "asis/database/ji_schema_companion", False),
-    ]),
-    ("To-be — CTAM Pathfinder Architecture", [
-        ("Architecture (index)", "architecture", False),
-        ("Architecture summary", "architecture-summary", False),
-    ]),
-    ("To-be — CTAM Pathfinder Analysis", [
-        ("Function decomposition (as-is capabilities)", "architecture/tobe/analysis/function-decomposition", False),
-    ]),
-    ("To-be — CTAM Pathfinder Reference", [
-        ("User types", "architecture/tobe/user-types", False),
-        ("Authoritative table ownership", "architecture/tobe/data-tables", False),
-        ("Conventions", "architecture/tobe/conventions", False),
-        ("Repository strategy", "architecture/tobe/repository-strategy", False),
-        ("Repository structure", "architecture/tobe/repo-structure", False),
-        ("Starter template", "architecture/tobe/starter-template", False),
-        ("Functional requirements coverage", "architecture/tobe/functional-requirements-coverage", False),
-        ("Non-functional requirements coverage", "architecture/tobe/non-functional-requirements-coverage", False),
-    ]),
-    ("To-be — CTAM Pathfinder Sequence Diagrams", [
-        ("Authentication & authorisation", "architecture/tobe/sequence-diagrams/user-authentication-and-authorisation", False),
-        ("JOH onboarding & sitting gen.", "architecture/tobe/sequence-diagrams/joh-onboarding-and-sitting-generation", False),
-        ("Absence → Reconciliation", "architecture/tobe/sequence-diagrams/absence-to-reconciliation", False),
-        ("Salaried sitting confirmation", "architecture/tobe/sequence-diagrams/salaried-sitting-confirmation", False),
-        ("Payment batch flow", "architecture/tobe/sequence-diagrams/payment-batch-flow", False),
-        ("Itinerary federated read", "architecture/tobe/sequence-diagrams/itinerary-federated-read", False),
-        ("MI Feed & Reports", "architecture/tobe/sequence-diagrams/mi-feed-and-reports-consumption", False),
-        ("Admin maintenance flows", "architecture/tobe/sequence-diagrams/admin-maintenance-flows", False),
-    ]),
-    ("To-be — CTAM Pathfinder Open Items", [
-        ("Gaps", "architecture/tobe/gaps", False),
-        ("Assumptions", "architecture/tobe/assumptions", False),
-        ("Changelog", "architecture/tobe/changelog", False),
-    ]),
-    ("Change Control & Readiness", [
-        ("Sprint Change Proposal — 2026-08-21 (bmad-create-story override retired; deviation register)", "sprint-change-proposal-2026-08-21", False),
-        ("Sprint Change Proposal — 2026-08-20 (one branch per story, created at dispatch)", "sprint-change-proposal-2026-08-20", False),
-        ("Sprint Change Proposal — 2026-08-19d (ledger + dispatch graph retired for BMad sprint status)", "sprint-change-proposal-2026-08-19d", False),
-        ("Sprint Change Proposal — 2026-08-19c (human gate: commit → pull request)", "sprint-change-proposal-2026-08-19c", False),
-        ("Sprint Change Proposal — 2026-08-19b (story-packet schema reconciled with BMad)", "sprint-change-proposal-2026-08-19b", False),
-        ("Sprint Change Proposal — 2026-08-19 (agent delivery rules; TDD + coverage/mutation gates)", "sprint-change-proposal-2026-08-19", False),
-        ("Sprint Change Proposal — 2026-08-13 (programme renamed RAM → CTAM)", "sprint-change-proposal-2026-08-13", False),
-        ("Sprint Change Proposal — 2026-07-09 (CTAM-assigned JOH identity; personnel_number → upstream link)", "sprint-change-proposal-2026-07-09", False),
-        ("Sprint Change Proposal — 2026-07-07 (Gradle vs Maven-format terminology; contract read-only mirror)", "sprint-change-proposal-2026-07-07", False),
-        ("Sprint Change Proposal — 2026-07-06 (shared infra to dedicated repo, CNP)", "sprint-change-proposal-2026-07-06", False),
-        ("Sprint Change Proposal — 2026-06-17 (integrations-first carve-out)", "sprint-change-proposal-2026-06-17", False),
-        ("Sprint Change Proposal — 2026-08-07 (ET-first pilot)", "sprint-change-proposal-2026-08-07", False),
-        ("Sprint Change Proposal — 2026-06-10 (SSCS-first pivot)", "sprint-change-proposal-2026-06-10", False),
-        ("Sprint Change Proposal — 2026-05-15", "sprint-change-proposal-2026-05-15", False),
-        ("Readiness — 2026-05-15 rev2 (superseded by SCP 2026-06-10; SSCS-cohort assessment pending)", "implementation-readiness-report-2026-05-15-rev2", False),
-        ("Readiness — 2026-05-15 rev1 (superseded by rev2)", "implementation-readiness-report-2026-05-15", False),
-        ("Readiness — 2026-05-06 (historical)", "implementation-readiness-report-2026-05-06", False),
-        ("Readiness — 2026-05-05 (historical)", "implementation-readiness-report-2026-05-05", False),
-    ]),
-    ("Implementation — Epics (Foundations)", [
-        ("Delivery operating model (control plane · context bus · execution units)", "architecture/tobe/delivery-operating-model", False),
-        ("Delivery control plane (dispatch → execute → signal)", "delivery/README", False),
-        ("Epics index", "epics/index", False),
-        ("Requirements inventory", "epics/requirements-inventory", False),
-        ("Phase × Area framework", "epics/framework", False),
-        ("FR coverage map", "epics/fr-coverage-map", False),
-    ]),
-    ("Implementation — Phase 0 (platform-then-integrations-first; Epic 0.0 added 2026-07-06)", [
-        ("Phase 0 overview", "epics/phase-0/index", False),
-        ("Epic 0.0 — Platform estate provisioned, verifiable, CNP-compliant (5 stories)", "epics/phase-0/epic-0.0-platform-estate-provisioned", False),
-        ("Epic 0.1 — Upstream JOH/MRD reference data is ingested (4 stories)", "epics/phase-0/epic-0.1-upstream-reference-data-ingested", False),
-        ("Epic 0.2 — User authenticates (5 stories)", "epics/phase-0/epic-0.2-user-authenticates", False),
-        ("Epic 0.3 — Reference data read-only API (2 stories)", "epics/phase-0/epic-0.3-reference-data-read-only-api", False),
-        ("Epic 0.4 — User populations bootstrapped (1 story)", "epics/phase-0/epic-0.4-user-populations-bootstrapped", False),
-        ("Epic 0.5 — Notification scaffolded (2 stories)", "epics/phase-0/epic-0.5-system-dispatches-emails", False),
-        ("Epic 0.6 — Context bus published + shared config baseline (2 stories)", "epics/phase-0/epic-0.6-context-bus-and-shared-baseline", False),
     ]),
 ]
 
@@ -568,7 +498,7 @@ def build_nav_js() -> str:
         "  var root = document.getElementById('nav-root');\n"
         "  if (!root) return;\n"
         "  function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }\n"
-        "  var h = '<h2 class=\"site-title\"><a href=\"' + base + 'index.html\">CTAM Pathfinder Documentation</a></h2>';\n"
+        "  var h = '<h2 class=\"site-title\"><a href=\"' + base + 'index.html\">JI As-Is Analysis</a></h2>';\n"
         "  h += '<div class=\"nav-controls\"><button data-nav-action=\"expand\" title=\"Expand all groups\">Expand all</button> "
         "<button data-nav-action=\"collapse\" title=\"Collapse all groups\">Collapse all</button></div>';\n"
         "  NAV.forEach(function(group){\n"
@@ -721,21 +651,22 @@ def write_page(out_path: Path, title: str, content: str, current_relpath: str, s
 
 
 def build_index_body() -> str:
-    parts = ["<h1>JI / CTAM Pathfinder Documentation</h1>"]
+    parts = ["<h1>JI As-Is Analysis</h1>"]
     parts.append(
         '<div class="living-doc-notice" role="note">'
         "<strong>⚠️ Living documents — subject to change.</strong> "
-        "These pages are working artefacts that evolve as the JI / CTAM Pathfinder programme progresses, "
-        "so treat everything here as provisional and version-dependent. This applies "
-        "<strong>especially to the <em>to-be</em> CTAM Pathfinder artefacts</strong>, which capture "
-        "in-flight design decisions that are still being refined. Always confirm the current position "
-        "before relying on any detail for delivery, contractual, or architectural decisions."
+        "These pages are working analysis artefacts that evolve as the as-is picture is "
+        "corroborated, so treat everything here as provisional and version-dependent. Each pack "
+        "records the source documents, screenshots or DDL it was derived from, and inferred "
+        "detail is marked as such. Always confirm the current position before relying on any "
+        "detail for delivery, contractual, or architectural decisions."
         "</div>"
     )
     parts.append(
-        "<p>HTML rendering of the JI / CTAM Pathfinder planning artefacts. The sidebar — available on every page — "
-        "is organised so it is clear what belongs to the legacy <strong>as-is</strong> JI and what "
-        "belongs to the <strong>to-be</strong> CTAM Pathfinder rebuild.</p>"
+        "<p>HTML rendering of the <strong>as-is</strong> analysis of the legacy Judicial Itineraries (JI) "
+        "estate — the Oracle APEX application, its functional modules and capabilities, its user "
+        "and access-type catalogue, its inbound and outbound data dependencies, and its database "
+        "schema. The sidebar, available on every page, is organised by analysis pack.</p>"
     )
     for group_name, items in NAV:
         parts.append(f"<h2>{group_name}</h2>")
@@ -923,7 +854,7 @@ def main() -> int:
     build_asis_markdown()
 
     # write index page
-    write_page(OUT / "index.html", "JI / CTAM Pathfinder Documentation", build_index_body(), "index", None)
+    write_page(OUT / "index.html", "JI As-Is Analysis", build_index_body(), "index", None)
     print("build: index.html")
 
     # write the single shared sidebar; every page loads this via <script src>
