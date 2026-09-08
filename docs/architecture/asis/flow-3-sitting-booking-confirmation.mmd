@@ -1,0 +1,26 @@
+flowchart LR
+    subgraph Court
+        CS[Court Staff]
+        VER[Verifier<br/>County Courts only]
+    end
+
+    subgraph JI
+        FPB[Fee-paid Bookings<br/>Awaiting Confirmation]
+        SAL[Salaried Sittings<br/>Awaiting Confirmation]
+        CONF[Confirmed<br/>Bookings / Sittings]
+        VERIF[Verified Data<br/>read-only, published]
+    end
+
+    subgraph Downstream
+        PAY[Payment Export]
+        MI[MI Reports]
+    end
+
+    CS -- "Confirm booking:<br/>actual work type,<br/>session duration" --> FPB
+    CS -- "Confirm sitting:<br/>actual work type<br/>(County Courts)" --> SAL
+    FPB -- "Confirmed" --> CONF
+    SAL -- "Confirmed" --> CONF
+    VER -- "Verify month<br/>(County Courts)" --> VERIF
+    CONF --> PAY
+    CONF --> MI
+    VERIF --> MI

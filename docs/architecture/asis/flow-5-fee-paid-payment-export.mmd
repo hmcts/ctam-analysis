@@ -1,0 +1,26 @@
+flowchart LR
+    subgraph JI
+        CONF[Confirmed<br/>Fee-paid Bookings]
+        VAL[Data Validation<br/>dates, court codes,<br/>booking IDs]
+        GEN[Generate Payment<br/>Schedule]
+    end
+
+    subgraph Human Review
+        PA[Payment Authoriser]
+    end
+
+    subgraph Finance
+        JFEPS[JFEPS<br/>Finance System]
+        LIB[Liberata<br/>Payment Processor]
+    end
+
+    subgraph Output
+        PAID[Fee-paid Judge<br/>Receives Payment]
+    end
+
+    CONF --> VAL
+    VAL --> GEN
+    GEN -- "JFEPS-compatible<br/>Excel file<br/>via email" --> PA
+    PA -- "Reviews, approves,<br/>uploads" --> JFEPS
+    PA -- "Forwards<br/>payment schedule<br/>via email" --> LIB
+    LIB -- "Processes<br/>payment" --> PAID

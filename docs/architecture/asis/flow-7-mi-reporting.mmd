@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph JI
+        DATA[(Confirmed Sittings,<br/>Bookings, Absences,<br/>Vacancies)]
+        RPT[Reports Screens<br/>Sitting analysis,<br/>Vacancy analysis,<br/>Utilisation reports]
+    end
+
+    subgraph Export
+        XLS[Excel Export<br/>copy-paste / download]
+        PDF[PDF Export]
+    end
+
+    subgraph DA&I
+        ETL[DA&I<br/>Transform & Aggregate]
+        MI[Management<br/>Information<br/>Outputs]
+    end
+
+    subgraph Consumers
+        LEAD[Senior Leadership]
+        MIN[Ministers]
+        PERF[Performance Teams]
+    end
+
+    DATA --> RPT
+    RPT --> XLS
+    RPT --> PDF
+    XLS --> ETL
+    PDF --> ETL
+    ETL --> MI
+    MI --> LEAD
+    MI --> MIN
+    MI --> PERF

@@ -1,0 +1,19 @@
+flowchart LR
+    subgraph Court Systems
+        LS[Listing Systems<br/>e.g. CaseMan,<br/>FamilyMan, CP]
+    end
+
+    subgraph Users
+        CS[Court Staff]
+    end
+
+    subgraph JI
+        SIT[Sittings Screen]
+        JI_IT[Judge Itinerary]
+        CI[Court Itinerary]
+    end
+
+    LS -- "Planned activity<br/>(manual reference,<br/>no system link)" --> CS
+    CS -- "Manual entry<br/>via JI UI" --> SIT
+    SIT --> JI_IT
+    SIT --> CI

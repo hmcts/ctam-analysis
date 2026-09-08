@@ -1,0 +1,35 @@
+flowchart TD
+    subgraph Court
+        CS[Court Staff]
+    end
+
+    subgraph RSU
+        JT[Judicial Team<br/>RSU]
+    end
+
+    subgraph JI Workflow
+        ABS[Absence Request<br/>created]
+        APPROVE{RSU Approves?}
+        REJECT[Absence Rejected]
+        COVER{Needs<br/>Fee-paid Cover?}
+        NTBF[Marked NTBF<br/>No vacancy created]
+        VAC[Vacancy Created]
+        BOOK[Fee-paid Judge<br/>Booked]
+    end
+
+    subgraph Downstream
+        ITIN[Itineraries Updated]
+        PAY[Payment Flow<br/>when confirmed]
+    end
+
+    CS -- "Request absence" --> ABS
+    JT -- "Also can create<br/>directly" --> ABS
+    ABS --> APPROVE
+    APPROVE -- "Yes" --> COVER
+    APPROVE -- "No" --> REJECT
+    COVER -- "Yes" --> VAC
+    COVER -- "No / NTBF" --> NTBF
+    VAC -- "RSU allocates<br/>fee-paid judge" --> BOOK
+    BOOK --> ITIN
+    NTBF --> ITIN
+    BOOK --> PAY

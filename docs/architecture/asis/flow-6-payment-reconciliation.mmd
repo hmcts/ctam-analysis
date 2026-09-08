@@ -1,0 +1,17 @@
+flowchart LR
+    subgraph Finance
+        JFEPS[JFEPS<br/>Payment Confirmations]
+    end
+
+    subgraph Users
+        FIN[Finance User /<br/>Payment Authoriser]
+    end
+
+    subgraph JI
+        REC[Payment<br/>Reconciliation Screen]
+        STATUS[Booking Payment<br/>Status Updated]
+    end
+
+    JFEPS -- "Payment confirmation<br/>(out-of-band,<br/>not automated)" --> FIN
+    FIN -- "Manually flags<br/>as reconciled<br/>in JI" --> REC
+    REC --> STATUS
