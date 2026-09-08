@@ -1,0 +1,32 @@
+flowchart LR
+    subgraph JI Events
+        BK[Booking<br/>Created / Cancelled]
+        AB[Absence<br/>Confirmed]
+        IT[Itinerary<br/>Updated]
+        PS[Payment Schedule<br/>Generated]
+    end
+
+    subgraph JI
+        EM[Email Engine<br/>immediate + overnight batch]
+    end
+
+    subgraph HMCTS Email
+        SMTP[HMCTS Email<br/>Infrastructure]
+    end
+
+    subgraph Recipients
+        JDG[Judges]
+        CST[Court Staff]
+        PA[Payment<br/>Authorisers]
+        RSU[RSU / Judicial<br/>Team]
+    end
+
+    BK --> EM
+    AB --> EM
+    IT --> EM
+    PS --> EM
+    EM --> SMTP
+    SMTP --> JDG
+    SMTP --> CST
+    SMTP --> PA
+    SMTP --> RSU
