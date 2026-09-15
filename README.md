@@ -1,110 +1,77 @@
 # ctam-analysis
 
-Central **planning, analysis, and delivery-coordination hub** for **CTAM Pathfinder** — HMCTS's greenfield Judicial Office Holder (JOH) availability-and-scheduling platform.
+**As-is analysis of the JI (Judicial Information) application** — the Oracle APEX system HMCTS uses today to record Judicial Office Holder (JOH) availability, sittings, bookings, absences, vacancies and fee-paid payments.
 
-This repository is **not** the implementation and holds no runtime code. CTAM Pathfinder is built as a separate **16-repo polyrepo** (`ctam-*` repositories); this repo holds the PRD, architecture, epics/stories, the delivery operating model, the delivery control plane, and the AS-IS analysis of the legacy system. Delivery is **AI-led (Claude Code) using the BMAD method**.
+This repository captures **how the current system works**: its system context, functional modules, user types, data and integration dependencies, database schema and payment templates. It holds no runtime code. The analysis is published as a browsable static site from the [`docs/`](docs/) folder (GitHub Pages).
 
-## Programme summary
+## What the as-is pack covers
 
-- **What it replaces (ET-first rollout).** **Wave 1** pilots on the **Employment Tribunals (ET)** jurisdiction — its scheduling incumbent is not yet identified (gap G8.4). **Wave 2** replaces **ListAssist** (the SSCS Tribunals judicial-scheduling tool); **GAPS** (SSCS case management) is *retained*, not replaced. **Waves 3+** replace the as-is **JI application on Oracle APEX** per Courts region. Scope boundary: availability/scheduling only — case and hearing management live in external systems that consume CTAM's APIs.
-- **What it is.** API-driven greenfield build. Java 25 + Spring Boot 4 on Azure (AKS + APIM + PostgreSQL 17 + Key Vault), HMCTS IdP via OIDC, React + Vite + GOV.UK Design System UI. Becomes the integration platform downstream HMCTS programmes consume directly, replacing today's export-by-email model.
-- **Strategy: greenfield, not strangler.** Built end-to-end before any user moves; **jurisdiction-first then per-region** phased cutover via per-(jurisdiction, region) activation flags (FR57); incumbents run unchanged for non-activated cohorts. No dual-write, no event bus.
-- **No legacy data migration** (revised D3). Reference data is **ingested from upstream sources of truth** — the JOH eLinks API (nightly) and MRD (weekly) — not migrated from APEX.
-- **Parity verification: manual UAT by jurisdiction-incumbent-experienced users** (D5). No automated incumbent-comparison harness.
+| Area | Where to look | What it describes |
+|---|---|---|
+| **System context** | [`docs/asis/system-context.html`](docs/asis/system-context.html) | Actors, external systems and integrations around JI, with interactions numbered |
+| **Components** | [`docs/asis/components.html`](docs/asis/components.html) | Internal modules of the APEX application and how they relate |
+| **Functional modules** | [`docs/architecture/asis/functional-modules.md`](docs/architecture/asis/functional-modules.md) | Module catalogue — capabilities, key user actions, sources |
+| **Function decomposition** | [`function-decomposition.md`](_bmad-output/planning-artifacts/architecture/analysis/function-decomposition.md) | Breakdown of JI functions by business area |
+| **User types & access catalogue** | [`user-types.md`](_bmad-output/planning-artifacts/architecture/user-types.md) · source [`JI user types - 2.xlsx`](docs/architecture/asis/JI%20user%20types%20-%202.xlsx) | 17 access types across Court, Regional, Judicial and Finance groups, plus the Payment Authoriser configuration entry; Feb 2026 active-user counts |
+| **Data dependencies** | [`docs/architecture/asis/data-dependencies.md`](docs/architecture/asis/data-dependencies.md) | Inbound and outbound data flows, with eight flow diagrams (`flow-1` … `flow-8`) |
+| **Integration dependencies** | [`docs/architecture/asis/integration-dependencies.md`](docs/architecture/asis/integration-dependencies.md) | Systems JI exchanges data with and the mechanism for each |
+| **Payment templates** | [`docs/architecture/asis/payments/payment-templates.md`](docs/architecture/asis/payments/payment-templates.md) | JFEPS payment-schedule outputs produced for Finance and Liberata |
+| **Database schema** | [`docs/architecture/asis/database/README.md`](docs/architecture/asis/database/README.md) | 46 production tables reverse-engineered from the Oracle DDL dump; overview plus six domain-cluster ER diagrams and a companion reference (triggers, inferred FKs, external references) |
 
-Requirements baseline: **60 FRs, 42 NFRs, decisions D1–D12** (see `prd.md`).
+## Key as-is processes
 
-## Delivery: the 16-repo polyrepo
-
-Per-service code lives in dedicated repositories (no monorepo; no shared runtime library). The canonical list and rationale are in [`architecture/repository-strategy.md`](_bmad-output/planning-artifacts/architecture/repository-strategy.md).
-
-| Cluster | Repo | Phase | Responsibility |
-|---|---|---|---|
-| Platform | `ctam-shared-infrastructure` | 0 | Shared Azure estate (AKS, PostgreSQL, ACR, APIM, App Insights, Key Vault) — Terraform only |
-| Platform | `ctam-architecture` | 0 | Architecture docs + ADRs + scaffolding script; the version-pinned **context bus** for service repos |
-| Cross-cutting | `ctam-mock-auth` | 0 | OIDC issuer for dev / CI / integration — never deployed to production |
-| Cross-cutting | `ctam-reference-data` | 0 | 33 reference-data tables (two-tier: upstream `jo_*`/`mrd_*` + CTAM-owned) + eLinks/MRD ingestion + `ctam_joh_identities` |
-| Cross-cutting | `ctam-authorisation` | 0 | Per-request authz; two-population identity; roles, jurisdiction, Region/Area scope, activation flags |
-| Cross-cutting | `ctam-notification` | 0 | Outbound transactional email + JFEPS-shaped payment-schedule emails |
-| Domain | `ctam-joh` | 1 | JOH operational state — working patterns, ticket/location overlays, jurisdictional split |
-| Domain | `ctam-absence` | 2 | Absence records + approval workflow; triggers vacancy creation |
-| Domain | `ctam-vacancy` | 3 | Cover-required vacancies; `filled` flag UPDATE-granted to Booking |
-| Domain | `ctam-booking` | 4 | Fee-paid bookings + verification |
-| Domain | `ctam-sitting` | 5 | Salaried-JOH sittings; verification; AM/PM split |
-| Domain | `ctam-payment` | 6 | Payments + reconciliation; JFEPS Excel via a scheduled batch (`ctam-payment-batch`) |
-| Read-model | `ctam-itinerary` | 7 | Court + Judge itinerary; Forward Look; SQL JOINs over the shared schema (no own tables) |
-| Read-model | `ctam-mi-feed` | 8 | Aggregate reports; DA&I consumer feed (post-MVP); aggregate-only, no case-level data |
-| Frontend | `ctam-ui` | 0–8 | Business-user SPA; per-domain modules; GOV.UK Design System; WCAG 2.2 AA |
-| Frontend | `ctam-admin-ui` | post-MVP | Admin SPA (Reference Data + User/Role admin), separated from business workflows |
-
-*JOH identity:* every JOH carries a CTAM-assigned UUID (`ctam_joh_identities`); `personnel_number` is the upstream link to `jo_people` only (per SCP 2026-07-09).
-
-## How this repository is organised
-
-`_bmad-output/planning-artifacts/` is the **canonical, git-tracked source of truth** (despite living under `_bmad-output/`):
-
-- **PRD & business case** — `prd.md`, `business-case.md`, plus dated validation/readiness reports and `sprint-change-proposal-*` (historical records).
-- **Architecture** — `architecture.md` + `architecture/` shards: `repository-strategy.md`, `repo-structure.md`, `conventions.md` (the consistency contract), `data-tables.md`, `delivery-operating-model.md`, `gaps.md`, `assumptions.md`, `changelog.md`, FR/NFR coverage, `diagrams/`, `sequence-diagrams/`.
-- **Epics** — `epics/framework.md` + `epics/phase-0/` (stories embedded in each epic; only Phase 0 is decomposed so far — 6 epics, 19 stories).
-- **Delivery control plane** — [`delivery/README.md`](_bmad-output/planning-artifacts/delivery/README.md): the dispatch -> execute -> signal loop. Build order is `depends_on:` in each epic's frontmatter; status is BMad's `implementation-artifacts/sprint-status.yaml`; `scripts/dispatch-preflight.sh` is the pre-dispatch check.
-- **`project-context.md`** — lean, LLM-optimised implementation rules for the service code.
-
-The [`docs/`](docs/) folder is the **published static HTML site** (GitHub Pages), generated from the Markdown by `scripts/build-html.sh` — the Markdown is authoritative; regenerate rather than hand-editing HTML.
-
-## Delivery operating model
-
-See [`architecture/delivery-operating-model.md`](_bmad-output/planning-artifacts/architecture/delivery-operating-model.md). In brief:
-
-- **Control plane** (this repo) — canonical planning + dispatch + traceability; never edits service code.
-- **Context bus** (`ctam-architecture`) — version-pinned published architecture each service repo consumes as a submodule; API contracts stay producer-owned (this repo holds a read-only mirror only).
-- **Execution units** (the 15 service/UI/infra repos) — where code lands; each receives a self-contained story packet.
-- Build order is `depends_on:` in each epic's frontmatter; progress lives in BMad's `sprint-status.yaml`. BMAD skills map on: create-story = dispatch, dev-story + code-review = execute, sprint-status = signal.
+- **Judge master data** — judge profiles, working patterns, tickets and jurisdictional splits are maintained by Court and Regional users according to their access scope.
+- **Planned activity capture** — sittings and fee-paid bookings are planned against courts and judges.
+- **Sitting & booking confirmation** — Court users confirm daily that a sitting or booking took place; Verifiers sign off batches (typically monthly), which locks the records for reporting. Regional (Admin) can re-open a verified record.
+- **Absence & vacancy management** — absences are requested at Court level and approved Regionally; approved absences can raise cover vacancies.
+- **Fee-paid payment export** — Finance generates JFEPS-compatible Excel schedules, emailed to a configured Payment Authoriser who forwards them to Liberata.
+- **Payment reconciliation, MI reporting and notifications** — JFEPS reconciliation back into JI, aggregate MI to DA&I, and email notifications; see the `flow-6` to `flow-8` diagrams in [`docs/architecture/asis/`](docs/architecture/asis/).
 
 ## Repository layout
 
 ```
 ctam-analysis/
-├── _bmad-output/
-│   ├── planning-artifacts/     # CANONICAL, tracked: PRD, architecture, epics, delivery control plane
-│   │   ├── architecture/       # architecture.md shards + diagrams + sequence-diagrams
-│   │   ├── epics/              # framework + phase-0 epics (stories embedded)
-│   │   └── delivery/          # README.md — the dispatch/signal loop
-│   ├── project-context.md      # lean implementation rules for service code
-│   └── brainstorming/          # local scratch (early discovery)
-├── docs/                       # PUBLISHED HTML site (generated by scripts/build-html.sh)
-│   └── architecture/asis/      # AS-IS JI analysis pack (source + renders)
-├── scripts/                    # build-html.sh + Python helpers (site + diagrams)
+├── docs/                                  # PUBLISHED HTML site (generated — do not hand-edit)
+│   ├── asis/                              # system-context, components and database schema pages
+│   └── architecture/asis/                 # as-is analysis pack: sources (.md/.xlsx/.mmd/.d2/.dot) + renders
+│       ├── database/                      # schema model, D2 diagrams, companion reference
+│       └── payments/                      # payment templates
+├── _bmad-output/planning-artifacts/
+│   └── architecture/
+│       ├── user-types.md                  # JI user types & access catalogue (as-is)
+│       └── analysis/function-decomposition.md
+├── scripts/                               # build-html.sh + Python helpers (site + diagram rendering)
 ├── .claude/
-│   ├── commands/ + lib/        # analysis slash commands (supporting tooling)
-│   └── hooks/                  # block-git-writes.sh
-├── sql/ · queries/ · openspec/ # legacy/exploratory — not part of the delivery workflow
-└── _bmad/                      # BMAD-METHOD plugin (gitignored; user-local install)
+│   ├── commands/ + lib/                   # analysis slash commands used to produce the pack
+│   └── hooks/                             # block-git-writes.sh (main is protected)
+├── sql/ · queries/ · openspec/            # legacy/exploratory — not part of the current workflow
+└── CLAUDE.md                              # operating contract for Claude Code instances
 ```
 
-## How to navigate as a new joiner
+## Building the site
 
-1. **[`architecture-summary.md`](_bmad-output/planning-artifacts/architecture-summary.md)** — one-page target-state reference.
-2. **[`prd.md`](_bmad-output/planning-artifacts/prd.md)** — scope, decisions (D1–D12), success criteria, user journeys, FR/NFR contracts.
-3. **[`architecture.md`](_bmad-output/planning-artifacts/architecture.md)** + its shards — decisions, gaps (`gaps.md`), assumptions, data-table inventory, conventions.
-4. **[`delivery-operating-model.md`](_bmad-output/planning-artifacts/architecture/delivery-operating-model.md)** + [`delivery/`](_bmad-output/planning-artifacts/delivery/) — how implementation is coordinated across the polyrepo.
-5. **[`epics/`](_bmad-output/planning-artifacts/epics/)** — the Phase 0 breakdown and FR coverage map.
-6. **[`changelog.md`](_bmad-output/planning-artifacts/architecture/changelog.md)** + the latest `sprint-change-proposal-*` — most recent product-direction shifts.
-7. **AS-IS context** — the legacy JI pack under [`docs/architecture/asis/`](docs/architecture/asis/).
+The Markdown, spreadsheets and diagram sources are authoritative. Regenerate the HTML rather than editing it:
 
-Everything renders for browser viewing on the published `docs/` site.
+```
+scripts/build-html.sh
+```
 
-## Analysis toolchain (supporting tooling)
+Requires `pandoc` and Python 3. The sidebar navigation is the `NAV` list in `scripts/python/build_html.py`; add an entry there when a new as-is page is introduced.
 
-A set of Claude Code slash commands used to produce parts of the AS-IS pack and run repeatable analyses — **not** the deliverable:
+New schema or architecture diagrams use **D2 + ELK**; the older Graphviz/DOT files are kept for reference only.
+
+## Analysis toolchain
+
+Claude Code slash commands used to produce parts of the as-is pack from source documents:
 
 | Command | Output |
 |---|---|
-| `/create-data-dependency-architecture` | Styled PDF cataloguing inbound + outbound data dependencies |
-| `/create-functional-modules-architecture` | Styled PDF cataloguing functional modules |
-| `/check-for-owasp-top10` | Markdown + PDF audit against the OWASP Top 10 for Agentic Applications 2026 |
+| `/create-functional-modules-architecture` | Functional module catalogue (Markdown + styled PDF) |
+| `/create-data-dependency-architecture` | Inbound/outbound data-dependency catalogue (Markdown + styled PDF) |
+| `/check-for-owasp-top10` | Security audit report against the OWASP Top 10 for Agentic Applications 2026 |
 | `/docs-to-c4` | *(retired — use the `build_html.py` static-site pipeline instead)* |
 
-Commands live in `.claude/commands/` with pipelines in `.claude/lib/<command>/`; a shared house-style PDF pipeline at `.claude/lib/_shared/` is consumed by the PDF commands. Operating contract for Claude Code instances working here: [`CLAUDE.md`](CLAUDE.md).
+Commands live in `.claude/commands/` with pipelines in `.claude/lib/<command>/`; the shared house-style PDF pipeline is in `.claude/lib/_shared/`. Source documents are read-only: distillation and analysis write to `output/` folders, never the originals.
 
 ## License
 
