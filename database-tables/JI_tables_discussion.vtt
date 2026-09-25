@@ -1,0 +1,5613 @@
+WEBVTT
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/5-0
+00:00:03.128 --> 00:00:04.928
+<v >Maybe one, maybe multiple.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/7-0
+00:00:05.808 --> 00:00:08.688
+<v >I'm just going to just start a
+transcription if that's okay. Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/6-0
+00:00:06.128 --> 00:00:06.368
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/10-0
+00:00:07.608 --> 00:00:12.342
+<v >Yep, yep, that's fine.
+So you've got table judges master,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/10-1
+00:00:12.342 --> 00:00:17.728
+<v >which is your one row per person.
+Table judges is 1 row per role.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/9-0
+00:00:18.288 --> 00:00:18.768
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/12-0
+00:00:19.488 --> 00:00:24.152
+<v >So table judges links to table judges
+master by the ID.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/12-1
+00:00:24.152 --> 00:00:29.649
+<v >So you can have multiple rows in table
+judges for the one person.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/12-2
+00:00:29.649 --> 00:00:36.146
+<v >Now that can be roles that are still
+active or it could be roles that they've</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/11-0
+00:00:34.808 --> 00:00:35.408
+<v >Mm-hmm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/12-3
+00:00:36.146 --> 00:00:37.728
+<v >been promoted from.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/13-0
+00:00:38.448 --> 00:00:42.265
+<v >And it can even be provisional roles.
+If we've been notified in advance that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/13-1
+00:00:42.265 --> 00:00:46.082
+<v >they're going to be given this role,
+then we can set up a provisional record</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/13-2
+00:00:46.082 --> 00:00:46.528
+<v >for them.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/15-0
+00:00:47.088 --> 00:00:51.630
+<v >So would it cater to something like if a
+judge is doing a DJ role in one code and</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/15-1
+00:00:51.630 --> 00:00:54.510
+<v >a DDJ role in another circuit,
+something like that?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/14-0
+00:00:52.768 --> 00:00:54.128
+<v >Yep, yep.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/15-2
+00:00:54.510 --> 00:00:55.728
+<v >So you would have one.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/17-0
+00:00:55.088 --> 00:00:59.708
+<v >Yeah, so, yeah, in that case,
+they would have one row in judges master,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/17-1
+00:00:59.708 --> 00:01:01.248
+<v >but two in table judges.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/16-0
+00:01:01.648 --> 00:01:02.128
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/20-0
+00:01:03.128 --> 00:01:05.888
+<v >And the same for retirement as well,
+things like that, right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/18-0
+00:01:03.488 --> 00:01:03.528
+<v >Uhh...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/21-0
+00:01:05.568 --> 00:01:08.223
+<v >Yeah, yeah,
+if they're sitting in retirement,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/21-1
+00:01:08.223 --> 00:01:12.263
+<v >normally what you would have,
+you would have the roles that they used</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/21-2
+00:01:12.263 --> 00:01:13.648
+<v >to be a salary judge in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/22-0
+00:01:16.128 --> 00:01:21.316
+<v >but then you would have a sitting in
+retirement fee paid role which goes live</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/22-1
+00:01:21.316 --> 00:01:21.648
+<v >once.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/23-0
+00:01:24.128 --> 00:01:26.528
+<v >The salaried rolls are marked as retired.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/25-0
+00:01:28.088 --> 00:01:30.803
+<v >which is something,
+there's an overnight routine that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/24-0
+00:01:28.288 --> 00:01:28.688
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/25-1
+00:01:30.803 --> 00:01:34.572
+<v >basically picks up and updates all the
+roles and things like that based on</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/25-2
+00:01:34.572 --> 00:01:35.728
+<v >various dates in there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/26-0
+00:01:37.088 --> 00:01:37.568
+<v >Mmh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/27-0
+00:01:39.968 --> 00:01:44.452
+<v >The next one down is table judges user
+links.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/27-1
+00:01:44.452 --> 00:01:50.301
+<v >Now that is just if the judge has asked
+for a login for JI,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/27-2
+00:01:50.301 --> 00:01:56.344
+<v >we link their user ID to their actual
+judge codes. Sorry, no,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/27-3
+00:01:56.344 --> 00:02:00.048
+<v >it's their judge's master ID, I think.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/28-0
+00:02:01.568 --> 00:02:05.328
+<v >so that they can only see their own data
+on screen.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/29-0
+00:02:04.248 --> 00:02:06.596
+<v >Information, OK,
+so that's so that's mainly login</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/29-1
+00:02:06.596 --> 00:02:07.488
+<v >information, right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/31-0
+00:02:07.568 --> 00:02:08.648
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/30-0
+00:02:08.888 --> 00:02:09.008
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/32-0
+00:02:09.848 --> 00:02:16.236
+<v >Table judge types is just metadata,
+gives us all the different judge types</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/32-1
+00:02:16.236 --> 00:02:21.431
+<v >and the relevant judge type IDs.
+As is table judge statuses,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/32-2
+00:02:21.431 --> 00:02:27.648
+<v >that's just metadata for what their
+current status is. There's a column.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/33-0
+00:02:27.168 --> 00:02:29.847
+<v >So such types will be things like if it's
+a DJ,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/33-1
+00:02:29.847 --> 00:02:31.968
+<v >DDJ or DJ and MC and things like that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/35-0
+00:02:30.928 --> 00:02:34.660
+<v >Circuit Judge, all the way up to, oh,
+crikey,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/35-1
+00:02:34.660 --> 00:02:39.446
+<v >lords and things like that who've got
+high rolls. So yeah,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/34-0
+00:02:37.648 --> 00:02:38.528
+<v >See, OK.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/35-2
+00:02:39.446 --> 00:02:42.528
+<v >so that covers pretty much everything.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/36-0
+00:02:43.528 --> 00:02:50.857
+<v >So status, that's all your active,
+promoted, retired, deleted, deceased.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/36-1
+00:02:50.857 --> 00:02:59.089
+<v >We have quite a number of statuses for
+there. Judge circuits is metadata as well.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/36-2
+00:02:59.089 --> 00:03:04.208
+<v >Now it's a bit confusing,
+whereas in HMCTS we have</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/37-0
+00:03:04.248 --> 00:03:08.658
+<v >the regions around the country.
+So there's one, two, three, 4,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/37-1
+00:03:08.658 --> 00:03:10.688
+<v >I think six or seven regions.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/38-0
+00:03:12.248 --> 00:03:14.528
+<v >For some reason, the judges still...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/39-0
+00:03:15.808 --> 00:03:19.578
+<v >use circuits.
+Now circuits were what regions used to be</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/39-1
+00:03:19.578 --> 00:03:21.328
+<v >called about 15 years ago.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/40-0
+00:03:21.888 --> 00:03:22.488
+<v >Mm-hmm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/41-0
+00:03:22.568 --> 00:03:25.687
+<v >and actually it's probably longer than
+that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/41-1
+00:03:25.687 --> 00:03:31.439
+<v >And they don't quite line up to regions.
+So we have to have a list of the circuits</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/41-2
+00:03:31.439 --> 00:03:36.428
+<v >so that we know if we're talking about
+circuits or regions that they're</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/41-3
+00:03:36.428 --> 00:03:38.368
+<v >completely different things.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/43-0
+00:03:39.968 --> 00:03:42.848
+<v >Circuit George is still a thing, right?
+Even though...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/42-0
+00:03:40.208 --> 00:03:40.248
+<v >A...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/46-0
+00:03:42.048 --> 00:03:47.193
+<v >Circuit judges, yeah, yeah, it's,
+but if you're talking about judges</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/46-1
+00:03:47.193 --> 00:03:50.921
+<v >circuits,
+then that is actually talking about the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/44-0
+00:03:49.248 --> 00:03:49.728
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/46-2
+00:03:50.921 --> 00:03:53.008
+<v >area where they're employed.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/45-0
+00:03:52.808 --> 00:03:53.328
+<v >Definitely.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/47-0
+00:03:55.488 --> 00:03:59.950
+<v >Leadership judge types,
+now there are some judges that are in</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/47-1
+00:03:59.950 --> 00:04:03.188
+<v >control of other judges to a certain
+degree.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/47-2
+00:04:03.188 --> 00:04:08.802
+<v >So that's just a metadata table to say
+what leadership judge types we've got.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/47-3
+00:04:08.802 --> 00:04:11.248
+<v >So I think there's things like the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/48-0
+00:04:12.608 --> 00:04:15.681
+<v >Regional Family Judge,
+the Regional Civil Judge,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/48-1
+00:04:15.681 --> 00:04:17.248
+<v >the Regional Crane Judge.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/49-0
+00:04:19.328 --> 00:04:22.128
+<v >It is just various different ones that
+are there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/50-0
+00:04:23.328 --> 00:04:27.120
+<v >And table judge type promotion is
+basically a table that gives us the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/50-1
+00:04:27.120 --> 00:04:28.528
+<v >promotion paths available.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/51-0
+00:04:29.768 --> 00:04:35.088
+<v >For each of the judge types,
+and that's used more for when we're...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/53-0
+00:04:36.688 --> 00:04:40.967
+<v >actually dealing with the judges within
+the help desk applications.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/53-1
+00:04:40.967 --> 00:04:45.246
+<v >If we want to promote them,
+it will basically only allow us to give</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/53-2
+00:04:45.246 --> 00:04:47.008
+<v >them a valid promotion type.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/52-0
+00:04:47.488 --> 00:04:47.968
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/54-0
+00:04:48.728 --> 00:04:48.848
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/55-0
+00:04:50.688 --> 00:04:54.896
+<v >So how do we use that? So promotion,
+it's not clear in my head,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/55-1
+00:04:54.896 --> 00:04:57.328
+<v >what role does it play in the system?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/57-0
+00:04:58.208 --> 00:05:01.228
+<v >Right, well,
+it's done through the help desk because a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/57-1
+00:05:01.228 --> 00:05:04.193
+<v >judge can get promoted.
+Say they're a district judge,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/57-2
+00:05:04.193 --> 00:05:06.608
+<v >they could get promoted to a circuit
+judge.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/56-0
+00:05:07.488 --> 00:05:07.728
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/58-0
+00:05:08.368 --> 00:05:11.408
+<v >So, we get notified of that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/60-0
+00:05:13.248 --> 00:05:17.958
+<v >And it depends when we're notified.
+Sometimes we're notified in advance</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/60-1
+00:05:17.958 --> 00:05:22.667
+<v >before the actual names of the judges
+that have been promoted have been</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/59-0
+00:05:22.288 --> 00:05:23.008
+<v >See, OK.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/60-2
+00:05:22.667 --> 00:05:26.983
+<v >published. So in that case,
+we would actually create a new judges</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/60-3
+00:05:26.983 --> 00:05:32.150
+<v >master record and a new judge record,
+and then we would merge the table judges</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/60-4
+00:05:32.150 --> 00:05:32.608
+<v >record.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/62-0
+00:05:32.928 --> 00:05:37.128
+<v >Into the master judges record,
+once they've been announced,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/62-1
+00:05:37.128 --> 00:05:40.978
+<v >but it just allows,
+it just allows the users to create</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/61-0
+00:05:37.288 --> 00:05:37.648
+<v >Can.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/62-2
+00:05:40.978 --> 00:05:43.568
+<v >working patterns, that sort of thing.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/63-0
+00:05:43.888 --> 00:05:48.906
+<v >So is it fair to say it's more of a
+placeholder when the judge is actually</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/65-0
+00:05:48.608 --> 00:05:54.799
+<v >Yeah, yeah, yeah, yeah.
+Some regions don't do it in advance like</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/63-1
+00:05:48.906 --> 00:05:51.648
+<v >not promoted or it's not there yet? Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/65-1
+00:05:54.799 --> 00:05:59.370
+<v >that.
+They actually tell us once the names have</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/65-2
+00:05:59.370 --> 00:06:04.799
+<v >been published.
+And so the Vicky team basically would go</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/64-0
+00:06:00.528 --> 00:06:00.688
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/65-3
+00:06:04.799 --> 00:06:06.608
+<v >into the help desk.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/66-0
+00:06:07.088 --> 00:06:09.349
+<v >they'd go into the original judge's
+record,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/66-1
+00:06:09.349 --> 00:06:13.202
+<v >they can click a promote button and
+they'll be given the options available</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/66-2
+00:06:13.202 --> 00:06:15.925
+<v >for a promotion and it just creates an
+error record.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/66-3
+00:06:15.925 --> 00:06:18.648
+<v >It's just to save them time more than
+anything else.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/68-0
+00:06:20.368 --> 00:06:23.031
+<v >And once you have the judge record in the
+promotion,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/68-1
+00:06:23.031 --> 00:06:26.799
+<v >that is then used for allocation so
+people can actually use that judge and</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/68-2
+00:06:26.799 --> 00:06:28.808
+<v >assign work to that judge sitting there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/67-0
+00:06:27.888 --> 00:06:30.048
+<v >Yeah, they can actually do do things.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/70-0
+00:06:31.488 --> 00:06:35.446
+<v >And once the judge is actually officially
+announced, it's no longer secret,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/70-1
+00:06:35.446 --> 00:06:39.248
+<v >then they get a new row and table judges,
+I presume, link to the master.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/69-0
+00:06:37.488 --> 00:06:38.368
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/71-0
+00:06:39.648 --> 00:06:42.828
+<v >Yeah, yeah,
+linked to the original master so that we</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/71-1
+00:06:42.828 --> 00:06:46.368
+<v >can see, basically,
+so that we can see the whole record of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/71-2
+00:06:46.368 --> 00:06:48.768
+<v >that judge's career to a certain degree.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/73-0
+00:06:49.648 --> 00:06:53.775
+<v >So how do you exclude it once the judge
+is gone into the judges?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/73-1
+00:06:53.775 --> 00:06:58.855
+<v >Because presumably the row in judge type
+promotion is not valid anymore, right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/72-0
+00:06:57.968 --> 00:06:58.368
+<v >Yep.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/73-2
+00:06:58.855 --> 00:07:01.648
+<v >So do you exclude it then on certain
+basis?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/75-0
+00:07:03.488 --> 00:07:06.872
+<v >It's just all done as part of the
+overnight routines.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/75-1
+00:07:06.872 --> 00:07:11.948
+<v >I'd have to go through all the code and
+work out exactly what it's doing because</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/74-0
+00:07:11.328 --> 00:07:11.568
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/75-2
+00:07:11.948 --> 00:07:16.647
+<v >there's so many functions that happen in
+the overnight routines. But yeah,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/75-3
+00:07:16.647 --> 00:07:19.906
+<v >it does update all the judge records.
+It basically,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/75-4
+00:07:19.906 --> 00:07:23.728
+<v >if they come up to their retirement date,
+it'll retire them.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/76-0
+00:07:23.968 --> 00:07:27.803
+<v >If it's come up to the promotion date,
+it sorts all the bits out that we need</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/76-1
+00:07:27.803 --> 00:07:28.688
+<v >done within there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/77-0
+00:07:31.318 --> 00:07:36.227
+<v >But there's no situation where we have a
+row for the same judge in judges and in</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/77-1
+00:07:36.227 --> 00:07:39.318
+<v >judge type promotion because that's
+contradictory.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/78-0
+00:07:37.968 --> 00:07:41.408
+<v >Yeah, no, no, yeah, yeah, yeah,
+nothing like that would ever happen.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/79-0
+00:07:42.688 --> 00:07:43.008
+<v >Yep.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/80-0
+00:07:44.528 --> 00:07:45.328
+<v >If we go to the...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/82-0
+00:07:46.328 --> 00:07:49.458
+<v >Just trying to think which is going to be
+the best one to go to next.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/82-1
+00:07:49.458 --> 00:07:51.648
+<v >Bookings and sittings,
+that's quite an easy one.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/81-0
+00:07:51.968 --> 00:07:52.448
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/84-0
+00:07:53.848 --> 00:08:02.026
+<v >So bookings are for your fee pay judges,
+sittings are for your salary judges.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/83-0
+00:07:59.728 --> 00:08:00.048
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/84-1
+00:08:02.026 --> 00:08:03.808
+<v >So with sittings,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/85-0
+00:08:04.888 --> 00:08:11.541
+<v >So that's table JI plan settings.
+You have one row in there per salaried</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/85-1
+00:08:11.541 --> 00:08:17.191
+<v >judge per working day.
+The user has an option to add rows for</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/85-2
+00:08:17.191 --> 00:08:24.208
+<v >non-working days because it might be that
+a judge is sitting on a weekend or</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/86-0
+00:08:24.288 --> 00:08:25.568
+<v >something along those lines.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/88-0
+00:08:28.088 --> 00:08:33.534
+<v >Likewise, if there's an absence,
+then the row is marked as cancelled.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/88-1
+00:08:33.534 --> 00:08:38.123
+<v >We never actually delete rows from Table
+JI plan settings.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/88-2
+00:08:38.123 --> 00:08:43.568
+<v >We just mark them as cancelled so that
+we've got a full record there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/87-0
+00:08:39.648 --> 00:08:40.128
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/89-0
+00:08:44.688 --> 00:08:45.168
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/91-0
+00:08:48.048 --> 00:08:53.298
+<v >With bookings, it's slightly different.
+So with your fee paid bookings,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/91-1
+00:08:53.298 --> 00:08:58.475
+<v >we have table bookings and sorry,
+table JI FP bookings and table JI FP</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/91-2
+00:08:58.475 --> 00:09:02.631
+<v >booking detail.
+FP obviously standing for fee paid. Now,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/90-0
+00:09:02.288 --> 00:09:02.448
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/91-3
+00:09:02.631 --> 00:09:07.808
+<v >the booking is a bit similar to the
+judges master and the judges link.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/92-0
+00:09:08.168 --> 00:09:13.866
+<v >The booking could be for a day, a week,
+a fortnight. It could be for a month.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/92-1
+00:09:13.866 --> 00:09:19.345
+<v >So we have all of the core details for
+the booking in table JIFP bookings,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/92-2
+00:09:19.345 --> 00:09:24.824
+<v >and then table JIFP booking detail will
+have a row for each day within the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/92-3
+00:09:24.824 --> 00:09:25.408
+<v >booking.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/95-0
+00:09:26.168 --> 00:09:30.603
+<v >I see, OK, so that's more granular, right?
+So it's so it could have one to many,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/93-0
+00:09:27.888 --> 00:09:28.968
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/95-1
+00:09:30.603 --> 00:09:33.888
+<v >so one booking you have many records in
+the booking detail.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/94-0
+00:09:31.288 --> 00:09:31.568
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/97-0
+00:09:33.888 --> 00:09:37.405
+<v >Yeah,
+it allows us to do a number of different</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/97-1
+00:09:37.405 --> 00:09:42.044
+<v >things in there as well.
+So say the court decide they want to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/97-2
+00:09:42.044 --> 00:09:48.030
+<v >cancel one day of a two week booking,
+it allows us to do that without having to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/97-3
+00:09:48.030 --> 00:09:52.968
+<v >cancel the whole booking and book it
+again. So it is quite handy.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/96-0
+00:09:50.448 --> 00:09:50.848
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/98-0
+00:09:54.448 --> 00:09:58.493
+<v >Booking types, actually,
+I can't remember what that one actually</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/98-1
+00:09:58.493 --> 00:10:00.608
+<v >is. Let me just have a quick look.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/99-0
+00:10:01.728 --> 00:10:05.088
+<v >I can bring up the booking type actual
+table, because we'll have the.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/101-0
+00:10:05.168 --> 00:10:07.988
+<v >That's right,
+I've got SQL Developer open here,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/100-0
+00:10:07.648 --> 00:10:08.288
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/101-1
+00:10:07.988 --> 00:10:08.928
+<v >so seconds to...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/102-0
+00:10:10.448 --> 00:10:11.888
+<v >Table chair.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/103-0
+00:10:12.808 --> 00:10:14.808
+<v >King types.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/106-0
+00:10:18.608 --> 00:10:22.492
+<v >It's quite handy, isn't it?
+So I sort of gave my AI tooling this PDF</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/106-1
+00:10:22.492 --> 00:10:25.418
+<v >and said, make me a, you know,
+data design diagram.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/106-2
+00:10:25.418 --> 00:10:29.808
+<v >And it actually did a quite decent job
+even segregating into different areas.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/104-0
+00:10:25.488 --> 00:10:26.448
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/105-0
+00:10:27.608 --> 00:10:28.048
+<v >F.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/108-0
+00:10:30.528 --> 00:10:35.008
+<v >That is brilliant, is. Ohh, right.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/110-0
+00:10:36.048 --> 00:10:39.354
+<v >Yeah, there are different types.
+So you've got your normal one,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/110-1
+00:10:39.354 --> 00:10:42.608
+<v >which is a fee paid booking.
+So this is just a metadata table.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/109-0
+00:10:43.488 --> 00:10:43.968
+<v >OK.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/111-0
+00:10:44.848 --> 00:10:45.248
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/114-0
+00:10:47.408 --> 00:10:51.745
+<v >But you can have things like,
+if say they were called in on a weekend,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/114-1
+00:10:51.745 --> 00:10:55.472
+<v >that's normally classed as an urgent
+court business booking.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/114-2
+00:10:55.472 --> 00:11:00.236
+<v >There's various other types of booking
+that you can have there and they could</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/112-0
+00:10:55.488 --> 00:10:55.968
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/114-3
+00:11:00.236 --> 00:11:03.168
+<v >potentially be paid different amounts
+based on.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/113-0
+00:11:03.888 --> 00:11:04.528
+<v >I see.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/116-0
+00:11:04.328 --> 00:11:08.363
+<v >what type of booking it is.
+And it also helps, again,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/116-1
+00:11:08.363 --> 00:11:13.668
+<v >it goes back to what I was saying
+yesterday about the fact that JI was</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/116-2
+00:11:13.668 --> 00:11:18.450
+<v >originally created as a data tool.
+It was just to get its data.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/115-0
+00:11:16.448 --> 00:11:17.008
+<v >Something, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/116-3
+00:11:18.450 --> 00:11:24.128
+<v >We only basically gave the functionality
+to get the users to use it because</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/118-0
+00:11:24.528 --> 00:11:27.968
+<v >They wouldn't have been happy just
+putting information in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/117-0
+00:11:26.928 --> 00:11:27.128
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/119-0
+00:11:28.368 --> 00:11:32.023
+<v >So would that booking types also have
+like what kind of fees applicable for</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/119-1
+00:11:32.023 --> 00:11:32.888
+<v >that booking type?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/122-0
+00:11:33.328 --> 00:11:36.200
+<v >No,
+that's actually linked elsewhere in one</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/122-1
+00:11:36.200 --> 00:11:41.422
+<v >of the tables that's shared elsewhere,
+which is why it's one of the ones that I</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/120-0
+00:11:37.088 --> 00:11:37.408
+<v >OK.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/122-2
+00:11:41.422 --> 00:11:45.860
+<v >haven't got in that list yet.
+But because of course the fees change</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/121-0
+00:11:43.728 --> 00:11:44.208
+<v >See.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/122-3
+00:11:45.860 --> 00:11:50.560
+<v >each year, they go up each year,
+so we have to have records for all the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/122-4
+00:11:50.560 --> 00:11:53.888
+<v >different types,
+all the different judge types and</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/123-0
+00:11:54.088 --> 00:11:56.848
+<v >All of the different time periods that
+they cover.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/124-0
+00:11:58.528 --> 00:12:02.272
+<v >So who enters this data in terms of
+different feed structures?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/124-1
+00:12:02.272 --> 00:12:04.768
+<v >Is that the JI users, RSU users, whatever?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/126-0
+00:12:04.208 --> 00:12:08.886
+<v >No, no, that comes down to me.
+That's part of my role.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/125-0
+00:12:07.008 --> 00:12:07.488
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/126-1
+00:12:08.886 --> 00:12:12.968
+<v >I have finance or judicial office,
+let me know.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/127-0
+00:12:13.328 --> 00:12:15.928
+<v >Okay, so there's a lot,
+so there's an RFC or something like that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/127-1
+00:12:15.928 --> 00:12:17.728
+<v >and you set up that judge behind the
+scenes.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/129-0
+00:12:17.088 --> 00:12:21.607
+<v >Yeah, yeah, yeah.
+To a certain degree we do get Vicky's</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/129-1
+00:12:21.607 --> 00:12:27.014
+<v >team to do stuff as well.
+The ones that I've trained up is part of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/128-0
+00:12:24.928 --> 00:12:25.408
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/129-2
+00:12:27.014 --> 00:12:30.564
+<v >the reason we're having the help desk
+apps.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/129-3
+00:12:30.564 --> 00:12:35.728
+<v >Basically what I try and do is put things
+in there that I think</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/131-0
+00:12:36.608 --> 00:12:42.040
+<v >if I can do everything programmatically
+and safely do it programmatically,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/131-1
+00:12:42.040 --> 00:12:47.688
+<v >I will put a page in there for them to
+use and just keep an eye on it myself.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/130-0
+00:12:45.728 --> 00:12:46.368
+<v >See you.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/133-0
+00:12:49.928 --> 00:12:53.257
+<v >which I've had no choice,
+basically I've had to do that since we</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/133-1
+00:12:53.257 --> 00:12:55.408
+<v >dropped down from three people to just me.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/132-0
+00:12:56.008 --> 00:12:56.208
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/134-0
+00:12:57.728 --> 00:12:58.128
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/135-0
+00:12:59.248 --> 00:13:01.248
+<v >Do, do, do, do, do.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/137-0
+00:13:02.768 --> 00:13:06.808
+<v >How do you get your application,
+your leave approved? I'm wondering.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/136-0
+00:13:06.568 --> 00:13:07.008
+<v >Ha ha ha!</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/139-0
+00:13:09.048 --> 00:13:10.928
+<v >What do you do to get that approved?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/138-0
+00:13:09.488 --> 00:13:09.968
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/140-0
+00:13:11.408 --> 00:13:14.208
+<v >Yeah, it's basically...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/143-0
+00:13:16.568 --> 00:13:20.475
+<v >They do just pretty much approve anything
+I ask for. Obviously,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/141-0
+00:13:19.968 --> 00:13:20.128
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/143-1
+00:13:20.475 --> 00:13:24.810
+<v >if I was to ask for a month off,
+I don't think that would be approved.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/142-0
+00:13:23.968 --> 00:13:24.448
+<v >Mmh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/143-2
+00:13:24.810 --> 00:13:28.289
+<v >But I have had a fortnight before now,
+but on the whole,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/143-3
+00:13:28.289 --> 00:13:32.807
+<v >I do just take weeks or less. We actually,
+there's a system on all of our</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/143-4
+00:13:32.807 --> 00:13:35.248
+<v >applications we call Message of the Day.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/145-0
+00:13:35.528 --> 00:13:38.754
+<v >which just allows us to put notification
+messages up.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/145-1
+00:13:38.754 --> 00:13:43.592
+<v >And we've actually started in the last 12
+months putting messages up to say that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/145-2
+00:13:43.592 --> 00:13:48.311
+<v >there's no second line support for a week
+or very limited second line support.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/144-0
+00:13:45.608 --> 00:13:46.088
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/145-3
+00:13:48.311 --> 00:13:48.848
+<v >There are</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/148-0
+00:13:50.088 --> 00:13:56.190
+<v >a couple of people that can do things.
+And the guy I mentioned yesterday that's</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/148-1
+00:13:56.190 --> 00:14:00.766
+<v >been promoted in a dire emergency,
+he could be called back,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/148-2
+00:14:00.766 --> 00:14:06.029
+<v >but it's not something that anybody
+really particularly wants to do.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/146-0
+00:14:03.088 --> 00:14:03.408
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/148-3
+00:14:06.029 --> 00:14:11.139
+<v >Plus also is the fact he's not done
+anything for so long. So yeah,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/148-4
+00:14:11.139 --> 00:14:13.808
+<v >I think it's just accepted now that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/147-0
+00:14:11.248 --> 00:14:11.408
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/149-0
+00:14:15.488 --> 00:14:19.088
+<v >There's just times when we're not going
+to have second-line support.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/150-0
+00:14:19.768 --> 00:14:20.248
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/152-0
+00:14:20.208 --> 00:14:24.452
+<v >Thankfully, up until now,
+we've never had any critical problems.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/152-1
+00:14:24.452 --> 00:14:25.888
+<v >Not like this morning.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/151-0
+00:14:25.008 --> 00:14:25.128
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/153-0
+00:14:28.448 --> 00:14:29.088
+<v >That, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/154-0
+00:14:29.568 --> 00:14:30.288
+<v >This week, sir.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/155-0
+00:14:30.608 --> 00:14:38.208
+<v >Yeah, it's all good fun.
+Table JIFP cancillors.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/156-0
+00:14:39.408 --> 00:14:41.688
+<v >Think, let me just quickly check.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/157-0
+00:14:46.048 --> 00:14:50.119
+<v >I think that's just used for a list of
+values. Yes,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/157-1
+00:14:50.119 --> 00:14:53.328
+<v >that is to say who's cancelled a booking.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/158-0
+00:14:54.848 --> 00:15:00.995
+<v >Now this goes back to what was said
+yesterday about if it's cancelled last</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/158-1
+00:15:00.995 --> 00:15:01.568
+<v >minute.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/160-0
+00:15:03.968 --> 00:15:08.223
+<v >the fee paid judges can actually still
+claim their fee.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/160-1
+00:15:08.223 --> 00:15:13.542
+<v >So when a booking is cancelled,
+we do actually ask whether it was the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/159-0
+00:15:08.408 --> 00:15:08.688
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/160-2
+00:15:13.542 --> 00:15:16.961
+<v >judge,
+the local office or the judicial team</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/160-3
+00:15:16.961 --> 00:15:21.368
+<v >that cancelled it.
+Because obviously if it was the judge,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/162-0
+00:15:21.968 --> 00:15:28.008
+<v >then they're not entitled to that payment.
+It's one of those things that really goes</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/162-1
+00:15:28.008 --> 00:15:33.480
+<v >back to when we were actually paying the
+cancelled or the late cancellations</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/161-0
+00:15:32.688 --> 00:15:32.848
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/162-2
+00:15:33.480 --> 00:15:37.815
+<v >through the system,
+but it's the sort of thing that JFEPs do</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/162-3
+00:15:37.815 --> 00:15:40.728
+<v >look at to see who actually cancelled it.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/167-0
+00:15:42.048 --> 00:15:46.597
+<v >So if I had like a booking for a week,
+you would have 5 rooms in the booking</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/163-0
+00:15:45.408 --> 00:15:45.808
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/167-1
+00:15:46.597 --> 00:15:49.964
+<v >detail for each day and then one of them
+gets cancelled,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/164-0
+00:15:47.568 --> 00:15:47.928
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/165-0
+00:15:48.848 --> 00:15:49.328
+<v >Yep.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/167-2
+00:15:49.964 --> 00:15:52.208
+<v >you'll have one row in the cancellers.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/166-0
+00:15:52.768 --> 00:15:53.088
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/168-0
+00:15:53.648 --> 00:15:56.128
+<v >So, cancelers, I mean that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/169-0
+00:15:55.328 --> 00:15:59.753
+<v >Oh, oh, sorry, sorry, no, no,
+the counsellor is just data that's used</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/169-1
+00:15:59.753 --> 00:16:00.448
+<v >for an LOV.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/170-0
+00:16:02.648 --> 00:16:03.928
+<v >What do you mean by LOV?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/171-0
+00:16:04.128 --> 00:16:05.168
+<v >List of values.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/172-0
+00:16:06.128 --> 00:16:08.365
+<v >Okay,
+so the people who are allowed to cancel</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/172-1
+00:16:08.365 --> 00:16:08.608
+<v >or...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/173-0
+00:16:08.608 --> 00:16:09.368
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/175-0
+00:16:10.208 --> 00:16:14.086
+<v >Or whether it was judge or it was someone
+else cancelling that booking, I see.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/174-0
+00:16:12.368 --> 00:16:14.208
+<v >Yeah, yeah, yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/175-1
+00:16:14.086 --> 00:16:17.914
+<v >But that cancellation detail where I
+presume will stay in the booking detail,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/175-2
+00:16:17.914 --> 00:16:18.208
+<v >right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/176-0
+00:16:17.968 --> 00:16:21.384
+<v >That will be in the booking detail. Yeah,
+we will.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/176-1
+00:16:21.384 --> 00:16:26.741
+<v >We've got various columns in there that
+hold all sorts of information about the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/176-2
+00:16:26.741 --> 00:16:30.491
+<v >cancellation,
+even the date that the e-mail was sent to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/176-3
+00:16:30.491 --> 00:16:32.768
+<v >the judge saying it was cancelled.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/177-0
+00:16:35.408 --> 00:16:37.728
+<v >So it's almost like a reference data kind
+of thing.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/178-0
+00:16:37.968 --> 00:16:38.288
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/179-0
+00:16:39.008 --> 00:16:39.328
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/180-0
+00:16:41.168 --> 00:16:41.648
+<v >Thanks.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/181-0
+00:16:42.128 --> 00:16:42.688
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/182-0
+00:16:43.888 --> 00:16:48.453
+<v >Just keep doing the smaller blocks first.
+Let's come across to audit and</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/182-1
+00:16:48.453 --> 00:16:49.328
+<v >cross-cutting.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/183-0
+00:16:49.888 --> 00:16:50.168
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/184-0
+00:16:51.408 --> 00:16:55.296
+<v >Right,
+so table JI changes and table JI change</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/184-1
+00:16:55.296 --> 00:17:02.160
+<v >types, we don't really use it as much now.
+This was something we tried to build in</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/184-2
+00:17:02.160 --> 00:17:09.025
+<v >to allow us to build up a full history of
+what was happening. So table JI changes,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/184-3
+00:17:09.025 --> 00:17:13.408
+<v >basically whenever any change was made to
+any of the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/186-0
+00:17:13.568 --> 00:17:19.522
+<v >the key tables, we would have a change ID.
+And then this would detail what the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/185-0
+00:17:18.968 --> 00:17:19.408
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/186-1
+00:17:19.522 --> 00:17:25.550
+<v >previous values were based on the values
+that have been amended. Unfortunately,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/186-2
+00:17:25.550 --> 00:17:31.504
+<v >we had it there when we first went live,
+but because we had to make changes so</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/186-3
+00:17:31.504 --> 00:17:35.196
+<v >quickly,
+it's one of those things that dropped a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/186-4
+00:17:35.196 --> 00:17:35.648
+<v >bit by</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/187-0
+00:17:35.888 --> 00:17:36.688
+<v >By the side.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/188-0
+00:17:36.288 --> 00:17:38.848
+<v >It's been huge within the first month
+itself, isn't it?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/192-0
+00:17:38.128 --> 00:17:42.987
+<v >It was horrendous. Yeah,
+that was another reason why we sort of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/189-0
+00:17:39.968 --> 00:17:40.128
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/192-1
+00:17:42.987 --> 00:17:47.010
+<v >decided, no,
+it was a nice idea to be able to have a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/192-2
+00:17:47.010 --> 00:17:50.957
+<v >full audit history.
+But it just didn't really work.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/192-3
+00:17:50.957 --> 00:17:56.119
+<v >So they're semi-obsolete.
+We just keep them there because there are</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/190-0
+00:17:53.328 --> 00:17:53.568
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/192-4
+00:17:56.119 --> 00:17:58.168
+<v >certain times when they do.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/193-0
+00:17:58.448 --> 00:17:59.808
+<v >Still log something.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/191-0
+00:17:59.248 --> 00:18:00.048
+<v >Still, OK.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/195-0
+00:18:01.008 --> 00:18:06.063
+<v >and table JI restricted ITIN users that
+stands for.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/195-1
+00:18:06.063 --> 00:18:11.408
+<v >So most users can only see the current
+financial year.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/194-0
+00:18:12.288 --> 00:18:12.448
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/196-0
+00:18:13.088 --> 00:18:18.347
+<v >in their data, because again,
+it all comes back to people knowing</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/196-1
+00:18:18.347 --> 00:18:22.968
+<v >things in advance.
+So when they're setting up new working</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/196-2
+00:18:22.968 --> 00:18:29.024
+<v >patterns for the next financial year,
+that's all supposed to be kept secret</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/196-3
+00:18:29.024 --> 00:18:32.768
+<v >until each judge has been personally
+informed.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/197-0
+00:18:34.008 --> 00:18:38.680
+<v >So what we do, we have this table,
+JI restricted ITIN users,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/197-1
+00:18:38.680 --> 00:18:44.424
+<v >which basically just gives us IDs of
+users that are allowed to view future</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/197-2
+00:18:44.424 --> 00:18:48.866
+<v >itineraries. Obviously,
+when it comes to sort of January,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/197-3
+00:18:48.866 --> 00:18:52.848
+<v >February,
+that gets quite full of people because...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/198-0
+00:18:53.808 --> 00:18:59.903
+<v >by that time people do need to see the
+next financial year.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/198-1
+00:18:59.903 --> 00:19:07.725
+<v >But one of my 1st of April tasks is to
+actually wipe all of that table apart</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/198-2
+00:19:07.725 --> 00:19:09.248
+<v >from RSU users.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/200-0
+00:19:10.808 --> 00:19:13.568
+<v >And we're talking about actual users here,
+not user types, right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/199-0
+00:19:10.928 --> 00:19:11.488
+<v >Set.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/202-0
+00:19:13.808 --> 00:19:19.732
+<v >Yeah, yeah, yeah. So yeah,
+it ranges this time of year.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/202-1
+00:19:19.732 --> 00:19:27.983
+<v >There's probably only about 50 rows in
+there. But come, well, say March time,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/202-2
+00:19:27.983 --> 00:19:32.848
+<v >there can be pretty much every user in
+there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/201-0
+00:19:34.208 --> 00:19:34.448
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/203-0
+00:19:34.928 --> 00:19:38.376
+<v >It's just saying,
+it's something that we don't actually</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/203-1
+00:19:38.376 --> 00:19:42.194
+<v >deal with ourselves.
+That's something the RSU has a user that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/203-2
+00:19:42.194 --> 00:19:46.688
+<v >can actually set that up and add people
+to it. So that just covers that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/205-0
+00:19:47.648 --> 00:19:50.485
+<v >Yeah,
+so RSU should be able to do that because</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/205-1
+00:19:50.485 --> 00:19:53.261
+<v >they are actually doing their activity
+right.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/205-2
+00:19:53.261 --> 00:19:57.968
+<v >So it's the code users who should not be
+able to access that before the time.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/204-0
+00:19:53.488 --> 00:19:53.728
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/206-0
+00:20:05.288 --> 00:20:05.448
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/207-0
+00:20:11.488 --> 00:20:11.648
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/208-0
+00:20:12.048 --> 00:20:15.568
+<v >Um, but yeah,
+it's they need to be in there to be.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/209-0
+00:20:13.608 --> 00:20:17.368
+<v >It's extremely,
+extremely optimistic to be able to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/209-1
+00:20:17.368 --> 00:20:18.768
+<v >predict five years.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/213-0
+00:20:17.408 --> 00:20:22.664
+<v >Yes, yeah. Yeah, to be perfectly honest,
+I think even going two years in advance</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/213-1
+00:20:22.664 --> 00:20:26.686
+<v >would be pushing it.
+And particularly when things happen like</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/211-0
+00:20:23.568 --> 00:20:23.968
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/213-2
+00:20:26.686 --> 00:20:31.747
+<v >this year where they've been told that
+they can basically sit as many days as</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/213-3
+00:20:31.747 --> 00:20:36.288
+<v >they want to rather than being restricted
+like they have in the past.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/214-0
+00:20:36.928 --> 00:20:43.674
+<v >So if anyone had pre-done this year,
+they've probably had to go back and do it</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/212-0
+00:20:37.168 --> 00:20:37.808
+<v >See.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/214-1
+00:20:43.674 --> 00:20:44.528
+<v >all again.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/216-0
+00:20:43.728 --> 00:20:46.684
+<v >So what happens to sitting days, right,
+when they say unlimited?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/216-1
+00:20:46.684 --> 00:20:50.048
+<v >So what do they do with the sitting days?
+They just sort of ignore it or?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/219-0
+00:20:50.288 --> 00:20:53.417
+<v >Yeah,
+basically we have the profiles for the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/219-1
+00:20:53.417 --> 00:20:57.589
+<v >number of sitting days,
+but if they go over their profiles,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/219-2
+00:20:57.589 --> 00:21:02.317
+<v >it doesn't really matter.
+That's another return that I'm working on</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/217-0
+00:21:00.528 --> 00:21:01.008
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/219-3
+00:21:02.317 --> 00:21:07.670
+<v >at the moment within OPT data itself,
+because everyone's set their profiles,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/218-0
+00:21:06.528 --> 00:21:06.688
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/219-4
+00:21:07.670 --> 00:21:09.408
+<v >but they've got it wrong.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/222-0
+00:21:09.808 --> 00:21:15.488
+<v >So I'm having to unverify literally, well,
+near enough every location,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/222-1
+00:21:15.488 --> 00:21:19.008
+<v >which is great fun.
+It's not boring at all.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/220-0
+00:21:15.528 --> 00:21:16.208
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/221-0
+00:21:18.368 --> 00:21:21.568
+<v >Yeah, I believe you.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/223-0
+00:21:22.128 --> 00:21:22.568
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/225-0
+00:21:23.648 --> 00:21:28.639
+<v >Okay, an absence and cover workflow.
+So ABSO B and ABSO B detail,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/225-1
+00:21:28.639 --> 00:21:34.689
+<v >that's much the same as bookings and
+booking detail. So you have your absences.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/225-2
+00:21:34.689 --> 00:21:38.848
+<v >The ABSO B is actually absences and
+official business.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/224-0
+00:21:39.408 --> 00:21:39.888
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/227-0
+00:21:40.448 --> 00:21:44.926
+<v >So you have an absence,
+which could be a day, it could be a week,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/227-1
+00:21:44.926 --> 00:21:49.132
+<v >it could be a year.
+So you have one row for the whole absence</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/227-2
+00:21:49.132 --> 00:21:53.406
+<v >in table JI, abs OB,
+and then an individual row per day in the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/227-3
+00:21:53.406 --> 00:21:54.288
+<v >detail table.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/226-0
+00:21:55.608 --> 00:21:56.088
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/228-0
+00:21:56.528 --> 00:22:01.277
+<v >Exactly the same reasons as bookings,
+it allows you to change one day without</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/228-1
+00:22:01.277 --> 00:22:03.408
+<v >having to cancel the whole absence.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/229-0
+00:22:04.208 --> 00:22:04.608
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/230-0
+00:22:06.288 --> 00:22:06.728
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/231-0
+00:22:10.248 --> 00:22:11.528
+<v >Cats types.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/232-0
+00:22:12.768 --> 00:22:15.728
+<v >So it's categories, types,
+vacancy options.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/235-0
+00:22:19.088 --> 00:22:24.412
+<v >And vacancy council reasons,
+they're all used for list of values,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/235-1
+00:22:24.412 --> 00:22:29.494
+<v >so they're just standing data. They do,
+we do get, yeah, yeah,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/233-0
+00:22:27.168 --> 00:22:28.368
+<v >Reference data.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/235-2
+00:22:29.494 --> 00:22:33.688
+<v >we do get occasional rows added or rows
+taken away,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/234-0
+00:22:30.048 --> 00:22:30.208
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/235-3
+00:22:33.688 --> 00:22:38.608
+<v >but they all have an in-use column in
+them, so it's easy to.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/236-0
+00:22:38.928 --> 00:22:40.688
+<v >To mark something as not available.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/237-0
+00:22:41.888 --> 00:22:42.128
+<v >Uh...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/238-0
+00:22:44.688 --> 00:22:50.528
+<v >Vacancy and vacancies groups,
+that's a bit like all these others again.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/238-1
+00:22:50.528 --> 00:22:56.448
+<v >So vacancies is actually the detail table,
+whereas vacancy groups is the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/239-0
+00:22:58.288 --> 00:23:02.266
+<v >overall table.
+So this is when there's been an absence</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/239-1
+00:23:02.266 --> 00:23:07.617
+<v >or there is going to be an absence and
+they've said they want to create a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/239-2
+00:23:07.617 --> 00:23:11.232
+<v >vacancy for it.
+So you would have vacancy groups,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/239-3
+00:23:11.232 --> 00:23:16.728
+<v >there'd be a one row in there which
+covers the whole period of the vacancy.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/240-0
+00:23:17.248 --> 00:23:22.208
+<v >And then one row in vacancies per day of
+the vacancy.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/242-0
+00:23:23.728 --> 00:23:26.809
+<v >Typically,
+we've not followed the same naming format</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/241-0
+00:23:24.248 --> 00:23:24.488
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/242-1
+00:23:26.809 --> 00:23:29.483
+<v >there.
+I think this was going back to when we</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/242-2
+00:23:29.483 --> 00:23:33.029
+<v >initially created it all.
+There was one of us doing one bit,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/242-3
+00:23:33.029 --> 00:23:36.342
+<v >one of us doing another,
+and we hadn't sort of come to a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/242-4
+00:23:36.342 --> 00:23:39.248
+<v >conclusion what the best naming
+conventions were.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/245-0
+00:23:39.488 --> 00:23:42.973
+<v >Yeah, I was going to get pedantic on that,
+but I think I hear you reading.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/243-0
+00:23:41.728 --> 00:23:43.248
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/245-1
+00:23:42.973 --> 00:23:46.412
+<v >It's probably one of the first steps it
+was probably you created and then</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/244-0
+00:23:46.288 --> 00:23:46.688
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/245-2
+00:23:46.412 --> 00:23:48.688
+<v >realized,
+let's stick with the detailed pattern.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/246-0
+00:23:48.688 --> 00:23:53.541
+<v >Yeah, yeah, it makes more sense.
+And even now I regularly forget about</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/246-1
+00:23:53.541 --> 00:23:58.326
+<v >vacancy groups if I'm searching for a
+problem or something like that,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/246-2
+00:23:58.326 --> 00:24:02.768
+<v >because it just doesn't follow the flow
+of all the other tables.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/248-0
+00:24:03.408 --> 00:24:07.436
+<v >Yeah, no,
+I think this thing and underscore detail</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/247-0
+00:24:04.688 --> 00:24:05.008
+<v >For.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/248-1
+00:24:07.436 --> 00:24:09.568
+<v >is much more intuitive and.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/250-0
+00:24:07.888 --> 00:24:13.300
+<v >Yeah, it is obvious.
+It is obvious what we got there. Right,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/249-0
+00:24:11.008 --> 00:24:11.888
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/250-1
+00:24:13.300 --> 00:24:16.848
+<v >let's have a look at the reference data.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/251-0
+00:24:18.528 --> 00:24:23.008
+<v >Columns, types, cats, sitting durations.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/252-0
+00:24:24.448 --> 00:24:27.808
+<v >There he is, extra non-working days.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/253-0
+00:24:30.368 --> 00:24:31.168
+<v >Actual.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/254-0
+00:24:33.088 --> 00:24:35.448
+<v >Working day link.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/255-0
+00:24:38.528 --> 00:24:40.728
+<v >Planned working day links.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/256-0
+00:24:42.088 --> 00:24:43.888
+<v >JTSDO.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/257-0
+00:24:44.848 --> 00:24:50.448
+<v >Although that'll be sitting day links.
+I'm not quite sure what JT links is.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/258-0
+00:24:53.648 --> 00:24:54.208
+<v >It's just...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/259-0
+00:24:57.808 --> 00:24:59.768
+<v >UIA.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/260-0
+00:25:03.728 --> 00:25:07.405
+<v >Maybe I'm having to have you remember
+things which probably are not used</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/262-0
+00:25:07.248 --> 00:25:10.595
+<v >Well,
+the problem is there's some of these</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/260-1
+00:25:07.405 --> 00:25:07.808
+<v >anymore.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/262-1
+00:25:10.595 --> 00:25:15.808
+<v >tables that literally you just never go
+to. Let's see what this...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/261-0
+00:25:13.408 --> 00:25:13.808
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/263-0
+00:25:18.928 --> 00:25:19.808
+<v >That was UA.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/264-0
+00:25:24.208 --> 00:25:27.008
+<v >Got to get myself a new pair of computer
+glasses.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/265-0
+00:25:30.128 --> 00:25:35.441
+<v >Ahh, right, yeah,
+so that that bottom one is saying what's..</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/265-1
+00:25:35.441 --> 00:25:35.528
+<v >.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/266-0
+00:25:36.528 --> 00:25:37.648
+<v >Judge types.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/267-0
+00:25:38.608 --> 00:25:42.528
+<v >People of each user type can access.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/268-0
+00:25:43.168 --> 00:25:43.808
+<v >It's.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/270-0
+00:25:44.128 --> 00:25:46.809
+<v >So it's a bit like we were discussing
+yesterday,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/270-1
+00:25:46.809 --> 00:25:49.217
+<v >whereas the courts can see district
+judges,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/270-2
+00:25:49.217 --> 00:25:53.648
+<v >but can't normally see circuit judges.
+So that's the table that allows for that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/269-0
+00:25:51.488 --> 00:25:51.728
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/271-0
+00:25:55.808 --> 00:25:57.648
+<v >And then, so...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/273-0
+00:25:58.608 --> 00:25:59.728
+<v >Work patterns.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/272-0
+00:25:59.008 --> 00:25:59.408
+<v >See.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/274-0
+00:26:00.608 --> 00:26:01.888
+<v >Bert pattern detail.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/275-0
+00:26:03.488 --> 00:26:10.534
+<v >Similar sort of thing when our work
+patterns can be daily, weekly, monthly,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/275-1
+00:26:10.534 --> 00:26:13.408
+<v >two weekly, three weekly, so...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/276-0
+00:26:14.768 --> 00:26:20.302
+<v >Basically the same sort of thing again,
+you have one row in the work pattern and</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/276-1
+00:26:20.302 --> 00:26:24.128
+<v >then one row per day in the work pattern
+in the detail.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/277-0
+00:26:29.328 --> 00:26:35.172
+<v >Jurisdictional split.
+So each judge can be split technically</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/277-1
+00:26:35.172 --> 00:26:42.069
+<v >between civil, family, crime,
+and I think there's a few other things as</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/277-2
+00:26:42.069 --> 00:26:48.008
+<v >well. So we keep a record there.
+This is based on judge role.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/278-0
+00:26:48.688 --> 00:26:52.555
+<v >So table judges,
+so I think it's linked to the judge code</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/278-1
+00:26:52.555 --> 00:26:58.088
+<v >and that just tells us what the split is
+per year or I think it's got a start date</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/278-2
+00:26:58.088 --> 00:27:02.688
+<v >and an end date so it can be any time
+during the year it can change.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/280-0
+00:27:03.008 --> 00:27:06.867
+<v >So this is where the user is going in and
+saying he's going to sit 40% family,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/280-1
+00:27:06.867 --> 00:27:08.528
+<v >30% civil, things like that. Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/279-0
+00:27:07.088 --> 00:27:08.568
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/281-0
+00:27:10.128 --> 00:27:12.488
+<v >Judge Juris.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/282-0
+00:27:15.488 --> 00:27:15.528
+<v >Uhh...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/283-0
+00:27:17.088 --> 00:27:18.528
+<v >Says it, just judge.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/284-0
+00:27:17.488 --> 00:27:19.685
+<v >It again,
+like a reference data for the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/284-1
+00:27:19.685 --> 00:27:21.168
+<v >jurisdictions or something.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/285-0
+00:27:21.088 --> 00:27:23.648
+<v >It, it looks like it, yeah, and just...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/287-0
+00:27:25.648 --> 00:27:29.033
+<v >Oh yes,
+so that literally has just got three rows</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/287-1
+00:27:29.033 --> 00:27:33.568
+<v >in it, crime, civil and family.
+So that is a reference data table.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/286-0
+00:27:30.368 --> 00:27:30.848
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/288-0
+00:27:34.928 --> 00:27:39.817
+<v >Ticket types is another reference data
+table which basically says all of the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/288-1
+00:27:39.817 --> 00:27:44.897
+<v >different ticket types that are available
+to a judge and there's quite a lot of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/288-2
+00:27:44.897 --> 00:27:47.881
+<v >them.
+Whereas judges links the tickets type to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/288-3
+00:27:47.881 --> 00:27:50.928
+<v >the judge.
+So that's the one that tells us what</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/289-0
+00:27:53.968 --> 00:27:56.288
+<v >Tickets the judge has actually got.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/290-0
+00:27:56.768 --> 00:27:57.248
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/291-0
+00:27:59.088 --> 00:28:04.528
+<v >Judge courts link,
+that's what courts a judge can sit at.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/293-0
+00:28:06.928 --> 00:28:11.480
+<v >And basically,
+that's mostly used for when judges are</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/293-1
+00:28:11.480 --> 00:28:15.610
+<v >shared.
+So you can share a judge between courts,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/292-0
+00:28:14.368 --> 00:28:14.568
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/293-2
+00:28:15.610 --> 00:28:21.932
+<v >you can share a judge between regions.
+And it's all done within JI itself.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/293-3
+00:28:21.932 --> 00:28:24.208
+<v >They set up a sharing link.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/294-0
+00:28:24.488 --> 00:28:29.046
+<v >and that will then populate that table.
+So it allows us to say, oh yeah,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/294-1
+00:28:29.046 --> 00:28:31.168
+<v >that judge can work at that court.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/295-0
+00:28:32.448 --> 00:28:35.114
+<v >Judge fee rates,
+so that's the one that I was mentioning</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/295-1
+00:28:35.114 --> 00:28:35.488
+<v >earlier.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/297-0
+00:28:36.448 --> 00:28:39.861
+<v >So sorry, so on the link one,
+so that will also have information on</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/296-0
+00:28:38.448 --> 00:28:38.928
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/297-1
+00:28:39.861 --> 00:28:41.768
+<v >which area it is actually shared with.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/299-0
+00:28:42.048 --> 00:28:45.846
+<v >Yeah,
+it is actually broken down to court IDs.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/299-1
+00:28:45.846 --> 00:28:49.967
+<v >So each court,
+so if we say we're sharing it with,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/298-0
+00:28:47.208 --> 00:28:47.568
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/299-2
+00:28:49.967 --> 00:28:53.927
+<v >sharing a Southeast judge with Northwest
+Region,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/299-3
+00:28:53.927 --> 00:28:58.128
+<v >there would be a row per court in
+Northwest Region.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/300-0
+00:28:58.648 --> 00:29:01.798
+<v >Okay,
+so is there a concept of region in the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/300-1
+00:29:01.798 --> 00:29:05.648
+<v >system or is it just quotes and the
+region is sort of?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/302-0
+00:29:04.928 --> 00:29:09.235
+<v >We, on the whole,
+it is just done by courts.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/302-1
+00:29:09.235 --> 00:29:15.648
+<v >We don't really do things by region
+because it's simpler that way.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/301-0
+00:29:09.848 --> 00:29:10.208
+<v >I can.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/303-0
+00:29:15.008 --> 00:29:18.368
+<v >So how do you how do you work out which
+code belongs to which region?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/304-0
+00:29:18.928 --> 00:29:21.008
+<v >Right, each user has got.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/307-0
+00:29:24.768 --> 00:29:29.850
+<v >as part of their user record, they have,
+I can't remember what we call it,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/307-1
+00:29:29.850 --> 00:29:35.136
+<v >it's like a location set up for them,
+which lists all of the courts that they</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/305-0
+00:29:31.408 --> 00:29:32.928
+<v >Yeah, location.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/307-2
+00:29:35.136 --> 00:29:38.659
+<v >can access.
+With actually joining courts to region,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/306-0
+00:29:35.728 --> 00:29:36.288
+<v >I see.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/307-3
+00:29:38.659 --> 00:29:42.657
+<v >I've not actually,
+this is one of the shared tables that I</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/307-4
+00:29:42.657 --> 00:29:42.928
+<v >got.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/310-0
+00:29:43.088 --> 00:29:47.972
+<v >put in here. We have table courts,
+which details all of the information on</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/310-1
+00:29:47.972 --> 00:29:52.660
+<v >the courts. That links to table areas,
+which is basically now known as,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/310-2
+00:29:52.660 --> 00:29:57.478
+<v >they're now known as clusters.
+So you have so many courts within an area.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/308-0
+00:29:56.168 --> 00:29:56.288
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/310-3
+00:29:57.478 --> 00:30:01.775
+<v >And then that links to table regions,
+which gives us the regions.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/310-4
+00:30:01.775 --> 00:30:03.728
+<v >So we just do the links there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/309-0
+00:30:04.768 --> 00:30:05.248
+<v >OK.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/311-0
+00:30:05.888 --> 00:30:07.488
+<v >We just share the tables.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/312-0
+00:30:12.288 --> 00:30:15.531
+<v >Yeah,
+so fee rates basically is telling us for</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/312-1
+00:30:15.531 --> 00:30:17.808
+<v >each judge type. Oh, yeah, go on.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/314-0
+00:30:17.848 --> 00:30:21.592
+<v >I just wanted to understand because I
+think it's probably,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/314-1
+00:30:21.592 --> 00:30:24.638
+<v >it's too many things in there,
+packed in there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/313-0
+00:30:22.848 --> 00:30:23.328
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/314-2
+00:30:24.638 --> 00:30:27.874
+<v >So if I were to share a judge with
+another region,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/314-3
+00:30:27.874 --> 00:30:32.950
+<v >I would work out which courts this judge
+is allowed to sit in and then create a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/314-4
+00:30:32.950 --> 00:30:35.488
+<v >rule for each one of those in the links.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/316-0
+00:30:35.488 --> 00:30:39.035
+<v >Yeah,
+the system actually does it automatically.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/315-0
+00:30:36.608 --> 00:30:39.168
+<v >So yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/316-1
+00:30:39.035 --> 00:30:43.450
+<v >So the user has a choice.
+They can either share it with just</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/316-2
+00:30:43.450 --> 00:30:47.359
+<v >specified courts,
+they can share it with an area or a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/316-3
+00:30:47.359 --> 00:30:50.616
+<v >cluster,
+or they can share it with a region.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/316-4
+00:30:50.616 --> 00:30:55.248
+<v >And as soon as they click the button,
+if they've chosen region,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/318-0
+00:30:55.568 --> 00:30:58.608
+<v >It will put a row in per court within the
+region.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/317-0
+00:30:57.488 --> 00:30:58.408
+<v >The code.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/319-0
+00:30:59.208 --> 00:31:02.128
+<v >But the user is themselves selecting the
+region, right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/321-0
+00:31:02.128 --> 00:31:06.239
+<v >Yeah, the user would,
+the user who's creating the sharing</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/321-1
+00:31:06.239 --> 00:31:10.066
+<v >agreement would select,
+they've got two select boxes.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/321-2
+00:31:10.066 --> 00:31:14.744
+<v >So the first one is saying whether they
+want to do courts, areas,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/321-3
+00:31:14.744 --> 00:31:18.004
+<v >clusters or regions.
+And then the second one,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/321-4
+00:31:18.004 --> 00:31:20.768
+<v >which populates based on the first one,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/323-0
+00:31:21.168 --> 00:31:25.117
+<v >we'll then give them a list to pick from
+of what they've got there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/323-1
+00:31:25.117 --> 00:31:29.124
+<v >So as far as they're concerned,
+they're just saying that anyone on X</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/323-2
+00:31:29.124 --> 00:31:32.898
+<v >region can access it,
+whereby as far as the system is concerned,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/322-0
+00:31:29.288 --> 00:31:29.768
+<v >Mmh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/323-3
+00:31:32.898 --> 00:31:36.208
+<v >we put a row in there for each court
+within that region.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/324-0
+00:31:37.368 --> 00:31:40.727
+<v >OK, so, so where do you find out the, uh,
+you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/324-1
+00:31:40.727 --> 00:31:43.568
+<v >relationship between regions and and
+codes?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/325-0
+00:31:44.048 --> 00:31:50.737
+<v >That's all done within the package
+function and it does the link between</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/325-1
+00:31:50.737 --> 00:31:54.768
+<v >table cores,
+table areas and table regions.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/327-0
+00:31:55.608 --> 00:31:58.241
+<v >Yeah, I mean,
+where is the data stored in here, which,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/326-0
+00:31:55.728 --> 00:31:56.208
+<v >So it.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/327-1
+00:31:58.241 --> 00:31:58.528
+<v >which?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/328-0
+00:31:59.688 --> 00:32:02.608
+<v >which table has the linkage between the
+region and the code.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/333-0
+00:32:02.928 --> 00:32:08.209
+<v >We haven't actually got that here because
+that's a set of tables that are shared</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/333-1
+00:32:08.209 --> 00:32:12.642
+<v >between all of the OPT apps.
+These is a set of other tables that we</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/330-0
+00:32:09.328 --> 00:32:10.128
+<v >I see.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/333-2
+00:32:12.642 --> 00:32:16.684
+<v >need to copy in there.
+The problem is working out how many of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/333-3
+00:32:16.684 --> 00:32:20.792
+<v >the shared tables and shared packages are
+actually being used.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/331-0
+00:32:19.488 --> 00:32:19.888
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/333-4
+00:32:20.792 --> 00:32:23.008
+<v >It's just trying to find them all.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/332-0
+00:32:24.848 --> 00:32:25.168
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/334-0
+00:32:29.168 --> 00:32:34.034
+<v >Yep, so fee rates,
+that just is the one that I manually</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/334-1
+00:32:34.034 --> 00:32:39.594
+<v >populate each year when the fees go up
+for the fee paid judges.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/334-2
+00:32:39.594 --> 00:32:45.328
+<v >There's a row in there per judge type or
+per fee paid judge type.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/335-0
+00:32:45.888 --> 00:32:51.568
+<v >and per time period,
+which does tend to be a financial year.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/337-0
+00:32:53.168 --> 00:32:54.288
+<v >And that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/336-0
+00:32:53.488 --> 00:32:53.768
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/338-0
+00:32:55.168 --> 00:32:58.112
+<v >And it ties to the judges, right?
+Because at different rules,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/338-1
+00:32:58.112 --> 00:32:59.488
+<v >they may have different fees.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/339-0
+00:32:59.328 --> 00:33:00.368
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/340-0
+00:33:00.688 --> 00:33:00.848
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/342-0
+00:33:05.808 --> 00:33:10.986
+<v >Judges annual leave,
+we have one row in there per judges</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/342-1
+00:33:10.986 --> 00:33:16.619
+<v >master ID for salaried judges only.
+It just basically, again,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/342-2
+00:33:16.619 --> 00:33:22.705
+<v >it's the overnight routines.
+They calculate all the various values</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/342-3
+00:33:22.705 --> 00:33:26.248
+<v >needed to work out judges annual leave.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/341-0
+00:33:26.808 --> 00:33:27.288
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/343-0
+00:33:27.488 --> 00:33:35.725
+<v >It was just done to speed things up.
+So that's populated every night and then</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/343-1
+00:33:35.725 --> 00:33:43.328
+<v >updated as users make changes.
+Part of the bookings and sittings change</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/343-2
+00:33:43.328 --> 00:33:45.968
+<v >code will actually update</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/344-0
+00:33:46.008 --> 00:33:47.648
+<v >Cheat table judges annual leave.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/345-0
+00:33:51.968 --> 00:33:58.432
+<v >And then the two stats tables are
+probably the key tables as far as we're</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/345-1
+00:33:58.432 --> 00:34:02.624
+<v >concerned.
+Monthly stats is actually a new one.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/345-2
+00:34:02.624 --> 00:34:06.817
+<v >It's only come into operation in the last
+year,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/345-3
+00:34:06.817 --> 00:34:10.048
+<v >whereby we're trying to put a row in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/346-0
+00:34:10.688 --> 00:34:11.488
+<v >Preach.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/347-0
+00:34:13.288 --> 00:34:18.231
+<v >judges master ID saying how many days the
+judges sat in that month,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/347-1
+00:34:18.231 --> 00:34:23.536
+<v >all the different jurisdictions,
+all the different types of sitting they</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/347-2
+00:34:23.536 --> 00:34:28.261
+<v >could have done and also we're populating
+the absences in there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/347-3
+00:34:28.261 --> 00:34:30.368
+<v >So that's just being used for</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/348-0
+00:34:31.728 --> 00:34:33.008
+<v >one of our dashboards.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/349-0
+00:34:34.368 --> 00:34:36.208
+<v >one of our Power BI dashboards.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/351-0
+00:34:35.648 --> 00:34:38.744
+<v >And that's not reflect,
+and that does not reflect the role, right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/351-1
+00:34:38.744 --> 00:34:41.563
+<v >It's like whatever they were doing,
+whether they are paying,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/350-0
+00:34:41.008 --> 00:34:41.288
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/351-2
+00:34:41.563 --> 00:34:43.688
+<v >doing DDJ role or DJ role,
+it doesn't matter.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/352-0
+00:34:42.528 --> 00:34:47.088
+<v >Yep, yep, yeah, whatever role,
+we're just making sure that we know.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/353-0
+00:34:48.048 --> 00:34:53.384
+<v >how many days basically that judge has
+sat for us or done other things.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/353-1
+00:34:53.384 --> 00:34:58.424
+<v >Table judges booking stats,
+that is a similar sort of thing. Again,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/353-2
+00:34:58.424 --> 00:35:01.833
+<v >it's used for one of the Power BI
+dashboards.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/353-3
+00:35:01.833 --> 00:35:07.168
+<v >It just gives information on the bookings.
+It doesn't include absences.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/354-0
+00:35:07.488 --> 00:35:09.968
+<v >And also, that is done per judge role.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/355-0
+00:35:11.808 --> 00:35:13.488
+<v >So, if a judge is a...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/356-0
+00:35:14.808 --> 00:35:19.308
+<v >DJ and a recorder,
+there'd be one row in there for each of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/356-1
+00:35:19.308 --> 00:35:20.528
+<v >those two roles.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/357-0
+00:35:22.088 --> 00:35:26.378
+<v >So you mentioned Power BI dashboards.
+How do you transport this data to that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/357-1
+00:35:26.378 --> 00:35:26.768
+<v >system?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/360-0
+00:35:27.568 --> 00:35:33.175
+<v >A very complex way.
+We have a schema on the live server</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/358-0
+00:35:29.328 --> 00:35:29.888
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/360-1
+00:35:33.175 --> 00:35:39.882
+<v >called table, sorry, table,
+a schema called optlive underscore RO,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/360-2
+00:35:39.882 --> 00:35:45.488
+<v >which is a read-only version of a number
+of the tables.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/359-0
+00:35:42.688 --> 00:35:43.168
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/361-0
+00:35:46.048 --> 00:35:51.497
+<v >and then there's an overnight routine
+that then transfers the current content</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/361-1
+00:35:51.497 --> 00:35:55.968
+<v >of these tables from up live reader only
+over to our BI server.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/363-0
+00:35:57.128 --> 00:36:01.127
+<v >And then that from there,
+it gets pulled into SDP or wherever it</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/362-0
+00:35:58.208 --> 00:35:58.528
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/363-1
+00:36:01.127 --> 00:36:04.448
+<v >needs to be used.
+Up live read only is used for other</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/363-2
+00:36:04.448 --> 00:36:07.462
+<v >things as well.
+If I'm training up a new person,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/363-3
+00:36:07.462 --> 00:36:10.600
+<v >I don't give them access to up live
+straight away.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/363-4
+00:36:10.600 --> 00:36:14.782
+<v >I give them access to up live read only
+and get them to do scripts,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/363-5
+00:36:14.782 --> 00:36:19.088
+<v >which I can then cheque and I will
+actually run the scripts for them.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/364-0
+00:36:20.608 --> 00:36:26.080
+<v >And also it's used by the dashboard teams
+to just quickly have a look at some of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/364-1
+00:36:26.080 --> 00:36:26.688
+<v >the data.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/365-0
+00:36:27.488 --> 00:36:29.916
+<v >Yeah,
+but we are still within the confines of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/365-1
+00:36:29.916 --> 00:36:32.448
+<v >OPT system.
+It's not leaving OPT system per se.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/366-0
+00:36:33.648 --> 00:36:37.328
+<v >It is when it goes from read-only over to
+the BI server.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/368-0
+00:36:38.008 --> 00:36:40.213
+<v >Okay, so how does that connexion work?
+How do you,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/368-1
+00:36:40.213 --> 00:36:42.288
+<v >because that presumably is in the cloud,
+right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/367-0
+00:36:40.608 --> 00:36:41.088
+<v >It.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/371-0
+00:36:42.608 --> 00:36:47.775
+<v >No, no, believe it or not,
+that is another server that we've</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/369-0
+00:36:46.768 --> 00:36:46.928
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/371-1
+00:36:47.775 --> 00:36:53.534
+<v >basically got 4 servers and they've all
+got database links on them.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/370-0
+00:36:49.808 --> 00:36:50.288
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/371-2
+00:36:53.534 --> 00:36:58.701
+<v >So you've got the two dev servers for
+want of a better name.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/371-3
+00:36:58.701 --> 00:37:02.088
+<v >So there's the JI dev server, which that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/372-0
+00:37:02.168 --> 00:37:05.188
+<v >contains the development schema that I
+use.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/372-1
+00:37:05.188 --> 00:37:08.688
+<v >It contains the training schema and a
+test schema.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/373-0
+00:37:09.248 --> 00:37:09.728
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/375-0
+00:37:09.888 --> 00:37:14.755
+<v >And then the BI Dev server is just
+basically a copy of the BI server,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/375-1
+00:37:14.755 --> 00:37:19.900
+<v >but it allows them to test things out
+before they change things on there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/375-2
+00:37:19.900 --> 00:37:24.697
+<v >And then we've got, we call them live,
+so it's Ops Live and BI Live,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/374-0
+00:37:19.968 --> 00:37:20.128
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/375-3
+00:37:24.697 --> 00:37:27.408
+<v >but they're basically the prod servers.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/377-0
+00:37:29.728 --> 00:37:33.961
+<v >So when I say OPT, I mean,
+it's still within the scope of that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/377-1
+00:37:33.961 --> 00:37:38.128
+<v >When you say Power BI,
+we still Power BI within the OPT world.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/376-0
+00:37:34.288 --> 00:37:36.928
+<v >Oh yeah, yeah, yeah, yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/379-0
+00:37:38.288 --> 00:37:42.418
+<v >Yes, yeah, yeah, yeah,
+is we just move it onto a different</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/378-0
+00:37:39.488 --> 00:37:39.808
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/379-1
+00:37:42.418 --> 00:37:44.448
+<v >server for use with Power BI.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/380-0
+00:37:44.928 --> 00:37:47.554
+<v >Yeah,
+so it's not Power BI like the enterprise</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/380-1
+00:37:47.554 --> 00:37:51.968
+<v >where other reports are running at.
+This is different, this is specific to JI.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/381-0
+00:37:52.288 --> 00:37:54.448
+<v >Yeah, yeah, as far as I'm aware.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/382-0
+00:37:55.088 --> 00:37:55.248
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/383-0
+00:37:58.288 --> 00:37:59.008
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/385-0
+00:38:01.368 --> 00:38:05.408
+<v >I think that's about it, isn't that,
+for those?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/384-0
+00:38:04.328 --> 00:38:04.848
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/386-0
+00:38:06.688 --> 00:38:09.008
+<v >I think we done pretty well going through
+them.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/387-0
+00:38:09.008 --> 00:38:09.288
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/388-0
+00:38:13.488 --> 00:38:17.728
+<v >So in terms of I think the other other
+thing I was looking at was...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/391-0
+00:38:19.168 --> 00:38:22.099
+<v >You know,
+to help me understand a little bit more</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/391-1
+00:38:22.099 --> 00:38:25.909
+<v >about the application,
+I think it'll be really helpful because I</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/391-2
+00:38:25.909 --> 00:38:29.133
+<v >can use the AI,
+like just the way I've generated this.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/389-0
+00:38:27.728 --> 00:38:28.208
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/391-3
+00:38:29.133 --> 00:38:33.588
+<v >I can use AI tooling to actually generate
+documentation of the back of your</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/391-4
+00:38:33.588 --> 00:38:36.108
+<v >artifacts.
+So if you're able to export the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/390-0
+00:38:33.648 --> 00:38:33.928
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/391-5
+00:38:36.108 --> 00:38:37.808
+<v >application and export any...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/392-0
+00:38:38.048 --> 00:38:41.008
+<v >You know, schema, and you know,
+maybe put it in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/393-0
+00:38:40.368 --> 00:38:42.608
+<v >Yeah, if I...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/394-0
+00:38:43.568 --> 00:38:47.088
+<v >I don't know what approvals you said you
+needed some approvals to put in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/395-0
+00:38:45.728 --> 00:38:48.903
+<v >Yeah,
+I'm literally just waiting for my manager</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/395-1
+00:38:48.903 --> 00:38:50.688
+<v >to get back to me saying...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/396-0
+00:38:51.568 --> 00:38:54.478
+<v >Yes, go ahead. Let me,
+let me just really share my screen.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/396-1
+00:38:54.478 --> 00:38:55.168
+<v >I'll show you.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/397-0
+00:38:55.648 --> 00:38:56.008
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/398-0
+00:38:56.488 --> 00:38:57.648
+<v >Where I am.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/399-0
+00:39:00.408 --> 00:39:01.970
+<v >Sorry,
+this is the problem when you've got 3</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/399-1
+00:39:01.970 --> 00:39:03.670
+<v >screens,
+is making sure you're sharing the right</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/399-2
+00:39:03.670 --> 00:39:03.808
+<v >one.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/400-0
+00:39:05.088 --> 00:39:06.048
+<v >Absolutely.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/401-0
+00:39:14.128 --> 00:39:15.008
+<v >Has that come up yet?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/402-0
+00:39:15.568 --> 00:39:16.528
+<v >Yeah, yeah, I can see it, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/403-0
+00:39:16.608 --> 00:39:20.797
+<v >Yeah, yeah,
+I've actually been doing a bit on here</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/403-1
+00:39:20.797 --> 00:39:22.768
+<v >today, so this is the...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/404-0
+00:39:25.088 --> 00:39:27.408
+<v >Repo that I'm working on at the moment,
+so...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/408-0
+00:39:28.848 --> 00:39:33.802
+<v >I've got the most, or one of the most,
+actually that's not the most recent,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/408-1
+00:39:33.802 --> 00:39:38.626
+<v >I'll have to put the main one in there.
+So that's the actual app exports.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/405-0
+00:39:34.288 --> 00:39:34.448
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/406-0
+00:39:36.608 --> 00:39:37.088
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/408-2
+00:39:38.626 --> 00:39:41.168
+<v >We've got all the JI packages in there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/407-0
+00:39:42.088 --> 00:39:42.568
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/410-0
+00:39:43.248 --> 00:39:46.457
+<v >I didn't know if you wanted the body as
+well as the spec,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/410-1
+00:39:46.457 --> 00:39:48.448
+<v >so I've given you both for each one.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/409-0
+00:39:48.928 --> 00:39:49.808
+<v >Yeah, no, that's good.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/416-0
+00:39:54.688 --> 00:39:57.121
+<v >See to sort of explain the rationale,
+right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/411-0
+00:39:55.328 --> 00:39:55.728
+<v >Cap.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/416-1
+00:39:57.121 --> 00:40:01.608
+<v >It's not so much because the new system
+will look and feel quite different, right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/412-0
+00:39:57.408 --> 00:39:57.968
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/413-0
+00:40:00.608 --> 00:40:01.168
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/416-2
+00:40:01.608 --> 00:40:05.230
+<v >It's not a like replacement.
+It's going to be more API driven with</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/416-3
+00:40:05.230 --> 00:40:09.014
+<v >database, but it's not going to be,
+you know, database driven system,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/414-0
+00:40:05.648 --> 00:40:06.128
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/416-4
+00:40:09.014 --> 00:40:11.717
+<v >so to speak.
+So the purpose of getting this is to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/416-5
+00:40:11.717 --> 00:40:14.528
+<v >actually, you know,
+to build as clear a picture of.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/415-0
+00:40:16.528 --> 00:40:17.088
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/417-0
+00:40:17.888 --> 00:40:19.328
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/418-0
+00:40:19.648 --> 00:40:22.528
+<v >That's the main, you know,
+reason just to explain it.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/421-0
+00:40:21.408 --> 00:40:26.804
+<v >Yeah, it's the problem I've got,
+so we got everything in here nearly. Well,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/421-1
+00:40:26.804 --> 00:40:32.199
+<v >I haven't got all the tables in there yet.
+I only started doing that today.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/419-0
+00:40:27.168 --> 00:40:27.888
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/421-2
+00:40:32.199 --> 00:40:35.535
+<v >But again,
+it's going to be the shared things,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/421-3
+00:40:35.535 --> 00:40:40.221
+<v >identifying the shared things that are
+going to take me the time.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/420-0
+00:40:38.048 --> 00:40:38.328
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/421-4
+00:40:40.221 --> 00:40:42.208
+<v >And I try to keep this open.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/424-0
+00:40:43.408 --> 00:40:46.686
+<v >during the day,
+because if I've got some long running</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/424-1
+00:40:46.686 --> 00:40:50.571
+<v >code going or something,
+I can quickly start copying a few bits</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/424-2
+00:40:50.571 --> 00:40:53.849
+<v >across to it. But yeah, I'm not far off.
+I literally,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/424-3
+00:40:53.849 --> 00:40:57.733
+<v >as soon as I get the authority,
+I'll give you the access to it.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/423-0
+00:40:57.288 --> 00:40:57.568
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/424-4
+00:40:57.733 --> 00:41:00.768
+<v >I don't see what the problem is.
+It's not secret.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/425-0
+00:41:02.528 --> 00:41:04.328
+<v >The I don't think anybody.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/427-0
+00:41:03.408 --> 00:41:06.368
+<v >Yeah, and there's no data in it, right?
+There's no data in it.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/429-0
+00:41:05.528 --> 00:41:09.877
+<v >No, no, no, no, there's, yeah,
+you're not going to see anything that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/429-1
+00:41:09.877 --> 00:41:14.479
+<v >shouldn't be seen. It's, yeah,
+it annoys me more than anything else that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/428-0
+00:41:13.328 --> 00:41:13.488
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/429-2
+00:41:14.479 --> 00:41:18.828
+<v >they don't just say yes straight away,
+but I know what they're like.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/429-3
+00:41:18.828 --> 00:41:22.799
+<v >But if it comes to it,
+I will make the decision myself if they</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/429-4
+00:41:22.799 --> 00:41:24.248
+<v >don't come up with a...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/431-0
+00:41:24.928 --> 00:41:28.138
+<v >Yeah, no, no, I don't want to rush you,
+so I think if you're waiting for</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/430-0
+00:41:26.688 --> 00:41:27.968
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/431-1
+00:41:28.138 --> 00:41:29.808
+<v >something, let's do it the proper way.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/433-0
+00:41:29.408 --> 00:41:33.457
+<v >Yeah, but at the end of the day,
+it would be quite nice if I've got</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/433-1
+00:41:33.457 --> 00:41:37.267
+<v >everything in the repo first as well.
+But what I'm going to do,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/432-0
+00:41:35.288 --> 00:41:35.528
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/433-2
+00:41:37.267 --> 00:41:40.958
+<v >any shared packages,
+any shared procedures, things like that,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/433-3
+00:41:40.958 --> 00:41:44.768
+<v >I will separate them out within the repo.
+So you can see those.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/435-0
+00:41:44.048 --> 00:41:48.294
+<v >So when you say, when you say shared,
+what exactly, who are you sharing it with?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/434-0
+00:41:46.608 --> 00:41:47.008
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/435-1
+00:41:48.294 --> 00:41:50.128
+<v >What exactly do you mean by shared?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/437-0
+00:41:48.848 --> 00:41:56.768
+<v >It's shared with other applications
+within the OPT ecosystem. So if I.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/436-0
+00:41:54.608 --> 00:41:55.208
+<v >Within open.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/438-0
+00:41:57.368 --> 00:41:59.168
+<v >You mean with code planner and things
+like that?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/440-0
+00:41:59.168 --> 00:42:04.048
+<v >Yeah, yeah, yeah, so, well,
+the perfect example is the tables.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/439-0
+00:42:00.528 --> 00:42:00.768
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/442-0
+00:42:14.688 --> 00:42:17.888
+<v >So, here's table courts,
+which is used all over the place.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/443-0
+00:42:18.608 --> 00:42:18.768
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/444-0
+00:42:20.368 --> 00:42:24.380
+<v >So basically,
+I can show you the data in this because</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/444-1
+00:42:24.380 --> 00:42:28.911
+<v >none of this is secret.
+So this basically all of the courts,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/444-2
+00:42:28.911 --> 00:42:31.808
+<v >all of the tribunals, each of them have</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/446-0
+00:42:33.208 --> 00:42:39.570
+<v >an ID, each of them have a court type.
+They have a lot of data in here that's</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/446-1
+00:42:39.570 --> 00:42:43.812
+<v >not used anymore.
+But you can see you have area ID,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/445-0
+00:42:42.088 --> 00:42:42.568
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/446-2
+00:42:43.812 --> 00:42:48.216
+<v >OCJB area ID,
+there's various other area IDs as well,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/446-3
+00:42:48.216 --> 00:42:51.968
+<v >but the main one is the area ID.
+So that then</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/447-0
+00:42:53.568 --> 00:42:55.568
+<v >Would link to table areas.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/448-0
+00:43:01.568 --> 00:43:05.919
+<v >So if we say area ID 34,
+which court is that? Oh,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/448-1
+00:43:05.919 --> 00:43:11.052
+<v >it's a closed one. Let's go Aberystwyth,
+which is also 34.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/448-2
+00:43:11.052 --> 00:43:13.488
+<v >So then we have table areas.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/449-0
+00:43:16.928 --> 00:43:19.808
+<v >One of my favourite places I bussed with,
+I've been there a few times.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/450-0
+00:43:21.168 --> 00:43:22.208
+<v >I love Wells.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/451-0
+00:43:22.848 --> 00:43:23.888
+<v >Nice and quiet up there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/452-0
+00:43:24.208 --> 00:43:28.292
+<v >Yeah,
+it's just a simple cross over the bridge</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/452-1
+00:43:28.292 --> 00:43:31.768
+<v >for me. It's my father-in-law has got...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/455-0
+00:43:33.808 --> 00:43:37.274
+<v >A little cottage that his parents used to
+live in,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/455-1
+00:43:37.274 --> 00:43:41.828
+<v >in a tiny little village called
+Bettisquerfel Goch in North Wales,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/453-0
+00:43:40.488 --> 00:43:40.968
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/455-2
+00:43:41.828 --> 00:43:46.653
+<v >is not far from Snowdon actually,
+but it's just great going out there,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/455-3
+00:43:46.653 --> 00:43:47.808
+<v >it's so peaceful.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/454-0
+00:43:48.688 --> 00:43:48.928
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/456-0
+00:43:49.248 --> 00:43:54.588
+<v >So anyway, so there's our areas.
+And so this is area ID 34,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/456-1
+00:43:54.588 --> 00:43:57.168
+<v >which is part of region ID 7.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/457-0
+00:43:58.368 --> 00:44:00.688
+<v >O, if we then go to Regions.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/458-0
+00:44:09.168 --> 00:44:12.688
+<v >So region ID, sorry, region ID 7.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/459-0
+00:44:14.368 --> 00:44:16.128
+<v >Is the last row, so it's Wells.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/460-0
+00:44:18.448 --> 00:44:22.256
+<v >So that's just literally how we can then
+track back from Wales.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/460-1
+00:44:22.256 --> 00:44:26.778
+<v >We can go to all of the areas within
+Wales and then go to all the courts in</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/460-2
+00:44:26.778 --> 00:44:27.968
+<v >Wales or vice versa.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/461-0
+00:44:29.248 --> 00:44:29.728
+<v >Mmh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/462-0
+00:44:29.568 --> 00:44:32.528
+<v >But if I just quickly show you...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/463-0
+00:44:36.288 --> 00:44:38.368
+<v >How many tables have we got in here?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/464-0
+00:44:39.888 --> 00:44:44.543
+<v >There's quite a few to have to go through.
+Some of them are obviously not going to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/464-1
+00:44:44.543 --> 00:44:45.328
+<v >be used for...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/465-0
+00:44:46.608 --> 00:44:46.768
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/467-0
+00:44:46.848 --> 00:44:50.604
+<v >shared tables,
+but I've never even actually bothered to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/467-1
+00:44:50.604 --> 00:44:54.426
+<v >count how many we've got there,
+but there's quite a few.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/467-2
+00:44:54.426 --> 00:44:55.968
+<v >Likewise with packages.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/466-0
+00:44:54.768 --> 00:44:54.928
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/468-0
+00:44:59.888 --> 00:45:00.048
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/472-0
+00:45:14.608 --> 00:45:19.888
+<v >We've got a number of packages,
+and there can be...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/473-0
+00:45:21.088 --> 00:45:23.728
+<v >up to about 20,
+000 rows of code in each package.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/474-0
+00:45:24.488 --> 00:45:24.968
+<v >Mmh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/475-0
+00:45:25.488 --> 00:45:30.128
+<v >So, it's yeah,
+just trying to work through and find out.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/477-0
+00:45:31.408 --> 00:45:34.208
+<v >What is actually linked can be a
+nightmare.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/476-0
+00:45:33.488 --> 00:45:33.768
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/478-0
+00:45:35.488 --> 00:45:39.809
+<v >It's a lot difficult when the business
+logic is embedded in the database code,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/478-1
+00:45:39.809 --> 00:45:40.848
+<v >isn't it? It's a...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/479-0
+00:45:41.128 --> 00:45:41.968
+<v >HeHis.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/480-0
+00:45:42.288 --> 00:45:45.728
+<v >It's a lot difficult to change and things
+are quite brittle, isn't it?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/481-0
+00:45:45.808 --> 00:45:52.528
+<v >Yeah, it's it is it makes my life of hell,
+it really does, but that's.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/482-0
+00:45:53.168 --> 00:45:53.728
+<v >It works.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/485-0
+00:45:53.488 --> 00:45:56.459
+<v >Part of the fun of it is it gives me a
+challenge.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/483-0
+00:45:55.288 --> 00:45:55.488
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/485-1
+00:45:56.459 --> 00:45:59.488
+<v >I'd rather be challenged at work than
+board, so...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/484-0
+00:45:59.768 --> 00:46:00.128
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/487-0
+00:46:04.448 --> 00:46:08.408
+<v >So just one question for you on this.
+I think that's really helpful.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/486-0
+00:46:08.368 --> 00:46:08.568
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/488-0
+00:46:09.648 --> 00:46:12.448
+<v >So because obviously a lot of...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/490-0
+00:46:13.728 --> 00:46:18.257
+<v >the new system that we build,
+we will get the judicial information from</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/490-1
+00:46:18.257 --> 00:46:21.780
+<v >judicial office, you know,
+JOH through JOH integration.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/489-0
+00:46:19.888 --> 00:46:20.168
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/490-2
+00:46:21.780 --> 00:46:25.806
+<v >Is there anything you can think of which
+is mastered within JI,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/490-3
+00:46:25.806 --> 00:46:29.328
+<v >which will not be available in, you know,
+the JOH data?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/491-0
+00:46:33.088 --> 00:46:37.248
+<v >I'm not sure if the fee rates would be in
+there because that's finance.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/492-0
+00:46:37.648 --> 00:46:38.048
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/493-0
+00:46:39.168 --> 00:46:40.128
+<v >So...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/494-0
+00:46:41.248 --> 00:46:44.640
+<v >Mind you,
+presumably you could link to JFEPS anyhow,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/494-1
+00:46:44.640 --> 00:46:46.368
+<v >as well as Judicial Office.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/495-0
+00:46:48.368 --> 00:46:51.328
+<v >So, you might be able to get it that way.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/496-0
+00:46:52.768 --> 00:46:53.328
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/497-0
+00:46:56.888 --> 00:46:58.608
+<v >The tickets, as...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/498-0
+00:47:01.728 --> 00:47:03.968
+<v >Rachel won that yesterday was saying.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/501-0
+00:47:06.248 --> 00:47:10.413
+<v >For some regions,
+they like to do the tickets themselves,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/501-1
+00:47:10.413 --> 00:47:14.003
+<v >but they should be in the judicial office
+system.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/499-0
+00:47:11.328 --> 00:47:11.568
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/501-2
+00:47:14.003 --> 00:47:18.886
+<v >And certainly the way JI is at the moment,
+tickets aren't critical.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/500-0
+00:47:14.288 --> 00:47:14.608
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/501-3
+00:47:18.886 --> 00:47:24.128
+<v >We don't actually link tickets to booking
+types. It was always the plan,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/501-4
+00:47:24.128 --> 00:47:26.928
+<v >but we were a little bit concerned that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/502-0
+00:47:27.488 --> 00:47:31.758
+<v >potentially a judge might have to say
+something they're technically not</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/502-1
+00:47:31.758 --> 00:47:32.528
+<v >ticketed for.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/503-0
+00:47:35.008 --> 00:47:38.448
+<v >So, we never actually put that link in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/504-0
+00:47:41.888 --> 00:47:43.168
+<v >Yeah, a lot of the other stuff.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/507-0
+00:47:42.208 --> 00:47:47.784
+<v >I mean, you could, yeah, so this is the,
+let me just share my screen so you know</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/505-0
+00:47:46.208 --> 00:47:46.688
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/507-1
+00:47:47.784 --> 00:47:52.740
+<v >that. So this is the data from,
+this is essentially the judicial office</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/507-2
+00:47:52.740 --> 00:47:56.181
+<v >holders data, right?
+So if we look at data model,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/506-0
+00:47:53.488 --> 00:47:53.808
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/507-3
+00:47:56.181 --> 00:48:00.173
+<v >so you can see you have people,
+you have judiciary roles,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/507-4
+00:48:00.173 --> 00:48:03.408
+<v >you have the authorizations,
+the appointments.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/508-0
+00:48:03.808 --> 00:48:08.688
+<v >base location, roles.
+So as far as I can think of.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/510-0
+00:48:09.888 --> 00:48:15.641
+<v >We can get this data from this office and
+maintain it as a master list within the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/509-0
+00:48:14.848 --> 00:48:15.168
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/510-1
+00:48:15.641 --> 00:48:19.430
+<v >new system.
+But the local users of that system should</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/510-2
+00:48:19.430 --> 00:48:23.008
+<v >be able to add their own information if
+they like.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/512-0
+00:48:23.568 --> 00:48:26.661
+<v >Yeah,
+so literally about the only thing that I</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/512-1
+00:48:26.661 --> 00:48:31.728
+<v >would say that definitely isn't there is
+going to be the sharing agreements.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/511-0
+00:48:29.248 --> 00:48:29.848
+<v >Mm-hmm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/513-0
+00:48:32.048 --> 00:48:32.768
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/515-0
+00:48:34.368 --> 00:48:38.368
+<v >Because that's driven by local,
+almost local business processes, isn't it?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/514-0
+00:48:34.688 --> 00:48:34.928
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/517-0
+00:48:36.848 --> 00:48:43.339
+<v >Yeah, yeah, yeah. Everything else I think,
+as long as you can get the fee rates from</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/517-1
+00:48:43.339 --> 00:48:46.928
+<v >JFEPS,
+which I don't think would be a problem,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/516-0
+00:48:44.448 --> 00:48:44.768
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/518-0
+00:48:49.448 --> 00:48:52.381
+<v >As far as I can think, everything else,
+because you've got all the contact</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/518-1
+00:48:52.381 --> 00:48:52.928
+<v >details there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/519-0
+00:48:53.888 --> 00:48:55.328
+<v >You got your tickets, you got...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/521-0
+00:48:55.128 --> 00:48:59.032
+<v >Because right now they actually send you
+an e-mail and you add the fee for that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/521-1
+00:48:59.032 --> 00:49:01.618
+<v >judge, right?
+So if you build a screen for a finance</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/521-2
+00:49:01.618 --> 00:49:04.643
+<v >user specifically to be able to, you know,
+adjust those fees,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/520-0
+00:49:03.248 --> 00:49:05.408
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/521-3
+00:49:04.643 --> 00:49:06.448
+<v >then they can add whatever they want.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/522-0
+00:49:06.928 --> 00:49:09.008
+<v >Yeah, yeah, it's.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/523-0
+00:49:10.408 --> 00:49:13.162
+<v >Something I've never 100% trusted them
+with,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/523-1
+00:49:13.162 --> 00:49:16.160
+<v >so it's something that I need to do once
+a year,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/523-2
+00:49:16.160 --> 00:49:20.688
+<v >so it's not something that I've been
+particularly bothered about. It's...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/524-0
+00:49:19.968 --> 00:49:22.883
+<v >Yeah, yeah, I mean,
+they are they're the ones paying,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/524-1
+00:49:22.883 --> 00:49:24.448
+<v >so they better make it right.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/526-0
+00:49:23.808 --> 00:49:27.742
+<v >Yeah, yeah. Yeah,
+I've often wondered about setting myself</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/526-1
+00:49:27.742 --> 00:49:31.942
+<v >up a fee paid judge profile and putting a
+load of sittings in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/526-2
+00:49:31.942 --> 00:49:36.342
+<v >That's the scary thing.
+I've actually got the access that I could</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/525-0
+00:49:35.248 --> 00:49:35.408
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/526-3
+00:49:36.342 --> 00:49:39.808
+<v >do that,
+but I think I'd get caught quickly enough.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/527-0
+00:49:41.728 --> 00:49:43.888
+<v >Well, who's monitoring your work?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/529-0
+00:49:45.648 --> 00:49:49.296
+<v >Yeah, thankfully,
+because the way JFEPs work,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/528-0
+00:49:49.088 --> 00:49:49.568
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/529-1
+00:49:49.296 --> 00:49:54.608
+<v >they would soon identify that there was
+something not quite right.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/531-0
+00:49:55.728 --> 00:49:58.845
+<v >I was just going to show you like some of
+the data that they have,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/531-1
+00:49:58.845 --> 00:50:02.288
+<v >so some of the endpoints that they have.
+So for example, they have these.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/530-0
+00:49:59.408 --> 00:49:59.608
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/532-0
+00:50:03.248 --> 00:50:04.448
+<v >And points for people.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/533-0
+00:50:06.368 --> 00:50:09.168
+<v >Leavers, people and people ID,
+and I think it was.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/534-0
+00:50:25.648 --> 00:50:26.528
+<v >Brilliant.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/535-0
+00:50:26.808 --> 00:50:31.568
+<v >appointments they have, authorizations,
+judicial rules, things like that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/536-0
+00:50:32.528 --> 00:50:33.328
+<v >Ohh, God, I...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/540-0
+00:50:32.608 --> 00:50:36.039
+<v >And then you also have,
+and then you also have reference data,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/537-0
+00:50:34.768 --> 00:50:35.248
+<v >Of it.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/540-1
+00:50:36.039 --> 00:50:39.088
+<v >which is, you know,
+specifically around reference data.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/539-0
+00:50:39.168 --> 00:50:39.648
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/542-0
+00:50:40.848 --> 00:50:43.488
+<v >I wish I had access to that,
+make my life a lot easier.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/543-0
+00:50:43.968 --> 00:50:45.408
+<v >Yeah, I know, I know it's a...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/544-0
+00:50:44.928 --> 00:50:45.488
+<v >Ha ha ha.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/547-0
+00:50:46.928 --> 00:50:51.328
+<v >It's when you see this, you know,
+open systems and when you think back, oh,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/545-0
+00:50:50.128 --> 00:50:50.528
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/547-1
+00:50:51.328 --> 00:50:55.670
+<v >I had to make a system which did not have
+access to any of this, you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/546-0
+00:50:54.888 --> 00:50:55.168
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/547-2
+00:50:55.670 --> 00:51:00.128
+<v >you're having to duplicate all this
+information. It's a, but you know, just.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/548-0
+00:50:58.208 --> 00:51:01.363
+<v >Yeah,
+and it's easy enough to convert JSON to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/548-1
+00:51:01.363 --> 00:51:03.488
+<v >something that I can use, so...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/551-0
+00:51:03.888 --> 00:51:06.905
+<v >I'm not even thinking of, you know,
+redoing the scheme.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/551-1
+00:51:06.905 --> 00:51:09.653
+<v >I can just put in JOH in front and just,
+you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/549-0
+00:51:09.048 --> 00:51:09.328
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/551-2
+00:51:09.653 --> 00:51:14.125
+<v >put populated on my side and then have my
+own tables layered on top to actually do</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/551-3
+00:51:14.125 --> 00:51:16.603
+<v >whatever specific I want to do,
+but you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/550-0
+00:51:14.208 --> 00:51:15.088
+<v >Veridian.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/551-4
+00:51:16.603 --> 00:51:19.728
+<v >it's hindsight is a beautiful thing,
+isn't it? So it's...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/554-0
+00:51:19.088 --> 00:51:22.522
+<v >Yeah, yeah, it's, well,
+to be perfectly honest,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/554-1
+00:51:22.522 --> 00:51:25.741
+<v >when we first built JI,
+the judicial system,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/554-2
+00:51:25.741 --> 00:51:31.248
+<v >there was never any thought that anybody
+else would ever see the data there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/552-0
+00:51:28.528 --> 00:51:28.688
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/553-0
+00:51:32.368 --> 00:51:32.768
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/556-0
+00:51:34.368 --> 00:51:36.875
+<v >Also,
+I think the other thing I was thinking</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/556-1
+00:51:36.875 --> 00:51:37.488
+<v >was like...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/557-0
+00:51:39.168 --> 00:51:41.168
+<v >Things come into my mind and then just
+slip away.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/558-0
+00:51:41.168 --> 00:51:41.448
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/561-0
+00:51:43.488 --> 00:51:45.648
+<v >I always put that down to old age myself.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/559-0
+00:51:44.368 --> 00:51:44.528
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/560-0
+00:51:46.048 --> 00:51:46.208
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/565-0
+00:51:47.248 --> 00:51:49.791
+<v >Yeah, or maybe I'm getting to that age.
+No,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/562-0
+00:51:49.568 --> 00:51:49.848
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/565-1
+00:51:49.791 --> 00:51:54.355
+<v >I was thinking of the six thing which
+Rachel mentioned yesterday because I was</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/565-2
+00:51:54.355 --> 00:51:58.919
+<v >thinking that I could make the whole
+thing automated if they are getting their</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/565-3
+00:51:58.919 --> 00:52:03.137
+<v >absences recorded in upstream.
+But it looks like they don't send all the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/563-0
+00:52:01.568 --> 00:52:01.968
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/565-4
+00:52:03.137 --> 00:52:07.413
+<v >absences because it's a business,
+which makes sense once Rachel explained</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/564-0
+00:52:04.608 --> 00:52:05.168
+<v >No.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/565-5
+00:52:07.413 --> 00:52:08.048
+<v >it because.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/567-0
+00:52:09.008 --> 00:52:11.515
+<v >Once they've been onboarded as a judge,
+right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/567-1
+00:52:11.515 --> 00:52:15.888
+<v >Makes sense that whatever code they're
+working on, I assume they're working with,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/567-2
+00:52:15.888 --> 00:52:20.208
+<v >they're telling them when they are going
+on leave, and I still don't understand,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/566-0
+00:52:15.968 --> 00:52:16.368
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/567-3
+00:52:20.208 --> 00:52:22.662
+<v >like,
+if it is if it's a salary judge and you</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/567-4
+00:52:22.662 --> 00:52:26.448
+<v >go above your holiday, who actually,
+you know, sort of tells them off.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/571-0
+00:52:25.648 --> 00:52:30.356
+<v >Yeah, we actually have a balance on JI,
+so it should be monitored.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/571-1
+00:52:30.356 --> 00:52:35.695
+<v >And there's a carry forward system,
+because obviously if they don't use all</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/568-0
+00:52:30.528 --> 00:52:31.008
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/571-2
+00:52:35.695 --> 00:52:40.403
+<v >of their leave that's available,
+then they can carry forward days,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/569-0
+00:52:38.768 --> 00:52:38.968
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/571-3
+00:52:40.403 --> 00:52:44.688
+<v >but they are allowed to carry forward
+negative days as well.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/573-0
+00:52:44.888 --> 00:52:50.421
+<v >that they have to get permission from
+their presiding judge,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/570-0
+00:52:45.168 --> 00:52:45.648
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/573-1
+00:52:50.421 --> 00:52:57.768
+<v >so the judge that's in charge of them all.
+But yeah, yeah, nobody technically...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/572-0
+00:52:51.168 --> 00:52:51.568
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/576-0
+00:52:54.208 --> 00:52:58.306
+<v >So this is the thing which makes me a
+little bit a little bit nervous because</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/576-1
+00:52:58.306 --> 00:53:00.881
+<v >you know the concept of system of record,
+right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/574-0
+00:52:58.728 --> 00:52:59.008
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/576-2
+00:53:00.881 --> 00:53:04.768
+<v >Because then JI in a sense becomes a
+system of record for their holidays.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/575-0
+00:53:00.928 --> 00:53:01.408
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/577-0
+00:53:05.168 --> 00:53:08.208
+<v >Yeah, yeah, is is.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/579-0
+00:53:06.048 --> 00:53:09.408
+<v >Do you see what I mean?
+Whereas it is not supposed to be the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/579-1
+00:53:09.408 --> 00:53:12.216
+<v >system of record for a judge's holidays,
+you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/578-0
+00:53:10.848 --> 00:53:11.248
+<v >No.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/579-2
+00:53:12.216 --> 00:53:14.088
+<v >it's completely sort of different.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/580-0
+00:53:12.528 --> 00:53:16.128
+<v >No, there's loads of things that J.I.
+has become.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/581-0
+00:53:17.008 --> 00:53:17.168
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/583-0
+00:53:17.288 --> 00:53:20.642
+<v >that was never envisaged.
+But at the end of the day,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/583-1
+00:53:20.642 --> 00:53:23.870
+<v >it was the only way that we could sort it
+all out.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/583-2
+00:53:23.870 --> 00:53:28.869
+<v >What makes it even more confusing is the
+fact that judges don't have an annual</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/583-3
+00:53:28.869 --> 00:53:30.008
+<v >leave entitlement.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/582-0
+00:53:30.928 --> 00:53:31.088
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/587-0
+00:53:31.328 --> 00:53:34.720
+<v >their contract is to sit so many days per
+year.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/587-1
+00:53:34.720 --> 00:53:39.243
+<v >So their actual annual leave allowance is
+different every year.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/584-0
+00:53:35.728 --> 00:53:36.048
+<v >S.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/587-2
+00:53:39.243 --> 00:53:44.684
+<v >It only alternates by a day or two,
+but we just call it annual leave because</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/585-0
+00:53:39.408 --> 00:53:40.368
+<v >See, OK.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/587-3
+00:53:44.684 --> 00:53:49.419
+<v >that's what everyone calls it.
+Technically it's a non-sitting day.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/586-0
+00:53:47.928 --> 00:53:48.288
+<v >I see.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/587-4
+00:53:49.419 --> 00:53:50.408
+<v >But yeah, that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/588-0
+00:53:50.528 --> 00:53:56.762
+<v >It makes it all the more difficult to do
+all the calculations and everything on it,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/588-1
+00:53:56.762 --> 00:54:01.808
+<v >and I did go through a phase about three
+or four years ago where...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/590-0
+00:54:03.088 --> 00:54:07.129
+<v >Everything, well,
+say 90% of everything that came through</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/590-1
+00:54:07.129 --> 00:54:12.353
+<v >to second line was because a judge
+thought that their leave was incorrect,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/590-2
+00:54:12.353 --> 00:54:13.328
+<v >their balance.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/589-0
+00:54:14.048 --> 00:54:14.168
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/592-0
+00:54:14.368 --> 00:54:19.516
+<v >and I've got better things to spend my
+time on than to prove that their balance</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/591-0
+00:54:19.328 --> 00:54:19.808
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/592-1
+00:54:19.516 --> 00:54:23.313
+<v >is correct. But as it was,
+we seem to have gone past that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/592-2
+00:54:23.313 --> 00:54:26.208
+<v >It's very rare that I get a leave query
+now.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/593-0
+00:54:26.928 --> 00:54:30.059
+<v >It's very difficult to challenge a judge
+when you hit with that, isn't it?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/593-1
+00:54:30.059 --> 00:54:33.106
+<v >You almost need to double cheque your
+work and then go back and say, no,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/595-0
+00:54:32.688 --> 00:54:36.219
+<v >Yeah,
+it is the problem is as well as the fact</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/593-2
+00:54:33.106 --> 00:54:33.648
+<v >you're wrong.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/595-1
+00:54:36.219 --> 00:54:38.848
+<v >that HMCTS don't manage the judges.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/594-0
+00:54:39.088 --> 00:54:39.488
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/599-0
+00:54:41.568 --> 00:54:46.386
+<v >So it's not as if I can particularly go
+to a higher judge and say,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/599-1
+00:54:46.386 --> 00:54:50.701
+<v >have a word with him,
+which is what I can do with our other</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/596-0
+00:54:47.648 --> 00:54:48.128
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/599-2
+00:54:50.701 --> 00:54:54.728
+<v >users. As it is,
+I have got some very good friends that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/599-3
+00:54:54.728 --> 00:54:58.036
+<v >are judges in different parts of the
+country.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/597-0
+00:54:55.168 --> 00:54:55.328
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/599-4
+00:54:58.036 --> 00:55:00.768
+<v >So I am quite lucky I can actually go.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/598-0
+00:55:01.408 --> 00:55:01.808
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/600-0
+00:55:01.648 --> 00:55:03.488
+<v >To people.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/603-0
+00:55:05.648 --> 00:55:08.449
+<v >Yeah, I did. So,
+I did actually send a query to the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/603-1
+00:55:08.449 --> 00:55:11.518
+<v >judicial office.
+I'm talking to one of the architects in</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/601-0
+00:55:11.328 --> 00:55:11.888
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/603-2
+00:55:11.518 --> 00:55:15.234
+<v >that in that team, and you know,
+asking what absence is information,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/603-3
+00:55:15.234 --> 00:55:19.272
+<v >and he mentioned that you know the
+absence is information is there in JHR,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/603-4
+00:55:19.272 --> 00:55:23.365
+<v >but currently it's not exposed to the
+eLinks. ELinks is the mechanism APIs,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/602-0
+00:55:22.608 --> 00:55:23.168
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/603-5
+00:55:23.365 --> 00:55:25.088
+<v >but talking to Rachel yesterday.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/607-0
+00:55:26.128 --> 00:55:29.728
+<v >As you mentioned, right,
+it's only the sick days that they are</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/604-0
+00:55:28.768 --> 00:55:29.968
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/607-1
+00:55:29.728 --> 00:55:32.985
+<v >getting reported.
+So I was just wondering why if they're</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/605-0
+00:55:31.328 --> 00:55:31.848
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/607-2
+00:55:32.985 --> 00:55:37.328
+<v >going on leave, like even if, you know,
+their sitting days are established.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/606-0
+00:55:35.648 --> 00:55:36.208
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/608-0
+00:55:38.528 --> 00:55:42.048
+<v >Why would they not inform the HR that we
+are I'm going to be on view for?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/611-0
+00:55:40.848 --> 00:55:44.870
+<v >Yeah, yeah, yeah,
+because technically I would say that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/611-1
+00:55:44.870 --> 00:55:50.573
+<v >they're probably the ones that should be
+monitoring leave balances. But yeah,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/609-0
+00:55:47.728 --> 00:55:49.088
+<v >Yeah, yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/611-2
+00:55:50.573 --> 00:55:54.448
+<v >it would make sense.
+I suppose it's just historical.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/610-0
+00:55:55.248 --> 00:55:55.408
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/614-0
+00:55:56.048 --> 00:55:59.578
+<v >And the thing is as well,
+you're going to have other absences types,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/614-1
+00:55:59.578 --> 00:56:03.517
+<v >the classic ones, judicial college,
+because they will have their own system,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/612-0
+00:56:02.048 --> 00:56:02.208
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/614-2
+00:56:03.517 --> 00:56:06.688
+<v >which is completely separate from the
+judicial office system.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/613-0
+00:56:07.408 --> 00:56:07.968
+<v >I see.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/615-0
+00:56:08.048 --> 00:56:10.208
+<v >So, to find out whether...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/616-0
+00:56:09.488 --> 00:56:12.038
+<v >So,
+where does judicial college fit into all</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/616-1
+00:56:12.038 --> 00:56:14.928
+<v >this? So,
+I'm completely new to MOJ sort of thing.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/619-0
+00:56:13.648 --> 00:56:16.852
+<v >Well, yes,
+so they're the ones that they will get</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/619-1
+00:56:16.852 --> 00:56:21.529
+<v >the judges trained up to be judges.
+And so we have absences for judicial</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/617-0
+00:56:20.368 --> 00:56:20.848
+<v >I see.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/619-2
+00:56:21.529 --> 00:56:24.861
+<v >college. Now,
+the problem is they could either be a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/619-3
+00:56:24.861 --> 00:56:28.128
+<v >delegate on a course or they could be the
+trainer.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/618-0
+00:56:28.928 --> 00:56:29.088
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/621-0
+00:56:29.008 --> 00:56:31.619
+<v >So you have to keep records of both of
+those.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/621-1
+00:56:31.619 --> 00:56:36.159
+<v >And that's the sort of thing that the
+judicial office might like to know that a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/620-0
+00:56:32.448 --> 00:56:32.648
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/621-2
+00:56:36.159 --> 00:56:39.961
+<v >certain judge is a trainer,
+but they're not concerned at all about</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/621-3
+00:56:39.961 --> 00:56:42.288
+<v >how many days training they do each year.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/624-0
+00:56:43.888 --> 00:56:48.464
+<v >So I think I saw it in one of Rachel's
+videos that there was sort of the dotted</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/622-0
+00:56:44.288 --> 00:56:44.448
+<v >An.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/624-1
+00:56:48.464 --> 00:56:52.525
+<v >thingy in the square where this,
+so you have two judges in that thing,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/623-0
+00:56:49.168 --> 00:56:49.728
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/624-2
+00:56:52.525 --> 00:56:55.328
+<v >isn't it?
+One is a trainer and one is the actual</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/625-0
+00:56:53.328 --> 00:56:59.968
+<v >Yeah, and when the trainee, yeah, is is.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/624-3
+00:56:55.328 --> 00:56:56.128
+<v >being trained.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/628-0
+00:57:01.208 --> 00:57:04.775
+<v >It's one of those unfortunate things with
+JI.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/628-1
+00:57:04.775 --> 00:57:11.211
+<v >There's so many little oddities like that
+that you need to be able to keep a track</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/626-0
+00:57:08.048 --> 00:57:08.208
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/628-2
+00:57:11.211 --> 00:57:14.700
+<v >of.
+And I think this goes back to why before</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/628-3
+00:57:14.700 --> 00:57:20.128
+<v >JI, each region did things their own way.
+Because a small region like</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/627-0
+00:57:18.448 --> 00:57:18.608
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/629-0
+00:57:20.208 --> 00:57:21.168
+<v >Say, Wells.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/632-0
+00:57:22.368 --> 00:57:27.818
+<v >they could quite easily do things
+literally with a calendar and a piece of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/630-0
+00:57:27.568 --> 00:57:27.968
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/632-1
+00:57:27.818 --> 00:57:33.631
+<v >paper. Whereas someone like Southeast,
+actually I was quite surprised because I</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/632-2
+00:57:33.631 --> 00:57:39.298
+<v >would have always thought that Southeast
+would have had some form of database</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/631-0
+00:57:37.848 --> 00:57:38.328
+<v >Mmh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/632-3
+00:57:39.298 --> 00:57:44.530
+<v >going because there were a couple of
+regions that had access databases.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/632-4
+00:57:44.530 --> 00:57:46.128
+<v >But what Southeast had</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/633-0
+00:57:46.368 --> 00:57:47.088
+<v >Was.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/634-0
+00:57:47.928 --> 00:57:49.648
+<v >Spreadsheet for each charge.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/635-0
+00:57:50.528 --> 00:57:50.688
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/636-0
+00:57:51.328 --> 00:57:51.728
+<v >Um...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/637-0
+00:57:52.208 --> 00:57:55.128
+<v >Well, that explains the backlog, isn't it?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/638-0
+00:57:54.208 --> 00:57:58.117
+<v >Oh,
+it was just horrendous when we first got</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/638-1
+00:57:58.117 --> 00:58:02.808
+<v >there. And trying to get them trained up,
+I remember.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/639-0
+00:58:04.448 --> 00:58:06.862
+<v >We spent about two months doing training,
+as it was,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/639-1
+00:58:06.862 --> 00:58:10.368
+<v >and for Southeast we had to spend a week
+actually in their office with them.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/640-0
+00:58:11.248 --> 00:58:15.637
+<v >So how did you get the users to move from
+the Excel sheet into using the new system?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/640-1
+00:58:15.637 --> 00:58:18.528
+<v >Because it must have been a hassle to,
+you know, the...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/642-0
+00:58:17.808 --> 00:58:22.854
+<v >We've got, yeah,
+we got buy-in by management at quite a</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/642-1
+00:58:22.854 --> 00:58:26.368
+<v >high level, at the regional level. They</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/641-0
+00:58:23.208 --> 00:58:23.368
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/645-0
+00:58:27.328 --> 00:58:31.894
+<v >suddenly saw the benefits.
+We were able to prove that there were</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/643-0
+00:58:29.288 --> 00:58:29.408
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/645-1
+00:58:31.894 --> 00:58:33.088
+<v >massive benefits.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/644-0
+00:58:33.408 --> 00:58:33.728
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/648-0
+00:58:35.808 --> 00:58:38.718
+<v >And yes,
+so basically in the end of the day,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/648-1
+00:58:38.718 --> 00:58:43.051
+<v >they were told they had to take it on.
+There was a lot of moaning.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/646-0
+00:58:41.648 --> 00:58:42.048
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/648-2
+00:58:43.051 --> 00:58:48.225
+<v >I moan a lot about Southeast because they
+were the biggest moaners right at the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/648-3
+00:58:48.225 --> 00:58:52.687
+<v >beginning and they've been the bane of my
+life ever since. But yeah,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/647-0
+00:58:49.648 --> 00:58:49.808
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/648-4
+00:58:52.687 --> 00:58:54.368
+<v >it was hard work at first.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/650-0
+00:58:55.488 --> 00:58:58.146
+<v >Yeah,
+because we had a session with one of the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/650-1
+00:58:58.146 --> 00:59:01.709
+<v >tribunals today, SSCS,
+and I think one of the challenges I can</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/650-2
+00:59:01.709 --> 00:59:04.141
+<v >see,
+because they are already working with</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/650-3
+00:59:04.141 --> 00:59:07.818
+<v >quite fragmented systems,
+because they're working in one system,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/649-0
+00:59:06.048 --> 00:59:06.448
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/650-4
+00:59:07.818 --> 00:59:11.098
+<v >and then they've migrated to another
+system for listings,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/650-5
+00:59:11.098 --> 00:59:14.208
+<v >and that system also is not able to
+support all the...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/653-0
+00:59:14.928 --> 00:59:19.322
+<v >You know, SSCS areas,
+so they're having to manage two systems.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/651-0
+00:59:17.168 --> 00:59:17.648
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/653-1
+00:59:19.322 --> 00:59:24.691
+<v >So, when we are further, you know,
+dividing the systems on functional basis,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/653-2
+00:59:24.691 --> 00:59:28.108
+<v >you know,
+we need to make sure we have all areas</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/653-3
+00:59:28.108 --> 00:59:31.316
+<v >covered,
+and that's because there are so many</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/653-4
+00:59:31.316 --> 00:59:33.408
+<v >different systems being built.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/655-0
+00:59:33.568 --> 00:59:39.328
+<v >On the premise that we will integrate
+properly, and if some it's in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/652-0
+00:59:33.968 --> 00:59:34.528
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/654-0
+00:59:36.208 --> 00:59:36.568
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/658-0
+00:59:38.208 --> 00:59:42.028
+<v >Tribunals are a nightmare. They really,
+really are.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/656-0
+00:59:40.968 --> 00:59:41.448
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/658-1
+00:59:42.028 --> 00:59:48.125
+<v >And you've got things that you might have
+a tribunal judge that spends most of his</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/658-2
+00:59:48.125 --> 00:59:49.888
+<v >time as a circuit judge.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/657-0
+00:59:50.848 --> 00:59:51.408
+<v >Ah, okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/661-0
+00:59:52.768 --> 00:59:58.966
+<v >And there is, which should be,
+this is part of the reason why we have</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/661-1
+00:59:58.966 --> 01:00:03.659
+<v >always tried to get everything onto a
+single system.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/659-0
+01:00:00.288 --> 01:00:00.448
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/661-2
+01:00:03.659 --> 01:00:09.768
+<v >Because it would make controlling judges
+as people a lot easier. But</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/660-0
+01:00:07.488 --> 01:00:08.128
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/662-0
+01:00:10.448 --> 01:00:15.190
+<v >with JI written the way it was,
+it would have just been far too much work,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/662-1
+01:00:15.190 --> 01:00:18.288
+<v >particularly again because it's just dang
+to me.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/665-0
+01:00:19.088 --> 01:00:21.538
+<v >Yeah,
+and if you have all the business logic in,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/665-1
+01:00:21.538 --> 01:00:25.338
+<v >you know, database screens structure,
+it makes it so hard to actually test,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/663-0
+01:00:23.408 --> 01:00:23.768
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/665-2
+01:00:25.338 --> 01:00:29.088
+<v >make sure you haven't broken anything,
+so the testing is that much harder.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/664-0
+01:00:26.768 --> 01:00:27.928
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/667-0
+01:00:30.168 --> 01:00:34.082
+<v >Whereas if you have those logic sitting
+in a higher level construct like a Java</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/666-0
+01:00:30.248 --> 01:00:31.088
+<v >Yeah, it.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/667-1
+01:00:34.082 --> 01:00:36.528
+<v >program,
+it makes it testing a little bit easier.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/671-0
+01:00:36.528 --> 01:00:40.990
+<v >Yeah, yeah.
+I used to do a lot of my testing on</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/671-1
+01:00:40.990 --> 01:00:45.731
+<v >Firefox.
+We had Selenium and Molybdenum plugins in</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/668-0
+01:00:43.248 --> 01:00:43.728
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/671-2
+01:00:45.731 --> 01:00:52.330
+<v >there that automated it all for us.
+But of course, we then moved away.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/669-0
+01:00:46.608 --> 01:00:47.328
+<v >I see that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/671-3
+01:00:52.330 --> 01:00:56.048
+<v >We can't use Firefox anymore. So yeah, I</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/670-0
+01:00:53.488 --> 01:00:53.528
+<v >Ahh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/674-0
+01:00:56.288 --> 01:01:00.294
+<v >Actually,
+last year I created a unit testing suite</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/674-1
+01:01:00.294 --> 01:01:04.613
+<v >that I'm just populating at the moment.
+So, but again,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/672-0
+01:01:01.728 --> 01:01:02.208
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/674-2
+01:01:04.613 --> 01:01:09.168
+<v >it's one of those things is finding the
+time to do it is.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/673-0
+01:01:05.408 --> 01:01:05.528
+<v >Okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/679-0
+01:01:09.208 --> 01:01:11.671
+<v >Yeah,
+you can use a lot of the AI tooling to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/679-1
+01:01:11.671 --> 01:01:15.283
+<v >actually create scripts. So you can,
+for example, use Playwright,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/675-0
+01:01:12.528 --> 01:01:12.848
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/679-2
+01:01:15.283 --> 01:01:19.497
+<v >because that will actually use an
+internal engine, like a browser, you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/676-0
+01:01:18.288 --> 01:01:18.648
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/679-3
+01:01:19.497 --> 01:01:22.124
+<v >a headless engine.
+So as long as you have that,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/677-0
+01:01:21.408 --> 01:01:21.448
+<v >Ohh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/679-4
+01:01:22.124 --> 01:01:24.368
+<v >you can actually run those tests locally.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/678-0
+01:01:24.688 --> 01:01:24.928
+<v >Ohh.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/682-0
+01:01:26.248 --> 01:01:28.936
+<v >Yeah,
+because I've used ChatGPT to do a lot of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/682-1
+01:01:28.936 --> 01:01:32.196
+<v >stuff for me,
+but it hasn't got that kind of capability.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/681-0
+01:01:29.968 --> 01:01:30.448
+<v >Mhm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/682-2
+01:01:32.196 --> 01:01:33.968
+<v >I might have to look into that.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/685-0
+01:01:33.288 --> 01:01:37.004
+<v >No, no, so you can, I think,
+playwright is one such thing,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/685-1
+01:01:37.004 --> 01:01:39.648
+<v >so you can look at maybe playwright and...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/684-0
+01:01:37.728 --> 01:01:38.208
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/689-0
+01:01:41.648 --> 01:01:46.097
+<v >I think the constraint would be that what
+you can actually install on the on the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/689-1
+01:01:46.097 --> 01:01:48.623
+<v >system,
+because you can you can use the AI to</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/686-0
+01:01:47.008 --> 01:01:47.888
+<v >It is so.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/689-2
+01:01:48.623 --> 01:01:52.577
+<v >actually build you the scripts,
+then get those scripts and actually run</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/687-0
+01:01:52.048 --> 01:01:52.448
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/689-3
+01:01:52.577 --> 01:01:56.037
+<v >it in the PowerShell or something like
+that and see, you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/689-4
+01:01:56.037 --> 01:01:58.288
+<v >where you get stuck with the permissions.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/688-0
+01:01:57.888 --> 01:01:58.368
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/692-0
+01:02:00.288 --> 01:02:03.273
+<v >Yeah,
+it's just one of those little projects</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/692-1
+01:02:03.273 --> 01:02:07.318
+<v >I've had that I don't think I'll ever get
+it finished. Well,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/690-0
+01:02:05.568 --> 01:02:05.728
+<v >Mm.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/692-2
+01:02:07.318 --> 01:02:12.624
+<v >hopefully you'll get the new system built
+and there'll be no problems and I can</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/691-0
+01:02:12.448 --> 01:02:12.768
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/692-3
+01:02:12.624 --> 01:02:13.088
+<v >retire.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/693-0
+01:02:17.048 --> 01:02:18.768
+<v >One step at a time, it's a...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/694-0
+01:02:18.448 --> 01:02:20.928
+<v >Yeah, we'll get there.
+We'll get there eventually.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/696-0
+01:02:25.808 --> 01:02:27.648
+<v >Right, so I think that's...</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/699-0
+01:02:28.368 --> 01:02:31.126
+<v >I mean,
+you're already carrying on with that</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/699-1
+01:02:31.126 --> 01:02:35.417
+<v >GitHub stuff, so really, you know,
+you've gone to the tables with me,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/697-0
+01:02:31.928 --> 01:02:32.288
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/699-2
+01:02:35.417 --> 01:02:40.688
+<v >so that's really helpful. Thanks for that.
+I will spend some more time, and you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/698-0
+01:02:38.448 --> 01:02:38.768
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/699-3
+01:02:40.688 --> 01:02:44.672
+<v >if I have more questions,
+I'll put maybe an hour again with you,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/699-4
+01:02:44.672 --> 01:02:48.288
+<v >maybe in a week's time or two weeks' time,
+if that's okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/700-0
+01:02:47.008 --> 01:02:51.799
+<v >Yeah, yeah, that's fine. Well,
+I'm sure once I eventually share the</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/700-1
+01:02:51.799 --> 01:02:56.096
+<v >GitHub repo with you,
+there's going to be loads of questions</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/700-2
+01:02:56.096 --> 01:02:56.448
+<v >then.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/704-0
+01:02:56.448 --> 01:02:59.336
+<v >Yeah,
+one thing I would really like to do is</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/704-1
+01:02:59.336 --> 01:03:04.406
+<v >actually once I have tribunals understood
+a little bit and once I have a rough</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/704-2
+01:03:04.406 --> 01:03:08.641
+<v >level, rough idea of the design,
+I would like to maybe, you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/701-0
+01:03:07.248 --> 01:03:07.608
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/704-3
+01:03:08.641 --> 01:03:12.684
+<v >run you through it so you can pick holes
+in it from, you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/702-0
+01:03:11.168 --> 01:03:11.448
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/704-4
+01:03:12.684 --> 01:03:14.288
+<v >a conceptual perspective.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/703-0
+01:03:13.808 --> 01:03:15.088
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/705-0
+01:03:15.808 --> 01:03:19.408
+<v >So I can show you some of the stuff which
+I'm doing.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/706-0
+01:03:22.328 --> 01:03:23.168
+<v >If it's there.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/708-0
+01:03:25.488 --> 01:03:29.172
+<v >Yeah, so you can see, for example,
+you know, so this new system,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/708-1
+01:03:29.172 --> 01:03:32.176
+<v >we're calling it as RAM Resource
+Allocation Manager.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/708-2
+01:03:32.176 --> 01:03:35.123
+<v >So you have like users interacting with
+the system,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/707-0
+01:03:32.728 --> 01:03:32.888
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/708-3
+01:03:35.123 --> 01:03:39.034
+<v >then you have data coming from judicial
+office holder source system,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/708-4
+01:03:39.034 --> 01:03:43.058
+<v >the data going into payment system.
+So this is like a high level view,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/708-5
+01:03:43.058 --> 01:03:46.288
+<v >then you have like within there you have
+data coming in.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/711-0
+01:03:46.848 --> 01:03:51.040
+<v >getting allocated across different APIs,
+and even when we go into capabilities,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/711-1
+01:03:51.040 --> 01:03:54.655
+<v >like what are the capabilities, absence,
+working pattern management,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/711-2
+01:03:54.655 --> 01:03:58.532
+<v >absence management, vacancy management.
+So staying at a conceptual level,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/711-3
+01:03:58.532 --> 01:04:01.047
+<v >and you can pick holes in it,
+you can think of,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/709-0
+01:03:59.888 --> 01:04:00.288
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/711-4
+01:04:01.047 --> 01:04:05.133
+<v >you did not think about this one because
+you have just this vast knowledge of</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/711-5
+01:04:05.133 --> 01:04:07.648
+<v >working with the system day in, day out,
+right?</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/710-0
+01:04:08.048 --> 01:04:08.448
+<v >Yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/712-0
+01:04:08.048 --> 01:04:10.570
+<v >And you can point out this will work for
+tribunals,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/712-1
+01:04:10.570 --> 01:04:12.848
+<v >but this will not work for codes,
+for example.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/715-0
+01:04:14.688 --> 01:04:17.358
+<v >So I think once I have, so this is really,
+you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/715-1
+01:04:17.358 --> 01:04:19.977
+<v >I'm still in the process of collecting
+information,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/715-2
+01:04:19.977 --> 01:04:23.502
+<v >so I'm able to build these views.
+But once I have enough information,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/715-3
+01:04:23.502 --> 01:04:26.373
+<v >I think it'll be really useful if I can
+maybe, you know,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/713-0
+01:04:25.248 --> 01:04:25.568
+<v >Yep.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/715-4
+01:04:26.373 --> 01:04:29.496
+<v >run you through this and you can pick
+holes in it or tell me,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/715-5
+01:04:29.496 --> 01:04:32.568
+<v >and this is slightly better way of doing
+it, if that's okay.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/714-0
+01:04:31.088 --> 01:04:33.752
+<v >Yeah, yeah, yeah,
+not not not a problem at all,</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/714-1
+01:04:33.752 --> 01:04:34.528
+<v >not a problem.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/716-0
+01:04:35.648 --> 01:04:38.192
+<v >That's great,
+and I can give you 20 minutes back and</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/716-1
+01:04:38.192 --> 01:04:39.488
+<v >you can enjoy a cup of tea.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/717-0
+01:04:40.048 --> 01:04:41.488
+<v >Yeah, yeah.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/718-0
+01:04:42.768 --> 01:04:45.648
+<v >See how many emails I've had since we've
+been talking.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/719-0
+01:04:45.408 --> 01:04:48.288
+<v >All right, Martin, cheers.
+Thanks a lot for your time.</v>
+
+a6a1edb9-2f3e-4149-94c6-a8f5eb549e87/721-0
+01:04:49.728 --> 01:04:50.768
+<v >Cheers. Bye.</v>

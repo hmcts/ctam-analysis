@@ -1,0 +1,6127 @@
+WEBVTT
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/12-0
+00:00:03.300 --> 00:00:08.956
+<v [PERSON_1]>people and introduce ourselves.
+And then I will run through an overview</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/12-1
+00:00:08.956 --> 00:00:14.611
+<v [PERSON_1]>of what the courts and tribunals
+availability management project is all</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/12-2
+00:00:14.611 --> 00:00:19.874
+<v [PERSON_1]>about. And hopefully, [PERSON_8],
+that will give you and [PERSON_21] give you</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/12-3
+00:00:19.874 --> 00:00:22.780
+<v [PERSON_1]>some of the background that you need.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/14-0
+00:00:23.260 --> 00:00:26.499
+<v [PERSON_1]>before we go into the worksheet workshop
+proper.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/14-1
+00:00:26.499 --> 00:00:30.530
+<v [PERSON_1]>And then I will hand over to [PERSON_18],
+our business analyst,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/14-2
+00:00:30.530 --> 00:00:36.015
+<v [PERSON_1]>who will lead us through the discussions
+that we need to have about your processes</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/14-3
+00:00:36.015 --> 00:00:41.104
+<v [PERSON_1]>and how you currently manage things for
+the two processes that we're looking</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/14-4
+00:00:41.104 --> 00:00:41.500
+<v [PERSON_1]>today.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/15-0
+00:00:42.220 --> 00:00:47.105
+<v [PERSON_1]>And to add that we are joined by [PERSON_13],
+who is a user centered,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/15-1
+00:00:47.105 --> 00:00:53.407
+<v [PERSON_1]>a user design manager on the project.
+The focus of today is very much about the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/15-2
+00:00:53.407 --> 00:00:56.952
+<v [PERSON_1]>processes,
+but if we've got time at the end,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/15-3
+00:00:56.952 --> 00:01:02.860
+<v [PERSON_1]>we can use that for [PERSON_13] to ask any
+specific questions around users design.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/16-0
+00:01:03.660 --> 00:01:06.060
+<v [PERSON_1]>that might have sprung to your mind.
+That's okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/17-0
+00:01:07.500 --> 00:01:13.478
+<v [PERSON_1]>So to start off with the introductions,
+I'll go first. My name is [PERSON_1].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/17-1
+00:01:13.478 --> 00:01:17.020
+<v [PERSON_1]>I'm project manager working in DTS,
+the digital</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/18-0
+00:01:18.860 --> 00:01:22.620
+<v [PERSON_1]>Project delivery wing of HMCS.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/19-0
+00:01:23.580 --> 00:01:26.700
+<v [PERSON_1]>And, um, that's it, really, for me.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/20-0
+00:01:28.700 --> 00:01:32.460
+<v [PERSON_1]>Do I would think first [PERSON_9],
+do you want to say who you are?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/21-0
+00:01:33.180 --> 00:01:36.677
+<v [PERSON_9]>Hiya, morning all.
+I am [PERSON_9] and I am working as a</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/21-1
+00:01:36.677 --> 00:01:41.340
+<v [PERSON_9]>principal engineer on the course and
+Tribunals availability management project.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/22-0
+00:01:42.620 --> 00:01:43.260
+<v [PERSON_9]>Nice to be here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/23-0
+00:01:44.380 --> 00:01:45.020
+<v [PERSON_1]>Keep up.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/24-0
+00:01:46.140 --> 00:01:50.631
+<v [PERSON_10]>Hi, good morning. I'm [PERSON_10].
+I'm working as senior AI consultant for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/24-1
+00:01:50.631 --> 00:01:51.420
+<v [PERSON_10]>CTAM project.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/25-0
+00:01:52.460 --> 00:01:54.140
+<v [PERSON_1]>Thank you, [PERSON_18].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/26-0
+00:01:54.860 --> 00:01:58.344
+<v [PERSON_2]>Hi everyone, my name is Samuel [PERSON_22].
+I am working as a business analyst on</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/26-1
+00:01:58.344 --> 00:01:58.940
+<v [PERSON_2]>this project.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/27-0
+00:02:00.740 --> 00:02:05.284
+<v [PERSON_1]>And then if we just go round in the order
+that I can see people, if that's okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/27-1
+00:02:05.284 --> 00:02:05.620
+<v [PERSON_1]>[PERSON_23]?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/28-0
+00:02:06.620 --> 00:02:10.380
+<v [PERSON_7]>Hi everyone, I'm [REDACTED]
+Service Manager and Employment Tribunals.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/29-0
+00:02:11.820 --> 00:02:12.300
+<v [PERSON_1]>[PERSON_24].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/30-0
+00:02:13.980 --> 00:02:17.334
+<v [PERSON_25]>Morning everyone, [PERSON_16],
+Deputy Service Manager for Employment</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/30-1
+00:02:17.334 --> 00:02:17.820
+<v [PERSON_25]>Tribunals.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/31-0
+00:02:19.580 --> 00:02:20.300
+<v [PERSON_1]>[PERSON_21].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/32-0
+00:02:21.100 --> 00:02:24.823
+<v [PERSON_3]>Morning everyone. My name's [PERSON_21].
+I'm Listing Team Manager for Wales</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/32-1
+00:02:24.823 --> 00:02:25.940
+<v [PERSON_3]>Employment Tribunals.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/33-0
+00:02:28.020 --> 00:02:28.380
+<v [PERSON_1]>[PERSON_8].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/34-0
+00:02:29.660 --> 00:02:34.380
+<v [PERSON_8]>I'm [PERSON_8] and I'm Listing Team Manager
+for Watford Employment Tribunals.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/35-0
+00:02:35.580 --> 00:02:38.375
+<v [PERSON_1]>And [PERSON_13], sorry,
+when I went around the team,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/35-1
+00:02:38.375 --> 00:02:40.300
+<v [PERSON_1]>I skipped you. So, [PERSON_13], please.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/36-0
+00:02:40.780 --> 00:02:43.041
+<v [PERSON_13]>No problem,
+I'm [PERSON_13] and I'm service</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/36-1
+00:02:43.041 --> 00:02:44.220
+<v [PERSON_13]>designer on the project.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/37-0
+00:02:46.260 --> 00:02:49.980
+<v [PERSON_1]>Thank you.
+I'm just going to start sharing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/38-0
+00:02:52.380 --> 00:02:55.179
+<v [PERSON_1]>Share those slides,
+you won't be very interested in those</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/38-1
+00:02:55.179 --> 00:02:55.420
+<v [PERSON_1]>ones.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/39-0
+00:03:02.380 --> 00:03:07.943
+<v [PERSON_1]>And do feel free to say at the outset if
+you've got questions at any time,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/39-1
+00:03:07.943 --> 00:03:13.135
+<v [PERSON_1]>either wave your arm about,
+just shout out or put your hand up in the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/39-2
+00:03:13.135 --> 00:03:13.580
+<v [PERSON_1]>teams.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/40-0
+00:03:21.340 --> 00:03:22.700
+<v [PERSON_1]>Can everybody see that?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/42-0
+00:03:24.620 --> 00:03:25.900
+<v [PERSON_1]>Yeah, cool.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/41-0
+00:03:25.500 --> 00:03:25.900
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/45-0
+00:03:27.820 --> 00:03:30.780
+<v [PERSON_1]>So this is what are the.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/48-0
+00:03:32.220 --> 00:03:36.116
+<v [PERSON_1]>agenda looks like for today.
+Welcome and introductions as we've just</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/48-1
+00:03:36.116 --> 00:03:38.656
+<v [PERSON_1]>done.
+I'll talk through the CTAM project and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/48-2
+00:03:38.656 --> 00:03:42.326
+<v [PERSON_1]>the CTAM Pathfinder and describe the
+difference between the two.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/48-3
+00:03:42.326 --> 00:03:46.504
+<v [PERSON_1]>Just share the schedule of workshops,
+which I believe you'll have in your</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/48-4
+00:03:46.504 --> 00:03:49.609
+<v [PERSON_1]>diaries by now,
+and then we'll go through what we call</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/48-5
+00:03:49.609 --> 00:03:51.020
+<v [PERSON_1]>the discovery in terms of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/49-0
+00:03:51.180 --> 00:03:57.534
+<v [PERSON_1]>the topics that we're looking at today
+and the questions that we need to ask of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/49-1
+00:03:57.534 --> 00:04:02.060
+<v [PERSON_1]>you in order to build into the design of
+the new system.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/52-0
+00:04:03.220 --> 00:04:08.255
+<v [PERSON_1]>Sorry, this side's a bit busy,
+but I'll just read you through the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/52-1
+00:04:08.255 --> 00:04:12.070
+<v [PERSON_1]>highlights.
+So the name of the project that we're</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/52-2
+00:04:12.070 --> 00:04:16.647
+<v [PERSON_1]>working on is Courts and Tribunals
+Availability Management.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/52-3
+00:04:16.647 --> 00:04:22.140
+<v [PERSON_1]>And it's a project that is designed to
+build and implement a new system</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/53-0
+00:04:23.300 --> 00:04:30.675
+<v [PERSON_1]>which will plan and manage when and where,
+so including courtrooms, hearing rooms,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/53-1
+00:04:30.675 --> 00:04:34.140
+<v [PERSON_1]>where Judicial Office holders will sit.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/54-0
+00:04:35.100 --> 00:04:39.734
+<v [PERSON_1]>and the purpose is to make sure that
+we've got the right Judicial information</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/54-1
+00:04:39.734 --> 00:04:44.249
+<v [PERSON_1]>available at the right venue on the right
+day across all the jurisdictions.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/54-2
+00:04:44.249 --> 00:04:47.873
+<v [PERSON_1]>At the moment, we're looking,
+our big focus is on Tribunals,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/54-3
+00:04:47.873 --> 00:04:52.863
+<v [PERSON_1]>and that is you guys, Employment Tribunal,
+and but we'll also be building a product</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/54-4
+00:04:52.863 --> 00:04:55.180
+<v [PERSON_1]>that is fit for purpose for the courts.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/55-0
+00:04:55.580 --> 00:05:01.900
+<v [PERSON_1]>and in later stages we will look to
+introduce it into the magistrate's courts.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/56-0
+00:05:03.100 --> 00:05:09.161
+<v [PERSON_1]>So the product,
+what it will actually do is maintain JOH</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/56-1
+00:05:09.161 --> 00:05:11.500
+<v [PERSON_1]>personnel information.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/58-0
+00:05:12.460 --> 00:05:20.032
+<v [PERSON_1]>Let HMCS users plan itineraries and
+allocate JOH members and panel members to</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/58-1
+00:05:20.032 --> 00:05:25.663
+<v [PERSON_1]>venues. Capture availability,
+manage absences, vacancies,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/58-2
+00:05:25.663 --> 00:05:29.740
+<v [PERSON_1]>working patterns and Jurisdictional split.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/59-0
+00:05:30.620 --> 00:05:32.660
+<v [PERSON_1]>Support fee payments.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/60-0
+00:05:34.140 --> 00:05:41.358
+<v [PERSON_1]>and support fees and payments to ensure
+that judges are paid and expose [PERSON_26]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/60-1
+00:05:41.358 --> 00:05:46.940
+<v [PERSON_1]>availability to external system clients
+where we need to.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/61-0
+00:05:48.540 --> 00:05:53.204
+<v [PERSON_1]>It will be delivered in stages and as
+we've probably already grasped,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/61-1
+00:05:53.204 --> 00:05:58.401
+<v [PERSON_1]>the first will be within employment
+Tribunals in England, Wales and Scotland.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/61-2
+00:05:58.401 --> 00:06:03.864
+<v [PERSON_1]>And the pathfinder element of the project,
+which sits within the project overall,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/61-3
+00:06:03.864 --> 00:06:08.860
+<v [PERSON_1]>refers to the work that we're doing now
+and we're kick starting today with</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/62-0
+00:06:09.060 --> 00:06:10.460
+<v [PERSON_1]>[PERSON_2] you guys.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/63-0
+00:06:11.660 --> 00:06:18.255
+<v [PERSON_1]>around the Employment Tribunals and
+actually delivering a working system that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/63-1
+00:06:18.255 --> 00:06:23.835
+<v [PERSON_1]>can be operational in ET.
+And it will then be the foundation that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/63-2
+00:06:23.835 --> 00:06:29.500
+<v [PERSON_1]>we will use to bring in all of the other
+Tribunals and the courts.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/64-0
+00:06:31.340 --> 00:06:32.540
+<v [PERSON_1]>That makes sense.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/65-0
+00:06:34.660 --> 00:06:34.940
+<v [PERSON_1]>Yep.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/66-0
+00:06:36.140 --> 00:06:42.292
+<v [PERSON_1]>And the reason that we've set up these
+discovery workshops is to understand your</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/66-1
+00:06:42.292 --> 00:06:45.710
+<v [PERSON_1]>existing processes, basically,
+and to cover,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/66-2
+00:06:45.710 --> 00:06:51.634
+<v [PERSON_1]>as we work through these workshops,
+this week connects all of the topics that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/66-3
+00:06:51.634 --> 00:06:54.140
+<v [PERSON_1]>we've effectively mentioned here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/67-0
+00:07:00.020 --> 00:07:04.860
+<v [PERSON_1]>Does anyone have any questions about what
+we're trying to do today?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/68-0
+00:07:06.180 --> 00:07:07.660
+<v [PERSON_1]>What we will do today?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/69-0
+00:07:09.980 --> 00:07:10.340
+<v [PERSON_1]>No.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/72-0
+00:07:11.740 --> 00:07:14.960
+<v [PERSON_1]>OK,
+so we've got the schedule of workshops,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/72-1
+00:07:14.960 --> 00:07:20.814
+<v [PERSON_1]>the one today which will look at Judicial
+Office holders and ET panel setup and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/72-2
+00:07:20.814 --> 00:07:25.498
+<v [PERSON_1]>composition. Then move on to tomorrow,
+availability management,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/72-3
+00:07:25.498 --> 00:07:30.620
+<v [PERSON_1]>itinerary planning, change,
+confirmation change, absence and vacancy.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/73-0
+00:07:30.860 --> 00:07:31.980
+<v [PERSON_1]>and reporting.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/76-0
+00:07:33.260 --> 00:07:37.388
+<v [PERSON_1]>Next week, the 7th,
+I can't remember what day that is,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/76-1
+00:07:37.388 --> 00:07:43.541
+<v [PERSON_1]>working patterns and sitting commitments
+are split across jurisdictions and cross</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/76-2
+00:07:43.541 --> 00:07:48.719
+<v [PERSON_1]>deployment and any off system processes
+that you use, such as Excel,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/76-3
+00:07:48.719 --> 00:07:52.020
+<v [PERSON_1]>but I suspect that we'll cover quite a
+bit.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/77-0
+00:07:52.140 --> 00:07:55.100
+<v [PERSON_1]>A lot of that, before we get to today.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/78-0
+00:07:56.860 --> 00:08:01.740
+<v [PERSON_1]>Sorry, to then,
+and then a smaller workshop.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/79-0
+00:08:03.180 --> 00:08:08.375
+<v [PERSON_1]>at the last of them,
+external exposure of availability data</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/79-1
+00:08:08.375 --> 00:08:09.500
+<v [PERSON_1]>and auditing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/81-0
+00:08:13.580 --> 00:08:18.879
+<v [PERSON_1]>So, I'm just noticing, [PERSON_8],
+that you've seen [PERSON_27], poor thing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/81-1
+00:08:18.879 --> 00:08:20.460
+<v [PERSON_1]>Is she able to join?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/80-0
+00:08:19.420 --> 00:08:19.820
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/82-0
+00:08:20.860 --> 00:08:22.860
+<v [PERSON_8]>Yeah, are you able to join?
+They're asking.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/84-0
+00:08:24.060 --> 00:08:25.340
+<v [PERSON_8]>Finishes at half 10.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/86-0
+00:08:26.860 --> 00:08:28.300
+<v [PERSON_8]>Yeah, she's gonna try and get on.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/85-0
+00:08:27.180 --> 00:08:27.620
+<v [PERSON_1]>[PERSON_28].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/87-0
+00:08:28.860 --> 00:08:32.620
+<v [PERSON_1]>Well, thank you very much indeed.
+Really appreciate it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/88-0
+00:08:33.340 --> 00:08:33.460
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/89-0
+00:08:36.300 --> 00:08:40.865
+<v [PERSON_1]>Okay, and these are who we are.
+This is the group that will take forward</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/89-1
+00:08:40.865 --> 00:08:41.740
+<v [PERSON_1]>the discovery.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/90-0
+00:08:42.860 --> 00:08:43.420
+<v [PERSON_1]>And...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/93-0
+00:08:44.620 --> 00:08:50.620
+<v [PERSON_1]>I will then just hand over to [PERSON_18],
+but I think it might be.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/94-0
+00:08:52.060 --> 00:08:54.700
+<v [PERSON_1]>Just thinking whether we let [PERSON_27] join.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/95-0
+00:08:56.700 --> 00:08:57.500
+<v [PERSON_1]>Before.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/98-0
+00:09:01.180 --> 00:09:04.020
+<v [PERSON_8]>I think you probably... yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/101-0
+00:09:01.620 --> 00:09:06.435
+<v [PERSON_1]>I don't want to put her under pressure.
+Let's carry on. But when she does join,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/101-1
+00:09:06.435 --> 00:09:10.227
+<v [PERSON_1]>I will, apologies everyone,
+but I will give her a quick recap,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/101-2
+00:09:10.227 --> 00:09:14.380
+<v [PERSON_1]>otherwise she won't know what we're
+talking about. That's all right.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/99-0
+00:09:11.820 --> 00:09:12.300
+<v [PERSON_8]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/100-0
+00:09:13.900 --> 00:09:14.940
+<v [PERSON_8]>Okay, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/102-0
+00:09:15.900 --> 00:09:18.940
+<v [PERSON_1]>So, [PERSON_18], can I go over to you?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/105-0
+00:09:20.620 --> 00:09:24.367
+<v [PERSON_2]>Thank you very much, [PERSON_1].
+Good morning all,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/105-1
+00:09:24.367 --> 00:09:30.903
+<v [PERSON_2]>and thanks for joining our session today.
+[PERSON_1] has already described the agenda</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/105-2
+00:09:30.903 --> 00:09:34.968
+<v [PERSON_2]>for today,
+and so we'll be discussing the Judicial</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/105-3
+00:09:34.968 --> 00:09:40.946
+<v [PERSON_2]>Office holder setup and the ET panel
+composition setup and composition for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/105-4
+00:09:40.946 --> 00:09:42.380
+<v [PERSON_2]>Wales and Watford.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/107-0
+00:09:43.260 --> 00:09:48.396
+<v [PERSON_2]>What we need is for you to walk us
+through the roles your team plays in</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/107-1
+00:09:48.396 --> 00:09:52.818
+<v [PERSON_2]>getting a judge [PERSON_29] a lay member if
+possible, or when needed,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/107-2
+00:09:52.818 --> 00:09:57.097
+<v [PERSON_2]>in front of a hearing,
+and then to understand the roles and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/107-3
+00:09:57.097 --> 00:10:01.020
+<v [PERSON_2]>responsibilities each individual plays in
+the Judicial</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/108-0
+00:10:01.820 --> 00:10:08.357
+<v [PERSON_2]>availability and allocation for ET.
+We have a couple of questions which you</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/108-1
+00:10:08.357 --> 00:10:13.947
+<v [PERSON_2]>can see on the screen and which we are
+looking to address today,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/108-2
+00:10:13.947 --> 00:10:19.366
+<v [PERSON_2]>but hopefully by the time we finish going
+through the process,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/108-3
+00:10:19.366 --> 00:10:23.580
+<v [PERSON_2]>we would have addressed some of these
+questions.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/110-0
+00:10:23.900 --> 00:10:28.144
+<v [PERSON_2]>If not,
+we will come back to them at the end or,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/110-1
+00:10:28.144 --> 00:10:34.380
+<v [PERSON_2]>you know, during the discussions.
+We'll first start with the [PERSON_30] setup.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/110-2
+00:10:34.380 --> 00:10:40.443
+<v [PERSON_2]>And I think what will help us is if we
+can take it one for, you know,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/110-3
+00:10:40.443 --> 00:10:43.820
+<v [PERSON_2]>maybe Wales will go forward or Watford.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/111-0
+00:10:44.260 --> 00:10:46.340
+<v [PERSON_2]>whichever we are comfortable with.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/116-0
+00:10:49.180 --> 00:10:55.199
+<v [PERSON_2]>And then we can then move on,
+move to panel composition afterwards.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/116-1
+00:10:55.199 --> 00:11:01.572
+<v [PERSON_2]>So we'll use maybe the first 30,
+45 minutes to go through that and then</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/116-2
+00:11:01.572 --> 00:11:07.060
+<v [PERSON_2]>the questions to go through the first one
+and the [PERSON_30] set up.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/117-0
+00:11:07.420 --> 00:11:11.644
+<v [PERSON_2]>and you know the questions we have there,
+then we can move on to the panel</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/117-1
+00:11:11.644 --> 00:11:15.586
+<v [PERSON_2]>composition, set up and composition,
+and that will help us, you know,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/117-2
+00:11:15.586 --> 00:11:17.500
+<v [PERSON_2]>kind of bring everything together.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/118-0
+00:11:19.420 --> 00:11:20.860
+<v [PERSON_2]>So, we can start with...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/119-0
+00:11:22.860 --> 00:11:27.077
+<v [PERSON_2]>Any one of us here,
+maybe Wills or Watford,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/119-1
+00:11:27.077 --> 00:11:32.540
+<v [PERSON_2]>just a walkthrough of what the process is
+for GOH setup.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/129-0
+00:11:43.380 --> 00:11:48.066
+<v [PERSON_8]>Go on then, I'll speak for Watford. So,
+what we have is we,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/129-1
+00:11:48.066 --> 00:11:51.580
+<v [PERSON_8]>so I'm getting so confused.
+Can you hear me?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/130-0
+00:11:48.780 --> 00:11:54.220
+<v [PERSON_9]>Sorry, sorry, at me, at me,
+your PowerPoint has gone off screen.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/133-0
+00:11:59.580 --> 00:12:01.340
+<v [PERSON_10]>And looks like you are mute, [PERSON_1].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/136-0
+00:12:11.580 --> 00:12:13.180
+<v [PERSON_8]>That's getting a bit.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/145-0
+00:12:26.220 --> 00:12:29.500
+<v [PERSON_2]>[PERSON_1],
+we are not sharing the screen again.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/159-0
+00:12:50.940 --> 00:12:56.117
+<v [PERSON_1]>Everyone, I am so sorry about that.
+I was trying to go into presentation mode</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/154-0
+00:12:53.500 --> 00:12:53.540
+<v [PERSON_2]>I.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/159-1
+00:12:56.117 --> 00:13:01.028
+<v [PERSON_1]>and it doesn't seem to want to play,
+but can you see this unless [PERSON_9],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/159-2
+00:13:01.028 --> 00:13:02.620
+<v [PERSON_1]>you want to give me a...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/160-0
+00:13:03.700 --> 00:13:04.940
+<v [PERSON_1]>A handy hint.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/161-0
+00:13:06.380 --> 00:13:07.980
+<v [PERSON_9]>Maybe just click on PowerPoint.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/162-0
+00:13:09.660 --> 00:13:10.380
+<v [PERSON_9]>At the bottom.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/166-0
+00:13:12.140 --> 00:13:16.220
+<v [PERSON_9]>See the PowerPoint symbol in the task
+manager right at the right, in the bottom.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/167-0
+00:13:17.740 --> 00:13:18.300
+<v [PERSON_1]>Beer.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/170-0
+00:13:20.140 --> 00:13:22.300
+<v [PERSON_9]>You should still have the PowerPoint open,
+right?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/172-0
+00:13:22.780 --> 00:13:24.460
+<v [PERSON_1]>Yeah, I have. Can you not see that?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/171-0
+00:13:23.740 --> 00:13:23.900
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/173-0
+00:13:24.860 --> 00:13:26.540
+<v [PERSON_9]>No, we see our own teams.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/176-0
+00:13:30.860 --> 00:13:33.100
+<v [PERSON_9]>Yeah, maybe [PERSON_31],
+that's probably a better idea.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/179-0
+00:13:35.980 --> 00:13:37.420
+<v [PERSON_1]>Okay, can you see that now?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/180-0
+00:13:37.660 --> 00:13:38.340
+<v [PERSON_9]>Yeah, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/182-0
+00:13:39.340 --> 00:13:42.608
+<v [PERSON_9]>Let's stick to that if presentation is
+having problems. Sometimes it does.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/183-0
+00:13:41.180 --> 00:13:44.700
+<v [PERSON_1]>Yeah, okay, yeah, rather than waste time.
+I'm sorry, [PERSON_18].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/182-1
+00:13:42.608 --> 00:13:43.740
+<v [PERSON_9]>Let's stick to this. Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/185-0
+00:13:46.860 --> 00:13:51.260
+<v [PERSON_2]>Okay, we can start with any of the teams.
+Thank you.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/184-0
+00:13:47.340 --> 00:13:48.700
+<v [PERSON_1]>Talk to you in your prime.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/188-0
+00:13:55.340 --> 00:14:00.916
+<v [PERSON_8]>Right, I'll explain what we do in Watford.
+So I've got three screens on the go here</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/188-1
+00:14:00.916 --> 00:14:04.169
+<v [PERSON_8]>and I've got,
+so I don't know where I'm looking.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/188-2
+00:14:04.169 --> 00:14:08.750
+<v [PERSON_8]>I'm trying to look at the best one
+because my eyes are bad. With us,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/188-3
+00:14:08.750 --> 00:14:14.060
+<v [PERSON_8]>we keep our master copy on the G drive.
+It's on a spreadsheet which we call our</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/190-0
+00:14:14.220 --> 00:14:20.758
+<v [PERSON_8]>Judicial resources spreadsheet.
+I'm actually going to get one up so that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/190-1
+00:14:20.758 --> 00:14:25.056
+<v [PERSON_8]>I can explain it.
+If it's right in front of me,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/190-2
+00:14:25.056 --> 00:14:26.220
+<v [PERSON_8]>bear with me.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/191-0
+00:14:28.060 --> 00:14:30.614
+<v [PERSON_8]>Oh,
+now I've got that up and I've lost all of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/191-1
+00:14:30.614 --> 00:14:33.668
+<v [PERSON_8]>you. Right, that's no good. Right,
+let me get back on.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/191-2
+00:14:33.668 --> 00:14:38.109
+<v [PERSON_8]>Let me get back on there. That's it.
+Right, so on our Judicial spreadsheet, we.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/191-3
+00:14:38.109 --> 00:14:38.220
+<v [PERSON_8]>..</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/192-0
+00:14:39.380 --> 00:14:42.587
+<v [PERSON_8]>have,
+because we've got different venues in</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/192-1
+00:14:42.587 --> 00:14:47.980
+<v [PERSON_8]>Watford, we have five different venues,
+it is colour coded for dependent.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/193-0
+00:14:47.100 --> 00:14:50.819
+<v [PERSON_2]>Sorry, [PERSON_8],
+is that something you would like to show</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/193-1
+00:14:50.819 --> 00:14:51.900
+<v [PERSON_2]>us on this call?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/197-0
+00:14:51.740 --> 00:14:56.993
+<v [PERSON_8]>Yeah, that's what I'm trying to do.
+I was trying to get it up and let me see</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/194-0
+00:14:53.660 --> 00:14:54.300
+<v [PERSON_2]>Oh, nice.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/195-0
+00:14:55.500 --> 00:14:55.740
+<v [PERSON_2]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/197-1
+00:14:56.993 --> 00:14:58.220
+<v [PERSON_8]>if I can share it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/198-0
+00:14:58.700 --> 00:15:01.100
+<v [PERSON_1]>I'll stop sharing;
+you should be able to know.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/199-0
+00:15:00.700 --> 00:15:03.060
+<v [PERSON_8]>Yeah, I was going to say,
+it's a bit weird, isn't it, when you...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/200-0
+00:15:04.500 --> 00:15:05.980
+<v [PERSON_8]>Trying to sort of like, share.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/201-0
+00:15:08.540 --> 00:15:09.820
+<v [PERSON_8]>Di.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/202-0
+00:15:12.460 --> 00:15:15.340
+<v [PERSON_8]>Where's it gone? Judicial spreadsheet.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/204-0
+00:15:26.220 --> 00:15:27.500
+<v [PERSON_8]>It's taking its time.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/205-0
+00:15:29.260 --> 00:15:29.500
+<v [PERSON_1]>No.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/206-0
+00:15:29.580 --> 00:15:31.260
+<v [PERSON_8]>Right, can you see that?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/207-0
+00:15:32.220 --> 00:15:32.580
+<v [PERSON_1]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/210-0
+00:15:33.460 --> 00:15:37.621
+<v [PERSON_8]>Okay, so,
+so I'm getting all the cables caught up</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/210-1
+00:15:37.621 --> 00:15:41.698
+<v [PERSON_8]>here.
+So what we have is we have all our judges,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/210-2
+00:15:41.698 --> 00:15:44.860
+<v [PERSON_8]>be it salaried, let me move this over.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/212-0
+00:15:47.820 --> 00:15:50.540
+<v [PERSON_8]>Well, I don't really wanna,
+so you can see that you got...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/214-0
+00:15:50.220 --> 00:15:52.799
+<v [PERSON_13]>Sorry,
+I can only see something that says you</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/214-1
+00:15:52.799 --> 00:15:56.443
+<v [PERSON_13]>don't have access to this file.
+I'm not sure if you're sharing a</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/213-0
+00:15:55.340 --> 00:15:55.740
+<v [PERSON_8]>Oh.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/214-2
+00:15:56.443 --> 00:15:57.340
+<v [PERSON_13]>different thing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/216-0
+00:15:58.220 --> 00:15:59.500
+<v [PERSON_8]>Can anybody else see it?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/217-0
+00:15:59.900 --> 00:16:02.650
+<v [PERSON_7]>I can see it.
+I think it's because you're probably</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/217-1
+00:16:02.650 --> 00:16:04.860
+<v [PERSON_7]>because it's your external, I'm guessing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/218-0
+00:16:04.860 --> 00:16:05.980
+<v [PERSON_9]>Yeah, for me.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/219-0
+00:16:05.180 --> 00:16:07.980
+<v [PERSON_13]>Ah, okay, no problem. I'll just...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/222-0
+00:16:07.100 --> 00:16:11.162
+<v [PERSON_9]>For me also, it just it just says loading,
+so it doesn't actually I can't actually</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/221-0
+00:16:10.700 --> 00:16:10.780
+<v [PERSON_7]>Uh...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/222-1
+00:16:11.162 --> 00:16:12.140
+<v [PERSON_9]>see the actual file.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/224-0
+00:16:12.140 --> 00:16:14.060
+<v [PERSON_10]>For me, so same thing here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/225-0
+00:16:12.620 --> 00:16:16.835
+<v [PERSON_7]>It might be because it might be because
+you're going through Excel Live,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/225-1
+00:16:16.835 --> 00:16:19.260
+<v [PERSON_7]>so if you just share screen it might work.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/227-0
+00:16:20.060 --> 00:16:21.260
+<v [PERSON_8]>Right, let's try that.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/228-0
+00:16:20.100 --> 00:16:22.540
+<v [PERSON_7]>Because it's popped up playing Excel Live.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/229-0
+00:16:23.500 --> 00:16:27.580
+<v [PERSON_8]>Ohh, how bizarre! Right, let's do...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/230-0
+00:16:28.180 --> 00:16:30.060
+<v [PERSON_7]>I mean, I might be wrong,
+it might not work, but...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/231-0
+00:16:31.220 --> 00:16:33.900
+<v [PERSON_7]>Wait a wonderful world of tea.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/232-0
+00:16:32.220 --> 00:16:35.580
+<v [PERSON_8]>Um, let's try screen.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/235-0
+00:16:37.900 --> 00:16:40.380
+<v [PERSON_9]>Yeah, I, I can see, I can see it now,
+yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/233-0
+00:16:38.060 --> 00:16:38.860
+<v [PERSON_8]>What about that?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/234-0
+00:16:38.940 --> 00:16:39.740
+<v [PERSON_10]>That is better.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/236-0
+00:16:40.860 --> 00:16:41.340
+<v [PERSON_7]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/243-0
+00:16:41.060 --> 00:16:48.091
+<v [PERSON_8]>Yeah, can you say it now? Yep. Right,
+right. So this is what we have in Watford.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/240-0
+00:16:41.820 --> 00:16:43.980
+<v [PERSON_9]>Yeah. Yep. Yep.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/239-0
+00:16:43.100 --> 00:16:43.980
+<v [PERSON_10]>Yeah, yeah, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/243-1
+00:16:48.091 --> 00:16:53.820
+<v [PERSON_8]>So we have literally all of our salaried
+and our fee paid judges.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/246-0
+00:16:55.180 --> 00:16:58.700
+<v [PERSON_8]>And these are the months, okay? Date,
+months.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/251-0
+00:16:59.980 --> 00:17:04.338
+<v [PERSON_8]>Down here, these all are fee paid judges,
+and then from here,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/251-1
+00:17:04.338 --> 00:17:07.500
+<v [PERSON_8]>when they're colour-coded like this, are..
+.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/252-0
+00:17:08.460 --> 00:17:09.260
+<v [PERSON_8]>All of our.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/263-0
+00:17:10.700 --> 00:17:14.077
+<v [PERSON_8]>salary judges.
+This tells us what venue they're in,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/263-1
+00:17:14.077 --> 00:17:17.454
+<v [PERSON_8]>the colour coded sort of like yellow for
+Cambridge,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/263-2
+00:17:17.454 --> 00:17:21.935
+<v [PERSON_8]>not that you need to know all that,
+brown for Norwich, blue for BSE,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/263-3
+00:17:21.935 --> 00:17:25.506
+<v [PERSON_8]>green for Reading and orange, sorry,
+pink for Watford.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/263-4
+00:17:25.506 --> 00:17:29.857
+<v [PERSON_8]>And then the salary judge,
+the fee paid judges will also be colour</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/263-5
+00:17:29.857 --> 00:17:31.740
+<v [PERSON_8]>coded depending on the venue.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/268-0
+00:17:31.980 --> 00:17:37.103
+<v [PERSON_8]>Does that make sense to where they're
+listed into? So where it's a green,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/268-1
+00:17:37.103 --> 00:17:42.226
+<v [PERSON_8]>it means that [PERSON_32] is
+listed to sit in Reading because they</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/268-2
+00:17:42.226 --> 00:17:46.380
+<v [PERSON_8]>have their primary venues,
+because we've got five different</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/268-3
+00:17:46.380 --> 00:17:49.980
+<v [PERSON_8]>locations.
+They have primary venues where they sit.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/269-0
+00:17:51.020 --> 00:17:52.380
+<v [PERSON_8]>Does that make sense to everybody?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/272-0
+00:17:54.620 --> 00:17:54.860
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/273-0
+00:17:54.780 --> 00:17:55.100
+<v [PERSON_1]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/274-0
+00:17:55.820 --> 00:17:56.620
+<v [PERSON_8]>Okay, so...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/277-0
+00:17:56.620 --> 00:17:58.768
+<v [PERSON_9]>Is it sorry,
+is it right to say that this is more</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/277-1
+00:17:58.768 --> 00:18:01.260
+<v [PERSON_9]>listing that you are actually saying
+who's sitting where?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/280-0
+00:18:01.820 --> 00:18:04.143
+<v [PERSON_8]>No,
+these are these are the judges and where</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/280-1
+00:18:04.143 --> 00:18:06.620
+<v [PERSON_8]>they're sitting,
+what venue they're sitting at.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/281-0
+00:18:07.180 --> 00:18:07.980
+<v [PERSON_9]>Allocated to.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/285-0
+00:18:08.300 --> 00:18:11.820
+<v [PERSON_8]>Yeah, where they're allocated to.
+These are all fee paid.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/284-0
+00:18:10.740 --> 00:18:11.820
+<v [PERSON_10]>Where is?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/287-0
+00:18:12.980 --> 00:18:16.940
+<v [PERSON_10]>Where is that colour coding related
+information? Is there actually?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/290-0
+00:18:16.620 --> 00:18:20.860
+<v [PERSON_8]>Right, so if you go down here, these,
+the ones where the colour is here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/291-0
+00:18:21.420 --> 00:18:21.980
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/294-0
+00:18:22.780 --> 00:18:26.860
+<v [PERSON_8]>These are salary judges that got the
+colour coloured bits.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/295-0
+00:18:27.980 --> 00:18:28.460
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/301-0
+00:18:29.260 --> 00:18:33.193
+<v [PERSON_8]>And these are, I'm pointing,
+you can't see me.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/301-1
+00:18:33.193 --> 00:18:38.715
+<v [PERSON_8]>So these are our salary judges and this
+is the venue they sit in.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/301-2
+00:18:38.715 --> 00:18:43.819
+<v [PERSON_8]>It's pink for Watford,
+like green for Reading, blue for BSE,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/301-3
+00:18:43.819 --> 00:18:47.500
+<v [PERSON_8]>brown for Norwich and yellow for
+Cambridge.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/300-0
+00:18:48.220 --> 00:18:48.620
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/304-0
+00:18:48.300 --> 00:18:51.225
+<v [PERSON_8]>And then,
+and then up here on our spreadsheet,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/304-1
+00:18:51.225 --> 00:18:53.340
+<v [PERSON_8]>these are all our fee paid judges.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/305-0
+00:18:54.460 --> 00:18:54.940
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/309-0
+00:18:56.060 --> 00:19:01.260
+<v [PERSON_8]>And you get certain fee-paid judges that
+will only sit at a certain venue.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/306-0
+00:18:56.620 --> 00:18:57.020
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/310-0
+00:19:02.620 --> 00:19:06.700
+<v [PERSON_8]>So when we list them,
+when we book them in, like here,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/311-0
+00:19:07.700 --> 00:19:09.900
+<v [PERSON_8]>Because it's pink,
+we know they're sitting in Watford.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/314-0
+00:19:11.100 --> 00:19:12.060
+<v [PERSON_8]>Does that make sense?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/315-0
+00:19:13.420 --> 00:19:13.660
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/319-0
+00:19:14.140 --> 00:19:17.346
+<v [PERSON_8]>Yeah,
+so what happens is we have a member of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/316-0
+00:19:14.540 --> 00:19:15.020
+<v [PERSON_1]>Yep.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/319-1
+00:19:17.346 --> 00:19:20.481
+<v [PERSON_8]>staff here,
+we call her the booking Clarke,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/319-2
+00:19:20.481 --> 00:19:25.397
+<v [PERSON_8]>that she will send out a stencil, oh God,
+I want to say six monthly,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/319-3
+00:19:25.397 --> 00:19:30.099
+<v [PERSON_8]>I think it is six monthly.
+She sends out a stencil six monthly to</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/319-4
+00:19:30.099 --> 00:19:35.300
+<v [PERSON_8]>all of the fee pay judges and asks them
+for their dates of availability.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/320-0
+00:19:36.700 --> 00:19:40.220
+<v [PERSON_8]>They come back then and she will plot
+them on here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/321-0
+00:19:41.180 --> 00:19:41.620
+<v [PERSON_8]>Ford.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/322-0
+00:19:42.780 --> 00:19:47.768
+<v [PERSON_8]>when they've given their availability.
+So for [PERSON_20], let's have a look,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/322-1
+00:19:47.768 --> 00:19:50.060
+<v [PERSON_8]>say this one here is booked in for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/323-0
+00:19:51.340 --> 00:19:52.700
+<v [PERSON_8]>Like, 10 days.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/324-0
+00:19:53.660 --> 00:19:54.140
+<v [PERSON_8]>We've.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/326-0
+00:19:54.940 --> 00:19:59.212
+<v [PERSON_8]>found a 10-day hearing and we've asked,
+is anybody available to sit on that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/326-1
+00:19:59.212 --> 00:20:03.090
+<v [PERSON_8]>10-day hearing? Does that make sense?
+And then we've booked them in,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/326-2
+00:20:03.090 --> 00:20:05.900
+<v [PERSON_8]>that's why it's this weird little lilac-y
+colour.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/325-0
+00:20:03.380 --> 00:20:03.660
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/330-0
+00:20:07.260 --> 00:20:11.162
+<v [PERSON_8]>because they've been earmarked.
+Does that is that making things clear?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/329-0
+00:20:07.660 --> 00:20:08.140
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/330-1
+00:20:11.162 --> 00:20:12.700
+<v [PERSON_8]>Does that sound all a bit...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/331-0
+00:20:13.980 --> 00:20:14.620
+<v [PERSON_10]>Yeah, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/333-0
+00:20:15.100 --> 00:20:19.396
+<v [PERSON_8]>Yeah. Same with the non, so on here,
+as you can see,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/333-1
+00:20:19.396 --> 00:20:24.988
+<v [PERSON_8]>we've got the employment judges.
+We also have the non-legal members.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/333-2
+00:20:24.988 --> 00:20:30.174
+<v [PERSON_8]>So if I click on that,
+this shows us all the non-legal members,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/333-3
+00:20:30.174 --> 00:20:33.740
+<v [PERSON_8]>what venue,
+whether they are ER or EE side.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/336-0
+00:20:34.380 --> 00:20:39.971
+<v [PERSON_8]>and what venue they sit at. Obviously,
+it's just the initials. And again,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/336-1
+00:20:39.971 --> 00:20:41.180
+<v [PERSON_8]>we book them in.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/339-0
+00:20:42.860 --> 00:20:46.860
+<v [PERSON_8]>and we colour code it for what venue
+they're booked into.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/340-0
+00:20:48.620 --> 00:20:51.718
+<v [PERSON_9]>Sorry, when you say non-legal members,
+just to be clear on terminology,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/340-1
+00:20:51.718 --> 00:20:53.180
+<v [PERSON_9]>you're referring to panel members.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/344-0
+00:20:53.020 --> 00:20:57.581
+<v [PERSON_8]>The panel members, yeah, yeah,
+the panel members. So, it's all,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/341-0
+00:20:54.540 --> 00:20:55.020
+<v [PERSON_9]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/344-1
+00:20:57.581 --> 00:21:01.359
+<v [PERSON_8]>it's basically all held on one
+spreadsheet. We have,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/344-2
+00:21:01.359 --> 00:21:04.637
+<v [PERSON_8]>so we have all the employment judges on
+here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/344-3
+00:21:04.637 --> 00:21:10.267
+<v [PERSON_8]>We have all the non-legal members on here.
+They get booked every three months,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/344-4
+00:21:10.267 --> 00:21:13.260
+<v [PERSON_8]>I think it is. I think it's three monthly.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/347-0
+00:21:14.300 --> 00:21:17.551
+<v [PERSON_8]>It's 6 monthly for one and three monthly
+for the other.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/347-1
+00:21:17.551 --> 00:21:22.137
+<v [PERSON_8]>I can't remember which way around it is
+because I don't actually do it myself.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/347-2
+00:21:22.137 --> 00:21:25.621
+<v [PERSON_8]>It's one of my team members that does it
+for me. But again,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/347-3
+00:21:25.621 --> 00:21:30.497
+<v [PERSON_8]>they get sent out a stencil and they give
+their dates of availability and we have a</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/347-4
+00:21:30.497 --> 00:21:33.980
+<v [PERSON_8]>look to see what hearings we've got
+available in that time.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/346-0
+00:21:32.460 --> 00:21:32.660
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/348-0
+00:21:35.260 --> 00:21:36.940
+<v [PERSON_8]>Well, we need panel members.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/350-0
+00:21:38.020 --> 00:21:39.500
+<v [PERSON_8]>and we will book them in accordingly.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/349-0
+00:21:38.340 --> 00:21:38.620
+<v [PERSON_9]>This.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/351-0
+00:21:39.980 --> 00:21:41.340
+<v [PERSON_9]>Sorry, what's his stencil?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/352-0
+00:21:42.140 --> 00:21:46.468
+<v [PERSON_8]>A stencil is,
+I haven't actually got a copy of it. It's.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/352-1
+00:21:46.468 --> 00:21:46.620
+<v [PERSON_8]>..</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/353-0
+00:21:47.860 --> 00:21:51.420
+<v [PERSON_8]>Do you want me to see if I can get a copy
+of it, [PERSON_33]?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/354-0
+00:21:50.700 --> 00:21:52.220
+<v [PERSON_9]>Is it just an Excel sheet?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/355-0
+00:21:52.460 --> 00:21:52.620
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/356-0
+00:21:53.020 --> 00:21:56.860
+<v [PERSON_8]>No, it's not. It's not an Excel sheet.
+It's an actual.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/360-0
+00:21:58.060 --> 00:22:01.200
+<v [PERSON_8]>Is it an Excel sheet? Bear with me,
+I'm just going to put you,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/360-1
+00:22:01.200 --> 00:22:03.493
+<v [PERSON_8]>I'm just going to go on silent at the
+moment.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/360-2
+00:22:03.493 --> 00:22:07.281
+<v [PERSON_8]>I'm just going to ask if she could,
+if she's got an electronic copy she can</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/360-3
+00:22:07.281 --> 00:22:10.620
+<v [PERSON_8]>send to me and I can bring it up, okay?
+Is that is that all right?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/358-0
+00:22:11.020 --> 00:22:12.060
+<v [PERSON_1]>Yeah, it is.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/359-0
+00:22:11.180 --> 00:22:12.620
+<v [PERSON_9]>Yeah, that's good. Thanks, thanks.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/357-0
+00:22:11.340 --> 00:22:11.740
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/361-0
+00:22:12.380 --> 00:22:12.780
+<v [PERSON_8]>But...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/362-0
+00:22:12.940 --> 00:22:13.580
+<v [PERSON_2]>Yeah, that's fine.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/365-0
+00:22:31.500 --> 00:22:35.121
+<v [PERSON_9]>And while we are waiting,
+what does this column EE slash ER stand</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/365-1
+00:22:35.121 --> 00:22:35.340
+<v [PERSON_9]>for?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/366-0
+00:22:39.820 --> 00:22:41.580
+<v [PERSON_1]>Employer, employee.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/368-0
+00:22:41.980 --> 00:22:45.580
+<v [PERSON_8]>Yeah,
+on a panel you have an employer member</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/367-0
+00:22:42.700 --> 00:22:43.180
+<v [PERSON_9]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/368-1
+00:22:45.580 --> 00:22:48.140
+<v [PERSON_8]>and you have an employee member.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/369-0
+00:22:50.700 --> 00:22:55.500
+<v [PERSON_8]>So the panel can't be made-up of two EE
+members or two ERs.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/369-1
+00:22:55.500 --> 00:23:01.180
+<v [PERSON_8]>It's got to be the judge [PERSON_34] EE.
+Sorry, not an either. The judge,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/369-2
+00:23:01.180 --> 00:23:03.020
+<v [PERSON_8]>an ER and an EE member.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/370-0
+00:23:04.540 --> 00:23:06.540
+<v [PERSON_10]>And one more query.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/371-0
+00:23:05.740 --> 00:23:11.190
+<v [PERSON_8]>And on, yeah, on the odd occasion,
+if we can only get one side,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/371-1
+00:23:11.190 --> 00:23:16.299
+<v [PERSON_8]>one member from one side,
+the parties will be, we ask them,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/371-2
+00:23:16.299 --> 00:23:22.345
+<v [PERSON_8]>are they happy to go ahead with one panel
+member? Sometimes they will,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/371-3
+00:23:22.345 --> 00:23:25.580
+<v [PERSON_8]>other times they won't, in which case,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/372-0
+00:23:26.460 --> 00:23:31.723
+<v [PERSON_8]>We'd either have to postpone the hearing
+or go into go nationally and see if we</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/372-1
+00:23:31.723 --> 00:23:35.539
+<v [PERSON_8]>can find anybody. Otherwise,
+it will go judge [PERSON_35].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/372-2
+00:23:35.539 --> 00:23:39.420
+<v [PERSON_8]>It's normally the Regional Judge [PERSON_36]
+[PERSON_37] that decision.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/373-0
+00:23:41.420 --> 00:23:44.940
+<v [PERSON_8]>Right, she's just sent me through.
+I was gonna see if I can...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/374-0
+00:23:47.180 --> 00:23:48.700
+<v [PERSON_8]>No, it's not coming up.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/375-0
+00:23:53.860 --> 00:23:54.620
+<v [PERSON_8]>But I haven't got...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/379-0
+00:23:53.900 --> 00:23:57.064
+<v [PERSON_10]>No, OFlynn, this Excel sheet is updated.
+Actually,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/379-1
+00:23:57.064 --> 00:23:59.980
+<v [PERSON_10]>who is sharing you this Excel sheet,
+actually?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/376-0
+00:23:57.420 --> 00:23:57.580
+<v [PERSON_8]>Sir.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/380-0
+00:24:00.740 --> 00:24:03.260
+<v [PERSON_8]>What this what the Judicial spreadsheet?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/381-0
+00:24:03.580 --> 00:24:04.620
+<v [PERSON_10]>Yes, spreadsheet, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/382-0
+00:24:04.700 --> 00:24:08.361
+<v [PERSON_8]>That is, um,
+that is used by everybody on the Listing</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/382-1
+00:24:08.361 --> 00:24:08.700
+<v [PERSON_8]>team.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/387-0
+00:24:10.940 --> 00:24:15.428
+<v [PERSON_8]>and everybody,
+we have one person that will update it at</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/387-1
+00:24:15.428 --> 00:24:19.916
+<v [PERSON_8]>the end of the day. So if you,
+if I go on to say August,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/387-2
+00:24:19.916 --> 00:24:24.797
+<v [PERSON_8]>because we're now in,
+you can see here where it's got letters</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/385-0
+00:24:22.300 --> 00:24:22.700
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/387-3
+00:24:24.797 --> 00:24:25.820
+<v [PERSON_8]>in there now.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/386-0
+00:24:27.020 --> 00:24:27.980
+<v [PERSON_10]>Okay, okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/388-0
+00:24:27.900 --> 00:24:34.402
+<v [PERSON_8]>But so obviously annual leave is annual
+leave. NWD, non-working day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/388-1
+00:24:34.402 --> 00:24:36.380
+<v [PERSON_8]>JS means a judge [PERSON_38].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/391-0
+00:24:39.100 --> 00:24:44.780
+<v [PERSON_8]>then you'll have things like JWD,
+which is a judgement writing day,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/391-1
+00:24:44.780 --> 00:24:50.042
+<v [PERSON_8]>or something like DJ,
+which is when the judge [PERSON_39] duty work.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/391-2
+00:24:50.042 --> 00:24:56.473
+<v [PERSON_8]>And we also have things like it might say
+somewhere, let's say there's SCET.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/391-3
+00:24:56.473 --> 00:24:58.060
+<v [PERSON_8]>That's because that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/397-0
+00:24:58.100 --> 00:25:02.594
+<v [PERSON_8]>particularly a judge [PERSON_40] the
+Scottish Employment Tribunals,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/394-0
+00:25:02.260 --> 00:25:03.940
+<v [PERSON_10]>OK.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/397-1
+00:25:02.594 --> 00:25:07.087
+<v [PERSON_8]>a certain map, or it might say,
+I'm just trying to find one here,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/397-2
+00:25:07.087 --> 00:25:11.580
+<v [PERSON_8]>it might say DDJ because they would also
+set as a district judge.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/398-0
+00:25:12.740 --> 00:25:13.820
+<v [PERSON_8]>Does that make sense?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/402-0
+00:25:14.140 --> 00:25:16.940
+<v [PERSON_10]>Yeah, and this is updated every every day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/399-0
+00:25:14.860 --> 00:25:15.260
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/405-0
+00:25:16.860 --> 00:25:20.379
+<v [PERSON_8]>This is updated daily.
+It's normally when I'm doing it,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/405-1
+00:25:20.379 --> 00:25:23.647
+<v [PERSON_8]>I would normally do fill out say the 3rd
+of August,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/405-2
+00:25:23.647 --> 00:25:28.674
+<v [PERSON_8]>I would have filled it out on the 4th
+because something might have happened and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/405-3
+00:25:28.674 --> 00:25:31.879
+<v [PERSON_8]>this judge [PERSON_41] called in sick or
+something.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/405-4
+00:25:31.879 --> 00:25:35.900
+<v [PERSON_8]>So I don't actually put they've sat until
+I know they have sat.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/406-0
+00:25:37.100 --> 00:25:38.940
+<v [PERSON_8]>So, I normally do it the following day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/408-0
+00:25:40.140 --> 00:25:42.380
+<v [PERSON_1]>How do you get that information, [PERSON_8]?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/407-0
+00:25:40.300 --> 00:25:40.780
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/410-0
+00:25:42.780 --> 00:25:47.100
+<v [PERSON_8]>That is from our Listing tables that we
+send out on a daily basis.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/409-0
+00:25:46.860 --> 00:25:47.260
+<v [PERSON_1]>I SE.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/411-0
+00:25:48.540 --> 00:25:54.244
+<v [PERSON_8]>Also on this spreadsheet, we also have,
+because I noticed one of the questions,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/411-1
+00:25:54.244 --> 00:25:59.020
+<v [PERSON_8]>we have things like conflicts of interest.
+So we'll have the judge</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/416-0
+00:26:01.420 --> 00:26:07.871
+<v [PERSON_8]>This tells us, like conflicts of interest,
+it tells us whether they're ring-fenced</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/416-1
+00:26:07.871 --> 00:26:09.580
+<v [PERSON_8]>to a particular venue.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/419-0
+00:26:12.460 --> 00:26:18.427
+<v [PERSON_8]>tells us whether they are like trained in
+judicial mediation, in equal pay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/419-1
+00:26:18.427 --> 00:26:24.786
+<v [PERSON_8]>So we have all that kind of information
+on this spreadsheet because I did notice</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/419-2
+00:26:24.786 --> 00:26:25.100
+<v [PERSON_8]>that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/422-0
+00:26:26.700 --> 00:26:30.346
+<v [PERSON_8]>the questions were saying about conflict.
+This, the basically,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/422-1
+00:26:30.346 --> 00:26:34.859
+<v [PERSON_8]>this spreadsheet is our little Bible.
+It tells us everything we need to know.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/422-2
+00:26:34.859 --> 00:26:38.620
+<v [PERSON_8]>It tells us who we've got,
+what they can do, what they can't do.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/423-0
+00:26:39.900 --> 00:26:43.020
+<v [PERSON_8]>All their training days,
+when they done the training.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/424-0
+00:26:45.500 --> 00:26:50.161
+<v [PERSON_8]>This tells us how many times I've sat,
+how many times I've been cancelled,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/424-1
+00:26:50.161 --> 00:26:53.020
+<v [PERSON_8]>or how many times they've cancelled,
+sitting.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/425-0
+00:26:56.540 --> 00:26:57.660
+<v [PERSON_8]>Uh, yeah, it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/428-0
+00:26:58.860 --> 00:27:01.163
+<v [PERSON_8]>I'm trying,
+do you want me to see if I let me see if</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/428-1
+00:27:01.163 --> 00:27:02.900
+<v [PERSON_8]>I've got that e-mail come through, yeah?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/429-0
+00:27:05.580 --> 00:27:05.980
+<v [PERSON_8]>Vic.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/431-0
+00:27:08.140 --> 00:27:10.140
+<v [PERSON_1]>Second one down, I think, [PERSON_42].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/430-0
+00:27:08.540 --> 00:27:08.940
+<v [PERSON_8]>Right.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/432-0
+00:27:10.940 --> 00:27:12.380
+<v [PERSON_8]>That's the kiddo, right?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/435-0
+00:27:13.540 --> 00:27:13.860
+<v [PERSON_1]>EW.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/438-0
+00:27:18.740 --> 00:27:20.780
+<v [PERSON_8]>They're gonna come up right, let's...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/445-0
+00:27:22.220 --> 00:27:27.643
+<v [PERSON_8]>Right, can you see that?
+So this gets sent, this is for, oh,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/445-1
+00:27:27.643 --> 00:27:32.887
+<v [PERSON_8]>this is for the panel.
+It's very similar with the fee paid</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/445-2
+00:27:32.887 --> 00:27:35.020
+<v [PERSON_8]>judges get sent as well.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/454-0
+00:27:37.740 --> 00:27:43.060
+<v [PERSON_8]>and they basically get a copy of this and
+they put an X, as you can see,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/454-1
+00:27:43.060 --> 00:27:48.161
+<v [PERSON_8]>please indicate your availability.
+They send it back with their name,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/454-2
+00:27:48.161 --> 00:27:53.772
+<v [PERSON_8]>the venue they sit at, whether they're ER,
+EE, and they put an X in the box.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/454-3
+00:27:53.772 --> 00:27:59.820
+<v [PERSON_8]>And then if we've got hearings that are
+available on those dates, that need panel,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/455-0
+00:28:00.300 --> 00:28:03.349
+<v [PERSON_8]>and they're the right person,
+the right side, the right venue,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/455-1
+00:28:03.349 --> 00:28:04.220
+<v [PERSON_8]>we will book them.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/456-0
+00:28:06.300 --> 00:28:07.180
+<v [PERSON_8]>Does that make sense?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/459-0
+00:28:08.780 --> 00:28:13.465
+<v [PERSON_8]>And as you can see, that's, yeah,
+it's free monthly for panel members.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/459-1
+00:28:13.465 --> 00:28:15.180
+<v [PERSON_8]>It's 6 monthly for judges.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/463-0
+00:28:17.060 --> 00:28:18.700
+<v [PERSON_8]>Has anyone got any questions on that?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/460-0
+00:28:17.500 --> 00:28:17.540
+<v [PERSON_9]>I.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/464-0
+00:28:18.860 --> 00:28:21.660
+<v [PERSON_1]>Yeah, I've got a question, [PERSON_8]. How?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/468-0
+00:28:25.580 --> 00:28:30.060
+<v [PERSON_1]>How quickly do they come back with that
+information for you?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/470-0
+00:28:30.980 --> 00:28:36.340
+<v [PERSON_8]>Well, they're normally given two weeks,
+but...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/469-0
+00:28:35.820 --> 00:28:36.380
+<v [PERSON_1]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/473-0
+00:28:37.580 --> 00:28:40.497
+<v [PERSON_8]>Some,
+you might get the old person that says</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/473-1
+00:28:40.497 --> 00:28:44.579
+<v [PERSON_8]>they were on annual leave. Sorry,
+not they were on annual. Oh,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/473-2
+00:28:44.579 --> 00:28:49.180
+<v [PERSON_8]>I was on holiday, so I missed out.
+Normally we were quite lenient, but</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/475-0
+00:28:50.780 --> 00:28:54.492
+<v [PERSON_8]>At the moment,
+we're looking at something different on</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/475-1
+00:28:54.492 --> 00:28:58.743
+<v [PERSON_8]>this because I was involved,
+I think you were, [PERSON_23], as well,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/475-2
+00:28:58.743 --> 00:29:03.737
+<v [PERSON_8]>actually, a month or two months ago,
+I can't remember what it was called,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/475-3
+00:29:03.737 --> 00:29:08.460
+<v [PERSON_8]>a list in something or other,
+but that's the one, that's the one. And</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/474-0
+00:29:04.460 --> 00:29:05.980
+<v [PERSON_7]>Listing Symposium.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/476-0
+00:29:09.980 --> 00:29:14.300
+<v [PERSON_8]>Judge [PERSON_43], who is in Bristol,
+his Regional Judge [PERSON_44],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/476-1
+00:29:14.300 --> 00:29:19.790
+<v [PERSON_8]>he does a spreadsheet which he,
+which they get sent out and he gives them,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/476-2
+00:29:19.790 --> 00:29:25.428
+<v [PERSON_8]>I think he said he gives them a week to
+reply and it is an open spreadsheet.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/476-3
+00:29:25.428 --> 00:29:29.820
+<v [PERSON_8]>I'm still waiting for him to send me a
+copy through because</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/477-0
+00:29:30.140 --> 00:29:36.148
+<v [PERSON_8]>I was thinking of actually bringing it on
+into Watford, introducing it to Watford.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/477-1
+00:29:36.148 --> 00:29:39.984
+<v [PERSON_8]>So with them,
+it's the spreadsheet they send out and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/477-2
+00:29:39.984 --> 00:29:45.702
+<v [PERSON_8]>the judge [PERSON_45] the letter A for them
+being available and every single judge</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/477-3
+00:29:45.702 --> 00:29:48.380
+<v [PERSON_8]>can see it. This is for the fee paid.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/478-0
+00:29:49.260 --> 00:29:51.260
+<v [PERSON_8]>Every single feed page just can see it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/479-0
+00:29:52.540 --> 00:29:57.496
+<v [PERSON_8]>and they can put in their availability
+when they've secured that book and they</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/479-1
+00:29:57.496 --> 00:30:01.071
+<v [PERSON_8]>changed it to a B, it's,
+but I haven't actually seen it,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/479-2
+00:30:01.071 --> 00:30:05.086
+<v [PERSON_8]>but I like the idea of it because I think
+it'll be easier than,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/479-3
+00:30:05.086 --> 00:30:09.100
+<v [PERSON_8]>because at the moment these are sent
+individually as an e-mail.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/481-0
+00:30:10.700 --> 00:30:14.358
+<v [PERSON_8]>to the members.
+So they're sent out and then you've got</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/481-1
+00:30:14.358 --> 00:30:17.820
+<v [PERSON_8]>to wait for every member to reply back
+individually.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/480-0
+00:30:15.380 --> 00:30:15.660
+<v [PERSON_1]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/482-0
+00:30:19.660 --> 00:30:21.820
+<v [PERSON_8]>It's quite time-consuming.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/483-0
+00:30:22.300 --> 00:30:25.420
+<v [PERSON_1]>Yeah, [PERSON_9], you got a question,
+I think.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/484-0
+00:30:26.540 --> 00:30:30.220
+<v [PERSON_9]>I think [PERSON_46] has his had his hand up first.
+[PERSON_46], do you want to go first?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/485-0
+00:30:29.500 --> 00:30:30.700
+<v [PERSON_1]>Think, [PERSON_24].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/486-0
+00:30:30.540 --> 00:30:32.626
+<v [PERSON_11]>Yeah,
+I put my hand up and down a few times</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/486-1
+00:30:32.626 --> 00:30:33.100
+<v [PERSON_11]>because...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/487-0
+00:30:32.780 --> 00:30:34.920
+<v [PERSON_8]>Sorry,
+I can't see it's not coming up on my</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/489-0
+00:30:34.540 --> 00:30:36.659
+<v [PERSON_11]>No, so,
+and it's not helpful if I keep lowering</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/492-0
+00:30:34.540 --> 00:30:39.764
+<v [PERSON_1]>It's not for you to worry about, [PERSON_8].
+It's me. Do you want to come in then,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/487-1
+00:30:34.920 --> 00:30:35.260
+<v [PERSON_8]>screen.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/489-1
+00:30:36.659 --> 00:30:37.100
+<v [PERSON_11]>it, but...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/490-0
+00:30:37.820 --> 00:30:37.980
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/491-0
+00:30:39.020 --> 00:30:39.180
+<v [PERSON_11]>Mum.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/492-1
+00:30:39.764 --> 00:30:40.300
+<v [PERSON_1]>[PERSON_11]?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/494-0
+00:30:40.460 --> 00:30:42.846
+<v [PERSON_11]>Yes, thank you.
+Just a very brief question.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/494-1
+00:30:42.846 --> 00:30:47.293
+<v [PERSON_11]>When you were looking at the spreadsheet
+earlier and you're saying about people's</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/494-2
+00:30:47.293 --> 00:30:50.330
+<v [PERSON_11]>availability,
+I had a vague recollection and I think it</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/494-3
+00:30:50.330 --> 00:30:53.367
+<v [PERSON_11]>came from Tribunals,
+but this was about six months ago,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/494-4
+00:30:53.367 --> 00:30:56.404
+<v [PERSON_11]>but was there,
+and this may be more on the Listing side</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/494-5
+00:30:56.404 --> 00:31:00.146
+<v [PERSON_11]>rather than the scheduling side,
+but particularly with panel members</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/494-6
+00:31:00.146 --> 00:31:03.020
+<v [PERSON_11]>keeping the separation if you've if
+you've appeared.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/495-0
+00:31:04.220 --> 00:31:07.516
+<v [PERSON_11]>If you've sat as a panel member,
+for [PERSON_20], you can't then sit again,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/495-1
+00:31:07.516 --> 00:31:09.530
+<v [PERSON_11]>like you can't hear the same hearing
+again,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/495-2
+00:31:09.530 --> 00:31:13.100
+<v [PERSON_11]>and I'm probably getting the words
+completely wrong there, but there was a...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/496-0
+00:31:15.420 --> 00:31:18.825
+<v [PERSON_11]>Is it because some people can be,
+people can be working in private practice,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/496-1
+00:31:18.825 --> 00:31:22.317
+<v [PERSON_11]>but then they can also be a panel member.
+So if they've sat as a panel member,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/496-2
+00:31:22.317 --> 00:31:24.483
+<v [PERSON_11]>they can't,
+or if they've represented the person</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/496-3
+00:31:24.483 --> 00:31:26.738
+<v [PERSON_11]>previously,
+they can't then be involved as a panel</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/496-4
+00:31:26.738 --> 00:31:28.860
+<v [PERSON_11]>member.
+Or maybe I'm conflating something else.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/498-0
+00:31:29.340 --> 00:31:31.820
+<v [PERSON_1]>I think [PERSON_11].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/497-0
+00:31:30.860 --> 00:31:31.420
+<v [PERSON_8]>What time?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/500-0
+00:31:32.780 --> 00:31:35.826
+<v [PERSON_8]>I don't know. Normally,
+because normally when we send out the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/500-1
+00:31:35.826 --> 00:31:38.037
+<v [PERSON_8]>book, when we're booking them,
+if we've got,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/500-2
+00:31:38.037 --> 00:31:40.739
+<v [PERSON_8]>if we know that they're downsized to
+attend a hearing,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/500-3
+00:31:40.739 --> 00:31:44.522
+<v [PERSON_8]>we'll let them know the party's names,
+because there could be a conflict for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/500-4
+00:31:44.522 --> 00:31:48.059
+<v [PERSON_8]>that, that kind of thing. I mean,
+which they say come back and say, no,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/500-5
+00:31:48.059 --> 00:31:51.056
+<v [PERSON_8]>I can't, you know,
+I've got a conflict and we'd have to find</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/500-6
+00:31:51.056 --> 00:31:51.940
+<v [PERSON_8]>somebody else. But</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/501-0
+00:31:52.780 --> 00:31:56.231
+<v [PERSON_8]>It's not something that happens,
+to be quite honest.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/501-1
+00:31:56.231 --> 00:31:59.420
+<v [PERSON_8]>It's very rare something like that would
+happen.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/503-0
+00:31:58.540 --> 00:32:01.745
+<v [PERSON_11]>Fair enough. Yeah, it was,
+I'm clutching a kind of a snippet of an</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/503-1
+00:32:01.745 --> 00:32:03.945
+<v [PERSON_11]>interview that was from about six months
+ago,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/503-2
+00:32:03.945 --> 00:32:07.580
+<v [PERSON_11]>but it just seemed to align with that
+part of it, but it may not have done.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/502-0
+00:32:05.500 --> 00:32:05.820
+<v [PERSON_1]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/504-0
+00:32:08.700 --> 00:32:10.540
+<v [PERSON_1]>Thanks, [PERSON_11]. [PERSON_9].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/505-0
+00:32:12.140 --> 00:32:16.447
+<v [PERSON_9]>Yeah, so I think this, if I'm right,
+so this is the spreadsheet you send where</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/505-1
+00:32:16.447 --> 00:32:18.300
+<v [PERSON_9]>people declare their availability.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/507-0
+00:32:18.620 --> 00:32:21.363
+<v [PERSON_8]>Yes, yeah, yeah, we call it the stencil,
+but yeah,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/506-0
+00:32:19.380 --> 00:32:19.820
+<v [PERSON_9]>Right.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/507-1
+00:32:21.363 --> 00:32:23.460
+<v [PERSON_8]>this is the stencil that gets sent out.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/508-0
+00:32:24.140 --> 00:32:26.940
+<v [PERSON_9]>And you do this three months or six
+months in advance, you said.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/510-0
+00:32:26.860 --> 00:32:31.922
+<v [PERSON_8]>This for the members that sit on the
+panel, we do it every three months,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/510-1
+00:32:31.922 --> 00:32:35.180
+<v [PERSON_8]>and for the fee paid judges,
+it's six monthly.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/512-0
+00:32:36.460 --> 00:32:41.740
+<v [PERSON_9]>And do you do it just for fee paid and
+panel members or for salaried as well?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/511-0
+00:32:36.780 --> 00:32:37.140
+<v [PERSON_2]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/513-0
+00:32:42.380 --> 00:32:46.151
+<v [PERSON_8]>No, not salaried, because salaried,
+we know when they're available.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/513-1
+00:32:46.151 --> 00:32:50.753
+<v [PERSON_8]>They tell us when they're on annual leave
+or when they've got non-working days and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/513-2
+00:32:50.753 --> 00:32:52.860
+<v [PERSON_8]>that's all plotted on the spreadsheet.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/514-0
+00:32:53.900 --> 00:32:57.133
+<v [PERSON_9]>So how do they tell us?
+You said they tell us through a different</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/514-1
+00:32:57.133 --> 00:32:58.700
+<v [PERSON_9]>mechanism or you just know that?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/516-0
+00:32:58.780 --> 00:33:03.060
+<v [PERSON_8]>No, salary judges,
+they go through our PS here, [PERSON_6].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/516-1
+00:33:03.060 --> 00:33:08.306
+<v [PERSON_8]>They will put in their annual leave
+requests and he updates the spreadsheet</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/516-2
+00:33:08.306 --> 00:33:13.759
+<v [PERSON_8]>and they also tell him when they've got
+non-working days or if they're sitting</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/515-0
+00:33:13.260 --> 00:33:13.420
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/516-3
+00:33:13.759 --> 00:33:17.900
+<v [PERSON_8]>for another jurisdiction.
+And he plots all of that onto the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/517-0
+00:33:18.380 --> 00:33:21.020
+<v [PERSON_8]>Judicial allocation. Judicial spreadsheet.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/518-0
+00:33:21.660 --> 00:33:23.445
+<v [PERSON_9]>Okay,
+so you assume they're all available and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/518-1
+00:33:23.445 --> 00:33:25.500
+<v [PERSON_9]>then if they're not available,
+they'll let you know.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/519-0
+00:33:24.860 --> 00:33:26.860
+<v [PERSON_8]>Yes, yeah, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/520-0
+00:33:27.420 --> 00:33:31.118
+<v [PERSON_9]>And also on the other sheet,
+you mentioned that sometimes you update</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/520-1
+00:33:31.118 --> 00:33:32.940
+<v [PERSON_9]>it after the listing has happened.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/522-0
+00:33:33.820 --> 00:33:37.660
+<v [PERSON_8]>Yes, well, what I do when I say updated,
+let me bring it back up.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/521-0
+00:33:37.900 --> 00:33:38.140
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/523-0
+00:33:38.620 --> 00:33:41.660
+<v [PERSON_8]>So you know what I mean when I say
+updated, where's it gone?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/524-0
+00:33:44.460 --> 00:33:45.260
+<v [PERSON_8]>Wesson.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/528-0
+00:33:47.580 --> 00:33:50.300
+<v [PERSON_8]>I can find, yeah, that's not it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/525-0
+00:33:47.900 --> 00:33:48.020
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/535-0
+00:33:55.860 --> 00:34:00.212
+<v [PERSON_8]>I said, go on, let me just... Oh,
+there it is. Yeah,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/535-1
+00:34:00.212 --> 00:34:03.660
+<v [PERSON_8]>what I mean by updating, if I go across...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/542-0
+00:34:07.500 --> 00:34:13.961
+<v [PERSON_8]>So here, say this is September,
+you'll see there's no letters anywhere at</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/542-1
+00:34:13.961 --> 00:34:18.588
+<v [PERSON_8]>the moment,
+apart from this where it says on working</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/542-2
+00:34:18.588 --> 00:34:22.604
+<v [PERSON_8]>day or annual leave.
+So yesterday's sittings,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/542-3
+00:34:22.604 --> 00:34:28.540
+<v [PERSON_8]>once we know they've sat,
+we'd put in there, I'd just type in like,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/543-0
+00:34:28.860 --> 00:34:29.580
+<v [PERSON_8]>JS.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/544-0
+00:34:30.940 --> 00:34:34.272
+<v [PERSON_8]>The reason we put that in,
+or if they were suddenly,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/544-1
+00:34:34.272 --> 00:34:36.220
+<v [PERSON_8]>if they were sick, we put sick.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/545-0
+00:34:37.580 --> 00:34:42.395
+<v [PERSON_8]>The reason we put that in because this at
+the very end, it does account for us.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/545-1
+00:34:42.395 --> 00:34:44.020
+<v [PERSON_8]>So at the end of the month,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/554-0
+00:34:45.020 --> 00:34:50.592
+<v [PERSON_8]>we know exactly how many sittings we've
+had, salary sittings,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/554-1
+00:34:50.592 --> 00:34:55.355
+<v [PERSON_8]>fee paid sittings and VR sittings.
+It calculates it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/554-2
+00:34:55.355 --> 00:34:59.309
+<v [PERSON_8]>And so when [PERSON_47] sends me his lovely
+table,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/554-3
+00:34:59.309 --> 00:35:05.420
+<v [PERSON_8]>I can compare this and know that my
+sitting day is the same as what</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/555-0
+00:35:05.980 --> 00:35:07.340
+<v [PERSON_8]>BCM shows.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/556-0
+00:35:08.460 --> 00:35:11.500
+<v [PERSON_9]>So is it right to say this is like a
+confirmation of the setting or booking</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/556-1
+00:35:11.500 --> 00:35:12.140
+<v [PERSON_9]>that's happened?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/557-0
+00:35:12.060 --> 00:35:14.300
+<v [PERSON_8]>Yeah. Yes. Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/560-0
+00:35:15.980 --> 00:35:19.900
+<v [PERSON_9]>And you have to do it for zooming for
+every every sitting that has happened.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/561-0
+00:35:20.140 --> 00:35:21.740
+<v [PERSON_8]>Yes, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/563-0
+00:35:23.260 --> 00:35:27.022
+<v [PERSON_9]>The other question I had was, you know,
+the list of judges that you have.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/563-1
+00:35:27.022 --> 00:35:29.767
+<v [PERSON_9]>How do you,
+how do things get added to that list if a</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/562-0
+00:35:27.100 --> 00:35:27.500
+<v [PERSON_8]>Uh-huh.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/563-2
+00:35:29.767 --> 00:35:32.818
+<v [PERSON_9]>new judge [PERSON_48],
+whether fee paid or salaried or a panel</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/563-3
+00:35:32.818 --> 00:35:33.580
+<v [PERSON_9]>member as well?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/564-0
+00:35:34.460 --> 00:35:35.260
+<v [PERSON_9]>How do you?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/569-0
+00:35:34.460 --> 00:35:39.877
+<v [PERSON_8]>Well, the thing is, well, if you look,
+if I show you here, at the moment,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/569-1
+00:35:39.877 --> 00:35:45.880
+<v [PERSON_8]>you've got, say, this particular one here,
+this is a judge [PERSON_49] just recently</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/569-2
+00:35:45.880 --> 00:35:49.614
+<v [PERSON_8]>transferred,
+but he's still got this purple colour</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/569-3
+00:35:49.614 --> 00:35:53.420
+<v [PERSON_8]>means he's got a part heard hearing.
+So we've grade</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/572-0
+00:35:53.660 --> 00:35:57.343
+<v [PERSON_8]>we grey him out,
+because we always know in advance,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/572-1
+00:35:57.343 --> 00:36:01.805
+<v [PERSON_8]>before this is created,
+we know in advance how many new judges</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/572-2
+00:36:01.805 --> 00:36:06.763
+<v [PERSON_8]>we're going to get. So this,
+six months ago, would have said Judge A,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/572-3
+00:36:06.763 --> 00:36:10.163
+<v [PERSON_8]>Judge B, Judge C,
+until they've been announced,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/572-4
+00:36:10.163 --> 00:36:12.500
+<v [PERSON_8]>we can't put their names on here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/573-0
+00:36:13.260 --> 00:36:16.534
+<v [PERSON_8]>So it's not like we've got to go, oh,
+we've got to slip a new judge [PERSON_50]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/573-1
+00:36:16.534 --> 00:36:17.740
+<v [PERSON_8]>because that doesn't happen.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/575-0
+00:36:19.380 --> 00:36:22.354
+<v [PERSON_9]>Okay, so that's moving out, right?
+So if somebody is joining in,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/575-1
+00:36:22.354 --> 00:36:24.870
+<v [PERSON_9]>surely there will be new people,
+new judges, you know,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/574-0
+00:36:23.820 --> 00:36:24.940
+<v [PERSON_8]>Yeah, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/575-2
+00:36:24.870 --> 00:36:27.340
+<v [PERSON_9]>getting added to the pool as well.
+So when you say...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/583-0
+00:36:26.700 --> 00:36:30.944
+<v [PERSON_8]>These 2, for [PERSON_20], these two,
+for [PERSON_20], are brand new judges.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/576-0
+00:36:28.660 --> 00:36:28.940
+<v [PERSON_9]>Yes.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/583-1
+00:36:30.944 --> 00:36:34.502
+<v [PERSON_8]>As you can see,
+they're on the grey colour at the moment</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/583-2
+00:36:34.502 --> 00:36:39.245
+<v [PERSON_8]>because they're not actually sitting.
+Then they've got a couple of weeks of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/583-3
+00:36:39.245 --> 00:36:42.303
+<v [PERSON_8]>training, then they're with us.
+So they'll be...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/583-4
+00:36:42.303 --> 00:36:44.300
+<v [PERSON_8]>So if a judge [PERSON_51] or is...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/584-0
+00:36:45.100 --> 00:36:49.820
+<v [PERSON_8]>Starting with us, they added, like,
+if I go back to here, say...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/587-0
+00:36:51.980 --> 00:36:52.380
+<v [PERSON_8]>Oh.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/588-0
+00:36:54.620 --> 00:36:55.420
+<v [PERSON_8]>She [PERSON_24].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/591-0
+00:36:59.100 --> 00:36:59.900
+<v [PERSON_8]>Try and get out.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/594-0
+00:37:02.540 --> 00:37:02.860
+<v [PERSON_1]>Oh.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/595-0
+00:37:06.060 --> 00:37:06.860
+<v [PERSON_8]>Here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/604-0
+00:37:11.300 --> 00:37:15.634
+<v [PERSON_8]>All of these are greyed out now,
+she's now started. So we actually,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/604-1
+00:37:15.634 --> 00:37:20.604
+<v [PERSON_8]>we knew we were getting new judges.
+So at the very beginning of the financial</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/604-2
+00:37:20.604 --> 00:37:23.345
+<v [PERSON_8]>year,
+these weren't put down as with their</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/604-3
+00:37:23.345 --> 00:37:28.634
+<v [PERSON_8]>names, they were just put down as Judge A,
+Judge B, Judge C, because we were told,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/604-4
+00:37:28.634 --> 00:37:31.820
+<v [PERSON_8]>you're getting however many was, 5,
+6 new judges.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/605-0
+00:37:33.340 --> 00:37:36.314
+<v [PERSON_8]>So,
+we're aware of people coming in before</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/605-1
+00:37:36.314 --> 00:37:37.420
+<v [PERSON_8]>this is created.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/606-0
+00:37:38.780 --> 00:37:41.745
+<v [PERSON_8]>And then if someone leaves like here or
+gets transferred,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/606-1
+00:37:41.745 --> 00:37:44.556
+<v [PERSON_8]>we grey it out so we know they're no
+longer available.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/606-2
+00:37:44.556 --> 00:37:47.980
+<v [PERSON_8]>We can't take them out because he was
+sitting earlier in the year.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/607-0
+00:37:49.340 --> 00:37:51.980
+<v [PERSON_8]>And he's still got part herds that he's
+doing for us.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/609-0
+00:37:54.620 --> 00:37:58.393
+<v [PERSON_9]>Presumably he, yeah,
+presumably they that line will stay there,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/608-0
+00:37:54.700 --> 00:37:55.500
+<v [PERSON_8]>Something like that.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/609-1
+00:37:58.393 --> 00:38:00.633
+<v [PERSON_9]>uh,
+or when you take it out when they</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/611-0
+00:37:58.820 --> 00:38:02.038
+<v [PERSON_8]>Yeah, it will stay there. Yeah, it will,
+it will come, yeah,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/609-2
+00:38:00.633 --> 00:38:02.460
+<v [PERSON_9]>completely finish the hearings.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/611-1
+00:38:02.038 --> 00:38:04.781
+<v [PERSON_8]>it will come out at the end of this
+financial year,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/611-2
+00:38:04.781 --> 00:38:07.260
+<v [PERSON_8]>because we know that he's not with us
+anymore.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/610-0
+00:38:08.060 --> 00:38:08.300
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/616-0
+00:38:09.580 --> 00:38:13.271
+<v [PERSON_9]>And when you say we get informed,
+like you said, first Judge A, B, C,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/616-1
+00:38:13.271 --> 00:38:15.960
+<v [PERSON_9]>you know,
+three more judges are joining your pool,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/616-2
+00:38:15.960 --> 00:38:19.704
+<v [PERSON_9]>and then you get actual names.
+Can you maybe provide a bit more detail</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/614-0
+00:38:16.060 --> 00:38:16.460
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/616-3
+00:38:19.704 --> 00:38:22.077
+<v [PERSON_9]>on that? How do you,
+does the HR inform you,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/615-0
+00:38:20.260 --> 00:38:20.700
+<v [PERSON_8]>[PERSON_2].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/616-4
+00:38:22.077 --> 00:38:23.500
+<v [PERSON_9]>or how do you come to know?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/618-0
+00:38:22.780 --> 00:38:26.724
+<v [PERSON_8]>It's the regional,
+it's the regional judge [PERSON_52] us.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/617-0
+00:38:26.540 --> 00:38:26.700
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/618-1
+00:38:26.724 --> 00:38:32.115
+<v [PERSON_8]>He will say to us, we're getting a new,
+we're getting new judges and he will tell</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/618-2
+00:38:32.115 --> 00:38:36.519
+<v [PERSON_8]>us how many. And we can't,
+we're not allowed to announce any names</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/618-3
+00:38:36.519 --> 00:38:41.580
+<v [PERSON_8]>until they've been officially announced
+anyway on the whatever they call it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/619-0
+00:38:42.380 --> 00:38:46.503
+<v [PERSON_8]>from the Judicial Office.
+So we have to wait for them to be</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/619-1
+00:38:46.503 --> 00:38:50.900
+<v [PERSON_8]>announced and then we can put their names
+onto the spreadsheet.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/621-0
+00:38:52.620 --> 00:38:55.564
+<v [PERSON_9]>So,
+do you don't put the name until you have,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/620-0
+00:38:55.060 --> 00:38:57.980
+<v [PERSON_8]>Until it's been officially announced,
+yeah, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/621-1
+00:38:55.564 --> 00:39:00.236
+<v [PERSON_9]>again, that's what the name is,
+and how does not knowing the name versus</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/621-2
+00:39:00.236 --> 00:39:03.500
+<v [PERSON_9]>knowing the name affect your, you know,
+operation?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/622-0
+00:39:02.860 --> 00:39:08.315
+<v [PERSON_8]>It makes it makes no difference because
+we can't book any here. Basically,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/622-1
+00:39:08.315 --> 00:39:12.606
+<v [PERSON_8]>we don't book hearings with fee paid
+salary judges anyway.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/622-2
+00:39:12.606 --> 00:39:18.351
+<v [PERSON_8]>That's they're allocated on a daily basis
+what they're going to be sitting on.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/622-3
+00:39:18.351 --> 00:39:22.860
+<v [PERSON_8]>So it makes when it's a salary judge,
+it makes no difference.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/623-0
+00:39:23.180 --> 00:39:26.268
+<v [PERSON_8]>and the fee paid normally,
+if we've got new fee paid,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/623-1
+00:39:26.268 --> 00:39:31.014
+<v [PERSON_8]>we just put their names in and they give
+us availability in advance and we plot it</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/623-2
+00:39:31.014 --> 00:39:32.100
+<v [PERSON_8]>on the spreadsheet.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/624-0
+00:39:34.420 --> 00:39:36.758
+<v [PERSON_9]>And I'm not sure if that is the right
+question,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/624-1
+00:39:36.758 --> 00:39:40.508
+<v [PERSON_9]>but do you know the reason behind not
+disclosing the name and disclosing the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/624-2
+00:39:40.508 --> 00:39:43.820
+<v [PERSON_9]>name at certain point is just because the
+things happened upstream.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/625-0
+00:39:44.540 --> 00:39:48.309
+<v [PERSON_8]>Yeah, I think that's all it is.
+I think it's just you've got to wait for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/625-1
+00:39:48.309 --> 00:39:52.337
+<v [PERSON_8]>them to be officially announced over.
+I don't know if someone can help me out</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/625-2
+00:39:52.337 --> 00:39:54.815
+<v [PERSON_8]>here because I can't remember what it's
+called.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/625-3
+00:39:54.815 --> 00:39:57.965
+<v [PERSON_8]>It's the Judicial Office that make an
+official announcement,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/625-4
+00:39:57.965 --> 00:40:01.682
+<v [PERSON_8]>which is on the internet, basically.
+I'm saying this new judge [PERSON_53]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/625-5
+00:40:01.682 --> 00:40:04.780
+<v [PERSON_8]>appointed. We're not,
+I don't know the reasoning behind it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/626-0
+00:40:22.140 --> 00:40:22.940
+<v [PERSON_1]>Yeah, okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/628-0
+00:40:23.260 --> 00:40:26.820
+<v [PERSON_2]>Yeah,
+I think [PERSON_47] has some questions as well.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/627-0
+00:40:26.060 --> 00:40:27.100
+<v [PERSON_1]>Yeah, he does.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/630-0
+00:40:28.940 --> 00:40:33.140
+<v [PERSON_25]>I was just going to come back to
+[PERSON_11]'s point about judges not being</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/629-0
+00:40:29.180 --> 00:40:29.820
+<v [PERSON_2]>Onion.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/630-1
+00:40:33.140 --> 00:40:37.340
+<v [PERSON_25]>able to sit on cases they've previously
+sat on. That is generally in...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/634-0
+00:40:38.620 --> 00:40:45.146
+<v [PERSON_25]>limited situations where they may have
+sat on judicial mediation for that case,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/634-1
+00:40:45.146 --> 00:40:49.305
+<v [PERSON_25]>for [PERSON_20],
+or considered whether a deposit order</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/634-2
+00:40:49.305 --> 00:40:55.912
+<v [PERSON_25]>should be made. So there are some times,
+but it's usually the judges rather than</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/634-3
+00:40:55.912 --> 00:40:57.380
+<v [PERSON_25]>non-legal members.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/635-0
+00:41:05.860 --> 00:41:09.020
+<v [PERSON_2]>OK, can you hear from?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/636-0
+00:41:07.740 --> 00:41:10.417
+<v [PERSON_9]>Sorry,
+can we can we go over the point one more</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/636-1
+00:41:10.417 --> 00:41:11.420
+<v [PERSON_9]>time? Sorry, [PERSON_47].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/638-0
+00:41:15.500 --> 00:41:18.757
+<v [PERSON_9]>So you mentioned the judges not being
+able to sit on the cases they've already</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/638-1
+00:41:18.757 --> 00:41:20.654
+<v [PERSON_9]>said.
+Can we just go over that point one more</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/638-2
+00:41:20.654 --> 00:41:22.220
+<v [PERSON_9]>time and couldn't quite understand it?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/640-0
+00:41:22.700 --> 00:41:28.380
+<v [PERSON_8]>I can tell you that one.
+So what you've got is you have a judicial</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/640-1
+00:41:28.380 --> 00:41:34.569
+<v [PERSON_8]>mediation some parties go take part in,
+but if the judicial mediation is</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/640-2
+00:41:34.569 --> 00:41:39.740
+<v [PERSON_8]>unsuccessful and it then goes to a full
+merits hearing, that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/645-0
+00:41:39.780 --> 00:41:45.360
+<v [PERSON_8]>judge [PERSON_54] on that case again.
+It has to be a different judge [PERSON_55]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/645-1
+00:41:45.360 --> 00:41:48.722
+<v [PERSON_8]>on it.
+So you can't have the same judge [PERSON_56]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/645-2
+00:41:48.722 --> 00:41:53.228
+<v [PERSON_8]>part in the judicial mediation and then
+in that hearing again,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/645-3
+00:41:53.228 --> 00:41:55.660
+<v [PERSON_8]>or any part of that hearing again.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/646-0
+00:41:57.820 --> 00:41:59.980
+<v [PERSON_9]>And how is it ensured in practice?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/651-0
+00:42:01.500 --> 00:42:05.797
+<v [PERSON_9]>If the mediation has happened and Judge,
+let's say Judge [PERSON_57] has sat on the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/651-1
+00:42:05.797 --> 00:42:10.206
+<v [PERSON_9]>mediation and she should know she should
+not be involved in the case from then</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/647-0
+00:42:06.700 --> 00:42:06.940
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/651-2
+00:42:10.206 --> 00:42:12.997
+<v [PERSON_9]>onwards,
+how do we know how do we know that Judge</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/650-0
+00:42:10.300 --> 00:42:11.180
+<v [PERSON_8]>Yeah, she won't be.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/651-3
+00:42:12.997 --> 00:42:17.071
+<v [PERSON_9]>[PERSON_57] was actually involved in the
+mediation from from this spreadsheet's</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/652-0
+00:42:15.100 --> 00:42:20.797
+<v [PERSON_8]>Because on our, because on, no, no,
+it won't show it on the spreadsheet,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/651-4
+00:42:17.071 --> 00:42:17.740
+<v [PERSON_9]>perspective?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/652-1
+00:42:20.797 --> 00:42:24.387
+<v [PERSON_8]>but on our, on the system,
+on our ECM system,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/652-2
+00:42:24.387 --> 00:42:27.820
+<v [PERSON_8]>it shows you which judge [PERSON_58] which
+case.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/654-0
+00:42:29.060 --> 00:42:34.100
+<v [PERSON_8]>Because when you're when you're using the
+actual case management system,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/653-0
+00:42:31.180 --> 00:42:31.380
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/654-1
+00:42:34.100 --> 00:42:39.762
+<v [PERSON_8]>you have to allocate a judge [PERSON_59] case,
+so it would show that [PERSON_57] and and had,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/654-2
+00:42:39.762 --> 00:42:44.940
+<v [PERSON_8]>or I'm saying any old judge [PERSON_60],
+it would show that judge [PERSON_58] that JM.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/657-0
+00:42:46.460 --> 00:42:48.700
+<v [PERSON_1]>Um, class just put um...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/659-0
+00:42:47.180 --> 00:42:50.780
+<v [PERSON_25]>Usually a note added as well, [PERSON_8],
+in there to say not.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/658-0
+00:42:49.580 --> 00:42:50.060
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/661-0
+00:42:51.340 --> 00:42:52.980
+<v [PERSON_8]>Yeah, do not, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/660-0
+00:42:51.700 --> 00:42:52.940
+<v [PERSON_25]>Whichever Judge, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/664-0
+00:42:55.020 --> 00:42:58.775
+<v [PERSON_1]>[PERSON_7]'s just put a note in saying it's
+on the case management system,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/664-1
+00:42:58.775 --> 00:43:01.260
+<v [PERSON_1]>not on the spreadsheet for booking the
+judges.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/663-0
+00:43:01.500 --> 00:43:01.980
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/668-0
+00:43:01.900 --> 00:43:04.803
+<v [PERSON_7]>Yeah,
+that's what I was trying to come in on.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/668-1
+00:43:04.803 --> 00:43:07.958
+<v [PERSON_7]>So if a case,
+this goes across all jurisdictions,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/668-2
+00:43:07.958 --> 00:43:12.753
+<v [PERSON_7]>if a case is reserved or if a case can't
+be sat on by a judge, so opposite,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/668-3
+00:43:12.753 --> 00:43:15.593
+<v [PERSON_7]>you wouldn't put it on your scheduling
+tool.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/668-4
+00:43:15.593 --> 00:43:19.820
+<v [PERSON_7]>You'd put it on your listing notes on
+your case management system.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/670-0
+00:43:20.220 --> 00:43:25.167
+<v [PERSON_7]>so that when you're looking to list the
+case, you know when you can list it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/667-0
+00:43:20.380 --> 00:43:20.700
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/670-1
+00:43:25.167 --> 00:43:28.894
+<v [PERSON_7]>If it's reserved,
+you list it in front of that judge [PERSON_36]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/670-2
+00:43:28.894 --> 00:43:32.042
+<v [PERSON_7]>has to hear it.
+If it can't be heard by a judge,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/670-3
+00:43:32.042 --> 00:43:36.282
+<v [PERSON_7]>you make sure it's not,
+but it wouldn't be on this or it wouldn't</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/670-4
+00:43:36.282 --> 00:43:41.100
+<v [PERSON_7]>be on JI with obviously ET don't use JI,
+but you wouldn't have it on here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/672-0
+00:43:42.060 --> 00:43:45.042
+<v [PERSON_7]>So if you wanted to list it in front of
+somebody,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/672-1
+00:43:45.042 --> 00:43:49.874
+<v [PERSON_7]>you would then use this to look at when
+they were sitting to try and accommodate</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/672-2
+00:43:49.874 --> 00:43:52.975
+<v [PERSON_7]>the dates available rather than putting
+it on here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/672-3
+00:43:52.975 --> 00:43:55.420
+<v [PERSON_7]>That's what I was putting my hand up for.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/674-0
+00:43:56.380 --> 00:43:58.956
+<v [PERSON_9]>Sorry,
+is it is it right to assume that it's</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/671-0
+00:43:56.540 --> 00:43:57.380
+<v [PERSON_1]>Thanks, [PERSON_23].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/674-1
+00:43:58.956 --> 00:44:03.020
+<v [PERSON_9]>more of a listing side issue than
+availability side issue? OK, thanks.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/673-0
+00:44:01.060 --> 00:44:02.500
+<v [PERSON_7]>Yes, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/675-0
+00:44:05.020 --> 00:44:07.260
+<v [PERSON_1]>[PERSON_11], [PERSON_61], you've been very patient.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/676-0
+00:44:06.140 --> 00:44:07.980
+<v [PERSON_2]>Do you have any questions?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/677-0
+00:44:07.820 --> 00:44:14.200
+<v [PERSON_10]>Yeah, I have one question.
+If a judge [PERSON_62] to ET tribunal,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/677-1
+00:44:14.200 --> 00:44:20.484
+<v [PERSON_10]>you can do parallely other works in other
+Tribunals or code site,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/677-2
+00:44:20.484 --> 00:44:23.340
+<v [PERSON_10]>or it is dedicated to ET only.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/681-0
+00:44:26.100 --> 00:44:31.068
+<v [PERSON_25]>It actually works both ways.
+We have judges from other jurisdictions</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/678-0
+00:44:26.140 --> 00:44:26.700
+<v [PERSON_8]>Um...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/679-0
+00:44:27.940 --> 00:44:28.220
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/681-1
+00:44:31.068 --> 00:44:35.388
+<v [PERSON_25]>that also sit in ET,
+and we have judges from ET that sit in</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/681-2
+00:44:35.388 --> 00:44:39.420
+<v [PERSON_25]>other jurisdictions,
+as well as in Scotland on ET work.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/680-0
+00:44:38.860 --> 00:44:39.100
+<v [PERSON_10]>Of.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/683-0
+00:44:40.060 --> 00:44:45.055
+<v [PERSON_10]>Okay, if that is the case,
+then how you come to know, for [PERSON_20],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/683-1
+00:44:45.055 --> 00:44:50.869
+<v [PERSON_10]>let us assume today is allocated to ET
+and tomorrow it will be for some other</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/683-2
+00:44:50.869 --> 00:44:54.373
+<v [PERSON_10]>tribunal or court. Actually,
+that information,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/683-3
+00:44:54.373 --> 00:44:59.740
+<v [PERSON_10]>how you are going to get it is in the
+same spreadsheet it is mentioned.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/684-0
+00:45:00.340 --> 00:45:04.540
+<v [PERSON_10]>is blocked or we will be able to know
+that one actually.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/685-0
+00:45:05.740 --> 00:45:06.780
+<v [PERSON_8]>with us.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/686-0
+00:45:05.900 --> 00:45:07.340
+<v [PERSON_1]>[PERSON_23], you can come in.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/687-0
+00:45:08.220 --> 00:45:08.540
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/688-0
+00:45:09.020 --> 00:45:11.420
+<v [PERSON_1]>Sorry, [PERSON_23],
+did you want to come in on that one?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/689-0
+00:45:12.500 --> 00:45:13.900
+<v [PERSON_1]>Was it a different point?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/692-0
+00:45:13.660 --> 00:45:17.493
+<v [PERSON_7]>Let, let, it's the same point,
+but let [PERSON_8] answer and then I'll</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/690-0
+00:45:17.220 --> 00:45:18.060
+<v [PERSON_1]>Sorry, [PERSON_8].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/692-1
+00:45:17.493 --> 00:45:19.060
+<v [PERSON_7]>explain how done. Yeah, no.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/698-0
+00:45:18.380 --> 00:45:22.819
+<v [PERSON_8]>No, that's all right. I'm just,
+I'm going to try and find one here for us,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/691-0
+00:45:18.620 --> 00:45:18.860
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/698-1
+00:45:22.819 --> 00:45:26.548
+<v [PERSON_8]>if it's a salary judge,
+because if it's the fee paid judge [PERSON_29]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/693-0
+00:45:24.700 --> 00:45:24.860
+<v [PERSON_10]>[PERSON_2].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/698-2
+00:45:26.548 --> 00:45:29.921
+<v [PERSON_8]>they sit on two,
+they're not going to book themselves in</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/698-3
+00:45:29.921 --> 00:45:34.301
+<v [PERSON_8]>and give them our availability.
+But I'm just trying to see if there's any</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/698-4
+00:45:34.301 --> 00:45:37.260
+<v [PERSON_8]>here that say, and it's typical,
+there isn't, but</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/703-0
+00:45:37.420 --> 00:45:41.021
+<v [PERSON_8]>For salary judges,
+they let us know in advance and it gets</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/703-1
+00:45:41.021 --> 00:45:46.025
+<v [PERSON_8]>plotted on here. They say I'm booked in.
+There's nothing. It's typical, isn't it?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/703-2
+00:45:46.025 --> 00:45:46.940
+<v [PERSON_8]>They'll say it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/704-0
+00:45:46.460 --> 00:45:48.581
+<v [PERSON_25]>[PERSON_63],
+[REDACTED] might be want to look at</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/704-1
+00:45:48.581 --> 00:45:50.460
+<v [PERSON_25]>[PERSON_8]. She sits in Scotland, don't she?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/712-0
+00:45:49.100 --> 00:45:55.344
+<v [PERSON_8]>Yeah, [REDACTED] sits in Scotland. Oh,
+this is a... So we've got [REDACTED],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/712-1
+00:45:55.344 --> 00:46:01.587
+<v [PERSON_8]>got quite a few that sit as... Oh, here,
+look here, this one here, [REDACTED].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/712-2
+00:46:01.587 --> 00:46:06.012
+<v [PERSON_8]>She's booked in,
+she was booked in to sit as a district</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/712-3
+00:46:06.012 --> 00:46:08.620
+<v [PERSON_8]>judge [PERSON_67] days. And [PERSON_63]...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/711-0
+00:46:08.060 --> 00:46:08.940
+<v [PERSON_10]>Okay, okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/715-0
+00:46:08.780 --> 00:46:12.161
+<v [PERSON_8]>Yeah, and [PERSON_63],
+like [REDACTED] Knowles booked to sit in</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/715-1
+00:46:12.161 --> 00:46:15.829
+<v [PERSON_8]>Scottish EC. So these,
+they give us these dates way in advance,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/715-2
+00:46:15.829 --> 00:46:19.841
+<v [PERSON_8]>and they're plotted on here,
+so we know that they're not available to</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/715-3
+00:46:19.841 --> 00:46:20.700
+<v [PERSON_8]>sit for the ET.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/716-0
+00:46:21.660 --> 00:46:22.540
+<v [PERSON_8]>On that day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/720-0
+00:46:21.740 --> 00:46:25.188
+<v [PERSON_10]>Okay,
+they will give that information means how</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/720-1
+00:46:25.188 --> 00:46:29.785
+<v [PERSON_10]>it will be communicated.
+It is an e-mail or you come to know or</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/720-2
+00:46:29.785 --> 00:46:35.100
+<v [PERSON_10]>this spreadsheet automatically updated
+for you from some others actually.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/719-0
+00:46:30.940 --> 00:46:31.420
+<v [PERSON_8]>Um...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/721-0
+00:46:34.860 --> 00:46:38.746
+<v [PERSON_8]>No, again, they will.
+This is where [PERSON_6],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/721-1
+00:46:38.746 --> 00:46:44.186
+<v [PERSON_8]>the original judges, PS comes in,
+because this is what he deals with.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/721-2
+00:46:44.186 --> 00:46:48.849
+<v [PERSON_8]>He knows all the days.
+They e-mail him and they tell him of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/721-3
+00:46:48.849 --> 00:46:54.211
+<v [PERSON_8]>dates they're not available,
+dates they've got medical appointments,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/721-4
+00:46:54.211 --> 00:46:56.620
+<v [PERSON_8]>sitting on other jurisdictions.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/722-0
+00:46:57.380 --> 00:47:01.687
+<v [PERSON_8]>and you leave, anything like that,
+he will plot that on there for us.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/722-1
+00:47:01.687 --> 00:47:06.547
+<v [PERSON_8]>So the listening team are aware that
+Judge [PERSON_68] available on that week or on</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/722-2
+00:47:06.547 --> 00:47:07.100
+<v [PERSON_8]>that day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/723-0
+00:47:07.740 --> 00:47:10.671
+<v [PERSON_10]>Okay,
+basically the Listing team will update</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/723-1
+00:47:10.671 --> 00:47:15.100
+<v [PERSON_10]>this particular information, right?
+That's what you are mentioning.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/724-0
+00:47:15.740 --> 00:47:19.654
+<v [PERSON_8]>No, the PS,
+the personal executive secretary for the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/724-1
+00:47:19.654 --> 00:47:22.460
+<v [PERSON_8]>Regional Judge [PERSON_69] things like</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/725-0
+00:47:24.620 --> 00:47:27.879
+<v [PERSON_8]>the annual leave, sickness,
+when they're sitting on other</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/725-1
+00:47:27.879 --> 00:47:31.025
+<v [PERSON_8]>jurisdictions,
+he will update this spreadsheet with all</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/725-2
+00:47:31.025 --> 00:47:31.980
+<v [PERSON_8]>that information.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/726-0
+00:47:33.580 --> 00:47:36.220
+<v [PERSON_10]>Okay, okay, okay, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/727-0
+00:47:35.900 --> 00:47:41.295
+<v [PERSON_2]>I'm keen to understand,
+how do you track updates here in terms of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/727-1
+00:47:41.295 --> 00:47:47.507
+<v [PERSON_2]>managing the risks of maybe someone
+coming in there or doing something here</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/727-2
+00:47:47.507 --> 00:47:52.902
+<v [PERSON_2]>and losing information here?
+How do you manage that, the updates,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/727-3
+00:47:52.902 --> 00:47:54.700
+<v [PERSON_2]>that there are trails?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/730-0
+00:47:56.700 --> 00:48:00.340
+<v [PERSON_8]>Well,
+we've never lost information on here so</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/728-0
+00:47:56.860 --> 00:47:57.260
+<v [PERSON_2]>Di.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/730-1
+00:48:00.340 --> 00:48:03.980
+<v [PERSON_8]>far, so please don't say that.
+Tempting fate.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/731-0
+00:48:02.780 --> 00:48:06.928
+<v [PERSON_7]>How do you know, though, [PERSON_8],
+when you do something on it?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/729-0
+00:48:04.220 --> 00:48:04.460
+<v [PERSON_1]>Yep.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/731-1
+00:48:06.928 --> 00:48:10.328
+<v [PERSON_7]>I think a bit of the question. Like,
+do you have,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/731-2
+00:48:10.328 --> 00:48:15.020
+<v [PERSON_7]>have you got comments on these cells here?
+Yeah. Okay. There you go.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/734-0
+00:48:11.180 --> 00:48:14.475
+<v [PERSON_8]>Yeah, some yeah,
+like this here that says like</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/734-1
+00:48:14.475 --> 00:48:18.612
+<v [PERSON_8]>professional review.
+This one here will say that this is a</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/734-2
+00:48:18.612 --> 00:48:24.220
+<v [PERSON_8]>part herd and gives you the case details
+of the part herd they are listed into.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/739-0
+00:48:26.860 --> 00:48:32.265
+<v [PERSON_8]>Yeah, there's little comments like that.
+This will tell you what sort of training</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/739-1
+00:48:32.265 --> 00:48:35.759
+<v [PERSON_8]>it is. Yeah,
+so it's all comments that any of us can</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/739-2
+00:48:35.759 --> 00:48:36.220
+<v [PERSON_8]>put in.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/742-0
+00:48:38.540 --> 00:48:40.940
+<v [PERSON_1]>Hello,
+did you want to come in on another point?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/743-0
+00:48:42.940 --> 00:48:46.860
+<v [PERSON_7]>I think I was coming in on the point
+about...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/750-0
+00:48:49.060 --> 00:48:52.718
+<v [PERSON_7]>It was when they sit in other
+jurisdictions, but it's,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/744-0
+00:48:51.020 --> 00:48:52.820
+<v [PERSON_1]>Yeah, yeah. Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/750-1
+00:48:52.718 --> 00:48:57.175
+<v [PERSON_7]>I think it's been covered,
+but obviously on JI you just put sat in</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/747-0
+00:48:54.860 --> 00:48:55.820
+<v [PERSON_1]>Yeah, thank you.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/750-2
+00:48:57.175 --> 00:49:00.301
+<v [PERSON_7]>another jurisdiction and you'd know which
+one,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/748-0
+00:48:58.300 --> 00:48:58.540
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/750-3
+00:49:00.301 --> 00:49:04.424
+<v [PERSON_7]>but this is obviously the equivalent in
+ET now. That was all.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/750-4
+00:49:04.424 --> 00:49:06.220
+<v [PERSON_7]>Kind of got covered before.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/749-0
+00:49:07.060 --> 00:49:07.740
+<v [PERSON_1]>Thank you.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/751-0
+00:49:11.420 --> 00:49:12.380
+<v [PERSON_1]>[PERSON_18].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/752-0
+00:49:13.900 --> 00:49:18.584
+<v [PERSON_1]>Would you like to go back to cheque that
+you've got the questions,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/752-1
+00:49:18.584 --> 00:49:21.660
+<v [PERSON_1]>you've answered the questions that you
+had?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/753-0
+00:49:23.260 --> 00:49:27.820
+<v [PERSON_2]>Yes, so we need to...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/755-0
+00:49:28.780 --> 00:49:32.046
+<v [PERSON_2]>[PERSON_9] and [PERSON_10],
+are you happy with what has been</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/755-1
+00:49:32.046 --> 00:49:33.020
+<v [PERSON_2]>explained so far?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/756-0
+00:49:35.100 --> 00:49:37.476
+<v [PERSON_9]>Yeah,
+I think it might be useful to bring up</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/756-1
+00:49:37.476 --> 00:49:40.380
+<v [PERSON_9]>that spreadsheet just to make sure we've
+gone through.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/757-0
+00:49:41.340 --> 00:49:42.060
+<v [PERSON_2]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/758-0
+00:49:42.220 --> 00:49:47.580
+<v [PERSON_1]>I think as well we need to ask [PERSON_21]
+because we focused on</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/759-0
+00:49:48.540 --> 00:49:50.220
+<v [PERSON_1]>Um, Watford to date.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/760-0
+00:49:51.860 --> 00:49:56.620
+<v [PERSON_1]>[PERSON_21],
+is this similar to what you do in Wales?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/761-0
+00:49:57.740 --> 00:50:01.097
+<v [PERSON_3]>Yeah, we do most of our list via OneNote,
+so I can,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/761-1
+00:50:01.097 --> 00:50:05.100
+<v [PERSON_3]>I don't know if you want me to spread out
+to share my screen.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/762-0
+00:50:06.780 --> 00:50:08.460
+<v [PERSON_8]>Doesn't say, should I stop sharing?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/763-0
+00:50:09.180 --> 00:50:12.341
+<v [PERSON_1]>I'm sorry,
+I don't want to railroad things. [PERSON_18],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/763-1
+00:50:12.341 --> 00:50:13.980
+<v [PERSON_1]>what's most helpful for you?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/764-0
+00:50:16.780 --> 00:50:22.509
+<v [PERSON_2]>Yeah,
+so I I think let's go through the the the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/764-1
+00:50:22.509 --> 00:50:24.060
+<v [PERSON_2]>process with.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/765-0
+00:50:25.500 --> 00:50:29.340
+<v [PERSON_2]>[PERSON_21], then we can now, you know,
+come back with questions.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/766-0
+00:50:30.140 --> 00:50:32.140
+<v [PERSON_1]>Okay, [PERSON_21], that's brilliant.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/768-0
+00:50:32.380 --> 00:50:37.027
+<v [PERSON_3]>Yeah, no problem. Ours is a bit different.
+We use OneNote, which I'll be honest,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/768-1
+00:50:37.027 --> 00:50:40.871
+<v [PERSON_3]>I personally can't stand,
+but it works for what we do is dance our</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/768-2
+00:50:40.871 --> 00:50:45.460
+<v [PERSON_3]>show. It does look a bit like organ.
+I don't think you can see my screen there.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/767-0
+00:50:46.700 --> 00:50:47.260
+<v [PERSON_1]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/774-0
+00:50:47.660 --> 00:50:51.744
+<v [PERSON_3]>Yeah,
+it does look a bit like organised madness,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/774-1
+00:50:51.744 --> 00:50:57.160
+<v [PERSON_3]>but too many colours on screen.
+But I'll start from our process.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/774-2
+00:50:57.160 --> 00:51:03.994
+<v [PERSON_3]>The Judicial availability is dealt with
+by our PS, as, sorry, I forgot your name,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/774-3
+00:51:03.994 --> 00:51:07.660
+<v [PERSON_3]>the lady from Watford said.
+They update our</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/779-0
+00:51:07.780 --> 00:51:11.023
+<v [PERSON_3]>OneNote screen, as you see here now,
+for [PERSON_20], there,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/779-1
+00:51:11.023 --> 00:51:14.378
+<v [PERSON_3]>Judge [PERSON_70] got an annual leave
+date on these dates.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/779-2
+00:51:14.378 --> 00:51:18.076
+<v [PERSON_3]>My Listing team would then list into the
+category to the bottom,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/779-3
+00:51:18.076 --> 00:51:22.228
+<v [PERSON_3]>these uncovered options while we await
+the availability from the judges,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/779-4
+00:51:22.228 --> 00:51:26.380
+<v [PERSON_3]>and then we would simply move them up
+into areas like that, for [PERSON_20].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/784-0
+00:51:27.740 --> 00:51:31.914
+<v [PERSON_3]>The location of where the judge [PERSON_71]
+the hearing is taking place, in this case,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/784-1
+00:51:31.914 --> 00:51:35.293
+<v [PERSON_3]>there is [PERSON_72]. You know,
+the members who are also on there,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/784-2
+00:51:35.293 --> 00:51:38.224
+<v [PERSON_3]>everything is sort of,
+I don't want to say a one-stop shop</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/784-3
+00:51:38.224 --> 00:51:41.255
+<v [PERSON_3]>because we have got a few spreadsheets
+running alongside it,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/784-4
+00:51:41.255 --> 00:51:45.180
+<v [PERSON_3]>but we're trying to get everything in one
+place, even if it does look a bit...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/789-0
+00:51:45.660 --> 00:51:48.330
+<v [PERSON_3]>chaotic.
+I prefer to put that onto a spreadsheet</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/789-1
+00:51:48.330 --> 00:51:52.580
+<v [PERSON_3]>like Watford have done, to be honest,
+but that's what it was when I took over</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/789-2
+00:51:52.580 --> 00:51:56.884
+<v [PERSON_3]>and that's where everyone's sort of
+settled with, and that's the way we do it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/789-3
+00:51:56.884 --> 00:52:00.153
+<v [PERSON_3]>So, like I said,
+rather than repeat what Watford have said,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/789-4
+00:52:00.153 --> 00:52:03.313
+<v [PERSON_3]>if anyone's got any particular questions
+about how we do,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/789-5
+00:52:03.313 --> 00:52:05.220
+<v [PERSON_3]>then I'm more than happy to answer.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/790-0
+00:52:08.140 --> 00:52:10.620
+<v [PERSON_9]>So this is the listing side of things,
+right?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/796-0
+00:52:11.020 --> 00:52:14.422
+<v [PERSON_3]>Yeah,
+you're looking at Judge [PERSON_73]. So,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/791-0
+00:52:12.220 --> 00:52:12.700
+<v [PERSON_9]>Said.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/796-1
+00:52:14.422 --> 00:52:18.179
+<v [PERSON_3]>like I said,
+if the pairs were put in any courses or</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/796-2
+00:52:18.179 --> 00:52:23.990
+<v [PERSON_3]>they're on or any sick days, annual leave,
+so we wouldn't put anything into their</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/796-3
+00:52:23.990 --> 00:52:29.093
+<v [PERSON_3]>list on those days, for [PERSON_20],
+that one there would just leave blank.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/796-4
+00:52:29.093 --> 00:52:29.660
+<v [PERSON_3]>And then</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/802-0
+00:52:29.820 --> 00:52:33.277
+<v [PERSON_3]>The location of the judge,
+in that case there, Judge [PERSON_74],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/802-1
+00:52:33.277 --> 00:52:36.100
+<v [PERSON_3]>even though she's based in an office in
+Cardiff,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/802-2
+00:52:36.100 --> 00:52:40.882
+<v [PERSON_3]>this hearing was taking place in Newport,
+or either that or she was sat in Newport</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/802-3
+00:52:40.882 --> 00:52:43.820
+<v [PERSON_3]>herself, you know,
+because she lives closer to it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/807-0
+00:52:45.660 --> 00:52:50.500
+<v [PERSON_3]>Yeah, members are dealt with differently.
+We've got a conflict register that I set</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/801-0
+00:52:45.900 --> 00:52:46.380
+<v [PERSON_9]>So...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/807-1
+00:52:50.500 --> 00:52:55.281
+<v [PERSON_3]>up. Just starting to say, I don't know,
+Tesco, for [PERSON_20], came in as a hearing,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/807-2
+00:52:55.281 --> 00:52:58.546
+<v [PERSON_3]>I blocked that in,
+they would take out the judge's name</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/807-3
+00:52:58.546 --> 00:53:01.111
+<v [PERSON_3]>there,
+who would be conflicted and also any</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/807-4
+00:53:01.111 --> 00:53:05.776
+<v [PERSON_3]>members which conflicted their names.
+So anything left on screen is fine to use</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/807-5
+00:53:05.776 --> 00:53:06.300
+<v [PERSON_3]>for that.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/810-0
+00:53:06.620 --> 00:53:08.380
+<v [PERSON_3]>Particular case.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/811-0
+00:53:09.740 --> 00:53:11.900
+<v [PERSON_3]>Back from there.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/816-0
+00:53:13.100 --> 00:53:16.708
+<v [PERSON_3]>availability of members,
+we put all of our cases that require</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/816-1
+00:53:16.708 --> 00:53:18.860
+<v [PERSON_3]>members into a spreadsheet and quote.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/817-0
+00:53:17.900 --> 00:53:20.755
+<v [PERSON_9]>Sorry, sorry,
+how was how was that spreadsheet taking</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/817-1
+00:53:20.755 --> 00:53:23.820
+<v [PERSON_9]>people's names out?
+Where are those conflicts registered?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/823-0
+00:53:24.780 --> 00:53:30.205
+<v [PERSON_3]>Yeah, I put the bottom. At the bottom,
+I put in the conflicts of each judge [PERSON_29]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/818-0
+00:53:25.100 --> 00:53:27.420
+<v [PERSON_9]>So, you typed in this code to come soon.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/823-1
+00:53:30.205 --> 00:53:33.393
+<v [PERSON_3]>just put a former in.
+So when I put in a name,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/823-2
+00:53:33.393 --> 00:53:37.258
+<v [PERSON_3]>it'll take out which judge [PERSON_75]
+member we can't use.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/823-3
+00:53:37.258 --> 00:53:40.920
+<v [PERSON_3]>And that has worked in stopping conflict
+of interest.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/823-4
+00:53:40.920 --> 00:53:45.260
+<v [PERSON_3]>So us unwillingly putting a judge [PERSON_76] a
+case where maybe they've</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/825-0
+00:53:45.380 --> 00:53:49.740
+<v [PERSON_3]>dealt with in the past and unable to.
+That's just something I set up that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/824-0
+00:53:48.460 --> 00:53:48.940
+<v [PERSON_9]>Thank you.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/825-1
+00:53:49.740 --> 00:53:53.392
+<v [PERSON_3]>wasn't any, you know,
+just make it easier for everyone in the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/825-2
+00:53:53.392 --> 00:53:55.100
+<v [PERSON_3]>office and seems to work. So.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/828-0
+00:53:55.500 --> 00:53:58.975
+<v [PERSON_9]>So when you typed in Tesco,
+sorry to hammer on this point,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/826-0
+00:53:58.060 --> 00:53:58.780
+<v [PERSON_3]>No, that's fine.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/828-1
+00:53:58.975 --> 00:54:02.508
+<v [PERSON_9]>when you typed in Tesco,
+you took three or four judges out.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/827-0
+00:54:02.220 --> 00:54:02.540
+<v [PERSON_3]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/828-2
+00:54:02.508 --> 00:54:03.980
+<v [PERSON_9]>How did it work that out?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/830-0
+00:54:05.340 --> 00:54:07.020
+<v [PERSON_9]>How did the spreadsheet work that out?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/829-0
+00:54:05.620 --> 00:54:05.820
+<v [PERSON_3]>[PERSON_2].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/836-0
+00:54:07.420 --> 00:54:11.549
+<v [PERSON_3]>The formula, as I'm just working on now,
+say, for [PERSON_20], Judge [PERSON_77],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/836-1
+00:54:11.549 --> 00:54:15.848
+<v [PERSON_3]>there's all the companies that she would
+be, so if any of them were put in,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/836-2
+00:54:15.848 --> 00:54:19.411
+<v [PERSON_3]>it would take them out. The formula,
+if you can see on screen,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/836-3
+00:54:19.411 --> 00:54:23.766
+<v [PERSON_3]>if I've highlighted the judge [PERSON_78],
+it's got, you know, yeah, I'll be honest,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/833-0
+00:54:23.660 --> 00:54:25.180
+<v [PERSON_9]>So, you mean maintaining?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/836-4
+00:54:23.766 --> 00:54:28.064
+<v [PERSON_3]>it made sense to me at the time,
+but if you understand what that bit means,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/836-5
+00:54:28.064 --> 00:54:28.460
+<v [PERSON_3]>then...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/843-0
+00:54:28.660 --> 00:54:31.203
+<v [PERSON_9]>No, no,
+I think it's more about understanding the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/843-1
+00:54:31.203 --> 00:54:35.373
+<v [PERSON_9]>process rather than trying to repeat it.
+So you have the conflicts registered for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/837-0
+00:54:31.500 --> 00:54:32.460
+<v [PERSON_3]>Yeah, yeah, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/843-2
+00:54:35.373 --> 00:54:38.780
+<v [PERSON_9]>each Judicial Office holder.
+So the green tabs which we see at the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/838-0
+00:54:37.620 --> 00:54:40.060
+<v [PERSON_3]>Yeah, yeah, that's right, that's right.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/843-3
+00:54:38.780 --> 00:54:41.221
+<v [PERSON_9]>bottom are each of the Judicial Office
+holders.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/839-0
+00:54:41.180 --> 00:54:42.220
+<v [PERSON_3]>I go to London.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/843-4
+00:54:41.221 --> 00:54:45.339
+<v [PERSON_9]>So we're coming completely new to this.
+So even if it is looking very obvious to</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/840-0
+00:54:43.900 --> 00:54:44.260
+<v [PERSON_3]>Yes.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/843-5
+00:54:45.339 --> 00:54:47.780
+<v [PERSON_9]>you, it isn't, you know, obvious to us.
+And so.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/847-0
+00:54:46.060 --> 00:54:50.187
+<v [PERSON_3]>Yeah, the red one is I need to,
+I'm still waiting for an answer from a</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/847-1
+00:54:50.187 --> 00:54:53.093
+<v [PERSON_3]>judge, you know,
+so it's not a full updated list.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/844-0
+00:54:51.100 --> 00:54:51.220
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/847-2
+00:54:53.093 --> 00:54:56.115
+<v [PERSON_3]>The blue ones are members.
+I think the other, yeah,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/847-3
+00:54:56.115 --> 00:54:59.660
+<v [PERSON_3]>the other type of members,
+so employee and employer members.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/848-0
+00:55:00.140 --> 00:55:04.047
+<v [PERSON_9]>So, these judges are sorry,
+judicial holders are themselves declaring</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/848-1
+00:55:04.047 --> 00:55:04.940
+<v [PERSON_9]>their conflicts.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/849-0
+00:55:05.100 --> 00:55:08.327
+<v [PERSON_3]>Yeah, I've emailed them all to say,
+can you tell me, you know,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/849-1
+00:55:08.327 --> 00:55:11.298
+<v [PERSON_3]>judges and members,
+what's the conflicts and update this?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/849-2
+00:55:11.298 --> 00:55:14.473
+<v [PERSON_3]>It did take some time to do,
+but it benefits in the long run.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/849-3
+00:55:14.473 --> 00:55:18.776
+<v [PERSON_3]>We're going to keep asking them, you know,
+you can update this every, I don't know,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/849-4
+00:55:18.776 --> 00:55:21.900
+<v [PERSON_3]>six months or so, and with anything new,
+they can update us.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/850-0
+00:55:23.100 --> 00:55:26.860
+<v [PERSON_9]>And is there a verification process for
+that or is this on good faith basis?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/853-0
+00:55:27.820 --> 00:55:30.354
+<v [PERSON_3]>No,
+that's just the judge [PERSON_79] a member would</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/853-1
+00:55:30.354 --> 00:55:33.003
+<v [PERSON_3]>tell us.
+It's usually for members of a former</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/853-2
+00:55:33.003 --> 00:55:36.343
+<v [PERSON_3]>employer or someone they've got a shares
+in or something,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/853-3
+00:55:36.343 --> 00:55:41.008
+<v [PERSON_3]>or the judge [PERSON_80] they've maybe
+worked with and used like a solicitor to</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/853-4
+00:55:41.008 --> 00:55:42.620
+<v [PERSON_3]>go back to a shade a second.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/854-0
+00:55:44.900 --> 00:55:45.820
+<v [PERSON_3]>For [PERSON_20].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/859-0
+00:55:50.380 --> 00:55:55.359
+<v [PERSON_3]>Our Employment Judge [PERSON_81] is formerly
+a SE work for a solicitor company.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/859-1
+00:55:55.359 --> 00:56:00.796
+<v [PERSON_3]>So anything as a respondent solicitor or
+anything like that, we test them as well,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/859-2
+00:56:00.796 --> 00:56:05.971
+<v [PERSON_3]>just to make sure that he's not put on a
+case with someone maybe he dealt with</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/859-3
+00:56:05.971 --> 00:56:08.460
+<v [PERSON_3]>previously in a professional capacity.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/862-0
+00:56:12.020 --> 00:56:12.780
+<v [PERSON_9]>Okay, thanks.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/863-0
+00:56:13.260 --> 00:56:13.580
+<v [PERSON_3]>[PERSON_82].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/864-0
+00:56:14.780 --> 00:56:15.580
+<v [PERSON_3]>Um, well...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/869-0
+00:56:15.340 --> 00:56:18.957
+<v [PERSON_10]>Yeah,
+we have one question: How we were OK,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/865-0
+00:56:16.620 --> 00:56:18.300
+<v [PERSON_3]>Sorry, boy, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/869-1
+00:56:18.957 --> 00:56:23.149
+<v [PERSON_10]>they are getting updated.
+Their system is updated.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/869-2
+00:56:23.149 --> 00:56:27.505
+<v [PERSON_10]>Watford system is updated by Listing team.
+Actually,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/869-3
+00:56:27.505 --> 00:56:33.340
+<v [PERSON_10]>it is the same thing with respect to your
+website, or you manually do?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/868-0
+00:56:28.460 --> 00:56:28.860
+<v [PERSON_3]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/873-0
+00:56:32.180 --> 00:56:36.082
+<v [PERSON_3]>Yeah, I'm updating that conflict list.
+The list itself,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/870-0
+00:56:33.500 --> 00:56:33.820
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/873-1
+00:56:36.082 --> 00:56:41.725
+<v [PERSON_3]>the one note one that I'll go back to,
+that one is dealt with by the entire list</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/873-2
+00:56:41.725 --> 00:56:45.278
+<v [PERSON_3]>and team making all myself and my
+colleague [PERSON_33],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/873-3
+00:56:45.278 --> 00:56:48.343
+<v [PERSON_3]>who's not who was supposed to attend
+today,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/873-4
+00:56:48.343 --> 00:56:51.060
+<v [PERSON_3]>and we would move the hearings into the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/876-0
+00:56:51.180 --> 00:56:54.021
+<v [PERSON_3]>you know,
+from uncovered into an available slot.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/876-1
+00:56:54.021 --> 00:56:57.905
+<v [PERSON_3]>Obviously, if there's any annual leave,
+we would leave that blank.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/876-2
+00:56:57.905 --> 00:57:02.020
+<v [PERSON_3]>If the judge [PERSON_83],
+we look at virtual region of, you know,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/876-3
+00:57:02.020 --> 00:57:06.194
+<v [PERSON_3]>free paid judges, that sort of thing.
+And if I go further down my list,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/876-4
+00:57:06.194 --> 00:57:08.860
+<v [PERSON_3]>you might see an [PERSON_20]. Just [PERSON_81],
+[PERSON_84].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/878-0
+00:57:10.220 --> 00:57:15.020
+<v [PERSON_10]>It is the same frequency like every day
+it will be updated or what is.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/877-0
+00:57:10.540 --> 00:57:11.260
+<v [PERSON_3]>Six.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/881-0
+00:57:14.220 --> 00:57:17.747
+<v [PERSON_3]>Yeah, yeah, yeah, be updated.
+It's constant, really. I mean,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/881-1
+00:57:17.747 --> 00:57:21.794
+<v [PERSON_3]>if something drops from that list,
+we see we got something uncovered,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/881-2
+00:57:21.794 --> 00:57:24.511
+<v [PERSON_3]>we can move that up into a slot straight
+away.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/881-3
+00:57:24.511 --> 00:57:29.020
+<v [PERSON_3]>We'll have a new Clarke allocated and it
+keeps the listing live, if you like.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/887-0
+00:57:30.540 --> 00:57:35.692
+<v [PERSON_10]>OK, OK, and with the number of judges,
+what you have shown,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/887-1
+00:57:35.692 --> 00:57:42.474
+<v [PERSON_10]>it is like it is showing like 10 to 12
+judges to the overall Cardiff region is</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/884-0
+00:57:36.460 --> 00:57:36.620
+<v [PERSON_3]>[PERSON_2].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/885-0
+00:57:39.740 --> 00:57:40.460
+<v [PERSON_3]>Yes.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/886-0
+00:57:42.460 --> 00:57:42.940
+<v [PERSON_3]>We just...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/887-2
+00:57:42.474 --> 00:57:44.620
+<v [PERSON_10]>around that actually are.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/897-0
+00:57:45.180 --> 00:57:48.370
+<v [PERSON_3]>Yeah, yeah,
+we list 2 1/2 hearings per available</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/897-1
+00:57:48.370 --> 00:57:51.559
+<v [PERSON_3]>judge,
+so it's about maybe 30 something per day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/897-2
+00:57:51.559 --> 00:57:56.896
+<v [PERSON_3]>Because the settlement rate in Tribunals
+as Watford will be able to back me up is</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/897-3
+00:57:56.896 --> 00:58:00.606
+<v [PERSON_3]>extremely high.
+So something you list today might not be</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/897-4
+00:58:00.606 --> 00:58:03.860
+<v [PERSON_3]>there tomorrow,
+it might not be there in an hour.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/894-0
+00:58:00.980 --> 00:58:01.100
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/898-0
+00:58:03.980 --> 00:58:05.100
+<v [PERSON_3]>You know, it's just a...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/901-0
+00:58:06.460 --> 00:58:09.361
+<v [PERSON_3]>constantly changing and evolving every
+day, the list, you know.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/901-1
+00:58:09.361 --> 00:58:12.806
+<v [PERSON_3]>That's why we felt the live way of doing
+it up, down, moving things around.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/901-2
+00:58:12.806 --> 00:58:15.933
+<v [PERSON_3]>But like I said, personally,
+I would rather a spreadsheet version of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/901-3
+00:58:15.933 --> 00:58:18.063
+<v [PERSON_3]>that list,
+but that's what we work with at the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/901-4
+00:58:18.063 --> 00:58:18.380
+<v [PERSON_3]>moment.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/905-0
+00:58:19.420 --> 00:58:23.304
+<v [PERSON_10]>Okay,
+and one more question to the Watford team</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/902-0
+00:58:22.300 --> 00:58:22.780
+<v [PERSON_3]>Mhm.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/905-1
+00:58:23.304 --> 00:58:28.240
+<v [PERSON_10]>with respect to this one,
+because here they are handling the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/905-2
+00:58:28.240 --> 00:58:33.580
+<v [PERSON_10]>conflict related stuff.
+Is it the same case with in Watford also?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/905-3
+00:58:33.580 --> 00:58:39.729
+<v [PERSON_10]>So it also you have the conflict of
+interest you capture somewhere and keep</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/905-4
+00:58:39.729 --> 00:58:40.700
+<v [PERSON_10]>that one or?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/906-0
+00:58:40.860 --> 00:58:43.340
+<v [PERSON_10]>He will not do that thing from.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/907-0
+00:58:44.940 --> 00:58:47.100
+<v [PERSON_10]>It is a question to [PERSON_8], actually, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/910-0
+00:58:48.300 --> 00:58:50.486
+<v [PERSON_8]>Sorry,
+I just had a phone call come through from</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/910-1
+00:58:50.486 --> 00:58:52.671
+<v [PERSON_8]>one of my teams.
+So can you repeat the question?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/908-0
+00:58:51.900 --> 00:58:52.340
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/910-2
+00:58:52.671 --> 00:58:53.340
+<v [PERSON_8]>I do apologize.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/911-0
+00:58:53.580 --> 00:58:59.366
+<v [PERSON_10]>Yeah, they are in the Cardiff region,
+they are having some conflict table and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/911-1
+00:58:59.366 --> 00:59:04.855
+<v [PERSON_10]>they are looking against to that one
+before allocating the judge [PERSON_85]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/911-2
+00:59:04.855 --> 00:59:08.193
+<v [PERSON_10]>particular case or something actually.
+Yeah,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/911-3
+00:59:08.193 --> 00:59:12.940
+<v [PERSON_10]>is similar type of mechanism is present
+in Watford region also.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/912-0
+00:59:13.180 --> 00:59:13.900
+<v [PERSON_10]>Or...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/916-0
+00:59:15.580 --> 00:59:19.482
+<v [PERSON_8]>We're not that intelligent that we can do
+formulas like that.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/916-1
+00:59:19.482 --> 00:59:23.698
+<v [PERSON_8]>I've no doubt someone can. No,
+we just have it on the spreadsheet,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/913-0
+00:59:21.100 --> 00:59:21.340
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/916-2
+00:59:23.698 --> 00:59:26.530
+<v [PERSON_8]>the actual,
+the conflict of interest on that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/916-3
+00:59:26.530 --> 00:59:29.802
+<v [PERSON_8]>spreadsheet.
+So normally we would just send out the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/914-0
+00:59:26.540 --> 00:59:26.700
+<v [PERSON_10]>Mm.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/915-0
+00:59:28.460 --> 00:59:28.620
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/916-4
+00:59:29.802 --> 00:59:34.145
+<v [PERSON_8]>party's names in advance and the judge
+[PERSON_86] back and say to us,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/916-5
+00:59:34.145 --> 00:59:35.340
+<v [PERSON_8]>we've got conflict.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/920-0
+00:59:35.740 --> 00:59:39.026
+<v [PERSON_8]>Otherwise,
+we could just go and cheque every time.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/920-1
+00:59:39.026 --> 00:59:42.247
+<v [PERSON_8]>But yeah, there's not a huge,
+to be quite honest,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/920-2
+00:59:42.247 --> 00:59:46.112
+<v [PERSON_8]>we've got about 80 judges.
+There's not that many conflicts,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/920-3
+00:59:46.112 --> 00:59:49.591
+<v [PERSON_8]>if I'm honest with you.
+It doesn't happen very often.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/918-0
+00:59:46.860 --> 00:59:47.260
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/920-4
+00:59:49.591 --> 00:59:54.552
+<v [PERSON_8]>The judge [PERSON_87], no, I can't do it.
+But it's there for us to double cheque if</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/919-0
+00:59:51.500 --> 00:59:52.140
+<v [PERSON_10]>Kristian.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/920-5
+00:59:54.552 --> 00:59:55.260
+<v [PERSON_8]>we need to.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/921-0
+00:59:56.140 --> 00:59:59.698
+<v [PERSON_10]>Okay,
+it is a bit of manual in Watford side and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/921-1
+00:59:59.698 --> 01:00:03.923
+<v [PERSON_10]>the Cardiff side,
+they automatically they do that one by</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/921-2
+01:00:03.923 --> 01:00:06.220
+<v [PERSON_10]>give. Okay, sure. Yeah. Thanks.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/922-0
+01:00:08.380 --> 01:00:10.460
+<v [PERSON_2]>So, I guess my [PERSON_88] is...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/923-0
+01:00:12.500 --> 01:00:19.631
+<v [PERSON_2]>For the two processes that have been
+described now, so what would you,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/923-1
+01:00:19.631 --> 01:00:26.460
+<v [PERSON_2]>what are the gaps in this that you want
+to cover in the new system?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/924-0
+01:00:32.300 --> 01:00:37.807
+<v [PERSON_2]>So, what will you say, like,
+in terms of navigating through this</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/924-1
+01:00:37.807 --> 01:00:44.162
+<v [PERSON_2]>journey? What are the pains in those,
+when you are navigating through this</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/924-2
+01:00:44.162 --> 01:00:47.975
+<v [PERSON_2]>journey? What are the gaps, as in,
+you know,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/924-3
+01:00:47.975 --> 01:00:52.380
+<v [PERSON_2]>what would you rather see us add in the
+new system?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/927-0
+01:01:01.780 --> 01:01:04.959
+<v [PERSON_1]>I think that might be a difficult
+question, [PERSON_18],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/927-1
+01:01:04.959 --> 01:01:08.256
+<v [PERSON_1]>because there isn't a system in place
+currently. Sorry,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/926-0
+01:01:05.340 --> 01:01:05.460
+<v [PERSON_3]>[PERSON_2].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/927-2
+01:01:08.256 --> 01:01:11.318
+<v [PERSON_1]>of course you have a system and you have
+processes,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/927-3
+01:01:11.318 --> 01:01:13.260
+<v [PERSON_1]>but it's not an automated system.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/929-0
+01:01:14.060 --> 01:01:17.684
+<v [PERSON_2]>Yeah, no, it's not,
+but you know the gaps and the what we</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/928-0
+01:01:14.340 --> 01:01:14.540
+<v [PERSON_1]>[PERSON_2].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/929-1
+01:01:17.684 --> 01:01:22.620
+<v [PERSON_2]>want to understand are the pains in this
+process. Yeah, the pain points, yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/930-0
+01:01:18.380 --> 01:01:24.175
+<v [PERSON_1]>Do you mean the pain points? Yeah, okay.
+What are the things that really drive you</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/930-1
+01:01:24.175 --> 01:01:26.060
+<v [PERSON_1]>around the bend, basically?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/931-0
+01:01:27.580 --> 01:01:27.900
+<v [PERSON_3]>Yes.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/935-0
+01:01:29.260 --> 01:01:33.348
+<v [PERSON_3]>It's hard to put into place.
+It's hard to just describe it as such,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/932-0
+01:01:29.660 --> 01:01:30.780
+<v [PERSON_1]>Look, [PERSON_21] is.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/935-1
+01:01:33.348 --> 01:01:36.473
+<v [PERSON_3]>you know,
+that we're just so used to the process as</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/935-2
+01:01:36.473 --> 01:01:40.380
+<v [PERSON_3]>it is to pick out something that is
+difficult, you know. I mean,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/934-0
+01:01:37.180 --> 01:01:37.420
+<v [PERSON_1]>Bye.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/936-0
+01:01:42.700 --> 01:01:43.500
+<v [PERSON_9]>So, let's...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/937-0
+01:01:42.700 --> 01:01:46.876
+<v [PERSON_3]>And judges' variability is what it is,
+you know, we can't help you, they're off,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/937-1
+01:01:46.876 --> 01:01:50.639
+<v [PERSON_3]>they're sick, they're not in, you know,
+and then it's updated by our PS.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/937-2
+01:01:50.639 --> 01:01:54.299
+<v [PERSON_3]>Maybe that's the bit that the system
+could be updated. The judge [PERSON_89],</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/937-3
+01:01:54.299 --> 01:01:56.980
+<v [PERSON_3]>you know,
+what they tell the PS to just go straight</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/937-4
+01:01:56.980 --> 01:01:59.660
+<v [PERSON_3]>onto a system, you know,
+eliminating that little...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/938-0
+01:02:01.340 --> 01:02:04.980
+<v [PERSON_3]>Chance of it going wrong,
+maybe you know the George puts the day to</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/938-1
+01:02:04.980 --> 01:02:08.620
+<v [PERSON_3]>go straight onto our list in some way,
+then that would help, but...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/939-0
+01:02:09.260 --> 01:02:13.825
+<v [PERSON_9]>So let's look at it slightly differently,
+right? If we are, for [PERSON_20], you know,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/939-1
+01:02:13.825 --> 01:02:18.060
+<v [PERSON_9]>building a web-based system where the
+things that you are currently managing</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/939-2
+01:02:18.060 --> 01:02:21.910
+<v [PERSON_9]>via Excel sheet or via OneNote,
+if the judges were allowed to provide</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/939-3
+01:02:21.910 --> 01:02:25.980
+<v [PERSON_9]>their own availability through this,
+how would you think that would work?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/941-0
+01:02:27.340 --> 01:02:30.504
+<v [PERSON_9]>Because right now you have stencils,
+you know, those are going out.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/941-1
+01:02:30.504 --> 01:02:33.762
+<v [PERSON_9]>They are providing the availability to
+you. Instead of their stencil,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/941-2
+01:02:33.762 --> 01:02:37.437
+<v [PERSON_9]>if a link went out, which, you know,
+brought them straight into the system and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/941-3
+01:02:37.437 --> 01:02:40.043
+<v [PERSON_9]>they said, oh,
+I'm available on next 15 days or 20 days</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/941-4
+01:02:40.043 --> 01:02:41.020
+<v [PERSON_9]>or next three months.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/942-0
+01:02:42.940 --> 01:02:45.983
+<v [PERSON_9]>From your point of view,
+what can you see things going wrong in</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/942-1
+01:02:45.983 --> 01:02:46.220
+<v [PERSON_9]>that?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/943-0
+01:02:46.660 --> 01:02:52.050
+<v [PERSON_8]>The only way that I could see anything
+going wrong on that is if we haven't got,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/943-1
+01:02:52.050 --> 01:02:55.777
+<v [PERSON_8]>I know it's going to sound a really stiff
+thing to say,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/943-2
+01:02:55.777 --> 01:02:58.971
+<v [PERSON_8]>but it does on the really rare occasion
+happen.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/943-3
+01:02:58.971 --> 01:03:03.695
+<v [PERSON_8]>If we don't have enough hearings to cover
+those days they've given us,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/943-4
+01:03:03.695 --> 01:03:08.220
+<v [PERSON_8]>you've only got to get a load of
+settlements or sudden withdrawals.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/944-0
+01:03:08.300 --> 01:03:09.820
+<v [PERSON_8]>and you might not have...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/946-0
+01:03:11.380 --> 01:03:13.899
+<v [PERSON_8]>A lot of judges,
+they want to sit on long cases,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/946-1
+01:03:13.899 --> 01:03:17.394
+<v [PERSON_8]>they don't want to sit on short cases.
+So if they're given 15 days,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/946-2
+01:03:17.394 --> 01:03:21.660
+<v [PERSON_8]>they're probably expecting to sit on a 15
+day hearing and we can't guarantee that.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/947-0
+01:03:23.700 --> 01:03:26.892
+<v [PERSON_8]>It would be great if they could just go
+on to a link and put in their</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/947-1
+01:03:26.892 --> 01:03:29.354
+<v [PERSON_8]>availability.
+I'm just sort of trying to think of the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/947-2
+01:03:29.354 --> 01:03:30.220
+<v [PERSON_8]>pros and cons here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/948-0
+01:03:30.460 --> 01:03:32.494
+<v [PERSON_9]>Yeah,
+you know that problem exists today as</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/948-1
+01:03:32.494 --> 01:03:34.943
+<v [PERSON_9]>well, right?
+Whether they are providing availability</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/948-2
+01:03:34.943 --> 01:03:37.900
+<v [PERSON_9]>to a stencil or a web,
+so how do you manage that problem today?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/950-0
+01:03:38.540 --> 01:03:43.004
+<v [PERSON_8]>Because we can, we look at our,
+we know when we need extra judges,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/950-1
+01:03:43.004 --> 01:03:47.467
+<v [PERSON_8]>we look at our pinch points,
+we know when there's salary judges on</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/950-2
+01:03:47.467 --> 01:03:51.131
+<v [PERSON_8]>annual leaves,
+we know when there's multi-day hearings</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/950-3
+01:03:51.131 --> 01:03:56.460
+<v [PERSON_8]>coming up and we could really do with a
+fee paid that could sit on a long case.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/951-0
+01:03:57.780 --> 01:04:00.380
+<v [PERSON_8]>Because they will think we look at it in
+advance.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/949-0
+01:03:57.980 --> 01:03:58.540
+<v [PERSON_9]>It.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/952-0
+01:04:01.980 --> 01:04:06.344
+<v [PERSON_9]>So is there a cap that you're thinking
+about that there should be a cap on?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/952-1
+01:04:06.344 --> 01:04:10.765
+<v [PERSON_9]>Because on JI's thinking about JI,
+they have like target allocation 210 days</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/952-2
+01:04:10.765 --> 01:04:13.980
+<v [PERSON_9]>or 215 days.
+Do you have something like that within ET?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/954-0
+01:04:15.420 --> 01:04:17.780
+<v [PERSON_8]>Well, I don't know what JI is, sorry.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/953-0
+01:04:17.100 --> 01:04:17.820
+<v [PERSON_1]>Threads.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/956-0
+01:04:18.780 --> 01:04:21.162
+<v [PERSON_9]>Sorry,
+GI is the availability management for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/955-0
+01:04:19.500 --> 01:04:19.860
+<v [PERSON_1]>Thanks.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/956-1
+01:04:21.162 --> 01:04:22.220
+<v [PERSON_9]>code side of things.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/957-0
+01:04:23.980 --> 01:04:26.540
+<v [PERSON_1]>[PERSON_90], do you want to jump in?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/958-0
+01:04:26.860 --> 01:04:30.580
+<v [PERSON_7]>I was just going to say,
+so the difference between courts and</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/958-1
+01:04:30.580 --> 01:04:35.320
+<v [PERSON_7]>Tribunals in the way that they obtain
+availability for fee paid is courts will</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/958-2
+01:04:35.320 --> 01:04:38.920
+<v [PERSON_7]>look when they need the fee paid,
+put a booking through JI,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/958-3
+01:04:38.920 --> 01:04:43.360
+<v [PERSON_7]>it will then go to Judicial Office.
+A judge [PERSON_91] the pool of fee paid</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/958-4
+01:04:43.360 --> 01:04:45.340
+<v [PERSON_7]>will then book into that vacancy.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/960-0
+01:04:45.660 --> 01:04:49.828
+<v [PERSON_7]>and then you'll see it on JI.
+With Tribunals generally,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/960-1
+01:04:49.828 --> 01:04:55.411
+<v [PERSON_7]>they do it the other way around,
+so they'll ask judges who are fee paid to</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/960-2
+01:04:55.411 --> 01:04:57.420
+<v [PERSON_7]>provide their availability.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/961-0
+01:04:58.540 --> 01:05:01.156
+<v [PERSON_7]>and then we plot them in when they're
+free.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/961-1
+01:05:01.156 --> 01:05:06.030
+<v [PERSON_7]>It might be an opportunity to swap that
+round and be more in line to when we need</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/961-2
+01:05:06.030 --> 01:05:09.775
+<v [PERSON_7]>them rather than when they want to give
+us their availability.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/961-3
+01:05:09.775 --> 01:05:14.530
+<v [PERSON_7]>And that may help what you're saying,
+[PERSON_8], about pinch points. But obviously,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/961-4
+01:05:14.530 --> 01:05:17.145
+<v [PERSON_7]>that's a complete different way of
+working,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/961-5
+01:05:17.145 --> 01:05:21.900
+<v [PERSON_7]>which is not something that we can just
+agree in this group, but it's something</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/963-0
+01:05:22.060 --> 01:05:25.719
+<v [PERSON_7]>to consider and the differences are
+really useful to know.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/963-1
+01:05:25.719 --> 01:05:30.307
+<v [PERSON_7]>But it's just like in the way that
+Tribunals generally, not just ET work,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/963-2
+01:05:30.307 --> 01:05:33.284
+<v [PERSON_7]>that's the way that fee paid judges are
+booked.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/963-3
+01:05:33.284 --> 01:05:37.624
+<v [PERSON_7]>So it's the difficulty of comparing the
+two, but it's useful to know.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/963-4
+01:05:37.624 --> 01:05:39.980
+<v [PERSON_7]>Just thought it was useful to mention.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/962-0
+01:05:38.460 --> 01:05:38.860
+<v [PERSON_1]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/965-0
+01:05:39.420 --> 01:05:42.497
+<v [PERSON_9]>Yes, so this is,
+are you saying this is sort of implicitly</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/965-1
+01:05:42.497 --> 01:05:46.878
+<v [PERSON_9]>built into the system because you're only
+sending stencils out when you're actually</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/965-2
+01:05:46.878 --> 01:05:47.660
+<v [PERSON_9]>needing judges?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/966-0
+01:05:48.780 --> 01:05:51.540
+<v [PERSON_9]>So you don't send out the emails if you
+don't need a fee paid judge,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/964-0
+01:05:49.020 --> 01:05:49.060
+<v [PERSON_7]>I</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/966-1
+01:05:51.540 --> 01:05:52.780
+<v [PERSON_9]>you don't ask for availability.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/967-0
+01:05:54.540 --> 01:05:57.100
+<v [PERSON_7]>You ask me a feeling, don't you?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/968-0
+01:05:54.700 --> 01:06:00.787
+<v [PERSON_8]>No, they're sent out regardless. Yeah,
+the stencils are sent out six monthly</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/968-1
+01:06:00.787 --> 01:06:04.502
+<v [PERSON_8]>regardless.
+But what we do do here in Watford,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/968-2
+01:06:04.502 --> 01:06:09.956
+<v [PERSON_8]>if we have multi-day cases,
+a list of them are sent to the fee paid.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/968-3
+01:06:09.956 --> 01:06:14.620
+<v [PERSON_8]>So they know, yes, we've got a 10 day,
+we've got a 20 day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/970-0
+01:06:15.100 --> 01:06:18.654
+<v [PERSON_8]>I mean,
+it could be coming up for January next</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/970-1
+01:06:18.654 --> 01:06:23.796
+<v [PERSON_8]>year. If they are available,
+they can book themselves in in advance</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/970-2
+01:06:23.796 --> 01:06:28.332
+<v [PERSON_8]>for a multi-day hearing.
+So we do allow them to book way in</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/969-0
+01:06:26.060 --> 01:06:26.340
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/970-3
+01:06:28.332 --> 01:06:33.020
+<v [PERSON_8]>advance if they know they're going to be
+available to sit for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/971-0
+01:06:33.900 --> 01:06:34.940
+<v [PERSON_8]>A big multi-day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/972-0
+01:06:42.060 --> 01:06:44.140
+<v [PERSON_1]>[PERSON_21], did you want to comment?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/977-0
+01:06:43.580 --> 01:06:48.425
+<v [PERSON_3]>Yeah, just jumping in again.
+I'll quickly share my screen back on the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/977-1
+01:06:48.425 --> 01:06:52.924
+<v [PERSON_3]>issue of booking fee paid judges.
+We've got another spreadsheet,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/977-2
+01:06:52.924 --> 01:06:57.977
+<v [PERSON_3]>I should be surprised. Basically,
+we just send it out quarterly to them.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/977-3
+01:06:57.977 --> 01:07:02.060
+<v [PERSON_3]>They put in their own availability,
+as we see there, A for</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/984-0
+01:07:02.220 --> 01:07:07.042
+<v [PERSON_3]>available. And then if someone's booked,
+we'll just change it to B and let the fee</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/984-1
+01:07:07.042 --> 01:07:10.586
+<v [PERSON_3]>pay judges tell us.
+So we might not need them at this point,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/984-2
+01:07:10.586 --> 01:07:15.292
+<v [PERSON_3]>but we just ask for their availability.
+And then if a time comes when we do need</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/984-3
+01:07:15.292 --> 01:07:18.023
+<v [PERSON_3]>one,
+we can quickly look at this and see who's</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/984-4
+01:07:18.023 --> 01:07:22.380
+<v [PERSON_3]>available. You know, as I said,
+the [PERSON_20], October, this one's November.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/987-0
+01:07:23.060 --> 01:07:26.822
+<v [PERSON_3]>Judge [PERSON_92] is available on 11th and
+12th. So if we needed someone,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/987-1
+01:07:26.822 --> 01:07:29.821
+<v [PERSON_3]>we know we don't need to make an e-mail
+or an inquiry.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/987-2
+01:07:29.821 --> 01:07:33.692
+<v [PERSON_3]>We just know we'll just go into him and
+book him. Just for [PERSON_20], B,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/987-3
+01:07:33.692 --> 01:07:37.781
+<v [PERSON_3]>and it would be as simple as that.
+So quick e-mail to him just to confirm,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/987-4
+01:07:37.781 --> 01:07:39.580
+<v [PERSON_3]>and that's the way we do it here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/988-0
+01:07:42.460 --> 01:07:49.543
+<v [PERSON_10]>Is there the availability what you are
+mentioning is this one is updated by</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/988-1
+01:07:49.543 --> 01:07:51.500
+<v [PERSON_10]>judges or some other?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/989-0
+01:07:52.900 --> 01:07:57.246
+<v [PERSON_3]>Yeah, we sent that spreadsheet out.
+The judge [PERSON_93] would put their</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/989-1
+01:07:57.246 --> 01:08:00.406
+<v [PERSON_3]>availability in.
+Just some judges have difficulty doing</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/989-2
+01:08:00.406 --> 01:08:04.131
+<v [PERSON_3]>that and they'd ask us to,
+but the majority of them put their own</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/989-3
+01:08:04.131 --> 01:08:07.573
+<v [PERSON_3]>A's and their dates they wanted to choose
+and go from there.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/989-4
+01:08:07.573 --> 01:08:11.580
+<v [PERSON_3]>So back to your question about what would
+make it easier, is if we had</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/990-0
+01:08:11.980 --> 01:08:17.189
+<v [PERSON_3]>availability of judges and free pay
+judges in the same system going and then</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/990-1
+01:08:17.189 --> 01:08:22.060
+<v [PERSON_3]>we add access to it to be able to listen
+to certain days, you know, but</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/991-0
+01:08:23.020 --> 01:08:25.020
+<v [PERSON_3]>I might be jumping the ground a bit with
+that, but you know.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/992-0
+01:08:26.700 --> 01:08:31.206
+<v [PERSON_10]>Okay,
+the fee pay judges updating here and the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/992-1
+01:08:31.206 --> 01:08:37.340
+<v [PERSON_10]>normal judges is updated by the listing
+system. Listing system.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/993-0
+01:08:34.620 --> 01:08:38.670
+<v [PERSON_3]>By the PS. Yeah, they, yeah,
+they the judges would give their</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/993-1
+01:08:38.670 --> 01:08:43.242
+<v [PERSON_3]>availability by to the regional regional
+employment judges secretary,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/993-2
+01:08:43.242 --> 01:08:47.160
+<v [PERSON_3]>who would then update us on the OneNote
+screen that we use,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/993-3
+01:08:47.160 --> 01:08:51.340
+<v [PERSON_3]>presumably the spreadsheet that Watford
+uses a similar process.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/994-0
+01:08:54.780 --> 01:08:55.460
+<v [PERSON_10]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/996-0
+01:08:57.180 --> 01:09:04.319
+<v [PERSON_2]>Yeah, Councillor [PERSON_9] and [PERSON_61],
+has this answered your questions,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/995-0
+01:08:58.660 --> 01:08:59.100
+<v [PERSON_1]>[PERSON_94].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/996-1
+01:09:04.319 --> 01:09:10.540
+<v [PERSON_2]>especially with the ET panel set up as
+well and composition?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/997-0
+01:09:15.100 --> 01:09:17.100
+<v [PERSON_9]>I'm not sure I can confidently say that.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/999-0
+01:09:15.420 --> 01:09:20.029
+<v [PERSON_2]>Or do we do we do we need to go? Yeah,
+do we need to go through that?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/999-1
+01:09:20.029 --> 01:09:21.740
+<v [PERSON_2]>I'm conscious of the time.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1000-0
+01:09:22.060 --> 01:09:24.707
+<v [PERSON_9]>Yeah,
+I'm just thinking about the availability.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1000-1
+01:09:24.707 --> 01:09:28.126
+<v [PERSON_9]>I think maybe if we can go one step up
+and try to understand.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1000-2
+01:09:28.126 --> 01:09:32.206
+<v [PERSON_9]>So you have a set of salary judges and
+you have a set of fee paid judges.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1000-3
+01:09:32.206 --> 01:09:35.735
+<v [PERSON_9]>You're asking availability from fee paid
+judges. Salary judges,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1000-4
+01:09:35.735 --> 01:09:40.036
+<v [PERSON_9]>they're only informing you when they are
+not available to hear certain cases.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1000-5
+01:09:40.036 --> 01:09:41.580
+<v [PERSON_9]>And you use fee paid judges.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1001-0
+01:09:42.220 --> 01:09:43.980
+<v [PERSON_9]>Only when you need to.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1003-0
+01:09:45.740 --> 01:09:48.862
+<v [PERSON_9]>So at what point is that decision being
+made? I'm trying to understand.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1002-0
+01:09:47.020 --> 01:09:47.340
+<v [PERSON_3]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1003-1
+01:09:48.862 --> 01:09:51.420
+<v [PERSON_9]>Is that at the listing time,
+not at the availability time?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1004-0
+01:09:55.100 --> 01:09:57.620
+<v [PERSON_9]>So when do you decide you have to use a
+fee paid judge?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1006-0
+01:09:59.260 --> 01:10:05.159
+<v [PERSON_8]>When you are, well, we book,
+we try and have a fee paid judge [PERSON_95]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1005-0
+01:09:59.540 --> 01:09:59.900
+<v [PERSON_3]>Ash.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1006-1
+01:10:05.159 --> 01:10:07.980
+<v [PERSON_8]>for every single venue every day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1007-0
+01:10:10.060 --> 01:10:17.084
+<v [PERSON_8]>Because we're the same as some Wales and
+we have, we list 2.5 hearings per judge.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1007-1
+01:10:17.084 --> 01:10:22.480
+<v [PERSON_8]>So if we don't get settlements,
+we know that we're overlisted.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1007-2
+01:10:22.480 --> 01:10:25.820
+<v [PERSON_8]>So we do need fee paid judges to cover.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1008-0
+01:10:27.020 --> 01:10:31.327
+<v [PERSON_8]>any of those unallocated cases, basically.
+So yeah,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1008-1
+01:10:31.327 --> 01:10:37.208
+<v [PERSON_8]>we have and we've given a budget every
+year. So I work out the budget,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1008-2
+01:10:37.208 --> 01:10:42.260
+<v [PERSON_8]>how many judges we can have approximately
+to sit each month.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1009-0
+01:10:43.460 --> 01:10:47.238
+<v [PERSON_8]>and we go from there. We book in,
+because sometimes the judge [PERSON_96]</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1009-1
+01:10:47.238 --> 01:10:50.962
+<v [PERSON_8]>unavailable for five days,
+but we've looked at the listings for that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1009-2
+01:10:50.962 --> 01:10:53.336
+<v [PERSON_8]>week.
+We're not going to need them for five</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1009-3
+01:10:53.336 --> 01:10:57.653
+<v [PERSON_8]>days. We only need them for three days.
+So we'll only book them in for three of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1009-4
+01:10:57.653 --> 01:10:59.380
+<v [PERSON_8]>the days rather than the full 5.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1010-0
+01:11:00.340 --> 01:11:04.260
+<v [PERSON_9]>So you mentioned 2.5 days,
+so that is the target that you...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1012-0
+01:11:05.060 --> 01:11:10.283
+<v [PERSON_8]>No, it's 2.5. When we list the cat,
+when we list hearings, we list,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1012-1
+01:11:10.283 --> 01:11:14.124
+<v [PERSON_8]>so we've got 10 judges available,
+we will list 2.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1012-2
+01:11:14.124 --> 01:11:18.349
+<v [PERSON_8]>5 hearings to each judge [PERSON_97] know
+that they do,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1012-3
+01:11:18.349 --> 01:11:21.728
+<v [PERSON_8]>so I think it's a third is going to
+settle,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1012-4
+01:11:21.728 --> 01:11:26.260
+<v [PERSON_8]>third is going to withdraw and third is
+going to go ahead.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1013-0
+01:11:26.820 --> 01:11:32.340
+<v [PERSON_8]>So it used to be 3 hearings per judge,
+but obviously that was, I think,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1017-0
+01:11:33.660 --> 01:11:37.147
+<v [PERSON_9]>So they might be in my head. Yes, sorry,
+in my head,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1014-0
+01:11:34.900 --> 01:11:37.780
+<v [PERSON_8]>I don't know that there weren't as many
+settlements coming through.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1017-1
+01:11:37.147 --> 01:11:42.147
+<v [PERSON_9]>I'm trying to differentiate between
+allocation and listing because when you</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1017-2
+01:11:42.147 --> 01:11:46.423
+<v [PERSON_9]>say 2.5 hearings per judge,
+that immediately makes me think it's</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1015-0
+01:11:45.580 --> 01:11:46.100
+<v [PERSON_8]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1016-0
+01:11:46.060 --> 01:11:46.180
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1017-3
+01:11:46.423 --> 01:11:51.620
+<v [PERSON_9]>going into listing that you are, you know,
+allocating that judge [PERSON_98] a listing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1019-0
+01:11:52.020 --> 01:11:54.098
+<v [PERSON_9]>Whereas,
+when somebody is declaring their</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1019-1
+01:11:54.098 --> 01:11:56.769
+<v [PERSON_9]>availability,
+they are saying they are available for,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1019-2
+01:11:56.769 --> 01:12:00.726
+<v [PERSON_9]>you know, X number of days, or you know,
+so that decision you are making at the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1019-3
+01:12:00.726 --> 01:12:03.496
+<v [PERSON_9]>listing time,
+not necessarily at the allocation time or</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1019-4
+01:12:03.496 --> 01:12:04.980
+<v [PERSON_9]>availability declaration time.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1020-0
+01:12:05.380 --> 01:12:07.540
+<v [PERSON_8]>Yeah, it's at Listing stage, really.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1021-0
+01:12:08.180 --> 01:12:08.420
+<v [PERSON_9]>Okay.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1022-0
+01:12:09.300 --> 01:12:14.125
+<v [PERSON_9]>So, you, you know who all are available,
+and then you make the decision that when</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1022-1
+01:12:14.125 --> 01:12:16.420
+<v [PERSON_9]>the case is, you know, to be allocated.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1024-0
+01:12:17.860 --> 01:12:21.131
+<v [PERSON_8]>Well,
+we allocate cases literally the day</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1024-1
+01:12:21.131 --> 01:12:27.439
+<v [PERSON_8]>before. Everything happens a day prior.
+But we list, I mean, we're listed in 20,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1023-0
+01:12:22.100 --> 01:12:22.340
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1024-2
+01:12:27.439 --> 01:12:33.514
+<v [PERSON_8]>I think 2029 now for hearings because
+we're so over listed, so many hearings.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1024-3
+01:12:33.514 --> 01:12:38.420
+<v [PERSON_8]>But that when we list a case,
+that's on a completely different</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1025-0
+01:12:38.900 --> 01:12:41.189
+<v [PERSON_8]>That's not anything to do with the
+spreadsheet,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1025-1
+01:12:41.189 --> 01:12:45.050
+<v [PERSON_8]>the booking of the judges and the actual
+listing of the cases are two completely</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1025-2
+01:12:45.050 --> 01:12:45.860
+<v [PERSON_8]>different things.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1026-0
+01:12:47.380 --> 01:12:50.040
+<v [PERSON_9]>Yeah,
+so can you maybe help us understand the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1026-1
+01:12:50.040 --> 01:12:53.971
+<v [PERSON_9]>difference between those?
+You said booking a judge [PERSON_99] a</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1026-2
+01:12:53.971 --> 01:12:54.260
+<v [PERSON_9]>case.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1029-0
+01:12:55.460 --> 01:13:00.684
+<v [PERSON_8]>I don't know if [PERSON_21] you can help me out
+here because they,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1029-1
+01:13:00.684 --> 01:13:06.507
+<v [PERSON_8]>I don't know how even how to describe
+that, to put that into words.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1029-2
+01:13:06.507 --> 01:13:11.645
+<v [PERSON_8]>Listing the case can happen from when an
+ET3 comes through,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1027-0
+01:13:07.980 --> 01:13:08.420
+<v [PERSON_3]>[PERSON_2].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1029-3
+01:13:11.645 --> 01:13:13.700
+<v [PERSON_8]>I mean in different some</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1030-0
+01:13:14.180 --> 01:13:17.380
+<v [PERSON_8]>In some ETs,
+they list the case at ET1 stage.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1028-0
+01:13:14.740 --> 01:13:15.020
+<v [PERSON_3]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1031-0
+01:13:20.180 --> 01:13:23.528
+<v [PERSON_8]>We,
+it's done by a completely different team,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1031-1
+01:13:23.528 --> 01:13:28.840
+<v [PERSON_8]>but we have a diary where we have slots
+available and if there's no slot</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1031-2
+01:13:28.840 --> 01:13:31.460
+<v [PERSON_8]>available, you can't listen to that.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1032-0
+01:13:32.740 --> 01:13:33.780
+<v [PERSON_8]>onto that day.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1033-0
+01:13:36.820 --> 01:13:41.962
+<v [PERSON_8]>It's really hard to describe without sort
+of like showing you in reality how we do</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1033-1
+01:13:41.962 --> 01:13:44.935
+<v [PERSON_8]>it here at Watford.
+But we will list a hearing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1033-2
+01:13:44.935 --> 01:13:48.404
+<v [PERSON_8]>I always say using the point,
+like an appointment book,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1033-3
+01:13:48.404 --> 01:13:52.740
+<v [PERSON_8]>you've got an appointment at 9:00,
+you've got an appointment at 9.30.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1033-4
+01:13:52.740 --> 01:13:56.580
+<v [PERSON_8]>Once all those slots have been filled up
+in that appointment,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1034-0
+01:13:57.140 --> 01:14:00.932
+<v [PERSON_8]>you can't list,
+you can't put enough one in there.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1034-1
+01:14:00.932 --> 01:14:04.500
+<v [PERSON_8]>So we have like a on Outlook we use a
+calendar.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1035-0
+01:14:05.460 --> 01:14:08.930
+<v [PERSON_8]>For every day of the year,
+and we have slots,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1035-1
+01:14:08.930 --> 01:14:10.740
+<v [PERSON_8]>and that's where we put.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1037-0
+01:14:11.860 --> 01:14:14.852
+<v [PERSON_8]>the hearings and when we're listening to
+hearing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1037-1
+01:14:14.852 --> 01:14:18.742
+<v [PERSON_8]>We're not looking at the judges when
+we're listening to hearing.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1037-2
+01:14:18.742 --> 01:14:22.452
+<v [PERSON_8]>We're not going, oh,
+how many judges we got available on that</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1037-3
+01:14:22.452 --> 01:14:26.820
+<v [PERSON_8]>date because, well, you can't.
+It's ridiculous. You just couldn't do it.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1036-0
+01:14:28.420 --> 01:14:28.580
+<v [PERSON_9]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1038-0
+01:14:28.660 --> 01:14:32.737
+<v [PERSON_3]>Just to add in there,
+with this virtual region judges,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1038-1
+01:14:32.737 --> 01:14:37.185
+<v [PERSON_3]>and I don't know if you understand the
+term virtual region,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1038-2
+01:14:37.185 --> 01:14:42.893
+<v [PERSON_3]>it's judges from a pool around the
+country that are available for us to use.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1038-3
+01:14:42.893 --> 01:14:47.340
+<v [PERSON_3]>So the list can be over. Well,
+our normal salary judges are</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1040-0
+01:14:47.460 --> 01:14:51.772
+<v [PERSON_3]>paid judges is,
+and we can use the virtual region as well.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1040-1
+01:14:51.772 --> 01:14:54.622
+<v [PERSON_3]>So,
+it's not necessarily the number of</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1040-2
+01:14:54.622 --> 01:14:59.153
+<v [PERSON_3]>hearings has to match the available judge.
+Now, it's sort of,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1040-3
+01:14:59.153 --> 01:15:04.341
+<v [PERSON_3]>do you understand what I mean by,
+I'm sure Watford is the same virtual</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1039-0
+01:15:04.260 --> 01:15:04.620
+<v [PERSON_1]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1040-4
+01:15:04.341 --> 01:15:06.460
+<v [PERSON_3]>region as well, and it's a...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1041-0
+01:15:06.660 --> 01:15:09.498
+<v [PERSON_3]>It's like juggling, isn't it?
+Do you know what I mean?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1041-1
+01:15:09.498 --> 01:15:13.316
+<v [PERSON_3]>It's just you got this many people and
+this many people just make it fit,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1041-2
+01:15:13.316 --> 01:15:13.780
+<v [PERSON_3]>and yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1042-0
+01:15:16.980 --> 01:15:21.539
+<v [PERSON_9]>[PERSON_18], just to answer your question,
+I think there are so many nuances to the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1042-1
+01:15:21.539 --> 01:15:26.154
+<v [PERSON_9]>process that until we actually drop our
+own understanding of flow and run it with</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1042-2
+01:15:26.154 --> 01:15:26.660
+<v [PERSON_9]>the team.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1043-0
+01:15:27.940 --> 01:15:30.345
+<v [PERSON_9]>You know,
+I wouldn't feel confident to say that,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1043-1
+01:15:30.345 --> 01:15:32.553
+<v [PERSON_9]>yes,
+I've understood the process end to end,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1043-2
+01:15:32.553 --> 01:15:35.988
+<v [PERSON_9]>because I think we will need more
+sessions to actually understand the</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1043-3
+01:15:35.988 --> 01:15:40.110
+<v [PERSON_9]>nuances, like just in this one. You know,
+we've talked about Excel sheets, Outlook,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1043-4
+01:15:40.110 --> 01:15:44.036
+<v [PERSON_9]>so a number of off-system things that
+we're discussing. So we need to, I think,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1043-5
+01:15:44.036 --> 01:15:46.686
+<v [PERSON_9]>draw a very,
+very high level process and how it works</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1043-6
+01:15:46.686 --> 01:15:46.980
+<v [PERSON_9]>today.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1044-0
+01:15:47.860 --> 01:15:51.220
+<v [PERSON_9]>And then maybe use that as the basis of,
+you know, more discussions.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1045-0
+01:15:55.060 --> 01:15:55.540
+<v [PERSON_2]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1046-0
+01:15:56.900 --> 01:15:57.860
+<v [PERSON_2]>That makes sense.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1047-0
+01:15:59.460 --> 01:16:02.020
+<v [PERSON_1]>That does sound sensible, so...</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1049-0
+01:16:04.020 --> 01:16:08.940
+<v [PERSON_1]>Does anyone have any questions from today
+from the business?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1050-0
+01:16:16.740 --> 01:16:17.060
+<v [PERSON_1]>[PERSON_5].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1051-0
+01:16:17.420 --> 01:16:17.620
+<v [PERSON_10]>Mm.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1052-0
+01:16:18.820 --> 01:16:21.140
+<v [PERSON_1]>Project Team, do you have any questions?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1054-0
+01:16:25.300 --> 01:16:27.780
+<v [PERSON_9]>How many do you? How many do you want,
+[PERSON_1]?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1053-0
+01:16:25.380 --> 01:16:26.180
+<v [PERSON_1]>Are we okay?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1055-0
+01:16:29.860 --> 01:16:32.340
+<v [PERSON_1]>Okay, any questions for now?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1056-0
+01:16:35.620 --> 01:16:40.231
+<v [PERSON_1]>I should say, we'll go away,
+put the process map together and then</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1056-1
+01:16:40.231 --> 01:16:45.117
+<v [PERSON_1]>come back and ask our questions and
+validate it with the business. So,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1056-2
+01:16:45.117 --> 01:16:48.420
+<v [PERSON_1]>[PERSON_18],
+are we okay to close the meeting now?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1057-0
+01:16:49.780 --> 01:16:52.900
+<v [PERSON_2]>Yes, if there are no other questions, or..
+.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1058-0
+01:16:53.140 --> 01:16:55.970
+<v [PERSON_9]>Can I just, sorry, I think,
+can I just cheque if we have some</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1058-1
+01:16:55.970 --> 01:16:58.297
+<v [PERSON_9]>questions,
+is it okay if we reach out individually</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1058-2
+01:16:58.297 --> 01:16:59.620
+<v [PERSON_9]>to yourself, [PERSON_8] and [PERSON_21]?</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1059-0
+01:17:01.140 --> 01:17:01.860
+<v [PERSON_9]>by e-mail.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1061-0
+01:17:01.540 --> 01:17:02.980
+<v [PERSON_3]>Yeah, no problem at all. Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1060-0
+01:17:01.620 --> 01:17:02.020
+<v [PERSON_1]>[PERSON_94].</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1062-0
+01:17:03.060 --> 01:17:04.260
+<v [PERSON_8]>Yeah, yeah, that's fine.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1063-0
+01:17:04.500 --> 01:17:04.900
+<v [PERSON_10]>Yeah.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1064-0
+01:17:04.500 --> 01:17:05.060
+<v [PERSON_9]>Thank you.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1065-0
+01:17:06.580 --> 01:17:10.593
+<v [PERSON_1]>Well,
+thank you all very much for attending.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1065-1
+01:17:10.593 --> 01:17:17.460
+<v [PERSON_1]>And tomorrow we're looking at the,
+I think it is the same group of attendees</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1065-2
+01:17:17.460 --> 01:17:22.900
+<v [PERSON_1]>looking at availability management,
+itinerary planning, etc.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1066-0
+01:17:24.020 --> 01:17:28.843
+<v [PERSON_1]>Is there anyone that in from Wales and
+Watford that you think it would have been</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1066-1
+01:17:28.843 --> 01:17:31.700
+<v [PERSON_1]>useful to have in this session?
+It wasn't here.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1068-0
+01:17:34.340 --> 01:17:36.806
+<v [PERSON_3]>[PERSON_33] will be unavailable for the week
+now,</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1068-1
+01:17:36.806 --> 01:17:41.177
+<v [PERSON_3]>so I'll have a little look at who can
+potentially replace her for the rest as</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1068-2
+01:17:41.177 --> 01:17:43.474
+<v [PERSON_3]>well.
+I'll say I'll speak to my delivery</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1067-0
+01:17:41.460 --> 01:17:42.180
+<v [PERSON_1]>Thank you.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1068-3
+01:17:43.474 --> 01:17:46.780
+<v [PERSON_3]>manager now when this finishes and then
+decide from there.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1069-0
+01:17:47.460 --> 01:17:49.300
+<v [PERSON_1]>That's brilliant, [PERSON_21]. Thank you.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1070-0
+01:17:48.820 --> 01:17:49.620
+<v [PERSON_3]>Ohh, no problem.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1072-0
+01:17:51.220 --> 01:17:55.292
+<v [PERSON_1]>All right, have a good day everyone.
+Thank you very much again and see you</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1072-1
+01:17:55.292 --> 01:17:55.780
+<v [PERSON_1]>tomorrow.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1083-0
+01:17:56.820 --> 01:17:59.300
+<v [PERSON_13]>Thank you very much. Thank you. Bye. Bye.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1085-0
+01:17:56.820 --> 01:17:59.940
+<v [PERSON_3]>All the best. Bye. Thanks.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1086-0
+01:17:57.380 --> 01:17:59.940
+<v [PERSON_2]>Thank you. Bye. Bye.</v>
+
+da86f4b5-87cb-4e95-ae79-ebe9c7ecbe3d/1084-0
+01:17:57.540 --> 01:17:59.940
+<v [PERSON_5]>Thanks everyone. Bye bye. Thank you. Bye.</v>
